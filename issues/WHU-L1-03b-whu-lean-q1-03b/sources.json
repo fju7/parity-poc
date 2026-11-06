@@ -3,7 +3,7 @@
     {
       "id": "S001",
       "type": "synthesis",
-      "form": "record",
+      "form": "page",
       "title": "IPCC 2021. Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis (AR6 WGI)",
       "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf",
       "doi": "10.1017/9781009157896.001",
@@ -22,14 +22,15 @@
           "file": "docs/37/37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446.pdf",
           "sha256": "37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446",
           "bytes": 3361797,
-          "identified_by": "contains 8 of 8 distinctive title words — form 'record' — 122457 characters held. The article test does not apply to this form; title present (8 of 8 title words in the visible text)",
+          "identified_by": "contains 8 of 8 distinctive title words — form 'page' — 502 prose sentence(s) over sixty characters, 18524 words — this reads as the page itself; title present (8 of 8 title words in the visible text)",
           "kind": "document",
-          "kind_why": "form 'record' — 122457 characters held. The article test does not apply to this form"
+          "kind_why": "form 'page' — 502 prose sentence(s) over sixty characters, 18524 words — this reads as the page itself"
         }
       },
       "also_called": [
         "IPCC AR6 WGI Summary for Policymakers"
-      ]
+      ],
+      "document_class": "document"
     }
   ],
   "search": {

@@ -3,44 +3,53 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "If emissions continue, further warming will intensify the water cycle (more heavy rainfall and more droughts), shrink glaciers and ice sheets, and raise sea levels and warm and acidify the oceans, with the size of each change rising with the amount of warming.",
-    "how_we_know_they_believe_it": "Not established from named coverage in this run: the question is asked as a lean-test question (round 1's question, asked again), not selected from a reader's belief. Recorded as the drafting session's statement of the common understanding, before any source was opened.",
-    "carried_by": []
+    "how_we_know_they_believe_it": "General news coverage of the AR6 WGI report's release carried these directions; found by a web search on 2026-11-06, after the belief and kill condition had been written and after the source was opened (recorded in study_log.md). The page relays the article as found by a fetch tool (a model's reading), not as a quotation.",
+    "carried_by": [
+      {
+        "outlet": "Press Association, republished by Yahoo News UK (Emily Beament)",
+        "url": "https://uk.news.yahoo.com/unequivocal-unprecedented-un-report-sets-080002697.html",
+        "date": "2021-08-09",
+        "what_it_said": "As read by a fetch tool (a model's reading, not a quotation): each additional 0.5C brings clear increases in heatwaves, flooding and, in some regions, droughts; higher emissions bring greater sea level rise; glacier retreat, sea ice decline and permafrost melt are irreversible for decades to millennia."
+      }
+    ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "The IPCC AR6 WGI Summary for Policymakers assesses that with further warming the water cycle intensifies, very wet and very dry events intensify, heavy precipitation and some droughts increase with each increment of warming, snow, sea ice, glaciers, ice sheets and permafrost continue to decline, global mean sea level continues to rise for centuries, and the ocean continues to warm, acidify and lose oxygen, each with stated confidence or likelihood and with regional and scenario dependence.",
+    "sources": [
+      "S001"
+    ]
   },
   "direction": {
     "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "value": "confirms",
     "_values": [
       "corrects",
       "confirms",
       "narrows"
     ]
   },
-  "reader_with_a_decision": "Who has a decision to make, a real cost of being wrong, and no time to read the literature? Name them. A subject with no such reader is interesting rather than useful, and interesting is how four candidates died in one day.",
+  "reader_with_a_decision": "A reader planning for water, flood or coastal risk (for example a local planner or a household deciding where to live) who needs to know which projected changes the assessment holds with high confidence and which it does not.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
     "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "carried_in_general_coverage": "Yes: the directions were carried in general coverage at the report's release (Press Association, 9 August 2021, republished by Yahoo News UK). The calibrated confidence terms and scenario ranges are what such coverage usually leaves out.",
+    "our_contribution": "translation: the assessment's own calibrated statements on these five topics, with their confidence and likelihood terms kept."
   },
   "sources_are_open": "",
   "evidence_base_is_bounded": "",
   "kill_condition": "The held assessments do not support one or more of these directions (for example, they find no projected increase in heavy precipitation or drought with further warming, or they assess sea-level rise as not continuing), or they assess the changes with low confidence throughout, so that the answer could not state them as projected changes.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
+    "by": "Claude Code (session WHU-L1-03b)",
+    "on": "2026-11-06",
+    "result": "survived",
+    "note": "The SPM assesses projected increases in heavy precipitation (very likely in most regions), in some droughts (high or medium confidence, regional), continued sea level rise (virtually certain) and continued ice loss; not all changes are high confidence (for example low confidence in the Antarctic sea ice decrease), which the page states.",
     "_result_values": [
       "survived",
       "narrowed",
       "killed"
-    ],
-    "note": ""
+    ]
   },
   "lead_came_from": "Lean four-question test: round 1 question WHU-Q1-03, asked again of lean WHU (issue.json).",
   "scope": {

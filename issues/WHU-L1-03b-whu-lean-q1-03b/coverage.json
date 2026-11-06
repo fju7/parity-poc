@@ -1,0 +1,26 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@14643-14956": {
+   "state": "not_material",
+   "reason": "A footnote on how methodological advances since AR5 raised the estimate of observed global surface temperature change and why one attribution period differs; it bears on no projected change in rainfall, extremes, ice, sea level or the oceans.",
+   "by": "Claude Code (session WHU-L1-03b)",
+   "element": "",
+   "decided_at": "2026-11-06T11:00:07+00:00"
+  },
+  "S001@26891-34834": {
+   "state": "out_of_scope",
+   "reason": "An attribution statement about observed compound extremes since the 1950s (heatwaves with droughts, fire weather, compound flooding); the question asks about changes with further warming, and the page states the projected compound-event judgements instead.",
+   "by": "Claude Code (session WHU-L1-03b)",
+   "element": "Attribution of past observed changes, except as the baseline the projections start from",
+   "decided_at": "2026-11-06T11:11:20+00:00"
+  },
+  "S001@36976-39180": {
+   "state": "not_material",
+   "reason": "The equilibrium climate sensitivity bears on how much global surface temperature responds to forcing, which the page gives directly as the assessed warming by scenario; it states nothing about rainfall, extremes, ice, sea level or the oceans.",
+   "by": "Claude Code (session WHU-L1-03b)",
+   "element": "",
+   "decided_at": "2026-11-06T11:11:20+00:00"
+  }
+ }
+}
