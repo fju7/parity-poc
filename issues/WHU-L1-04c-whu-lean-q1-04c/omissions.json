@@ -1,0 +1,212 @@
+{
+ "omissions": [
+  {
+   "key": "S002@-",
+   "source": "S002",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S002",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S002-11"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T14:41:17+00:00"
+  },
+  {
+   "key": "S001@10187-10230",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    10187,
+    10230
+   ],
+   "quote_sha256": "31767706f24f012e2582a7f6bbd8562e6635020b4bcebada9841ade143d6ef7c",
+   "outcome": "NOT_ADDED_BEYOND",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (lean: the proposed sentence went beyond the finding)",
+   "ruling": null,
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T14:41:25+00:00"
+  },
+  {
+   "key": "S001@58938-59063",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    58938,
+    59063
+   ],
+   "quote_sha256": "06056fb1bfdfbfe11fd7ba3f692f208f50d0d5a63d68cd69c48de8baa5d52b41",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "In scope: the finding concerns how much DACCS and enhanced weathering, two CO2 removal methods, can contribute by 2030. That falls under the question's 'now and in the decades ahead' and the scope's 'how much is assessed to be needed and when'. Material: the draft mentions limited current deployment, technology readiness levels and large future potentials. It never says that the near-term potential to 2030 is limited. A reader judging pledges that count on removal needs that time limit.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "61131e540370e558",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": "e36e3abff2237717",
+   "after": "e218fd205859670d",
+   "decided_at": "2026-11-06T14:41:32+00:00"
+  },
+  {
+   "key": "S001@84144-84409",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    84144,
+    84409
+   ],
+   "quote_sha256": "cf99967397bbe114c0d32c70a6f052aa28e1d3f6d74908c7860877be0186785b",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It concerns how much CDR is needed, of which methods and when, and the SCOPE covers 'how much is assessed to be needed and when'. Step 2: The finding is material. It ties the scale and timing of removal directly to how far gross emissions are cut. That matters to a reader judging whether removal can stand in for cutting emissions. The draft already says CDR is necessary and that implementation depends on societal prioritisation and side effects, but it never says that the method choice, scale and timing [S001@84216-84269], sustainability and feasibility constraints, and evolving political and social acceptability.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "352b6313b6cb1cc9",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "6979961ca73787f5",
+   "after": "8668de55c29d51d5",
+   "decided_at": "2026-11-06T14:41:40+00:00"
+  },
+  {
+   "key": "S001@88560-88735",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    88560,
+    88735
+   ],
+   "quote_sha256": "c795efcd0645be604492fd3c3e957b09603943b007b4de26c50fba03b03ec5f6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question asks what part removal can play 'alongside cutting emissions' in reaching net zero, and this finding addresses that relationship directly, so it is in scope. Step 2: The reader has to judge whether removal can stand in for cutting emissions. This finding answers that outright: it cannot substitute for deep reductions and plays a complementary role. None of the ALREADY items from Chapter 12 states this, and the three-roles sentence in the draft is attributed to [4], not [1]. So the finding is material. The source attaches no confidence term to this sentence, and none is added.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d88af187f3b8dc00",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": "f05f88bb9ec25bf2",
+   "after": "4a0a6bc948abe07f",
+   "decided_at": "2026-11-06T14:41:47+00:00"
+  },
+  {
+   "key": "S001@177272-177480",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    177272,
+    177480
+   ],
+   "quote_sha256": "8105c67fc257dec2d4c0becdf04530cda65e91c259b2b85fcfb80076269f1490",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question asks what part removal can play 'alongside cutting emissions'. This finding speaks directly to how removal relates to emissions cuts, so it is in scope. It concerns policy target-setting, not the design of carbon credit markets or company pledges. Step 2: The reader must judge whether removal can stand in for cutting emissions. The finding treats it as a misperception to see CDR as a substitute for deep cuts, and names separate targets for reductions and removals as a way to keep cuts first. That qualifies the answer, and the draft's ALREADY list does not state it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "10867db5307e300d",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": "3f10ea616eb56512",
+   "after": "7a726853e8b300c6",
+   "decided_at": "2026-11-06T14:41:53+00:00"
+  },
+  {
+   "key": "S002@1116-1286",
+   "source": "S002",
+   "held_sha256": "0e1886b142d07fcd7628b88714744ded9624d756283ec47bb2e6b1f8c3fd1c4e",
+   "at": [
+    1116,
+    1286
+   ],
+   "quote_sha256": "feb24f64c06be3274fab96b6f527055b790735ad6edaa14e9ec622d58e002d23",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: how much removal is done now, including durable storage of tree-withdrawn CO2 in wood products, bears on the question's 'now' and the scope's 'how much is done now'. Step 2 fails: ALREADY states that [S002@2329-2362] in durable wood products [S002@2380-2414]. That is the same figure, the same wood-products storage and the same source, given in more detail (780 MtCO2 gross transfer, net of decay). The finding adds nothing the reader does not already have.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7dcc64576eb4339e",
+   "origins": [
+    "S002-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T14:41:57+00:00"
+  },
+  {
+   "key": "S002@2681-2888",
+   "source": "S002",
+   "held_sha256": "0e1886b142d07fcd7628b88714744ded9624d756283ec47bb2e6b1f8c3fd1c4e",
+   "at": [
+    2681,
+    2888
+   ],
+   "quote_sha256": "77e07eb35736add16071f31bcfdea5ebf74532dc170a8966fdb5c1fca4d6bdc0",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding concerns how much novel CDR is done now, which SCOPE covers ('how much is done now'). Step 2: ALREADY states the biochar and BECCS figures almost word for word. The only new element is '[S002@2840-2886])'. That small extra figure does not answer, narrow or qualify the answer for a reader judging whether removal can stand in for cutting emissions. The draft already makes clear that novel CDR totals about 2 MtCO2 and is dominated by biochar and BECCS.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7a21166f848a9ae6",
+   "origins": [
+    "S002-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T14:42:01+00:00"
+  },
+  {
+   "key": "S003@18577-18720",
+   "source": "S003",
+   "held_sha256": "9fba138e222b68a6a807ffa7c30a7c62e14598edda308eb3fc2edec2fb7f4633",
+   "at": [
+    18577,
+    18720
+   ],
+   "quote_sha256": "012425c30b1e2fc816a78ab99be79e1d6e0687270f5af1c3d16e9a96ce70ec06",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding comes from the source's Paris-consistent CDR scenarios. It bears on what part removal can play alongside cutting emissions, and on why removal is needed and when. Step 2: The draft already says delay raises later reliance on CDR. It does not say that delay still costs extra warming and its impacts. That point qualifies whether removal can stand in for cutting emissions, which is what this reader is judging.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bb16ef3051fe6e5f",
+   "origins": [
+    "S003-12",
+    "S003-13"
+   ],
+   "on_page": "82a66323de994077",
+   "after": "6c210d79685f6c70",
+   "decided_at": "2026-11-06T14:42:09+00:00"
+  },
+  {
+   "key": "S004@105049-105273",
+   "source": "S004",
+   "held_sha256": "7ea69cb93bad3f72228d74234e697bdfbcde8acdbe540db7679e4a94d41e90be",
+   "at": [
+    105049,
+    105273
+   ],
+   "quote_sha256": "a3a1c4b62349637a96db1e70accaccb4beedfd0509ec726876954ca2c2656b12",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the SCOPE covers removal's part 'in reaching [S004@85361-85386] greenhouse gas emissions', and this finding compares warming in pathways that do and [S004@98212-98237]. Step 2 fails: the page already states this finding, with its high confidence, in the anchor sentence ('In 2°C (>67%) pathways [S004@105118-105185] that reach net zero greenhouse gases [S004@105233-105271])'). The only detail not on the page is the share of such pathways ('around 30%'), which does not change how the reader would judge whether removal can stand in for cutting emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "eccdc6d121074dd1",
+   "origins": [
+    "S004-15"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T14:42:15+00:00"
+  }
+ ]
+}
