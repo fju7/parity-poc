@@ -22,7 +22,8 @@
           "kind_why": "674425 characters, reference list and discussion/introduction present"
         },
         "on": "2026-11-06"
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S002",
@@ -51,7 +52,8 @@
           "kind_why": "769289 characters, reference list and discussion/introduction present"
         },
         "on": "2026-11-06"
-      }
+      },
+      "document_class": "document"
     },
     {
       "id": "S003",
@@ -90,7 +92,8 @@
       },
       "also_called": [
         "IPCC AR6 WGIII Summary for Policymakers"
-      ]
+      ],
+      "document_class": "document"
     }
   ],
   "search": {

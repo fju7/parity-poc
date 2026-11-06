@@ -1,0 +1,68 @@
+{
+ "units": [],
+ "declarations": {
+  "S003@111924-112183": {
+   "state": "not_material",
+   "reason": "page footer and figure-panel text extracted from the PDF, not a finding",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:22:48+00:00"
+  },
+  "S003@112656-113323": {
+   "state": "not_material",
+   "reason": "figure-panel legend text extracted from the PDF, not a finding",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:22:48+00:00"
+  },
+  "S003@67533-75010": {
+   "state": "not_material",
+   "reason": "about warming under continued current policies, not about the part removal plays",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:39:58+00:00"
+  },
+  "S003@129779-131269": {
+   "state": "not_material",
+   "reason": "about city-scale mitigation strategies, not carbon dioxide removal",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:39:58+00:00"
+  },
+  "S003@192075-193353": {
+   "state": "not_material",
+   "reason": "about urban planning and adaptation, not carbon dioxide removal",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:39:58+00:00"
+  },
+  "S003@117838-120245": {
+   "state": "not_material",
+   "reason": "about the make-up of net-zero energy systems and renewables; the page states CDR's role in counterbalancing residual emissions from the SPM C.11 statement",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:39:58+00:00"
+  },
+  "S003@148132-151268": {
+   "state": "not_material",
+   "reason": "about the costs and financing of land-sector mitigation and diet definitions, not the part removal plays",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:39:58+00:00"
+  },
+  "S003@57929-58632": {
+   "state": "not_material",
+   "reason": "figure-panel axis and legend text extracted from the PDF, not a finding",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:41:27+00:00"
+  },
+  "S003@185861-189425": {
+   "state": "not_material",
+   "reason": "figure-panel table text extracted from the PDF, not a finding",
+   "by": "Claude Code (session WHU-L1-04b)",
+   "element": "",
+   "decided_at": "2026-11-06T12:41:27+00:00"
+  }
+ }
+}
