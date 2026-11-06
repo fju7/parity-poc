@@ -583,6 +583,12 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
 
 ---
 
+- **Next phase (advisor's ruling of 6 November 2026, after the lean test closed; written before its code).** A
+  code-driven orchestrator replaces the drafting agent; a gemini-4-argon overstatement check joins the sentence gate
+  (a "yes" removes the sentence under the fail-safe, recorded, never dismissed; on a required line it stops the
+  page); the post-test list is folded in. Design: `docs/whu-orchestrator.md`. Build only, no paid call until the
+  advisor rules.
+
 ## 5. The machine gate
 
 The gate reads the page in roles — fact-check, source advocate, counterexample
