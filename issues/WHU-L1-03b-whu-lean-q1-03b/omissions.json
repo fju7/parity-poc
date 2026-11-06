@@ -1,0 +1,67 @@
+{
+ "omissions": [
+  {
+   "key": "S001@55495-55685",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    55495,
+    55685
+   ],
+   "quote_sha256": "9f07199dcf89801d6684f2fee76196172044a038a8c191050d1dee836fbe5ded",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding concerns when 1.5°C of global warming is first exceeded. That is loosely tied to the SCOPE's 'how they scale with the level of warming or emissions scenario'. No wording in THE QUESTION or SCOPE clearly excludes it. Step 2: The finding is a methodological note reconciling the earlier SR1.5 estimate with this assessment's best estimate. It does not answer, narrow or qualify any projected change in rainfall, wet or dry extremes, ice, sea level or the oceans. It also adds no distinct outcome or confidence level that a water, flood or coastal planner would weigh. The draft's anchor already notes that the two estimates are not directly comparable.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0e690370dcfd2da8",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T11:25:25+00:00"
+  },
+  {
+   "key": "S001@61885-62220",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    61885,
+    62220
+   ],
+   "quote_sha256": "1e6e520d749cf975d6a8ca821c0c8906cd3aebe417f79076c0cdec558d680ec6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns projected soil-moisture drying and drought severity. That falls under 'very wet and very dry extremes' and 'the water cycle' in THE QUESTION. Step 2: The draft mentions soil moisture changes in these maps but does not say how to read their size. The finding translates the mapped reduction into drought frequency, comparable to [S001@62006-62055] in 1850–1900. It also cautions that large mapped changes in dry regions may be small in absolute terms. A water-risk planner would weigh both points when judging how severe the projected drying is, and neither appears in ALREADY.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "70f826e7efdd7984",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": "fed2f94473e04538",
+   "after": "f0d8f4821aec9ca1",
+   "decided_at": "2026-11-06T11:25:35+00:00"
+  },
+  {
+   "key": "S001@80000-80230",
+   "source": "S001",
+   "held_sha256": "6cd9eeabc0977eb536438bbed73d784eb903f6b84fd65e60aeb7c6aef2e2ac10",
+   "at": [
+    80000,
+    80230
+   ],
+   "quote_sha256": "6c4f0abcab0f82e08420ca38c0ed6f5263f731f26366e5ebb222863e9168fabf",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding projects sea level under continued high emissions, which the question names as 'sea level'. Step 2: the draft gives only the likely ranges at medium confidence. This finding adds a low-confidence but non-excludable high-end outcome tied to deep ice-sheet uncertainty. That qualifies the answer and matters to a coastal-risk planner who must separate what is held with confidence from what cannot be ruled out. Nothing in the draft already states it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "76046ae4a6fa52e4",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "60b24896851f936f",
+   "after": "490542cc1ab76c7e",
+   "decided_at": "2026-11-06T11:25:38+00:00"
+  }
+ ]
+}
