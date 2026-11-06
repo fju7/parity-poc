@@ -550,6 +550,24 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
   Q1-01c, Q1-02b and Q1-03b are re-checked on it at $0 and each stands only if its preflight is
   unchanged. Q1-04b is recorded as Not Ready on c41f80f; the question is drafted again as Q1-04c,
   in a new folder and ledger issue.
+- **Correction after Q1-04c (advisor's ruling of 6 November 2026, written before its code):
+  readers'-list declaration lines are bound by code and are required elements.** Q1-03b's step 9,
+  re-run the brief's way (ruling D), showed that a code-written readers'-list line ("Judged not
+  material to this question: “…” (… [n]).") is created unbound, so changecheck finds it
+  NEW_AND_UNBOUND, and the lean fail-safe then removes it, although the declaration behind it stands
+  ("declared findings shown to readers" and "generated sentences match the records" STOP). The
+  drafter's own binding had hidden this. Under lean WHU: (1) `bindings.scan` binds every readers'-list
+  declaration line (the leads in `coverage_check.LEAD`) to the verbatim held span it quotes, located in
+  the held text, with its offsets and its declaration key recorded ("origin": "declaration_line", by
+  code); the coverage check does not count these rows as using the unit, so a declared unit stays
+  declared. (2) Every such line is a required page element: a finding on one is recorded by the
+  fail-safe as "Not Ready: unresolved finding on a required readers'-list line"; the line stays and the
+  page is Not Ready; it is never removed. Tested on Q1-03b's post-D records. Q1-03b's own records are
+  restored from LT's pre-D copy and step 9 is run again under the new code; Q1-03b stands only if its
+  preflight is `Ready.`, disclosed as "first Ready depended on a drafter departure; Ready again after
+  the binding fix".
+  The ruling's second part, the rule-3b "could not establish" line naming what the recency check
+  searched (no lint exemption), is recorded in deviations and waits on one wording point before code.
 - **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
   source to another edition (rule 3b decides that).
 - Code: `lean_received.py` (the measurement), `lean_reading.py` (the rows for fixes 4-6),
