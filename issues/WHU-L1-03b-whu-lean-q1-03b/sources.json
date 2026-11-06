@@ -1,0 +1,46 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "synthesis",
+      "form": "record",
+      "title": "IPCC 2021. Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis (AR6 WGI)",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf",
+      "doi": "10.1017/9781009157896.001",
+      "used_for": "the assessment's calibrated statements on projected changes in the water cycle, wet and dry extremes, ice, sea level and the oceans with further warming",
+      "licence": {
+        "note": "IPCC terms (https://www.ipcc.ch/copyright/): personal, non-commercial download and copying permitted; short excerpts may be quoted with the full report name. A note, not a legal opinion.",
+        "terms": "https://www.ipcc.ch/copyright/",
+        "machine_reading": "not forbidden by any recorded licence",
+        "terms_checked": false
+      },
+      "access": {
+        "state": "full_text_held",
+        "on": "2026-11-06",
+        "by": "Claude Code (session WHU-L1-03b)",
+        "held": {
+          "file": "docs/37/37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446.pdf",
+          "sha256": "37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446",
+          "bytes": 3361797,
+          "identified_by": "contains 8 of 8 distinctive title words — form 'record' — 122457 characters held. The article test does not apply to this form; title present (8 of 8 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'record' — 122457 characters held. The article test does not apply to this form"
+        }
+      },
+      "also_called": [
+        "IPCC AR6 WGI Summary for Policymakers"
+      ]
+    }
+  ],
+  "search": {
+    "searched": [
+      "the IPCC Sixth Assessment Report Working Group I volume (The Physical Science Basis) for its Summary for Policymakers"
+    ],
+    "not_searched": [
+      "the chapters and Technical Summary of that volume",
+      "the IPCC Special Report on the Ocean and Cryosphere in a Changing Climate",
+      "the IPCC AR6 Synthesis Report",
+      "research published after the AR6 assessment"
+    ]
+  }
+}

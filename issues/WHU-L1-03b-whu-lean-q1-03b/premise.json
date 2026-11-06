@@ -1,0 +1,81 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "If emissions continue, further warming will intensify the water cycle (more heavy rainfall and more droughts), shrink glaciers and ice sheets, and raise sea levels and warm and acidify the oceans, with the size of each change rising with the amount of warming.",
+    "how_we_know_they_believe_it": "Not established from named coverage in this run: the question is asked as a lean-test question (round 1's question, asked again), not selected from a reader's belief. Recorded as the drafting session's statement of the common understanding, before any source was opened.",
+    "carried_by": []
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "Who has a decision to make, a real cost of being wrong, and no time to read the literature? Name them. A subject with no such reader is interesting rather than useful, and interesting is how four candidates died in one day.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The held assessments do not support one or more of these directions (for example, they find no projected increase in heavy precipitation or drought with further warming, or they assess sea-level rise as not continuing), or they assess the changes with low confidence throughout, so that the answer could not state them as projected changes.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "Lean four-question test: round 1 question WHU-Q1-03, asked again of lean WHU (issue.json).",
+  "scope": {
+    "covers": "Projected physical changes in the climate system from further warming if greenhouse gas emissions continue: precipitation and the water cycle; very wet and very dry extremes (heavy precipitation, floods, droughts); ice (glaciers, ice sheets, sea ice, snow, permafrost); sea level; and the oceans (warming, heat content, acidification, deoxygenation, marine heatwaves). Global and broad regional patterns, and how they scale with the level of warming or emissions scenario.",
+    "out": [
+      {
+        "what": "Impacts on people, ecosystems and economies, and adaptation",
+        "why": "The question asks how warming will change the climate, not what the changes will do to societies or ecosystems."
+      },
+      {
+        "what": "Mitigation pathways and policy, and how much emissions must fall",
+        "why": "The question takes continued emissions as given; it does not ask how to reduce them."
+      },
+      {
+        "what": "Temperature extremes and heatwaves on land, winds and tropical cyclone frequency, except as they bear on rainfall, extremes of wet and dry, ice, sea level or the oceans",
+        "why": "The question lists rainfall and the water cycle, wet and dry extremes, ice, sea level and the oceans; other climate variables are outside its list."
+      },
+      {
+        "what": "Attribution of past observed changes, except as the baseline the projections start from",
+        "why": "The question asks about further warming in the future."
+      }
+    ],
+    "by": "Claude Code (session WHU-L1-03b)",
+    "written_at": "2026-11-06T10:40:04Z"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": [
+      "measured",
+      "assessed"
+    ],
+    "measured": "Observed changes from instrumental records and model projections reported in the held sources, as the sources report them, with their stated ranges.",
+    "assessed": "Expert assessments with calibrated language: IPCC AR6 Working Group I statements with their confidence and likelihood terms, and any systematic-review conclusions held.",
+    "when_they_differ": "state both",
+    "by": "Claude Code (session WHU-L1-03b)",
+    "written_at": "2026-11-06T10:40:04Z"
+  }
+}
