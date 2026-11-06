@@ -1,0 +1,298 @@
+{
+ "omissions": [
+  {
+   "key": "S001@10076-10231",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    10076,
+    10231
+   ],
+   "quote_sha256": "c9dbb7c68c1ca6f02fcc594c1eba7660171265b71eb9542d1a16db01f2cc3018",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about the cost of direct air capture with storage, a removal method. SCOPE explicitly covers [S002@192182-192217], so it bears on the question. Step 2: the draft already gives the DACCS potential and says cost limits it, but never gives the cost figure. It does give enhanced weathering's cost, so leaving out DACCS's cost range is a quantitative gap. A reader weighing what part DACCS can play would use it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a0bfff647455196c",
+   "origins": [
+    "S001-06"
+   ],
+   "on_page": "cb0fd7f7fc9a3534",
+   "after": "a9542b52680ea93b",
+   "decided_at": "2026-11-06T13:07:58+00:00"
+  },
+  {
+   "key": "S001@10436-10630",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    10436,
+    10630
+   ],
+   "quote_sha256": "61cfd531787a866eea005b2ceaa2c2c690cfcd5f7072693cf897af12dffd6675",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns the potential, cost and feasibility of ocean-based CDR. SCOPE explicitly covers ocean-based methods and their 'assessed limits, risks, costs and side effects', so it bears on the question. Step 2: The draft already states the potential and the feasibility caveat, but it drops the USD 40–500/tCO2 cost range. It gives cost ranges for enhanced weathering and DACCS, so leaving out the ocean figure is an incomplete comparison. A reader weighing which removal methods can play a part needs that cost range, which makes it material. The sentence restores the cost range in place of the existing anchor sentence and keeps the feasibility hedge.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "af17147d7ed8df4b",
+   "origins": [
+    "S001-07"
+   ],
+   "on_page": "54193b6b369c3044",
+   "after": "fb948b174b438972",
+   "decided_at": "2026-11-06T13:08:06+00:00"
+  },
+  {
+   "key": "S001@18467-18844",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    18467,
+    18844
+   ],
+   "quote_sha256": "55b101e346b9e2666ebb3a115d31a1eb67cdd3c78b55e5b82f53421464f834c9",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding concerns how deploying CDR and other mitigation options depends on societal priorities and future dependence on CDR. That bears on the question's 'what part can removing carbon dioxide from the air play' and on the scope's 'assessed limits, risks, costs and side effects'. Step 2 fails: the draft already states this almost word for word ('The implementation of [S001@18532-18602] against [S001@18610-18723], and on [S001@18745-18802]'). The only omitted words, '[S001@18803-18843]', do not change the answer on removal. Note that the READER block names no actual reader, so materiality was judged against the question alone.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fc11e6aa1dab4656",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T13:08:12+00:00"
+  },
+  {
+   "key": "S001@88560-88735",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    88560,
+    88735
+   ],
+   "quote_sha256": "c795efcd0645be604492fd3c3e957b09603943b007b4de26c50fba03b03ec5f6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It speaks directly to the question's 'Alongside cutting emissions, what part can removing carbon dioxide from the air play', and to the scope's 'alongside emission cuts' and 'the roles it can play'. Step 2: It is material. The page already lists the three complementary roles 'in addition to' emission reductions, but it never says that [S001@88629-88691]. That limit narrows the answer, and a reader deciding whether to rely on removal instead of cuts would weigh it. The new sentence adds only that limit, at the source's own strength, and adds no confidence term the quoted passage lacks.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "71bb0741b88c64d5",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": "ecd405dfae602607",
+   "after": "7d592e0bc1d9c4a8",
+   "decided_at": "2026-11-06T13:08:21+00:00"
+  },
+  {
+   "key": "S001@100380-100654",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    100380,
+    100654
+   ],
+   "quote_sha256": "d036cccb0c048dac29ae00cce5bf18a01d74df9b5f6519152f9f61a36a699d60",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about which removal methods the assessed pathways (IAMs) use, which the SCOPE covers under 'how much the assessed pathways use in the coming decades and this century'. Step 2 fails: the draft already says that all Illustrative Mitigation Pathways use land-based CDR, primarily afforestation and reforestation, and/or BECCS, and that some include DACCS. Its cumulative and 2050 medians also show BECCS and land-based removal dominating while DACCS stays small. What remains is that IAMs are 'starting to include' DACCS and enhanced weathering, which are not yet assigned to sectors. That is a model-bookkeeping detail and does not change the answer about the part removal plays.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "01b2d2448f9399b1",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T13:08:28+00:00"
+  },
+  {
+   "key": "S001@158990-159255",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    158990,
+    159255
+   ],
+   "quote_sha256": "eef8ab707d5acdc29ac878fc9c4d2143a74d38688bc33ce7e3cbad256c4b95d0",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears directly on 'how much the assessed pathways use in the coming decades and this century' and on 'alongside cutting emissions'. It concerns how near-term emission cuts and other CDR methods change the A/R and BECCS volumes in 1.5°C/2°C scenarios. Step 2: It qualifies the BECCS and land-based removal volumes the draft already reports. It shows those amounts are not fixed and could be significantly lower with stronger near-term mitigation or other CDR methods. This bears on how much the answer should lean on these figures, and nothing in ALREADY states it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3e69fe4c132ee0fb",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "48576f990d798d54",
+   "after": "872afb1df31821c9",
+   "decided_at": "2026-11-06T13:08:35+00:00"
+  },
+  {
+   "key": "S001@288925-289171",
+   "source": "S001",
+   "held_sha256": "6f91ebc36948afa992db09fc4e264d232ac3f9db06c7b46d56dfbd28fc4af98e",
+   "at": [
+    288925,
+    289171
+   ],
+   "quote_sha256": "e906a04655f9819c45e73d7ceed3f8d7b4baa5b40d95c60a4db25247d314ab2e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. It concerns how CDR options and emission cuts together shape the land limits of removal, which the SCOPE covers under 'its assessed limits, risks, costs and side effects' and 'alongside emission cuts'. Step 2: it is material. The draft already says that land-based mitigation is extensive and land-intensive and that it competes for land. It does not say that near-term cuts in non-CO2 emissions and non-land CDR (DACCS, enhanced weathering, ocean-based methods) can ease that land requirement. That qualifies the answer about how the mix of removal methods relates to land limits.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9846fd62e8ac1c2e",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": "92e3cf20a27fb848",
+   "after": "d0b9d2bd03f1f6a5",
+   "decided_at": "2026-11-06T13:08:42+00:00"
+  },
+  {
+   "key": "S002@17395-17510",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    17395,
+    17510
+   ],
+   "quote_sha256": "156131d382a7bf450b3aebddd16097d677a9232f7e65092a41055081a974bea7",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. It speaks directly to the QUESTION's 'what part can removing carbon dioxide from the air play in reaching net zero', and to the SCOPE's 'how much the assessed pathways use'. Step 2: it is material. The draft gives scenario figures for 2030, 2035 and 2050, and it says CDR is needed for as long as emissions continue. It never says that every net-zero scenario requires additional gigatonne-scale removal. That universal claim narrows the answer: no assessed net-zero pathway avoids removal at this scale. A decision-maker would weigh it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "346de2e5327b176a",
+   "origins": [
+    "S002-12"
+   ],
+   "on_page": "acc90bc2e5de6589",
+   "after": "157f075bf39a60ce",
+   "decided_at": "2026-11-06T13:08:49+00:00"
+  },
+  {
+   "key": "S002@21773-21932",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    21773,
+    21932
+   ],
+   "quote_sha256": "a2e2f7c8d691f37739795479baf94041e804b152e9e4844ea3ef4eb6c37c9355",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about global aggregate pledged CDR compared with Paris-compatible pathways in 2030. That falls under the SCOPE's 'how much the assessed pathways use in the coming decades'. It is not about the rules of 'individual national policies', so it stays in scope. Step 2: the draft states the 0.3 GtCO2 per year gap but not what the assessment says is needed to close it. The finding is that ambition must roughly double, from +0.3 [S002@21868-21890], through new and revised pledges. This adds a distinct quantitative point that changes how big the near-term shortfall looks, and it is not already in ALREADY.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "20c2cc35142ed7f9",
+   "origins": [
+    "S002-09"
+   ],
+   "on_page": "caa0df0c292b812b",
+   "after": "e28533aaa2fb41e3",
+   "decided_at": "2026-11-06T13:08:57+00:00"
+  },
+  {
+   "key": "S002@25549-25716",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    25549,
+    25716
+   ],
+   "quote_sha256": "b398d24ae43e17eb6ff2bc9b3d36ab9535c5afac6b973944e140beae7a6e806b",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about how fast novel removal must scale in the decades ahead. That bears directly on the question's 'in the decades ahead' and on the scope's 'how much the assessed pathways use in the coming decades', and no out-of-scope entry applies. Step 2: the draft says only that current 40% growth is like solar but insufficient. This finding sets the required rate against the fastest historical precedents, between [S002@25627-25664] tells a reader how demanding the needed scale-up is. That is a qualification the draft does not yet state.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bf8efdba196dab1e",
+   "origins": [
+    "S002-11"
+   ],
+   "on_page": "6d50ea706098d723",
+   "after": "2e6a5c1cf893888d",
+   "decided_at": "2026-11-06T13:09:04+00:00"
+  },
+  {
+   "key": "S002@30334-30523",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    30334,
+    30523
+   ],
+   "quote_sha256": "84c83f634772735a4cd28c3a06c8ed12f24a3aefffd2c149c35e300e10fb423a",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S002-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T13:09:11+00:00"
+  },
+  {
+   "key": "S002@523756-523858",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    523756,
+    523858
+   ],
+   "quote_sha256": "01eecfa48ace6fba7cad001ccbe25fe4a9549ffc97d62a9de764ac760facf152",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S002-10"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T13:09:15+00:00"
+  },
+  {
+   "key": "S002@571861-571980",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    571861,
+    571980
+   ],
+   "quote_sha256": "24bb28678f2cc3004751518e700e71252aab0e295a5ae222d5ff5636616b3626",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S002-14"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T13:09:21+00:00"
+  },
+  {
+   "key": "S002@619873-620010",
+   "source": "S002",
+   "held_sha256": "c343758b8cc0415cc4cb59f577bc91357693fcf5a658aec0507fa514efc2abdc",
+   "at": [
+    619873,
+    620010
+   ],
+   "quote_sha256": "d5b83f04f680398f3b6f57825da520ee3f69edf709e03e8f5f5db283e0edc6cf",
+   "outcome": "TO_PERSON",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (ruling.py omissions)",
+   "ruling": null,
+   "origins": [
+    "S002-13"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T13:09:29+00:00"
+  }
+ ]
+}
