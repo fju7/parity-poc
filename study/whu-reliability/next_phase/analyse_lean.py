@@ -24,7 +24,8 @@ output names them "WHU-lean" and "WHU-full".
 
 COMPARISON SETS. The three scored questions; and without WHU-Q1-02 (as round 1
 reports). Round 1's answers and labels are unchanged; they are read for the
-same questions only. Gemini has all three; Perplexity only Q1-03 here.
+same questions only (Gemini and Perplexity have all three; Perplexity's Q1-01 and Q1-02 are
+inline answers, scored as captured, as in round 1).
 
 BAR 3's second view (lean_test_rule.md §3.3; check 3c): M1 with readers'-list
 lines and protected process sentences removed, by

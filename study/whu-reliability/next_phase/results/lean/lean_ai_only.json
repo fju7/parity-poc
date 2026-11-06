@@ -1,0 +1,7082 @@
+{
+ "written": "2026-11-06T16:46:44+00:00",
+ "label": "Lean four-question test: AI judges only, not checked by people; in-sample; needs confirming on new questions",
+ "rules": "next_phase/analyse_lean.py docstring (round 1's code and rules)",
+ "scored": {
+  "WHU-Q1-01": "whu-lean-q1-01c",
+  "WHU-Q1-02": "whu-lean-q1-02b",
+  "WHU-Q1-03": "whu-lean-q1-03b"
+ },
+ "not_scored": {
+  "WHU-Q1-04": {
+   "slug": "whu-lean-q1-04c",
+   "freeze": "9863fb2",
+   "why": "Not Ready: lint_claims.unknowability on the rule-3b line, and 'newer editions handled' (no registry list in the gate record)"
+  }
+ },
+ "freeze": "9863fb2",
+ "seed": "544017144222122354086406494492826735813465644818",
+ "bootstrap_resamples": 10000,
+ "M1_counts_lean": {
+  "questions": [
+   "WHU-Q1-01",
+   "WHU-Q1-02",
+   "WHU-Q1-03"
+  ],
+  "drawn": 60,
+  "uncited": 1,
+  "cited": 59,
+  "no_source_held": 0,
+  "incomplete_sources_unreachable": 0,
+  "incomplete_sources_undelivered": 1,
+  "judge_said_unreachable_any": 0,
+  "not_verifiable_abstract_any": 0,
+  "uncited_share_of_drawn": 0.0167
+ },
+ "M2_items_lean": 15,
+ "M1_judges_lean": {
+  "WHU": {
+   "items": 59,
+   "judged_by_both": 58,
+   "same_label": 54,
+   "labelled_by_both": 58,
+   "same_label_share": 0.931,
+   "same_failure_or_pass_share": 0.931,
+   "kappa": 0.0,
+   "agreed_by_protocol_rule": 54,
+   "refusal_claude": {
+    "calls": 58,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_claude": {
+    "pairs": 12,
+    "same_label": 12,
+    "same_label_share": 1.0
+   },
+   "refusal_openai": {
+    "calls": 58,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_openai": {
+    "pairs": 12,
+    "same_label": 12,
+    "same_label_share": 1.0
+   }
+  },
+  "all": {
+   "items": 59,
+   "judged_by_both": 58,
+   "same_label": 54,
+   "labelled_by_both": 58,
+   "same_label_share": 0.931,
+   "same_failure_or_pass_share": 0.931,
+   "kappa": 0.0,
+   "agreed_by_protocol_rule": 54,
+   "refusal_claude": {
+    "calls": 58,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_claude": {
+    "pairs": 12,
+    "same_label": 12,
+    "same_label_share": 1.0
+   },
+   "refusal_openai": {
+    "calls": 58,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_openai": {
+    "pairs": 12,
+    "same_label": 12,
+    "same_label_share": 1.0
+   }
+  }
+ },
+ "M2_judges_lean": {
+  "WHU": {
+   "items": 15,
+   "judged_by_both": 15,
+   "same_label": 13,
+   "labelled_by_both": 15,
+   "same_label_share": 0.8667,
+   "same_failure_or_pass_share": 0.8667,
+   "kappa": 0.4444,
+   "agreed_by_protocol_rule": 13,
+   "refusal_claude": {
+    "calls": 15,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_claude": {
+    "pairs": 3,
+    "same_label": 3,
+    "same_label_share": 1.0
+   },
+   "refusal_openai": {
+    "calls": 15,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_openai": {
+    "pairs": 3,
+    "same_label": 3,
+    "same_label_share": 1.0
+   }
+  },
+  "all": {
+   "items": 15,
+   "judged_by_both": 15,
+   "same_label": 13,
+   "labelled_by_both": 15,
+   "same_label_share": 0.8667,
+   "same_failure_or_pass_share": 0.8667,
+   "kappa": 0.4444,
+   "agreed_by_protocol_rule": 13,
+   "refusal_claude": {
+    "calls": 15,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_claude": {
+    "pairs": 3,
+    "same_label": 3,
+    "same_label_share": 1.0
+   },
+   "refusal_openai": {
+    "calls": 15,
+    "refused_first_attempt": 0,
+    "refused_after_retry": 0,
+    "rate_after_retry": 0.0,
+    "unusable_reply": 0
+   },
+   "second_read_openai": {
+    "pairs": 3,
+    "same_label": 3,
+    "same_label_share": 1.0
+   }
+  }
+ },
+ "comparisons": {
+  "three_scored": {
+   "M1_failure": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 59,
+      "rate": 0.0508,
+      "ci95": [
+       0.0,
+       0.1053
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1053,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.05,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 6.5,
+      "countable": 59,
+      "rate": 0.1102,
+      "ci95": [
+       0.075,
+       0.1316
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1316,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.075,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.125,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0594,
+       "difference_ci95": [
+        -0.125,
+        -0.025
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Claude": {
+      "failures": 37.0,
+      "countable": 59,
+      "rate": 0.6271,
+      "ci95": [
+       0.5526,
+       0.75
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5526,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.575,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.75,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5763,
+       "difference_ci95": [
+        -0.75,
+        -0.4474
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 58.0,
+      "countable": 58,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        18
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9492,
+       "difference_ci95": [
+        -1.0,
+        -0.8947
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 41.0,
+      "countable": 50,
+      "rate": 0.82,
+      "ci95": [
+       0.7667,
+       0.8824
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.7667,
+        15
+       ],
+       "WHU-Q1-02": [
+        0.8056,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.8824,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7692,
+       "difference_ci95": [
+        -0.8824,
+        -0.6614
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 15.0,
+      "countable": 49,
+      "rate": 0.3061,
+      "ci95": [
+       0.0526,
+       0.5417
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5417,
+        12
+       ],
+       "WHU-Q1-02": [
+        0.4167,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.0526,
+        19
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2553,
+       "difference_ci95": [
+        -0.4364,
+        -0.0526
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 59,
+      "rate": 0.0169,
+      "ci95": [
+       0.0,
+       0.0526
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0526,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 4.0,
+      "countable": 59,
+      "rate": 0.0678,
+      "ci95": [
+       0.05,
+       0.1053
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1053,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.05,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.05,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0509,
+       "difference_ci95": [
+        -0.0526,
+        -0.05
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Claude": {
+      "failures": 34.0,
+      "countable": 59,
+      "rate": 0.5763,
+      "ci95": [
+       0.5,
+       0.7
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5263,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.5,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.7,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5594,
+       "difference_ci95": [
+        -0.7,
+        -0.4737
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 58.0,
+      "countable": 58,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        18
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9831,
+       "difference_ci95": [
+        -1.0,
+        -0.9474
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 38.0,
+      "countable": 50,
+      "rate": 0.76,
+      "ci95": [
+       0.6,
+       0.8824
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.6,
+        15
+       ],
+       "WHU-Q1-02": [
+        0.7778,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.8824,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7431,
+       "difference_ci95": [
+        -0.8824,
+        -0.5474
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 13.0,
+      "countable": 49,
+      "rate": 0.2653,
+      "ci95": [
+       0.0,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5,
+        12
+       ],
+       "WHU-Q1-02": [
+        0.3889,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        19
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2484,
+       "difference_ci95": [
+        -0.4474,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 5.0,
+      "countable": 59,
+      "rate": 0.0847,
+      "ci95": [
+       0.0,
+       0.1579
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1579,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.1,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 9.0,
+      "countable": 59,
+      "rate": 0.1525,
+      "ci95": [
+       0.1,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1579,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.1,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0678,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 40.0,
+      "countable": 59,
+      "rate": 0.678,
+      "ci95": [
+       0.5789,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5789,
+        19
+       ],
+       "WHU-Q1-02": [
+        0.65,
+        20
+       ],
+       "WHU-Q1-03": [
+        0.8,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5933,
+       "difference_ci95": [
+        -0.8,
+        -0.4211
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 58.0,
+      "countable": 58,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        18
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9153,
+       "difference_ci95": [
+        -1.0,
+        -0.8421
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 44.0,
+      "countable": 50,
+      "rate": 0.88,
+      "ci95": [
+       0.8333,
+       0.9333
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.9333,
+        15
+       ],
+       "WHU-Q1-02": [
+        0.8333,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.8824,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7953,
+       "difference_ci95": [
+        -0.8824,
+        -0.7333
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 17.0,
+      "countable": 49,
+      "rate": 0.3469,
+      "ci95": [
+       0.1053,
+       0.5833
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5833,
+        12
+       ],
+       "WHU-Q1-02": [
+        0.4444,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.1053,
+        19
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2622,
+       "difference_ci95": [
+        -0.4254,
+        -0.1053
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 55,
+      "rate": 0.0182,
+      "ci95": [
+       0.0,
+       0.0588
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0588,
+        17
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 3.0,
+      "countable": 53,
+      "rate": 0.0566,
+      "ci95": [
+       0.0,
+       0.1111
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1111,
+        18
+       ],
+       "WHU-Q1-02": [
+        0.0526,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        16
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0384,
+       "difference_ci95": [
+        -0.0526,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 32.0,
+      "countable": 51,
+      "rate": 0.6275,
+      "ci95": [
+       0.5556,
+       0.75
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5556,
+        18
+       ],
+       "WHU-Q1-02": [
+        0.5882,
+        17
+       ],
+       "WHU-Q1-03": [
+        0.75,
+        16
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6093,
+       "difference_ci95": [
+        -0.75,
+        -0.4967
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 58.0,
+      "countable": 58,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        18
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9818,
+       "difference_ci95": [
+        -1.0,
+        -0.9412
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 31.0,
+      "countable": 36,
+      "rate": 0.8611,
+      "ci95": [
+       0.8571,
+       0.8667
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8571,
+        7
+       ],
+       "WHU-Q1-02": [
+        0.8571,
+        14
+       ],
+       "WHU-Q1-03": [
+        0.8667,
+        15
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.8429,
+       "difference_ci95": [
+        -0.8667,
+        -0.7983
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 13.0,
+      "countable": 45,
+      "rate": 0.2889,
+      "ci95": [
+       0.0,
+       0.5455
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5455,
+        11
+       ],
+       "WHU-Q1-02": [
+        0.4118,
+        17
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2707,
+       "difference_ci95": [
+        -0.4866,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_overstates": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.3,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0666,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.5,
+      "countable": 15,
+      "rate": 0.1667,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.3,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0334,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.5,
+      "countable": 15,
+      "rate": 0.3667,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2334,
+       "difference_ci95": [
+        -0.4,
+        0.1
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 9.5,
+      "countable": 15,
+      "rate": 0.6333,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.7,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.7,
+        -0.1
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.5,
+      "countable": 15,
+      "rate": 0.0333,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.3
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 15,
+      "rate": 0.3333,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2666,
+       "difference_ci95": [
+        -0.4,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 9.0,
+      "countable": 15,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.6,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5333,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 15,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 4.0,
+      "countable": 15,
+      "rate": 0.2667,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 6.0,
+      "countable": 15,
+      "rate": 0.4,
+      "ci95": [
+       0.2,
+       0.6
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 10.0,
+      "countable": 15,
+      "rate": 0.6667,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.4667,
+       "difference_ci95": [
+        -0.8,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1333,
+       "difference_ci95": [
+        0.0,
+        0.4
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 13,
+      "rate": 0.0769,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.25,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 12,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0769,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 11,
+      "rate": 0.0909,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.014,
+       "difference_ci95": [
+        -0.25,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 14,
+      "rate": 0.3571,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2802,
+       "difference_ci95": [
+        -0.5,
+        0.05
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 9.0,
+      "countable": 12,
+      "rate": 0.75,
+      "ci95": [
+       0.25,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6731,
+       "difference_ci95": [
+        -1.0,
+        -0.25
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 13,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0769,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.5,
+      "countable": 15,
+      "rate": 0.0333,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0333,
+       "difference_ci95": [
+        -0.1,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.5,
+      "countable": 15,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.0,
+      "countable": 15,
+      "rate": 0.5333,
+      "ci95": [
+       0.2,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.6,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5333,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.5,
+      "countable": 15,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.5,
+      "countable": 15,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        0.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1333,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.0,
+      "countable": 15,
+      "rate": 0.5333,
+      "ci95": [
+       0.2,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.6,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5333,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1333,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1333,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.0,
+      "countable": 15,
+      "rate": 0.5333,
+      "ci95": [
+       0.2,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.6,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5333,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 13,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 12,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        0.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 11,
+      "rate": 0.0909,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0909,
+       "difference_ci95": [
+        -0.25,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.0,
+      "countable": 14,
+      "rate": 0.5714,
+      "ci95": [
+       0.25,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.6,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5714,
+       "difference_ci95": [
+        -0.8,
+        -0.25
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.0,
+      "countable": 12,
+      "rate": 0.0833,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0833,
+       "difference_ci95": [
+        -0.25,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 13,
+      "rate": 0.0769,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0769,
+       "difference_ci95": [
+        -0.25,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_overstates_contradicts": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.3,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0666,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.5,
+      "countable": 15,
+      "rate": 0.1667,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.3,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0334,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.5,
+      "countable": 15,
+      "rate": 0.3667,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2334,
+       "difference_ci95": [
+        -0.4,
+        0.1
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 10.0,
+      "countable": 15,
+      "rate": 0.6667,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5334,
+       "difference_ci95": [
+        -0.8,
+        -0.1
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.5,
+      "countable": 15,
+      "rate": 0.0333,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.3
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 15,
+      "rate": 0.3333,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2666,
+       "difference_ci95": [
+        -0.4,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 9.0,
+      "countable": 15,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.6,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5333,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 15,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 4.0,
+      "countable": 15,
+      "rate": 0.2667,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 6.0,
+      "countable": 15,
+      "rate": 0.4,
+      "ci95": [
+       0.2,
+       0.6
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 11.0,
+      "countable": 15,
+      "rate": 0.7333,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5333,
+       "difference_ci95": [
+        -1.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1333,
+       "difference_ci95": [
+        0.0,
+        0.4
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 13,
+      "rate": 0.0769,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.25,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 12,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0769,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 11,
+      "rate": 0.0909,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.014,
+       "difference_ci95": [
+        -0.25,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 14,
+      "rate": 0.3571,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2802,
+       "difference_ci95": [
+        -0.5,
+        0.05
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 9.0,
+      "countable": 12,
+      "rate": 0.75,
+      "ci95": [
+       0.25,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6731,
+       "difference_ci95": [
+        -1.0,
+        -0.25
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 13,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0769,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_any_failure": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.3,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.5,
+      "countable": 15,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0333,
+       "difference_ci95": [
+        0.0,
+        0.1
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 4.0,
+      "countable": 15,
+      "rate": 0.2667,
+      "ci95": [
+       0.1,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1334,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 13.5,
+      "countable": 15,
+      "rate": 0.9,
+      "ci95": [
+       0.7,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.7,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7667,
+       "difference_ci95": [
+        -1.0,
+        -0.6
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 11.5,
+      "countable": 15,
+      "rate": 0.7667,
+      "ci95": [
+       0.4,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.9,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6334,
+       "difference_ci95": [
+        -0.9,
+        -0.3
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.3,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 15,
+      "rate": 0.0667,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 15,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 3.0,
+      "countable": 15,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1333,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 13.0,
+      "countable": 15,
+      "rate": 0.8667,
+      "ci95": [
+       0.6,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.8,
+       "difference_ci95": [
+        -1.0,
+        -0.6
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 11.0,
+      "countable": 15,
+      "rate": 0.7333,
+      "ci95": [
+       0.4,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6666,
+       "difference_ci95": [
+        -0.8,
+        -0.4
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0666,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 15,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 3.0,
+      "countable": 15,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        0.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 5.0,
+      "countable": 15,
+      "rate": 0.3333,
+      "ci95": [
+       0.2,
+       0.6
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1333,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 14.0,
+      "countable": 15,
+      "rate": 0.9333,
+      "ci95": [
+       0.8,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.8,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7333,
+       "difference_ci95": [
+        -1.0,
+        -0.6
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 12.0,
+      "countable": 15,
+      "rate": 0.8,
+      "ci95": [
+       0.4,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6,
+       "difference_ci95": [
+        -1.0,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 15,
+      "rate": 0.1333,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0667,
+       "difference_ci95": [
+        -0.2,
+        0.4
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 13,
+      "rate": 0.0769,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.25,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 12,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0769,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.0,
+      "countable": 11,
+      "rate": 0.1818,
+      "ci95": [
+       0.0,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1049,
+       "difference_ci95": [
+        -0.5,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 13.0,
+      "countable": 14,
+      "rate": 0.9286,
+      "ci95": [
+       0.75,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.75,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.8517,
+       "difference_ci95": [
+        -1.0,
+        -0.75
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 10.0,
+      "countable": 12,
+      "rate": 0.8333,
+      "ci95": [
+       0.5,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-02": [
+        1.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7564,
+       "difference_ci95": [
+        -1.0,
+        -0.5
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 13,
+      "rate": 0.0769,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-02": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.25,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   }
+  },
+  "without_Q1_02": {
+   "M1_failure": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 39,
+      "rate": 0.0513,
+      "ci95": [
+       0.0,
+       0.1053
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1053,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 5.0,
+      "countable": 39,
+      "rate": 0.1282,
+      "ci95": [
+       0.125,
+       0.1316
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1316,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.125,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0769,
+       "difference_ci95": [
+        -0.125,
+        -0.0263
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Claude": {
+      "failures": 25.5,
+      "countable": 39,
+      "rate": 0.6538,
+      "ci95": [
+       0.5526,
+       0.75
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5526,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.75,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6025,
+       "difference_ci95": [
+        -0.75,
+        -0.4474
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 40.0,
+      "countable": 40,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9487,
+       "difference_ci95": [
+        -1.0,
+        -0.8947
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 26.5,
+      "countable": 32,
+      "rate": 0.8281,
+      "ci95": [
+       0.7667,
+       0.8824
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.7667,
+        15
+       ],
+       "WHU-Q1-03": [
+        0.8824,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7768,
+       "difference_ci95": [
+        -0.8824,
+        -0.6614
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 7.5,
+      "countable": 31,
+      "rate": 0.2419,
+      "ci95": [
+       0.0526,
+       0.5417
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5417,
+        12
+       ],
+       "WHU-Q1-03": [
+        0.0526,
+        19
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1906,
+       "difference_ci95": [
+        -0.4364,
+        -0.0526
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 39,
+      "rate": 0.0256,
+      "ci95": [
+       0.0,
+       0.0526
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0526,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 3.0,
+      "countable": 39,
+      "rate": 0.0769,
+      "ci95": [
+       0.05,
+       0.1053
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1053,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.05,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0513,
+       "difference_ci95": [
+        -0.0526,
+        -0.05
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Claude": {
+      "failures": 24.0,
+      "countable": 39,
+      "rate": 0.6154,
+      "ci95": [
+       0.5263,
+       0.7
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5263,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.7,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5898,
+       "difference_ci95": [
+        -0.7,
+        -0.4737
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 40.0,
+      "countable": 40,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9744,
+       "difference_ci95": [
+        -1.0,
+        -0.9474
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 24.0,
+      "countable": 32,
+      "rate": 0.75,
+      "ci95": [
+       0.6,
+       0.8824
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.6,
+        15
+       ],
+       "WHU-Q1-03": [
+        0.8824,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7244,
+       "difference_ci95": [
+        -0.8824,
+        -0.5474
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 6.0,
+      "countable": 31,
+      "rate": 0.1935,
+      "ci95": [
+       0.0,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5,
+        12
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        19
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1679,
+       "difference_ci95": [
+        -0.4474,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 39,
+      "rate": 0.0769,
+      "ci95": [
+       0.0,
+       0.1579
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1579,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 7.0,
+      "countable": 39,
+      "rate": 0.1795,
+      "ci95": [
+       0.1579,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1579,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1026,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 27.0,
+      "countable": 39,
+      "rate": 0.6923,
+      "ci95": [
+       0.5789,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5789,
+        19
+       ],
+       "WHU-Q1-03": [
+        0.8,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6154,
+       "difference_ci95": [
+        -0.8,
+        -0.4211
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 40.0,
+      "countable": 40,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.9231,
+       "difference_ci95": [
+        -1.0,
+        -0.8421
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 29.0,
+      "countable": 32,
+      "rate": 0.9062,
+      "ci95": [
+       0.8824,
+       0.9333
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.9333,
+        15
+       ],
+       "WHU-Q1-03": [
+        0.8824,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.8293,
+       "difference_ci95": [
+        -0.8824,
+        -0.7754
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 9.0,
+      "countable": 31,
+      "rate": 0.2903,
+      "ci95": [
+       0.1053,
+       0.5833
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5833,
+        12
+       ],
+       "WHU-Q1-03": [
+        0.1053,
+        19
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2134,
+       "difference_ci95": [
+        -0.4254,
+        -0.1053
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 37,
+      "rate": 0.027,
+      "ci95": [
+       0.0,
+       0.0588
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0588,
+        17
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        20
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 2.0,
+      "countable": 34,
+      "rate": 0.0588,
+      "ci95": [
+       0.0,
+       0.1111
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1111,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        16
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.0318,
+       "difference_ci95": [
+        -0.0523,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 22.0,
+      "countable": 34,
+      "rate": 0.6471,
+      "ci95": [
+       0.5556,
+       0.75
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5556,
+        18
+       ],
+       "WHU-Q1-03": [
+        0.75,
+        16
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6201,
+       "difference_ci95": [
+        -0.75,
+        -0.4967
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "ChatGPT": {
+      "failures": 40.0,
+      "countable": 40,
+      "rate": 1.0,
+      "ci95": [
+       1.0,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        20
+       ],
+       "WHU-Q1-03": [
+        1.0,
+        20
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.973,
+       "difference_ci95": [
+        -1.0,
+        -0.9412
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 19.0,
+      "countable": 22,
+      "rate": 0.8636,
+      "ci95": [
+       0.8571,
+       0.8667
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8571,
+        7
+       ],
+       "WHU-Q1-03": [
+        0.8667,
+        15
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.8366,
+       "difference_ci95": [
+        -0.8667,
+        -0.7983
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 6.0,
+      "countable": 28,
+      "rate": 0.2143,
+      "ci95": [
+       0.0,
+       0.5455
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.5455,
+        11
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        17
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1873,
+       "difference_ci95": [
+        -0.4866,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_overstates": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.3,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.1,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.3,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 3.5,
+      "countable": 10,
+      "rate": 0.35,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.15,
+       "difference_ci95": [
+        -0.4,
+        0.1
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 10,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.4,
+       "difference_ci95": [
+        -0.7,
+        -0.1
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.5,
+      "countable": 10,
+      "rate": 0.05,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.15,
+       "difference_ci95": [
+        0.0,
+        0.3
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2,
+       "difference_ci95": [
+        -0.4,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 10,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.2,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 4.0,
+      "countable": 10,
+      "rate": 0.4,
+      "ci95": [
+       0.2,
+       0.6
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 10,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.3,
+       "difference_ci95": [
+        -0.6,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.2,
+       "difference_ci95": [
+        0.0,
+        0.4
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.25,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 7,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.125,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.25,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 3.0,
+      "countable": 9,
+      "rate": 0.3333,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2083,
+       "difference_ci95": [
+        -0.5,
+        0.05
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 9,
+      "rate": 0.6667,
+      "ci95": [
+       0.25,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5417,
+       "difference_ci95": [
+        -0.75,
+        -0.25
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 8,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.125,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_understates_omits": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.5,
+      "countable": 10,
+      "rate": 0.05,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.05,
+       "difference_ci95": [
+        -0.1,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 10,
+      "rate": 0.5,
+      "ci95": [
+       0.2,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.5,
+      "countable": 10,
+      "rate": 0.15,
+      "ci95": [
+       0.1,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.15,
+       "difference_ci95": [
+        -0.2,
+        -0.1
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        0.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 10,
+      "rate": 0.5,
+      "ci95": [
+       0.2,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.2,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2,
+       "difference_ci95": [
+        -0.2,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 10,
+      "rate": 0.5,
+      "ci95": [
+       0.2,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 0.0,
+      "countable": 8,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 7,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        0.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.125,
+       "difference_ci95": [
+        -0.25,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 5.0,
+      "countable": 9,
+      "rate": 0.5556,
+      "ci95": [
+       0.25,
+       0.8
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.8,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5556,
+       "difference_ci95": [
+        -0.8,
+        -0.25
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 1.0,
+      "countable": 9,
+      "rate": 0.1111,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1111,
+       "difference_ci95": [
+        -0.25,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.125,
+       "difference_ci95": [
+        -0.25,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_overstates_contradicts": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.3,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.1,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.3,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 3.5,
+      "countable": 10,
+      "rate": 0.35,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.15,
+       "difference_ci95": [
+        -0.4,
+        0.1
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 10,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.4,
+       "difference_ci95": [
+        -0.7,
+        -0.1
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.5,
+      "countable": 10,
+      "rate": 0.05,
+      "ci95": [
+       0.0,
+       0.1
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.15,
+       "difference_ci95": [
+        0.0,
+        0.3
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2,
+       "difference_ci95": [
+        -0.4,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 10,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.8,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.2,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 4.0,
+      "countable": 10,
+      "rate": 0.4,
+      "ci95": [
+       0.2,
+       0.6
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 10,
+      "rate": 0.6,
+      "ci95": [
+       0.2,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.3,
+       "difference_ci95": [
+        -0.6,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.2,
+       "difference_ci95": [
+        0.0,
+        0.4
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.25,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 7,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.125,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.25,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 3.0,
+      "countable": 9,
+      "rate": 0.3333,
+      "ci95": [
+       0.2,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.2083,
+       "difference_ci95": [
+        -0.5,
+        0.05
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Gemini": {
+      "failures": 6.0,
+      "countable": 9,
+      "rate": 0.6667,
+      "ci95": [
+       0.25,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5417,
+       "difference_ci95": [
+        -0.75,
+        -0.25
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 0.0,
+      "countable": 8,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.125,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   },
+   "M2_any_failure": {
+    "combined": {
+     "WHU-lean": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.3,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 1.5,
+      "countable": 10,
+      "rate": 0.15,
+      "ci95": [
+       0.1,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.1,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.05,
+       "difference_ci95": [
+        0.0,
+        0.1
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.1,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.5,
+      "countable": 10,
+      "rate": 0.85,
+      "ci95": [
+       0.7,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.7,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.65,
+       "difference_ci95": [
+        -0.7,
+        -0.6
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 7.0,
+      "countable": 10,
+      "rate": 0.7,
+      "ci95": [
+       0.4,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.5,
+       "difference_ci95": [
+        -0.7,
+        -0.3
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.1,
+       0.3
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.1,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.3,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.2,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "claude_judge": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 10,
+      "rate": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 10,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        0.0,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.0,
+      "countable": 10,
+      "rate": 0.8,
+      "ci95": [
+       0.6,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7,
+       "difference_ci95": [
+        -0.8,
+        -0.6
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 7.0,
+      "countable": 10,
+      "rate": 0.7,
+      "ci95": [
+       0.4,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6,
+       "difference_ci95": [
+        -0.8,
+        -0.4
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.2,
+       0.2
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.2,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "openai_judge": {
+     "WHU-lean": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 3.0,
+      "countable": 10,
+      "rate": 0.3,
+      "ci95": [
+       0.2,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.4,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.2,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        0.0,
+        0.0
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 4.0,
+      "countable": 10,
+      "rate": 0.4,
+      "ci95": [
+       0.2,
+       0.6
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.2,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.6,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.1,
+       "difference_ci95": [
+        -0.4,
+        0.2
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 9.0,
+      "countable": 10,
+      "rate": 0.9,
+      "ci95": [
+       0.8,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.8,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6,
+       "difference_ci95": [
+        -0.6,
+        -0.6
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 7.0,
+      "countable": 10,
+      "rate": 0.7,
+      "ci95": [
+       0.4,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.4,
+       "difference_ci95": [
+        -0.6,
+        -0.2
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 2.0,
+      "countable": 10,
+      "rate": 0.2,
+      "ci95": [
+       0.0,
+       0.4
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.4,
+        5
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.1,
+       "difference_ci95": [
+        -0.2,
+        0.4
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    },
+    "agreed_only": {
+     "WHU-lean": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.25,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      }
+     },
+     "WHU-full": {
+      "failures": 0.0,
+      "countable": 7,
+      "rate": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        3
+       ],
+       "WHU-Q1-03": [
+        0.0,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.125,
+       "difference_ci95": [
+        0.0,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "Claude": {
+      "failures": 2.0,
+      "countable": 8,
+      "rate": 0.25,
+      "ci95": [
+       0.0,
+       0.5
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.125,
+       "difference_ci95": [
+        -0.5,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     },
+     "ChatGPT": {
+      "failures": 8.0,
+      "countable": 9,
+      "rate": 0.8889,
+      "ci95": [
+       0.75,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.75,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.7639,
+       "difference_ci95": [
+        -0.7639,
+        -0.75
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Gemini": {
+      "failures": 7.0,
+      "countable": 9,
+      "rate": 0.7778,
+      "ci95": [
+       0.5,
+       1.0
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        1.0,
+        5
+       ],
+       "WHU-Q1-03": [
+        0.5,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": -0.6528,
+       "difference_ci95": [
+        -0.75,
+        -0.5
+       ],
+       "difference_ci_excludes_zero": true
+      }
+     },
+     "Perplexity": {
+      "failures": 1.0,
+      "countable": 8,
+      "rate": 0.125,
+      "ci95": [
+       0.0,
+       0.25
+      ],
+      "per_question": {
+       "WHU-Q1-01": [
+        0.0,
+        4
+       ],
+       "WHU-Q1-03": [
+        0.25,
+        4
+       ]
+      },
+      "lean_vs": {
+       "difference_lean_minus": 0.0,
+       "difference_ci95": [
+        -0.25,
+        0.25
+       ],
+       "difference_ci_excludes_zero": false
+      }
+     }
+    }
+   }
+  }
+ },
+ "M1_kinds_lean": {
+  "a": 5,
+  "b": 2,
+  "c": 53
+ },
+ "pass_rule": {
+  "1_cost": {
+   "ledger_per_answer_scored": {
+    "WHU-Q1-01": 1.53,
+    "WHU-Q1-02": 2.13,
+    "WHU-Q1-03": 3.14
+   },
+   "median_scored": 2.13,
+   "with_Q1_04c": 2.63,
+   "none_over_10": true,
+   "holds": true
+  },
+  "2_fred_time": {
+   "minutes": 0,
+   "holds": true
+  },
+  "3_M1": {
+   "combined": 0.0508,
+   "countable": 59,
+   "bar": 0.15,
+   "excluding_process_and_declaration": 0.0192,
+   "countable_excl": 52,
+   "bar_excl": 0.06,
+   "holds": true
+  },
+  "4_M2": {
+   "M2_understates_omits": {
+    "claude_judge": {
+     "lean": 0.0,
+     "countable": 15,
+     "round1_whu_all_four": 0.0,
+     "round1_whu_same_three": 0.0,
+     "round1_same_three_countable": 15,
+     "lean_no_higher_than_round1": true
+    },
+    "openai_judge": {
+     "lean": 0.0,
+     "countable": 15,
+     "round1_whu_all_four": 0.0526,
+     "round1_whu_same_three": 0.0667,
+     "round1_same_three_countable": 15,
+     "lean_no_higher_than_round1": true
+    }
+   },
+   "M2_overstates_contradicts": {
+    "claude_judge": {
+     "lean": 0.0667,
+     "countable": 15,
+     "round1_whu_all_four": 0.0,
+     "round1_whu_same_three": 0.0,
+     "round1_same_three_countable": 15,
+     "lean_no_higher_than_round1": false
+    },
+    "openai_judge": {
+     "lean": 0.2,
+     "countable": 15,
+     "round1_whu_all_four": 0.1053,
+     "round1_whu_same_three": 0.1333,
+     "round1_same_three_countable": 15,
+     "lean_no_higher_than_round1": false
+    }
+   },
+   "holds": false
+  },
+  "5_seeded_defect": "deferred, not dropped",
+  "Q1_04": "Not Ready (whu-lean-q1-04c): recorded, not scored; fails bars 3 and 4 for that question",
+  "verdict": "does not pass \u00a710: WHU-Q1-04 did not reach Ready; on the three scored questions not every bar holds"
+ },
+ "secondary": {
+  "a_M1_within_10_points": {
+   "lean": 0.0508,
+   "bar": 0.22,
+   "holds": true
+  },
+  "b_lead_over_each_tool": {
+   "Claude": {
+    "difference_lean_minus": -0.5763,
+    "difference_ci95": [
+     -0.75,
+     -0.4474
+    ],
+    "difference_ci_excludes_zero": true
+   },
+   "ChatGPT": {
+    "difference_lean_minus": -0.9492,
+    "difference_ci95": [
+     -1.0,
+     -0.8947
+    ],
+    "difference_ci_excludes_zero": true
+   },
+   "Gemini": {
+    "difference_lean_minus": -0.7692,
+    "difference_ci95": [
+     -0.8824,
+     -0.6614
+    ],
+    "difference_ci_excludes_zero": true
+   },
+   "Perplexity": {
+    "difference_lean_minus": -0.2553,
+    "difference_ci95": [
+     -0.4364,
+     -0.0526
+    ],
+    "difference_ci_excludes_zero": true
+   }
+  },
+  "b_lead_without_Q1_02": {
+   "Claude": {
+    "difference_lean_minus": -0.6025,
+    "difference_ci95": [
+     -0.75,
+     -0.4474
+    ],
+    "difference_ci_excludes_zero": true
+   },
+   "ChatGPT": {
+    "difference_lean_minus": -0.9487,
+    "difference_ci95": [
+     -1.0,
+     -0.8947
+    ],
+    "difference_ci_excludes_zero": true
+   },
+   "Gemini": {
+    "difference_lean_minus": -0.7768,
+    "difference_ci95": [
+     -0.8824,
+     -0.6614
+    ],
+    "difference_ci_excludes_zero": true
+   },
+   "Perplexity": {
+    "difference_lean_minus": -0.1906,
+    "difference_ci95": [
+     -0.4364,
+     -0.0526
+    ],
+    "difference_ci_excludes_zero": true
+   }
+  },
+  "c_cost_and_time": {
+   "median_ledger": 2.13,
+   "human_minutes": 0
+  }
+ },
+ "spend": {
+  "whu-lean-q1-01c": 1.53,
+  "whu-lean-q1-02b": 2.13,
+  "whu-lean-q1-03b": 3.14,
+  "whu-lean-q1-04c": 4.6,
+  "whu-reliability-judging-lean": 26.08
+ }
+}
