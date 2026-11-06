@@ -63,3 +63,4 @@ Ruling 2 said to start Q1-04 now, so it is next. Re-check the room rule (it rese
 - **Q1-01b finished Not Ready ($1.19) and found three defects in f11c6c9** (deviations, 21:25Z). Q1-02b..04b are NOT started; waiting on the advisor.
 - **Third freeze 9db89f2** (corrections after Q1-01b). Reserve $4 moved to the runs line ($44, $24.85 left). Order: Q1-01c (`--rerun-c 01` for the scanner), then Q1-02b, Q1-03b, Q1-04b (`--rerun-b NN`).
 - **Q1-01c Ready ($1.53), reading check passes.** Next: Q1-02b. Day ledger $46.97 + $4.54 likely > $50, so it starts after 00:00 UTC (room rule).
+- **Q1-02b Not Ready ($2.13): one STOP, a false positive in `omissions.leaks_source_text`** (substring, not whole-word, match; deviations 00:55Z). Contamination valid; reading check passes. Q1-03b NOT started; waiting on the advisor. If fixed: test, re-freeze, $0 re-check of Q1-02b, then Q1-03b, Q1-04b.
