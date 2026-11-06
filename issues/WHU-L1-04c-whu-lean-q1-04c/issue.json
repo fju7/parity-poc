@@ -1,0 +1,12 @@
+{
+  "id": "WHU-L1-04c",
+  "slug": "whu-lean-q1-04c",
+  "title": "Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?",
+  "question": "Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?",
+  "study": true,
+  "round": "lean",
+  "status": "draft",
+  "_round_note": "The lean four-question test (study/whu-reliability/next_phase/validity_plan.md §10; next_phase/lean_test_rule.md): round 1's question WHU-Q1-04, verbatim, asked again of lean WHU (\"lean + machine scope notes\", process doc §4.6.1), drafted on the fifth freeze (0fece2a) after the advisor's ruling of 6 November 2026 after Q1-04b. Outside the reliability study's H1 and H2. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-q1-04c; run cap $10. Created 2026-11-06 by session LT (the scoring side); nothing else is written here until drafting starts.",
+  "run_cap_usd": 10,
+  "_run_cap_note": "run_cap_usd: the $10 run cap (lean_test_rule.md), enforced in code on every paid call (spend_ledger.cap_for; advisor's ruling after Q1-01b). Added by session LT."
+}
