@@ -343,7 +343,10 @@ def test_rule3b_unknown_matched_gets_its_line_and_untied_are_counted_never_dismi
     srcs = _srcs(False)
     u = LE.decide("x", tmp_path, {"name": "A", "status": "UNKNOWN", "latest_known": "?"}, "S002", srcs, {}, {},
                   matched_by="identifier (doi)")
-    assert u["sentence"] == "We could not establish whether The State of Carbon Dioxide Removal, 2nd edition has a newer edition."
+    # wording after Q1-04c (advisor, option (b)); the record lists no registry, so "searched" is empty
+    assert u["sentence"] == ("Our recency check could not establish whether The State of Carbon Dioxide Removal, "
+                             "2nd edition has a newer edition.")
+    assert u["searched"] == []
     for n in ("B", "C"):
         LE.decide("x", tmp_path, {"name": n, "status": "UNKNOWN", "latest_known": "?"}, None, srcs, {}, {},
                   matched_by="no DOI, PMID, PMCID, URL, author or title matches a page source")
@@ -683,3 +686,125 @@ def test_over_budget_line_is_code_known_text_only():
     line = C.declaration_sentence(C.OVER_BUDGET, "Removal costs vary widely by method.", "A report [2]", "ignored")
     assert line == "Not added: “Removal costs vary widely by method.” (A report [2]) (over the additions budget)."
     assert LF.is_no_place_line(line)
+
+
+# ------------------------------------------------------------------ readers'-list lines (after Q1-04c, ruling D)
+# Process doc §4.6.1, "Correction after Q1-04c". Q1-03b's post-D records: its "Judged not
+# material" line d1624d4c9d8280b0 is unbound, and the old fail-safe recorded it removed.
+
+Q3B = ROOT / "issues" / "WHU-L1-03b-whu-lean-q1-03b"
+Q3B_SLUG = "whu-lean-q1-03b"
+Q3B_LINE = "d1624d4c9d8280b0"
+needs_q3b = pytest.mark.skipif(not (Q3B / "bindings.json").exists(), reason="Q1-03b's records are not on this machine")
+
+
+@pytest.fixture
+def q3b(tmp_path, monkeypatch):
+    import shutil
+    import source_store as store
+    case = tmp_path / Q3B.name
+    shutil.copytree(Q3B, case)
+    monkeypatch.setattr(store, "case_dir", lambda slug: case)
+    monkeypatch.setattr(SL, "case_dir", lambda slug: case)
+    return case
+
+
+def _decl_rows(rows):
+    return {k: r for k, r in rows.items() if r.get("on_page") and LF.is_required_line(r.get("sentence") or "")}
+
+
+@needs_q3b
+def test_declaration_lines_are_bound_by_code_to_the_span_they_quote(q3b, lean_on):
+    import changecheck as CC
+    held = R.held_texts(Q3B_SLUG)
+    rows = B.load(Q3B_SLUG)["bindings"]
+    assert not rows[Q3B_LINE].get("span")                       # post-D: the line is unbound
+    line = rows[Q3B_LINE]["sentence"]
+    assert [f["kind"] for f in CC.deterministic(Q3B_SLUG, [line])] == ["NEW_AND_UNBOUND"]
+    import judgements as J
+    before_j = J.preflight_rows(Q3B_SLUG, [])
+    before_cov = C.preflight_rows(Q3B_SLUG, [])
+
+    doc, unbound, _stale = B.scan(Q3B_SLUG)
+    rows = doc["bindings"]
+    decl = _decl_rows(rows)
+    assert Q3B_LINE in decl and len(decl) >= 2                  # every readers'-list line, not only this one
+    for k, r in decl.items():
+        assert B.is_declaration_row(r) and r["by"] == B.DECLARATION_BY and k not in unbound
+        a, b = r["offsets"]
+        assert held[r["source_id"]][a:b] == r["span"]           # verbatim, with its offsets
+        assert r["declaration_key"].startswith(r["source_id"] + "@")
+    assert CC.deterministic(Q3B_SLUG, [line]) == []             # changecheck cannot find it unbound
+    # the binding says what the list shows, not that the page uses the finding
+    assert C.preflight_rows(Q3B_SLUG, []) == before_cov       # coverage: a declared unit stays declared
+    assert J.preflight_rows(Q3B_SLUG, []) == before_j         # judgements: a declared one is not "stated"
+    # the old fail-safe's removal of this required line now reads as a stop: the line
+    # stays on the readers' list, and these post-D records are Not Ready (why Q1-03b's
+    # own records are restored from the pre-D copy before step 9 is run again)
+    assert any(r["fingerprint"] == Q3B_LINE for r in LF.stops(Q3B_SLUG))
+    assert LS.words(line) not in LF.removed_words(Q3B_SLUG)
+    assert any(d["sentence"] == line for d in C.declarations(Q3B_SLUG, held))
+
+
+@needs_q3b
+def test_a_finding_on_a_declaration_line_stops_the_page_and_never_removes_it(q3b, lean_on):
+    line = B.load(Q3B_SLUG)["bindings"][Q3B_LINE]["sentence"]
+    assert LF.is_required_line(line)
+    got = LF.record("changecheck", {"sentence": line, "kind": "changecheck: FIGURE_IN_NOTHING_HELD",
+                                    "protected": "scope", "ref": {"finding_key": "a-new-finding"}},
+                    q3b / "rulings" / "rulings.jsonl")
+    assert got["outcome"] == LF.STOP
+    assert any(r["finding_key"] == "a-new-finding" and r["outcome"] == LF.STOP for r in LF.stops(Q3B_SLUG))
+    # a STOP row never counts as a removal
+    assert all(r["outcome"] != LF.OUTCOME for r in LF.load(q3b) if r["finding_key"] == "a-new-finding")
+
+
+def test_every_readers_list_lead_is_required_and_ordinary_sentences_are_not():
+    for state in ("out_of_scope", "not_material", "not_added_cap", C.NO_PLACE, C.BEYOND, C.OVER_BUDGET):
+        line = C.declaration_sentence(state, "A finding the source states.", "A report [1]", None)
+        assert LF.is_required_line(line), line
+    assert not LF.is_required_line("Removal rose sharply after 2020, the report says.")
+    assert not LF.is_required_line("Not added to the total are the soil estimates.")
+
+
+# ------------------------------------------------------------------ rule 3b provenance (after Q1-04c, fix 1)
+# Process doc §4.6.1, "Correction after Q1-04c", second part (advisor's ruling, option (b)).
+
+Q4C = ROOT / "issues" / "WHU-L1-04c-whu-lean-q1-04c"
+Q4C_SLUG = "whu-lean-q1-04c"
+needs_q4c = pytest.mark.skipif(not (Q4C / "rulings" / "lean_editions.jsonl").exists(),
+                               reason="Q1-04c's records are not on this machine")
+
+
+@needs_q4c
+def test_q1_04c_unknown_line_on_a_record_with_no_registries_stops_the_row(lean_on):
+    import lean_sentences as LSn
+    row = LE.preflight_rows(Q4C_SLUG)[0]
+    assert row[0] == LE.ROW and row[1] == LE.BAD, row
+    assert "lists no registry searched" in row[2] and "State of CDR 3rd Edition, Chapter 8" in row[2]
+    # its line (decided on the fifth freeze, old wording) is still a code line, protected as "reading"
+    line = next(d["sentence"] for d in LE.decisions(Q4C) if d.get("outcome") == LE.UNKNOWN_LINE)
+    assert LE.is_code_line(line) and B.protected_kind(line) == "reading"
+    assert any(line.startswith(x) for x in LSn.LEADS)
+
+
+def test_unknown_line_names_the_registries_when_the_gate_record_lists_them(tmp_path, monkeypatch):
+    import source_store as store
+    srcs = _srcs(False)
+    st = {"name": "A", "status": "UNKNOWN", "latest_known": "?", "searched": ["Crossref", "Europe PMC"]}
+    u = LE.decide("x", tmp_path, st, "S002", srcs, {}, {}, matched_by="identifier (doi)")
+    assert u["sentence"] == ("Our recency check (searched: Crossref, Europe PMC) could not establish whether "
+                             "The State of Carbon Dioxide Removal, 2nd edition has a newer edition.")
+    assert u["searched"] == ["Crossref", "Europe PMC"]
+    assert len(SL.sentences(u["sentence"])) == 1 and LE.is_code_line(u["sentence"])
+    assert B.protected_kind(u["sentence"]) == "reading"
+    # with provenance, the row does not stop on it
+    monkeypatch.setattr(store, "case_dir", lambda slug: tmp_path)
+    monkeypatch.setattr(LE, "superseded", lambda case: [st])
+    row = LE.preflight_rows("x", page_sentences=[u["sentence"]])[0]
+    assert row[1] == LE.OK, row
+    # without it, the same line on the page stops the row
+    v = LE.decide("x", tmp_path / "b", dict(st, searched=[]), "S002", srcs, {}, {}, matched_by="identifier (doi)")
+    monkeypatch.setattr(store, "case_dir", lambda slug: tmp_path / "b")
+    row = LE.preflight_rows("x", page_sentences=[v["sentence"]])[0]
+    assert row[1] == LE.BAD and "lists no registry searched" in row[2]

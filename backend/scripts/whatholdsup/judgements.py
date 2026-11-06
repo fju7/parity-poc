@@ -140,9 +140,10 @@ def bound_sentences(rows: dict, held: dict[str, str]) -> list[tuple[str, list[in
     import audit_stage as A
     import ruling as R
     out = []
+    import bindings as B
     for r in rows.values():
-        if not r.get("on_page"):
-            continue
+        if not r.get("on_page") or B.is_declaration_row(r):
+            continue               # a readers'-list line does not state the judgement
         for sid, q in R.quotations(r, held):
             at = A.locate(q, held.get(sid) or "")
             if at:

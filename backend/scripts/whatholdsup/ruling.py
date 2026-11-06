@@ -1301,7 +1301,8 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
     log = case / "rulings" / "rulings.jsonl"
 
     def bound_spans(sid: str) -> list[str]:
-        return [q for r in rows.values() if r.get("on_page") for s_, q in quotations(r, held) if s_ == sid]
+        return [q for r in rows.values() if r.get("on_page") and not B.is_declaration_row(r)
+                for s_, q in quotations(r, held) if s_ == sid]
 
     def already(sid: str) -> list[str]:
         return [r["sentence"] for r in rows.values()
@@ -1574,7 +1575,8 @@ def omission_units(slug: str, rulings: int, case: Path | None = None, held: dict
     reasks = 0
     for it in _leaves_out(slug, case):
         sid = it["source"]
-        bound = [q for r in rows.values() if r.get("on_page") for s_, q in quotations(r, held) if s_ == sid]
+        bound = [q for r in rows.values() if r.get("on_page") and not B.is_declaration_row(r)
+                 for s_, q in quotations(r, held) if s_ == sid]
         if SA.needs_reask(it["objection"], held.get(sid) or "", bound):
             reasks += 1
     return rulings + REASK_UNITS * reasks

@@ -467,6 +467,62 @@ def blank_row(sent: str, why: str) -> dict:
     }
 
 
+# LEAN WHU (process doc §4.6.1, "Correction after Q1-04c"; advisor, 6 November 2026):
+# a code-written readers'-list declaration line ("Judged not material to this
+# question: “…” (… [n]).") is bound BY CODE to the verbatim held span it quotes,
+# with its offsets and declaration key, so changecheck never finds it unbound.
+# Such a row says what the readers' list shows, not that the page uses the
+# finding: coverage, judgements and the omission re-ask do not count it
+# (is_declaration_row).
+DECLARATION_LINE = "declaration_line"
+DECLARATION_BY = "code (lean: readers'-list line bound to the span it quotes)"
+
+
+def is_declaration_row(row: dict) -> bool:
+    return (row or {}).get("origin") == DECLARATION_LINE
+
+
+def bind_declaration_lines(slug: str, rows: dict, sentences: list[str] | None = None,
+                           held: dict[str, str] | None = None) -> list[str]:
+    """Under lean, bind each readers'-list declaration line on the page to the
+    span it quotes. Returns the fingerprints bound. A line whose quotation is not
+    found in its held text is left as it is (and reported unbound)."""
+    import lean
+    if not lean.enabled():
+        return []
+    import audit_stage as A
+    import coverage_check as C
+    import ruling as R
+    held = held if held is not None else R.held_texts(slug)
+    try:
+        decls = C.declarations(slug, held)
+    except (Exception, SystemExit):
+        return []
+    by_line = {" ".join(d["sentence"].split()): d for d in decls if d.get("sentence")}
+    shas = {s.get("id"): ((s.get("access") or {}).get("held") or {}).get("sha256") for s in store.sources(slug)}
+    done = []
+    for sent in (sentences if sentences is not None else page_sentences(slug)):
+        d = by_line.get(" ".join(sent.split()))
+        if not d:
+            continue
+        m = re.match(r"^[^“]*“(.*?)”", " ".join(sent.split()))
+        q = (m.group(1) if m else "").strip()
+        q = q[:-1].rstrip() if q.endswith("…") else q
+        text = held.get(d["source"]) or ""
+        at = A.locate(q, text) if q else None
+        if not at:
+            continue
+        sha = fingerprint(sent)
+        row = rows.get(sha) or blank_row(sent, "readers' list line (code-written)")
+        rows[sha] = row
+        row.update({"on_page": True, "bucket": "context", "origin": DECLARATION_LINE, "by": DECLARATION_BY,
+                    "source_id": d["source"], "document_sha": shas.get(d["source"]), "locator_type": "prose",
+                    "locator": "readers' list line (%s, %s)" % (d["key"], d["state"]),
+                    "span": text[at[0]:at[1]], "offsets": [at[0], at[1]], "declaration_key": d["key"]})
+        done.append(sha)
+    return done
+
+
 def scan(slug: str) -> tuple[dict, list[str], list[str]]:
     """(doc, unbound, stale). Adds a blank row for every empirical sentence
     that has none; never deletes, because a sentence that has left the page is
@@ -528,6 +584,11 @@ def scan(slug: str) -> tuple[dict, list[str], list[str]]:
         rows[sha]["on_page"] = True
         if not rows[sha].get("span"):
             unbound.append(sha)
+    coded = set(bind_declaration_lines(slug, rows))
+    if coded:
+        live |= coded
+        present |= coded
+        unbound = [s for s in unbound if s not in coded]
     stale = []
     for sha, row in rows.items():
         if sha in live:
@@ -1114,6 +1175,7 @@ DECLARATION_LEAD = re.compile(
 # quotes the gate's "latest known", which may say "found", so it is matched
 # before STATES_FINDING.
 NEWER_EDITION = re.compile(r"^\W*(?:A newer edition exists of |We could not establish whether .{1,400} has a newer edition"
+                           r"|Our recency check (?:\(searched: [^)]{1,400}\) )?could not establish whether .{1,400} has a newer edition"
                            r"|\d+ recency questions? not tied to any source on this page)", re.I)
 
 

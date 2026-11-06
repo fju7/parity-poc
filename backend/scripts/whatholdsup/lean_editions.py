@@ -48,16 +48,30 @@ ROW = "newer editions handled"
 # Code-known text only (advisor's ruling after Q1-01b): the source's sources.json
 # title and edition; the gate's prose and figures stay in the records.
 FRAME = "A newer edition exists of %s; this page uses %s."
-UNKNOWN_FRAME = "We could not establish whether %s has a newer edition."
+# After Q1-04c (advisor's ruling, option (b); process doc §4.6.1): the line says whose
+# check it was, and what it searched when the gate's recency record lists that. An
+# UNKNOWN line resting on a record with no list of registries searched STOPs the row
+# below, whatever the wording: missing provenance stops the page.
+UNKNOWN_FRAME = "Our recency check could not establish whether %s has a newer edition."
+UNKNOWN_FRAME_SEARCHED = "Our recency check (searched: %s) could not establish whether %s has a newer edition."
+OLD_UNKNOWN_LEAD = "We could not establish whether "     # lines decided before the sixth freeze
 COUNT_FRAME = "%d recency questions not tied to any source on this page were recorded and not acted on."
 COUNT_FRAME_ONE = "1 recency question not tied to any source on this page was recorded and not acted on."
-LEADS = ("A newer edition exists of ", "We could not establish whether ")
+LEADS = ("A newer edition exists of ", "Our recency check ", OLD_UNKNOWN_LEAD)
 COUNT_RE = __import__("re").compile(r"^\d+ recency questions? not tied to any source on this page")
 BY = "code (lean rule 3b: newer edition)"
 USED, DISCLOSED, UNKNOWN_LINE, UNTIED = "used", "disclosed", "unknown", "untied"
 SUPERSEDED, UNKNOWN = "SUPERSEDED", "UNKNOWN"
 HANDLED = (SUPERSEDED, UNKNOWN)
 COUNT_KEY = "untied recency questions (count)"
+
+
+def searched_of(study: dict) -> list[str]:
+    """The registries the gate's recency record says it searched ([] when it lists none)."""
+    got = study.get("searched") or study.get("registries_searched") or []
+    if isinstance(got, str):
+        got = [got]
+    return [" ".join(str(x).split()) for x in got if str(x).strip()]
 
 
 def _clean(s: str) -> str:
@@ -249,8 +263,12 @@ def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources:
         rec.update({"outcome": UNTIED, "sentence": None, "new_source": None})
         return _append(case, rec)
     if study.get("status") != SUPERSEDED:
-        rec.update({"outcome": UNKNOWN_LINE, "sentence": UNKNOWN_FRAME % title_of(sources, matched_sid),
-                    "new_source": None})
+        searched = searched_of(study)
+        title = title_of(sources, matched_sid)
+        line = UNKNOWN_FRAME_SEARCHED % (_clean(", ".join(searched)), title) if searched else UNKNOWN_FRAME % title
+        if searched and not _one_sentence(line):
+            line = UNKNOWN_FRAME_SEARCHED % ("%d registries" % len(searched), title)
+        rec.update({"outcome": UNKNOWN_LINE, "sentence": line, "searched": searched, "new_source": None})
         return _append(case, rec)
     newer = [s.get("id") for s in sources if s.get("newer_edition_of") == matched_sid and s.get("id") in held]
     if newer:
@@ -323,7 +341,9 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
     for ln in lines(case):
         if LS.words(ln["sentence"]) not in on:
             absent.append(ln["sentence"])
-    if open_ or absent:
+    # missing provenance (after Q1-04c): an UNKNOWN line whose recency record lists no registry searched
+    blind = [d for d in ds.values() if d.get("outcome") == UNKNOWN_LINE and not d.get("searched")]
+    if open_ or absent or blind:
         bits = []
         if open_:
             bits.append("%d SUPERSEDED or UNKNOWN stud(ies) not yet decided (run ruling.py gate): %s"
@@ -331,6 +351,10 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
         if absent:
             bits.append("%d code line(s) not on the page (paste lean_sentences.py render): %r"
                         % (len(absent), absent[0][:120]))
+        if blind:
+            bits.append("%d UNKNOWN recency stud(ies) rest on a gate record that lists no registry searched, "
+                        "so nothing shows where the check looked (missing provenance stops the page): %s"
+                        % (len(blind), "; ".join((d.get("study") or "?")[:80] for d in blind[:3])))
         return [(ROW, BAD, "; ".join(bits))]
     by = {}
     for s in studies:

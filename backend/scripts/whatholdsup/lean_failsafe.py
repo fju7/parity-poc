@@ -35,7 +35,7 @@ OUTCOME = "removed: unresolved finding"
 REQUIRED = "removed: unresolved finding on a required page element"
 # A "no place" Not added line (coverage_check.NO_PLACE) is a required page element
 # the fail-safe may not remove: a finding on it stops the page (advisor, 2026-11-05).
-STOP = "Not Ready: unresolved finding on a required 'Not added' line"
+STOP = "Not Ready: unresolved finding on a required readers'-list line"
 LEAN_RELEVANT_BY = "code (lean: relevance not verified, treated as relevant)"
 BY = "code (lean fail-safe, ruling.py)"
 # the protected kinds ruling.split_protected gives, and source_advocate.AMBIGUOUS
@@ -57,6 +57,15 @@ def is_no_place_line(sentence: str) -> bool:
     import coverage_check as C
     w = " ".join((sentence or "").split())
     return w.startswith(C.LEAD[C.NO_PLACE]) and any(w.rstrip(".").endswith(t) for t in C.CODE_LINES.values())
+
+
+def is_required_line(sentence: str) -> bool:
+    """A code-written readers'-list line: a "Not added" line, or (after Q1-04c;
+    process doc §4.6.1, advisor, 6 November 2026) any declaration line. A finding
+    on one stops the page; the fail-safe never removes it."""
+    import coverage_check as C
+    w = " ".join((sentence or "").split())
+    return is_no_place_line(sentence) or any(w.startswith(l + " “") for l in set(C.LEAD.values()))
 
 
 def _key(it: dict) -> str:
@@ -98,7 +107,7 @@ def record(mode: str, it: dict, log: Path) -> dict | None:
     row = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "path": mode,
            "finding": it.get("kind") or "", "finding_key": _key(it), "protected": it.get("protected"),
            "sentence": sentence, "fingerprint": B.fingerprint(sentence), "ref": it.get("ref"),
-           "outcome": STOP if is_no_place_line(sentence) else OUTCOME, "by": BY}
+           "outcome": STOP if is_required_line(sentence) else OUTCOME, "by": BY}
     have = load(log)
     if any((h["path"], h["finding_key"], h["fingerprint"]) == (mode, row["finding_key"], row["fingerprint"])
            for h in have):
@@ -129,12 +138,19 @@ def removed(slug: str) -> list[dict]:
     return load(case) if case else []
 
 
+def _is_stop(r: dict) -> bool:
+    # A removal recorded on a required line (before the correction after Q1-04c)
+    # is read as what the rule now makes it: a stop. The line stays on the page.
+    return r.get("outcome") == STOP or (r.get("outcome") == OUTCOME and is_required_line(r.get("sentence") or ""))
+
+
 def stops(slug: str) -> list[dict]:
-    return [r for r in removed(slug) if r.get("outcome") == STOP]
+    return [r for r in removed(slug) if _is_stop(r)]
 
 
 def removed_words(slug: str) -> set[str]:
-    return {_words(r["sentence"]) for r in removed(slug) if r.get("sentence") and r.get("outcome") == OUTCOME}
+    return {_words(r["sentence"]) for r in removed(slug)
+            if r.get("sentence") and r.get("outcome") == OUTCOME and not _is_stop(r)}
 
 
 FRAGMENT_WORDS = 5     # an ambiguous item's target is a fragment; it removes every sentence holding it

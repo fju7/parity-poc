@@ -70,7 +70,7 @@ SEARCHED_FULL_FRAME = ("We searched the full text of %s and checked the passages
 LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstract of ",
          "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
          "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists of ",
-         "We could not establish whether ")
+         "We could not establish whether ", "Our recency check ")
 HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 

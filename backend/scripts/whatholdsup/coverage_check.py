@@ -310,9 +310,10 @@ def bound_ranges(rows: dict, held: dict[str, str]) -> dict[str, list[list[int]]]
     import audit_stage as A
     import ruling as R
     spans: dict[str, list[list[int]]] = {}
+    import bindings as B
     for r in rows.values():
-        if not r.get("on_page"):
-            continue
+        if not r.get("on_page") or B.is_declaration_row(r):
+            continue               # a readers'-list line shows a declaration; it does not use the unit
         for sid, q in R.quotations(r, held):
             at = A.locate(q, held.get(sid) or "")
             if at:
@@ -517,8 +518,9 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
     if lean.enabled():
         # Lean's fail-safe (lean_failsafe.py; process doc §4.6.1, the ruling
         # paths): a line removed over an unresolved finding is not rendered. Its
-        # declaration stays in the records; a readers'-list line is not a
-        # required page element.
+        # declaration stays in the records. (After Q1-04c every readers'-list
+        # line is a required element, so the fail-safe no longer removes one;
+        # this still honours removals recorded before that.)
         import lean_failsafe as LF
         gone = LF.removed_words(slug)
         if gone:
