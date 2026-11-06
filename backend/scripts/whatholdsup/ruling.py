@@ -1243,6 +1243,12 @@ BEYOND_WHY = "the ADD's span is not in the finding"
 BEYOND_BY = "code (lean: the proposed sentence went beyond the finding)"
 
 
+# Lean WHU (process doc §4.6.1, "Correction after Q1-04b"; advisor, 6 November 2026): an
+# ADD past the additions budget becomes code's "Not added ... (over the additions budget)".
+OVER_BUDGET_WHY = "over the ADD budget"
+OVER_BUDGET_BY = "code (lean: over the additions budget)"
+
+
 def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None = None) -> dict:
     """Lean WHU (process doc §4.6.1, the ruling paths; advisor, 2026-11-05,
     option 2): an ADD with no place on the page is recorded NOT_ADDED_NO_PLACE,
@@ -1258,8 +1264,8 @@ def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None
     origins = list(dict.fromkeys(had + list(f.get("origins") or [f.get("origin")])))
     f = dict(f, origins=origins)
     outcome = outcome or O.NOT_ADDED_NO_PLACE
-    O.record(case, f, held_text=held, outcome=outcome, reason=why,
-             by=BEYOND_BY if outcome == O.NOT_ADDED_BEYOND else NO_PLACE_BY)
+    by = {O.NOT_ADDED_BEYOND: BEYOND_BY, O.NOT_ADDED_OVER_BUDGET: OVER_BUDGET_BY}.get(outcome, NO_PLACE_BY)
+    O.record(case, f, held_text=held, outcome=outcome, reason=why, by=by)
     print("  lean: %s (%s) -- listed for readers as Not added" % (why[:60], ", ".join(f.get("origins") or [])))
     return {"outcome": outcome, "origins": f.get("origins"), "why": why}
 
@@ -1356,6 +1362,10 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             # lean rule 3a: code's "Not added ... (the proposed sentence went beyond the finding)"
             done.append(lean_no_place(case, f, held, why, O.NOT_ADDED_BEYOND))
             return
+        if LEAN and why.startswith(OVER_BUDGET_WHY):
+            # after Q1-04b: code's "Not added ... (over the additions budget)"; no person
+            done.append(lean_no_place(case, f, held, why, O.NOT_ADDED_OVER_BUDGET))
+            return
         O.record(case, f, held_text=held, outcome=O.TO_PERSON, reason=why,
                  by="code (ruling.py omissions)")
         route_to_person("omissions", [{"protected": "omission: " + why, "sentence": f.get("anchor") or "",
@@ -1426,7 +1436,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 to_person(f, "%s: %s" % (NO_PLACE_WHY, how))
                 continue
             if counts["ADD"] >= O.add_budget(n_body):
-                to_person(f, "over the ADD budget (%d)" % O.add_budget(n_body))
+                to_person(f, "%s (%d)" % (OVER_BUDGET_WHY, O.add_budget(n_body)))
                 continue
             counts["ADD"] += 1
             O.record(case, f, held_text=held, outcome=O.ADD, reason=got["reason"], by=BY, ruling=rid,

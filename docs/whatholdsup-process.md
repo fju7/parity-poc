@@ -384,7 +384,8 @@ lines, and `ruling.py` left both for a person. Two changes, both under `WHU_LEAN
   - a read that fails after escalation;
   - an omission that `rule_omissions` sends to a person for any other reason: a budget reached,
     NOT_MATERIAL on a SERIOUS objection that changes the conclusion, OUT_OF_SCOPE refused by code, an
-    unusable reply, or an ADD whose span is not in the finding.
+    unusable reply, or an ADD whose span is not in the finding. (Since the correction after Q1-04b,
+    below, an ADD past the additions budget is a "Not added" line under lean WHU, not a person's step.)
 
   None of these occurred on round 1's four questions.
 - Tested offline (`backend/tests/test_whu_lean_failsafe.py`):

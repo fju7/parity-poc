@@ -86,7 +86,8 @@ DECLARED = ("out_of_scope", "not_material", "not_added_cap")
 COUNTED = ("out_of_scope", "not_material")    # what the declarations budget counts
 HEADING = "Findings in our sources we judged outside this question"
 LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
-        "not_added_cap": "Not added:", "not_added_no_place": "Not added:", "not_added_beyond": "Not added:"}
+        "not_added_cap": "Not added:", "not_added_no_place": "Not added:", "not_added_beyond": "Not added:",
+        "not_added_over_budget": "Not added:"}
 # Lean WHU (process doc §4.6.1, the ruling paths): code's own line for an ADD with no
 # place on the page; a required page element, and not counted against the budget.
 NO_PLACE = "not_added_no_place"
@@ -94,7 +95,10 @@ NO_PLACE_TAIL = "(no place on the page)"
 # Lean rule 3a: an ADD whose span is not in the finding (code refused it).
 BEYOND = "not_added_beyond"
 BEYOND_TAIL = "(the proposed sentence went beyond the finding)"
-CODE_LINES = {NO_PLACE: NO_PLACE_TAIL, BEYOND: BEYOND_TAIL}
+# Lean, after Q1-04b: an ADD past the additions budget (code's line; no person asked).
+OVER_BUDGET = "not_added_over_budget"
+OVER_BUDGET_TAIL = "(over the additions budget)"
+CODE_LINES = {NO_PLACE: NO_PLACE_TAIL, BEYOND: BEYOND_TAIL, OVER_BUDGET: OVER_BUDGET_TAIL}
 CAP_REASON = "the page's limit for %s was reached"     # not_added_cap's reader-facing reason
 
 CALIBRATED = re.compile(r"\b(?:very\s+low|low|medium|high|very\s+high)\s+confidence"
@@ -331,7 +335,8 @@ def account(units: list[dict], rows: dict, held: dict[str, str], omissions_doc: 
                     if e.get("source") == u["source"] and e.get("at") and _overlaps(e["at"], u["at"])]
             add = [e for e in hits if e.get("outcome") == "ADD"]
             dec = [e for e in hits if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP",
-                                                           "NOT_ADDED_NO_PLACE", "NOT_ADDED_BEYOND")]
+                                                           "NOT_ADDED_NO_PLACE", "NOT_ADDED_BEYOND",
+                                                           "NOT_ADDED_OVER_BUDGET")]
             if add:
                 state, how = "added", add[0].get("key")
             elif k in declarations:
@@ -461,7 +466,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
     out = []
     for e in O.load(case).get("omissions") or []:
         if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP", "NOT_ADDED_NO_PLACE",
-                                "NOT_ADDED_BEYOND") and e.get("at"):
+                                "NOT_ADDED_BEYOND", "NOT_ADDED_OVER_BUDGET") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
                         "from": "omissions",
@@ -600,7 +605,7 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
               if d["state"] == "out_of_scope" and not O.scope_element_ok(d.get("element") or "", scope)[0]]
     none = [u for u in acc if u["state"] == "none"]
     counts = {s: len([u for u in acc if u["state"] == s])
-              for s in ("used", "added") + DECLARED + (("already_stated", NO_PLACE, BEYOND) if LEAN else ())}
+              for s in ("used", "added") + DECLARED + (("already_stated", NO_PLACE, BEYOND, OVER_BUDGET) if LEAN else ())}
     detail = "%d unit(s) in %d relied-on source(s): %s. %s" % (
         len(acc), len({u["source"] for u in acc}),
         ", ".join("%d %s" % (n, s) for s, n in counts.items() if n) or "none accounted", LIMIT)

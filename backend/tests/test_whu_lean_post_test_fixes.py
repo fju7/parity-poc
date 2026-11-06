@@ -576,3 +576,110 @@ def test_leak_guard_does_not_match_inside_a_word(tmp_path, lean_on):
     assert "three districts the authors reported an" in O._fold((case / "omissions.json").read_text())
     assert O.leaks_source_text(case, held) == []
     assert O.preflight_rows("whu-lean-q1-leak", [], case=case, held=held)[0][1] == "ok"
+
+
+# ------------------------------------------------------------------ over the additions budget (after Q1-04b)
+# Process doc §4.6.1, "Correction after Q1-04b" (advisor's ruling of 6 November 2026).
+# Q1-04b's own records, replayed at $0: rule_omissions reuses each recorded ruling
+# (fix 7, carried_ruling), so a paid call here is a failure, not a cost.
+
+Q4B = ROOT / "issues" / "WHU-L1-04b-whu-lean-q1-04b"
+Q4B_SLUG = "whu-lean-q1-04b"
+OVER = ["S002-08", "S002-10", "S002-13", "S002-14"]
+needs_q4b = pytest.mark.skipif(not (Q4B / "omissions.json").exists() or not (Q4B / "rulings").exists(),
+                               reason="Q1-04b's records are not on this machine")
+
+
+@pytest.fixture
+def q4b(tmp_path, monkeypatch):
+    import shutil
+    import source_store as store
+    case = tmp_path / Q4B.name
+    shutil.copytree(Q4B, case)
+    monkeypatch.setattr(store, "case_dir", lambda slug: case)
+    monkeypatch.setattr(SL, "case_dir", lambda slug: case)
+    return case
+
+
+def _replay_q4b(case: Path):
+    """rule_omissions on the copy, with no paid call and S002-08's recorded re-ask."""
+    held = R.held_texts(Q4B_SLUG)
+    e08 = next(e for e in O.load(case)["omissions"] if e.get("origins") == ["S002-08"])
+    asked = []
+
+    def no_call(*a, **k):
+        raise AssertionError("a paid ruling call: the replay did not carry the recorded ruling")
+
+    def reask(system, user):
+        # S002-08 was re-asked on 6 Nov; omissions.json kept where its new quotation is
+        asked.append(json.loads(user)["objection"]["claim_quoted"])
+        return {"source_says": held[e08["source"]][e08["at"][0]:e08["at"][1]]}
+
+    before = _sha(LEDGER)
+    done = R.rule_omissions(Q4B_SLUG, no_call, held=held, case=case, reask=reask)
+    assert _sha(LEDGER) == before
+    return held, done, asked
+
+
+@needs_q4b
+def test_over_budget_q1_04b_records_replayed_become_four_not_added_lines(q4b, lean_on):
+    # as recorded at the stop: 8 ADDs fill the budget, 4 went to a person
+    recorded = {tuple(e["origins"]): e["outcome"] for e in O.load(q4b)["omissions"]}
+    assert sorted(o[0] for o, out in recorded.items() if out == O.TO_PERSON) == OVER
+    assert sum(1 for out in recorded.values() if out == O.ADD) == 8
+    persons = (q4b / "rulings" / "for_person.jsonl").read_text()
+
+    held, done, asked = _replay_q4b(q4b)
+
+    assert sorted(h for d in done for h in d["origins"]) == OVER
+    assert {d["outcome"] for d in done} == {O.NOT_ADDED_OVER_BUDGET}
+    assert len(asked) <= 1
+    # no person routing: nothing new for a person, and no TO_PERSON left
+    assert (q4b / "rulings" / "for_person.jsonl").read_text() == persons
+    doc = O.load(q4b)["omissions"]
+    assert not [e for e in doc if e["outcome"] == O.TO_PERSON]
+    over = [e for e in doc if e["outcome"] == O.NOT_ADDED_OVER_BUDGET]
+    assert sorted(e["origins"][0] for e in over) == OVER
+    assert {e["by"] for e in over} == {R.OVER_BUDGET_BY}
+    assert sum(1 for e in doc if e["outcome"] == O.ADD) == 8          # the budget itself is unchanged
+    # the advocate items are not closed, and not open either: the row is ok
+    row = O.preflight_rows(Q4B_SLUG, [], held=held)[0]
+    assert row[0] == O.ROW and row[1] == "ok", row
+    # four code-written lines on the readers' list, each a required page element
+    lines = [d["sentence"] for d in C.declarations(Q4B_SLUG, held, case=q4b)
+             if d["state"] == C.OVER_BUDGET]
+    assert len(lines) == 4
+    for line in lines:
+        assert line.startswith("Not added: “") and line.endswith(" (over the additions budget).")
+        assert LF.is_no_place_line(line)            # the fail-safe may not remove it
+        assert B.protected_kind(line) == "scope"
+        assert len(SL.sentences(line)) == 1
+    # code's lines do not count against the declarations budget
+    assert C.OVER_BUDGET not in C.COUNTED
+
+
+@needs_q4b
+def test_over_budget_replay_is_idempotent_and_never_rules_the_items_again(q4b, lean_on):
+    _replay_q4b(q4b)
+    held = R.held_texts(Q4B_SLUG)
+    again = R.rule_omissions(Q4B_SLUG, lambda *a, **k: (_ for _ in ()).throw(AssertionError("called")),
+                             held=held, case=q4b, reask=lambda s, u: (_ for _ in ()).throw(AssertionError("re-ask")))
+    assert again == []
+
+
+@needs_q4b
+def test_over_budget_without_lean_still_goes_to_a_person(q4b):
+    lean.enable(False)
+    try:
+        n = len((q4b / "rulings" / "for_person.jsonl").read_text().splitlines())
+        held, done, _ = _replay_q4b(q4b)
+        assert {d["outcome"] for d in done} == {O.TO_PERSON}
+        assert len((q4b / "rulings" / "for_person.jsonl").read_text().splitlines()) == n + 4
+    finally:
+        lean._forced = None
+
+
+def test_over_budget_line_is_code_known_text_only():
+    line = C.declaration_sentence(C.OVER_BUDGET, "Removal costs vary widely by method.", "A report [2]", "ignored")
+    assert line == "Not added: “Removal costs vary widely by method.” (A report [2]) (over the additions budget)."
+    assert LF.is_no_place_line(line)
