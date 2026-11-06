@@ -3,17 +3,28 @@
   "belief": {
     "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
     "statement": "Programmes that put children with disabilities in low- and middle-income countries into mainstream, inclusive schools, with teacher training and classroom support, are known to work, and inclusive education is the kind that works best.",
-    "how_we_know_they_believe_it": "Written before any source was opened, from the drafter's prior knowledge of how the topic is usually framed: international policy (the UN Convention on the Rights of Persons with Disabilities, Article 24, and SDG 4) presents inclusive education as the goal, and advocacy coverage tends to present it as what works. No outlet was checked at this step.",
-    "carried_by": []
+    "how_we_know_they_believe_it": "Written before any source was opened, from the drafter's prior knowledge of how the topic is usually framed: international policy (the UN Convention on the Rights of Persons with Disabilities, Article 24, and SDG 4) presents inclusive education as the goal, and advocacy coverage tends to present it as what works. No outlet was checked at this step. Checked after the sources were held (not before): a World Bank results brief of 5 January 2026 presents disability-inclusive education projects as having enabled tens of thousands of children with disabilities to access quality education, without a comparative evaluation.",
+    "carried_by": [
+      {
+        "outlet": "World Bank (Results Brief)",
+        "url": "https://www.worldbank.org/en/results/2026/01/05/breaking-barriers-building-futures-disability-inclusion-in-education",
+        "date": "2026-01-05",
+        "what_it_said": "Headline 'Breaking Barriers, Building Futures: Disability Inclusion in Education'; presents its inclusive-education projects in Rwanda, Burkina Faso and Cambodia as having enabled tens of thousands of children with disabilities to access quality education. Read through a fetch tool (a model's reading of the page, not held text); not a quotation."
+      }
+    ]
   },
   "what_the_sources_show": {
     "_note": "What the primary sources actually support, and which sources.",
-    "statement": "",
-    "sources": []
+    "statement": "The three held reviews (S001, S002, S003) find that many studied programmes improved the skills or teacher outcomes they measured, but the studies are few, small and almost all of low confidence; no review ranks kinds of programme, none shows inclusive settings outperform specialised ones, and S001 found no included study measuring attendance, enrolment or completion.",
+    "sources": [
+      "S001",
+      "S002",
+      "S003"
+    ]
   },
   "direction": {
     "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
-    "value": "",
+    "value": "narrows",
     "_values": [
       "corrects",
       "confirms",
@@ -23,24 +34,23 @@
   "reader_with_a_decision": "A ministry of education official, donor programme officer or NGO manager in a low- or middle-income country deciding which disability-education programme to fund or scale.",
   "public_record_check": {
     "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
-    "prior_art_found": [],
-    "carried_in_general_coverage": "",
-    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+    "prior_art_found": [
+      "S001 Hunt et al. 2025 (Campbell)",
+      "S002 Kuper et al. 2018 (REA, GOV.UK)",
+      "S003 Mendoza and Heymann 2022"
+    ],
+    "carried_in_general_coverage": "Partly. The reviews' own conclusions (thin, low-confidence evidence; which kinds work best not established) are carried in research outlets (Campbell, GOV.UK), but the World Bank results brief a funder would meet presents inclusive-education projects as successful without stating these limits. No newspaper coverage was searched.",
+    "our_contribution": "translation: the held reviews' findings and their stated limits, set side by side for a reader deciding what to fund"
   },
-  "sources_are_open": "",
-  "evidence_base_is_bounded": "",
+  "sources_are_open": "yes: S001 CC BY (Europe PMC), S002 open on GOV.UK, S003 CC BY-NC-ND (EENET repository copy)",
+  "evidence_base_is_bounded": "yes: three reviews, the most recent searching to March 2022 (S001)",
   "kill_condition": "There is no story if the held systematic reviews and trials show, with moderate or high certainty, that particular kinds of programme improve the education (enrolment, attendance, learning or participation) of children and young people with disabilities in low- and middle-income countries, and rank those kinds against each other; then the page simply confirms. The story narrows or corrects if the evidence is sparse, low-certainty, or mostly about other outcomes or other settings.",
   "kill_condition_tested": {
     "_note": "Filled in AFTER going to look, by whoever looked.",
-    "by": "",
-    "on": "",
-    "result": "",
-    "_result_values": [
-      "survived",
-      "narrowed",
-      "killed"
-    ],
-    "note": ""
+    "by": "Claude Code (session WHU-L1-02b)",
+    "on": "2026-11-06",
+    "result": "narrowed",
+    "note": "No held review shows, with moderate or high certainty, that particular kinds of programme work or ranks them; the evidence is low-confidence and mostly about individual skills, so the story narrows rather than dies."
   },
   "lead_came_from": "Round 1 question WHU-Q1-02, asked again of lean WHU (issue.json _round_note).",
   "scope": {

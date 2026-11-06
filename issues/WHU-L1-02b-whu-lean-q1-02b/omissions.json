@@ -1,0 +1,193 @@
+{
+ "omissions": [
+  {
+   "key": "S001@7038-7176",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    7038,
+    7176
+   ],
+   "quote_sha256": "de00a704bc541d8da8a3ab27f20e3933edb7f51aea2c8ee1a80e30df9b68e12e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding reports how many programmes improved children's learning skills in LMICs, which bears directly on whether programmes work. Step 2: the draft gives only the pooled effect across 22 studies. It never says how many individual interventions had a significant effect. The count of 12 of 18 shows that about a third did not, which qualifies the large pooled effect for a funder choosing what to scale.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "20923d778cbd47c9",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "7d4ca3d4c6a72250",
+   "after": "b8441760291961fb",
+   "decided_at": "2026-11-06T00:23:53+00:00"
+  },
+  {
+   "key": "S001@9169-9380",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    9169,
+    9380
+   ],
+   "quote_sha256": "52d11fcd7a53c3dd2e1a04c8aca1b0abf3fb44f6d386b0cbf2f18aa45e2a670f",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about whether interventions [S001@2975-3035] low- and middle-income countries, and which kinds have been studied. That is the question as worded. Step 2 fails: the draft already says both halves of it. On the first half, it says many studied programmes improved some measured skills, and it gives the review's large pooled effects. On the second half, it says most interventions targeted individual children and did not focus on system-level or school-level changes. It also gives the authors' call for evaluations that target the broader environment. Restating the review's summary title would add nothing new for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8589413d3a43f071",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T00:23:58+00:00"
+  },
+  {
+   "key": "S001@121973-122260",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    121973,
+    122260
+   ],
+   "quote_sha256": "d7d5799a5a793ad105acab2e37bdf80c929f0da0763e6220a66171198828c283",
+   "outcome": "NOT_ADDED_NO_PLACE",
+   "element": "",
+   "reason": "no place for the ADD: the anchor is not on the page",
+   "by": "code (lean: no place on the page)",
+   "ruling": null,
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T00:24:05+00:00"
+  },
+  {
+   "key": "S002@8614-8905",
+   "source": "S002",
+   "held_sha256": "177d4daf7d722d7682eb6f3d4a98f63339d25eafa9502364f7febd58b9826d3b",
+   "at": [
+    8614,
+    8905
+   ],
+   "quote_sha256": "c7aaedbcfc9f7951718f57de3803ebf9ab690e58255468f41554c3b19ab63b10",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the summary table rates the evidence on whether interventions improve [S002@103011-103062] in LMICs, by stage of education. That bears directly on whether programmes work. Step 2 fails: the draft already gives each rating from this table. It reports promising evidence for primary education, insufficient evidence for early intervention and for secondary education, and none for lifelong and non-formal learning. The table's 'limited' rating matches the source's own 'insufficient evidence' wording for secondary, so it adds nothing that would change the reader's decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5acf2fdd46885665",
+   "origins": [
+    "S002-06"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T00:24:10+00:00"
+  },
+  {
+   "key": "S002@103131-103204",
+   "source": "S002",
+   "held_sha256": "177d4daf7d722d7682eb6f3d4a98f63339d25eafa9502364f7febd58b9826d3b",
+   "at": [
+    103131,
+    103204
+   ],
+   "quote_sha256": "e79f99c95862cbe3b4a28faa90770715fe3b891f9bfc7b5ae110d58cbde3a781",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears on which kinds of programme work. School-level and inclusive-schooling interventions are among the programme kinds the SCOPE compares. Step 2: The draft says the source found 'promising evidence [S002@10633-10675]' but does not say that this rests on only two studies. A reader deciding whether to fund or scale school-level programmes would weigh that thin evidence base, because it qualifies the stated finding. ALREADY does not contain it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6b3d278e45e060c1",
+   "origins": [
+    "S002-05"
+   ],
+   "on_page": "e52c8f1985794de5",
+   "after": "0bb890b6a0891b5f",
+   "decided_at": "2026-11-06T00:24:15+00:00"
+  },
+  {
+   "key": "S002@113488-113744",
+   "source": "S002",
+   "held_sha256": "177d4daf7d722d7682eb6f3d4a98f63339d25eafa9502364f7febd58b9826d3b",
+   "at": [
+    113488,
+    113744
+   ],
+   "quote_sha256": "d55099c9246b9f1eaf0ca47f1b75377b2a8f8ed8f03a71af118dbfc0db4ffdb7",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns interventions that improve [S002@111347-111398] LMICs, which is the question's subject. Step 2: The draft already states the general 'promising' judgement for primary-school children, but it does not name which kinds of programme the evidence points to. [S002@113682-113743] bear directly on 'which kinds work best' for a funder choosing what to scale. The source gives them only as examples and keeps the 'promising' and 'can be' hedges, so the sentence presents them as examples and not as a ranking.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "27e8fc6a9ec2b8a0",
+   "origins": [
+    "S002-07"
+   ],
+   "on_page": "c3d2a190467920a2",
+   "after": "afda01f8f1e92ae5",
+   "decided_at": "2026-11-06T00:24:24+00:00"
+  },
+  {
+   "key": "S003@2267-2359",
+   "source": "S003",
+   "held_sha256": "994f0ca4e8bb4f7e40a90ddea29c57e8207c41d148d827c3f3f414313f92b3c3",
+   "at": [
+    2267,
+    2359
+   ],
+   "quote_sha256": "85b338132258b8f539e6b2d3ba72ad88ff6193b8cdf83e6c6f7678c8e1abf16d",
+   "outcome": "NOT_ADDED_BEYOND",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (lean: the proposed sentence went beyond the finding)",
+   "ruling": null,
+   "origins": [
+    "S003-10"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T00:24:34+00:00"
+  },
+  {
+   "key": "S003@14770-14849",
+   "source": "S003",
+   "held_sha256": "994f0ca4e8bb4f7e40a90ddea29c57e8207c41d148d827c3f3f414313f92b3c3",
+   "at": [
+    14770,
+    14849
+   ],
+   "quote_sha256": "8a3c675e8108007229ee6f4e2c92945d6ccf644e596353e70b2e27aeb9436fcb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about how teacher training programmes [S003@246-287] compare by design, which bears on 'which kinds work best'. Step 2: it narrows the answer. A funder choosing a teacher training design learns that the positive studies identify no single best instructional method or duration. The draft says five of six training programmes improved targeted outcomes but does not state this point.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f15f9f94e7d46d76",
+   "origins": [
+    "S003-11"
+   ],
+   "on_page": "9ca5b2216825a0e5",
+   "after": "3412df05d7ea1d6b",
+   "decided_at": "2026-11-06T00:24:40+00:00"
+  },
+  {
+   "key": "S003@43779-43963",
+   "source": "S003",
+   "held_sha256": "994f0ca4e8bb4f7e40a90ddea29c57e8207c41d148d827c3f3f414313f92b3c3",
+   "at": [
+    43779,
+    43963
+   ],
+   "quote_sha256": "e278e4ac8de26df2d3f7e18c4e1f2c4bc19ccb17dd898674733411b861bc587c",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding describes which studies a systematic review of inclusive education programmes [S003@246-287] included, which bears on evidence the question relies on. Step 2 fails: its substantive part, the restriction to students with disabilities [S003@43922-43962], is already on the page ('another included only studies in non-segregated settings, so could not make the comparison'). The other part, the requirement for rigorous methods, is a methodological detail. The draft already conveys the review's study-selection threshold (31 studies with 20 or more respondents) and that the evidence is few, small and low-confidence, so a funder would not answer the question differently.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "95f9f9fedc62378b",
+   "origins": [
+    "S003-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-06T00:24:47+00:00"
+  }
+ ]
+}

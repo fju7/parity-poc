@@ -35,7 +35,8 @@
           "kind_why": "165887 characters, reference list and discussion present"
         }
       },
-      "document_class": "document"
+      "document_class": "document",
+      "used_for": "the most recent systematic review of what works to improve educational outcomes for people with disabilities in LMICs"
     },
     {
       "id": "S002",
@@ -67,7 +68,8 @@
           "kind_why": "130587 characters, reference list and discussion present"
         }
       },
-      "document_class": "document"
+      "document_class": "document",
+      "used_for": "the earlier rapid evidence assessment of the same question, with study confidence ratings by education stage"
     },
     {
       "id": "S003",
@@ -101,7 +103,8 @@
           "kind_why": "59405 characters, reference list and discussion/introduction present"
         }
       },
-      "document_class": "document"
+      "document_class": "document",
+      "used_for": "a systematic review of inclusive education interventions specifically, in low- and lower-middle-income countries"
     }
   ],
   "search": {
