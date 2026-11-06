@@ -362,17 +362,52 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, case: Pa
         len(done), ", ".join("%d %s" % (n, k) for k, n in sorted(counts.items())) or "none needed"))]
 
 
-def leaks_source_text(case: Path, held: dict[str, str], min_words: int = 6) -> list[str]:
-    """Every run of MIN_WORDS words of any held text that appears in
-    omissions.json: the committed record must hold none (a test helper and a
-    preflight guard)."""
-    pub = _fold(record_path(case).read_text(encoding="utf-8")) if record_path(case).exists() else ""
+def _record_strings(obj) -> list[str]:
+    """Every string (keys and values) in a parsed JSON record, in order."""
+    if isinstance(obj, str):
+        return [obj]
+    if isinstance(obj, dict):
+        out = []
+        for k, v in obj.items():
+            out += _record_strings(k) + _record_strings(v)
+        return out
+    if isinstance(obj, list):
+        out = []
+        for v in obj:
+            out += _record_strings(v)
+        return out
+    return []
+
+
+def leaks_source_text(case: Path, held: dict[str, str], min_words: int = REDACT_WORDS) -> list[str]:
+    """Every run of MIN_WORDS consecutive whole words of any held text that
+    appears, as the same whole words in a row, in omissions.json: the committed
+    record must hold none (a test helper and a preflight guard).
+
+    Whole words, tokenised and normalised as `redact` does (`_words`; advisor's
+    ruling of 6 November 2026 after Q1-02b): a raw substring test had matched a
+    run ending "an" inside "and". The record's text is every string it holds
+    (so JSON escapes and line breaks inside a string do not hide a run); a file
+    that does not parse is read as raw text."""
+    p = record_path(case)
+    if not p.exists():
+        return []
+    raw = p.read_text(encoding="utf-8")
+    try:
+        strings = _record_strings(json.loads(raw))
+    except ValueError:
+        strings = [raw]
+    runs = set()
+    for s in strings:
+        w = [x for x, _a, _b in _words(s)]
+        for i in range(0, len(w) - min_words + 1):
+            runs.add(tuple(w[i:i + min_words]))
     out = []
     for sid, text in held.items():
-        w = _fold(text).split()
-        for i in range(0, max(0, len(w) - min_words + 1)):
-            run = " ".join(w[i:i + min_words])
-            if run in pub:
-                out.append("%s: %r" % (sid, run))
+        w = [x for x, _a, _b in _words(text)]
+        for i in range(0, len(w) - min_words + 1):
+            run = tuple(w[i:i + min_words])
+            if run in runs:
+                out.append("%s: %r" % (sid, " ".join(run)))
                 break
     return out

@@ -518,6 +518,20 @@ passages, not whole sections. Everything below is under `WHU_LEAN=1` unless it s
   - Tested offline, each through the actual preflight rows (`publish`-level rows of `omissions`,
     `source_advocate`, `lean_editions`, `b13`) and `spend_ledger.check_cap`:
     `backend/tests/test_whu_lean_post_test_fixes.py`.
+- **Correction after Q1-02b (advisor's ruling of 6 November 2026, written before its code): the leak
+  guard matches whole words.** `omissions.leaks_source_text` tested each six-word run of a held text
+  as a raw substring of the folded omissions.json, so "…countries an" matched inside "…countries,
+  and", a false STOP on "omission objections ruled". The guard now uses the same tokenisation and
+  normalisation as `redact` (`omissions._words`: NFKC, lower case, quote marks, hyphens and
+  punctuation folded to spaces, any whitespace including line breaks as one break). It flags a held
+  text's run of `REDACT_WORDS` (6) consecutive words only where the same six whole words occur in
+  a row in the record's text (every string in omissions.json). A run of five words is not flagged,
+  as `redact` does not cut it. It is not a page rule. A page drafted on the earlier freeze stands
+  if, on its unchanged records, the preflight on the new freeze is `Ready.` with every other row
+  unchanged; it is disclosed as "drafted on <old freeze>, preflight passed on <new freeze> after the
+  whole-word fix". Tested on the actual check (`backend/tests/test_whu_lean_post_test_fixes.py`):
+  Q1-02b's record no longer flags; a genuine six-word run is still flagged with changed
+  punctuation, case, hyphenation or line breaks; a five-word run is not.
 - **Two lines added to the drafting brief:** never run a stage twice in parallel, and never switch a
   source to another edition (rule 3b decides that).
 - Code: `lean_received.py` (the measurement), `lean_reading.py` (the rows for fixes 4-6),

@@ -498,3 +498,81 @@ def test_the_consistency_sample_defaults_its_cap_too(monkeypatch):
     seen.clear()
     CS.main(["audit", "whu-lean-q1-01b", "20261105T000000Z"])
     assert seen["cap"] == 5.0
+
+
+# --- The leak guard matches whole words (advisor's ruling of 6 November 2026,
+# after Q1-02b; process doc §4.6.1, "Correction after Q1-02b"). Every test runs
+# the actual preflight row, omissions.preflight_rows.
+
+Q2B = ROOT / "issues" / "WHU-L1-02b-whu-lean-q1-02b"
+needs_q2b = pytest.mark.skipif(not (Q2B / "omissions.json").exists() or not (Q2B / "rulings").exists(),
+                               reason="Q1-02b's records are not on this machine")
+
+
+@pytest.fixture
+def q2b(tmp_path, monkeypatch):
+    import shutil
+    import source_store as store
+    case = tmp_path / Q2B.name
+    shutil.copytree(Q2B, case)
+    monkeypatch.setattr(store, "case_dir", lambda slug: case)
+    monkeypatch.setattr(SL, "case_dir", lambda slug: case)
+    return case
+
+
+@needs_q2b
+def test_leak_guard_q1_02b_record_no_longer_flags(q2b, lean_on):
+    held = R.held_texts("whu-lean-q1-02b")
+    assert held, "Q1-02b's held texts are in the library"
+    # the substring "low and middle income countries an" sits in the folded record ...
+    assert "low and middle income countries an" in O._fold((q2b / "omissions.json").read_text())
+    # ... but no six whole held-text words do, so the row is ok
+    row = O.preflight_rows("whu-lean-q1-02b", [], held=held)[0]
+    assert row[0] == O.ROW and row[1] == "ok", row
+    assert O.leaks_source_text(q2b, held) == []
+
+
+HELD_LEAK = {"S009": "Background. Inclusive schooling raised attendance among low-income pupils "
+                     "in three districts, the authors reported, with no change in test scores."}
+
+
+def _leak_case(tmp_path, reason):
+    case = tmp_path / "case"
+    case.mkdir()
+    (case / "omissions.json").write_text(json.dumps(
+        {"omissions": [{"key": "S009@0-10", "outcome": "NOT_MATERIAL", "reason": reason}]},
+        indent=1, ensure_ascii=False), encoding="utf-8")
+    return case
+
+
+def _row(case):
+    return O.preflight_rows("whu-lean-q1-leak", [], case=case, held=HELD_LEAK)[0]
+
+
+@pytest.mark.parametrize("reason", [
+    "It says inclusive schooling raised attendance among low-income pupils.",          # verbatim
+    "It says INCLUSIVE Schooling Raised attendance among Low-Income pupils.",           # case
+    "It says “inclusive schooling, raised attendance; among low—income pupils”.",       # punctuation
+    "It says inclusive schooling raised attendance among low income pupils.",           # hyphen dropped
+    "It says inclusive schooling raised\nattendance among\r\n low-income pupils.",      # line breaks
+])
+def test_leak_guard_flags_a_genuine_six_word_run(tmp_path, lean_on, reason):
+    row = _row(_leak_case(tmp_path, reason))
+    assert row[1] == "BLOCKED" and "S009" in row[2], row
+
+
+def test_leak_guard_does_not_flag_a_five_word_run(tmp_path, lean_on):
+    # "raised attendance among low-income" = five words (low-income folds to two);
+    # "schooling" before and "children" after break the run
+    row = _row(_leak_case(tmp_path, "Attendance: raised attendance among low-income children, it says."))
+    assert row[1] == "ok", row
+
+
+def test_leak_guard_does_not_match_inside_a_word(tmp_path, lean_on):
+    # Q1-02b's shape: the held text's only six-word run ends in "an", and the
+    # record has those words ending in "and"; the old substring test flagged it
+    held = {"S009": "three districts the authors reported an"}
+    case = _leak_case(tmp_path, "in three districts the authors reported and so on")
+    assert "three districts the authors reported an" in O._fold((case / "omissions.json").read_text())
+    assert O.leaks_source_text(case, held) == []
+    assert O.preflight_rows("whu-lean-q1-leak", [], case=case, held=held)[0][1] == "ok"
