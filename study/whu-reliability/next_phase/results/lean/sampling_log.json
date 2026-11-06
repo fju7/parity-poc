@@ -1,0 +1,546 @@
+{
+ "written": "2026-11-06T16:09:59+00:00",
+ "by": "prepare_scoring.py sample",
+ "freeze_commit": "5f4a928b757d7f47c1ba8ed47600ced4a7a69f12",
+ "seed": "544017144222122354086406494492826735813465644818",
+ "seed_rule": "the freeze commit's 40-character hash read as a hexadecimal integer",
+ "m1": {
+  "per_answer": 20,
+  "pool": "identifiability.claim_like (samplable; a number or a citation marker; 8 to 70 words)",
+  "generator": "random.Random('<SEED>/<question>/<system>/M1').sample(pool sorted by sentence index, k)",
+  "order": "random.Random('<SEED>/order/M1').shuffle",
+  "answers": [
+   {
+    "question": "WHU-Q1-01",
+    "system": "WHU-lean",
+    "sentences": 43,
+    "samplable": 41,
+    "claim_like_pool": 38,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-01/WHU-lean/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/1",
+      "idx": 1,
+      "sha256": "2d4921166bccc736e61f1044211c41b8c85062286a2029f6f98cc1946ea68f0f",
+      "item": "M1-16c67a942d",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/3",
+      "idx": 3,
+      "sha256": "5507e6417595c1067d98b4f1cfb04d00f3fc7c599bcf29410488dffb0570c98c",
+      "item": "M1-58b417bc65",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/4",
+      "idx": 4,
+      "sha256": "5e3ac02d26d206e922fea97a310bbfaf843e8a89a75621ada9a89f70638f4346",
+      "item": "M1-d5ef6edff1",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/6",
+      "idx": 6,
+      "sha256": "2508e48bd41c7c877b6cc5015b5c0f90193e5a92edbdf5c0e1e27b4716461eda",
+      "item": "M1-6c12902bb6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/9",
+      "idx": 9,
+      "sha256": "8b226cea97aa19ae2f94da12dac7b6bcccc597a61e3c184dcf2e562bb1ab3c5c",
+      "item": "M1-09eb37874f",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/10",
+      "idx": 10,
+      "sha256": "030fa06ffbe084464b51faa3734a752f8c0dee89e4417d02d9691112ef558ae2",
+      "item": "M1-28661d9b85",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/13",
+      "idx": 13,
+      "sha256": "c4524d5681d17010ed0ce4393ae500177d0758d6f6cdaf0922184c41657d8fec",
+      "item": "M1-4f892114ff",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/14",
+      "idx": 14,
+      "sha256": "206090474a6b1ea42ca30b14c4d071aed3c0c9cf2511ad7d82eee521e9102297",
+      "item": "M1-5aff3ab5c7",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/16",
+      "idx": 16,
+      "sha256": "d3e096edab6217d5422b601ae24d37d59998cb70e4f990b3015b2551059640be",
+      "item": "M1-d325a4963c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/17",
+      "idx": 17,
+      "sha256": "0eb9cf039e48002aa63839d8dcb3b53e84cc98500a6eb58eafde8b8112cc0b27",
+      "item": "M1-0e2023b881",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/18",
+      "idx": 18,
+      "sha256": "b6a1610ab1dcc693d65f7448760ea2c35b0bc5489eda4ae66db2ace31516e3a5",
+      "item": "M1-cb2c747a74",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/20",
+      "idx": 20,
+      "sha256": "323cbb0e028e6a0b2f16482f8831fe58052f9f3535d06a40299c80b99d7445d2",
+      "item": "M1-3e8d874327",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/23",
+      "idx": 23,
+      "sha256": "3c55864316d2b8371555adcc597769776caf2e7384cc3fef171f69ff36581b47",
+      "item": "M1-2bf7f70492",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/26",
+      "idx": 26,
+      "sha256": "47e56d1e4ce5a80dcc1f455a2376723b5302fede2ef982baf423a68190281eb7",
+      "item": "M1-4f22a23825",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/28",
+      "idx": 28,
+      "sha256": "00302bb33f5fa823537efd3990a599aec4c8059d7110c8a773dd5c3ea38de721",
+      "item": "M1-1266c68fcd",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/30",
+      "idx": 30,
+      "sha256": "32e572112d3d6ea21030d3b59aae8e9a7012c2f4fd5604255bd0534d83b1f7c0",
+      "item": "M1-1d4616cea9",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/31",
+      "idx": 31,
+      "sha256": "601f641dd69e187564861e9b953d97de9c3d6b7c17bee11dc54e549508258862",
+      "item": "M1-bcca4cadf0",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/39",
+      "idx": 39,
+      "sha256": "65214b4c9cde234b9034df70ebf8f48a4bf0bf1b2294d20b32f3c9e4ac63a737",
+      "item": "M1-0716605ad7",
+      "markers": 0,
+      "label": "UNCITED"
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/41",
+      "idx": 41,
+      "sha256": "b22742aa17c573e3045f1f66eea8e4d7ae11c9c2c309d07b0888121793dd1921",
+      "item": "M1-fa1ebb8d8f",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-01/WHU-lean/42",
+      "idx": 42,
+      "sha256": "1ffddb3973e75eacfaef4571d3efeabaf45736b885ff6d0b6240e1b9bb20252e",
+      "item": "M1-a81079e799",
+      "markers": 2,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-02",
+    "system": "WHU-lean",
+    "sentences": 53,
+    "samplable": 49,
+    "claim_like_pool": 46,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-02/WHU-lean/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/3",
+      "idx": 3,
+      "sha256": "2d18b9493b3ceb9d3e513ece1ab718a3e3087a0b50152fc33f463029c7855f6c",
+      "item": "M1-7a0f65c6f5",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/6",
+      "idx": 6,
+      "sha256": "77defcf47fdc25aa3f14878826b2385df59af17530993b25c2750cef118be3ee",
+      "item": "M1-625b537889",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/7",
+      "idx": 7,
+      "sha256": "a5fb32cb171c764aa437c55c7d8ab6b5ea4915a830ed96c46685ab0888111a80",
+      "item": "M1-08d197cc97",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/8",
+      "idx": 8,
+      "sha256": "7d16ff1bf16153b9729b005044f83b11b2e38815f0a9c10f1faade26f75f1262",
+      "item": "M1-6e2fdeb237",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/13",
+      "idx": 13,
+      "sha256": "607ceef238c4a756c10efe60b13ee44c28f6405523ea1d655e634eef08c9acae",
+      "item": "M1-0991959edd",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/17",
+      "idx": 17,
+      "sha256": "8499d3657a7c79c7b8320ef4f1961771dc26eb604035f2ae26178a571d207b1d",
+      "item": "M1-b86edcc64c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/18",
+      "idx": 18,
+      "sha256": "8bf11c186a827b519e0445f84d35fbdfd34a77d74fbf279499011d878343fa0c",
+      "item": "M1-9e719e55f0",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/19",
+      "idx": 19,
+      "sha256": "3028b53b47150dd02881a121e0d6492e8f75f4e4aa5df1a27475987bf357461b",
+      "item": "M1-0e870e36f4",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/23",
+      "idx": 23,
+      "sha256": "9946bfc3b4febd3936fd75a8d7881aec9d571f709fead106a8a4821ee516f9d3",
+      "item": "M1-4d80be071a",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/24",
+      "idx": 24,
+      "sha256": "9e1f1860dba53802562b6ca400e137b4bfead777c8aac662b28155a3ea6f6f4c",
+      "item": "M1-8446cf9608",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/27",
+      "idx": 27,
+      "sha256": "54b54af65a287bc5203d18e8a857cc9414eb326efc268571d428da5a03ca4073",
+      "item": "M1-1707684156",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/28",
+      "idx": 28,
+      "sha256": "d85478d5bcf1248e67e3219da1feb717b757ffaf38d8f6c5bc49bb6e37d5e835",
+      "item": "M1-8ac1324358",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/29",
+      "idx": 29,
+      "sha256": "7091adbb63d249107801c98851c2bcdf353ec87cce1a4c2d1ff7a72c930c92d3",
+      "item": "M1-9065d2efdb",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/31",
+      "idx": 31,
+      "sha256": "1b28722c0377ec13dd5f4aedd77957ccaf8508398c8eb1eb2cdb21f7051bb1cc",
+      "item": "M1-01611e27c3",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/33",
+      "idx": 33,
+      "sha256": "dfaeeea4f47d5b85fdb9349141775534c0a5b8f752a74a43988f54a6d550979d",
+      "item": "M1-d73c3de35c",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/34",
+      "idx": 34,
+      "sha256": "5ac46014da31044a7adf1276348592bb01f8a50be1f3a6dd574015699db15ed7",
+      "item": "M1-874aa6209b",
+      "markers": 2,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/43",
+      "idx": 43,
+      "sha256": "ffb47406675dd0a8e7dec04f7881965d5a57aa2f853762b7b05d9a147fe9b9ac",
+      "item": "M1-0732da5b47",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/48",
+      "idx": 48,
+      "sha256": "eafa7533cbb3252c78890e2484f90855e6a6804954b8240b3b2c49ce07cd3a2e",
+      "item": "M1-f2cab306e0",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/49",
+      "idx": 49,
+      "sha256": "c274184565e6c357d45ca9b9bc75b0a0b2edcb1e7a11270b10837d9aa4ed95ac",
+      "item": "M1-832f7b3d63",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-02/WHU-lean/52",
+      "idx": 52,
+      "sha256": "f420ed109abb2191aed8d78d1b701f0878b83511e5efede6f1604cf8afca8ebb",
+      "item": "M1-19773937b8",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   },
+   {
+    "question": "WHU-Q1-03",
+    "system": "WHU-lean",
+    "sentences": 147,
+    "samplable": 146,
+    "claim_like_pool": 142,
+    "k": 20,
+    "rng_seed_string": "<SEED>/WHU-Q1-03/WHU-lean/M1",
+    "drawn": [
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/8",
+      "idx": 8,
+      "sha256": "14eea7d4e21805a2f0bf1845cae48ff8c5628aca821525494ce35351a6b1a53d",
+      "item": "M1-a35f0c7ea1",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/11",
+      "idx": 11,
+      "sha256": "981f17f931ae24c0867546688c3d6c65ad0ebc87d5ab1d9a3007e9d88e3307f0",
+      "item": "M1-7146a92c06",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/15",
+      "idx": 15,
+      "sha256": "8c86e438f2262d1c3db2527d91c742e5a3a36f20f4d94be47a18b6c70bf52501",
+      "item": "M1-06989df7f7",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/47",
+      "idx": 47,
+      "sha256": "9dddd5ba0b34564c5daa86a65f0a4dd17030083c4d1815d1a32bc971d3eb7657",
+      "item": "M1-f7fe6baa44",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/52",
+      "idx": 52,
+      "sha256": "0aa750a9649d1985d24458ed0910fac7c74d2cc9a19a85225dac6550bfebd0f6",
+      "item": "M1-8c5d8c1366",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/55",
+      "idx": 55,
+      "sha256": "5d1b04c4bee26366a9eb7b741de9677622c4fffeed136b6261c615a2ee755bef",
+      "item": "M1-fff1259645",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/62",
+      "idx": 62,
+      "sha256": "dc06457368848513bbcd10362c04c46788308c89d641104e3b4ea9cf1f905418",
+      "item": "M1-3cac22a371",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/64",
+      "idx": 64,
+      "sha256": "50bfff1c837d418cc2fbc7919c4d884ad268f29ac2ecb0eac5659cd63a8c4813",
+      "item": "M1-af6d86b8f6",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/74",
+      "idx": 74,
+      "sha256": "b406b362eae4c29aa538eac592449b565921de3cffd54998f1996f5a444d6b92",
+      "item": "M1-729dfb6527",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/85",
+      "idx": 85,
+      "sha256": "d4da57e521f6ecf860814225266f1b2285c0c69c5006da78cf6ded1889b96510",
+      "item": "M1-698847f2ae",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/87",
+      "idx": 87,
+      "sha256": "c3ae2b485d445d8694d962a6caa6a16fa8b5bf2d8eb87ff1a39589b8b66c438b",
+      "item": "M1-a43eec2ede",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/91",
+      "idx": 91,
+      "sha256": "8b88ac5fa8bed414316ffe4db8a283d6ff77cdab6847ad31edf69ccf7fd4d65c",
+      "item": "M1-59b6dd9035",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/101",
+      "idx": 101,
+      "sha256": "6d5238ce534fd455faad37303113831189a99625d41f44c68ed482e77b9c6765",
+      "item": "M1-aec2f77298",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/107",
+      "idx": 107,
+      "sha256": "b95fd18a2590ed393d9206c51d8930681ed86dd0676b4f5bd1a4dfc5e3ca75b2",
+      "item": "M1-a64ce80b13",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/114",
+      "idx": 114,
+      "sha256": "f9529d53b4b07a9337a47e97e7f61dc58d390883089a776368ee4ad31fd93caf",
+      "item": "M1-a9adbf3a69",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/115",
+      "idx": 115,
+      "sha256": "40e3bc4ea8c21ded35aeaf488fb55a30f69876540ebbcc16300cda36eaf4889e",
+      "item": "M1-4499daa121",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/122",
+      "idx": 122,
+      "sha256": "a186ab8267422d2ed0b5ccd54a1b140652d8619c295fe11b29319b6e26f8fc11",
+      "item": "M1-7795512e6f",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/123",
+      "idx": 123,
+      "sha256": "c925b6f5f12ae238e2165cad861cbec47b1212b9ebc9084003ef6a34cdb8e78d",
+      "item": "M1-ee63b5a90d",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/125",
+      "idx": 125,
+      "sha256": "6704686ad94119e3fe78565ed01eb70a15e68533c6f7ad1919b7d99f2b23ff94",
+      "item": "M1-d93594cdec",
+      "markers": 1,
+      "label": null
+     },
+     {
+      "sentence": "WHU-Q1-03/WHU-lean/132",
+      "idx": 132,
+      "sha256": "461297c82bdc7bf087ceadaeed8369c92c6d3298b2ab09214929ee6521337a09",
+      "item": "M1-37616fa7b8",
+      "markers": 1,
+      "label": null
+     }
+    ]
+   }
+  ]
+ },
+ "m2": {
+  "rule": "every conclusion of the frozen key, for every answer; nothing drawn",
+  "conclusions_per_question": {
+   "WHU-Q1-01": 5,
+   "WHU-Q1-02": 5,
+   "WHU-Q1-03": 5
+  },
+  "items": 15,
+  "answer_order": "random.Random('<SEED>/order/M2').shuffle",
+  "key_fields_not_passed_to_the_judge": []
+ },
+ "private_files_sha256": {
+  "m1/items.json": "1940978ea27e184e66da615ef63c2e76d9c3192faf922122131da5a5cd3b919f",
+  "m1/uncited.json": "c04f9c7e9edd616ace3b5286e143ea668ba6ded71d8d0e97f2d7b10a102b59fe",
+  "m1/key_map.json": "cd243222ff453e81ed5b0587e027ce60fc903f388cf100e9924ec4d492f76ad9",
+  "m2/items.json": "aac401a2d0a3686b86661b8cd2b863039b7f70521e1743206438f0d1245967b2",
+  "m2/key_map.json": "beb0fd34191caf38f90bae6195f6e01f0173c67c1423557f8211e41dcfce4797"
+ }
+}

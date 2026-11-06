@@ -1,0 +1,5 @@
+# Lean four-question test: lean WHU answers, sha256 manifest (prepare_lean.py verify)
+# sha256  question  page  (last commit touching the page)
+c1df380003a3f56e7ec9eed1b6fc9ce1cb832ccd1e01caa5e88ad94aae1f6922  WHU-Q1-01  issues/WHU-L1-01c-whu-lean-q1-01c/draft/whu-lean-q1-01c.html  (commit 07de6104ecc41a4a623c7a47f4d70aa99096ae9b)
+3f2133587c000bc16ad4b1fe83cb742957438ec9608ded3092805289a3fbecda  WHU-Q1-02  issues/WHU-L1-02b-whu-lean-q1-02b/draft/whu-lean-q1-02b.html  (commit e2d9a394c7ac4a4b48a88b57a9a38e085fd0ae59)
+c22b0b29ade6577c8faae10c88ab9145eed06ac5803243cfe4e6cd06e230ab85  WHU-Q1-03  issues/WHU-L1-03b-whu-lean-q1-03b/draft/whu-lean-q1-03b.html  (commit 4f0262029d79609fa4777af2f8f4f0a8497a6c9b)

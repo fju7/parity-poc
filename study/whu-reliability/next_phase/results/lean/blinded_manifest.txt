@@ -1,0 +1,5 @@
+# Lean test: blinded answers, sha256 manifest (prepare_lean.py blind)
+# sha256  question  system  record  chars  sentences  samplable  with-marker  references  beyond
+ae59e2bb0cb56f9567c6f81f71bad7fb799a3071f5e7d95338bc19d2dba49441  WHU-Q1-01  WHU-lean  whu-lean-q1-01c.html     8164    43    41    39    2  0
+feff93753a1a6898d58aa055a3661815027b48d3fec2192b58337f2c723c5457  WHU-Q1-02  WHU-lean  whu-lean-q1-02b.html    10395    53    49    49    3  0
+f86daf27de6dab50874682043db87a17898ebda5da57305ba86505438b93bdfc  WHU-Q1-03  WHU-lean  whu-lean-q1-03b.html    31383   147   146   143    1  0

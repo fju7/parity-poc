@@ -1,0 +1,126 @@
+{
+ "written": "2026-11-06T16:10:14+00:00",
+ "no_model_called": true,
+ "inputs": {
+  "chars_per_token": {
+   "value": 2.674,
+   "how": "median over prep round 2's 15 snapshots of text characters / Anthropic count_tokens (runs/prep2/sources/tokens.json)"
+  },
+  "openai_tokens_per_claude_token": {
+   "value": 0.617,
+   "how": "median over prep round 2's M1 items: OpenAI input tokens / Claude input+cache tokens, same prompt"
+  },
+  "m1_prompt_after_documents_tokens": 1526,
+  "m1_prompt_before_documents_tokens": 41,
+  "output_tokens_mean": {
+   "m1_claude": 213,
+   "m1_openai_incl_reasoning": 130,
+   "m2_claude": 442,
+   "m2_openai_incl_reasoning": 141
+  },
+  "prices_usd_per_million": {
+   "claude-opus-5-5": {
+    "input": 4.0,
+    "output": 20.0,
+    "cache_write": 5.0,
+    "cache_read": 0.2
+   },
+   "gpt-6-astra": {
+    "input": 10.0,
+    "cached_input": 1.0,
+    "output": 50.0
+   }
+  },
+  "price_check_max_abs_usd_difference_on_recorded_calls": {
+   "claude": 0.0,
+   "openai": 0.0
+  },
+  "repeat_share": 0.2,
+  "max_source_tokens": 150000,
+  "pending_source_size_assumed_chars": 153268
+ },
+ "rules": [
+  "M1, Claude: first read = (prompt head + documents) at cache-write price + prompt after the documents at input price + output; the 20% repeat reads the documents from cache (cache-read price).",
+  "M1, OpenAI: first read = all input at the input price + output; the repeat reads the documents at the cached-input price (its cache hits only an identical prompt, which the repeat is).",
+  "M2, Claude: the answer block is written to cache by an answer's first conclusion and read by the rest; repeats read it from cache.",
+  "M2, OpenAI: every conclusion is a different prompt, so no cache except on the repeat.",
+  "A document is capped at 150,000 tokens (longer ones are chunked to that).",
+  "Items whose sources are pending the operator are projected at the median held snapshot size.",
+  "WHU-S04 is projected as the mean of the questions drawn so far, for M1 and for M2."
+ ],
+ "m1": {
+  "per_answer": {
+   "WHU-Q1-01/WHU-lean": {
+    "items": 19,
+    "held_items": 19,
+    "claude_held": 14.2401,
+    "openai_held": 17.8361,
+    "claude_all": 14.2401,
+    "openai_all": 17.8361,
+    "doc_tokens_held": 2777740.4084
+   },
+   "WHU-Q1-02/WHU-lean": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 5.3549,
+    "openai_held": 6.7529,
+    "claude_all": 5.3549,
+    "openai_all": 6.7529,
+    "doc_tokens_held": 1012300.9888
+   },
+   "WHU-Q1-03/WHU-lean": {
+    "items": 20,
+    "held_items": 20,
+    "claude_held": 4.9168,
+    "openai_held": 6.2063,
+    "claude_all": 4.9168,
+    "openai_all": 6.2063,
+    "doc_tokens_held": 925388.3252
+   }
+  },
+  "held_only_usd": 55.31,
+  "all_items_usd": 55.31
+ },
+ "m2": {
+  "per_answer": {
+   "A-6c683de8f6": {
+    "question": "WHU-Q1-01",
+    "system": "WHU-lean",
+    "conclusions": 5,
+    "answer_tokens": 3115,
+    "claude": 0.1317,
+    "openai": 0.2327
+   },
+   "A-cb3ca4ad09": {
+    "question": "WHU-Q1-02",
+    "system": "WHU-lean",
+    "conclusions": 5,
+    "answer_tokens": 3949,
+    "claude": 0.1375,
+    "openai": 0.2603
+   },
+   "A-ac7e010a59": {
+    "question": "WHU-Q1-03",
+    "system": "WHU-lean",
+    "conclusions": 5,
+    "answer_tokens": 11796,
+    "claude": 0.1792,
+    "openai": 0.4987
+   }
+  },
+  "usd": 1.44
+ },
+ "whu_s04_projected": {
+  "m1_usd": 18.44,
+  "m2_usd": 0.48
+ },
+ "judging_usd": 75.66,
+ "whu_measured_usd": {
+  "WHU-Q1-01": 1.53,
+  "WHU-Q1-02": 2.13,
+  "WHU-Q1-03": 3.14
+ },
+ "whu_s04_note": "WHU-S04 is still running; its figure is spend so far, not its final cost.",
+ "study_total_usd": 82.46,
+ "over_300": false
+}

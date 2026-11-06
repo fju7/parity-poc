@@ -1,0 +1,13 @@
+# WHU reliability study: M1 source snapshots, sha256 manifest (prepare_scoring.py snapshot-report)
+# Snapshots are held at ~/Projects/whu-study-private/scoring/m1/sources/<source_id>.txt.
+# route: a script (TLS fix), b curl on the operator's Mac, c open-access location; '-' first fetch;
+# 'a, bytes re-read': the first fetch's bytes, whose PDF text a crashed pdftotext had left empty;
+# d: fetched by the advisor in the desktop app's built-in browser (free pages only; round 3).
+#
+# source_id  extent  text_chars  text_sha256  raw_sha256  route  version
+S16b93fcc0178  full text       352856  ab4162575b81f2ade5a7af1fabf519e7cc4cbdbe46bc54ee47faaac58cd49ff5  3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5  -  -
+S23d69249541e  full text       175370  f23f6f87002702b15b6efdddd20a35cb9e422fa19b0016bafaa85adcccd9ba68  21405d08638d8344c71a0adee0ced7b30f6464511b512c2f1749d37e83abf4ff  a  as cited
+S3a2f2c549125  full text       563486  bce3d52052f69e43c76c962e344b524e5ebb7a643eb92997d200b3127fd2d47e  afbe5e2c6c5c93b02c16ac4c7c5ed9a13e3188f14d5c32747e1afe9c6798d9cf  a  as cited
+S4da4ebbfe6ce  full text        59568  9a927cb5c1633d697667f0798a0a77e031d24e6832c11e54f868b034dd68ec34  7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3  -  -
+S52dcb171d801  full text       123746  26bf66ebbb0aea83c1aef073227e2bccf79fcc3a484e659e5434e0b51cc27473  37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446  -  -
+S7635c2326e06  full text       131165  c09600fe71c471ebbc86e635ec4bd68e7546caa4ff3a177f45f0f4cd8ea1ec92  eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010  -  -
