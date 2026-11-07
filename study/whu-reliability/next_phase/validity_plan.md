@@ -490,6 +490,10 @@ the room rule each day.
 
 **Reserve to the runs line (advisor's ruling after Q1-01b, item 5; recorded by session LT, 2026-11-05T22:12Z, before the re-runs' first paid call):** the runs line had $20.85 left ($40 − $19.15 spent on whu-lean-q1-01, -02, -02r, -03, -04, -01b) against $20.95 likely for the four re-runs (Q1-01c, Q1-02b, Q1-03b, Q1-04b). The reserve's last **$4** moves to the runs line ($40 -> **$44**; reserve $4 -> **$0**; caps total unchanged at $346). Left on the line: **$24.85** ≥ $20.95 likely, so the re-runs may start.
 
+**Orchestrator trial 1 (advisor's ruling 2026-11-07), from the lean runs line:** one paid end-to-end orchestrator run on WHU-Q1-02 (ledger issue `whu-lean-orch-t1-q1-02`, run cap $10). The runs line had $10.05 left ($44 − $33.95 on whu-lean-q1-01 … -04c), so the $10 cap fits. Outputs discarded, never scored.
+
+**New line outside the phase (advisor ruling, Fred's approval, 2026-11-07): "new-questions test", cap $150.** Not part of the $350 phase total; takes nothing from any line or the reserve. It covers the new-questions test (deviations 2026-11-07, item 4): WHU in orchestrator paid mode on fresh-set questions CF-01..CF-06, answer keys, and M1/M2 judging. Ledger issues are named when the comparison rule is committed (each `whu-cf-…`); `caps.json` records the line. The rule and an estimate go to the advisor before the first paid call; the room rule applies each day.
+
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
 

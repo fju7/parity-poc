@@ -49,7 +49,9 @@ class Sandbox:
              shutil.copy2(p, r / "backend/data/whatholdsup" / p.name))
         lib = r / "backend/data/whatholdsup/library"
         shutil.copytree(LIB, lib, ignore=shutil.ignore_patterns("docs", "__pycache__"))
-        rec = json.loads((LIB / "issues" / ("%s.json" % self.slug)).read_text(encoding="utf-8"))
+        # A fresh issue has no library record until `acquire` writes one.
+        rp = LIB / "issues" / ("%s.json" % self.slug)
+        rec = json.loads(rp.read_text(encoding="utf-8")) if rp.exists() else {}
         files = set()
         for s in (rec.get("sources") or {}).values():
             for x in [s] + list(s.get("superseded") or []):

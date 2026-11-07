@@ -60,6 +60,7 @@ class Ctx:
         self.log: list[dict] = []
         self.frozen: dict = {}
         self.lock = None
+        self.page_prev = None
 
     def rel(self, p: Path) -> str:
         return p.relative_to(self.root).as_posix()
@@ -118,8 +119,9 @@ def run_step(ctx: Ctx, step) -> dict:
                 os.environ.pop(k, None)
             else:
                 os.environ[k] = v
+    page_bad = _account_page(ctx, step)
     after = CH.snapshot(ctx.case, ctx.slug)
-    bad = CH.violations(CH.diff(before, after), ST.owns_for(step, ctx.slug))
+    bad = CH.violations(CH.diff(before, after), ST.owns_for(step, ctx.slug)) + page_bad
     bad += ["frozen field changed: %s" % b for b in CH.frozen_breaks(ctx.case, ctx.frozen)]
     if bad:
         raise RunStop("%s: %s: %s" % (step.name, CH.STOP, "; ".join(bad[:6])))
@@ -131,6 +133,22 @@ def run_step(ctx: Ctx, step) -> dict:
     ctx.log.append(result)
     _study_log(ctx, result)
     return result
+
+
+def _account_page(ctx: Ctx, step) -> list[str]:
+    """E7-E9 (orch/accounting.py): after a step that owns the page, every sentence on it and every sentence gone
+    from it must have a record. The code-written blocks are first re-rendered from their generators."""
+    from orch import accounting as AA
+    from orch.page import Page
+    if "draft/page.json" not in ST.owns_for(step, ctx.slug) or not ctx.page_json.exists():
+        return []
+    _rerender(ctx, Page.load(ctx.page_json))
+    page = Page.load(ctx.page_json)
+    q_html, limits_html, readers_html = _generated_blocks(ctx)
+    generated = {"question": q_html, "limits": limits_html, "readers": readers_html, "sources": _source_list(ctx)}
+    bad = AA.problems(ctx.case, page, generated, getattr(ctx, "page_prev", None))
+    ctx.page_prev = AA.on_page(page)
+    return bad
 
 
 def _study_log(ctx: Ctx, r: dict) -> None:

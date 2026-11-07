@@ -27,6 +27,9 @@ the brief to clear a check (advisor's process finding E, deviations row "rulings
 | 4 | ran a stage twice in parallel | Q1-04 3d (82f1432) |
 | 5 | switched to another edition of a source | Q1-04 (a049fb9) |
 | 6 | chose a source form that skipped a check | Q1-03b (196affa "record", 2e1b243 "page"), Q1-04c (S003 "page", 2bd2b56) |
+| 7 | edited a source-list line by hand after the draft, with no log | Q1-02b (found by the offline replay; added by the advisor's ruling of 2026-11-07) |
+| 8 | put the audit's first-read proposed wording on the page, which no accepted ruling chose | Q1-03b, two sentences (replay; ruling 2026-11-07) |
+| 9 | removed a sentence with no record | Q1-03b, after an omission ADD (replay; ruling 2026-11-07) |
 
 Also recorded, and in scope: premise rows filled after a source was opened (C); a hand-set browser user agent (A);
 a guessed clock reading corrected later (Q1-04c). Rules that live only in an agent's instructions were broken
@@ -281,3 +284,6 @@ each step's `max_tokens` and cap. Results: `results/orchestrator/cost_estimate.j
 - **The audit step re-audits** until a round changes nothing, at most three rounds, then runs the consistency
   audit; the applier runs `ruling.py dangling` once when an applied ruling left a reference pointing at nothing.
 - **Paid mode is refused** unless `WHU_ORCH_PAID_RULED` names the advisor's ruling (this build is $0).
+
+- **E7-E9 (added 2026-11-07, before any paid call).** `orch/accounting.py`, run by `run_step` after every step that owns the page, once the code-written blocks are re-rendered from their generators: every prose sentence is a provenance key written by the code that placed it, or the text of an applied record (`orchestrator/applied.jsonl`); every code-written line is one its generator writes now (the source list from `sources.json`, frozen after `acquire`, so a hand-edited source line is never explained, E7); a first read's `proposed_text` is never applied, only an accepted ruling's `text` (E8); a sentence that leaves the page is an applied record's old sentence, or a code-written line its generator no longer writes (E9). A problem stops the run. Tests: `test_e7_a_hand_edited_source_line_stops`, `test_e8_a_first_read_proposal_is_never_applied_and_a_hand_placed_one_stops`, `test_e9_a_removal_with_no_record_stops_and_a_recorded_one_passes`, `test_e7_e9_run_after_every_page_owning_step`.
+- **Sandbox, fresh issue (2026-11-07).** A fresh issue has no library record until `acquire` writes one; the scratch copy no longer requires it (found by the $0 trial-mode pass on WHU-OT1-02, which then stopped at the premise's first model call, refused, as designed).

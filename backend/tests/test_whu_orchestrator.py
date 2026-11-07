@@ -708,3 +708,82 @@ def test_apply_step_carries_what_a_replaced_sentence_rested_on(tmp_path, monkeyp
         [{"source": "S001", "start": 10, "end": 40}]
     assert bound == [["X was found in some adults, the review says [1]."]]
     assert "X was found in some adults, the review says [1]." in ctx.page.read_text()
+
+
+# ---------------------------------------------------------------------------------------------------- E7, E8, E9
+# The replay's three unrecorded drafter edits (advisor's ruling 2026-11-07): each is stopped by orch/accounting.py
+# after any step that owns the page.
+
+from orch import accounting as AA  # noqa: E402
+
+SRC = '<div class="sources">\n<div class="src"><span class="tag">[1]</span> A. A review. 2020.</div>\n</div>'
+
+
+def _acc_case(tmp_path):
+    c = tmp_path / "case"
+    (c / "orchestrator").mkdir(parents=True, exist_ok=True)
+    page = Page({"title": "T", "provenance": {"One is true [1].": [], "Two may be true [1].": []}, "blocks": [
+        {"tag": "p", "section": "answer", "sentences": ["One is true [1].", "Two may be true [1]."]},
+        {"tag": "html", "section": "sources", "html": SRC}]})
+    return c, page, {"sources": SRC}
+
+
+def test_e7_a_hand_edited_source_line_stops(tmp_path):
+    c, page, gen = _acc_case(tmp_path)
+    assert AA.problems(c, page, gen, None) == []
+    page.blocks()[1]["html"] = SRC.replace("A review. 2020.", "A review (3rd edition). 2021.")
+    bad = AA.problems(c, page, gen, AA.on_page(_acc_case(tmp_path)[1]))
+    assert bad and all(b.startswith(("E7", "E9")) for b in bad) and any(b.startswith("E7") for b in bad)
+
+
+def test_e8_a_first_read_proposal_is_never_applied_and_a_hand_placed_one_stops(tmp_path):
+    from orch import apply as AP
+    c, page, gen = _acc_case(tmp_path)
+    (c / "audit" / "r1").mkdir(parents=True)
+    (c / "audit" / "r1" / "rulings.jsonl").write_text("\n".join(json.dumps(r) for r in [
+        {"id": "a1", "at": "2026-11-07T10:00:00Z", "ruling": "refer", "inputs": {"sentence": "One is true [1]."},
+         "proposed_text": "One may be true [1]."},                                # a first read: not a ruling
+        {"id": "a2", "at": "2026-11-07T10:01:00Z", "ruling": "amend", "inputs": {"sentence": "Two may be true [1]."},
+         "proposed_text": "Two is probably true [1].", "text": "Two may be true in adults [1]."}]) + "\n")
+    ops = AP.apply_all(c, page)
+    assert [o["new"] for o in ops] == ["Two may be true in adults [1]."]          # the ruling's text, never the proposal
+    assert "One is true [1]." in page.sentences() and "One may be true [1]." not in page.sentences()
+    prev = AA.on_page(page)
+    assert AA.problems(c, page, gen, prev) == []
+    page.blocks()[0]["sentences"][0] = "One may be true [1]."                     # Q1-03b: the proposal placed by hand
+    bad = AA.problems(c, page, gen, prev)
+    assert any(b.startswith("E8") for b in bad) and any(b.startswith("E9") for b in bad)
+
+
+def test_e9_a_removal_with_no_record_stops_and_a_recorded_one_passes(tmp_path):
+    c, page, gen = _acc_case(tmp_path)
+    prev = AA.on_page(page)
+    page.blocks()[0]["sentences"].remove("Two may be true [1].")
+    assert [b[:2] for b in AA.problems(c, page, gen, prev)] == ["E9"]
+    (c / "orchestrator" / "applied.jsonl").write_text(json.dumps(
+        {"key": "cut:x", "op": "delete", "old": "Two may be true [1].", "why": "audit cut"}) + "\n")
+    assert AA.problems(c, page, gen, prev) == []
+
+
+def test_e7_e9_run_after_every_page_owning_step(tmp_path, monkeypatch):
+    import orchestrator as O
+    c = _case(tmp_path)
+    c2, page, gen = _acc_case(tmp_path)
+    page.save(c / "draft" / "page.json")
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.frozen, ctx.log = "orch-x", c, "trial", tmp_path, None, {}, []
+    ctx.page_json, ctx.page = c / "draft" / "page.json", c / "draft" / "orch-x.html"
+    ctx.page_prev = AA.on_page(page)
+    monkeypatch.setattr(O, "_study_log", lambda *a: None)
+    monkeypatch.setattr(O, "_generated_blocks", lambda ctx: ("", "", ""))
+    monkeypatch.setattr(O, "_source_list", lambda ctx: SRC)
+
+    def rogue(ctx, step):                                  # a page-owning step's code drops a sentence unrecorded
+        p = Page.load(ctx.page_json)
+        p.blocks()[0]["sentences"].pop()
+        p.save(ctx.page_json)
+    monkeypatch.setitem(O.STEP_CODE, "rogue", rogue)
+    with pytest.raises(O.RunStop, match="E9"):
+        O.run_step(ctx, ST.Step("omissions", "code", owns=ST.PAGE, code="rogue"))
+    owners = [s.name for s in ST.STEPS if "draft/page.json" in ST.owns_for(s, "x")]
+    assert owners and "gate" not in owners and "preflight" not in owners      # the rest may not touch it at all
