@@ -1,0 +1,103 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:40:26+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes who the studies targeted (25 studies targeted children with disabilities). It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:40:27+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only describes who the five studies targeted (family members versus service providers). It reports no education outcome or comparative effect, so it does not change whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:40:31+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment group interventions most often targeted (n=17). It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:40:35+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only reports which intervention category appears most often in the studies. It says nothing about whether any intervention works or which works best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:40:39+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "not_material",
+   "reason": "The finding only describes a gap and offers a general cause. It reports no intervention results, so it does not change whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:40:52+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes, not educational outcomes, and does not link health gains to education, so it falls under the excluded health/rehabilitation outcomes entry.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, rehabilitation or functional outcomes of interventions (e.g., mobility, vision correction itself)",
+   "decided_at": "2026-11-07T11:40:55+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic call for more evaluation of environment-targeting interventions. It reports no effect or comparison, so it would not change the answer on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:41:01+00:00"
+  },
+  "S002@4325-4537": {
+   "state": "not_material",
+   "reason": "The finding only describes where studies were conducted (a count of studies by country in Asia-Pacific). It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:41:03+00:00"
+  },
+  "S002@4538-4608": {
+   "state": "not_material",
+   "reason": "The finding is vague: it names two gaps in professional learning research without saying what they are or how they bear on programme effectiveness, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:41:05+00:00"
+  },
+  "S002@4828-5007": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns disability as a risk factor for mental health conditions, a health outcome rather than an educational outcome of an education programme, so it falls outside the scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, rehabilitation or functional outcomes of interventions (e.g., mobility, vision correction itself)",
+   "decided_at": "2026-11-07T11:41:15+00:00"
+  },
+  "S002@5029-5281": {
+   "state": "not_material",
+   "reason": "The finding only says that evaluating and publishing evidence on disability-inclusive teacher professional development in LMICs is valuable. It reports no result on effectiveness or on which programmes work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:41:17+00:00"
+  },
+  "S002@5282-6096": {
+   "state": "not_material",
+   "reason": "The text is publication metadata (PMC flags, license, converter info, partnership name) with no finding on programme effectiveness or intervention types, so it cannot affect the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:41:19+00:00"
+  },
+  "S003@5649-6168": {
+   "state": "not_material",
+   "reason": "The finding only describes an evidence and gap map as a starting point for accessing research and setting research agendas; it reports no effect results on education outcomes or which interventions work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:41:21+00:00"
+  }
+ }
+}
