@@ -63,6 +63,12 @@ SEARCH_FRAMES = {"searched": "We searched: %s.", "not_searched": "We did not sea
 # check, is named by its title and nothing on the page draws on it.
 NOT_HELD_FRAME = "We found %s but could not hold it, so nothing on this page draws on it."
 NO_TYPE_FRAME = "We found %s but it is not of a type we can check, so nothing on this page draws on it."
+# Corrections and retractions (advisor's ruling 2026-11-07).
+RETRACTED_FRAME = "We found %s but it has been retracted, so nothing on this page draws on it."
+CORRECTION_NOT_HELD_FRAME = ("We found %s but it has a published correction we could not hold, so nothing on this "
+                             "page draws on it.")
+NOT_HELD_FRAMES = {"could_not_hold": NOT_HELD_FRAME, "retracted": RETRACTED_FRAME,
+                   "correction_not_held": CORRECTION_NOT_HELD_FRAME}
 SECTIONS_FRAME = "Of %s, we read: %s."
 NOT_READ_FRAME = "Of %s, we did not read: %s."
 # Fix 6 (process doc §4.6.1, "What 'we read' means"; advisor, 5 November 2026):
@@ -145,8 +151,9 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
     for s in sources:
         sid, acc = s.get("id"), s.get("access") or {}
         if sid and acc.get("not_held"):
+            frame = NOT_HELD_FRAMES.get(acc["not_held"].get("line"), NOT_HELD_FRAME)
             out.append({"kind": "reading", "source": sid, "field": "access.not_held",
-                        "sentence": NOT_HELD_FRAME % found_label(sources, s.get("title"), sid)})
+                        "sentence": frame % found_label(sources, s.get("title"), sid)})
             continue
         frame = STATE_FRAMES.get(acc.get("state"))
         if not sid or not frame:

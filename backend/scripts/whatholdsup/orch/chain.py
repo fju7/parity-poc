@@ -67,7 +67,10 @@ def violations(d: dict, owns) -> list[str]:
 
 # ---- frozen fields ---------------------------------------------------------------------------------------------
 
-SOURCE_LIST_FIELDS = ("id", "url", "doi", "pmid", "pmcid", "type", "title", "edition", "container", "year")
+SOURCE_LIST_FIELDS = ("id", "url", "type", "title", "edition", "container", "year")
+# Identifiers are frozen separately: a registry may ADD one after `discover` (sweep_sources.py records a PMID it
+# confirms from the PMCID in the URL; found before trial 1's attempt 4), but none may change or go.
+IDENT_FIELDS = ("doi", "pmid", "pmcid")
 READING_FIELDS = ("state", "sections", "not_read")
 
 
@@ -93,6 +96,17 @@ def _sources(doc) -> list:
 
 def source_list_fp(case: Path) -> str:
     return _fp([{k: s.get(k) for k in SOURCE_LIST_FIELDS} for s in _sources(_load(case, "sources.json"))])
+
+
+def identifiers_now(case: Path) -> str:
+    return json.dumps({s.get("id"): {k: s.get(k) for k in IDENT_FIELDS if s.get(k)}
+                       for s in _sources(_load(case, "sources.json"))}, sort_keys=True)
+
+
+def identifiers_broken(before: str, now: str) -> bool:
+    """True when an identifier held at the freeze changed or went; an added one is not a break."""
+    a, b = json.loads(before or "{}"), json.loads(now or "{}")
+    return any(k not in b or any(b[k].get(f) != v for f, v in ids.items()) for k, ids in a.items())
 
 
 def reading_fp(case: Path) -> str:
@@ -129,6 +143,7 @@ FROZEN = {  # fingerprint name -> (function, the step after which it is frozen, 
     "reading": (reading_fp, "acquire", "reading records are written by code at `acquire` only"),
     "forms": (forms_fp, "acquire", "a source's form is derived from its type by code at `acquire` (E6)"),
     "premise": (premise_fp, "premise", "the premise's fixed rows are written before any source and never changed"),
+    "identifiers": (identifiers_now, "discover", "a source's registry identifiers may be added to, never changed"),
 }
 
 
@@ -139,7 +154,8 @@ def frozen_now(case: Path) -> dict:
 def frozen_breaks(case: Path, frozen: dict) -> list[str]:
     """Frozen fingerprints (name -> value) that the case no longer matches."""
     now = frozen_now(case)
-    return ["%s (%s)" % (k, FROZEN[k][2]) for k, v in frozen.items() if now.get(k) != v]
+    return ["%s (%s)" % (k, FROZEN[k][2]) for k, v in frozen.items()
+            if (identifiers_broken(v, now.get(k)) if k == "identifiers" else now.get(k) != v)]
 
 
 # ---- the chain file ---------------------------------------------------------------------------------------------

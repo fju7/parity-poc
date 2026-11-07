@@ -278,7 +278,8 @@ def test_steps_run_in_one_fixed_sequence():
     assert len(set(ST.NAMES)) == len(ST.NAMES)
     assert ST.NAMES[0] == "provenance" and ST.NAMES[-2:] == ("preflight", "archive")
     group = [s.name for s in ST.STEPS if s.repeat_group]
-    assert group == ["findings", "conclusions", "audit", "overstatement", "final_gate", "commit_8", "changecheck"]
+    assert group == ["findings", "conclusions", "audit", "overstatement", "corrections", "final_gate", "commit_8",
+                     "changecheck"]
     for s in ST.STEPS:
         assert (s.max_calls == 0) == (not s.models), s.name
 
@@ -1035,3 +1036,158 @@ def test_d_study_log_cost_is_the_steps_own_ledger_rows():
             {"issue": "y", "step": "discover", "at": "2026-11-07T10:21:40+00:00", "usd": 5.0},
             {"issue": "x", "step": "discover", "at": "2026-11-07T09:00:00+00:00", "usd": 7.0}]
     assert round(O.step_cost(rows, "x", "discover", "2026-11-07T10:21:00+00:00"), 3) == 0.49
+
+
+# ---------------------------------------------------------------------------------------------------- corrections
+# Advisor's ruling 2026-11-07 on corrections and retractions; recorded Europe PMC and Crossref responses for attempt
+# 3's S002 (retracted) and S003 (erratum, not held), and a synthetic held-source erratum that changes a figure.
+
+FX = ROOT / "backend/tests/fixtures/whu_orch_corrections"
+
+
+def _rec(name):
+    return json.loads((FX / name).read_text())["resultList"]["result"][0]
+
+
+def _lookup(kind, value):
+    table = {("PMCID", "PMC10844053"): "epmc_PMC10844053.json", ("PMCID", "PMC8356326"): "epmc_PMC8356326.json",
+             ("PMID", "37133285"): "epmc_MED_37133285.json", ("PMID", "40535238"): "epmc_MED_40535238.json"}
+    name = table.get((kind, value))
+    return (_rec(name), "matched") if name else (None, "Europe PMC has no record for %s %s" % (kind, value))
+
+
+def _crossref(doi):
+    if doi.lower() == "10.1016/j.heliyon.2024.e25216":
+        return json.loads((FX / "crossref_heliyon_e25216.json").read_text())["message"], "matched"
+    return None, "Crossref returned no record for DOI %s" % doi
+
+
+def _fulltext(pmcid):
+    return None, "HTTP 500 (recorded: %s)" % (FX / "epmc_fulltext_PMC8356339_http500.json").read_text()[:40]
+
+
+S002 = {"id": "S002", "type": "review", "used_for": "x", "pmcid": "PMC10844053",
+        "title": "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive "
+                 "education schools in Low and Middle-Income Countries (LMICs)",
+        "url": "https://europepmc.org/article/PMC/PMC10844053", "access": {"state": "full_text_held"}}
+S003 = {"id": "S003", "type": "assessment_summary", "used_for": "x", "doi": "10.1002/cl2.1070",
+        "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with "
+                 "disabilities in low-and middle-income countries.",
+        "url": "https://europepmc.org/article/PMC/PMC8356326",
+        "access": {"last_fetch": {"on": "2026-11-07", "result": "not fetched", "why": "form check"}}}
+
+
+def test_retraction_found_in_europe_pmc_and_crossref_for_attempt_3s_s002():
+    from orch import corrections as CR
+    st = CR.status(S002, _lookup, _crossref)
+    assert st["retracted"]
+    assert "Europe PMC pubType: Retracted Publication" in st["why"]
+    assert any(w.startswith("Europe PMC: Retraction in 40535238") for w in st["why"])
+    assert any(w.startswith("Crossref: retraction 10.1016/j.heliyon.2025.e43334") for w in st["why"])
+
+
+def test_acquire_treats_a_retracted_source_as_not_held_and_the_page_says_so(tmp_path):
+    import orchestrator as O
+    import lean_sentences as LS
+    c = _case(tmp_path)
+    held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
+            "access": {"state": "full_text_held"}}
+    (c / "sources.json").write_text(json.dumps({"sources": [held, S002, S003]}))
+    ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=_crossref, fulltext=_fulltext)
+    out = O.code_acquire(ctx, ST.BY_NAME["acquire"])
+    assert out["lines"] == {"S002": "retracted", "S003": "could_not_hold"} and out["outcome"] == "1 held, 2 not held"
+    doc = json.loads((c / "sources.json").read_text())
+    s2, s3 = doc["sources"][1], doc["sources"][2]
+    assert s2["access"]["state"] == "blocked" and s2["retraction_check"]["retracted"]
+    assert "correction_notices" not in s3                          # (2): a correction to a source not held: nothing
+    assert s3["retraction_check"]["corrections"] == [{"id": "37133285", "registry": "MED", "type": "Erratum in"}]
+    lines = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"]
+    assert lines[0] == ("We found %s but it has been retracted, so nothing on this page draws on it."
+                        % LS.found_label(doc["sources"], S002["title"], "S002"))
+    assert lines[1].endswith("but could not hold it, so nothing on this page draws on it.")
+
+
+def test_errata_passes_a_correction_to_a_source_not_held_and_one_held_as_a_linked_record(monkeypatch):
+    import errata as E
+    srcs = [dict(S003, access={"state": "blocked", "not_held": {"line": "could_not_hold"}}),
+            {"id": "S004", "title": "T", "access": {"state": "full_text_held"},
+             "correction_notices": [{"id": "999", "held": True}]},
+            {"id": "S005", "title": "U", "access": {"state": "full_text_held"}}]
+    checked = {"S003": {"state": "AMENDED", "amendments": [{"type": "Erratum in", "id": "37133285"}]},
+               "S004": {"state": "AMENDED", "amendments": [{"type": "Erratum in", "id": "999"}]},
+               "S005": {"state": "AMENDED", "amendments": [{"type": "Erratum in", "id": "777"}]}}
+    monkeypatch.setattr(E.store, "sources", lambda slug: srcs)
+    monkeypatch.setattr(E.store, "held", lambda slug: {"S004": {}, "S005": {}})
+    monkeypatch.setattr(E, "load", lambda slug: {"checked": checked})
+    rows = {r[0]: r for r in E.preflight_rows("x")}
+    assert rows["corrections to sources not held"][1] == "ok" and rows["corrections to sources not held"][2].endswith("S003")
+    assert rows["corrections obtained and read"][1] == "ok" and rows["corrections obtained and read"][2].endswith("S004")
+    assert rows["corrections not yet read"][1] == "BLOCKED" and "S005" in rows["corrections not yet read"][2]
+
+
+def test_a_held_sources_notice_that_cannot_be_held_makes_it_not_held(tmp_path):
+    import orchestrator as O
+    import lean_sentences as LS
+    c = _case(tmp_path)
+    held = dict(S003, access={"state": "full_text_held"})           # S003 as if held; its notice serves no text
+    (c / "sources.json").write_text(json.dumps({"sources": [held]}))
+    ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=lambda d: (None, "none"), fulltext=_fulltext)
+    with pytest.raises(O.RunStop, match="no source is held"):
+        O.code_acquire(ctx, ST.BY_NAME["acquire"])
+    doc = json.loads((c / "sources.json").read_text())
+    assert doc["sources"][0]["access"]["not_held"]["line"] == "correction_not_held"
+    line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
+    assert line.endswith("but it has a published correction we could not hold, so nothing on this page draws on it.")
+
+
+NOTICE = ("Correction to: Smith et al. In the Results, the sentence 'the pooled effect on attendance was 0.45 "
+          "(95% CI 0.30 to 0.60)' should read 'the pooled effect on attendance was 0.54 (95% CI 0.39 to 0.69)'. "
+          "The authors apologise for the error.")
+
+
+def test_a_held_source_erratum_that_changes_a_figure_removes_the_sentence_unless_it_rebinds(tmp_path):
+    from orch import corrections as CR
+    c = tmp_path / "case"
+    (c / "corrections").mkdir(parents=True)
+    (c / "corrections" / "N1.txt").write_text(NOTICE)
+    (c / "sources.json").write_text(json.dumps({"sources": [
+        {"id": "S001", "access": {"state": "full_text_held"},
+         "correction_notices": [{"id": "N1", "held": True, "file": "corrections/N1.txt"}]},
+        {"id": "S002", "access": {"state": "full_text_held"}}]}))
+    span = "In the pooled analysis the effect on attendance was 0.45 (95% CI 0.30 to 0.60) across 12 trials."
+    rows = {"a": {"sentence": "Programmes raised attendance by 0.45 standard deviations [1].", "source_id": "S001",
+                  "span": span},
+            "b": {"sentence": "Programmes raised attendance by 0.54 standard deviations [1].", "source_id": "S001",
+                  "span": span},
+            "c": {"sentence": "Teacher training was the most common programme [1].", "source_id": "S001",
+                  "span": "Teacher training appeared in most included studies of the review."},
+            "d": {"sentence": "Another source says 0.45 too [2].", "source_id": "S002", "span": span}}
+    removed = []
+    counts = CR.sweep(c, rows, [r["sentence"] for r in rows.values()], removed.append)
+    assert [r["sentence"] for r in removed] == [rows["a"]["sentence"]]
+    assert removed[0]["ref"]["reason"] == "removed: affected by correction N1"
+    assert rows["b"]["corrected_by"] == "N1" and "corrected_by" not in rows["c"] and "corrected_by" not in rows["d"]
+    assert counts == {"checked": 3, "removed": 1, "rebound": 1}
+    assert CR.affected("they found no effect on attendance was large", NOTICE) is False
+    assert CR.affected("In the Results, the sentence on the pooled effect on attendance was large", NOTICE) is True  # 5-word run
+    assert CR.figures("In Table 2 of 2019, 3 trials found 0.45 and 12%") == {"0.45", "12%"}
+
+
+def test_the_corrections_step_runs_before_the_first_commit_and_in_the_repeat_group():
+    i = ST.NAMES.index
+    assert i("judgements") < i("corrections_3b") < i("commit_3b")
+    assert i("overstatement") < i("corrections") < i("final_gate") and ST.BY_NAME["corrections"].repeat_group
+    assert "corrections/*" in ST.BY_NAME["acquire"].owns
+
+
+def test_identifiers_may_be_added_after_discover_never_changed(tmp_path):
+    c = _case(tmp_path)
+    frozen = CH.frozen_now(c)
+    doc = json.loads((c / "sources.json").read_text())
+    doc["sources"][0]["pmid"] = "38322967"                       # sweep_sources confirms a PMID: allowed
+    (c / "sources.json").write_text(json.dumps(doc))
+    assert not CH.frozen_breaks(c, {"identifiers": frozen["identifiers"], "source_list": frozen["source_list"]})
+    frozen = CH.frozen_now(c)
+    doc["sources"][0]["pmid"] = "11111111"                       # a changed one: never
+    (c / "sources.json").write_text(json.dumps(doc))
+    assert CH.frozen_breaks(c, {"identifiers": frozen["identifiers"]})

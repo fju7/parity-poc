@@ -436,29 +436,60 @@ def code_acquire(ctx: Ctx, step) -> dict:
         acc.pop("not_read", None)
         s["form"] = store.form_of({"type": s.get("type")})        # derived, never chosen (E6)
     (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    held = [s["id"] for s in doc.get("sources") or [] if (s.get("access") or {}).get("state") == "full_text_held"]
-    # Ruling (a): a source that could not be held is recorded "not held" and nothing on the page draws on it (the
-    # passages come from held texts only); the page's limits block says so (lean_sentences NOT_HELD_FRAME, a
-    # code-written line). No human search list.
-    not_held = []
+    import source_ledger as SL
+    from orch import corrections as CR
+
+    def mark(s: dict, line: str, why: str) -> None:
+        acc = s.setdefault("access", {})
+        acc["not_held"] = {"line": line, "why": why}
+        if acc.get("state") not in SL.STATES or acc.get("state") in (SL.NOT_OPENED, SL.FULL_TEXT_HELD):
+            # the source ledger's own state for "we tried, by a named route, and could not get it" (or must not use it)
+            acc["state"] = SL.BLOCKED
+            acc["blocked_by"] = "orchestrator acquire (%s): %s" % (line, why[:300])
+            acc.setdefault("on", (acc.get("last_fetch") or {}).get("on") or now()[:10])
+
+    # Ruling 2026-11-07 (corrections and retractions): every source's bibliographic record is read for a retraction;
+    # a held source's corrections are fetched as linked records; a correction to a source not held needs nothing.
+    lookup, crossref, fulltext = (getattr(ctx, "lookup", None), getattr(ctx, "crossref", None),
+                                  getattr(ctx, "fulltext", None))
     for s in doc.get("sources") or []:
         acc = s.setdefault("access", {})
-        if acc.get("state") == "full_text_held":
-            acc.pop("not_held", None)
+        acc.pop("not_held", None)
+        st = CR.status(s, lookup, crossref)
+        s["retraction_check"] = {"retracted": st["retracted"], "why": st["why"], "answered": st["answered"],
+                                 "corrections": st["corrections"], "on": now()[:10]}
+        if st["retracted"]:
+            mark(s, "retracted", "; ".join(st["why"]))
             continue
-        why = (acc.get("last_fetch") or {}).get("why") or acc.get("reason") or "not fetched"
-        acc["not_held"] = {"line": "could_not_hold", "why": why}
-        import source_ledger as SL
-        if acc.get("state") not in SL.STATES or acc.get("state") == SL.NOT_OPENED:
-            # the source ledger's own state for "we tried, by a named route, and could not get it"
-            acc["state"] = SL.BLOCKED
-            acc["blocked_by"] = "acquire_sources.py (orchestrator): %s" % why[:300]
-            acc.setdefault("on", (acc.get("last_fetch") or {}).get("on") or now()[:10])
-        not_held.append(s["id"])
+        if acc.get("state") != SL.FULL_TEXT_HELD or not st["corrections"]:
+            continue
+        held_notices, missing = [], None
+        for c in st["corrections"]:
+            text, how = CR.notice_text(c, lookup, fulltext)
+            if text is None:
+                missing = "%s %s: %s" % (c["type"], c["id"], how)
+                break
+            held_notices.append(CR.hold_notice(ctx.case, c, text, how))
+        if missing:
+            mark(s, "correction_not_held", missing)
+        else:
+            s["correction_notices"] = held_notices
+    # Ruling (a): a source that could not be held is recorded "not held" and nothing on the page draws on it (the
+    # passages come from held texts only); the page's limits block says so (lean_sentences, code-written lines).
+    # No human search list.
+    for s in doc.get("sources") or []:
+        acc = s.setdefault("access", {})
+        if acc.get("state") == SL.FULL_TEXT_HELD or acc.get("not_held"):
+            continue
+        mark(s, "could_not_hold", (acc.get("last_fetch") or {}).get("why") or acc.get("reason") or "not fetched")
     (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    held = [s["id"] for s in doc.get("sources") or [] if (s.get("access") or {}).get("state") == SL.FULL_TEXT_HELD]
+    not_held = [s["id"] for s in doc.get("sources") or [] if (s.get("access") or {}).get("not_held")]
     if not held:
         raise RunStop("acquire: no source is held (Not Ready)")
-    return {"outcome": "%d held, %d not held" % (len(held), len(not_held)), "not_held": not_held}
+    return {"outcome": "%d held, %d not held" % (len(held), len(not_held)), "not_held": not_held,
+            "lines": {s["id"]: s["access"]["not_held"]["line"] for s in doc.get("sources") or []
+                      if s["access"].get("not_held")}}
 
 
 def is_held(s: dict) -> bool:
@@ -766,6 +797,26 @@ def code_audit(ctx: Ctx, step) -> dict:
     return {"outcome": "%d audit round(s)" % rounds, "changed": changed_any or bool(out.get("changed"))}
 
 
+def code_corrections(ctx: Ctx, step) -> dict:
+    """Ruling 2026-11-07 (3): a page sentence whose bound passage shares a figure or a 5-word run with a held
+    correction notice leaves the page under the fail-safe, unless it re-binds against the notice's corrected text."""
+    from orch import corrections as CR
+    from orch.page import Page
+    import bindings as B
+    import lean_failsafe as FS
+    doc = B.load(ctx.slug)
+    rows = doc.get("bindings") or {}
+    log = ctx.case / "rulings" / "rulings.jsonl"
+    page = Page.load(ctx.page_json)
+    counts = CR.sweep(ctx.case, rows, page.sentences(), lambda it: FS.record(CR.PATH, it, log))
+    if counts["rebound"]:
+        B.save(ctx.slug, doc) if hasattr(B, "save") else (ctx.case / "bindings.json").write_text(
+            json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    out = code_apply(ctx, step)
+    return {"outcome": "%(checked)d check(s): %(removed)d removed, %(rebound)d re-bound" % counts,
+            "counts": counts, "changed": out.get("changed")}
+
+
 def code_overstatement(ctx: Ctx, step) -> dict:
     from orch import overstatement as O
     from orch.google import Gateway
@@ -823,7 +874,7 @@ def code_archive(ctx: Ctx, step) -> dict:
 STEP_CODE = {"provenance": code_provenance, "premise": code_premise, "discover": code_discover,
              "acquire": code_acquire, "draft": code_draft, "bind": code_bind, "coverage": code_coverage,
              "judgements": code_judgements, "commit": code_commit, "apply": code_apply, "audit": code_audit,
-             "overstatement": code_overstatement, "preflight": code_preflight, "archive": code_archive}
+             "overstatement": code_overstatement, "corrections": code_corrections, "preflight": code_preflight, "archive": code_archive}
 
 
 def run(ctx: Ctx) -> dict:

@@ -540,8 +540,26 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
         held = set(store.held(slug) or {})
         accounted = {s.get("amends") for s in srcs
                      if s.get("amends") and s["id"] in held}
-        open_ = [i for i in amended if i not in accounted]
-        done = [i for i in amended if i in accounted]
+        # Orchestrated runs (advisor's ruling 2026-11-07): a correction to a source NOT HELD needs no action, since
+        # nothing on the page draws on it; a held source's corrections are accounted for when every one is held as
+        # a linked record on it (correction_notices), whose effect the corrections step applies to the page.
+        by_id = {s.get("id"): s for s in srcs}
+        unheld = [i for i in amended if ((by_id.get(i) or {}).get("access") or {}).get("not_held")]
+        for i in amended:
+            s = by_id.get(i) or {}
+            if i in unheld:
+                continue
+            notes = {str(c.get("id")).lower() for c in s.get("correction_notices") or [] if c.get("held")}
+            want = {str(a.get("id")).lower() for a in (checked.get(i) or {}).get("amendments") or []
+                    if (a.get("type") or "") not in ("Expression of concern in", "Update in", "Republished in")}
+            if notes and want <= notes:
+                accounted.add(i)
+        open_ = [i for i in amended if i not in accounted and i not in unheld]
+        done = [i for i in amended if i in accounted and i not in unheld]
+        if unheld:
+            rows.append(("corrections to sources not held", OK,
+                         "%d source(s) with a correction or retraction are not held, so nothing on the page draws "
+                         "on them and no correction needs reading: %s" % (len(unheld), ", ".join(unheld))))
         if done:
             rows.append(("corrections obtained and read", OK,
                          "%d correction(s) are in the library and their effect on "
