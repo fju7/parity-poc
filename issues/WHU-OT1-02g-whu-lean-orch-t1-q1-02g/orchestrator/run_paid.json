@@ -1,0 +1,269 @@
+{
+ "result": "Not Ready: omissions: backend/scripts/whatholdsup/ruling.py omissions exited 1",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-07T12:50:38+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (107 code files)"
+   },
+   "end": "2026-11-07T12:50:38+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-07T12:50:38+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "end": "2026-11-07T12:50:55+00:00",
+   "usd": 0.030624
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-07T12:50:55+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "4 source(s), 4 unresolved proposal(s)"
+   },
+   "end": "2026-11-07T12:51:34+00:00",
+   "usd": 0.5028
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-07T12:51:34+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02g"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S001   24587d9f8f9b                                     395517 B  (contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text))\n\n  held now: 1   failed: 3   skipped: 0\n\n  NOT HELD S002   Teacher professional development for disability inclusion in l\n           why: identified (contains its identifier PMC9700054), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (392279 bytes at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9700054/)\n  NOT HELD S003   Evidence and gap map of studies assessing the effectiveness of\n           why: identified (contains its identifier PMC8356326), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (379448 bytes at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/)\n  NOT HELD S004   Rapid Evidence Assessment (REA) of What Works to Improve Educa\n           why: identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-02g",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            1 document(s) in the library, every hash matches\n  warn     sources we hold                  1 of 4 held — not held: S002, S003, S004\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-02g"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-02g\n\n  S001   clean        matched on PMCID PMC11799928\n  S002   AMENDED      Erratum in:  36913230\n  S003   AMENDED      Erratum in:  37133285\n  S004   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n\n  ok     sources checked for corrections        all 4 source(s) have had their bibliographic record read for errata\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S004\n  BLOCKED corrections not yet read               2 source(s) have been formally corrected and we do not hold the correction: S002: Erratum in 36913230 || S003: Erratum in 37133285 — until it is read we do not know whether it touches a figure on this page\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-02g",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-02g-whu-lean-orch-t1-q1-02g — what can be swept at all\n\n    S001   doi   10.1002/cl2.70016                  url/field Effectiveness of interventions for i\n    S002   doi   10.1002/cl2.1287                   url/field Teacher professional development for\n    S003   doi   10.1002/cl2.1070                   url/field Evidence and gap map of studies asse\n\n  3 of 4 sweepable as held.\n\n  1 carry nothing that implies an identifier:\n\n    S004   review    Rapid Evidence Assessment (REA) of What Works to Improve\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-02g"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-02g\n  ok      checks can read the documents      1 of 1 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "1 held, 3 not held",
+    "not_held": [
+     "S002",
+     "S003",
+     "S004"
+    ],
+    "lines": {
+     "S002": "could_not_hold",
+     "S003": "could_not_hold",
+     "S004": "could_not_hold"
+    }
+   },
+   "end": "2026-11-07T12:51:46+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-07T12:51:46+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "42 sentences drafted from 65 passages"
+   },
+   "end": "2026-11-07T12:52:18+00:00",
+   "usd": 0.159252
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-07T12:52:18+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-02g",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  64 empirical sentence(s) on the page\n  -2 bound, 66 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "37 sentence(s) bound to their passages"
+   },
+   "end": "2026-11-07T12:52:19+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-07T12:52:19+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "14 coverage decision(s), 0 left in scope"
+   },
+   "end": "2026-11-07T12:52:59+00:00",
+   "usd": 0.052866
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-07T12:52:59+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-02g",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.06 (8 candidate(s) x $0.0072 per candidate (mean of 1297 logged relevance ruling(s))); $56.10 left today, $6.09 left on whu-lean-orch-t1-q1-02g\n  6 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/rulings/rulings.jsonl\n  consistency: re-ran 2 of 8 ruling(s) (seed 35098944842273): 2 of 2 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.0366\n"
+    }
+   ],
+   "code": {
+    "outcome": "4 judgement(s) stated"
+   },
+   "end": "2026-11-07T12:53:31+00:00",
+   "usd": 0.046706
+  },
+  {
+   "step": "corrections_3b",
+   "start": "2026-11-07T12:53:31+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 check(s): 0 removed, 0 re-bound",
+    "counts": {
+     "checked": 0,
+     "removed": 0,
+     "rebound": 0
+    },
+    "changed": false
+   },
+   "end": "2026-11-07T12:53:31+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "commit_3b",
+   "start": "2026-11-07T12:53:31+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "committed 71e1927fe24f"
+   },
+   "end": "2026-11-07T12:55:25+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "gate",
+   "start": "2026-11-07T12:55:25+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/draft/whu-lean-orch-t1-q1-02g.html",
+      "--dry-run"
+     ],
+     "rc": 0,
+     "tail": "NARROW GATE — DRY RUN (no API call is made)\n  free checks considered 5 sentence(s) or quotation(s) carrying a figure or a quotation\n  claims the source role would receive: 0\n  calls that would be made: 1\n    recency                                        whole draft\n    (source: no UNDETERMINED claim, so no source call)\n  not run (--full only): extract, advocate, inference, coverage\n  estimated cost: 1 call(s) x $0.75 = $0.75 (the per-call figure the cap is checked with; Phase B's full run was $4.63)\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/draft/whu-lean-orch-t1-q1-02g.html",
+      "--report",
+      "issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/draft/whu-lean-orch-t1-q1-02g.html.gate.json"
+     ],
+     "rc": 1,
+     "tail": "===========================================\n\n========================================================================\nINFERENCE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nCOVERAGE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nADJUDICATION  0 already decided · 0 moved since\n========================================================================\n\n  Nothing has been adjudicated for this draft. Every finding above\n  is new. Record the ones you accept in draft_decisions.json so the\n  next run can tell a fresh problem from a settled one.\n========================================================================\nCOST     $0.39 - 1 API call(s) - 97,619 tokens in, 2,393 out - 6 web search(es)\n========================================================================\n\n  recency                                  $0.39  100,012 tok   6 search\n\n  Priced from https://platform.claude.com/docs/en/about-claude/pricing,\n  read 2026-08-28. Prices go stale; a figure here older than the\n  page it came from is a figure to re-check.\n\nFull result written to issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/draft/whu-lean-orch-t1-q1-02g.html.gate.json\n\nBLOCKED — resolve every item above, or record it in the piece, before publishing.\n",
+     "proof": "proved: issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/draft/whu-lean-orch-t1-q1-02g.html.gate.json written in this step, findings present"
+    }
+   ],
+   "end": "2026-11-07T12:56:16+00:00",
+   "usd": 0.3888
+  },
+  {
+   "step": "advocate",
+   "start": "2026-11-07T12:56:16+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_advocate.py",
+      "run",
+      "whu-lean-orch-t1-q1-02g",
+      "--page",
+      "issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/draft/whu-lean-orch-t1-q1-02g.html"
+     ],
+     "rc": 0,
+     "tail": " stage cap: the source advocate estimated $0.93 (1 source(s) x $0.9257 per source (the higher of: $0.1277 per objection over 498 objection(s) x 7.25 objections per source (the most of any run: WHU-S08-settlement-planning-climate-resilience 20261025T001452Z-briefs.json) = $0.9257; $0.5170 mean over 123 measured source(s) in 12 issue(s))); $55.66 left today, $5.66 left on whu-lean-orch-t1-q1-02g\n  run         issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/advocate/runs/20261107T125616Z\n  routing     47 sentence(s) reach a source by their binding; 52 reach none (27 with no binding row, 25 whose row rests on no source; issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/advocate/runs/20261107T125616Z/routing.json)\n  S001  full_text_held the authors of Effectiveness of interventions for improvin\n        -> 4 objections\n  S002  blocked      the authors of Teacher professional development for disabi\n  S003  blocked      the authors of Evidence and gap map of studies assessing t\n  S004  blocked      the authors of Rapid Evidence Assessment (REA) of What Wor\n  quotations  4 checked against the held text; 0 still not in it after one re-ask (log: issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/advocate/quote_checks.jsonl, never committed)\n\n  briefs      issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/advocate/20261107T125616Z-briefs.json\n  adjudicate  issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/advocate/20261107T125616Z-adjudication.md\n  4 item(s) need a MERIT and an EFFECT line before this issue can publish.\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "advocate",
+      "whu-lean-orch-t1-q1-02g"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the ruling model estimated $0.02 (2 ruling(s) x $0.0114 per ruling (mean of 2335 logged ruling(s))); $55.45 left today, $5.45 left on whu-lean-orch-t1-q1-02g\n  1 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02g-whu-lean-orch-t1-q1-02g/rulings/rulings.jsonl\n  consistency: re-ran 1 of 1 ruling(s) (seed 29542903546032): 1 of 1 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.0257\n"
+    }
+   ],
+   "code": {
+    "outcome": "0 record(s) applied",
+    "changed": false,
+    "applied": 0
+   },
+   "end": "2026-11-07T12:57:13+00:00",
+   "usd": 0.237648
+  },
+  {
+   "step": "omissions",
+   "start": "2026-11-07T12:57:13+00:00",
+   "failed": "RunStop: omissions: backend/scripts/whatholdsup/ruling.py omissions exited 1",
+   "end": "2026-11-07T12:57:19+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "omissions",
+      "whu-lean-orch-t1-q1-02g"
+     ],
+     "rc": 1,
+     "tail": "e \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/whatholdsup/ruling.py\", line 1738, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/whatholdsup/ruling.py\", line 1682, in main\n    done = fn(a.slug, call, failed=failed) if not kw else fn(a.slug, call, failed=failed, **kw)\n           ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/whatholdsup/ruling.py\", line 1334, in rule_omissions\n    o = SA.reask_omission({\"source\": sid, \"principal\": it.get(\"principal\")}, o, held.get(sid) or \"\",\n                          bound_spans(sid), ask=reask)\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/whatholdsup/source_advocate.py\", line 325, in reask_omission\n    got = fc.call(system, user, search=False, label=\"advocate-reask-omission:%s\" % b.get(\"source\"))\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/signal/factcheck_draft.py\", line 753, in call\n    _spend.orch_guard(SIGNAL_MODEL, \"factcheck_draft.py\", label, _LEDGER_ISSUE or None, 0.75)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/spend_ledger.py\", line 494, in orch_guard\n    raise OrchestratorRefused(\"step %r does not declare model %r\" % (step, model))\nspend_ledger.OrchestratorRefused: step 'omissions' does not declare model 'claude-sonnet-4-6'\n"
+    }
+   ],
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-07T12:57:19+00:00"
+}

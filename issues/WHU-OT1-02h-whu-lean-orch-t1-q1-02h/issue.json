@@ -1,0 +1,13 @@
+{
+  "id": "WHU-OT1-02h",
+  "slug": "whu-lean-orch-t1-q1-02h",
+  "title": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "question": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "run_cap_usd": 5.42,
+  "_round_note": "Orchestrator trial 1, attempt 8 (the last under the advisor's exit-code ruling after attempt 6), on round 1's question WHU-Q1-02, verbatim: the code-driven orchestrator run end to end in paid mode. Funded from the lean runs line (validity_plan.md §12). Outputs are discarded by rule and never scored. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-02h; run cap $5.42 (what is left of the trial's $10 after attempts 1-7).",
+  "_run_cap_note": "run_cap_usd: what is left of orchestrator trial 1's $10 after attempts 1-7 ($4.5778 spent), floored to the cent."
+}

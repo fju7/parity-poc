@@ -9,3 +9,7 @@
 | coverage (orchestrator) | 2026-11-07T12:52:19+00:00 | 2026-11-07T12:52:59+00:00 | $0.0529 | 0 | 14 coverage decision(s), 0 left in scope |
 | judgements (orchestrator) | 2026-11-07T12:52:59+00:00 | 2026-11-07T12:53:31+00:00 | $0.0467 | 0 | 4 judgement(s) stated |
 | corrections_3b (orchestrator) | 2026-11-07T12:53:31+00:00 | 2026-11-07T12:53:31+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-07T12:53:31+00:00 | 2026-11-07T12:55:25+00:00 | $0.0000 | 0 | committed 71e1927fe24f |
+| gate (orchestrator) | 2026-11-07T12:55:25+00:00 | 2026-11-07T12:56:16+00:00 | $0.3888 | 0 | done |
+| advocate (orchestrator) | 2026-11-07T12:56:16+00:00 | 2026-11-07T12:57:13+00:00 | $0.2376 | 0 | 0 record(s) applied |
+| omissions (orchestrator) | 2026-11-07T12:57:13+00:00 | 2026-11-07T12:57:19+00:00 | $0.0000 | 0 | FAILED: RunStop: omissions: backend/scripts/whatholdsup/ruling.py omissions exited 1 |

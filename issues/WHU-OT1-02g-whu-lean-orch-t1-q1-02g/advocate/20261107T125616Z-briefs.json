@@ -1,0 +1,75 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Handwriting showed a large effect of 4.97 (CI 4.21 to 5.73) with low heterogeneity, but this rests on only two studies [1].",
+        "objection": "The effect size and confidence interval given for handwriting do not match the summary-of-findings row I could retrieve, where the interval is far wider.",
+        "source_says": "Handwriting exhibits a significant and a large effect of 4.97 (CI: [4.21, 5.73]) with low heterogeneity ( I ² = 0.00%) but this is based on only two studies.",
+        "locator": "5. Results, synthesis of effects on 'Skills for learning' (text following the forest plot, Figure 8)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's caution (two studies, large effect) still holds. But a 0.25 to 9.48 interval is much less precise than 4.21 to 5.73, and that understates how uncertain the handwriting estimate is.",
+        "source_says_first": "\"Skills for learning · Handwriting · d = 4.86 (0.25 to 9.48) k = 2 n = 101 I ² = 0% Egger's test Low sample size · Large effect based on a low number of studies with low heterogeneity.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The effect on school behaviour and adaptive functioning (d = 0.49, −1.76 to 2.74, five studies) was also insignificant [1].",
+        "objection": "The page gives the high heterogeneity for speech and communication but leaves out that the school-behaviour result has none, so the two null results are not alike.",
+        "source_says": "School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias",
+        "locator": "Section 5 Results, summary of findings table (Skills for learning outcomes)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's closing statement that 'heterogeneity is high' across studies does not apply to this outcome, where I² = 0%. The confidence interval is also very wide, so the result is imprecise rather than a clear finding of no effect.",
+        "source_says_first": "\"Skills for learning · School behaviour and adaptive functioning · d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 (t = 1.03, p = 0.38) · Insignificant effect based on a low number of studies with low heterogeneity\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but the review notes these are based on a low number of studies [1].",
+        "objection": "The page groups literacy with the 'large' effects. The review's own literacy row calls the effect moderate and reports very high heterogeneity, and the page omits both.",
+        "source_says": "Literacy interventions demonstrate moderate effect but high heterogeneity ( I ² = 92.09%), with an effect size of 2.64 (CI: [1.21, 4.06]).",
+        "locator": "5.3. Effects of interventions, paragraph after Figure 8",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The abstract calls all these effects large, so the page is consistent with it. But the literacy result is a pooled estimate with I² of about 92%, and this reinforces the page's caution on how much weight the estimates can bear.",
+        "source_says_first": "\"Literacy interventions demonstrate moderate effect but high heterogeneity (I² = 92.09%), with an effect size of 2.64 (CI: [1.21, 4.06]).\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "For research, they call for larger samples and more rigorous study designs [1].",
+        "objection": "The page lists the authors' recommendations but omits their call to build disability measurement into mainstream education evaluations and to test existing government programmes.",
+        "source_says": "Efforts should also be made to integrate measures of disability within mainstream education impact evaluations and other demographic/household surveys that include education outcomes, and existing non‐targeted government programmes should evaluate whether they are effective in improving educational outcomes for people with disabilities.",
+        "locator": "Plain language summary / key findings (1.6-style summary section, immediately before '1.7. How up‐to‐date is this review?')",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This recommendation addresses the gap in system-level evidence that the page highlights. It points to mainstream programmes as the place to look for that evidence, and the page does not mention it.",
+        "source_says_first": "\"Efforts should also be made to integrate measures of disability within mainstream education impact evaluations and other demographic/household surveys that include education outcomes, and existing non-targeted government programmes should evaluate whether they are effective in improving educational outcomes for people with disabilities.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

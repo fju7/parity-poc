@@ -106,14 +106,14 @@ STEPS: tuple[Step, ...] = (
          cmds=((PY, W + "source_advocate.py", "run", "{slug}", "--page", "{page}"),
                (PY, W + "ruling.py", "advocate", "{slug}")), code="apply"),
     Step("omissions", "stage", owns=PAGE + ("omissions.json", "bindings.json", "coverage.json") + RULINGS,
-         models=(CURRENT,), max_calls=120, cap_usd=2.50,
+         models=(CURRENT, GATE_MODEL), max_calls=120, cap_usd=2.50,  # GATE_MODEL: source_advocate.reask_omission's re-asks (fc.call)
          cmds=((PY, W + "ruling.py", "omissions", "{slug}"),), code="apply"),
     Step("findings", "stage", owns=PAGE + ("gate-findings.json", "bindings.json") + RULINGS, models=(CURRENT,),
          max_calls=200, cap_usd=2.50, repeat_group=True,
          cmds=((PY, W + "findings.py", "{slug}", "--report", "{gate}", "--scan"),
                (PY, W + "ruling.py", "gate", "{slug}")), code="apply"),
     Step("conclusions", "stage", owns=PAGE + ("conclusion-review.json", "bindings.json") + RULINGS,
-         models=(CURRENT,), max_calls=60, cap_usd=1.00, repeat_group=True,
+         models=(GATE_MODEL, CURRENT), max_calls=60, cap_usd=1.00, repeat_group=True,  # GATE_MODEL: conclusion_judge.JUDGE_MODEL (fc.call)
          cmds=((PY, W + "conclusion_judge.py", "{slug}"), (PY, W + "ruling.py", "conclusions", "{slug}")),
          code="apply"),
     Step("audit", "stage", owns=PAGE + ("audit/*", "bindings.json") + RULINGS, models=(SMALL, CURRENT),
@@ -134,7 +134,7 @@ STEPS: tuple[Step, ...] = (
                (PY, W + "ruling.py", "gate", "{slug}")), code="apply"),
     Step("commit_8", "code", repeat_group=True, code="commit"),
     Step("changecheck", "stage", owns=PAGE + ("change-reviews.json", "bindings.json") + RULINGS,
-         models=(CURRENT,), max_calls=60, cap_usd=1.00, repeat_group=True,
+         models=(GATE_MODEL, CURRENT), max_calls=60, cap_usd=1.00, repeat_group=True,  # GATE_MODEL: changecheck.py's review (fc.call)
          cmds=((PY, W + "changecheck.py", "{slug}", "--page", "{page}", "--before", "{first}"),
                (PY, W + "ruling.py", "changecheck", "{slug}"),
                (PY, W + "changecheck_coverage.py", "{slug}", "--first", "{first}", "--out",

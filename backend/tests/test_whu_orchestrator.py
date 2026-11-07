@@ -1480,3 +1480,35 @@ def test_any_exit_not_in_the_table_stops():
     for script in ("findings.py", "source_advocate.py", "audit_stage.py", "changecheck.py", "conclusion_judge.py",
                    "consistency.py", "errata.py"):
         assert script not in ST.EXITS                                   # 0 only: 3 (cap), 2, 1 all stop
+
+
+# ---------------------------------------------------------------------------------------------------- declared models
+# Attempt 7 stopped at `omissions`: ruling.py omissions re-asks through factcheck_draft (claude-sonnet-4-6), which the
+# step did not declare. Every model a step's commands can call, read from their code, must be declared.
+
+def test_every_stage_step_declares_every_model_its_commands_can_call():
+    import lean
+    import conclusion_judge as CJ
+    sys.path.insert(0, str(ROOT / "backend/scripts/signal"))
+    import signal_model as SM
+    gate = SM.DEFAULT_MODEL
+    assert gate == ST.GATE_MODEL and CJ.JUDGE_MODEL == ST.GATE_MODEL
+    rulings = lean.STAGE_MODELS["rulings"]
+    calls = {   # script (and ruling.py mode) -> the models its code calls under lean WHU
+        "factcheck_draft.py": {gate},
+        "source_advocate.py": {lean.STAGE_MODELS["advocate"], gate},
+        "ruling.py advocate": {rulings}, "ruling.py gate": {rulings}, "ruling.py conclusions": {rulings},
+        "ruling.py changecheck": {rulings},
+        "ruling.py omissions": {rulings, gate},          # source_advocate.reask_omission via fc.call
+        "ruling.py judgements": {lean.STAGE_MODELS["judgements"], lean.STAGE_MODELS["judgements_escalate"]},
+        "conclusion_judge.py": {CJ.JUDGE_MODEL},
+        "changecheck.py": {gate},
+        "audit_stage.py": {lean.STAGE_MODELS["audit_first"], lean.STAGE_MODELS["audit_escalate"]},
+        "findings.py": set(), "changecheck_coverage.py": set(), "bindings.py": set(),
+    }
+    for s in ST.STEPS:
+        for argv in s.cmds:
+            script = Path(argv[1]).name
+            key = "%s %s" % (script, argv[2]) if script == "ruling.py" else script
+            if key in calls:
+                assert calls[key] <= set(s.models), (s.name, key, calls[key] - set(s.models))
