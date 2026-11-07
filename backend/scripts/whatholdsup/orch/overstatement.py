@@ -132,7 +132,7 @@ def check_one(gw, p: dict) -> dict:
     verdict = None
     for _attempt in range(2):
         got = gw.call(text, "overstatement")
-        replies.append({"text": got["text"][:2000], "model": got["model"], "usd": got["usd"],
+        replies.append({"text": got["text"], "model": got["model"], "usd": got["usd"],
                         "refused": got["refused"], "finish": got["finish"]})
         verdict = None if got["refused"] else parse(got["text"])
         if verdict:

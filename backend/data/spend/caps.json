@@ -6,7 +6,8 @@
     "whu-check-preview": 20,
     "whu-check-fresh-v8": 75,
     "whu-check-fresh-judge": 80,
-    "whu-lean-orch-t1-q1-02": 10
+    "whu-lean-orch-t1-q1-02": 10,
+    "whu-lean-orch-t1-q1-02b": 9.96
   },
   "study_per_issue": 50,
   "_why_the_study_cap": "ruled 2026-10-20, protocol rev 27. Each reliability-study issue (issue.json \"study\": true) has a $50 limit, set before the freeze. If an answer cannot finish within it, that is recorded as a result and the limit is not raised. The day cap below still applies, and a run picks up the next day.",
@@ -21,7 +22,7 @@
   "_why_whu_check_preview": "Fred's brief, 2026-10-28: the unlisted 'check an AI answer' preview (backend/routers/whu_check.py) spends on ledger issue whu-check-preview, $20 in total and $10 per UTC day, checked before each job's first model call; over means 402 and no call.",
   "_why_whu_check_fresh_v8": "Advisor ruling 2026-11-02, Fred's approval: line 'fresh-set stage 1', $60, outside the $350 WHU validity phase (validity_plan.md §12; pilot doc §16.9). The v8 run on the 18 fresh answers; judging (stage 2) needs a separate approval. Raised to $75 by advisor ruling, Fred's approval, 2026-11-04: the free prepare's likely $62.26 passed $60; the run goes ahead across days under the room rule and cost is reported as a failed bar from the measured spend.",
   "_why_whu_check_fresh_judge": "Advisor ruling 2026-11-04, Fred's approval: line 'fresh-set stage 2', $80, outside the $350 WHU validity phase (validity_plan.md §12). The two M1 judges, first reads only, on the frozen-sample sentences v8 judged BACKED or NOT BACKED; check_pilot/fresh_judge.py.",
-  "_why_whu_lean_orch_t1": "Advisor ruling 2026-11-07, 'orchestrator trial 1': one paid orchestrator run on WHU-Q1-02, from the lean runs line (validity_plan.md §12; $10.05 left on it). $10, the run cap also in the issue's run_cap_usd.",
+  "_why_whu_lean_orch_t1": "Advisor ruling 2026-11-07, 'orchestrator trial 1': one paid orchestrator run on WHU-Q1-02, from the lean runs line (validity_plan.md §12; $10.05 left on it). $10, the run cap also in the issue's run_cap_usd. Attempts 2 and 3 (advisor's ruling after attempt 1): each in a new folder on its own ledger issue, capped at what is left of the $10.",
   "lines": {
     "new-questions test": {
       "cap_usd": 150,

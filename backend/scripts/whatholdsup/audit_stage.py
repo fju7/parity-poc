@@ -91,6 +91,10 @@ RULE_PROMPT = HERE / "audit_prompts" / "rule.md"
 MODEL = "claude-opus-5-5"
 READ_MAX_OUT = 12000
 RULE_MAX_OUT = 1500
+# A reply limit above this needs an explicit request timeout: the SDK refuses a non-streaming request whose
+# max_tokens implies more than ten minutes (about 21,333 tokens). The orchestrator's draft step asks for 30,000.
+LONG_REPLY_TOKENS = 16000
+LONG_REPLY_TIMEOUT_S = 1800
 BATCH = 20
 MAX_ROUNDS = 3
 SECOND_SHARE = 0.10
@@ -446,9 +450,10 @@ class ReplyCutOff(AuditFailure):
     loaded this module under another name recognise it (ruling.py)."""
     cut_off = True
 
-    def __init__(self, msg: str, usage: dict | None = None):
+    def __init__(self, msg: str, usage: dict | None = None, text: str = ""):
         super().__init__(msg)
         self.usage = usage or {}
+        self.text = text or ""             # the cut-off reply, kept for the run record
 
 
 class DocumentNotDelivered(AuditFailure):
@@ -923,7 +928,7 @@ class Caller:
             stop = usage.pop("stop_reason", None) if isinstance(usage, dict) else None
             self.calls.append({"role": role, **extra, **usage})
             if stop == "max_tokens":
-                raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage)
+                raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage, text)
             return text, usage
         content = prompt
         if cache_prefix:
@@ -941,8 +946,9 @@ class Caller:
         # capped at caps.json's study_per_issue). check_cap checks both.
         S.check_cap(self.issue, worst)
         t0 = time.time()
+        kw = {"timeout": LONG_REPLY_TIMEOUT_S} if max_tokens > LONG_REPLY_TOKENS else {}
         r = self._client.messages.create(model=self.model, max_tokens=max_tokens,
-                                         messages=[{"role": "user", "content": content}])
+                                         messages=[{"role": "user", "content": content}], **kw)
         if r.stop_reason == "refusal":
             raise AuditFailure("the model refused (%s)" % role)
         text = "".join(getattr(b, "text", "") for b in r.content)
@@ -955,7 +961,7 @@ class Caller:
         if r.stop_reason == "max_tokens":
             # Paid for, so counted above; the caller decides what a cut-off
             # reply means (ruling.py retries once, 2026-10-22).
-            raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage)
+            raise ReplyCutOff("reply cut off at %d tokens (%s)" % (max_tokens, role), usage, text)
         return text, usage
 
 

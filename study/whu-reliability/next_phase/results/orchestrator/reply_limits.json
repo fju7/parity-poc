@@ -1,0 +1,201 @@
+{
+ "_what_this_is": "Reply limits of the orchestrator steps that had never run, set by the advisor's ruling of 2026-11-07 from the largest matching output in the stored lean records (Q1-01c, 02b, 03b, 04c) plus at least 50%. Tokens estimated at 3 characters per token (conservative for English JSON); no model call. Script: the size pass of session LT (records only).",
+ "steps": {
+  "premise": {
+   "old_limit": 1500,
+   "new_limit": 4000,
+   "basis_tokens": 1012,
+   "margin": 2.95,
+   "basis": {
+    "rows": [
+     [
+      "01c",
+      3034,
+      1012,
+      "premise.json fixed rows in the reply schema"
+     ],
+     [
+      "02b",
+      2919,
+      973,
+      "premise.json fixed rows in the reply schema"
+     ],
+     [
+      "03b",
+      2724,
+      908,
+      "premise.json fixed rows in the reply schema"
+     ],
+     [
+      "04c",
+      2729,
+      910,
+      "premise.json fixed rows in the reply schema"
+     ]
+    ],
+    "largest_tokens": 1012,
+    "largest_run": "01c",
+    "basis": "premise.json fixed rows in the reply schema"
+   }
+  },
+  "discover": {
+   "old_limit": 4000,
+   "new_limit": 4000,
+   "basis_tokens": 1792,
+   "margin": 1.23,
+   "basis": {
+    "rows": [
+     [
+      "01c",
+      1146,
+      382,
+      "2 sources in the proposal schema (why at its 25-word maximum)"
+     ],
+     [
+      "02b",
+      2014,
+      672,
+      "3 sources in the proposal schema (why at its 25-word maximum)"
+     ],
+     [
+      "03b",
+      500,
+      167,
+      "1 sources in the proposal schema (why at its 25-word maximum)"
+     ],
+     [
+      "04c",
+      1958,
+      653,
+      "4 sources in the proposal schema (why at its 25-word maximum)"
+     ]
+    ],
+    "largest_tokens": 672,
+    "largest_run": "02b",
+    "basis": "3 sources in the proposal schema (why at its 25-word maximum); scaled from 3 to the prompt's maximum of 8 proposals"
+   }
+  },
+  "draft": {
+   "old_limit": 12000,
+   "new_limit": 30000,
+   "basis_tokens": 14824,
+   "margin": 1.02,
+   "basis": {
+    "rows": [
+     [
+      "01c",
+      9439,
+      3147,
+      "33 prose sentences of the page, JSON with two passage ids each"
+     ],
+     [
+      "02b",
+      10431,
+      3477,
+      "37 prose sentences of the page, JSON with two passage ids each"
+     ],
+     [
+      "03b",
+      44472,
+      14824,
+      "143 prose sentences of the page, JSON with two passage ids each"
+     ],
+     [
+      "04c",
+      35249,
+      11750,
+      "98 prose sentences of the page, JSON with two passage ids each"
+     ]
+    ],
+    "largest_tokens": 14824,
+    "largest_run": "03b",
+    "basis": "143 prose sentences of the page, JSON with two passage ids each"
+   }
+  },
+  "coverage": {
+   "old_limit": 600,
+   "new_limit": 600,
+   "basis_tokens": 281,
+   "margin": 1.14,
+   "basis": {
+    "rows": [
+     [
+      "01c",
+      598,
+      200,
+      "longest recorded coverage/judgement reason plus the longest page sentence"
+     ],
+     [
+      "02b",
+      692,
+      231,
+      "longest recorded coverage/judgement reason plus the longest page sentence"
+     ],
+     [
+      "03b",
+      837,
+      279,
+      "longest recorded coverage/judgement reason plus the longest page sentence"
+     ],
+     [
+      "04c",
+      842,
+      281,
+      "longest recorded coverage/judgement reason plus the longest page sentence"
+     ]
+    ],
+    "largest_tokens": 281,
+    "largest_run": "04c",
+    "basis": "longest recorded coverage/judgement reason plus the longest page sentence"
+   }
+  },
+  "judgement_sentence": {
+   "old_limit": 500,
+   "new_limit": 500,
+   "basis_tokens": 165,
+   "margin": 2.03,
+   "basis": {
+    "rows": [
+     [
+      "01c",
+      328,
+      110,
+      "the longest prose sentence on the page"
+     ],
+     [
+      "02b",
+      384,
+      128,
+      "the longest prose sentence on the page"
+     ],
+     [
+      "03b",
+      480,
+      160,
+      "the longest prose sentence on the page"
+     ],
+     [
+      "04c",
+      495,
+      165,
+      "the longest prose sentence on the page"
+     ]
+    ],
+    "largest_tokens": 165,
+    "largest_run": "04c",
+    "basis": "the longest prose sentence on the page"
+   }
+  },
+  "overstatement": {
+   "old_limit": 1024,
+   "new_limit": 2800,
+   "basis_tokens": 1375,
+   "margin": 1.04,
+   "basis": {
+    "largest_tokens": 1375,
+    "largest_run": "whu-reliability-judging-validity-c1",
+    "basis": "largest gemini-4-argon judging output in the ledger (judge_google.py, 480 rows; 1,286 of it thinking, which counts towards the limit)"
+   }
+  }
+ }
+}

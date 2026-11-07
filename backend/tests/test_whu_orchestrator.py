@@ -787,3 +787,107 @@ def test_e7_e9_run_after_every_page_owning_step(tmp_path, monkeypatch):
         O.run_step(ctx, ST.Step("omissions", "code", owns=ST.PAGE, code="rogue"))
     owners = [s.name for s in ST.STEPS if "draft/page.json" in ST.owns_for(s, "x")]
     assert owners and "gate" not in owners and "preflight" not in owners      # the rest may not touch it at all
+
+
+# ---------------------------------------------------------------------------------------------------- trial-1 fixes
+# Advisor's ruling 2026-11-07 after orchestrator trial 1 stopped at the premise: reply limits from the stored records;
+# every cut-off or unusable reply kept; a failed step logged with cost and reason; every ledger row names its step.
+
+def test_reply_limits_cover_the_stored_records_with_a_margin():
+    rec = json.loads((ROOT / "study/whu-reliability/next_phase/results/orchestrator/reply_limits.json").read_text())
+    assert set(rec["steps"]) == set(ST.REPLY_LIMITS)
+    for k, v in rec["steps"].items():
+        assert ST.REPLY_LIMITS[k] == v["new_limit"] >= 1.5 * v["basis_tokens"], k
+    assert ST.REPLY_LIMITS["premise"] == 4000
+    from orch import google as G
+    assert G.MAX_OUT == ST.REPLY_LIMITS["overstatement"]
+
+
+def test_each_model_step_asks_with_its_limit():
+    from orch import model_steps as M
+    seen = {}
+
+    def ask(prompt, max_tokens, role):
+        seen[role] = max_tokens
+        return {"premise": json.dumps({"belief": "b", "kill_condition": "k", "reader_with_a_decision": "r",
+                                       "scope_covers": "c", "scope_out": [], "weighs": "measured",
+                                       "measured": "m", "assessed": "a"}),
+                "coverage": json.dumps({"decision": "not_material", "why": "w", "sentence": ""}),
+                "judgement_sentence": json.dumps({"sentence": "s"})}[role]
+    M.premise("q?", ask, by="x")
+    M.coverage_decision("q?", "{}", "u", ask)
+    M.judgement_sentence("t", ask)
+    assert seen == {k: ST.REPLY_LIMITS[k] for k in ("premise", "coverage", "judgement_sentence")}
+    src = (W / "orchestrator.py").read_text()
+    assert 'ST.REPLY_LIMITS["draft"]' in src and src.count('ST.REPLY_LIMITS["discover"]') >= 2
+
+
+def test_a_cut_off_reply_keeps_its_text():
+    import audit_stage as A
+    c = A.Caller(cap=1.0, ledger_issue="orch-x", ask=lambda prompt, n: ("{\"belief\": \"half a rep", {"input": 3, "output": n, "usd": 0.01,
+                                                                     "stop_reason": "max_tokens"}))
+    with pytest.raises(A.ReplyCutOff) as e:
+        c("p", 10, "premise")
+    assert e.value.text.startswith("{\"belief\"") and e.value.usage["output"] == 10
+
+
+def test_a_long_reply_limit_sends_an_explicit_timeout():
+    import audit_stage as A
+    src = (W / "audit_stage.py").read_text()
+    assert A.LONG_REPLY_TOKENS < 21333 < ST.REPLY_LIMITS["draft"]
+    assert 'kw = {"timeout": LONG_REPLY_TIMEOUT_S} if max_tokens > LONG_REPLY_TOKENS else {}' in src
+
+
+def test_a_failed_step_is_logged_with_cost_reason_and_its_cut_off_reply(tmp_path, monkeypatch):
+    import orchestrator as O
+    import audit_stage as A
+    c = _case(tmp_path)
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.frozen, ctx.log = "orch-x", c, "trial", tmp_path, None, {}, []
+    ctx.page_json = c / "draft" / "page.json"
+    ctx.ask = lambda prompt, n, role: (_ for _ in ()).throw(A.ReplyCutOff("reply cut off at %d tokens (%s)" % (n, role),
+                                                                       {"output": n}, "{\"belief\": \"cut"))
+    rows = []
+    monkeypatch.setattr(O, "_study_log", lambda ctx, r: rows.append(dict(r, usd=0.0314)))
+    monkeypatch.setitem(O.STEP_CODE, "asks", lambda ctx, step: O._ask_for(ctx, step, "m")("p", 4000, "premise"))
+    with pytest.raises(A.ReplyCutOff):
+        O.run_step(ctx, ST.Step("premise", "model", owns=("premise.json",), models=("m",), code="asks"))
+    assert len(ctx.log) == 1 and ctx.log[0]["step"] == "premise"
+    f = ctx.log[0]
+    assert f["failed"].startswith("ReplyCutOff: reply cut off at 4000 tokens (premise)") and f["end"]
+    assert f["replies"] == [{"role": "premise", "max_tokens": 4000, "cut_off": True, "text": "{\"belief\": \"cut",
+                             "usage": {"output": 4000}}]
+    assert rows and rows[0]["failed"] == f["failed"]
+
+
+def test_study_log_row_of_a_failed_step_says_failed_with_its_cost(tmp_path, monkeypatch):
+    import orchestrator as O
+    c = _case(tmp_path)
+    ctx = SimpleNamespace(case=c, slug="orch-x", root=ROOT)
+    r = {"step": "premise", "start": "2999-01-01T00:00:00+00:00", "end": "2999-01-01T00:00:01+00:00",
+         "failed": "StepFailed: weighs must be measured, assessed or both"}
+    O._study_log(ctx, r)
+    row = (c / "study_log.md").read_text().splitlines()[-1]
+    assert row.startswith("| premise (orchestrator) |") and "FAILED: StepFailed: weighs must be" in row
+    assert r["usd"] == 0.0 and "$0.0000" in row
+
+
+def test_a_failed_command_keeps_its_exit_code_and_output(tmp_path):
+    import orchestrator as O
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.first = "orch-x", tmp_path, "trial", tmp_path, None, None
+    ctx.page, ctx.gate = tmp_path / "p.html", tmp_path / "p.html.gate.json"
+    step = ST.Step("gate", "stage", cmds=((sys.executable, "-c", "import sys; print('why it stopped'); sys.exit(3)"),))
+    with pytest.raises(O.RunStop) as e:
+        O.run_cmds(ctx, step)
+    assert e.value.cmds[0]["rc"] == 3 and "why it stopped" in e.value.cmds[0]["tail"]
+
+
+def test_every_ledger_row_inside_a_step_names_the_step(S, monkeypatch, tmp_path):
+    monkeypatch.setattr(S, "LEDGER", tmp_path / "ledger.jsonl")
+    monkeypatch.delenv("WHU_ORCH_STEP", raising=False)
+    S.record(script="x.py", role="r", issue="i", usd=0.1)
+    monkeypatch.setenv("WHU_ORCH_STEP", "premise")
+    S.record(script="audit_stage.py", role="audit", issue="i", usd=0.1)
+    a, b = [json.loads(l) for l in (tmp_path / "ledger.jsonl").read_text().splitlines()]
+    assert "step" not in a and b["step"] == "premise"

@@ -28,7 +28,7 @@ MODEL = "gemini-4-argon"
 SCRIPT = "orch/google.py"
 PREFLIGHT_TEXT = "Reply with the single word: ok"
 APPROX_CHARS_PER_TOKEN = 3.0
-MAX_OUT = 1024
+MAX_OUT = 2800   # orch/steps.py REPLY_LIMITS["overstatement"]: thinking counts towards it
 
 
 class Stop(RuntimeError):

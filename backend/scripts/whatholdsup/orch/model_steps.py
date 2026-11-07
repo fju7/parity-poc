@@ -20,6 +20,8 @@ class StepFailed(RuntimeError):
     pass
 
 
+from orch.steps import REPLY_LIMITS as LIMITS  # noqa: E402
+
 def now() -> str:
     """The clock, read from the system (never estimated)."""
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -71,7 +73,7 @@ PREMISE_FIXED = ("belief", "kill_condition", "reader_with_a_decision", "scope", 
 
 def premise(question: str, ask, by: str) -> dict:
     """The rows fixed before any source (ruling C): belief, kill condition, reader, scope, evidence standard."""
-    d = parse_json(ask(PREMISE_PROMPT.format(question=question), 1500, "premise"))
+    d = parse_json(ask(PREMISE_PROMPT.format(question=question), LIMITS["premise"], "premise"))
     if not isinstance(d, dict):
         raise StepFailed("the premise reply is not an object")
     weighs = _str(d, "weighs", 40)
@@ -213,7 +215,8 @@ FINDING:
 
 
 def coverage_decision(question: str, scope: str, unit: str, ask) -> dict:
-    d = parse_json(ask(COVERAGE_PROMPT.format(question=question, scope=scope, unit=unit), 600, "coverage"))
+    d = parse_json(ask(COVERAGE_PROMPT.format(question=question, scope=scope, unit=unit), LIMITS["coverage"],
+                     "coverage"))
     if not isinstance(d, dict) or d.get("decision") not in ("out_of_scope", "not_material", "state"):
         raise StepFailed("decision must be out_of_scope, not_material or state")
     out = {"decision": d["decision"], "why": _str(d, "why", 300)}
@@ -234,7 +237,7 @@ ASSESSMENT (verbatim from the source):
 
 
 def judgement_sentence(text: str, ask) -> str:
-    d = parse_json(ask(JUDGEMENT_PROMPT.format(text=text), 500, "judgement_sentence"))
+    d = parse_json(ask(JUDGEMENT_PROMPT.format(text=text), LIMITS["judgement_sentence"], "judgement_sentence"))
     if not isinstance(d, dict):
         raise StepFailed("not an object")
     return _str(d, "sentence", 900)

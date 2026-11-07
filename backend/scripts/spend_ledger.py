@@ -88,13 +88,17 @@ def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 
     """
     try:
         LEDGER.parent.mkdir(parents=True, exist_ok=True)
+        row = {
+            "at": at or _now(), "script": script, "role": role, "issue": issue,
+            "usd": None if usd is None else round(float(usd), 6),
+            "input": int(input_tokens or 0), "output": int(output_tokens or 0),
+            "web_searches": int(web_searches or 0), "note": note,
+        }
+        # Inside an orchestrator run every row names the step it was spent in (advisor's ruling 2026-11-07).
+        if os.environ.get("WHU_ORCH_STEP"):
+            row["step"] = os.environ["WHU_ORCH_STEP"]
         with LEDGER.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps({
-                "at": at or _now(), "script": script, "role": role, "issue": issue,
-                "usd": None if usd is None else round(float(usd), 6),
-                "input": int(input_tokens or 0), "output": int(output_tokens or 0),
-                "web_searches": int(web_searches or 0), "note": note,
-            }) + "\n")
+            fh.write(json.dumps(row) + "\n")
     except Exception:
         pass
 

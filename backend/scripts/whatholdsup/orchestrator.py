@@ -61,6 +61,7 @@ class Ctx:
         self.frozen: dict = {}
         self.lock = None
         self.page_prev = None
+        self.replies: list[dict] = []
 
     def rel(self, p: Path) -> str:
         return p.relative_to(self.root).as_posix()
@@ -94,7 +95,9 @@ def run_cmds(ctx: Ctx, step) -> list[dict]:
         r = subprocess.run(argv, cwd=str(ctx.root), env=env, capture_output=True, text=True)
         out.append({"argv": argv[1:], "rc": r.returncode, "tail": (r.stdout + r.stderr)[-1500:]})
         if r.returncode != 0 and step.name != "preflight":
-            raise RunStop("%s: %s exited %d" % (step.name, " ".join(argv[1:3]), r.returncode))
+            e = RunStop("%s: %s exited %d" % (step.name, " ".join(argv[1:3]), r.returncode))
+            e.cmds = out                        # every command so far, with its exit code and output tail
+            raise e
     return out
 
 
@@ -109,22 +112,32 @@ def run_step(ctx: Ctx, step) -> dict:
     saved = {k: os.environ.get(k) for k in mine}
     os.environ.update(mine)
     result = {"step": step.name, "start": started}
+    ctx.replies = []
     try:
         result["cmds"] = run_cmds(ctx, step) if step.cmds and step.code not in ("premise",) else []
         if step.code:
             result["code"] = STEP_CODE[step.code](ctx, step)
+    except BaseException as e:
+        _log_failed(ctx, step, result, e)
+        raise
     finally:
         for k, v in saved.items():
             if v is None:
                 os.environ.pop(k, None)
             else:
                 os.environ[k] = v
-    page_bad = _account_page(ctx, step)
+    try:
+        page_bad = _account_page(ctx, step)
+    except BaseException as e:
+        _log_failed(ctx, step, result, e)
+        raise
     after = CH.snapshot(ctx.case, ctx.slug)
     bad = CH.violations(CH.diff(before, after), ST.owns_for(step, ctx.slug)) + page_bad
     bad += ["frozen field changed: %s" % b for b in CH.frozen_breaks(ctx.case, ctx.frozen)]
     if bad:
-        raise RunStop("%s: %s: %s" % (step.name, CH.STOP, "; ".join(bad[:6])))
+        e = RunStop("%s: %s: %s" % (step.name, CH.STOP, "; ".join(bad[:6])))
+        _log_failed(ctx, step, result, e)
+        raise e
     for name, (fn, after_step, _why) in CH.FROZEN.items():
         if after_step == step.name:
             ctx.frozen[name] = fn(ctx.case)
@@ -133,6 +146,27 @@ def run_step(ctx: Ctx, step) -> dict:
     ctx.log.append(result)
     _study_log(ctx, result)
     return result
+
+
+def _log_failed(ctx: Ctx, step, result: dict, e: BaseException) -> None:
+    """A failed step goes into the run record and the study log with its cost, its reason, the commands run so far
+    and every reply it received -- a cut-off or unusable one included -- before the run stops (ruling 2026-11-07)."""
+    if result.get("failed"):
+        return
+    result["failed"] = "%s: %s" % (type(e).__name__, e)
+    result["end"] = now()
+    if getattr(e, "cmds", None) is not None:
+        result["cmds"] = e.cmds
+    replies = list(getattr(ctx, "replies", None) or [])
+    if getattr(e, "cut_off", False) and getattr(e, "text", None) is not None and \
+            not any(r.get("cut_off") for r in replies):
+        replies.append({"role": None, "cut_off": True, "text": e.text, "usage": getattr(e, "usage", None)})
+    result["replies"] = replies
+    ctx.log.append(result)
+    try:
+        _study_log(ctx, result)
+    except Exception:
+        pass
 
 
 def _account_page(ctx: Ctx, step) -> list[str]:
@@ -162,6 +196,9 @@ def _study_log(ctx: Ctx, r: dict) -> None:
     sp.loader.exec_module(S)
     usd = S.spent(ctx.slug, since=r["start"])
     outcome = (r.get("code") or {}).get("outcome") if isinstance(r.get("code"), dict) else None
+    if r.get("failed"):
+        outcome = "FAILED: %s" % " ".join(str(r["failed"]).split())[:300]
+    r["usd"] = round(usd, 6)
     with p.open("a", encoding="utf-8") as fh:
         fh.write("| %s (orchestrator) | %s | %s | $%.4f | 0 | %s |\n"
                  % (r["step"], r["start"], r.get("end", ""), usd, outcome or "done"))
@@ -174,10 +211,27 @@ def _study_log(ctx: Ctx, r: dict) -> None:
 def _ask_for(ctx: Ctx, step, model: str):
     """The model access a step gets: the injected one (tests), or a metered, guarded Caller."""
     if ctx.ask is not None:
-        return ctx.ask
+        return _kept(ctx, ctx.ask)
     import audit_stage as A
     caller = A.Caller(cap=step.cap_usd, ledger_issue=ctx.slug, model=model)
-    return lambda prompt, max_tokens, role: caller(prompt, max_tokens, role)[0]
+    return _kept(ctx, lambda prompt, max_tokens, role: caller(prompt, max_tokens, role)[0])
+
+
+def _kept(ctx: Ctx, ask):
+    """ASK, with every reply put in the step's record (ctx.replies), a cut-off one with what it carried."""
+    def kept(prompt, max_tokens, role):
+        if getattr(ctx, "replies", None) is None:
+            ctx.replies = []
+        try:
+            text = ask(prompt, max_tokens, role)
+        except Exception as e:
+            if getattr(e, "cut_off", False):
+                ctx.replies.append({"role": role, "max_tokens": max_tokens, "cut_off": True,
+                                    "text": getattr(e, "text", ""), "usage": getattr(e, "usage", None)})
+            raise
+        ctx.replies.append({"role": role, "max_tokens": max_tokens, "text": text})
+        return text
+    return kept
 
 
 def code_provenance(ctx: Ctx, step) -> dict:
@@ -270,15 +324,18 @@ def code_discover(ctx: Ctx, step) -> dict:
     prompt = M.discover_prompt(issue.get("question") or "", 8, types)
     searched = {"queries": [], "domains": []}
     if ctx.ask is not None:
-        reply = ctx.ask(prompt, 4000, "discover")
+        reply = _kept(ctx, ctx.ask)(prompt, ST.REPLY_LIMITS["discover"], "discover")
     else:
         sys.path.insert(0, str(ctx.root / "backend" / "scripts" / "signal"))
         import factcheck_draft as fc
         fc.enter_issue(ctx.slug)
         reply = fc.call("You find primary sources for a fact-check. JSON only.", prompt, search=True,
-                        label="discover", max_tokens=4000)
+                        label="discover", max_tokens=ST.REPLY_LIMITS["discover"])
         if reply is None:
             raise RunStop("discover: no reply")
+        if getattr(ctx, "replies", None) is None:
+            ctx.replies = []
+        ctx.replies.append({"role": "discover", "max_tokens": ST.REPLY_LIMITS["discover"], "text": reply})
         searched = dict(fc.LAST_SEARCH)
     proposals = M.discover_proposals(reply, set(types), 8)
     search = ctx.search
@@ -381,7 +438,8 @@ def code_draft(ctx: Ctx, step) -> dict:
     from orch.page import Page
     issue = json.loads((ctx.case / "issue.json").read_text(encoding="utf-8"))
     passages = _passages(ctx)
-    reply = _ask_for(ctx, step, ST.DRAFT_MODEL)(M.draft_prompt(issue.get("question") or "", passages), 12000,
+    reply = _ask_for(ctx, step, ST.DRAFT_MODEL)(M.draft_prompt(issue.get("question") or "", passages),
+                                                ST.REPLY_LIMITS["draft"],
                                                 "draft")
     d = M.draft_page(reply, passages)
     nums = _cite_numbers(ctx)
