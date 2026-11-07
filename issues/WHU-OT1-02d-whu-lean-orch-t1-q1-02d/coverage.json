@@ -1,0 +1,12 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies a review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T11:13:50+00:00"
+  }
+ }
+}

@@ -1,0 +1,94 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Programmes that bring children with disabilities into ordinary schools, such as inclusive education, teacher training, ramps and assistive devices, clearly help them learn and stay in school, and inclusive approaches work better than separate special schools. Aid agencies and governments know this from solid evidence.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A ministry of education official, donor (e.g. a bilateral aid agency or global education fund) or NGO programme manager in a low- or middle-income country. They are deciding which disability-education interventions to fund, scale up or discontinue, and whether to invest in inclusive mainstream schooling, specialised provision, assistive devices, or teacher and community training.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "Systematic reviews and the primary evaluations behind them show a substantial body of rigorous, low-risk-of-bias studies (randomised or strong quasi-experimental) from low- and middle-income countries. These studies find consistent, meaningful improvements in enrolment, attendance, retention or learning outcomes for children and young people with disabilities. They also identify clearly which programme types (e.g. inclusive schooling, teacher training, assistive technology, community-based rehabilitation) perform best. This would confirm the common belief with high certainty.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Interventions aimed at improving educational access, participation, attendance, retention, transition or learning outcomes for children and young people (roughly school age through youth) with any type of disability in low- and middle-income countries. It covers the evidence on whether these interventions are effective and on the relative effectiveness of different intervention types, as judged by evaluations and evidence syntheses.",
+    "out": [
+      {
+        "what": "Effectiveness of disability-inclusive education programmes in high-income countries",
+        "why": "The question is limited to low- and middle-income settings, where school systems, resources and evidence bases differ substantially."
+      },
+      {
+        "what": "Health, rehabilitation or medical interventions for disability whose primary outcomes are not educational",
+        "why": "The question asks about education programmes and educational outcomes, not clinical or functional outcomes."
+      },
+      {
+        "what": "The prevalence of disability among children and the size of the education gap they face",
+        "why": "This describes the problem rather than whether programmes to address it work."
+      },
+      {
+        "what": "Whether inclusive education is a human right or a legal obligation (e.g. under the UN Convention on the Rights of Persons with Disabilities)",
+        "why": "This is a normative and legal question, not an empirical question about programme effectiveness."
+      },
+      {
+        "what": "Cost-effectiveness and financing models for disability-inclusive education",
+        "why": "The question asks whether programmes work and which work best, not their relative costs or how to pay for them. Cost data may be noted only if it appears in the effectiveness evidence."
+      },
+      {
+        "what": "Employment or adult outcomes for people with disabilities beyond youth",
+        "why": "The question concerns education for children and young people."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-07T11:11:54+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Quantified outcomes from evaluations in low- and middle-income countries. These include effect sizes, differences in enrolment, attendance, dropout or retention rates, test scores or learning assessments, and transition rates for children and young people with disabilities. Sources are randomised controlled trials, quasi-experimental studies, and pre-post or controlled before-after studies. Sample sizes, comparison groups and follow-up durations count as part of this evidence, and so do pooled estimates from meta-analyses where they exist.",
+    "assessed": "Judgements by systematic reviews, evidence gap maps or expert panels about the certainty or strength of the evidence. Examples are GRADE ratings, risk-of-bias assessments, statements that the evidence is 'low' or 'very low' certainty, and conclusions about which intervention types are promising versus unproven. Also included are reviewers' characterisations of how many studies exist, their quality, and the gaps in the evidence base.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-07T11:11:54+00:00"
+  }
+}

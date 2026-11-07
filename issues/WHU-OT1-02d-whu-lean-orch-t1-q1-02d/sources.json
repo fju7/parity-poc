@@ -1,0 +1,274 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "review",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+      "year": 2025,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Hunt",
+      "used_for": "Most recent Campbell systematic review (28 studies) on what works for disability education in LMICs.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.70016",
+      "registry": "europepmc",
+      "pmcid": "PMC11799928",
+      "url": "https://europepmc.org/article/PMC/PMC11799928",
+      "also_called": [
+        "Effectiveness of interventions for improving educational outcomes for people wit"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        },
+        "on": "2026-11-07"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC11799928",
+          "Crossref 10.1002/cl2.70016"
+        ],
+        "corrections": [],
+        "on": "2026-11-07"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "synthesis",
+      "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+      "year": 2022,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Ahmed",
+      "used_for": "EGM of 50 studies on teacher training for disability inclusion in LMIC Asia-Pacific; maps evidence gaps.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.1287",
+      "registry": "europepmc",
+      "pmcid": "PMC9700054",
+      "url": "https://europepmc.org/article/PMC/PMC9700054",
+      "also_called": [
+        "Teacher professional development for disability inclusion in low- and middle-inc"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/3e/3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81.xml",
+          "sha256": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+          "bytes": 392279,
+          "identified_by": "contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "184771 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-07"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC9700054",
+          "Crossref 10.1002/cl2.1287"
+        ],
+        "corrections": [
+          {
+            "id": "36913230",
+            "registry": "MED",
+            "type": "Erratum in"
+          }
+        ],
+        "on": "2026-11-07"
+      },
+      "correction_notices": [
+        {
+          "id": "36913230",
+          "registry": "MED",
+          "type": "Erratum in",
+          "held": true,
+          "file": "corrections/36913230.txt",
+          "sha256": "e33f66e5448270fd4b5292fe1404f4cb7754a5a2230c1c58ba005e5ab0fe6dbb",
+          "how": "Europe PMC full text PMC9968378"
+        }
+      ]
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+      "year": 2020,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Saran",
+      "used_for": "Campbell EGM covering 59 systematic reviews and 50 impact evaluations on disability interventions in LMICs, including education.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.1070",
+      "registry": "europepmc",
+      "pmcid": "PMC8356326",
+      "url": "https://europepmc.org/article/PMC/PMC8356326",
+      "also_called": [
+        "Evidence and gap map of studies assessing the effectiveness of interventions for"
+      ],
+      "access": {
+        "state": "blocked",
+        "held": {
+          "file": "docs/08/088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3.xml",
+          "sha256": "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3",
+          "bytes": 379448,
+          "identified_by": "contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "157297 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-07",
+        "not_held": {
+          "line": "correction_not_held",
+          "why": "Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served)"
+        },
+        "blocked_by": "orchestrator acquire (correction_not_held): Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served)"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC8356326",
+          "Crossref 10.1002/cl2.1070"
+        ],
+        "corrections": [
+          {
+            "id": "37133285",
+            "registry": "MED",
+            "type": "Erratum in"
+          },
+          {
+            "id": "10.1002/cl2.1104",
+            "registry": "DOI",
+            "type": "correction"
+          }
+        ],
+        "on": "2026-11-07"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "review",
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+      "year": 2018,
+      "container": "DFID / Campbell Collaboration & International Centre for Evidence in Disability",
+      "authors": "Kuper",
+      "used_for": "DFID-commissioned rapid evidence assessment of effective educational interventions for disabled people in LMICs.",
+      "proposed_by": "orchestrator discover step",
+      "url": "https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works",
+      "registry": "none (an agency's own site: gov.uk)",
+      "also_called": [
+        "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes fo"
+      ],
+      "access": {
+        "last_fetch": {
+          "on": "2026-11-07",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)",
+          "tried": [
+            {
+              "url": "https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works",
+              "result": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)"
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)",
+        "on": "2026-11-07"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "why": [],
+        "answered": [],
+        "corrections": [],
+        "on": "2026-11-07"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: systematic review inclusive education children disabilities low middle income countries",
+      "web search: disability education interventions LMIC children systematic review effectiveness",
+      "web search: evidence gap map disability education interventions LMIC White Campbell 2018",
+      "web search: Wapling 2016 systematic review education children disabilities developing countries",
+      "web search: UNICEF \"effectiveness of inclusive interventions for children with disabilities\" 2022 report",
+      "web search: teacher professional development disability inclusion Asia Pacific LMIC evidence gap map Campbell 2022",
+      "web search: Kuper 2018 rapid evidence assessment educational outcomes disabilities LMIC DFID",
+      "registry: Europe PMC"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [
+    {
+      "proposal": {
+        "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+        "first_author": "Mendoza",
+        "year": 2024,
+        "container": "International Journal of Disability, Development and Education",
+        "type": "review",
+        "url": "https://eric.ed.gov/?id=EJ1417280",
+        "why": "Systematic review of 31 intervention studies on inclusive education implementation in low/lower-middle-income countries."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Inclusion Matters: Inclusive interventions for children with disabilities",
+        "first_author": "UNICEF Office of Research – Innocenti",
+        "year": 2022,
+        "container": "UNICEF Office of Research – Innocenti",
+        "type": "synthesis",
+        "url": "https://www.unicef.org/innocenti/reports/inclusion-matters-inclusive-interventions-children-disabilities",
+        "why": "UNICEF evidence and gap map of inclusive interventions for children with disabilities in LMICs, covering education."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+        "first_author": "Wapling",
+        "year": 2016,
+        "container": "CBM",
+        "type": "review",
+        "url": "https://www.medbox.org/document/inclusive-education-and-children-with-disabilities-quality-education-for-all-in-low-and-middle-income-countries",
+        "why": "Systematic literature review of 131 articles on strategies for quality inclusive education for children with disabilities in LMICs."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive education schools in Low and Middle-Income Countries (LMICs)",
+        "first_author": "Campbell",
+        "year": 2024,
+        "container": "Campbell Systematic Reviews",
+        "type": "review",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10844053/",
+        "why": "Systematic review of CWD academic performance (enrolment, attendance, results) in inclusive LMIC schools."
+      },
+      "why": "Europe PMC returned no record for PMC10844053 (or did not answer)",
+      "status": "NOT_FOUND"
+    }
+  ],
+  "not_of_a_type": []
+}
