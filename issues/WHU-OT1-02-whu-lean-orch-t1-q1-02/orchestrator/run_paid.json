@@ -1,0 +1,16 @@
+{
+ "result": "Not Ready: ReplyCutOff: reply cut off at 1500 tokens (premise)",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-07T09:35:43+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (106 code files)"
+   },
+   "end": "2026-11-07T09:35:43+00:00"
+  }
+ ],
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-07T09:36:01+00:00"
+}
