@@ -494,6 +494,8 @@ the room rule each day.
 
 **New line outside the phase (advisor ruling, Fred's approval, 2026-11-07): "new-questions test", cap $150.** Not part of the $350 phase total; takes nothing from any line or the reserve. It covers the new-questions test (deviations 2026-11-07, item 4): WHU in orchestrator paid mode on fresh-set questions CF-01..CF-06, answer keys, and M1/M2 judging. Ledger issues are named when the comparison rule is committed (each `whu-cf-…`); `caps.json` records the line. The rule and an estimate go to the advisor before the first paid call; the room rule applies each day.
 
+**Ruling after orchestrator trial 1's attempt 8 (advisor, 2026-11-07):** $10 moves from the "new-questions test" line ($150 → **$140**) to orchestrator trial 1 ($10 → **$20**; $6.39 spent on attempts 1-8, **$13.61** left). The trial's first $10 came from the lean runs line; the second $10 from the new-questions line. Attempts continue under the room rule until a full run reaches Ready or a failure needs a design decision.
+
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
 
