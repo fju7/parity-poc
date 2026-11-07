@@ -1,0 +1,61 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T12:52:25+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many included studies targeted children with disabilities. It reports no effect or comparison, so it would not change the answer on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T12:52:27+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "It only counts which groups the studies targeted (family members vs service providers). It says nothing about whether programmes work or which kind works best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T12:52:32+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment groups interventions most often targeted (n=17). It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T12:52:33+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category has the most studies. It reports no effect on outcomes, so it does not change whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T12:52:38+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes the problem, namely children with disabilities falling behind because school systems are not set up for them. It does not test whether any programme improves education outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "How many children with disabilities are out of school, or how disability prevalence is measured",
+   "decided_at": "2026-11-07T12:52:50+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns health outcomes for this group, not educational outcomes, so it falls under the scope exclusion for health, functioning or rehabilitation effects with no educational measure.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects on health, functioning or rehabilitation outcomes that do not include an educational measure",
+   "decided_at": "2026-11-07T12:52:52+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation that evaluations should target individuals and their environments. It reports no result on whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T12:52:58+00:00"
+  }
+ }
+}

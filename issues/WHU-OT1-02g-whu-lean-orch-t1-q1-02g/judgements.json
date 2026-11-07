@@ -1,0 +1,106 @@
+{
+ "candidates": {
+  "S001@7611-7692": {
+   "source": "S001",
+   "at": [
+    7611,
+    7692
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "52303d29cdac048f98e3f4cf128ebdc5940ae2a055dc35bb7eaf416d7de24dbc",
+   "relevant": true,
+   "words": "do programmes meant to improve education for children and young people with disabilities work",
+   "reason": "The judgement says nearly all studies had low confidence in their findings, which tells a reader how far to trust the evidence on whether these programmes work.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "37c5a43f91711c60",
+   "to_person": false,
+   "decided_at": "2026-11-07T12:53:01+00:00"
+  },
+  "S001@7900-8058": {
+   "source": "S001",
+   "at": [
+    7900,
+    8058
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement explains why children with disabilities fall behind, which is background on the problem, and says nothing about whether any programme improves their educational outcomes or which kinds work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3455da0f683c3ce7",
+   "to_person": false,
+   "decided_at": "2026-11-07T12:53:06+00:00"
+  },
+  "S001@8059-8153": {
+   "source": "S001",
+   "at": [
+    8059,
+    8153
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1c076ae3121c7c8d69bd2d6d36ece31cb5d966f90937974d30f88603255cab1e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns interventions to equalise health outcomes, which the scope excludes as health or functioning outcomes without an educational measure, so it does not bear on whether education programmes work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "79fd0e3a3f42dde8",
+   "to_person": false,
+   "decided_at": "2026-11-07T12:53:10+00:00"
+  },
+  "S001@8154-8406": {
+   "source": "S001",
+   "at": [
+    8154,
+    8406
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "5d0f6ac542fa71f8f502445044b00c65a04949eb412cfb5470dbeb7d264f9364",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement recommends a twin-track approach, combining disability-specific support with inclusion in mainstream activities such as teacher skills and classroom accessibility, which bears directly on which programme types work best for education of children with disabilities.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "5571f9c2cbdc5f60",
+   "to_person": false,
+   "decided_at": "2026-11-07T12:53:12+00:00"
+  },
+  "S001@8407-8703": {
+   "source": "S001",
+   "at": [
+    8407,
+    8703
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "670f201f6cde47824d552b933cf707e4305f6d90e3fe7e6905e87649b2b0a1f2",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says most interventions in the review targeted individual children rather than school- or system-level change, so it shows what kinds of programmes the evidence covers and limits comparison of which types work best.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "06d8134cd32d0ca5",
+   "to_person": false,
+   "decided_at": "2026-11-07T12:53:14+00:00"
+  },
+  "S001@8704-8859": {
+   "source": "S001",
+   "at": [
+    8704,
+    8859
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "b26bf5ba5ec5469f82e23231ff29c2d93272e410897769bbb77960c2932310c0",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says evaluation should focus on interventions that target the child's broader environment as well as the individual, which bears on comparing programme types and what the evidence shows about them.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "a5060b2e5479ae39",
+   "to_person": false,
+   "decided_at": "2026-11-07T12:53:16+00:00"
+  }
+ }
+}
