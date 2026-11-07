@@ -930,7 +930,7 @@ def test_a_an_unheld_source_does_not_stop_the_run_and_is_recorded_not_held(tmp_p
         O.code_acquire(SimpleNamespace(case=c), ST.BY_NAME["acquire"])
 
 
-def test_a_acquire_exit_1_is_accepted_only_from_acquire_sources_in_acquire(tmp_path):
+def test_a_acquire_sources_exit_1_is_accepted_and_another_scripts_is_not(tmp_path):
     import orchestrator as O
     ctx = O.Ctx.__new__(O.Ctx)
     ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.first = "orch-x", tmp_path, "trial", tmp_path, None, None
@@ -941,8 +941,6 @@ def test_a_acquire_exit_1_is_accepted_only_from_acquire_sources_in_acquire(tmp_p
     assert O.run_cmds(ctx, ok)[0]["rc"] == 1
     with pytest.raises(O.RunStop):
         O.run_cmds(ctx, ST.Step("acquire", "code", cmds=((sys.executable, str(tmp_path / "errata.py")),)))
-    with pytest.raises(O.RunStop):
-        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=((sys.executable, str(tmp_path / "acquire_sources.py")),)))
 
 
 def test_a_orchestrated_runs_print_no_human_search_list():
@@ -1384,3 +1382,101 @@ def test_the_commit_step_runs_git_without_any_whu_variable_and_keeps_its_checks(
     pushed["out"] = "Everything up-to-date"
     with pytest.raises(O.RunStop, match="main -> main"):
         O.code_commit(ctx, ST.BY_NAME["commit_3b"])
+
+
+# ---------------------------------------------------------------------------------------------------- exit codes
+# Advisor's ruling after attempt 6: the exit-code table, positive proof for every accepted non-zero exit, one rerun for
+# ruling.py's 4, and a stop on anything else. Each accepted exit is also tested against a simulated crash.
+
+def _exit_ctx(tmp_path):
+    import orchestrator as O
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.first = "orch-x", tmp_path, "trial", tmp_path, None, None
+    ctx.page, ctx.gate = tmp_path / "p.html", tmp_path / "p.html.gate.json"
+    return ctx
+
+
+def _script(tmp_path, name, body):
+    p = tmp_path / name
+    p.write_text("import json, sys, os\n" + body)
+    return (sys.executable, str(p))
+
+
+def test_gate_report_exit_1_continues_only_with_a_fresh_report_of_findings(tmp_path):
+    import orchestrator as O
+    ctx = _exit_ctx(tmp_path)
+    rep = str(tmp_path / "p.html.gate.json")
+    findings = _script(tmp_path, "factcheck_draft.py",
+                       "json.dump({'passed': False, 'checked_at': '2026-11-07'}, open(sys.argv[-1], 'w'))\n"
+                       "print('BLOCKED'); sys.exit(1)\n")
+    out = O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(findings + ("x.html", "--report", rep),)))
+    assert out[0]["rc"] == 1 and out[0]["proof"].startswith("proved")
+    crash = _script(tmp_path, "factcheck_draft.py", "raise RuntimeError('boom')\n")          # a simulated crash
+    with pytest.raises(O.RunStop, match="without proof .*older than its start"):            # the old report stays
+        os.utime(rep, (0, 0))
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(crash + ("x.html", "--report", rep),)))
+    os.unlink(rep)
+    with pytest.raises(O.RunStop, match="was not written"):
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(crash + ("x.html", "--report", rep),)))
+    garbled = _script(tmp_path, "factcheck_draft.py", "open(sys.argv[-1], 'w').write('{not json'); sys.exit(1)\n")
+    with pytest.raises(O.RunStop, match="not parseable"):
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(garbled + ("x.html", "--report", rep),)))
+    passed = _script(tmp_path, "factcheck_draft.py",
+                     "json.dump({'passed': True, 'checked_at': 'x'}, open(sys.argv[-1], 'w')); sys.exit(1)\n")
+    with pytest.raises(O.RunStop, match="passed is not false"):
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(passed + ("x.html", "--report", rep),)))
+    with pytest.raises(O.RunStop, match="no --report file"):                              # a dry run's exit 1
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(findings + ("x.html", "--dry-run"),)))
+    two = _script(tmp_path, "factcheck_draft.py", "sys.exit(2)\n")
+    with pytest.raises(O.RunStop, match="exited 2$"):
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=(two + ("x.html", "--report", rep),)))
+
+
+def test_changecheck_coverage_exit_1_continues_only_with_its_listed_unread_sentences(tmp_path):
+    import orchestrator as O
+    ctx = _exit_ctx(tmp_path)
+    out_file = str(tmp_path / "orchestrator" / "changecheck_coverage.json")
+    missed = _script(tmp_path, "changecheck_coverage.py",
+                     "os.makedirs(os.path.dirname(sys.argv[-1]), exist_ok=True)\n"
+                     "json.dump({'complete': True, 'missed': ['A sentence.'], 'changed': 3}, open(sys.argv[-1], 'w'))\n"
+                     "sys.exit(1)\n")
+    assert O.run_cmds(ctx, ST.Step("changecheck", "stage", cmds=(missed + ("orch-x", "--out", out_file),)))[0]["proof"]
+    os.unlink(out_file)
+    crash = _script(tmp_path, "changecheck_coverage.py", "raise KeyError('x')\n")
+    with pytest.raises(O.RunStop, match="was not written"):
+        O.run_cmds(ctx, ST.Step("changecheck", "stage", cmds=(crash + ("orch-x", "--out", out_file),)))
+    empty = _script(tmp_path, "changecheck_coverage.py",
+                    "json.dump({'complete': True, 'missed': []}, open(sys.argv[-1], 'w')); sys.exit(1)\n")
+    with pytest.raises(O.RunStop, match="does not list unread"):
+        O.run_cmds(ctx, ST.Step("changecheck", "stage", cmds=(empty + ("orch-x", "--out", out_file),)))
+    assert "--out" in ST.BY_NAME["changecheck"].cmds[2]
+
+
+def test_changecheck_coverage_writes_its_result_file(tmp_path, monkeypatch):
+    import changecheck_coverage as CC
+    src = (W / "changecheck_coverage.py").read_text()
+    assert '"missed": list(res["missed"]), "complete": True' in src and 'ap.add_argument("--out"' in src
+
+
+def test_ruling_exit_4_is_rerun_once_then_stops_not_ready(tmp_path):
+    import orchestrator as O
+    ctx = _exit_ctx(tmp_path)
+    once = _script(tmp_path, "ruling.py",
+                   "p = os.path.join(os.path.dirname(sys.argv[0]), 'n'); n = int(open(p).read()) if os.path.exists(p) else 0\n"
+                   "open(p, 'w').write(str(n + 1)); sys.exit(4 if n == 0 else 0)\n")
+    out = O.run_cmds(ctx, ST.Step("findings", "stage", cmds=(once + ("gate", "orch-x"),)))
+    assert [r["rc"] for r in out] == [4, 0] and out[1]["rerun"]
+    always = _script(tmp_path, "ruling.py", "sys.exit(4)\n")
+    with pytest.raises(O.RunStop, match="exited 4 twice .*Not Ready"):
+        O.run_cmds(ctx, ST.Step("findings", "stage", cmds=(always + ("gate", "orch-x"),)))
+    crash = _script(tmp_path, "ruling.py", "raise ValueError('boom')\n")
+    with pytest.raises(O.RunStop, match="exited 1$"):
+        O.run_cmds(ctx, ST.Step("findings", "stage", cmds=(crash + ("gate", "orch-x"),)))
+
+
+def test_any_exit_not_in_the_table_stops():
+    assert ST.EXITS["factcheck_draft.py"] == {0: "ok", 1: "proof"} and ST.EXITS["ruling.py"] == {0: "ok", 4: "rerun"}
+    assert ST.DEFAULT_EXITS == {0: "ok"}
+    for script in ("findings.py", "source_advocate.py", "audit_stage.py", "changecheck.py", "conclusion_judge.py",
+                   "consistency.py", "errata.py"):
+        assert script not in ST.EXITS                                   # 0 only: 3 (cap), 2, 1 all stop

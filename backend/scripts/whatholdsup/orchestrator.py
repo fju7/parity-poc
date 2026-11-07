@@ -70,7 +70,7 @@ class Ctx:
         cap = "%.2f" % step.cap_usd
         return (arg.replace("{slug}", self.slug).replace("{page}", self.rel(self.page))
                 .replace("{gate}", self.rel(self.gate)).replace("{cap}", cap).replace("{first}", self.first or "")
-                .replace("{stamp}", ""))
+                .replace("{stamp}", "").replace("{case}", self.rel(self.case)))
 
     def env(self, step) -> dict:
         e = {k: v for k, v in os.environ.items() if not k.startswith("WHU_ORCH_")}
@@ -88,18 +88,84 @@ class Ctx:
 # ---------------------------------------------------------------------------------------------------------------
 
 def run_cmds(ctx: Ctx, step) -> list[dict]:
+    """Every command of STEP, its exit read through ST.EXITS (advisor's ruling after attempt 6)."""
     out = []
     env = ctx.env(step)
     for tmpl in step.cmds:
         argv = [ctx.fmt(a, step) for a in tmpl]
+        script = Path(argv[1]).name if len(argv) > 1 else ""
+        rules = ST.EXITS.get(script, ST.DEFAULT_EXITS)
+        started = datetime.now(timezone.utc).timestamp()
         r = subprocess.run(argv, cwd=str(ctx.root), env=env, capture_output=True, text=True)
-        out.append({"argv": argv[1:], "rc": r.returncode, "tail": (r.stdout + r.stderr)[-1500:]})
-        ok = ST.OK_EXIT.get((step.name, Path(argv[1]).name if len(argv) > 1 else ""), (0,))
-        if r.returncode not in ok and step.name != "preflight":
+        row = {"argv": argv[1:], "rc": r.returncode, "tail": (r.stdout + r.stderr)[-1500:]}
+        out.append(row)
+        if step.name == "preflight":
+            continue                            # read by its output, Ready or Not Ready
+        rule = rules.get(r.returncode)
+        if rule == "rerun":
+            r = subprocess.run(argv, cwd=str(ctx.root), env=env, capture_output=True, text=True)
+            row2 = {"argv": argv[1:], "rc": r.returncode, "tail": (r.stdout + r.stderr)[-1500:], "rerun": True}
+            out.append(row2)
+            rule = rules.get(r.returncode)
+            if rule == "rerun":
+                e = RunStop("%s: %s exited %d twice (rulings failed, findings left open): Not Ready"
+                            % (step.name, " ".join(argv[1:3]), r.returncode))
+                e.cmds = out
+                raise e
+            row = row2
+        if rule == "proof":
+            why = exit_proof(ctx, script, argv, r.returncode, started)
+            row["proof"] = why if why.startswith("proved") else None
+            if not why.startswith("proved"):
+                e = RunStop("%s: %s exited %d without proof it completed (%s)"
+                            % (step.name, " ".join(argv[1:3]), r.returncode, why))
+                e.cmds = out
+                raise e
+            rule = "ok"
+        if rule != "ok":
             e = RunStop("%s: %s exited %d" % (step.name, " ".join(argv[1:3]), r.returncode))
             e.cmds = out                        # every command so far, with its exit code and output tail
             raise e
     return out
+
+
+def _arg_after(argv: list[str], flag: str) -> str | None:
+    return argv[argv.index(flag) + 1] if flag in argv and argv.index(flag) + 1 < len(argv) else None
+
+
+def exit_proof(ctx: Ctx, script: str, argv: list[str], rc: int, started: float) -> str:
+    """Positive proof that a command whose non-zero exit is accepted completed (advisor's ruling after attempt 6):
+    an output file written by this step (newer than the command's start), parseable, whose content matches the exit.
+    Returns "proved: ..." or the reason there is no proof."""
+    if script == "factcheck_draft.py":
+        out = _arg_after(argv, "--report")
+        if not out:
+            return "no --report file named (only a report run's exit 1 means findings)"
+        want = "findings present"
+    elif script == "changecheck_coverage.py":
+        out = _arg_after(argv, "--out")
+        if not out:
+            return "no --out file named"
+        want = "unread changed sentences listed"
+    else:
+        return "no proof rule for %s" % script
+    p = Path(out) if Path(out).is_absolute() else ctx.root / out
+    if not p.exists():
+        return "%s was not written" % out
+    if p.stat().st_mtime < started - 1:
+        return "%s was not written by this step (older than its start)" % out
+    try:
+        doc = json.loads(p.read_text(encoding="utf-8"))
+    except Exception as e:
+        return "%s is not parseable (%s)" % (out, type(e).__name__)
+    if script == "factcheck_draft.py":
+        if not (isinstance(doc, dict) and doc.get("passed") is False and doc.get("checked_at")):
+            return "%s does not record a completed run with findings (passed is not false)" % out
+    else:
+        if not (isinstance(doc, dict) and doc.get("complete") is True and isinstance(doc.get("missed"), list)
+                and doc["missed"]):
+            return "%s does not list unread changed sentences" % out
+    return "proved: %s written in this step, %s" % (out, want)
 
 
 def run_step(ctx: Ctx, step) -> dict:

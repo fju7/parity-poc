@@ -55,6 +55,7 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("slug")
     ap.add_argument("--first", required=True, help="the step-3b commit: the first full draft")
+    ap.add_argument("--out", help="also write the result as JSON (the orchestrator's proof of completion)")
     a = ap.parse_args(argv)
     import publish as P
     import changecheck as C
@@ -72,6 +73,11 @@ def main(argv=None) -> int:
         print("  MISSED  %s" % s[:140])
     print("  %s\n" % ("every changed sentence was read" if not res["missed"]
                       else "%d changed sentence(s) changecheck never read" % len(res["missed"])))
+    if a.out:
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.out).write_text(json.dumps({"slug": a.slug, "first": a.first, "changed": res["changed"],
+                                           "missed": list(res["missed"]), "complete": True}, indent=1,
+                                          ensure_ascii=False) + "\n", encoding="utf-8")
     return 1 if res["missed"] else 0
 
 

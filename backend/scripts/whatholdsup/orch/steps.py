@@ -137,15 +137,24 @@ STEPS: tuple[Step, ...] = (
          models=(CURRENT,), max_calls=60, cap_usd=1.00, repeat_group=True,
          cmds=((PY, W + "changecheck.py", "{slug}", "--page", "{page}", "--before", "{first}"),
                (PY, W + "ruling.py", "changecheck", "{slug}"),
-               (PY, W + "changecheck_coverage.py", "{slug}", "--first", "{first}")), code="apply"),
+               (PY, W + "changecheck_coverage.py", "{slug}", "--first", "{first}", "--out",
+                "{case}/orchestrator/changecheck_coverage.json")), code="apply"),
     Step("preflight", "code", cmds=((PY, W + "publish.py", "check", "{slug}"),), code="preflight"),
     Step("archive", "code", owns=("private_manifest.txt",), code="archive"),
 )
 
-# Exit codes a step accepts from one of its commands. acquire_sources.py exits 1 when a source could not be held;
-# under ruling (a) (2026-11-07) that does not stop the run: the source is recorded not held, the page says so, and
-# the run stops only if no source is held (code_acquire).
-OK_EXIT = {("acquire", "acquire_sources.py"): (0, 1)}
+# Exit codes (advisor's rulings 2026-11-07, (a) and after attempt 6). For each stage script, what each exit means to
+# the run: "ok" continues; "proof" continues only with positive proof the command completed (PROOF below: an output
+# file written in this step, parseable, whose content matches the exit -- an uncaught exception also exits 1);
+# "rerun" runs the command once more, and a second such exit stops the run Not Ready. Any exit not listed stops.
+# (The preflight's `publish.py check` is read by its output, Ready or Not Ready, as before.)
+EXITS = {
+    "acquire_sources.py": {0: "ok", 1: "ok"},            # 1: a source not held (ruling (a)); code_acquire decides
+    "factcheck_draft.py": {0: "ok", 1: "proof"},         # 1: --report wrote findings ("BLOCKED")
+    "changecheck_coverage.py": {0: "ok", 1: "proof"},    # 1: changed sentences changecheck never read
+    "ruling.py": {0: "ok", 4: "rerun"},                  # 4: some rulings failed, findings left open
+}
+DEFAULT_EXITS = {0: "ok"}
 
 NAMES = tuple(s.name for s in STEPS)
 BY_NAME = {s.name: s for s in STEPS}
