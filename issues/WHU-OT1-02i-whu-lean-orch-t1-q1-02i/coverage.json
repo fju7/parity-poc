@@ -1,0 +1,61 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T13:46:31+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies targeted children with disabilities, a characteristic of the evidence base. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T13:46:33+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only describes who five studies targeted (family members versus service providers). It reports no effect on education outcomes and no comparison of intervention types, so it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T13:46:36+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment groups interventions most often targeted (a count of 17). It does not report whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T13:46:38+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appeared most often across studies, a count of research coverage. It does not say whether the interventions work or which work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T13:46:40+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes the problem, namely that children with disabilities fall behind because school systems are not set up for them. It does not say whether any intervention works.",
+   "by": "claude-sonnet-5-5",
+   "element": "Prevalence of disability among children and the size of the education gap they face",
+   "decided_at": "2026-11-07T13:46:52+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes, not education outcomes, so it falls under the excluded health and rehabilitation evidence base rather than the question's focus on education.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation outcomes of interventions (for example clinical improvement from therapy) not tied to educational outcomes",
+   "decided_at": "2026-11-07T13:46:55+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation that future evaluations target individuals and their environment. It reports no effect or comparison, so it would not change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-07T13:47:04+00:00"
+  }
+ }
+}

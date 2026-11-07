@@ -1,0 +1,291 @@
+{
+ "result": "Not Ready: the reply is not JSON: '{\"decision\": \"out_of_scope\", \"why\": \"The finding only counts studies by country in the Asia-Pacific evidence map; it describes where evidence exists, not whether programmes work or which kinds work be'",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-07T13:44:33+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (109 code files)"
+   },
+   "end": "2026-11-07T13:44:34+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-07T13:44:34+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "end": "2026-11-07T13:44:51+00:00",
+   "usd": 0.031084
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-07T13:44:51+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "4 source(s), 4 unresolved proposal(s)"
+   },
+   "end": "2026-11-07T13:45:40+00:00",
+   "usd": 0.4747
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-07T13:45:40+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02i",
+      "--out",
+      "issues/WHU-OT1-02i-whu-lean-orch-t1-q1-02i/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S001   24587d9f8f9b                                     395517 B  (contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text))\n  HELD     S002   3ebd2067369d                                     392279 B  (contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text))\n  HELD     S003   088ff6d71f68                                     379448 B  (contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text))\n\n  held now: 3   failed: 1   skipped: 0\n\n  NOT HELD S004   Systematic review of interventions for reducing stigma experie\n           why: no url recorded\n\n",
+     "proof": "proved: issues/WHU-OT1-02i-whu-lean-orch-t1-q1-02i/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-02i",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            3 document(s) in the library, every hash matches\n  warn     sources we hold                  3 of 4 held — not held: S004\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-02i"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-02i\n\n  S001   clean        matched on PMCID PMC11799928\n  S002   AMENDED      Erratum in:  36913230\n  S003   AMENDED      Erratum in:  37133285\n  S004   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n\n  ok     sources checked for corrections        all 4 source(s) have had their bibliographic record read for errata\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S004\n  BLOCKED corrections not yet read               2 source(s) have been formally corrected and we do not hold the correction: S002: Erratum in 36913230 || S003: Erratum in 37133285 — until it is read we do not know whether it touches a figure on this page\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-02i",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-02i-whu-lean-orch-t1-q1-02i — what can be swept at all\n\n    S001   doi   10.1002/cl2.70016                  url/field Effectiveness of interventions for i\n    S002   doi   10.1002/cl2.1287                   url/field Teacher professional development for\n    S003   doi   10.1002/cl2.1070                   url/field Evidence and gap map of studies asse\n    S004   doi   10.1111/tmi.13388                  url/field Systematic review of interventions f\n\n  4 of 4 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-02i"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-02i\n  ok      checks can read the documents      3 of 3 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "1 held, 3 not held",
+    "not_held": [
+     "S002",
+     "S003",
+     "S004"
+    ],
+    "lines": {
+     "S002": "correction_unread",
+     "S003": "correction_not_held",
+     "S004": "could_not_hold"
+    }
+   },
+   "end": "2026-11-07T13:45:59+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-07T13:45:59+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "30 sentences drafted from 66 passages"
+   },
+   "end": "2026-11-07T13:46:25+00:00",
+   "usd": 0.143576
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-07T13:46:25+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-02i",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  51 empirical sentence(s) on the page\n  -3 bound, 54 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02i-whu-lean-orch-t1-q1-02i/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "29 sentence(s) bound to their passages"
+   },
+   "end": "2026-11-07T13:46:26+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-07T13:46:26+00:00",
+   "cmds": [],
+   "failed": "StepFailed: the reply is not JSON: '{\"decision\": \"out_of_scope\", \"why\": \"The finding only counts studies by country in the Asia-Pacific evidence map; it describes where evidence exists, not whether programmes work or which kinds work be'",
+   "end": "2026-11-07T13:47:06+00:00",
+   "replies": [
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes how many studies targeted children with disabilities, a characteristic of the evidence base. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\":\"not_material\",\"why\":\"The finding only describes who five studies targeted (family members versus service providers). It reports no effect on education outcomes and no comparison of intervention types, so it does not change the answer.\",\"element\":\"\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes which impairment groups interventions most often targeted (a count of 17). It does not report whether programmes work or which kinds work best, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only says which intervention category appeared most often across studies, a count of research coverage. It does not say whether the interventions work or which work best, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports null effects of interventions on speech and school behaviour, which bears on whether programmes work by kind of impairment or outcome, so it falls within scope and affects the answer.\", \"element\": \"\", \"sentence\": \"The studies concerned with speech and school behaviour show no significant effect of intervention.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding is about the reliability of the evidence on whether interventions work. High heterogeneity and frequent publication bias qualify any effectiveness conclusion, so it is in scope and material.\", \"element\": \"\", \"sentence\": \"Across the studies, heterogeneity is high, and the risk of publication bias varies but was frequently high.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding gives the confidence rating of the underlying evidence base. This bears directly on how far the page's conclusions about what works can be trusted, so the page should say it.\", \"element\": \"\", \"sentence\": \"All but one of the included studies were rated low confidence in their findings overall.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\":\"state\",\"why\":\"It bears on how far to trust the evidence on whether programmes work: the low confidence mostly reflects weak study designs, not necessarily many flaws within each study.\",\"element\":\"\",\"sentence\":\"The review's lack of confidence in the evidence across studies was largely due to the use of low-rigour study designs, and was not always reflective of multiple points of weakness within a given study.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"out_of_scope\", \"why\": \"The finding describes the problem, namely that children with disabilities fall behind because school systems are not set up for them. It does not say whether any intervention works.\", \"element\": \"Prevalence of disability among children and the size of the education gap they face\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding concerns equalising health outcomes, not education outcomes, so it falls under the excluded health and rehabilitation evidence base rather than the question's focus on education.\",\"element\":\"Health or rehabilitation outcomes of interventions (for example clinical improvement from therapy) not tied to educational outcomes\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding speaks directly to which kinds of programme work best, recommending combined targeted and mainstream inclusion. It is within scope and the page omits it.\",\"element\":\"\",\"sentence\":\"The source states that a twin-track approach is needed, one that meets the specific needs of children with disabilities and also includes them in mainstream activities, for example by improving teacher skills and classroom accessibility.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding describes what kind of interventions the evidence base covers (mostly child-focused, not system or school-level), which bears on which kinds work best and on gaps in the evidence.\", \"element\": \"\", \"sentence\": \"Most interventions in the systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them through system-level or school-level changes.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding is a generic recommendation that future evaluations target individuals and their environment. It reports no effect or comparison, so it would not change the answer on whether programmes work or which work best.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 600,
+     "text": "{\"decision\": \"out_of_scope\", \"why\": \"The finding only counts studies by country in the Asia-Pacific evidence map; it describes where evidence exists, not whether programmes work or which kinds work best.\", \"element\": \"\", \"sentence\": \"\"}\n\nWait — the element must be filled for out_of_scope, and the finding does not match any listed entry. Reclassifying:\n\n{\"decision\": \"not_material\", \"why\": \"The finding only describes how many studies exist per country in Asia-Pacific; it does not say whether programmes work or which types work best, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    }
+   ],
+   "usd": 0.05672
+  }
+ ],
+ "sources": {
+  "found": 4,
+  "held": 1,
+  "not_held": 3,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "correction_unread: Erratum in 36913230: the notice's text does not name this source by title, DOI or PMID"
+   },
+   {
+    "id": "S003",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "correction_not_held: Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served)"
+   },
+   {
+    "id": "S004",
+    "title": "Systematic review of interventions for reducing stigma experienced by children with disabilities and their families in low- and middle-income countries: state of the evidence.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: publisher terms"
+   }
+  ],
+  "proposals_not_confirmed": 4,
+  "unconfirmed": [
+   {
+    "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive education schools in Low and Middle-Income Countries (LMICs)",
+    "reason": "first author 'Musendo' not in the record's authors"
+   },
+   {
+    "title": "Inclusive education and children with disabilities: Quality education for all in low and middle income countries",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Effectiveness of Inclusive Interventions for Children with Disabilities in Low- and Middle-Income Countries (Protocol)",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 15
+  }
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-07T13:47:06+00:00"
+}
