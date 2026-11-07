@@ -1,0 +1,107 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries (LMICs), but that there is little research on systemic or school-level change [1].",
+        "objection": "The page opens with gaps in enrolment, retention and completion and says interventions 'work' on educational outcomes. It never says the review itself asks that interventions be evaluated on concrete outcomes such as school completion, and the effects it reports are mostly on learning skills.",
+        "source_says": "Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.",
+        "locator": "Plain-language summary, section 1.6 'What do the findings of this review mean?'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion survives in a smaller form. The evidence supports skills-for-learning gains. It has not shown effects on the access, retention and completion gaps the page sets out as the problem.",
+        "source_says_first": "\"Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.\" (Campbell plain-language summary, main findings). The summary also says the most common intervention category was those aimed at \"providing support for educational attainment\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The studies concerned with speech and school behaviour show no significant effect of intervention [1].",
+        "objection": "The page presents the null result without saying the review rests it on very few studies, so it reads as evidence of no effect when it is closer to inconclusive.",
+        "source_says": "School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias",
+        "locator": "Summary of findings table for 'Skills for learning' (outcome: School behaviour and adaptive functioning), in the synthesis of results section",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page applies the 'low number of studies' caveat to the positive results (sentences 3 and 8) but not to the null ones. The confidence interval for school behaviour (−1.76 to 2.74) is far too wide to show ineffectiveness.",
+        "source_says_first": "\"Skills for learning · School behaviour and adaptive functioning · d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I² = 0% ... Insignificant effect based on a low number of studies\". The review's narrative findings also say positive effects were seen for \"speech and communication ... and school behaviour and adaptive functioning\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Most interventions tried to improve children's skills but did not focus on system-level or school-level changes [1].",
+        "objection": "The page leaves out that the review's own abstract names 'Accessible learning environments' as the most common category of intervention, and that those studies reported positive effects. The page's 'little systemic research' framing is therefore sharper than the review's description.",
+        "source_says": "Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.",
+        "locator": "Final omitted-text passage beginning 'Among those studies which aimed to improve educational attainment, positive effects of interventions were seen...'",
+        "could_not_find": "The review's descriptive text gives conflicting rankings of the most common category. I did not find a passage that settles which is right.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 'individual-level focus' point stands, because many of these programmes target children's social skills or victimisation. But the page implies a near-absence of environment-focused work, which overstates the gap.",
+        "source_says_first": "\"most common category of intervention was 'Accessible learning environments', for instance, programmes which aimed to improve social skills or to reduce rates of victimisation of children with disabilities in schools.\" Also: \"Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The sources say a twin-track approach is needed, one that addresses the specific needs of children with disabilities and also includes them in mainstream activities, for example by improving teacher skills and classroom accessibility [1].",
+        "objection": "The page presents the twin-track approach as something the review concludes. The review treats it as an established premise that its evidence does not test.",
+        "source_says": "It is well established that a twin‐track approach is needed to improve inclusion and outcomes for people with disabilities, meaning a focus both on targeting their specific needs but also ensuring they are included in mainstream activities.",
+        "locator": "Implications/Discussion section, paragraph beginning 'It is well established that a twin‐track approach is needed'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The review is endorsing an existing policy consensus. It is not reporting that its 28 studies showed twin-track programmes work. The page's wording blurs this, though the review does repeat the recommendation in its conclusions.",
+        "source_says_first": "\"It is well established that a twin-track approach is needed to improve inclusion and outcomes for people with disabilities, meaning a focus both on targeting their specific needs but also ensuring they are included in mainstream activities.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The finding says evaluation should focus on interventions that target both the individual with a disability and their broader environment, because such interventions are needed [1].",
+        "objection": "I could not find this evaluation recommendation in the review. The evaluation recommendations I found are about concrete outcomes and integrating disability measures into mainstream evaluations. The 'needed' language is about systemic approaches and a twin-track approach, which is a separate point.",
+        "source_says": "Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.",
+        "locator": "Opening paragraph of the held text (twin-track approach discussion, before the Keywords line)",
+        "could_not_find": "I searched the abstract, plain-language summary, key messages and implications text available. I found no sentence directing evaluation specifically at interventions that target both the individual and the environment. A full-text passage I could not retrieve may exist.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page attributes to the review a research recommendation I could not locate. The page seems to have merged the twin-track practice message with the research message, which the review treats separately.",
+        "source_says_first": "\"Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.\" and \"Efforts should also be made to integrate measures of disability within mainstream education impact evaluations and other demographic/household surveys that include education outcomes\". Separately: \"More systemic approaches are needed to improve rates of access to, and likelihood of successful engagement in, education.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S003",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  }
+]

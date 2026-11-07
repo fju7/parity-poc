@@ -9,3 +9,7 @@
 | coverage (orchestrator) | 2026-11-07T13:08:45+00:00 | 2026-11-07T13:09:38+00:00 | $0.0841 | 0 | 19 coverage decision(s), 0 left in scope |
 | judgements (orchestrator) | 2026-11-07T13:09:38+00:00 | 2026-11-07T13:10:56+00:00 | $0.1466 | 0 | 6 judgement(s) stated |
 | corrections_3b (orchestrator) | 2026-11-07T13:10:56+00:00 | 2026-11-07T13:10:57+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-07T13:10:57+00:00 | 2026-11-07T13:13:00+00:00 | $0.0000 | 0 | committed 01255a3f1250 |
+| gate (orchestrator) | 2026-11-07T13:13:00+00:00 | 2026-11-07T13:13:46+00:00 | $0.4245 | 0 | done |
+| advocate (orchestrator) | 2026-11-07T13:13:46+00:00 | 2026-11-07T13:15:01+00:00 | $0.3593 | 0 | 0 record(s) applied |
+| omissions (orchestrator) | 2026-11-07T13:15:01+00:00 | 2026-11-07T13:15:43+00:00 | $0.1245 | 0 | FAILED: RunStop: omissions: record changed outside the step that owns it: changed advocate/20261107T131346Z-adjudication.md |

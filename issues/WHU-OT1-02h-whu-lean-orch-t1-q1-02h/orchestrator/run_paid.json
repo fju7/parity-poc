@@ -1,0 +1,272 @@
+{
+ "result": "Not Ready: omissions: record changed outside the step that owns it: changed advocate/20261107T131346Z-adjudication.md",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-07T13:06:51+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (107 code files)"
+   },
+   "end": "2026-11-07T13:06:51+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-07T13:06:51+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "end": "2026-11-07T13:07:08+00:00",
+   "usd": 0.031424
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-07T13:07:08+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "3 source(s), 5 unresolved proposal(s)"
+   },
+   "end": "2026-11-07T13:07:47+00:00",
+   "usd": 0.4918
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-07T13:07:47+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02h"
+     ],
+     "rc": 0,
+     "tail": "\n  HELD     S001   24587d9f8f9b                                     395517 B  (contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text))\n  HELD     S002   3ebd2067369d                                     392279 B  (contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text))\n  HELD     S003   088ff6d71f68                                     379448 B  (contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text))\n\n  held now: 3   failed: 0   skipped: 0\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-02h",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            3 document(s) in the library, every hash matches\n  ok       sources we hold                  all 3 source documents are in the library\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-02h"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-02h\n\n  S001   clean        matched on PMCID PMC11799928\n  S002   AMENDED      Erratum in:  36913230\n  S003   AMENDED      Erratum in:  37133285\n\n  ok     sources checked for corrections        all 3 source(s) have had their bibliographic record read for errata\n  BLOCKED corrections not yet read               2 source(s) have been formally corrected and we do not hold the correction: S002: Erratum in 36913230 || S003: Erratum in 37133285 — until it is read we do not know whether it touches a figure on this page\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-02h",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-02h-whu-lean-orch-t1-q1-02h — what can be swept at all\n\n    S001   doi   10.1002/cl2.70016                  url/field Effectiveness of interventions for i\n    S002   doi   10.1002/cl2.1287                   url/field Teacher professional development for\n    S003   doi   10.1002/cl2.1070                   url/field Evidence and gap map of studies asse\n\n  3 of 3 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-02h"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-02h\n  ok      checks can read the documents      3 of 3 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "1 held, 2 not held",
+    "not_held": [
+     "S002",
+     "S003"
+    ],
+    "lines": {
+     "S002": "correction_unread",
+     "S003": "correction_not_held"
+    }
+   },
+   "end": "2026-11-07T13:08:15+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-07T13:08:15+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "30 sentences drafted from 66 passages"
+   },
+   "end": "2026-11-07T13:08:44+00:00",
+   "usd": 0.148676
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-07T13:08:44+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-02h",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  47 empirical sentence(s) on the page\n  -2 bound, 49 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "27 sentence(s) bound to their passages"
+   },
+   "end": "2026-11-07T13:08:44+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-07T13:08:45+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "19 coverage decision(s), 0 left in scope"
+   },
+   "end": "2026-11-07T13:09:38+00:00",
+   "usd": 0.084088
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-07T13:09:38+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-02h",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.12 (17 candidate(s) x $0.0072 per candidate (mean of 1305 logged relevance ruling(s))); $54.67 left today, $4.66 left on whu-lean-orch-t1-q1-02h\n  14 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/rulings/rulings.jsonl\n  consistency: re-ran 5 of 21 ruling(s) (seed 161258816910381): 5 of 5 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.1272\n"
+    }
+   ],
+   "code": {
+    "outcome": "6 judgement(s) stated"
+   },
+   "end": "2026-11-07T13:10:56+00:00",
+   "usd": 0.146556
+  },
+  {
+   "step": "corrections_3b",
+   "start": "2026-11-07T13:10:56+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 check(s): 0 removed, 0 re-bound",
+    "counts": {
+     "checked": 0,
+     "removed": 0,
+     "rebound": 0
+    },
+    "changed": false
+   },
+   "end": "2026-11-07T13:10:57+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "commit_3b",
+   "start": "2026-11-07T13:10:57+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "committed 01255a3f1250"
+   },
+   "end": "2026-11-07T13:13:00+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "gate",
+   "start": "2026-11-07T13:13:00+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/draft/whu-lean-orch-t1-q1-02h.html",
+      "--dry-run"
+     ],
+     "rc": 0,
+     "tail": "NARROW GATE — DRY RUN (no API call is made)\n  free checks considered 0 sentence(s) or quotation(s) carrying a figure or a quotation\n  claims the source role would receive: 0\n  calls that would be made: 1\n    recency                                        whole draft\n    (source: no UNDETERMINED claim, so no source call)\n  not run (--full only): extract, advocate, inference, coverage\n  estimated cost: 1 call(s) x $0.75 = $0.75 (the per-call figure the cap is checked with; Phase B's full run was $4.63)\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/draft/whu-lean-orch-t1-q1-02h.html",
+      "--report",
+      "issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/draft/whu-lean-orch-t1-q1-02h.html.gate.json"
+     ],
+     "rc": 1,
+     "tail": "==========================================\n\n========================================================================\nINFERENCE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nCOVERAGE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nADJUDICATION  0 already decided · 0 moved since\n========================================================================\n\n  Nothing has been adjudicated for this draft. Every finding above\n  is new. Record the ones you accept in draft_decisions.json so the\n  next run can tell a fresh problem from a settled one.\n========================================================================\nCOST     $0.42 - 1 API call(s) - 112,058 tokens in, 1,891 out - 6 web search(es)\n========================================================================\n\n  recency                                  $0.42  113,949 tok   6 search\n\n  Priced from https://platform.claude.com/docs/en/about-claude/pricing,\n  read 2026-08-28. Prices go stale; a figure here older than the\n  page it came from is a figure to re-check.\n\nFull result written to issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/draft/whu-lean-orch-t1-q1-02h.html.gate.json\n\nBLOCKED — resolve every item above, or record it in the piece, before publishing.\n",
+     "proof": "proved: issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/draft/whu-lean-orch-t1-q1-02h.html.gate.json written in this step, findings present"
+    }
+   ],
+   "end": "2026-11-07T13:13:46+00:00",
+   "usd": 0.4245
+  },
+  {
+   "step": "advocate",
+   "start": "2026-11-07T13:13:46+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_advocate.py",
+      "run",
+      "whu-lean-orch-t1-q1-02h",
+      "--page",
+      "issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/draft/whu-lean-orch-t1-q1-02h.html"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the source advocate estimated $0.93 (1 source(s) x $0.9257 per source (the higher of: $0.1277 per objection over 498 objection(s) x 7.25 objections per source (the most of any run: WHU-S08-settlement-planning-climate-resilience 20261025T001452Z-briefs.json) = $0.9257; $0.5170 mean over 123 measured source(s) in 12 issue(s))); $54.10 left today, $4.09 left on whu-lean-orch-t1-q1-02h\n  run         issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/advocate/runs/20261107T131346Z\n  routing     34 sentence(s) reach a source by their binding; 52 reach none (33 with no binding row, 19 whose row rests on no source; issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/advocate/runs/20261107T131346Z/routing.json)\n  S001  full_text_held the authors of Effectiveness of interventions for improvin\n        -> 5 objections\n  S002  blocked      the authors of Teacher professional development for disabi\n        -> 0 skipped\n  S003  blocked      the authors of Evidence and gap map of studies assessing t\n        -> 0 skipped\n  quotations  5 checked against the held text; 0 still not in it after one re-ask (log: issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/advocate/quote_checks.jsonl, never committed)\n\n  briefs      issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/advocate/20261107T131346Z-briefs.json\n  adjudicate  issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/advocate/20261107T131346Z-adjudication.md\n  5 item(s) need a MERIT and an EFFECT line before this issue can publish.\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "advocate",
+      "whu-lean-orch-t1-q1-02h"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the ruling model estimated $0.02 (2 ruling(s) x $0.0114 per ruling (mean of 2357 logged ruling(s))); $53.76 left today, $3.76 left on whu-lean-orch-t1-q1-02h\n  1 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/rulings/rulings.jsonl\n  consistency: re-ran 1 of 1 ruling(s) (seed 260699416564396): 1 of 1 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.0235\n"
+    }
+   ],
+   "code": {
+    "outcome": "0 record(s) applied",
+    "changed": false,
+    "applied": 0
+   },
+   "end": "2026-11-07T13:15:01+00:00",
+   "usd": 0.359292
+  },
+  {
+   "step": "omissions",
+   "start": "2026-11-07T13:15:01+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "omissions",
+      "whu-lean-orch-t1-q1-02h"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the omission ruling estimated $0.13 (5 omission unit(s) x $0.0262 per omission unit (mean of 146 logged omission ruling(s))); $53.74 left today, $3.73 left on whu-lean-orch-t1-q1-02h\n  4 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02h-whu-lean-orch-t1-q1-02h/rulings/rulings.jsonl\n  consistency: re-ran 1 of 4 ruling(s) (seed 217304156226566): 1 of 1 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.1245\n"
+    }
+   ],
+   "code": {
+    "outcome": "2 record(s) applied",
+    "changed": true,
+    "applied": 2
+   },
+   "failed": "RunStop: omissions: record changed outside the step that owns it: changed advocate/20261107T131346Z-adjudication.md",
+   "end": "2026-11-07T13:15:43+00:00",
+   "replies": [],
+   "usd": 0.12452
+  }
+ ],
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-07T13:15:43+00:00"
+}

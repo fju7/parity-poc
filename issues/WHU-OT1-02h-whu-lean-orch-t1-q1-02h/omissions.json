@@ -1,0 +1,88 @@
+{
+ "omissions": [
+  {
+   "key": "S001@12717-12820",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    12717,
+    12820
+   ],
+   "quote_sha256": "3273cae4cc0f217f32e542928d954e6d380e82b12c51a8b094c092d2a9efa0a4",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding concerns how to judge whether disability-education programmes in LMICs work, and school completion is one of the education outcomes the scope covers, so it bears on the question. Step 2: The draft already reports the authors' calls for larger samples, more rigorous designs, standardised measures and evaluation of environment-focused interventions, but it never says they want evaluations based on concrete outcomes like school completion. That qualifies the answer, because the reported effects are mainly on skills rather than on completion. It also matters to a funder deciding what to scale and how to evaluate it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a0b7761c639bf547",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": "fe4678637a140624",
+   "after": "a65d486a4d2deac7",
+   "decided_at": "2026-11-07T13:15:20+00:00"
+  },
+  {
+   "key": "S001@13012-13252",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    13012,
+    13252
+   ],
+   "quote_sha256": "9ac6355086f1eaf38db3391de7683e06c5a2d01058a3e6b3037ce0051d4b3c6a",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the twin-track point bears on which kinds of programmes work best [S001@128932-128971], so it is in scope. Step 2: the draft already states it. It says 'a twin-track approach is needed, one that [S001@8198-8256] and also includes them in mainstream activities' and also quotes the source's parallel twin-track sentence. The only new element is the 'well established' framing, which does not change the answer for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4d3988a992ded8f4",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-07T13:15:22+00:00"
+  },
+  {
+   "key": "S001@117124-117354",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    117124,
+    117354
+   ],
+   "quote_sha256": "abb059272a0fd644c3a56f5fe7f866e05e7647258ba6ca9c4a2af68de1a72626",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is a pooled effect of interventions on an education-related outcome (school behaviour and adaptive functioning) [S001@128932-128971], which bears on whether programmes work. Step 2 fails: the draft already states that '[S001@7412-7509] [1].' The extra statistics (k=5, n=256, low heterogeneity, no publication bias) do not change, narrow or qualify that answer for a funding decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fe4ba172a2ca719f",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-07T13:15:27+00:00"
+  },
+  {
+   "key": "S001@123163-123396",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    123163,
+    123396
+   ],
+   "quote_sha256": "90327a4a537c72e2525e5c6dd4939407d0e958dbeab8fe039fab292a2e0e02f1",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: In scope. The finding reports the effects of a school- or environment-level intervention type, accessibility of learning environments, for disabled learners in LMICs. That bears directly on 'which kinds work best'. No SCOPE exclusion covers teacher or parent attitudes or violence reduction. Step 2: Material. The draft notes a moderate effect for 'conditions for inclusion' and one teacher-knowledge study, but never says that accessibility-focused interventions reported positive impacts on parent knowledge and attitudes or on violence reduction. Those are distinct outcomes a funder weighing accessibility or mainstreaming against individual skills programmes would consider. The sentence keeps the source's 'reported' framing, and the draft already carries the review's low-confidence caveats.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3f2202f9bb2aae4f",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": "704f924ce77a570b",
+   "after": "b216db70526f4d08",
+   "decided_at": "2026-11-07T13:15:36+00:00"
+  }
+ ]
+}
