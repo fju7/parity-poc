@@ -734,7 +734,12 @@ def main(argv=None) -> int:
                 out = run(Ctx(a.slug, "trial", root=sb.root))
             print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]]}, indent=1))
             return 0
-        out = run(Ctx(a.slug, "paid"))
+        ctx = Ctx(a.slug, "paid")
+        out = run(ctx)
+        rec = ctx.case / "orchestrator" / "run_paid.json"          # every step's commands, exit codes and outcome
+        rec.parent.mkdir(parents=True, exist_ok=True)
+        rec.write_text(json.dumps(dict(out, ruling=os.environ.get(PAID_RULING_ENV), ended=now()), indent=1,
+                                  ensure_ascii=False, default=str) + "\n", encoding="utf-8")
         print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]]}, indent=1))
         return 0 if out["result"] == "Ready." else 1
     if a.cmd == "status":
