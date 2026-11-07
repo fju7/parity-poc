@@ -1,0 +1,177 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "review",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+      "year": 2025,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Hunt",
+      "used_for": "Most recent Campbell systematic review of 28 studies on what works to improve educational outcomes for people with disabilities in LMICs.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.70016",
+      "registry": "europepmc",
+      "pmcid": "PMC11799928",
+      "url": "https://europepmc.org/article/PMC/PMC11799928",
+      "also_called": [
+        "Effectiveness of interventions for improving educational outcomes for people wit"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        },
+        "on": "2026-11-07"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "review",
+      "title": "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive education schools in Low and Middle-Income Countries (LMICs)",
+      "year": 2024,
+      "container": "PMC / PLOS ONE",
+      "authors": "Opoku",
+      "used_for": "PRISMA-compliant review of CWD academic performance—access, enrolment, attendance, and results—in inclusive LMIC schools.",
+      "proposed_by": "orchestrator discover step",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10844053/",
+      "registry": "none (an agency's own site: pmc.ncbi.nlm.nih.gov)",
+      "also_called": [
+        "A systematic review of academic performance of Children with Disabilities (CWDs)"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/6e/6e7d8a4acc4bb70484d7de5dad076704fd55be52d46650f59c8eb42592e65d0a.xml",
+          "sha256": "6e7d8a4acc4bb70484d7de5dad076704fd55be52d46650f59c8eb42592e65d0a",
+          "bytes": 151104,
+          "identified_by": "contains its identifier PMC10844053 — 67753 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "67753 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-07"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "assessment_summary",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+      "year": 2020,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Saran",
+      "used_for": "Foundational Campbell EGM of 166 studies (59 systematic reviews, 107 impact evaluations) on disability interventions in LMICs, including education outcomes.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.1070",
+      "registry": "europepmc",
+      "pmcid": "PMC8356326",
+      "url": "https://europepmc.org/article/PMC/PMC8356326",
+      "also_called": [
+        "Evidence and gap map of studies assessing the effectiveness of interventions for"
+      ],
+      "access": {
+        "last_fetch": {
+          "on": "2026-11-07",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "identified (contains its identifier PMC8356326), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (379448 bytes at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/)",
+          "tried": [
+            {
+              "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/fullTextXML",
+              "result": "identified (contains its identifier PMC8356326), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (379448 bytes at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/)"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: systematic review inclusive education disability low middle income countries children",
+      "web search: disability education interventions LMIC children young people effectiveness review",
+      "web search: UNESCO guidelines inclusive education disability developing countries policy",
+      "web search: evidence gap map disability education interventions LMIC UNICEF Innocenti 3ie",
+      "web search: Hunt 2025 \"effectiveness of interventions\" educational outcomes disabilities LMIC Campbell systematic review doi",
+      "web search: Saran 2020 \"evidence and gap map\" disability interventions LMIC Campbell Systematic Reviews",
+      "web search: Inclusive Education Children Disabilities Quality Education Low Middle Income Countries policy brief Singal 2019",
+      "web search: \"Global Education Monitoring Report\" 2020 inclusion disability UNESCO",
+      "registry: Europe PMC"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [
+    {
+      "proposal": {
+        "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+        "first_author": "Mendoza",
+        "year": 2024,
+        "container": "International Journal of Disability, Development and Education",
+        "type": "review",
+        "url": "https://eric.ed.gov/?id=EJ1417280",
+        "why": "Systematic review of 31 studies on inclusive education interventions (teacher training, facilities, community partnerships) in 19 low/lower-middle-income countries."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Inclusion Matters: Inclusive Interventions for Children with Disabilities – An Evidence and Gap Map from Low- and Middle-Income Countries",
+        "first_author": "UNICEF Innocenti",
+        "year": 2022,
+        "container": "UNICEF Office of Research – Innocenti",
+        "type": "assessment_summary",
+        "url": "https://www.unicef.org/innocenti/reports/inclusion-matters-inclusive-interventions-children-disabilities",
+        "why": "UNICEF evidence and gap map identifying what inclusive interventions (including education) for children with disabilities in LMICs exist and where evidence is lacking."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+        "first_author": "Wapling",
+        "year": 2016,
+        "container": "CBM",
+        "type": "synthesis",
+        "url": "https://www.inclusive-education-in-action.org/resources/inclusive-education-and-children-disabilities-quality-education-all-low-and-middle-income",
+        "why": "Systematic literature review of 131 peer-reviewed articles synthesising most effective approaches for quality education outcomes for CWDs in LMICs."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Global education monitoring report, 2020: Inclusion and education: all means all",
+        "first_author": "UNESCO",
+        "year": 2020,
+        "container": "UNESCO",
+        "type": "assessment_summary",
+        "url": "https://www.unesco.org/gem-report/en/publication/inclusion-and-education",
+        "why": "UNESCO's flagship global assessment of inclusion in education across 209 countries, covering disability, laws, policies, data gaps, and barriers."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Disabilities Inclusive Education Systems and Policies Guide for Low- and Middle-Income Countries",
+        "first_author": "RTI International",
+        "year": 2018,
+        "container": "RTI Press",
+        "type": "guideline",
+        "url": "https://www.rti.org/rti-press-publication/disabilities-inclusive-education-systems-policies-guide-low-middle-income-countries/fulltext.pdf",
+        "why": "Practical policy and systems guide for moving LMIC education from segregated to inclusive models, with specific recommendations for resource-limited settings."
+      },
+      "why": "first author 'RTI International' not in the record's authors",
+      "status": "NOT_FOUND"
+    }
+  ]
+}

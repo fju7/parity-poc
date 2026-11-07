@@ -1,0 +1,55 @@
+{
+ "result": "Not Ready: acquire: backend/scripts/whatholdsup/acquire_sources.py whu-lean-orch-t1-q1-02c exited 1",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-07T10:20:41+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (106 code files)"
+   },
+   "end": "2026-11-07T10:20:42+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-07T10:20:42+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "end": "2026-11-07T10:21:00+00:00",
+   "usd": 0.034
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-07T10:21:00+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "3 source(s), 5 unresolved proposal(s)"
+   },
+   "end": "2026-11-07T10:21:41+00:00",
+   "usd": 0.524
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-07T10:21:41+00:00",
+   "failed": "RunStop: acquire: backend/scripts/whatholdsup/acquire_sources.py whu-lean-orch-t1-q1-02c exited 1",
+   "end": "2026-11-07T10:21:50+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02c"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S001   24587d9f8f9b                                     395517 B  (contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text))\n  HELD     S002   6e7d8a4acc4b                                     151104 B  (contains its identifier PMC10844053 — 67753 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text))\n\n  held now: 2   failed: 1   skipped: 0\n\n  ====================================================================\n  HUMAN SEARCH LIST — nobody holds these, so nothing may characterise them\n  ====================================================================\n    S003   Evidence and gap map of studies assessing the effectiveness of\n           why: identified (contains its identifier PMC8356326), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (379448 bytes at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/)\n           put a copy in the store with:\n             python3 backend/scripts/whatholdsup/source_store.py whu-lean-orch-t1-q1-02c \\\n               add S003 <path-to-file> --url <url> --via \"how you got it\"\n\n"
+    }
+   ],
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-07T10:21:50+00:00"
+}
