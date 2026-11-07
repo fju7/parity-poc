@@ -100,12 +100,16 @@ DISCOVER_PROMPT = """Find the primary sources that best answer this question: th
 assessment reports, guidelines and pivotal trials. Propose at most {n}. For each, give only what identifies it;
 never an identifier you have not seen. JSON only:
 {{"sources": [{{"title": "<exact title>", "first_author": "<surname, or the issuing body>", "year": <year>,
-  "container": "<journal or publisher>", "type": "<one of: {types}>",
+  "container": "<journal or publisher>", "type": "<one of: {types}; or none of these>",
   "url": "<the page where you found it>", "why": "<what it is for, at most 25 words>"}}]}}
+
+If a source is none of those kinds, its type is "none of these": never force a source into a type.
 
 QUESTION:
 {question}
 """
+
+NO_TYPE = "none of these"          # ruling (b), 2026-11-07
 
 
 def discover_prompt(question: str, n: int, types: list[str]) -> str:
@@ -123,8 +127,8 @@ def discover_proposals(reply, types: set, n: int) -> list[dict]:
         if not isinstance(r, dict):
             continue
         t = r.get("type")
-        if t not in types:
-            raise StepFailed("type %r is not one of source_store.TYPES" % t)
+        if t not in types and t != NO_TYPE:
+            raise StepFailed("type %r is not one of source_store.TYPES or %r" % (t, NO_TYPE))
         if "form" in r:
             raise StepFailed("a proposal may not name a form: form is derived from the type")
         y = r.get("year")

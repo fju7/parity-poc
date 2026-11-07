@@ -48,6 +48,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import urllib.error
@@ -307,7 +308,15 @@ def main(argv=None) -> int:
 
     print()
     print("  held now: %d   failed: %d   skipped: %d" % (len(got), len(failed), len(skipped)))
-    if failed:
+    if failed and os.environ.get("WHU_ORCH_ISSUE") == args.slug:
+        # An orchestrated run keeps no human search list (ruling (a), 2026-11-07): a source not held is recorded
+        # not held, nothing on the page draws on it, and the page says so.
+        print()
+        for sid, why, title in failed:
+            print("  NOT HELD %-6s %s" % (sid, title[:62]))
+            print("           why: %s" % why)
+        print()
+    elif failed:
         print()
         print("  " + "=" * 68)
         print("  HUMAN SEARCH LIST — nobody holds these, so nothing may characterise them")

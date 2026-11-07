@@ -903,3 +903,135 @@ def test_field_limits_are_twice_the_longest_stored_value():
     assert ST.FIELD_LIMITS["premise.measured"] >= 2 * 434          # trial 1 attempt 2's real reply
     src = (W / "orch" / "model_steps.py").read_text()
     assert not re.search(r'_str\([a-z]+, "[a-z_]+", \d+', src)    # no limit written outside the table
+
+
+# ---------------------------------------------------------------------------------------------------- rulings (a)-(d)
+# Advisor's rulings after trial 1's attempt 3 (2026-11-07).
+
+def test_a_an_unheld_source_does_not_stop_the_run_and_is_recorded_not_held(tmp_path):
+    import orchestrator as O
+    c = _case(tmp_path)
+    doc = {"sources": [
+        {"id": "S001", "type": "review", "title": "Held review", "used_for": "x",
+         "access": {"state": "full_text_held", "held": {"file": "f"}}},
+        {"id": "S002", "type": "review", "title": "A map we could not hold", "used_for": "x",
+         "access": {"last_fetch": {"on": "2026-11-07", "result": "not fetched", "why": "form check failed"}}}]}
+    (c / "sources.json").write_text(json.dumps(doc))
+    out = O.code_acquire(SimpleNamespace(case=c), ST.BY_NAME["acquire"])
+    assert out["not_held"] == ["S002"] and out["outcome"] == "1 held, 1 not held"
+    got = json.loads((c / "sources.json").read_text())["sources"][1]["access"]
+    assert got["not_held"] == {"line": "could_not_hold", "why": "form check failed"}
+    assert got["state"] == "blocked" and "form check failed" in got["blocked_by"]   # the ledger's own state
+    for s in doc["sources"]:
+        s["access"] = {"last_fetch": {"why": "nothing"}}
+    (c / "sources.json").write_text(json.dumps(doc))
+    with pytest.raises(O.RunStop, match="no source is held"):
+        O.code_acquire(SimpleNamespace(case=c), ST.BY_NAME["acquire"])
+
+
+def test_a_acquire_exit_1_is_accepted_only_from_acquire_sources_in_acquire(tmp_path):
+    import orchestrator as O
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.first = "orch-x", tmp_path, "trial", tmp_path, None, None
+    ctx.page, ctx.gate = tmp_path / "p.html", tmp_path / "p.html.gate.json"
+    (tmp_path / "acquire_sources.py").write_text("import sys; sys.exit(1)\n")
+    (tmp_path / "errata.py").write_text("import sys; sys.exit(1)\n")
+    ok = ST.Step("acquire", "code", cmds=((sys.executable, str(tmp_path / "acquire_sources.py")),))
+    assert O.run_cmds(ctx, ok)[0]["rc"] == 1
+    with pytest.raises(O.RunStop):
+        O.run_cmds(ctx, ST.Step("acquire", "code", cmds=((sys.executable, str(tmp_path / "errata.py")),)))
+    with pytest.raises(O.RunStop):
+        O.run_cmds(ctx, ST.Step("gate", "stage", cmds=((sys.executable, str(tmp_path / "acquire_sources.py")),)))
+
+
+def test_a_orchestrated_runs_print_no_human_search_list():
+    src = (W / "acquire_sources.py").read_text()
+    i = src.index('if failed and os.environ.get("WHU_ORCH_ISSUE") == args.slug:')
+    j = src.index("HUMAN SEARCH LIST", i)
+    assert i < j and "elif failed:" in src[i:j]
+
+
+def test_a_b_the_page_lines_are_code_written_and_nothing_draws_on_the_source():
+    import lean_sentences as LS
+    srcs = [{"id": "S001", "title": "Held review", "access": {"state": "full_text_held"}},
+            {"id": "S002", "title": "Evidence and gap map of interventions",
+             "access": {"state": "blocked", "not_held": {"line": "could_not_hold"}}}]
+    gen = LS.generate({"question": "Q?"}, srcs, not_of_a_type=[{"title": "Inclusion Matters"}])
+    lines = [g["sentence"] for g in gen if g["field"] in ("access.not_held", "sources.json not_of_a_type")]
+    assert lines == ["We found Evidence and gap map of interventions but could not hold it, so nothing on this "
+                     "page draws on it.",
+                     "We found Inclusion Matters but it is not of a type we can check, so nothing on this page "
+                     "draws on it."]
+    assert not any("We could not obtain" in g["sentence"] for g in gen)     # one line per unheld source
+    assert all(LS.is_framed(x) for x in lines)                              # recognised as generated
+    import orchestrator as O
+    src = (W / "orchestrator.py").read_text()
+    assert "held = R.held_texts(ctx.slug)" in src[src.index("def _passages"):src.index("def _cite_numbers")]
+
+
+def test_b_none_of_these_is_allowed_and_recorded_never_forced(tmp_path):
+    import orchestrator as O
+    from orch import model_steps as M
+    assert M.NO_TYPE == O.NO_TYPE == "none of these"
+    assert "none of these" in M.discover_prompt("q?", 8, ["review"])
+    rows = M.discover_proposals({"sources": [
+        {"title": "A map", "first_author": "W", "year": 2021, "type": "none of these", "url": "u"},
+        {"title": "A review", "first_author": "S", "year": 2024, "type": "review", "url": "u"}]}, {"review"}, 8)
+    assert [r["type"] for r in rows] == ["none of these", "review"]
+    with pytest.raises(M.StepFailed):
+        M.discover_proposals({"sources": [{"title": "x", "first_author": "y", "type": "made up"}]}, {"review"}, 8)
+    c = _case(tmp_path)
+    (c / "sources.json").unlink()
+    found = SimpleNamespace(identifier=SimpleNamespace(kind="doi", value="10.1/x"), heading="Found title",
+                            registry="europepmc", extra={})
+    reply = json.dumps({"sources": [
+        {"title": "A map", "first_author": "W", "year": 2021, "type": "none of these", "url": "https://x.org/m"},
+        {"title": "A review", "first_author": "S", "year": 2024, "type": "review", "url": "https://x.org/r"}]})
+    ctx = SimpleNamespace(case=c, slug="orch-x", ask=lambda p, n, r: reply, search=lambda t, a, y, k: found,
+                          replies=[])
+    O.code_discover(ctx, ST.BY_NAME["discover"])
+    doc = json.loads((c / "sources.json").read_text())
+    assert [s["type"] for s in doc["sources"]] == ["review"]                 # never forced into a type
+    assert doc["not_of_a_type"][0]["title"] == "Found title"
+
+
+def test_c_a_pmc_article_is_confirmed_through_europe_pmc_never_as_an_agency_site():
+    import orchestrator as O
+    miss = SimpleNamespace(reason="Europe PMC returned no record for the title", status="NOT_FOUND")
+    prop = [{"title": "A systematic review of academic performance", "first_author": "K", "year": 2024,
+             "type": "review", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10844053/"}]
+    seen = []
+
+    def by_pmcid(pmcid, title, a, y):
+        seen.append(pmcid)
+        return SimpleNamespace(identifier=SimpleNamespace(kind="pmid", value="38322967"), heading=title,
+                               registry="europepmc", extra={"pmcid": pmcid})
+    srcs, unres = O.resolve_proposals(prop, lambda t, a, y, k: miss, by_pmcid)
+    assert seen == ["PMC10844053"] and srcs[0]["registry"] == "europepmc" and srcs[0]["pmid"] == "38322967"
+    assert srcs[0]["url"] == "https://europepmc.org/article/PMC/PMC10844053"
+    srcs, unres = O.resolve_proposals(prop, lambda t, a, y, k: miss, lambda *a: miss)
+    assert srcs == [] and len(unres) == 1                                    # not admitted as an agency site
+    assert O.is_pmc("pmc.ncbi.nlm.nih.gov", "") and not O.is_pmc("who.int", "")
+    srcs, _ = O.resolve_proposals([dict(prop[0], url="https://www.cdc.gov/x", title="CDC page")],
+                                  lambda t, a, y, k: miss, lambda *a: miss)
+    assert srcs and "agency" in srcs[0]["registry"]                          # the agency rule still stands
+
+
+def test_c_resolver_checks_a_pmcid_record_like_a_title_search():
+    from orch import resolve as RV
+    rec = {"title": "A systematic review of academic performance of children", "authorString": "Kim A, Lee B.",
+           "pubYear": "2024", "pmid": "38322967", "pmcid": "PMC10844053"}
+    got = RV.search_pmcid("PMC10844053", "A systematic review of academic performance of children", "Kim", 2024,
+                          lookup=lambda v, f: rec if (v, f) == ("PMC10844053", "PMCID") else None)
+    assert got.identifier.value == "38322967" and got.extra["pmcid"] == "PMC10844053"
+    bad = RV.search_pmcid("PMC10844053", "Something else entirely about fish", "Kim", 2024, lookup=lambda v, f: rec)
+    assert isinstance(bad, RV.Unresolved)
+
+
+def test_d_study_log_cost_is_the_steps_own_ledger_rows():
+    import orchestrator as O
+    rows = [{"issue": "x", "step": "premise", "at": "2026-11-07T10:21:00+00:00", "usd": 0.034},
+            {"issue": "x", "step": "discover", "at": "2026-11-07T10:21:40+00:00", "usd": 0.49},
+            {"issue": "y", "step": "discover", "at": "2026-11-07T10:21:40+00:00", "usd": 5.0},
+            {"issue": "x", "step": "discover", "at": "2026-11-07T09:00:00+00:00", "usd": 7.0}]
+    assert round(O.step_cost(rows, "x", "discover", "2026-11-07T10:21:00+00:00"), 3) == 0.49

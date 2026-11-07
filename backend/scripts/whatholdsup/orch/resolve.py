@@ -47,6 +47,25 @@ def search(title: str, first_author: str | None = None, year: int | None = None,
     rec = lookup(title, "TITLE")
     if rec is None:
         return Unresolved("Europe PMC returned no record for the title (or did not answer)", "NOT_FOUND")
+    return _checked(rec, title, first_author, year)
+
+
+def search_pmcid(pmcid: str, title: str, first_author: str | None = None, year: int | None = None, lookup=None):
+    """An article hosted on PMC (ruling (c), 2026-11-07): confirmed as an article through Europe PMC by its PMCID,
+    then held to the same title, author and year checks as a title search."""
+    import find_access as FA
+    lookup = lookup or FA.epmc
+    rec = lookup(pmcid, "PMCID")
+    if rec is None:
+        return Unresolved("Europe PMC returned no record for %s (or did not answer)" % pmcid, "NOT_FOUND")
+    got = _checked(rec, title, first_author, year, pmcid=pmcid)
+    if isinstance(got, Found):
+        got.extra["pmcid"] = got.extra.get("pmcid") or pmcid
+    return got
+
+
+def _checked(rec: dict, title: str, first_author, year, pmcid: str | None = None):
+    import find_access as FA
     ok, why = FA.titles_agree(title, rec.get("title") or "")
     if not ok:
         return Unresolved("title does not agree: %s" % why)
@@ -64,6 +83,8 @@ def search(title: str, first_author: str | None = None, year: int | None = None,
         ident = Ident("doi", rec["doi"])
     elif rec.get("pmid"):
         ident = Ident("pmid", rec["pmid"])
+    elif pmcid and rec.get("pmcid") == pmcid:
+        ident = Ident("pmcid", pmcid)
     else:
         return Unresolved("the record carries no DOI or PMID")
     extra = {k: rec.get(k) for k in ("pmcid", "pmid", "license") if rec.get(k)}

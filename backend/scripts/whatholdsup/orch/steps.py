@@ -136,6 +136,11 @@ STEPS: tuple[Step, ...] = (
     Step("archive", "code", owns=("private_manifest.txt",), code="archive"),
 )
 
+# Exit codes a step accepts from one of its commands. acquire_sources.py exits 1 when a source could not be held;
+# under ruling (a) (2026-11-07) that does not stop the run: the source is recorded not held, the page says so, and
+# the run stops only if no source is held (code_acquire).
+OK_EXIT = {("acquire", "acquire_sources.py"): (0, 1)}
+
 NAMES = tuple(s.name for s in STEPS)
 BY_NAME = {s.name: s for s in STEPS}
 MAX_REPEATS = 2                       # steps 12-18 re-run at most twice in all

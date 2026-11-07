@@ -59,6 +59,10 @@ STATE_FRAMES = {
     "not_opened": "We have not opened %s.",
 }
 SEARCH_FRAMES = {"searched": "We searched: %s.", "not_searched": "We did not search: %s."}
+# Orchestrated runs (advisor's rulings (a) and (b), 2026-11-07): a source found but not held, or of no type we can
+# check, is named by its title and nothing on the page draws on it.
+NOT_HELD_FRAME = "We found %s but could not hold it, so nothing on this page draws on it."
+NO_TYPE_FRAME = "We found %s but it is not of a type we can check, so nothing on this page draws on it."
 SECTIONS_FRAME = "Of %s, we read: %s."
 NOT_READ_FRAME = "Of %s, we did not read: %s."
 # Fix 6 (process doc §4.6.1, "What 'we read' means"; advisor, 5 November 2026):
@@ -70,7 +74,7 @@ SEARCHED_FULL_FRAME = ("We searched the full text of %s and checked the passages
 LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstract of ",
          "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
          "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists of ",
-         "We could not establish whether ", "Our recency check ")
+         "We could not establish whether ", "Our recency check ", "We found ")
 HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 
@@ -111,9 +115,17 @@ def question_sentence(issue: dict) -> str | None:
     return QUESTION_FRAME % q if q else None
 
 
+def found_label(sources: list[dict], title: str | None, sid: str | None = None) -> str:
+    """A found source's title, as one sentence; its citation label if the title would split the sentence."""
+    t = _clean(title or "")
+    if t and _one_sentence(NOT_HELD_FRAME % t):
+        return t
+    return cite(sources, sid) if sid else "a source whose title would split this sentence"
+
+
 def generate(issue: dict, sources: list[dict], search: dict | None = None,
              declared: list[dict] | None = None, measured: dict | None = None,
-             editions: list[dict] | None = None) -> list[dict]:
+             editions: list[dict] | None = None, not_of_a_type: list[dict] | None = None) -> list[dict]:
     """[{kind, source, field, sentence}] in page order: the question, then each
     source's held state, sections read and not read, then what we searched and
     did not search (SEARCH), then the newer-edition lines (EDITIONS, rule 3b),
@@ -132,6 +144,10 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
         out.append({"kind": "question", "source": None, "field": "issue.json question", "sentence": q})
     for s in sources:
         sid, acc = s.get("id"), s.get("access") or {}
+        if sid and acc.get("not_held"):
+            out.append({"kind": "reading", "source": sid, "field": "access.not_held",
+                        "sentence": NOT_HELD_FRAME % found_label(sources, s.get("title"), sid)})
+            continue
         frame = STATE_FRAMES.get(acc.get("state"))
         if not sid or not frame:
             continue
@@ -155,6 +171,9 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
         if nr:
             out.append({"kind": "reading", "source": sid, "field": "access.not_read",
                         "sentence": NOT_READ_FRAME % (c, "; ".join(nr))})
+    for x in not_of_a_type or []:
+        out.append({"kind": "reading", "source": None, "field": "sources.json not_of_a_type",
+                    "sentence": NO_TYPE_FRAME % found_label(sources, x.get("title"))})
     for field, frame in SEARCH_FRAMES.items():
         items = [_clean(x) for x in (search or {}).get(field) or [] if _clean(x)]
         if items:
@@ -185,14 +204,14 @@ def load(slug: str) -> tuple:
     except (Exception, SystemExit):          # case_dir exits for an unknown slug
         return {}, [], {}, []
     if not (case / "issue.json").exists():
-        return {}, [], {}, [], {}, []
+        return {}, [], {}, [], {}, [], []
     issue = json.loads((case / "issue.json").read_text(encoding="utf-8"))
     sp = case / "sources.json"
     doc = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else {}
     srcs = doc.get("sources") or []
     import lean_editions as LE
     return (issue, srcs, doc.get("search") or {}, declared_of(slug), measured_of(slug, srcs),
-            LE.lines(case))
+            LE.lines(case), doc.get("not_of_a_type") or [])
 
 
 def measured_of(slug: str, sources: list[dict]) -> dict:

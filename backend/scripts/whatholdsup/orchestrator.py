@@ -94,7 +94,8 @@ def run_cmds(ctx: Ctx, step) -> list[dict]:
         argv = [ctx.fmt(a, step) for a in tmpl]
         r = subprocess.run(argv, cwd=str(ctx.root), env=env, capture_output=True, text=True)
         out.append({"argv": argv[1:], "rc": r.returncode, "tail": (r.stdout + r.stderr)[-1500:]})
-        if r.returncode != 0 and step.name != "preflight":
+        ok = ST.OK_EXIT.get((step.name, Path(argv[1]).name if len(argv) > 1 else ""), (0,))
+        if r.returncode not in ok and step.name != "preflight":
             e = RunStop("%s: %s exited %d" % (step.name, " ".join(argv[1:3]), r.returncode))
             e.cmds = out                        # every command so far, with its exit code and output tail
             raise e
@@ -185,6 +186,25 @@ def _account_page(ctx: Ctx, step) -> list[str]:
     return bad
 
 
+def step_cost(entries: list[dict], slug: str, step: str, since: str) -> float:
+    """A step's cost: the ledger rows of this issue labelled with this step, from the step's start (ruling
+    2026-11-07: by the ledger's step labels, not by time alone; a row written in the same second by the step before
+    is not this step's)."""
+    from datetime import datetime as _dt
+    t0 = _dt.fromisoformat(since)
+    tot = 0.0
+    for e in entries:
+        if e.get("issue") != slug or e.get("step") != step:
+            continue
+        try:
+            if _dt.fromisoformat(e.get("at")) < t0:
+                continue
+        except Exception:
+            continue
+        tot += float(e.get("usd") or 0)
+    return tot
+
+
 def _study_log(ctx: Ctx, r: dict) -> None:
     p = ctx.case / "study_log.md"
     if not p.exists():
@@ -194,7 +214,7 @@ def _study_log(ctx: Ctx, r: dict) -> None:
     sp = importlib.util.spec_from_file_location("spend_ledger", ctx.root / "backend/scripts/spend_ledger.py")
     S = importlib.util.module_from_spec(sp)
     sp.loader.exec_module(S)
-    usd = S.spent(ctx.slug, since=r["start"])
+    usd = step_cost(S.entries(), ctx.slug, r["step"], r["start"])
     outcome = (r.get("code") or {}).get("outcome") if isinstance(r.get("code"), dict) else None
     if r.get("failed"):
         outcome = "FAILED: %s" % " ".join(str(r["failed"]).split())[:300]
@@ -274,7 +294,30 @@ PUBLISHER_TERMS = ("sciencedirect.com", "thelancet.com", "cell.com", "onlinelibr
 NOT_SEARCHED = ("trial registries", "Crossref", "MEDLINE, Embase and CENTRAL directly", "national guidelines")
 
 
-def resolve_proposals(proposals: list[dict], search) -> tuple[list[dict], list[dict]]:
+NO_TYPE = "none of these"          # ruling (b): the type field never forces a fixed type
+PMC_HOSTS = ("pmc.ncbi.nlm.nih.gov", "ncbi.nlm.nih.gov", "europepmc.org")
+
+
+def pmcid_of(url: str) -> str | None:
+    import re as _re
+    from urllib.parse import urlparse
+    host = urlparse(url or "").netloc.lower()
+    host = host[4:] if host.startswith("www.") else host
+    m = _re.search(r"\b(PMC\d{4,9})\b", url or "")
+    return m.group(1) if m and host in PMC_HOSTS else None
+
+
+def is_pmc(host: str, url: str) -> bool:
+    """Ruling (c): PMC is an article host, never an agency's own site."""
+    return host == "pmc.ncbi.nlm.nih.gov" or (host == "ncbi.nlm.nih.gov" and "/pmc/" in (url or "").lower())
+
+
+def _pmcid_resolver():
+    from orch import resolve as RV
+    return RV.search_pmcid
+
+
+def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple[list[dict], list[dict]]:
     """(sources, unresolved). A proposal is kept only if a registry resolves it, or it was found on an agency's
     own site (AGENCY_HOSTS). Never an identifier the registry did not give. Publisher terms (the study rule after
     WHU-S05) by code: a blocked publisher's copy is never the URL; the Europe PMC copy is used when the registry
@@ -284,8 +327,14 @@ def resolve_proposals(proposals: list[dict], search) -> tuple[list[dict], list[d
     for i, p in enumerate(proposals, 1):
         host = urlparse(p.get("url") or "").netloc.lower()
         host = host[4:] if host.startswith("www.") else host
+        if p["type"] == NO_TYPE:
+            continue                                        # recorded by code_discover (ruling (b))
         got = search(p["title"], p.get("first_author"), p.get("year"),
                      "trial" if p["type"] == "registry" else "article")
+        pmc = pmcid_of(p.get("url") or "")
+        if getattr(got, "identifier", None) is None and pmc:
+            # ruling (c): an article hosted on PMC is confirmed through Europe PMC by its PMCID
+            got = (search_pmcid or _pmcid_resolver())(pmc, p["title"], p.get("first_author"), p.get("year"))
         src = {"id": "S%03d" % (len(out) + 1), "type": p["type"], "title": p["title"], "year": p.get("year"),
                "container": p.get("container") or None, "authors": p.get("first_author"),
                "used_for": p.get("why") or None, "proposed_by": "orchestrator discover step"}
@@ -306,7 +355,8 @@ def resolve_proposals(proposals: list[dict], search) -> tuple[list[dict], list[d
             else:
                 src["url"] = p.get("url") or None
             out.append(src)
-        elif host and any(host == h or host.endswith("." + h) for h in AGENCY_HOSTS):
+        elif host and not is_pmc(host, p.get("url") or "") and \
+                any(host == h or host.endswith("." + h) for h in AGENCY_HOSTS):
             src["url"] = p["url"]
             src["registry"] = "none (an agency's own site: %s)" % host
             out.append(src)
@@ -342,7 +392,24 @@ def code_discover(ctx: Ctx, step) -> dict:
     if search is None:
         from orch import resolve as RV
         search = RV.search
-    sources, unresolved = resolve_proposals(proposals, search)
+    sources, unresolved = resolve_proposals(proposals, search, getattr(ctx, "search_pmcid", None))
+    # Ruling (b): a source of no type we can check is recorded, never forced into a type; the page says so.
+    no_type = []
+    for p in proposals:
+        if p["type"] != NO_TYPE:
+            continue
+        got = search(p["title"], p.get("first_author"), p.get("year"), "article")
+        pmc = pmcid_of(p.get("url") or "")
+        if getattr(got, "identifier", None) is None and pmc:
+            got = (getattr(ctx, "search_pmcid", None) or _pmcid_resolver())(pmc, p["title"], p.get("first_author"),
+                                                                            p.get("year"))
+        if getattr(got, "identifier", None) is None:
+            unresolved.append({"proposal": p, "why": getattr(got, "reason", "not resolved"),
+                               "status": getattr(got, "status", None)})
+            continue
+        no_type.append({"title": getattr(got, "heading", None) or p["title"], "proposed_title": p["title"],
+                        "url": p.get("url") or None, "why": "not of a type we can check",
+                        "registry": getattr(got, "registry", None)})
     if not sources:
         raise RunStop("discover: no proposal resolved to a source")
     for s in sources:
@@ -351,7 +418,8 @@ def code_discover(ctx: Ctx, step) -> dict:
            "search": {"searched": ["web search: %s" % q for q in searched.get("queries") or []] +
                       ["registry: Europe PMC"],
                       "not_searched": list(NOT_SEARCHED)},
-           "unresolved_proposals": unresolved}
+           "unresolved_proposals": unresolved,
+           "not_of_a_type": no_type}
     (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return {"outcome": "%d source(s), %d unresolved proposal(s)" % (len(sources), len(unresolved))}
 
@@ -369,9 +437,32 @@ def code_acquire(ctx: Ctx, step) -> dict:
         s["form"] = store.form_of({"type": s.get("type")})        # derived, never chosen (E6)
     (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     held = [s["id"] for s in doc.get("sources") or [] if (s.get("access") or {}).get("state") == "full_text_held"]
+    # Ruling (a): a source that could not be held is recorded "not held" and nothing on the page draws on it (the
+    # passages come from held texts only); the page's limits block says so (lean_sentences NOT_HELD_FRAME, a
+    # code-written line). No human search list.
+    not_held = []
+    for s in doc.get("sources") or []:
+        acc = s.setdefault("access", {})
+        if acc.get("state") == "full_text_held":
+            acc.pop("not_held", None)
+            continue
+        why = (acc.get("last_fetch") or {}).get("why") or acc.get("reason") or "not fetched"
+        acc["not_held"] = {"line": "could_not_hold", "why": why}
+        import source_ledger as SL
+        if acc.get("state") not in SL.STATES or acc.get("state") == SL.NOT_OPENED:
+            # the source ledger's own state for "we tried, by a named route, and could not get it"
+            acc["state"] = SL.BLOCKED
+            acc["blocked_by"] = "acquire_sources.py (orchestrator): %s" % why[:300]
+            acc.setdefault("on", (acc.get("last_fetch") or {}).get("on") or now()[:10])
+        not_held.append(s["id"])
+    (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     if not held:
-        raise RunStop("acquire: no source is held; a source a script cannot fetch needs a person (Not Ready)")
-    return {"outcome": "%d held" % len(held)}
+        raise RunStop("acquire: no source is held (Not Ready)")
+    return {"outcome": "%d held, %d not held" % (len(held), len(not_held)), "not_held": not_held}
+
+
+def is_held(s: dict) -> bool:
+    return (s.get("access") or {}).get("state") == "full_text_held"
 
 
 def _passages(ctx: Ctx, budget: int = 60000) -> dict:
