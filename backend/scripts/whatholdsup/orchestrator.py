@@ -456,10 +456,14 @@ def code_acquire(ctx: Ctx, step) -> dict:
         acc = s.setdefault("access", {})
         acc.pop("not_held", None)
         st = CR.status(s, lookup, crossref)
-        s["retraction_check"] = {"retracted": st["retracted"], "why": st["why"], "answered": st["answered"],
+        s["retraction_check"] = {"retracted": st["retracted"], "concern": st.get("concern", False), "why": st["why"],
+                                 "answered": st["answered"],
                                  "corrections": st["corrections"], "on": now()[:10]}
         if st["retracted"]:
             mark(s, "retracted", "; ".join(st["why"]))
+            continue
+        if st.get("concern"):
+            mark(s, "concern", "; ".join(st["why"]))
             continue
         if acc.get("state") != SL.FULL_TEXT_HELD or not st["corrections"]:
             continue
@@ -906,6 +910,8 @@ def run(ctx: Ctx) -> dict:
         result = "Not Ready: %s" % e
     except Exception as e:                      # a refused paid call in trial mode lands here, recorded
         result = "Not Ready: %s: %s" % (type(e).__name__, e)
+    except SystemExit as e:                     # a stage library's refusal (attempt 4: run_paid.json was lost)
+        result = "Not Ready: SystemExit: %s" % e
     return {"result": result, "steps": ctx.log}
 
 

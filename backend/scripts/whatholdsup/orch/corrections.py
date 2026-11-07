@@ -26,6 +26,10 @@ from pathlib import Path
 import errata as E
 
 RETRACTION_EPMC = {"Retraction in"}
+# Expression of concern (advisor's ruling 2026-11-07, after attempt 4): treated like a retraction.
+CONCERN_EPMC = {"Expression of concern in"}
+CONCERN_PUBTYPES = {"Expression of Concern"}
+CONCERN_CROSSREF = {"expression_of_concern", "expression-of-concern", "expressionofconcern", "concern"}
 CORRECTION_EPMC = {"Erratum in", "Corrected and republished in"}
 RETRACTION_CROSSREF = {"is-retracted-by", "retraction", "withdrawal", "removal"}
 CORRECTION_CROSSREF = {"is-corrected-by", "has-correction", "is-expressed-by-erratum", "correction", "erratum",
@@ -51,7 +55,7 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
     """{"retracted", "why", "corrections": [{"id", "registry", "type"}], "answered": [...], "doi"}."""
     lookup = lookup or E.lookup
     crossref = crossref or E.crossref
-    out = {"retracted": False, "why": [], "corrections": [], "answered": [], "doi": src.get("doi")}
+    out = {"retracted": False, "concern": False, "why": [], "corrections": [], "answered": [], "doi": src.get("doi")}
     rec = None
     for kind, value in _ids(src):
         rec, why = lookup(kind, value)
@@ -70,11 +74,17 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
         if "Retracted Publication" in types:
             out["retracted"] = True
             out["why"].append("Europe PMC pubType: Retracted Publication")
+        for t in CONCERN_PUBTYPES & set(types):
+            out["concern"] = True
+            out["why"].append("Europe PMC pubType: %s" % t)
         amend, _disc = E.amendments(rec)
         for a in amend:
             t = a.get("type") or ""
             if t in RETRACTION_EPMC:
                 out["retracted"] = True
+                out["why"].append("Europe PMC: %s %s" % (t, a.get("id")))
+            elif t in CONCERN_EPMC:
+                out["concern"] = True
                 out["why"].append("Europe PMC: %s %s" % (t, a.get("id")))
             elif t in CORRECTION_EPMC:
                 out["corrections"].append({"id": str(a.get("id")), "registry": a.get("source") or "MED", "type": t})
@@ -90,6 +100,9 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
                     continue                    # a record pointing at the work itself
                 if t in RETRACTION_CROSSREF:
                     out["retracted"] = True
+                    out["why"].append("Crossref: %s %s" % (t, ident))
+                elif t in CONCERN_CROSSREF:
+                    out["concern"] = True
                     out["why"].append("Crossref: %s %s" % (t, ident))
                 elif t in CORRECTION_CROSSREF:
                     out["corrections"].append({"id": str(ident), "registry": "DOI", "type": t})
@@ -136,8 +149,19 @@ def _fulltext(pmcid: str) -> tuple[str | None, str]:
             body = fh.read().decode("utf-8", "replace")
     except Exception as e:
         return None, "%s: %s" % (type(e).__name__, e)
-    text = _plain(body)
-    return (text if len(text) >= MIN_NOTICE_CHARS else None), url
+    return _notice_body(body), url
+
+
+def _notice_body(xml: str) -> str | None:
+    """The notice's own words: the article <body> (else its <abstract>), never the front matter, whose volume,
+    dates, PMCID and PMID are numbers the page sweep would otherwise match (found on attempt 4's held notice)."""
+    for tag in ("body", "abstract"):
+        m = re.search(r"<%s\b[^>]*>(.*?)</%s>" % (tag, tag), xml or "", re.S)
+        if m:
+            text = _plain(m.group(1))
+            if len(text) >= MIN_NOTICE_CHARS:
+                return text
+    return None
 
 
 def hold_notice(case: Path, c: dict, text: str, how: str) -> dict:

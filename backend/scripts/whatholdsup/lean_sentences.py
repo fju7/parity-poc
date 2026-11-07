@@ -67,7 +67,9 @@ NO_TYPE_FRAME = "We found %s but it is not of a type we can check, so nothing on
 RETRACTED_FRAME = "We found %s but it has been retracted, so nothing on this page draws on it."
 CORRECTION_NOT_HELD_FRAME = ("We found %s but it has a published correction we could not hold, so nothing on this "
                              "page draws on it.")
-NOT_HELD_FRAMES = {"could_not_hold": NOT_HELD_FRAME, "retracted": RETRACTED_FRAME,
+CONCERN_FRAME = ("We found %s but its journal has issued an expression of concern, so nothing on this page draws "
+                 "on it.")
+NOT_HELD_FRAMES = {"could_not_hold": NOT_HELD_FRAME, "retracted": RETRACTED_FRAME, "concern": CONCERN_FRAME,
                    "correction_not_held": CORRECTION_NOT_HELD_FRAME}
 SECTIONS_FRAME = "Of %s, we read: %s."
 NOT_READ_FRAME = "Of %s, we did not read: %s."

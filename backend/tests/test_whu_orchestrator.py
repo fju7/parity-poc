@@ -1191,3 +1191,66 @@ def test_identifiers_may_be_added_after_discover_never_changed(tmp_path):
     doc["sources"][0]["pmid"] = "11111111"                       # a changed one: never
     (c / "sources.json").write_text(json.dumps(doc))
     assert CH.frozen_breaks(c, {"identifiers": frozen["identifiers"]})
+
+
+# ---------------------------------------------------------------------------------------------------- expression of concern
+# Advisor's ruling 2026-11-07 (after attempt 4): an expression of concern on any source is treated like a retraction.
+
+def test_an_expression_of_concern_is_found_in_europe_pmc_and_crossref():
+    from orch import corrections as CR
+    src = {"id": "S001", "pmcid": "PMC1", "doi": "10.1/x", "title": "A trial of something"}
+    rec = {"title": "A trial of something", "pmcid": "PMC1", "doi": "10.1/x",
+           "commentCorrectionList": {"commentCorrection": [{"type": "Expression of concern in", "id": "123",
+                                                            "source": "MED"}]}}
+    st = CR.status(src, lambda k, v: (rec, "matched") if v == "PMC1" else (None, "no"), lambda d: (None, "no"))
+    assert st["concern"] and not st["retracted"] and st["why"] == ["Europe PMC: Expression of concern in 123"]
+    msg = {"title": ["A trial of something"], "updated-by": [{"DOI": "10.1/eoc", "type": "expression_of_concern"}]}
+    st = CR.status(src, lambda k, v: (None, "no"), lambda d: (msg, "matched"))
+    assert st["concern"] and st["why"] == ["Crossref: expression_of_concern 10.1/eoc"]
+
+
+def test_acquire_treats_an_expression_of_concern_like_a_retraction(tmp_path):
+    import orchestrator as O
+    import lean_sentences as LS
+    c = _case(tmp_path)
+    eoc = {"id": "S002", "type": "review", "title": "A review under concern", "used_for": "x", "doi": "10.1/eoc-src",
+           "access": {"state": "full_text_held"}}
+    held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
+            "access": {"state": "full_text_held"}}
+    (c / "sources.json").write_text(json.dumps({"sources": [held, eoc]}))
+    msg = {"title": ["A review under concern"], "updated-by": [{"DOI": "10.1/n", "type": "expression_of_concern"}]}
+    ctx = SimpleNamespace(case=c, lookup=lambda k, v: (None, "no"),
+                          crossref=lambda d: (msg, "matched") if d == "10.1/eoc-src" else (None, "no"))
+    out = O.code_acquire(ctx, ST.BY_NAME["acquire"])
+    assert out["lines"] == {"S002": "concern"} and out["outcome"] == "1 held, 1 not held"
+    doc = json.loads((c / "sources.json").read_text())
+    assert doc["sources"][1]["access"]["state"] == "blocked" and doc["sources"][1]["retraction_check"]["concern"]
+    line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
+    assert line == ("We found A review under concern but its journal has issued an expression of concern, so "
+                    "nothing on this page draws on it.")
+
+
+def test_a_notice_is_its_body_never_its_front_matter():
+    from orch import corrections as CR
+    xml = (FX / "epmc_fulltext_PMC9968378.xml").read_text()       # attempt 4's held notice for S002
+    body = CR._notice_body(xml)
+    assert body.startswith("The article listed below") and "9968378" not in body and "36913230" not in body
+    assert "2023" not in CR.figures(body) and "1315" not in CR.figures(body)
+
+
+def test_a_stage_librarys_system_exit_is_recorded_and_the_run_record_written(tmp_path, monkeypatch):
+    import orchestrator as O
+    c = _case(tmp_path)
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.frozen, ctx.log = "orch-x", c, "trial", tmp_path, None, {}, []
+    ctx.page_json = c / "draft" / "page.json"
+    monkeypatch.setattr(O, "_study_log", lambda *a: None)
+    monkeypatch.setattr(O.ST, "STEPS", (ST.Step("coverage", "code", code="exits"),))
+
+    def exits(ctx, step):
+        raise SystemExit("out_of_scope needs --element: words of the question or a scope.out entry")
+    monkeypatch.setitem(O.STEP_CODE, "exits", exits)
+    monkeypatch.setenv("WHU_ORCH_LOCK", str(tmp_path / "lock"))
+    out = O.run(ctx)
+    assert out["result"] == "Not Ready: SystemExit: out_of_scope needs --element: words of the question or a scope.out entry"
+    assert out["steps"][0]["step"] == "coverage" and out["steps"][0]["failed"].startswith("SystemExit")
