@@ -854,23 +854,31 @@ def code_overstatement(ctx: Ctx, step) -> dict:
             "changed": out.get("changed")}
 
 
+def git_env() -> dict:
+    """The shell's own environment for git: every WHU_* variable removed (attempt 5: the commit inherited WHU_LEAN and
+    the step's variables, and the pre-commit hook's tests ran under them)."""
+    return {k: v for k, v in os.environ.items() if not k.startswith("WHU_")}
+
+
 def code_commit(ctx: Ctx, step) -> dict:
     if ctx.mode != "paid":
         return {"outcome": "no commit (%s mode)" % ctx.mode}
     paths = [ctx.rel(ctx.case)]
-    subprocess.run(["git", "-C", str(ctx.root), "add", "--", *paths], check=True)
+    env = git_env()
+    subprocess.run(["git", "-C", str(ctx.root), "add", "--", *paths], check=True, env=env)
     names = subprocess.run(["git", "-C", str(ctx.root), "diff", "--cached", "--name-only"], capture_output=True,
-                           text=True).stdout.split()
+                           text=True, env=env).stdout.split()
     if any(not n.startswith(paths[0]) for n in names):
         raise RunStop("commit: staged paths outside the case folder")
     if names:
         subprocess.run(["git", "-C", str(ctx.root), "commit", "-m", "%s (orchestrator): %s" % (ctx.slug, step.name)],
-                       check=True)
-        push = subprocess.run(["git", "-C", str(ctx.root), "push", "origin", "main"], capture_output=True, text=True)
+                       check=True, env=env)
+        push = subprocess.run(["git", "-C", str(ctx.root), "push", "origin", "main"], capture_output=True, text=True,
+                              env=env)
         if "main -> main" not in push.stdout + push.stderr:
             raise RunStop("commit: the push did not show 'main -> main'")
     head = subprocess.run(["git", "-C", str(ctx.root), "rev-parse", "HEAD"], capture_output=True,
-                          text=True).stdout.strip()
+                          text=True, env=env).stdout.strip()
     if step.name == "commit_3b":
         ctx.first = head
     return {"outcome": "committed %s" % head[:12]}

@@ -1347,3 +1347,40 @@ def test_a_multi_article_notice_that_does_not_name_the_source_is_a_correction_we
     line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
     assert line.endswith("but it has a published correction we could not read, so nothing on this page draws on it.")
     assert "correction_notices" not in doc["sources"][1]
+
+
+# ---------------------------------------------------------------------------------------------------- after attempt 5
+# Advisor's ruling 2026-11-07: the commit step's git runs in the shell's own environment; the tests are hermetic.
+
+def test_no_whu_variable_reaches_a_test():
+    assert not [k for k in os.environ if k.startswith("WHU_")]
+
+
+def test_the_commit_step_runs_git_without_any_whu_variable_and_keeps_its_checks(tmp_path, monkeypatch):
+    import orchestrator as O
+    for k, v in {"WHU_LEAN": "1", "WHU_ORCH_MODE": "paid", "WHU_ORCH_STEP": "commit_3b", "WHU_ORCH_TOKEN": "t",
+                 "WHU_ORCH_PAID_RULED": "orchestrator trial 1"}.items():
+        monkeypatch.setenv(k, v)
+    c = tmp_path / "issues" / "WHU-T-orch-x"
+    c.mkdir(parents=True)
+    seen, staged, pushed = [], ["issues/WHU-T-orch-x/a.json"], {"out": "abc..def  main -> main"}
+
+    def run(argv, **kw):
+        seen.append((argv[3], kw.get("env")))
+        out = {"diff": "\n".join(staged), "push": pushed["out"], "rev-parse": "deadbeef" * 5}.get(argv[3], "")
+        return SimpleNamespace(stdout=out, stderr="", returncode=0)
+    monkeypatch.setattr(O.subprocess, "run", run)
+    ctx = SimpleNamespace(mode="paid", root=tmp_path, case=c, slug="orch-x", rel=lambda p: p.relative_to(tmp_path).as_posix(),
+                          first=None)
+    out = O.code_commit(ctx, ST.BY_NAME["commit_3b"])
+    assert out["outcome"].startswith("committed") and ctx.first
+    assert [a for a, _ in seen] == ["add", "diff", "commit", "push", "rev-parse"]
+    assert all(env is not None and not [k for k in env if k.startswith("WHU_")] for _, env in seen)
+    assert os.environ["WHU_LEAN"] == "1"                                    # the orchestrator's own env is untouched
+    staged[:] = ["issues/WHU-T-orch-x/a.json", "backend/data/spend/ledger.jsonl"]
+    with pytest.raises(O.RunStop, match="outside the case folder"):
+        O.code_commit(ctx, ST.BY_NAME["commit_3b"])
+    staged[:] = ["issues/WHU-T-orch-x/a.json"]
+    pushed["out"] = "Everything up-to-date"
+    with pytest.raises(O.RunStop, match="main -> main"):
+        O.code_commit(ctx, ST.BY_NAME["commit_3b"])

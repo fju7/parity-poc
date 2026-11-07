@@ -26,6 +26,25 @@ GIT_ENV_SCRUBBED = sorted(k for k in os.environ if k.startswith("GIT_"))
 for _k in GIT_ENV_SCRUBBED:
     del os.environ[_k]
 
+# ---------------------------------------------------------------------------
+# WHU isolation (2026-11-07, advisor's ruling after orchestrator trial 1's attempt 5)
+# ---------------------------------------------------------------------------
+# The orchestrator ran `git commit` with WHU_LEAN=1 and its step variables set; the pre-commit hook's WHU tests ran
+# under them and 70 failed (all pass in a clean shell). The suite must give the same result whatever the calling
+# environment: every WHU_* variable is removed for the whole session, before any test module is imported (a module
+# may read one at import), and again before each test; a test that needs one sets it itself (monkeypatch.setenv).
+WHU_ENV_SCRUBBED = sorted(k for k in os.environ if k.startswith("WHU_"))
+for _k in WHU_ENV_SCRUBBED:
+    del os.environ[_k]
+
+
+@pytest.fixture(autouse=True)
+def _whu_env_clear(monkeypatch):
+    for k in [k for k in os.environ if k.startswith("WHU_")]:
+        monkeypatch.delenv(k, raising=False)
+    yield
+
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
