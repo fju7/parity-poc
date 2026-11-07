@@ -471,11 +471,17 @@ def code_acquire(ctx: Ctx, step) -> dict:
         for c in st["corrections"]:
             text, how = CR.notice_text(c, lookup, fulltext)
             if text is None:
-                missing = "%s %s: %s" % (c["type"], c["id"], how)
+                missing = ("correction_not_held", "%s %s: %s" % (c["type"], c["id"], how))
+                break
+            if not CR.names_source(text, s):
+                # ruling after attempt 4: a linked notice whose text does not name this source is a correction we
+                # could not read (a multi-article notice, attempt 4's S002)
+                missing = ("correction_unread", "%s %s: the notice's text does not name this source by title, DOI "
+                                                "or PMID" % (c["type"], c["id"]))
                 break
             held_notices.append(CR.hold_notice(ctx.case, c, text, how))
         if missing:
-            mark(s, "correction_not_held", missing)
+            mark(s, *missing)
         else:
             s["correction_notices"] = held_notices
     # Ruling (a): a source that could not be held is recorded "not held" and nothing on the page draws on it (the
@@ -675,13 +681,23 @@ def code_coverage(ctx: Ctx, step) -> dict:
     ask = _ask_for(ctx, step, ST.STEP_MODEL)
     open_units = _open_units(ctx)
     n, stated = 0, []
+    outs = [o.get("what") for o in (premise.get("scope") or {}).get("out") or [] if o.get("what")]
+    in_scope = []
     for u in open_units:
-        dec = M.coverage_decision(issue.get("question") or "", scope, u["text"], ask)
+        dec = M.coverage_decision(issue.get("question") or "", scope, u["text"], ask, outs)
         if dec["decision"] == "state":
             stated.append((u, dec["sentence"]))
+        elif dec["decision"] == "in_scope":
+            in_scope.append({"unit": u["key"], "why": dec["why"]})     # left open: the page must use or declare it
         else:
-            C.declare(ctx.slug, u["key"], dec["decision"], dec["why"], ST.STEP_MODEL)
+            C.declare(ctx.slug, u["key"], dec["decision"], dec["why"], ST.STEP_MODEL, element=dec.get("element") or "")
         n += 1
+    if in_scope:
+        log = ctx.case / "rulings" / "coverage_in_scope.jsonl"
+        log.parent.mkdir(parents=True, exist_ok=True)
+        with log.open("a", encoding="utf-8") as fh:
+            for r in in_scope:
+                fh.write(json.dumps(dict(r, at=now()), ensure_ascii=False) + "\n")
     from orch.page import Page
     page = Page.load(ctx.page_json)
     if stated:
@@ -698,7 +714,7 @@ def code_coverage(ctx: Ctx, step) -> dict:
         page.save(ctx.page_json)
         code_bind(ctx, step, only=[_with_marker(x, [nums[u["source"]]]) for u, x in stated])
     _rerender(ctx, Page.load(ctx.page_json))
-    return {"outcome": "%d coverage decision(s)" % n}
+    return {"outcome": "%d coverage decision(s), %d left in scope" % (n, len(in_scope))}
 
 
 def code_judgements(ctx: Ctx, step) -> dict:

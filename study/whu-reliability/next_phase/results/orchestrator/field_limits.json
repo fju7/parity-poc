@@ -140,6 +140,13 @@
    "longest_seen": 475,
    "seen_in": "Q1-04c",
    "basis_field": "draft.sentence"
+  },
+  "coverage.element": {
+   "old_limit": null,
+   "new_limit": 400,
+   "longest_seen": null,
+   "seen_in": "new field (ruling after attempt 4): an element is a premise scope-out entry (limit 400) or a phrase of the question",
+   "basis_field": "premise.scope_out.what"
   }
  }
 }

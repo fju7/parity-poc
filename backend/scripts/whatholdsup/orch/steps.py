@@ -70,6 +70,7 @@ FIELD_LIMITS = {
     "draft.heading": 200,
     "draft.sentence": 1000,
     "coverage.why": 700,
+    "coverage.element": 400,
     "coverage.sentence": 1000,
     "judgement.sentence": 1000,
 }
@@ -88,8 +89,8 @@ STEPS: tuple[Step, ...] = (
     Step("draft", "model", owns=PAGE, models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
     Step("bind", "code", owns=PAGE + ("bindings.json", "quotations.json", "attributions.json"),
          cmds=((PY, W + "bindings.py", "{slug}", "scan"),), code="bind"),
-    Step("coverage", "model", owns=PAGE + ("coverage.json", "bindings.json"), models=(STEP_MODEL,),
-         max_calls=60, cap_usd=0.60, code="coverage"),
+    Step("coverage", "model", owns=PAGE + ("coverage.json", "bindings.json", "rulings/coverage_in_scope.jsonl"),
+         models=(STEP_MODEL,), max_calls=120, cap_usd=1.20, code="coverage"),   # 60 units, each re-asked at most once
     Step("judgements", "mixed", owns=PAGE + ("judgements.json", "bindings.json", "coverage.json") + RULINGS,
          models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),

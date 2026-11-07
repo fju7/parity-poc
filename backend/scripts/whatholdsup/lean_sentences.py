@@ -69,7 +69,10 @@ CORRECTION_NOT_HELD_FRAME = ("We found %s but it has a published correction we c
                              "page draws on it.")
 CONCERN_FRAME = ("We found %s but its journal has issued an expression of concern, so nothing on this page draws "
                  "on it.")
+CORRECTION_UNREAD_FRAME = ("We found %s but it has a published correction we could not read, so nothing on this "
+                           "page draws on it.")
 NOT_HELD_FRAMES = {"could_not_hold": NOT_HELD_FRAME, "retracted": RETRACTED_FRAME, "concern": CONCERN_FRAME,
+                   "correction_unread": CORRECTION_UNREAD_FRAME,
                    "correction_not_held": CORRECTION_NOT_HELD_FRAME}
 SECTIONS_FRAME = "Of %s, we read: %s."
 NOT_READ_FRAME = "Of %s, we did not read: %s."

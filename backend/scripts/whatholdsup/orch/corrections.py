@@ -164,6 +164,28 @@ def _notice_body(xml: str) -> str | None:
     return None
 
 
+def _fold(t: str) -> str:
+    import unicodedata
+    t = unicodedata.normalize("NFKC", t or "").lower()
+    t = re.sub(r"[\u2010-\u2015\u2212]", "-", t)
+    t = re.sub(r"[^a-z0-9.\-/ ]+", " ", t)
+    return " ".join(t.split())
+
+
+def names_source(text: str, src: dict) -> bool:
+    """Ruling 2026-11-07 (after attempt 4): a notice applies to a held source only if the part of it that describes
+    a correction -- its text as held, the body, never the front matter -- names that source by title, DOI or PMID."""
+    body = _fold(text)
+    title = _fold((src.get("title") or "").rstrip(". "))
+    if title and len(title.split()) >= 4 and title in body:
+        return True
+    for k in ("doi", "pmid", "pmcid"):
+        v = str(src.get(k) or "").strip().lower()
+        if v and re.search(r"(?<![\w.])%s(?![\w])" % re.escape(v), body):
+            return True
+    return False
+
+
 def hold_notice(case: Path, c: dict, text: str, how: str) -> dict:
     d = Path(case) / NOTICE_DIR
     d.mkdir(parents=True, exist_ok=True)

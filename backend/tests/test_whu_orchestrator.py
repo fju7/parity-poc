@@ -898,7 +898,7 @@ def test_field_limits_are_twice_the_longest_stored_value():
     rec = json.loads((ROOT / "study/whu-reliability/next_phase/results/orchestrator/field_limits.json").read_text())
     assert set(rec["fields"]) == set(ST.FIELD_LIMITS)
     for k, v in rec["fields"].items():
-        assert ST.FIELD_LIMITS[k] == v["new_limit"] >= v["old_limit"], k
+        assert ST.FIELD_LIMITS[k] == v["new_limit"] >= (v["old_limit"] or 0), k
         if v["longest_seen"]:
             assert v["new_limit"] >= 2 * v["longest_seen"], k
     assert ST.FIELD_LIMITS["premise.measured"] >= 2 * 434          # trial 1 attempt 2's real reply
@@ -1254,3 +1254,96 @@ def test_a_stage_librarys_system_exit_is_recorded_and_the_run_record_written(tmp
     out = O.run(ctx)
     assert out["result"] == "Not Ready: SystemExit: out_of_scope needs --element: words of the question or a scope.out entry"
     assert out["steps"][0]["step"] == "coverage" and out["steps"][0]["failed"].startswith("SystemExit")
+
+
+# ---------------------------------------------------------------------------------------------------- after attempt 4
+# Advisor's rulings 2026-11-07: (1) coverage out_of_scope needs a checked element; (2) a multi-article notice applies
+# to a held source only if its text names the source.
+
+OUTS = ["Education outcomes in high-income countries", "Health or employment outcomes of disabled adults"]
+QUESTION = ("In low- and middle-income countries, do programmes meant to improve education for children and young "
+            "people with disabilities work, and which kinds work best?")
+
+
+def test_coverage_element_must_be_an_entry_or_a_question_phrase():
+    from orch import model_steps as M
+    assert M.element_ok("Education outcomes in high-income countries", OUTS, QUESTION)
+    assert M.element_ok("  education outcomes in high-income countries. ", OUTS, QUESTION)     # case, spacing
+    assert M.element_ok("children and young people", OUTS, QUESTION)
+    assert not M.element_ok("young", OUTS, QUESTION)                                          # one word
+    assert not M.element_ok("adult literacy programmes", OUTS, QUESTION)                      # neither
+    assert not M.element_ok("", OUTS, QUESTION)
+
+
+def test_coverage_re_asks_once_then_leaves_the_finding_in_scope_never_not_material():
+    from orch import model_steps as M
+    prompts = []
+
+    def ask(prompt, n, role):
+        prompts.append(prompt)
+        return json.dumps({"decision": "out_of_scope", "why": "w", "element": "adult literacy", "sentence": ""})
+    d = M.coverage_decision(QUESTION, "{}", "a finding", ask, OUTS)
+    assert d["decision"] == "in_scope" and len(prompts) == 2
+    assert "OUT-OF-SCOPE ENTRIES:\n- Education outcomes in high-income countries" in prompts[0]
+    assert "Your last answer was out_of_scope" in prompts[1] and "Your last answer" not in prompts[0]
+    replies = iter([json.dumps({"decision": "out_of_scope", "why": "w", "element": "adult literacy"}),
+                    json.dumps({"decision": "out_of_scope", "why": "w", "element": OUTS[1]})])
+    d = M.coverage_decision(QUESTION, "{}", "a finding", lambda p, n, r: next(replies), OUTS)
+    assert d == {"decision": "out_of_scope", "why": "w", "element": OUTS[1]}
+
+
+def test_coverage_step_declares_with_the_element_and_leaves_in_scope_findings_open(tmp_path, monkeypatch):
+    import orchestrator as O
+    import coverage_check as C
+    c = _case(tmp_path)
+    (c / "premise.json").write_text(json.dumps({"scope": {"covers": "c", "out": [{"what": OUTS[0], "why": "y"}]}}))
+    (c / "issue.json").write_text(json.dumps({"slug": "orch-x", "question": QUESTION}))
+    Page({"title": "T", "blocks": []}).save(c / "draft" / "page.json")
+    declared = []
+    monkeypatch.setattr(C, "declare", lambda slug, key, state, why, by, element="": declared.append((key, state, element)))
+    monkeypatch.setattr(O, "_open_units", lambda ctx: [{"key": "S001@1-2", "text": "u1"}, {"key": "S001@3-4", "text": "u2"}])
+    monkeypatch.setattr(O, "_rerender", lambda ctx, page: None)
+    replies = iter([json.dumps({"decision": "out_of_scope", "why": "w", "element": OUTS[0]}),
+                    json.dumps({"decision": "out_of_scope", "why": "w", "element": "x y z"}),
+                    json.dumps({"decision": "out_of_scope", "why": "w", "element": "x y z"})])
+    ctx = SimpleNamespace(case=c, slug="orch-x", page_json=c / "draft" / "page.json", ask=lambda p, n, r: next(replies),
+                          replies=[])
+    out = O.code_coverage(ctx, ST.BY_NAME["coverage"])
+    assert declared == [("S001@1-2", "out_of_scope", OUTS[0])]                  # never "not_material" by default
+    assert out["outcome"] == "2 coverage decision(s), 1 left in scope"
+    row = json.loads((c / "rulings" / "coverage_in_scope.jsonl").read_text().splitlines()[0])
+    assert row["unit"] == "S001@3-4"
+    assert "rulings/coverage_in_scope.jsonl" in ST.BY_NAME["coverage"].owns
+
+
+def test_a_multi_article_notice_that_does_not_name_the_source_is_a_correction_we_could_not_read(tmp_path):
+    import orchestrator as O
+    import lean_sentences as LS
+    from orch import corrections as CR
+    s002 = {"id": "S002", "type": "synthesis", "used_for": "x", "pmcid": "PMC9700054", "doi": "10.1002/cl2.1287",
+            "title": "Teacher professional development for disability inclusion in low- and middle-income "
+                     "Asia-Pacific countries: An evidence and gap map.",
+            "url": "https://europepmc.org/article/PMC/PMC9700054", "access": {"state": "full_text_held"}}
+    body = CR._notice_body((FX / "epmc_fulltext_PMC9968378.xml").read_text())
+    assert not CR.names_source(body, s002)                                     # attempt 4's S002 and its notice
+    assert CR.names_source("This corrects the article doi: 10.1002/cl2.1287. Table 2 should read 0.54.", s002)
+    assert CR.names_source("In 'Teacher professional development for disability inclusion in low- and middle-income "
+                           "Asia-Pacific countries: An evidence and gap map', Table 2 should read 0.54.", s002)
+    assert not CR.names_source("doi 10.1002/cl2.12870 is another article", s002)
+    held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
+            "access": {"state": "full_text_held"}}
+    c = _case(tmp_path)
+    (c / "sources.json").write_text(json.dumps({"sources": [held, s002]}))
+
+    def lookup(kind, value):
+        table = {("PMCID", "PMC9700054"): "epmc_PMC9700054.json", ("PMID", "36913230"): "epmc_MED_36913230.json"}
+        return (_rec(table[(kind, value)]), "matched") if (kind, value) in table else (None, "no record")
+    ctx = SimpleNamespace(case=c, lookup=lookup, crossref=lambda d: (None, "no"),
+                          fulltext=lambda pmcid: (CR._notice_body((FX / "epmc_fulltext_PMC9968378.xml").read_text()),
+                                                  "recorded"))
+    out = O.code_acquire(ctx, ST.BY_NAME["acquire"])
+    assert out["lines"] == {"S002": "correction_unread"}
+    doc = json.loads((c / "sources.json").read_text())
+    line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
+    assert line.endswith("but it has a published correction we could not read, so nothing on this page draws on it.")
+    assert "correction_notices" not in doc["sources"][1]

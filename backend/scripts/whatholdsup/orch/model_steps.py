@@ -205,28 +205,64 @@ def draft_page(reply, passages: dict) -> dict:
 COVERAGE_PROMPT = """A fact-check page answers the question below. Its sources contain the finding below, which the
 page does not use. Decide, JSON only:
 {{"decision": "out_of_scope" | "not_material" | "state", "why": "<at most 30 words>",
+ "element": "<if out_of_scope: what it is outside of -- one of the OUT-OF-SCOPE ENTRIES copied word for word, or a
+phrase of two or more words copied from the QUESTION; else empty>",
  "sentence": "<if state: one sentence saying what the finding says, with its own certainty words; else empty>"}}
-
+{retry}
 QUESTION:
 {question}
 
 SCOPE:
 {scope}
 
+OUT-OF-SCOPE ENTRIES:
+{outs}
+
 FINDING:
 {unit}
 """
+RETRY_NOTE = ("\nYour last answer was out_of_scope, but its element was neither one of the OUT-OF-SCOPE ENTRIES word "
+              "for word nor a phrase copied from the QUESTION. Answer again.\n")
 
 
-def coverage_decision(question: str, scope: str, unit: str, ask) -> dict:
-    d = parse_json(ask(COVERAGE_PROMPT.format(question=question, scope=scope, unit=unit), LIMITS["coverage"],
-                     "coverage"))
-    if not isinstance(d, dict) or d.get("decision") not in ("out_of_scope", "not_material", "state"):
-        raise StepFailed("decision must be out_of_scope, not_material or state")
-    out = {"decision": d["decision"], "why": _str(d, "why", F["coverage.why"])}
-    if d["decision"] == "state":
-        out["sentence"] = _str(d, "sentence", F["coverage.sentence"])
-    return out
+def _fold(t: str) -> str:
+    return " ".join((t or "").lower().split()).strip(" .,;:'\"\u201c\u201d\u2018\u2019")
+
+
+def element_ok(element: str, outs: list[str], question: str) -> bool:
+    """Advisor's ruling 2026-11-07 (after attempt 4): an out_of_scope element is one of the premise's out-of-scope
+    entries word for word, or a phrase of two or more words copied from the question. Checked by code."""
+    e = _fold(element)
+    if not e:
+        return False
+    if any(e == _fold(o) for o in outs):
+        return True
+    return len(e.split()) >= 2 and e in " ".join((question or "").lower().split())
+
+
+def coverage_decision(question: str, scope: str, unit: str, ask, outs: list[str] | None = None) -> dict:
+    """{"decision", "why", ["sentence"], ["element"]}. An out_of_scope decision whose element fails element_ok is asked
+    once more; if it fails again the decision is "in_scope" (the finding stays open: the page must use it or declare
+    it; never recorded as not material)."""
+    outs = list(outs or [])
+    listing = "\n".join("- %s" % o for o in outs) or "(none)"
+    for attempt in range(2):
+        prompt = COVERAGE_PROMPT.format(question=question, scope=scope, unit=unit, outs=listing,
+                                        retry=RETRY_NOTE if attempt else "")
+        d = parse_json(ask(prompt, LIMITS["coverage"], "coverage"))
+        if not isinstance(d, dict) or d.get("decision") not in ("out_of_scope", "not_material", "state"):
+            raise StepFailed("decision must be out_of_scope, not_material or state")
+        out = {"decision": d["decision"], "why": _str(d, "why", F["coverage.why"])}
+        if d["decision"] == "state":
+            out["sentence"] = _str(d, "sentence", F["coverage.sentence"])
+            return out
+        if d["decision"] == "not_material":
+            return out
+        out["element"] = _str(d, "element", F["coverage.element"], required=False)
+        if element_ok(out["element"], outs, question):
+            return out
+    return {"decision": "in_scope", "why": "out_of_scope twice without a checked element (%r)" % out.get("element"),
+            "element": out.get("element")}
 
 
 # ---- 7. judgement sentences ----------------------------------------------------------------------------------
