@@ -20,7 +20,7 @@ class StepFailed(RuntimeError):
     pass
 
 
-from orch.steps import REPLY_LIMITS as LIMITS  # noqa: E402
+from orch.steps import REPLY_LIMITS as LIMITS, FIELD_LIMITS as F  # noqa: E402
 
 def now() -> str:
     """The clock, read from the system (never estimated)."""
@@ -76,21 +76,21 @@ def premise(question: str, ask, by: str) -> dict:
     d = parse_json(ask(PREMISE_PROMPT.format(question=question), LIMITS["premise"], "premise"))
     if not isinstance(d, dict):
         raise StepFailed("the premise reply is not an object")
-    weighs = _str(d, "weighs", 40)
+    weighs = _str(d, "weighs", F["premise.weighs"])
     if weighs not in ("measured", "assessed", "measured and assessed"):
         raise StepFailed("weighs must be measured, assessed or both")
     outs = d.get("scope_out") or []
     if not isinstance(outs, list) or not all(isinstance(o, dict) for o in outs):
         raise StepFailed("scope_out must be a list of {what, why}")
     at = now()
-    return {"belief": {"statement": _str(d, "belief", 600)},
-            "kill_condition": _str(d, "kill_condition", 600),
-            "reader_with_a_decision": _str(d, "reader_with_a_decision", 400),
-            "scope": {"covers": _str(d, "scope_covers", 600),
-                      "out": [{"what": _str(o, "what", 300), "why": _str(o, "why", 300)} for o in outs[:6]],
+    return {"belief": {"statement": _str(d, "belief", F["premise.belief"])},
+            "kill_condition": _str(d, "kill_condition", F["premise.kill_condition"]),
+            "reader_with_a_decision": _str(d, "reader_with_a_decision", F["premise.reader_with_a_decision"]),
+            "scope": {"covers": _str(d, "scope_covers", F["premise.scope_covers"]),
+                      "out": [{"what": _str(o, "what", F["premise.scope_out.what"]), "why": _str(o, "why", F["premise.scope_out.why"])} for o in outs[:6]],
                       "by": by, "written_at": at},
-            "evidence_standard": {"weighs": weighs, "measured": _str(d, "measured", 400),
-                                  "assessed": _str(d, "assessed", 400), "when_they_differ": "state both",
+            "evidence_standard": {"weighs": weighs, "measured": _str(d, "measured", F["premise.measured"]),
+                                  "assessed": _str(d, "assessed", F["premise.assessed"]), "when_they_differ": "state both",
                                   "by": by, "written_at": at}}
 
 
@@ -128,10 +128,10 @@ def discover_proposals(reply, types: set, n: int) -> list[dict]:
         if "form" in r:
             raise StepFailed("a proposal may not name a form: form is derived from the type")
         y = r.get("year")
-        out.append({"title": _str(r, "title", 400), "first_author": _str(r, "first_author", 120),
+        out.append({"title": _str(r, "title", F["discover.title"]), "first_author": _str(r, "first_author", F["discover.first_author"]),
                     "year": int(y) if isinstance(y, int) or (isinstance(y, str) and y.isdigit()) else None,
-                    "container": _str(r, "container", 200, required=False), "type": t,
-                    "url": _str(r, "url", 500, required=False), "why": _str(r, "why", 300, required=False)})
+                    "container": _str(r, "container", F["discover.container"], required=False), "type": t,
+                    "url": _str(r, "url", F["discover.url"], required=False), "why": _str(r, "why", F["discover.why"], required=False)})
     return out
 
 
@@ -168,7 +168,7 @@ def draft_page(reply, passages: dict) -> dict:
     d = reply if isinstance(reply, dict) else parse_json(reply)
     if not isinstance(d, dict) or not isinstance(d.get("sections"), list):
         raise StepFailed("no sections")
-    title = _str(d, "title", 200)
+    title = _str(d, "title", F["draft.title"])
     secs = []
     for s in d["sections"]:
         if not isinstance(s, dict) or s.get("id") not in SECTION_IDS:
@@ -183,14 +183,14 @@ def draft_page(reply, passages: dict) -> dict:
                 raise StepFailed("a block is neither h3 nor sentences")
             row = []
             for x in sents:
-                text = re.sub(r"\s*\[\d+(?:[,–-]\s*\d+)*\]", "", _str(x, "text", 900))
+                text = re.sub(r"\s*\[\d+(?:[,–-]\s*\d+)*\]", "", _str(x, "text", F["draft.sentence"]))
                 pids = x.get("passages") or []
                 bad = [p for p in pids if p not in passages]
                 if bad:
                     raise StepFailed("passage id(s) not sent: %s" % bad[:3])
                 row.append({"text": text, "passages": list(dict.fromkeys(pids))})
             blocks.append({"sentences": row})
-        secs.append({"id": s["id"], "heading": _str(s, "heading", 120), "blocks": blocks})
+        secs.append({"id": s["id"], "heading": _str(s, "heading", F["draft.heading"]), "blocks": blocks})
     if [s["id"] for s in secs] != list(SECTION_IDS):
         raise StepFailed("the sections must be answer, findings, verdict, in that order")
     return {"title": title, "sections": secs}
@@ -219,9 +219,9 @@ def coverage_decision(question: str, scope: str, unit: str, ask) -> dict:
                      "coverage"))
     if not isinstance(d, dict) or d.get("decision") not in ("out_of_scope", "not_material", "state"):
         raise StepFailed("decision must be out_of_scope, not_material or state")
-    out = {"decision": d["decision"], "why": _str(d, "why", 300)}
+    out = {"decision": d["decision"], "why": _str(d, "why", F["coverage.why"])}
     if d["decision"] == "state":
-        out["sentence"] = _str(d, "sentence", 900)
+        out["sentence"] = _str(d, "sentence", F["coverage.sentence"])
     return out
 
 
@@ -240,4 +240,4 @@ def judgement_sentence(text: str, ask) -> str:
     d = parse_json(ask(JUDGEMENT_PROMPT.format(text=text), LIMITS["judgement_sentence"], "judgement_sentence"))
     if not isinstance(d, dict):
         raise StepFailed("not an object")
-    return _str(d, "sentence", 900)
+    return _str(d, "sentence", F["judgement.sentence"])

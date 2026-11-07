@@ -47,6 +47,33 @@ REPLY_LIMITS = {
     "overstatement": 2800,       # basis 1,375 (largest gemini-4-argon judging output in the ledger, 1,286 thinking)
 }
 
+# Field length limits (characters, whitespace collapsed) of the same steps' replies: each the larger of the first build's
+# limit and twice the longest matching value in the stored lean records (Q1-01c/02b/03b/04c) and trial 1's real premise
+# reply, rounded up to 100 (advisor's ruling 2026-11-07; attempt 2 stopped on 'measured' at 434 against 400).
+# Basis: study/whu-reliability/next_phase/results/orchestrator/field_limits.json.
+FIELD_LIMITS = {
+    "premise.belief": 700,
+    "premise.kill_condition": 1000,
+    "premise.reader_with_a_decision": 700,
+    "premise.scope_covers": 1400,
+    "premise.scope_out.what": 400,
+    "premise.scope_out.why": 300,
+    "premise.measured": 900,
+    "premise.assessed": 800,
+    "premise.weighs": 40,
+    "discover.title": 400,
+    "discover.first_author": 120,
+    "discover.container": 200,
+    "discover.url": 500,
+    "discover.why": 300,
+    "draft.title": 200,
+    "draft.heading": 200,
+    "draft.sentence": 1000,
+    "coverage.why": 700,
+    "coverage.sentence": 1000,
+    "judgement.sentence": 1000,
+}
+
 STEPS: tuple[Step, ...] = (
     Step("provenance", "code", owns=("orchestrator/manifest.json",), code="provenance"),
     Step("premise", "model", owns=("premise.json",), models=(DRAFT_MODEL,), max_calls=2, cap_usd=0.20,

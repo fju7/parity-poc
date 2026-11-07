@@ -1,0 +1,32 @@
+{
+ "result": "Not Ready: field 'measured' is over 400 characters",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-07T10:11:16+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (106 code files)"
+   },
+   "end": "2026-11-07T10:11:16+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-07T10:11:16+00:00",
+   "cmds": [],
+   "failed": "StepFailed: field 'measured' is over 400 characters",
+   "end": "2026-11-07T10:11:34+00:00",
+   "replies": [
+    {
+     "role": "premise",
+     "max_tokens": 4000,
+     "text": "{\"belief\": \"Programmes for disabled children in poorer countries clearly help. Inclusive education, meaning teaching disabled children in ordinary schools with trained teachers, accessible buildings and assistive devices like glasses, hearing aids or braille, works best. It works better than separate special schools, and there is good evidence for that.\",\n \"kill_condition\": \"Systematic reviews and the trials they draw on show consistent, moderate-to-high certainty evidence that these programmes improve disabled children's enrolment, attendance, learning or progression in low- and middle-income countries. The evidence also ranks the approaches broadly as the common belief does: inclusive mainstream schooling, teacher training and assistive technology at the top. If both hold, the popular view is confirmed and there is no story.\",\n \"reader_with_a_decision\": \"Education ministry planners and donor or NGO programme officers in low- and middle-income countries. They decide which disability-education programmes to fund, scale up or drop, for example inclusive mainstreaming versus special schools, teacher training versus assistive devices, or cash and community-based approaches.\",\n \"scope_covers\": \"Whether deliberate interventions improve educational outcomes for children and young people with disabilities in low- and middle-income countries, and how intervention types compare on that evidence. Outcomes include enrolment, attendance, retention, learning, completion and transition. Intervention types include inclusive schooling models, teacher training, assistive technology, accessibility changes, financial support, community and family-based programmes, and specialist provision.\",\n \"scope_out\": [\n  {\"what\": \"Effectiveness of disability-education programmes in high-income countries\", \"why\": \"The question is limited to low- and middle-income settings. Evidence from richer systems may not transfer to them.\"},\n  {\"what\": \"Health, rehabilitation or functional outcomes of interventions such as therapy or surgery\", \"why\": \"The question asks about education outcomes, not clinical or functional improvement.\"},\n  {\"what\": \"General school-improvement programmes not targeted at or analysed for disabled children\", \"why\": \"The question concerns programmes meant for children with disabilities. General effects cannot be assumed to apply to them.\"},\n  {\"what\": \"How many disabled children are out of school, or the size of the education gap\", \"why\": \"That is a prevalence and description question, not a question about whether interventions work.\"},\n  {\"what\": \"Whether inclusive education is a legal or human-rights obligation\", \"why\": \"That is a normative and legal question, separate from the empirical question of effectiveness.\"},\n  {\"what\": \"Detailed cost-effectiveness and budgeting comparisons\", \"why\": \"The page weighs evidence on effects. Costing evidence is a separate analysis and would be noted only where reviews report it.\"}\n ],\n \"weighs\": \"measured and assessed\",\n \"measured\": \"Quantified effects of interventions on education outcomes for disabled children and young people in low- and middle-income countries, compared with a control or comparison group. Sources are randomised trials, quasi-experimental studies and pooled meta-analytic estimates. Outcomes include enrolment, attendance, test scores, grade progression and completion. Each result is reported with its sample size, setting and disability type.\",\n \"assessed\": \"Certainty or confidence ratings that systematic reviews, evidence gap maps or expert panels assign to the body of evidence. Examples are GRADE ratings of high, moderate, low or very low, or risk-of-bias judgements. Also included are reviewers' stated conclusions on which intervention types the evidence supports, does not support, or leaves undetermined.\"}"
+    }
+   ],
+   "usd": 0.0344
+  }
+ ],
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-07T10:11:34+00:00"
+}

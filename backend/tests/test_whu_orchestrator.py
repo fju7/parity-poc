@@ -891,3 +891,15 @@ def test_every_ledger_row_inside_a_step_names_the_step(S, monkeypatch, tmp_path)
     S.record(script="audit_stage.py", role="audit", issue="i", usd=0.1)
     a, b = [json.loads(l) for l in (tmp_path / "ledger.jsonl").read_text().splitlines()]
     assert "step" not in a and b["step"] == "premise"
+
+
+def test_field_limits_are_twice_the_longest_stored_value():
+    rec = json.loads((ROOT / "study/whu-reliability/next_phase/results/orchestrator/field_limits.json").read_text())
+    assert set(rec["fields"]) == set(ST.FIELD_LIMITS)
+    for k, v in rec["fields"].items():
+        assert ST.FIELD_LIMITS[k] == v["new_limit"] >= v["old_limit"], k
+        if v["longest_seen"]:
+            assert v["new_limit"] >= 2 * v["longest_seen"], k
+    assert ST.FIELD_LIMITS["premise.measured"] >= 2 * 434          # trial 1 attempt 2's real reply
+    src = (W / "orch" / "model_steps.py").read_text()
+    assert not re.search(r'_str\([a-z]+, "[a-z_]+", \d+', src)    # no limit written outside the table

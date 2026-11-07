@@ -1,0 +1,145 @@
+{
+ "_what_this_is": "Field length limits of the orchestrator's model steps (characters, whitespace collapsed): max(first build's limit, 2 x the longest matching stored value, rounded up to 100). Stored values: the four lean runs Q1-01c/02b/03b/04c and trial 1 attempt 2's real premise reply.",
+ "fields": {
+  "premise.belief": {
+   "old_limit": 600,
+   "new_limit": 700,
+   "longest_seen": 343,
+   "seen_in": "trial-1 attempt 2",
+   "basis_field": "premise.belief"
+  },
+  "premise.kill_condition": {
+   "old_limit": 600,
+   "new_limit": 1000,
+   "longest_seen": 484,
+   "seen_in": "Q1-02b",
+   "basis_field": "premise.kill_condition"
+  },
+  "premise.reader_with_a_decision": {
+   "old_limit": 400,
+   "new_limit": 700,
+   "longest_seen": 320,
+   "seen_in": "trial-1 attempt 2",
+   "basis_field": "premise.reader_with_a_decision"
+  },
+  "premise.scope_covers": {
+   "old_limit": 600,
+   "new_limit": 1400,
+   "longest_seen": 671,
+   "seen_in": "Q1-04c",
+   "basis_field": "premise.scope_covers"
+  },
+  "premise.scope_out.what": {
+   "old_limit": 300,
+   "new_limit": 400,
+   "longest_seen": 168,
+   "seen_in": "Q1-03b",
+   "basis_field": "premise.scope_out.what"
+  },
+  "premise.scope_out.why": {
+   "old_limit": 300,
+   "new_limit": 300,
+   "longest_seen": 147,
+   "seen_in": "Q1-03b",
+   "basis_field": "premise.scope_out.why"
+  },
+  "premise.measured": {
+   "old_limit": 400,
+   "new_limit": 900,
+   "longest_seen": 434,
+   "seen_in": "trial-1 attempt 2",
+   "basis_field": "premise.measured"
+  },
+  "premise.assessed": {
+   "old_limit": 400,
+   "new_limit": 800,
+   "longest_seen": 355,
+   "seen_in": "trial-1 attempt 2",
+   "basis_field": "premise.assessed"
+  },
+  "premise.weighs": {
+   "old_limit": 40,
+   "new_limit": 40,
+   "longest_seen": null,
+   "seen_in": "no stored value (weighs is one of three fixed words; discover.why is capped at 25 words by the prompt)",
+   "basis_field": "premise.weighs"
+  },
+  "discover.title": {
+   "old_limit": 400,
+   "new_limit": 400,
+   "longest_seen": 151,
+   "seen_in": "Q1-02b",
+   "basis_field": "discover.title"
+  },
+  "discover.first_author": {
+   "old_limit": 120,
+   "new_limit": 120,
+   "longest_seen": 25,
+   "seen_in": "Q1-01c",
+   "basis_field": "discover.first_author"
+  },
+  "discover.container": {
+   "old_limit": 200,
+   "new_limit": 200,
+   "longest_seen": 76,
+   "seen_in": "Q1-02b",
+   "basis_field": "discover.container"
+  },
+  "discover.url": {
+   "old_limit": 500,
+   "new_limit": 500,
+   "longest_seen": 221,
+   "seen_in": "Q1-02b",
+   "basis_field": "discover.url"
+  },
+  "discover.why": {
+   "old_limit": 300,
+   "new_limit": 300,
+   "longest_seen": null,
+   "seen_in": "no stored value (weighs is one of three fixed words; discover.why is capped at 25 words by the prompt)",
+   "basis_field": "discover.why"
+  },
+  "draft.title": {
+   "old_limit": 200,
+   "new_limit": 200,
+   "longest_seen": 87,
+   "seen_in": "Q1-02b",
+   "basis_field": "draft.title"
+  },
+  "draft.heading": {
+   "old_limit": 120,
+   "new_limit": 200,
+   "longest_seen": 54,
+   "seen_in": "Q1-04c",
+   "basis_field": "draft.heading"
+  },
+  "draft.sentence": {
+   "old_limit": 900,
+   "new_limit": 1000,
+   "longest_seen": 475,
+   "seen_in": "Q1-04c",
+   "basis_field": "draft.sentence"
+  },
+  "coverage.why": {
+   "old_limit": 300,
+   "new_limit": 700,
+   "longest_seen": 318,
+   "seen_in": "Q1-03b",
+   "basis_field": "coverage.why"
+  },
+  "coverage.sentence": {
+   "old_limit": 900,
+   "new_limit": 1000,
+   "longest_seen": 475,
+   "seen_in": "Q1-04c",
+   "basis_field": "draft.sentence"
+  },
+  "judgement.sentence": {
+   "old_limit": 900,
+   "new_limit": 1000,
+   "longest_seen": 475,
+   "seen_in": "Q1-04c",
+   "basis_field": "draft.sentence"
+  }
+ }
+}

@@ -1,0 +1,271 @@
+{
+ "started_at": "2026-11-07T10:11:16+00:00",
+ "commit": "c56317d61ded01dedc2f15a77ccc82daea59ee39",
+ "documents": {
+  "CLAUDE.md": "8625ca166833877d821aea10467a00e0a142044dd83400581ccccae7a0cb251f",
+  "docs/whatholdsup-process.md": "2bb3dfd1d31f1d13f3aa05a8c432301792b1d97e4df2bcfc12fcb48375db91fa",
+  "docs/whu-orchestrator.md": "9adf5ab768d77a598b15d74fac13ba16bd1aaf1c8a047cb81eca9ee9de835fc4"
+ },
+ "code": {
+  "backend/scripts/signal/factcheck_draft.py": "02a9af590546ebf2e0fdf1b0222903a440b9fbf8b4024abfa92577e9fc667f2b",
+  "backend/scripts/spend_ledger.py": "c85ab7b1ed94eb2e3df9ec0fae0a14e78994eca70831b47f1f5dc22efe95a3b8",
+  "backend/scripts/whatholdsup/acquire_sources.py": "2a8db5a9b1d359ca4ba13ce61e4a94aa32b3114ce3539b252e70d5b0b36b50f6",
+  "backend/scripts/whatholdsup/anchor_audit.py": "b3aea479a2b908a3223e9c9dc0ffdba0b045a0a276602ca4139384210bf2d52e",
+  "backend/scripts/whatholdsup/applied_check.py": "28bfaaf65539d0df424f4186e73ba24c7bced77023fe98c514c5ce833cd41010",
+  "backend/scripts/whatholdsup/audit_stage.py": "1aec64eb7302496f80af16cda39ce46e56a7fe0eb53a7848ca800fba9ab06aa7",
+  "backend/scripts/whatholdsup/autobind.py": "169de1ba7b2e0a4aceb5fcab6eca587dffeda79ad46c33b216c1f56ccabca76e",
+  "backend/scripts/whatholdsup/b13.py": "d626b72219e529d23a942a7f3f6969ecad3bace906e6dd487a0c2bf15f9c565f",
+  "backend/scripts/whatholdsup/benchmark.py": "cd7e67b45353681658968c3ca0296c2d3ff705603c74e71abfb1b00e01ab144b",
+  "backend/scripts/whatholdsup/bibbind.py": "73046bf93c2b502647206e57bcf387c736d177b00737b05e10df7f2b1b496fb3",
+  "backend/scripts/whatholdsup/bindings.py": "957c695580812e366a07fa376e338912c7a5db96a813e4e49d733ea600f7b8e5",
+  "backend/scripts/whatholdsup/brief_diff.py": "3d86e8c6bbcecd57b32c7bb46239b88421126e1a6ceb900fc7e0345dc66e6646",
+  "backend/scripts/whatholdsup/canary.py": "2f3566c05a32639833227ee34e033ab2268b5ce2b763135ea2405515c039c0bc",
+  "backend/scripts/whatholdsup/changecheck.py": "4df706153c2e19458b700505d745d3f35c8ec5d34f9798700fa2be3c14a65223",
+  "backend/scripts/whatholdsup/changecheck_coverage.py": "9f48dc7a7657e9a98b85f30a8dae083c139d741ced0ffb88ea001ba765b56166",
+  "backend/scripts/whatholdsup/conclusion_judge.py": "16ad030437c38da079a4e53526c41766384bc1efc426906b996861a53d1423cb",
+  "backend/scripts/whatholdsup/consistency.py": "26205acddf9d62405c5909145f32f1f5cba97bd8c7f2377e6281752f42bd91db",
+  "backend/scripts/whatholdsup/correction_email.py": "5e9e78182527b4209dae8f9dc6eddbebcbcc720b40d4121a3237b4cd25d3aa5d",
+  "backend/scripts/whatholdsup/corrections_check.py": "7b9a3e47610901b857200f9ff4866f9f5b2af9e39778ae01dcf2eb13682a3939",
+  "backend/scripts/whatholdsup/corrections_intake.py": "498619287b812916083898dff1d7121659597cd3ba590c966cd7536402a31e34",
+  "backend/scripts/whatholdsup/counterexample.py": "a85ccdb46ea8836a76fe17944baf8eb8cbb34c8dbb213aeda859765a75de80ed",
+  "backend/scripts/whatholdsup/coverage.py": "7b212231c3ea19c7dd3a7b0ea68e771a0b9f741a67b5b5ce6c6997adc7c04a40",
+  "backend/scripts/whatholdsup/coverage_check.py": "3534663a16a81a2250e06273c4a89bf36957cf9ab7c4eed386103e7e32d1fad4",
+  "backend/scripts/whatholdsup/deletions.py": "c88084c571dc53e1b5c44c622a5498cb8ab8895ce7d8d84f700ac0f577b6a18f",
+  "backend/scripts/whatholdsup/email_parity.py": "be5c8ba4ef1bc7a1216c1252e26a45862ef6f894b1e81c2c3a3a1d1f24748036",
+  "backend/scripts/whatholdsup/epistemic.py": "5dedc5f97eaaab06f4b199e667bb431e0c4a1dbb4d1fb0780f17193e47efd2ab",
+  "backend/scripts/whatholdsup/errata.py": "1de7a2cb624594ac78d9077361904d97b27b50809e45a14fbee63203d5c8c7d7",
+  "backend/scripts/whatholdsup/error_taxonomy.py": "c6ad1467579705a20781d925769acaf6c2c21b97fbfd83bcb43c43d766e9da27",
+  "backend/scripts/whatholdsup/figure_text.py": "c3fa9c1fbef4724193bbbc7560e035f57f5b34e292aebca015d3c16cbfaa6c6d",
+  "backend/scripts/whatholdsup/find_access.py": "1d0b24d190b4f7ac193c339ebc3e053638776e2194d333883d544c6349e6f9e3",
+  "backend/scripts/whatholdsup/findings.py": "265bd95576e49eb1abfe84707375a11c283c7d9441fe5428cc35eb9eec58a170",
+  "backend/scripts/whatholdsup/frozen.py": "e512b890c2cf33439d2b80e6adc2cc8b0a016874be9968daedbc1f3ab306655c",
+  "backend/scripts/whatholdsup/furniture.py": "fce9aed779007c624918e14924faf1fd4a0d9829a8d7097205458fc29568f230",
+  "backend/scripts/whatholdsup/guard_published.py": "93e5962589e3d9ee28b86ca78587fb8e92defd3fcc4ed9ee571ff5e290368798",
+  "backend/scripts/whatholdsup/index_dates.py": "63037fbb7ffd65e75940aed9b1ba40f069ccdf47c9849362600cb3a3d26f4720",
+  "backend/scripts/whatholdsup/inherited_claims.py": "09c6561ed98ecb6ce74100933d60280fce3ba0008f24b894320c691502a3ba90",
+  "backend/scripts/whatholdsup/issue_facts.py": "512276b1b8c0c406be501a9139349d33e0ddd8d8ff4a7dbae97ed415a4ec33b8",
+  "backend/scripts/whatholdsup/issues_page.py": "207c418994f98433de3905430668d4ee82a4fa8f9570d3ed85607b0974c8873b",
+  "backend/scripts/whatholdsup/jsonio.py": "6d04f39d49501049ff86fb246c7d18a90f1763005ea0b07e41428d3cf4166edd",
+  "backend/scripts/whatholdsup/judgements.py": "6bac48443809852d66cf4c1735f1598614dc40e0e1eef31fd59b3a207bb78d6a",
+  "backend/scripts/whatholdsup/lean.py": "5554ce7bde1d2df5f74e5e9fa9055f40faec70d8f7ba17fbcac8dffade0522d9",
+  "backend/scripts/whatholdsup/lean_audit.py": "ede685bca4ab89ddba9df1f57a9922725dda8fb93cc8795ba0b005083811170d",
+  "backend/scripts/whatholdsup/lean_coverage.py": "3deb9b40b6cc179fc1b1967c0c13f742ba0b51b4925e3c523e24d5a7515c7609",
+  "backend/scripts/whatholdsup/lean_editions.py": "1531495bb82080fb61ade14c2b2e76fab150b7f39fe51296b3635c46f51f16bf",
+  "backend/scripts/whatholdsup/lean_failsafe.py": "1b1f869c65f08c3a1f119700e18f5e35c0b68c60fe40ef5cc17c46aa4f0985e4",
+  "backend/scripts/whatholdsup/lean_reading.py": "6dd8e13fbbf5761399bbdf00afea203d4980a9f0c5889d7b0b33e7313147af9b",
+  "backend/scripts/whatholdsup/lean_received.py": "265dc1a0ed1715890af84ab7255f14e0c3858a3efe54dd1dbaa512c515f99ac7",
+  "backend/scripts/whatholdsup/lean_sentences.py": "a92ce32a36f7d09d672872e687c541757d9eb31ef877297080ac27972ff01936",
+  "backend/scripts/whatholdsup/lint_claims.py": "cc2ecfb3ddf55e928194641652904e0c6db577ecbd5e880fc6047e3db7c96beb",
+  "backend/scripts/whatholdsup/markup.py": "905a35bd44848219f0fff290231a5a7ca11c0ff5039bb691bfed607f3383bb17",
+  "backend/scripts/whatholdsup/modelbind.py": "ea35bea4d5d2929f8c89cb88cf67a0bcef2084b4636911891bf5ffe388827ca5",
+  "backend/scripts/whatholdsup/narrow_gate.py": "ded2e8153e7f90c499b47af8d93dddcf08f1f2f1773359cd75d5a6221a33fd53",
+  "backend/scripts/whatholdsup/negatives.py": "8bde08b229400f5b91116e83bc4bf6c37cf478b96536ae0ffaf70b3638125693",
+  "backend/scripts/whatholdsup/omissions.py": "64bd2f98f9fb54c87f5b9750ea711dde28e33c45acab07178aa23b4df9e7f0fe",
+  "backend/scripts/whatholdsup/open_list.py": "4c9404c54dea438eba96e40c96bcfc6b8df8e24334bd91d1ba9b97e56fe10f88",
+  "backend/scripts/whatholdsup/orch/__init__.py": "fcc7c1ba7c09d2be0c0233ec70d9b2b65d658a866c48feb076da73dc44ed4cdf",
+  "backend/scripts/whatholdsup/orch/accounting.py": "a2abf82beda3356150a353e1227daa43133dbf8e70c1a1833e46f5bb496e2ff8",
+  "backend/scripts/whatholdsup/orch/apply.py": "1fc6d22e9b82c56d85acaa6dd7f919ff6459d4ed97272a2bb9bd6b3410aaeea4",
+  "backend/scripts/whatholdsup/orch/chain.py": "3bac2772ad9a3668a12c1f0dacb7e9c4d85463ca344c6d49e61ccc216a64c77a",
+  "backend/scripts/whatholdsup/orch/estimate.py": "ef2c21fabcfed535ce66e999f43a27301ce86c3a4cdc1558908df7c50da7eb98",
+  "backend/scripts/whatholdsup/orch/google.py": "ac6cd85bc22f69d1cbc1ae7f17203eba7881236dadcb9ee38741919903cc711a",
+  "backend/scripts/whatholdsup/orch/lock.py": "6b355001b6553406f9fd113af156d58f2c6af05e203a39a336ed2e9d763a4a3b",
+  "backend/scripts/whatholdsup/orch/manifest.py": "8e0bc0b79323b486a0de599ae3bf8f9d2876a9bbbb59dff4fd355bc8865da539",
+  "backend/scripts/whatholdsup/orch/model_steps.py": "a5ae11b0dac01cd421d64bb4089f3b87af0c13013b1b2d9f3654c7f34e6a0281",
+  "backend/scripts/whatholdsup/orch/overstatement.py": "df828e439f570dd10687dbf61e88f69f8ac7e0445ebe7e7cfad2df70901f3537",
+  "backend/scripts/whatholdsup/orch/page.py": "285ecae1d4763b88b6b68f48d9156c97f56095b166a1468f870a318a80cd7d04",
+  "backend/scripts/whatholdsup/orch/preflight.py": "a9e9e17de5d994114a8fc1d619c7563bd0cfecbdc25b5113bd5743982c72e484",
+  "backend/scripts/whatholdsup/orch/replay.py": "e19c865fb1245c4467bf608ad1f75b2a880c35812461054bb37bc07a2c14bfec",
+  "backend/scripts/whatholdsup/orch/resolve.py": "36148fe2f59197a871300355fd013a87f1392630e4ff82d679f0444d5e887ebe",
+  "backend/scripts/whatholdsup/orch/sandbox.py": "817eb9eed76b0260c2b11d8eddfcd39efe6e5dd008d2e7ec2fe6c082a0b1990f",
+  "backend/scripts/whatholdsup/orch/steps.py": "8ff3cbd189931981ef7ad7e44a6ffa03e7cfc52e7a8a0df4f3f22f903c8d062e",
+  "backend/scripts/whatholdsup/orchestrator.py": "7860170974b1ff6a671f80a995a3821bc762784b87bcdbb83c8afaba8df106de",
+  "backend/scripts/whatholdsup/passage_index.py": "32d14a50cd69a7881c99d27791e02b34be08475f26a42c936134b93060ce81be",
+  "backend/scripts/whatholdsup/premise.py": "22cc5eadd784821408394e7f5c52a7f7840568478fa4eb89612e259762351ff0",
+  "backend/scripts/whatholdsup/protected.py": "d6d127f5ea6e2c0e0d8f2058e0087914a726a5d2ff4e489d1c38862b422ed259",
+  "backend/scripts/whatholdsup/publish.py": "c60758aa48adcb0d2c58000a7efbc8b9946ad2f7dd0583d44ff3b0e625a76096",
+  "backend/scripts/whatholdsup/quotations.py": "7cc298900ce7c62dde64d892eb48ce5663582d5dec26b49c4c78aa8214fb3852",
+  "backend/scripts/whatholdsup/reachability.py": "334e812eab738410716068fe59956ef0d67eccbc45fd45a693350feb530fa41d",
+  "backend/scripts/whatholdsup/reaudit.py": "ae4c79a2c3e2fefc95288b2c3284c4fe6a5c750cd3e11cc2259ab4a2e8a7ba19",
+  "backend/scripts/whatholdsup/recall.py": "b6b61d00ce7f4171554e64d5b72f918d89c2c4085ee9f53dd22afbcc1d25ed8a",
+  "backend/scripts/whatholdsup/reconcile.py": "f416138a165883701bd58ead3168262bc0e5bb0d0042c0a77ecbcc2f6eb4c9db",
+  "backend/scripts/whatholdsup/registry_facts.py": "6bb26bc9ee7844076c5d67a26ac7961ac7ba818913961d12850c55c30f9b92ce",
+  "backend/scripts/whatholdsup/registry_figures.py": "0a1b9e0fe778d93ac4ff83b71bca79b1767f41c3a570021f5e1bda9526030dcd",
+  "backend/scripts/whatholdsup/registry_settle.py": "0a429286d2222b1e94dc4f6772e574dcaba0f7558b7c40cf8ccbbd07b62bdd7e",
+  "backend/scripts/whatholdsup/review_bundle.py": "18ad43e932ce0dba587a1ff23bf2129d3d5f354c436368d8ca3af589b181c308",
+  "backend/scripts/whatholdsup/review_packet.py": "d08cda5d267eda79639b2ccf5002ba4a41ee8e563a0785cd350870f736445296",
+  "backend/scripts/whatholdsup/rubric.py": "d25be487a27ff4469c865eaea62cf1376ee8ca25cdf3aa9509a9abc37f72fd8d",
+  "backend/scripts/whatholdsup/ruling.py": "2bacb6ccc3983df3aa3366329116b74674ebd16162f9db3074544e663544fad7",
+  "backend/scripts/whatholdsup/scan_leads.py": "670c3442d86587b4ebda5f1fe9cef683e10c28b036e5fb25efd2dcbfe93ef990",
+  "backend/scripts/whatholdsup/schedule/canary.py": "83699a5808d7911e29d93046bcef7a96fdb353100e01d1cd51fb5cdd88b9733b",
+  "backend/scripts/whatholdsup/signers.py": "c218f82f62f73830e8ce87d1358426df76bb40517352d9d70ec956cd6e08c5d6",
+  "backend/scripts/whatholdsup/source_advocate.py": "380f2dc47283acc8e3c5675df0514aa2e7caf0baea5e766abd3cca784b319a6a",
+  "backend/scripts/whatholdsup/source_ledger.py": "ae9e848d9b3b4323a18686fbc8b24c537bdb5f9167b53181a68490d414c68cab",
+  "backend/scripts/whatholdsup/source_store.py": "73068eb37fe6aa31a08dcc744f3aab5db980ea9726352d4141be37743f3ff3cb",
+  "backend/scripts/whatholdsup/sources_shown.py": "dbf5f35abcafd69d01f2e2bf4a3e1d771728d3e1a391e0be853d7863c51547c5",
+  "backend/scripts/whatholdsup/spancheck.py": "5b771d53b55b9f456feeb91624366067e32f291aa0dffa19b8dd45658ae6ff17",
+  "backend/scripts/whatholdsup/stage_cap.py": "353d897528a653edc4a60669f55de3e4745b73e0676ef5e58fc7ec2da0a68ce8",
+  "backend/scripts/whatholdsup/study_design.py": "283e85e1a46aba65ced4db015f0fa21eb3fc255804cba7ca39156d450cf19340",
+  "backend/scripts/whatholdsup/supersede.py": "6b7f9e551232bc5db3965566a3a6a7bb36c5ff1b3273b20d50a992637ea5bc8d",
+  "backend/scripts/whatholdsup/sweep_registry.py": "0f66ff1b15b2cc73bf3be8d70b4331b6b4211e0abd796d4a21166c3417edf534",
+  "backend/scripts/whatholdsup/sweep_sources.py": "8b24d0c6d6c19afeedc55b1d6248f4fa631c1d85f7eac481c48fd4ab0ea49dbc",
+  "backend/scripts/whatholdsup/sync_subscribers.py": "c9a8f60aae2515f0a0e56006d7989c0fa0fb433aa5ee152ef968a035713daf0b",
+  "backend/scripts/whatholdsup/tls.py": "af69a42826b70f47abc414f0ad3775484b274444318bf0d9eeee8f22f1d8211e",
+  "backend/scripts/whatholdsup/unjudged.py": "fc4d8fce3bf6fe66eecf83c70fbcf1f2d0aad7f2d17043f0af1452a4543260bc",
+  "backend/scripts/whatholdsup/update_email.py": "d08c2fc50b6cb5d2ec6ab59dad2b431373fd55f020d570678846b26c92b3d4e5",
+  "backend/scripts/whatholdsup/watch.py": "e76b09bfd9b8c3780bef452cac9b82477d2f19622cc061f0fd71fecda22cad5f"
+ },
+ "models": {
+  "provenance": [],
+  "premise": [
+   "claude-opus-5-5"
+  ],
+  "discover": [
+   "claude-sonnet-4-6"
+  ],
+  "acquire": [],
+  "draft": [
+   "claude-opus-5-5"
+  ],
+  "bind": [],
+  "coverage": [
+   "claude-sonnet-5-5"
+  ],
+  "judgements": [
+   "claude-sonnet-5-5",
+   "claude-opus-5-5",
+   "claude-sonnet-5-5"
+  ],
+  "commit_3b": [],
+  "gate": [
+   "claude-sonnet-4-6"
+  ],
+  "advocate": [
+   "claude-sonnet-5-5",
+   "claude-sonnet-4-6",
+   "claude-opus-5-5"
+  ],
+  "omissions": [
+   "claude-opus-5-5"
+  ],
+  "findings": [
+   "claude-opus-5-5"
+  ],
+  "conclusions": [
+   "claude-opus-5-5"
+  ],
+  "audit": [
+   "claude-sonnet-5-5",
+   "claude-opus-5-5"
+  ],
+  "overstatement": [
+   "gemini-4-argon"
+  ],
+  "final_gate": [
+   "claude-sonnet-4-6",
+   "claude-opus-5-5"
+  ],
+  "commit_8": [],
+  "changecheck": [
+   "claude-opus-5-5"
+  ],
+  "preflight": [],
+  "archive": []
+ },
+ "limits": {
+  "provenance": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  },
+  "premise": {
+   "max_calls": 2,
+   "cap_usd": 0.2
+  },
+  "discover": {
+   "max_calls": 3,
+   "cap_usd": 1.5
+  },
+  "acquire": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  },
+  "draft": {
+   "max_calls": 2,
+   "cap_usd": 2.5
+  },
+  "bind": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  },
+  "coverage": {
+   "max_calls": 60,
+   "cap_usd": 0.6
+  },
+  "judgements": {
+   "max_calls": 400,
+   "cap_usd": 3.0
+  },
+  "commit_3b": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  },
+  "gate": {
+   "max_calls": 40,
+   "cap_usd": 3.0
+  },
+  "advocate": {
+   "max_calls": 120,
+   "cap_usd": 2.5
+  },
+  "omissions": {
+   "max_calls": 120,
+   "cap_usd": 2.5
+  },
+  "findings": {
+   "max_calls": 200,
+   "cap_usd": 2.5
+  },
+  "conclusions": {
+   "max_calls": 60,
+   "cap_usd": 1.0
+  },
+  "audit": {
+   "max_calls": 600,
+   "cap_usd": 4.0
+  },
+  "overstatement": {
+   "max_calls": 400,
+   "cap_usd": 2.0
+  },
+  "final_gate": {
+   "max_calls": 200,
+   "cap_usd": 2.0
+  },
+  "commit_8": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  },
+  "changecheck": {
+   "max_calls": 60,
+   "cap_usd": 1.0
+  },
+  "preflight": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  },
+  "archive": {
+   "max_calls": 0,
+   "cap_usd": 0.0
+  }
+ },
+ "tools": {
+  "fetch_user_agent": "WHU-fetch/1.0 (automated research client)",
+  "passage_retrieval": {
+   "PASSAGE_CHARS": 900,
+   "MIN_SCORE": 2.0,
+   "MIN_TERMS": 2
+  },
+  "web_search_max_uses": 12
+ },
+ "mode": "paid",
+ "slug": "whu-lean-orch-t1-q1-02b"
+}
