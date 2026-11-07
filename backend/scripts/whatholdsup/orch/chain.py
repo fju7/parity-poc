@@ -57,6 +57,9 @@ def diff(before: dict, after: dict) -> dict:
 
 
 def owned(path: str, owns) -> bool:
+    from orch.steps import NEVER_WRITTEN       # a person's record is owned by no step, whatever a glob says
+    if path.rsplit("/", 1)[-1] in NEVER_WRITTEN:
+        return False
     return any(fnmatch.fnmatch(path, pat) for pat in tuple(owns) + ALWAYS_OWNED)
 
 

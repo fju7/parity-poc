@@ -344,7 +344,7 @@ def _ledger_now(entry):
         # An unpriced entry is written as usd NULL -- not established -- never
         # as 0.0. call() stops the run right after this line in that case.
         _spend.record(script="factcheck_draft.py", role=entry["label"],
-                      issue=_LEDGER_ISSUE or "",
+                      issue=_LEDGER_ISSUE or "", model=entry.get("model"),
                       usd=u.get("usd") if u.get("priced") else None,
                       input_tokens=entry["input"], output_tokens=entry["output"],
                       web_searches=entry["web_searches"],

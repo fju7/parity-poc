@@ -2,11 +2,10 @@
 follow-up after attempt 8). The run manifest records it (orch/manifest.py "model_sources"); a test fails if a step
 does not declare a model its commands can call (orch/steps.py `models`, enforced at every paid call by orch_guard).
 
-claude-sonnet-4-6 appears through the gate helper, factcheck_draft.call, whose model is signal_model.DEFAULT_MODEL.
-Lean WHU (lean.STAGE_MODELS) moved the rulings, the audit, the advocate's reading and the judgements to the 5.5 models;
-it did not change the gate helper's default, and no ruling chose 4-6 for the lean test or this build: the gate, the
-discover search, changecheck's review and the omission re-asks run on it by inheritance. The conclusion judge is the
-exception: conclusion_judge.JUDGE_MODEL pins 4-6 in its own code and refuses any other model.
+claude-sonnet-4-6 appears through the gate helper, factcheck_draft.call, whose model is signal_model.DEFAULT_MODEL,
+and in the conclusion judge (conclusion_judge.JUDGE_MODEL pins it). It is DELIBERATE where it runs (advisor's ruling
+after trial 1's attempt 8: it produced round 1 and the lean test); moving those calls to Sonnet 5.5 is a later,
+separate experiment. Each run's manifest also records the model id every response reported (models_reported).
 """
 from __future__ import annotations
 
@@ -24,7 +23,8 @@ def command_models() -> dict:
     import conclusion_judge as CJ
     import signal_model as SM
     gate = SM.DEFAULT_MODEL
-    G = "the gate helper (factcheck_draft.call), signal_model.DEFAULT_MODEL; inherited, not changed by lean WHU"
+    G = ("the gate helper (factcheck_draft.call), signal_model.DEFAULT_MODEL; deliberate (advisor's ruling after "
+         "attempt 8: it produced round 1 and the lean test)")
     R = "ruling.py under lean WHU, lean.STAGE_MODELS['rulings']"
     return {
         "factcheck_draft.py": {gate: G},
@@ -57,7 +57,7 @@ def in_process_models() -> dict:
     return {
         "premise": {ST.DRAFT_MODEL: "orch/model_steps.premise, steps.DRAFT_MODEL"},
         "discover": {SM.DEFAULT_MODEL: "the gate helper's web search (factcheck_draft.call, search on), "
-                                       "signal_model.DEFAULT_MODEL; inherited"},
+                                       "signal_model.DEFAULT_MODEL; deliberate (ruling after attempt 8)"},
         "draft": {ST.DRAFT_MODEL: "orch/model_steps draft, steps.DRAFT_MODEL"},
         "coverage": {ST.STEP_MODEL: "orch/model_steps.coverage_decision, steps.STEP_MODEL"},
         "judgements": {ST.STEP_MODEL: "orch/model_steps.judgement_sentence, steps.STEP_MODEL"},

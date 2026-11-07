@@ -76,60 +76,45 @@ FIELD_LIMITS = {
 }
 
 STEPS: tuple[Step, ...] = (
-    Step("provenance", "code", owns=("orchestrator/manifest.json",), code="provenance"),
-    Step("premise", "model", owns=("premise.json",), models=(DRAFT_MODEL,), max_calls=2, cap_usd=0.20,
+    Step("provenance", "code", code="provenance"),
+    Step("premise", "model", models=(DRAFT_MODEL,), max_calls=2, cap_usd=0.20,
          cmds=((PY, W + "premise.py", "init", "{slug}"),), code="premise"),
-    Step("discover", "model", owns=("sources.json",), models=(GATE_MODEL,), max_calls=3, cap_usd=1.50,
+    Step("discover", "model", models=(GATE_MODEL,), max_calls=3, cap_usd=1.50,
          code="discover"),
-    Step("acquire", "code", owns=("sources.json", "errata.json", "sweeps.json", "canary.json", "library:*",
-                                  "corrections/*"),
-         cmds=((PY, W + "acquire_sources.py", "{slug}", "--out", "{case}/orchestrator/acquire.json"), (PY, W + "source_store.py", "{slug}", "status"),
+    Step("acquire", "code", cmds=((PY, W + "acquire_sources.py", "{slug}", "--out", "{case}/orchestrator/acquire.json"), (PY, W + "source_store.py", "{slug}", "status"),
                (PY, W + "errata.py", "{slug}"), (PY, W + "sweep_sources.py", "resolve", "{slug}", "--write"),
                (PY, W + "canary.py", "{slug}")), code="acquire"),
-    Step("draft", "model", owns=PAGE, models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
-    Step("bind", "code", owns=PAGE + ("bindings.json", "quotations.json", "attributions.json"),
-         cmds=((PY, W + "bindings.py", "{slug}", "scan"),), code="bind"),
-    Step("coverage", "model", owns=PAGE + ("coverage.json", "bindings.json", "rulings/coverage_in_scope.jsonl"),
-         models=(STEP_MODEL,), max_calls=120, cap_usd=1.20, code="coverage"),   # 60 units, each re-asked at most once
-    Step("judgements", "mixed", owns=PAGE + ("judgements.json", "bindings.json", "coverage.json") + RULINGS,
-         models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
+    Step("draft", "model", models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
+    Step("bind", "code", cmds=((PY, W + "bindings.py", "{slug}", "scan"),), code="bind"),
+    Step("coverage", "model", models=(STEP_MODEL,), max_calls=120, cap_usd=1.20, code="coverage"),   # 60 units, each re-asked at most once
+    Step("judgements", "mixed", models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
-    Step("corrections_3b", "code", owns=PAGE + ("bindings.json", "rulings/corrections.jsonl",
-                                                 "rulings/lean_removed.jsonl") + RULINGS,
-         models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling
+    Step("corrections_3b", "code", models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling
     Step("commit_3b", "code", code="commit"),
-    Step("gate", "stage", owns=("draft/{slug}.html.gate.json*", "gate-findings.json"), models=(GATE_MODEL,),
+    Step("gate", "stage", models=(GATE_MODEL,),
          max_calls=40, cap_usd=3.00,
          cmds=((PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--dry-run"),
                (PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--report", "{gate}"))),
-    Step("advocate", "stage", owns=PAGE + ("advocate/*", "bindings.json", "attributions.json") + RULINGS,
-         models=(SMALL, GATE_MODEL, CURRENT), max_calls=120, cap_usd=2.50,
+    Step("advocate", "stage", models=(SMALL, GATE_MODEL, CURRENT), max_calls=120, cap_usd=2.50,
          cmds=((PY, W + "source_advocate.py", "run", "{slug}", "--page", "{page}"),
                (PY, W + "ruling.py", "advocate", "{slug}")), code="apply"),
-    Step("omissions", "stage", owns=PAGE + ("omissions.json", "bindings.json", "coverage.json") + RULINGS,
-         models=(CURRENT, GATE_MODEL), max_calls=120, cap_usd=2.50,  # GATE_MODEL: source_advocate.reask_omission's re-asks (fc.call)
+    Step("omissions", "stage", models=(CURRENT, GATE_MODEL), max_calls=120, cap_usd=2.50,  # GATE_MODEL: source_advocate.reask_omission's re-asks (fc.call)
          cmds=((PY, W + "ruling.py", "omissions", "{slug}"),), code="apply"),
-    Step("findings", "stage", owns=PAGE + ("gate-findings.json", "bindings.json") + RULINGS, models=(CURRENT,),
+    Step("findings", "stage", models=(CURRENT,),
          max_calls=200, cap_usd=2.50, repeat_group=True,
          cmds=((PY, W + "findings.py", "{slug}", "--report", "{gate}", "--scan"),
                (PY, W + "ruling.py", "gate", "{slug}")), code="apply"),
-    Step("conclusions", "stage", owns=PAGE + ("conclusion-review.json", "bindings.json") + RULINGS,
-         models=(GATE_MODEL, CURRENT), max_calls=60, cap_usd=1.00, repeat_group=True,  # GATE_MODEL: conclusion_judge.JUDGE_MODEL (fc.call)
+    Step("conclusions", "stage", models=(GATE_MODEL, CURRENT), max_calls=60, cap_usd=1.00, repeat_group=True,  # GATE_MODEL: conclusion_judge.JUDGE_MODEL (fc.call)
          cmds=((PY, W + "conclusion_judge.py", "{slug}"), (PY, W + "ruling.py", "conclusions", "{slug}")),
          code="apply"),
-    Step("audit", "stage", owns=PAGE + ("audit/*", "bindings.json") + RULINGS, models=(SMALL, CURRENT),
+    Step("audit", "stage", models=(SMALL, CURRENT),
          max_calls=600, cap_usd=4.00, repeat_group=True,
          cmds=((PY, W + "audit_stage.py", "run", "{slug}", "--cap", "{cap}"),), code="audit"),
-    Step("overstatement", "model", owns=PAGE + ("rulings/overstatement.jsonl", "rulings/lean_removed.jsonl"),
-         models=(GOOGLE, CURRENT), max_calls=420, cap_usd=2.50, repeat_group=True,
+    Step("overstatement", "model", models=(GOOGLE, CURRENT), max_calls=420, cap_usd=2.50, repeat_group=True,
          code="overstatement"),                                     # CURRENT: ruling.py dangling (20 calls, $0.50)
-    Step("corrections", "code", owns=PAGE + ("bindings.json", "rulings/corrections.jsonl",
-                                              "rulings/lean_removed.jsonl") + RULINGS,
-         models=(CURRENT,), max_calls=20, cap_usd=0.50, repeat_group=True,
+    Step("corrections", "code", models=(CURRENT,), max_calls=20, cap_usd=0.50, repeat_group=True,
          code="corrections"),                                                       # CURRENT: ruling.py dangling
-    Step("final_gate", "stage", owns=PAGE + ("draft/{slug}.html.gate.json*", "gate-findings.json",
-                                             "bindings.json") + RULINGS,
-         models=(GATE_MODEL, CURRENT), max_calls=200, cap_usd=2.00, repeat_group=True,
+    Step("final_gate", "stage", models=(GATE_MODEL, CURRENT), max_calls=200, cap_usd=2.00, repeat_group=True,
          cmds=((PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--changed-since", "{gate}",
                 "--dry-run"),
                (PY, "backend/scripts/signal/factcheck_draft.py", "{page}", "--changed-since", "{gate}",
@@ -137,14 +122,13 @@ STEPS: tuple[Step, ...] = (
                (PY, W + "findings.py", "{slug}", "--report", "{gate}", "--scan"),
                (PY, W + "ruling.py", "gate", "{slug}")), code="apply"),
     Step("commit_8", "code", repeat_group=True, code="commit"),
-    Step("changecheck", "stage", owns=PAGE + ("change-reviews.json", "bindings.json") + RULINGS,
-         models=(GATE_MODEL, CURRENT), max_calls=60, cap_usd=1.00, repeat_group=True,  # GATE_MODEL: changecheck.py's review (fc.call)
+    Step("changecheck", "stage", models=(GATE_MODEL, CURRENT), max_calls=60, cap_usd=1.00, repeat_group=True,  # GATE_MODEL: changecheck.py's review (fc.call)
          cmds=((PY, W + "changecheck.py", "{slug}", "--page", "{page}", "--before", "{first}"),
                (PY, W + "ruling.py", "changecheck", "{slug}"),
                (PY, W + "changecheck_coverage.py", "{slug}", "--first", "{first}", "--out",
                 "{case}/orchestrator/changecheck_coverage.json")), code="apply"),
     Step("preflight", "code", cmds=((PY, W + "publish.py", "check", "{slug}"),), code="preflight"),
-    Step("archive", "code", owns=("private_manifest.txt",), code="archive"),
+    Step("archive", "code", code="archive"),
 )
 
 # Exit codes (advisor's rulings 2026-11-07, (a) and after attempt 6). For each stage script, what each exit means to
@@ -159,6 +143,12 @@ EXITS = {
     "ruling.py": {0: "ok", 4: "rerun"},                  # 4: some rulings failed, findings left open
 }
 DEFAULT_EXITS = {0: "ok"}
+
+# Ownership is DERIVED (advisor's ruling after attempt 8): what each step's commands and code write, from
+# orch/writes.py (traced in the paid attempts and the $0 replay, plus the code). Nothing is written by hand above.
+from dataclasses import replace as _replace  # noqa: E402
+from orch.writes import derive_owns  # noqa: E402
+STEPS = tuple(_replace(s, owns=derive_owns(s)) for s in STEPS)
 
 NAMES = tuple(s.name for s in STEPS)
 BY_NAME = {s.name: s for s in STEPS}

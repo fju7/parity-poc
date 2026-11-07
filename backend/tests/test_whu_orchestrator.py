@@ -1559,7 +1559,7 @@ def test_every_step_declares_every_model_its_code_may_call_and_the_manifest_reco
     m = MF.build(ROOT, ST.STEPS)
     assert m["model_sources"] == json.loads(json.dumps(sm))
     for step in ("gate", "discover", "omissions", "changecheck", "final_gate"):
-        assert any("inherited" in w for w in m["model_sources"][step]["claude-sonnet-4-6"]), step
+        assert any("deliberate (" in w for w in m["model_sources"][step]["claude-sonnet-4-6"]), step
     assert any("pinned in its own code (deliberate)" in w for w in m["model_sources"]["conclusions"]["claude-sonnet-4-6"])
     assert {"claude-sonnet-5-5", "claude-opus-5-5"} <= set(m["model_sources"]["audit"])
 
@@ -1578,3 +1578,107 @@ def test_each_runs_report_shows_sources_found_held_and_not_held_with_reasons(tmp
                                                    "not_of_a_type: not of a type we can check"]
     src = (W / "orchestrator.py").read_text()
     assert 'out["sources"] = source_table(ctx.case)' in src
+
+
+# ---------------------------------------------------------------------------------------------------- derived ownership
+# Advisor's rulings after attempt 8: ownership derived from what each command writes (traced plus code), a test that
+# fails on any undeclared write; the PMCID lookup unquoted; the model id of every response recorded.
+
+from orch import writes as WR  # noqa: E402
+
+
+def test_ownership_is_derived_never_hand_written():
+    src = (W / "orch" / "steps.py").read_text()
+    table = src[src.index("STEPS: tuple[Step, ...] = ("):src.index("# Ownership is DERIVED")]
+    assert "owns=" not in table
+    for s in ST.STEPS:
+        assert s.owns == WR.derive_owns(s), s.name
+
+
+def test_every_write_traced_in_the_paid_attempts_was_owned_by_its_step():
+    """Each attempt's chain records every step's file hashes; every file a step changed must be one it owns."""
+    seen = 0
+    for chain in sorted((ROOT / "issues").glob("WHU-OT1-02*/orchestrator/chain.jsonl")):
+        slug = json.loads((chain.parents[1] / "issue.json").read_text())["slug"]
+        rows = [json.loads(l) for l in chain.read_text().splitlines() if l.strip()]
+        for prev, row in zip(rows, rows[1:]):
+            step = ST.BY_NAME.get(row["step"])
+            if step is None:
+                continue
+            d = CH.diff(prev["hashes"], row["hashes"])
+            assert not CH.violations(d, ST.owns_for(step, slug)), (chain.parent.parent.name, row["step"], d)
+            seen += 1
+    assert seen >= 30
+
+
+def test_attempt_8s_undeclared_write_is_now_owned():
+    owns = ST.owns_for(ST.BY_NAME["omissions"], "x")
+    assert CH.owned("advocate/20261107T131346Z-adjudication.md", owns)
+    assert CH.owned("rulings/advocate_reasks.jsonl", owns)
+    for s in ST.STEPS:                                     # wherever ruling.py dangling may run, rulings/* is owned
+        if s.code in WR.CODE_COMMANDS:
+            assert CH.owned("rulings/rulings.jsonl", ST.owns_for(s, "x")), s.name
+
+
+def test_every_case_file_a_module_mentions_is_classified_written_or_read():
+    import re as _re
+    mods = {m for k in WR.COMMAND_MODULES.values() for m in k}
+    for m in sorted(mods):
+        p = W / ("%s.py" % m)
+        if not p.exists():
+            p = ROOT / "backend/scripts/signal" / ("%s.py" % m)
+        names = set(_re.findall(r'["\']([A-Za-z0-9_.-]+\.(?:jsonl|json|md|txt))["\']', p.read_text()))
+        known = set()
+        for g in WR.MODULE_WRITES.get(m, ()) + WR.MODULE_READS.get(m, ()):
+            known.add(g.rsplit("/", 1)[-1])
+        unclassified = {n for n in names if not any(n == k or (k.endswith("*") and n.startswith(k[:-1]))
+                                                    or k == "*" or (k.startswith("{slug}") and n.startswith("."))
+                                                    for k in known)}
+        assert not unclassified, (m, sorted(unclassified))
+
+
+def test_a_persons_record_is_owned_by_no_step_whatever_a_glob_says():
+    for s in ST.STEPS:
+        for n in ST.NEVER_WRITTEN:
+            assert not CH.owned("audit/20261107T000000Z/%s" % n, ST.owns_for(s, "x")), (s.name, n)
+
+
+def test_pmcid_lookup_is_unquoted_and_finds_both_attempt_8_articles():
+    import find_access as FA
+    from orch import resolve as RV
+    from orch import corrections as CR
+    assert FA.epmc_query("PMC10844053", "PMCID") == "PMCID:PMC10844053"
+    assert FA.epmc_query("10.1/x", "DOI") == 'DOI:"10.1/x"'
+    for pmcid, title, author, year in (
+            ("PMC10844053", "A systematic review of academic performance of Children with Disabilities (CWDs) in "
+                            "inclusive education schools in Low and Middle-Income Countries (LMICs)", "Adjei", 2024),
+            ("PMC9386527", "Effectiveness of interventions for children and adolescents with autism spectrum "
+                           "disorder in high-income vs. lower middle-income countries: An overview of systematic "
+                           "reviews and research papers from LMIC", "Pervin", 2022)):
+        rec = json.loads((FX / ("epmc_unquoted_%s.json" % pmcid)).read_text())["resultList"]["result"][0]
+        title = rec["title"]
+        got = RV.search_pmcid(pmcid, title, author, year, lookup=lambda v, f: rec if f == "PMCID" else None)
+        assert isinstance(got, RV.Found) and got.extra["pmcid"] == pmcid, pmcid
+    # a found source then goes through the retraction and correction checks as normal
+    src = {"id": "S002", "pmcid": "PMC10844053", "title": json.loads(
+        (FX / "epmc_unquoted_PMC10844053.json").read_text())["resultList"]["result"][0]["title"]}
+    st = CR.status(src, lambda k, v: (json.loads((FX / "epmc_unquoted_PMC10844053.json").read_text())
+                                      ["resultList"]["result"][0], "m") if v == "PMC10844053" else (None, "no"),
+                   lambda d: (None, "no"))
+    assert st["retracted"]
+
+
+def test_every_response_records_the_model_the_api_reported(S, monkeypatch, tmp_path):
+    import orchestrator as O
+    monkeypatch.setattr(S, "LEDGER", tmp_path / "ledger.jsonl")
+    monkeypatch.setenv("WHU_ORCH_STEP", "gate")
+    S.record(script="factcheck_draft.py", role="recency", issue="x", usd=0.1, model="claude-sonnet-4-6-20260301")
+    S.record(script="x.py", role="r", issue="x", usd=0.1)
+    rows = [json.loads(l) for l in (tmp_path / "ledger.jsonl").read_text().splitlines()]
+    assert rows[0]["model"] == "claude-sonnet-4-6-20260301" and "model" not in rows[1]
+    assert O.models_reported(rows, "x") == {"gate": {"claude-sonnet-4-6-20260301": 1, "(not reported)": 1}}
+    for src, needle in ((ROOT / "backend/scripts/spend_ledger.py", "record(script=self._script, role=self._role, "
+                                                                   "issue=self._issue, model=resolved,"),
+                        (ROOT / "backend/scripts/signal/factcheck_draft.py", 'model=entry.get("model")'),
+                        (W / "orch" / "google.py", "model=mv or None")):
+        assert needle in src.read_text(), src.name

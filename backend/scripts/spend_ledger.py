@@ -74,7 +74,7 @@ class UnpricedModel(RuntimeError):
 
 def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 0.0,
            input_tokens: int = 0, output_tokens: int = 0, web_searches: int = 0,
-           note: str = "", at: str | None = None) -> None:
+           note: str = "", at: str | None = None, model: str | None = None) -> None:
     """Append one priced call. Never raises: accounting must not break a run.
 
     `usd=None` means NOT ESTABLISHED and is written as JSON null, never as
@@ -94,6 +94,10 @@ def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 
             "input": int(input_tokens or 0), "output": int(output_tokens or 0),
             "web_searches": int(web_searches or 0), "note": note,
         }
+        # The model id the API reported in the response (advisor's ruling after trial 1's attempt 8: alias drift
+        # is visible). Added only when known, so older rows keep their shape.
+        if model:
+            row["model"] = model
         # Inside an orchestrator run every row names the step it was spent in (advisor's ruling 2026-11-07).
         if os.environ.get("WHU_ORCH_STEP"):
             row["step"] = os.environ["WHU_ORCH_STEP"]
@@ -531,7 +535,7 @@ class _MeteredMessages:
         resolved = getattr(r, "model", "") or requested
         usd, counts = price(resolved, getattr(r, "usage", None))
         try:
-            record(script=self._script, role=self._role, issue=self._issue,
+            record(script=self._script, role=self._role, issue=self._issue, model=resolved,
                    usd=usd, input_tokens=counts["input"],
                    output_tokens=counts["output"],
                    web_searches=counts["web_searches"],

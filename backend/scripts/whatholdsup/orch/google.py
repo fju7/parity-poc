@@ -98,6 +98,7 @@ class Gateway:
         p = S.rates(MODEL, 0)
         usd = (tin * p["input"] + (tout + think) * p["output"]) / 1e6
         S.record(script=SCRIPT, role="google-preflight", issue=self.issue, usd=usd, input_tokens=tin,
+                 model=getattr(r, "model_version", None) or None,
                  output_tokens=tout + think, note="paid-tier preflight; %s" % (getattr(r, "model_version", "") or MODEL))
         self.preflight_record = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                  "usd": round(usd, 6), "model": getattr(r, "model_version", None)}
@@ -128,7 +129,7 @@ class Gateway:
             out = r.text or ""
         except Exception:
             out = ""
-        S.record(script=SCRIPT, role=role, issue=self.issue, usd=usd, input_tokens=prompt,
+        S.record(script=SCRIPT, role=role, issue=self.issue, usd=usd, input_tokens=prompt, model=mv or None,
                  output_tokens=cand + think, note="%s; cached=%d; thinking=%d; finish=%s" % (mv or MODEL, cached,
                                                                                          think, finish))
         return {"text": out, "model": mv or MODEL, "usd": round(usd, 6), "refused": refused, "finish": finish,

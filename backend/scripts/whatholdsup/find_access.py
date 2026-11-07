@@ -95,8 +95,16 @@ def titles_agree(ours: str, theirs: str) -> tuple[bool, str]:
             "%d shared title words (needed %d)" % (len(overlap), need))
 
 
+def epmc_query(ident: str, field: str) -> str:
+    """Europe PMC's query for IDENT in FIELD. A PMCID is never quoted: `PMCID:"PMC10844053"` returns no hit where
+    `PMCID:PMC10844053` returns the article (found on orchestrator trial 1's attempt 8, advisor's ruling)."""
+    if field == "PMCID":
+        return "PMCID:%s" % ident.strip().upper()
+    return '%s:"%s"' % (field, ident)
+
+
 def epmc(ident: str, field: str) -> dict | None:
-    q = urllib.parse.quote('%s:"%s"' % (field, ident))
+    q = urllib.parse.quote(epmc_query(ident, field))
     try:
         r = get("https://www.ebi.ac.uk/europepmc/webservices/rest/search"
                 "?query=%s&resultType=core&format=json" % q)

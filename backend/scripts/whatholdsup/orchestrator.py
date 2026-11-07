@@ -930,6 +930,35 @@ def code_overstatement(ctx: Ctx, step) -> dict:
             "changed": out.get("changed")}
 
 
+def models_reported(entries: list[dict], slug: str) -> dict:
+    """{step: {model id the API reported: responses}} over this issue's ledger rows; a row with no reported id is
+    counted under "(not reported)" so a gap is visible, never hidden."""
+    out: dict = {}
+    for e in entries:
+        if e.get("issue") != slug:
+            continue
+        step = e.get("step") or "(no step)"
+        m = e.get("model") or "(not reported)"
+        out.setdefault(step, {})
+        out[step][m] = out[step].get(m, 0) + 1
+    return out
+
+
+def record_models_reported(ctx: Ctx) -> dict:
+    """Write models_reported into the run's manifest (advisor's ruling after attempt 8: alias drift is visible)."""
+    import importlib.util
+    sp = importlib.util.spec_from_file_location("spend_ledger", ctx.root / "backend/scripts/spend_ledger.py")
+    S = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(S)
+    rep = models_reported(S.entries(), ctx.slug)
+    p = ctx.case / "orchestrator" / "manifest.json"
+    if p.exists():
+        m = json.loads(p.read_text(encoding="utf-8"))
+        m["models_reported"] = rep
+        p.write_text(json.dumps(m, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    return rep
+
+
 def source_table(case: Path) -> dict:
     """Every run's report shows the sources found, held and not held, with reasons (advisor, after attempt 8):
     the source list, the finds of no checkable type, and the proposals no registry confirmed."""
@@ -1066,6 +1095,7 @@ def main(argv=None) -> int:
         ctx = Ctx(a.slug, "paid")
         out = run(ctx)
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
+        out["models_reported"] = record_models_reported(ctx)   # the model id each response reported (advisor)
         rec = ctx.case / "orchestrator" / "run_paid.json"          # every step's commands, exit codes and outcome
         rec.parent.mkdir(parents=True, exist_ok=True)
         rec.write_text(json.dumps(dict(out, ruling=os.environ.get(PAID_RULING_ENV), ended=now()), indent=1,
