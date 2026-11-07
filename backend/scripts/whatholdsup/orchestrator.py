@@ -147,6 +147,11 @@ def exit_proof(ctx: Ctx, script: str, argv: list[str], rc: int, started: float) 
         if not out:
             return "no --out file named"
         want = "unread changed sentences listed"
+    elif script == "acquire_sources.py":
+        out = _arg_after(argv, "--out")
+        if not out:
+            return "no --out file named"
+        want = "each unheld source listed with its reason"
     else:
         return "no proof rule for %s" % script
     p = Path(out) if Path(out).is_absolute() else ctx.root / out
@@ -161,6 +166,11 @@ def exit_proof(ctx: Ctx, script: str, argv: list[str], rc: int, started: float) 
     if script == "factcheck_draft.py":
         if not (isinstance(doc, dict) and doc.get("passed") is False and doc.get("checked_at")):
             return "%s does not record a completed run with findings (passed is not false)" % out
+    elif script == "acquire_sources.py":
+        rows = doc.get("not_held") if isinstance(doc, dict) else None
+        if not (isinstance(doc, dict) and doc.get("complete") is True and isinstance(rows, list) and rows
+                and all(isinstance(r, dict) and r.get("id") and str(r.get("reason") or "").strip() for r in rows)):
+            return "%s does not list each unheld source with its reason" % out
     else:
         if not (isinstance(doc, dict) and doc.get("complete") is True and isinstance(doc.get("missed"), list)
                 and doc["missed"]):
@@ -920,6 +930,29 @@ def code_overstatement(ctx: Ctx, step) -> dict:
             "changed": out.get("changed")}
 
 
+def source_table(case: Path) -> dict:
+    """Every run's report shows the sources found, held and not held, with reasons (advisor, after attempt 8):
+    the source list, the finds of no checkable type, and the proposals no registry confirmed."""
+    p = Path(case) / "sources.json"
+    doc = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    rows = []
+    for s in doc.get("sources") or []:
+        acc = s.get("access") or {}
+        nh = acc.get("not_held") or {}
+        held = acc.get("state") == "full_text_held" and not nh
+        rows.append({"id": s.get("id"), "title": s.get("title"), "type": s.get("type"),
+                     "held": held, "state": acc.get("state"),
+                     "reason": None if held else "%s: %s" % (nh.get("line") or "not held",
+                                                             nh.get("why") or acc.get("reason") or "")})
+    rows += [{"id": None, "title": x.get("title"), "type": "none of these", "held": False, "state": None,
+              "reason": "not_of_a_type: %s" % (x.get("why") or "")} for x in doc.get("not_of_a_type") or []]
+    unresolved = [{"title": (u.get("proposal") or {}).get("title"), "reason": u.get("why")}
+                  for u in doc.get("unresolved_proposals") or []]
+    return {"found": len(rows), "held": sum(1 for r in rows if r["held"]),
+            "not_held": sum(1 for r in rows if not r["held"]), "sources": rows,
+            "proposals_not_confirmed": len(unresolved), "unconfirmed": unresolved}
+
+
 def git_env() -> dict:
     """The shell's own environment for git: every WHU_* variable removed (attempt 5: the commit inherited WHU_LEAN and
     the step's variables, and the pre-commit hook's tests ran under them)."""
@@ -1032,11 +1065,13 @@ def main(argv=None) -> int:
             return 0
         ctx = Ctx(a.slug, "paid")
         out = run(ctx)
+        out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
         rec = ctx.case / "orchestrator" / "run_paid.json"          # every step's commands, exit codes and outcome
         rec.parent.mkdir(parents=True, exist_ok=True)
         rec.write_text(json.dumps(dict(out, ruling=os.environ.get(PAID_RULING_ENV), ended=now()), indent=1,
                                   ensure_ascii=False, default=str) + "\n", encoding="utf-8")
-        print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]]}, indent=1))
+        print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]],
+                          "sources": out["sources"]}, indent=1, ensure_ascii=False))
         return 0 if out["result"] == "Ready." else 1
     if a.cmd == "status":
         case = next((ROOT / "issues").glob("WHU-*-%s" % a.slug))

@@ -45,6 +45,14 @@ def tools() -> dict:
     return out
 
 
+def _model_sources(steps) -> dict:
+    try:
+        from orch import model_map as MM
+        return MM.step_models(steps)
+    except Exception as e:                  # recorded, never silently empty
+        return {"_error": "%s: %s" % (type(e).__name__, e)}
+
+
 def build(root: Path, steps, extra: dict | None = None) -> dict:
     code = sorted(list((root / "backend/scripts/whatholdsup").rglob("*.py")) +
                   [root / "backend/scripts/signal/factcheck_draft.py", root / "backend/scripts/spend_ledger.py"])
@@ -60,6 +68,8 @@ def build(root: Path, steps, extra: dict | None = None) -> dict:
                                                   "docs/whu-orchestrator.md")},
         "code": {p.relative_to(root).as_posix(): _sha(p) for p in code if "__pycache__" not in p.parts},
         "models": {s.name: list(s.models) for s in steps},
+        # every model each step may call and where it comes from, read from the code (advisor, after attempt 8)
+        "model_sources": _model_sources(steps),
         "limits": {s.name: {"max_calls": s.max_calls, "cap_usd": s.cap_usd} for s in steps},
         "tools": tools(),
         **(extra or {}),

@@ -593,7 +593,7 @@ def test_manifest_records_hashes_models_tools():
     m = MF.build(ROOT, ST.STEPS)
     assert m["documents"]["CLAUDE.md"] and m["documents"]["docs/whu-orchestrator.md"]
     assert "backend/scripts/whatholdsup/orchestrator.py" in m["code"]
-    assert m["models"]["overstatement"] == ["gemini-4-argon"]
+    assert m["models"]["overstatement"] == ["gemini-4-argon", "claude-opus-5-5"]   # + ruling.py dangling
     assert m["tools"]["fetch_user_agent"] == "WHU-fetch/1.0 (automated research client)"
     m2 = json.loads(json.dumps(m))
     m2["code"]["backend/scripts/whatholdsup/orchestrator.py"] = "0" * 64
@@ -935,9 +935,12 @@ def test_a_acquire_sources_exit_1_is_accepted_and_another_scripts_is_not(tmp_pat
     ctx = O.Ctx.__new__(O.Ctx)
     ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.first = "orch-x", tmp_path, "trial", tmp_path, None, None
     ctx.page, ctx.gate = tmp_path / "p.html", tmp_path / "p.html.gate.json"
-    (tmp_path / "acquire_sources.py").write_text("import sys; sys.exit(1)\n")
+    (tmp_path / "acquire_sources.py").write_text(
+        "import sys, json; json.dump({'complete': True, 'held': ['S001'], 'not_held': [{'id': 'S002', "
+        "'reason': 'landing page'}]}, open(sys.argv[-1], 'w')); sys.exit(1)\n")
     (tmp_path / "errata.py").write_text("import sys; sys.exit(1)\n")
-    ok = ST.Step("acquire", "code", cmds=((sys.executable, str(tmp_path / "acquire_sources.py")),))
+    ok = ST.Step("acquire", "code", cmds=((sys.executable, str(tmp_path / "acquire_sources.py"), "x", "--out",
+                                           str(tmp_path / "acquire.json")),))
     assert O.run_cmds(ctx, ok)[0]["rc"] == 1
     with pytest.raises(O.RunStop):
         O.run_cmds(ctx, ST.Step("acquire", "code", cmds=((sys.executable, str(tmp_path / "errata.py")),)))
@@ -1512,3 +1515,66 @@ def test_every_stage_step_declares_every_model_its_commands_can_call():
             key = "%s %s" % (script, argv[2]) if script == "ruling.py" else script
             if key in calls:
                 assert calls[key] <= set(s.models), (s.name, key, calls[key] - set(s.models))
+
+
+# ---------------------------------------------------------------------------------------------------- after attempt 8
+# The advisor's follow-ups: (1) acquire_sources.py exit 1 needs proof; (2) every model a step may call, with where it
+# comes from, in the manifest; (3) each run's report shows sources found / held / not held with reasons.
+
+def test_acquire_exit_1_continues_only_with_a_fresh_record_of_each_unheld_source_and_its_reason(tmp_path):
+    import orchestrator as O
+    ctx = _exit_ctx(tmp_path)
+    rec = str(tmp_path / "orchestrator" / "acquire.json")
+    good = _script(tmp_path, "acquire_sources.py",
+                   "os.makedirs(os.path.dirname(sys.argv[-1]), exist_ok=True)\n"
+                   "json.dump({'complete': True, 'held': ['S001'], 'not_held': [{'id': 'S002', 'title': 't', "
+                   "'reason': 'a landing page'}]}, open(sys.argv[-1], 'w')); sys.exit(1)\n")
+    out = O.run_cmds(ctx, ST.Step("acquire", "code", cmds=(good + ("orch-x", "--out", rec),)))
+    assert out[0]["proof"].startswith("proved") and "each unheld source listed" in out[0]["proof"]
+    crash = _script(tmp_path, "acquire_sources.py", "raise OSError('network down')\n")      # a simulated crash
+    os.utime(rec, (0, 0))
+    with pytest.raises(O.RunStop, match="older than its start"):
+        O.run_cmds(ctx, ST.Step("acquire", "code", cmds=(crash + ("orch-x", "--out", rec),)))
+    os.unlink(rec)
+    with pytest.raises(O.RunStop, match="was not written"):
+        O.run_cmds(ctx, ST.Step("acquire", "code", cmds=(crash + ("orch-x", "--out", rec),)))
+    no_reason = _script(tmp_path, "acquire_sources.py",
+                        "json.dump({'complete': True, 'not_held': [{'id': 'S002', 'reason': ''}]}, "
+                        "open(sys.argv[-1], 'w')); sys.exit(1)\n")
+    with pytest.raises(O.RunStop, match="each unheld source with its reason"):
+        O.run_cmds(ctx, ST.Step("acquire", "code", cmds=(no_reason + ("orch-x", "--out", rec),)))
+    assert ST.EXITS["acquire_sources.py"] == {0: "ok", 1: "proof"}
+    assert ST.BY_NAME["acquire"].cmds[0][-2:] == ("--out", "{case}/orchestrator/acquire.json")
+    src = (W / "acquire_sources.py").read_text()
+    assert src.index('"not_held": [{"id": sid, "title": title, "reason": why}') > src.index(
+        'sp.write_text(json.dumps(doc, indent=2, ensure_ascii=False), encoding="utf-8")')    # written last
+
+
+def test_every_step_declares_every_model_its_code_may_call_and_the_manifest_records_where_from():
+    from orch import model_map as MM
+    from orch import manifest as MF
+    sm = MM.step_models(ST.STEPS)
+    for s in ST.STEPS:
+        assert set(sm[s.name]) <= set(s.models), (s.name, set(sm[s.name]) - set(s.models))
+    m = MF.build(ROOT, ST.STEPS)
+    assert m["model_sources"] == json.loads(json.dumps(sm))
+    for step in ("gate", "discover", "omissions", "changecheck", "final_gate"):
+        assert any("inherited" in w for w in m["model_sources"][step]["claude-sonnet-4-6"]), step
+    assert any("pinned in its own code (deliberate)" in w for w in m["model_sources"]["conclusions"]["claude-sonnet-4-6"])
+    assert {"claude-sonnet-5-5", "claude-opus-5-5"} <= set(m["model_sources"]["audit"])
+
+
+def test_each_runs_report_shows_sources_found_held_and_not_held_with_reasons(tmp_path):
+    import orchestrator as O
+    (tmp_path / "sources.json").write_text(json.dumps({
+        "sources": [{"id": "S001", "title": "A", "type": "review", "access": {"state": "full_text_held"}},
+                    {"id": "S002", "title": "B", "type": "review",
+                     "access": {"state": "blocked", "not_held": {"line": "retracted", "why": "Retraction in 1"}}}],
+        "not_of_a_type": [{"title": "C", "why": "not of a type we can check"}],
+        "unresolved_proposals": [{"proposal": {"title": "D"}, "why": "no record"}]}))
+    t = O.source_table(tmp_path)
+    assert (t["found"], t["held"], t["not_held"], t["proposals_not_confirmed"]) == (3, 1, 2, 1)
+    assert [r["reason"] for r in t["sources"]] == [None, "retracted: Retraction in 1",
+                                                   "not_of_a_type: not of a type we can check"]
+    src = (W / "orchestrator.py").read_text()
+    assert 'out["sources"] = source_table(ctx.case)' in src

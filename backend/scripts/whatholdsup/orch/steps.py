@@ -83,7 +83,7 @@ STEPS: tuple[Step, ...] = (
          code="discover"),
     Step("acquire", "code", owns=("sources.json", "errata.json", "sweeps.json", "canary.json", "library:*",
                                   "corrections/*"),
-         cmds=((PY, W + "acquire_sources.py", "{slug}"), (PY, W + "source_store.py", "{slug}", "status"),
+         cmds=((PY, W + "acquire_sources.py", "{slug}", "--out", "{case}/orchestrator/acquire.json"), (PY, W + "source_store.py", "{slug}", "status"),
                (PY, W + "errata.py", "{slug}"), (PY, W + "sweep_sources.py", "resolve", "{slug}", "--write"),
                (PY, W + "canary.py", "{slug}")), code="acquire"),
     Step("draft", "model", owns=PAGE, models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
@@ -95,7 +95,8 @@ STEPS: tuple[Step, ...] = (
          models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
     Step("corrections_3b", "code", owns=PAGE + ("bindings.json", "rulings/corrections.jsonl",
-                                                 "rulings/lean_removed.jsonl"), code="corrections"),
+                                                 "rulings/lean_removed.jsonl") + RULINGS,
+         models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling
     Step("commit_3b", "code", code="commit"),
     Step("gate", "stage", owns=("draft/{slug}.html.gate.json*", "gate-findings.json"), models=(GATE_MODEL,),
          max_calls=40, cap_usd=3.00,
@@ -120,9 +121,12 @@ STEPS: tuple[Step, ...] = (
          max_calls=600, cap_usd=4.00, repeat_group=True,
          cmds=((PY, W + "audit_stage.py", "run", "{slug}", "--cap", "{cap}"),), code="audit"),
     Step("overstatement", "model", owns=PAGE + ("rulings/overstatement.jsonl", "rulings/lean_removed.jsonl"),
-         models=(GOOGLE,), max_calls=400, cap_usd=2.00, repeat_group=True, code="overstatement"),
+         models=(GOOGLE, CURRENT), max_calls=420, cap_usd=2.50, repeat_group=True,
+         code="overstatement"),                                     # CURRENT: ruling.py dangling (20 calls, $0.50)
     Step("corrections", "code", owns=PAGE + ("bindings.json", "rulings/corrections.jsonl",
-                                              "rulings/lean_removed.jsonl"), repeat_group=True, code="corrections"),
+                                              "rulings/lean_removed.jsonl") + RULINGS,
+         models=(CURRENT,), max_calls=20, cap_usd=0.50, repeat_group=True,
+         code="corrections"),                                                       # CURRENT: ruling.py dangling
     Step("final_gate", "stage", owns=PAGE + ("draft/{slug}.html.gate.json*", "gate-findings.json",
                                              "bindings.json") + RULINGS,
          models=(GATE_MODEL, CURRENT), max_calls=200, cap_usd=2.00, repeat_group=True,
@@ -149,7 +153,7 @@ STEPS: tuple[Step, ...] = (
 # "rerun" runs the command once more, and a second such exit stops the run Not Ready. Any exit not listed stops.
 # (The preflight's `publish.py check` is read by its output, Ready or Not Ready, as before.)
 EXITS = {
-    "acquire_sources.py": {0: "ok", 1: "ok"},            # 1: a source not held (ruling (a)); code_acquire decides
+    "acquire_sources.py": {0: "ok", 1: "proof"},         # 1: a source not held (ruling (a)); proof since attempt 8
     "factcheck_draft.py": {0: "ok", 1: "proof"},         # 1: --report wrote findings ("BLOCKED")
     "changecheck_coverage.py": {0: "ok", 1: "proof"},    # 1: changed sentences changecheck never read
     "ruling.py": {0: "ok", 4: "rerun"},                  # 4: some rulings failed, findings left open

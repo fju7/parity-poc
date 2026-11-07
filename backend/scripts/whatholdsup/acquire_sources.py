@@ -202,6 +202,8 @@ def main(argv=None) -> int:
     ap.add_argument("--use-routes", action="store_true",
                     help="try the free routes find_access.py recorded, in order, "
                          "before the source's own url")
+    ap.add_argument("--out", help="also write this run's acquire record as JSON: every source held and every "
+                                  "source not held with its reason (the orchestrator's proof of completion)")
     args = ap.parse_args(argv)
     case = store.case_dir(args.slug)
 
@@ -305,6 +307,14 @@ def main(argv=None) -> int:
               % (sid, row["sha256"][:12], row["bytes"], why))
 
     sp.write_text(json.dumps(doc, indent=2, ensure_ascii=False), encoding="utf-8")
+    if args.out:
+        # Written last, after sources.json: a run that crashes part-way leaves no fresh record (advisor's ruling
+        # after attempt 8: exit 1 is accepted only with this record as proof).
+        rec = {"slug": args.slug, "complete": True, "held": [g[0] for g in got],
+               "not_held": [{"id": sid, "title": title, "reason": why} for sid, why, title in failed],
+               "skipped": [x[0] if isinstance(x, (list, tuple)) else x for x in skipped]}
+        Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.out).write_text(json.dumps(rec, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print()
     print("  held now: %d   failed: %d   skipped: %d" % (len(got), len(failed), len(skipped)))
