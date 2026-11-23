@@ -1313,6 +1313,589 @@
       ],
       "note": ""
     },
+    "180d73b3d6c5b1ed2f46d8f373820aacbcf6030988e669cb2b8a84cec38a5f59": {
+      "file": "docs/18/180d73b3d6c5b1ed2f46d8f373820aacbcf6030988e669cb2b8a84cec38a5f59.xml",
+      "bytes": 158144,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10870815/fullTextXML"
+      ],
+      "titles": [
+        "Noetel et al. — Effect of exercise for depression: systematic review and network meta-analysis of randomised controlled trials (BMJ 2024;384:e075847)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S001"
+      ],
+      "note": ""
+    },
+    "8ab6cccaaa4f26e14eab7bb2570d8db037ec9d5362a3f9ca904d8658b2150b95": {
+      "file": "docs/8a/8ab6cccaaa4f26e14eab7bb2570d8db037ec9d5362a3f9ca904d8658b2150b95.xml",
+      "bytes": 5368,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11131084/fullTextXML"
+      ],
+      "titles": [
+        "Correction: Effect of exercise for depression: systematic review and network meta-analysis of randomised controlled trials (BMJ 2024;385:q1024)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S002"
+      ],
+      "note": ""
+    },
+    "50c5287841ce9869eb4797b95d41447111184f54eda03da876940492f17b997c": {
+      "file": "docs/50/50c5287841ce9869eb4797b95d41447111184f54eda03da876940492f17b997c.xml",
+      "bytes": 164986,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10423472/fullTextXML"
+      ],
+      "titles": [
+        "Heissel et al. — Exercise as medicine for depressive symptoms? A systematic review and meta-analysis with meta-regression (Br J Sports Med 2023)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S004"
+      ],
+      "note": ""
+    },
+    "9e1ee38ef6cc7b681b71a329502d08a59ad4e53c8420b23b8764d65065571c9b": {
+      "file": "docs/9e/9e1ee38ef6cc7b681b71a329502d08a59ad4e53c8420b23b8764d65065571c9b.xml",
+      "bytes": 127838,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9008579/fullTextXML"
+      ],
+      "titles": [
+        "Pearce et al. — Association Between Physical Activity and Risk of Depression: A Systematic Review and Meta-analysis (JAMA Psychiatry 2022)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S005"
+      ],
+      "note": ""
+    },
+    "736044b5fab4711d787f35db2af69eef9b0bbd4354ffeb7bfad7cdc0c5b2d4e6": {
+      "file": "docs/73/736044b5fab4711d787f35db2af69eef9b0bbd4354ffeb7bfad7cdc0c5b2d4e6.xml",
+      "bytes": 201481,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10579187/fullTextXML"
+      ],
+      "titles": [
+        "Singh et al. — Effectiveness of physical activity interventions for improving depression, anxiety and distress: an overview of systematic reviews (Br J Sports Med 2023)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S006"
+      ],
+      "note": ""
+    },
+    "8fb54d455ce9ebeefb76ed19c44238c51f3c3b0c9b43df99db48fd23dccc7e44": {
+      "file": "docs/8f/8fb54d455ce9ebeefb76ed19c44238c51f3c3b0c9b43df99db48fd23dccc7e44.html",
+      "bytes": 266182,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.nice.org.uk/guidance/ng222/chapter/Recommendations"
+      ],
+      "titles": [
+        "NICE guideline NG222 — Depression in adults: treatment and management, Recommendations"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S007"
+      ],
+      "note": ""
+    },
+    "9fa888cf494b85cfe4abdf40c595aa006cf5752b731b1c1daccdbd90215132d3": {
+      "file": "docs/9f/9fa888cf494b85cfe4abdf40c595aa006cf5752b731b1c1daccdbd90215132d3.html",
+      "bytes": 721742,
+      "content_type": "text/html",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.webmd.com/depression/understanding-depression-basics"
+      ],
+      "titles": [
+        "WebMD — Exercise Treats Depression as Well as Therapy, Study Says (15 Feb 2024)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S008"
+      ],
+      "note": ""
+    },
+    "6023d4b37f4f5b151e45152da939a760f5dc7e93471f2a5422f91596729a40f7": {
+      "file": "docs/60/6023d4b37f4f5b151e45152da939a760f5dc7e93471f2a5422f91596729a40f7.html",
+      "bytes": 48057,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://news.uq.edu.au/2024-02-15-exercising-your-way-out-depression"
+      ],
+      "titles": [
+        "University of Queensland news — Exercising your way out of depression (Feb 2024)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S009"
+      ],
+      "note": ""
+    },
+    "719d893757a8d16f4c26d5029f574fc27a8e644457a3cbd431bc6159d7c7894f": {
+      "file": "docs/71/719d893757a8d16f4c26d5029f574fc27a8e644457a3cbd431bc6159d7c7894f.json",
+      "bytes": 12676,
+      "content_type": "application/json",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:41500513%20AND%20SRC:MED&resultType=core&format=json"
+      ],
+      "titles": [
+        "Clegg et al. — Exercise for depression (Cochrane Database of Systematic Reviews 2026, CD004366.pub7)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S003"
+      ],
+      "note": ""
+    },
+    "135c421f68a32f299c6867dda50a9c9b9c62a688c495f99b3398d3d78c7ee2d2": {
+      "file": "docs/13/135c421f68a32f299c6867dda50a9c9b9c62a688c495f99b3398d3d78c7ee2d2.html",
+      "bytes": 708977,
+      "content_type": "text/html",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.webmd.com/depression/news/20240215/cm/exercise-treats-depression-as-well-as-therapy-study-says"
+      ],
+      "titles": [
+        "WebMD — Exercise Treats Depression as Well as Therapy, Study Says (15 Feb 2024)"
+      ],
+      "used_by": [
+        "ctp-exercise-depression:S008"
+      ],
+      "note": ""
+    },
+    "45154cac70401515cd7f07cff88d9fdcd460a92d6ebc23fed3d28aa4d56da184": {
+      "file": "docs/45/45154cac70401515cd7f07cff88d9fdcd460a92d6ebc23fed3d28aa4d56da184.xml",
+      "bytes": 201187,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10899807/fullTextXML"
+      ],
+      "titles": [
+        "Lane et al. — Ultra-processed food exposure and adverse health outcomes: umbrella review of epidemiological meta-analyses (BMJ 2024;384:e077310)",
+        "Lane MM et al. — Ultra-processed food exposure and adverse health outcomes: umbrella review of epidemiological meta-analyses (BMJ 2024;384:e077310)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S001"
+      ],
+      "note": ""
+    },
+    "0de46b6fa35d993b50f3ce0b6c8277189d8718896b69ed3254b7f10c804ba6c3": {
+      "file": "docs/0d/0de46b6fa35d993b50f3ce0b6c8277189d8718896b69ed3254b7f10c804ba6c3.xml",
+      "bytes": 221330,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12532614/fullTextXML"
+      ],
+      "titles": [
+        "Dicken et al. — Ultraprocessed or minimally processed diets following healthy dietary guidelines on weight and cardiometabolic health: a randomized, crossover trial (Nat Med 2025)",
+        "Dicken SJ et al. — Ultraprocessed or minimally processed diets following healthy dietary guidelines on weight and cardiometabolic health: a randomized, crossover trial (Nat Med 2025)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S005"
+      ],
+      "note": ""
+    },
+    "ea6d66e8a503efd5a0948a97d1dbf4682530b6ad4795882a31adfe047ee4b4c5": {
+      "file": "docs/ea/ea6d66e8a503efd5a0948a97d1dbf4682530b6ad4795882a31adfe047ee4b4c5.xml",
+      "bytes": 189552,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11077436/fullTextXML"
+      ],
+      "titles": [
+        "Fang et al. — Association of ultra-processed food consumption with all cause and cause specific mortality: population based cohort study (BMJ 2024;385:e078476)",
+        "Fang Z et al. — Association of ultra-processed food consumption with all cause and cause specific mortality: population based cohort study (BMJ 2024;385:e078476)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S006"
+      ],
+      "note": ""
+    },
+    "7274c1f9f1f60d10ef99d8f1a921a8949ea2d2cba2b01c2faa9a929df02160ff": {
+      "file": "docs/72/7274c1f9f1f60d10ef99d8f1a921a8949ea2d2cba2b01c2faa9a929df02160ff.xml",
+      "bytes": 34498,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13621495/fullTextXML"
+      ],
+      "titles": [
+        "Response to: Debate in relation to 'Ultra-processed foods and human health: the main thesis and the evidence' (BMC Med 2026)"
+      ],
+      "used_by": [],
+      "note": ""
+    },
+    "c880ea9e23a49d93d1379ec931b8b5fba9280ad54592b854c29d4c329c485cb3": {
+      "file": "docs/c8/c880ea9e23a49d93d1379ec931b8b5fba9280ad54592b854c29d4c329c485cb3.html",
+      "bytes": 173682,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://bmjgroup.com/consistent-evidence-links-ultra-processed-food-to-over-30-damaging-health-outcomes/"
+      ],
+      "titles": [
+        "BMJ Group press release — Consistent evidence links ultra-processed food to over 30 damaging health outcomes (Feb 2024)"
+      ],
+      "used_by": [],
+      "note": ""
+    },
+    "2189d8a8801964e8421ed33751fa2756045049b1b03e1ee6bdfb6d8989295675": {
+      "file": "docs/21/2189d8a8801964e8421ed33751fa2756045049b1b03e1ee6bdfb6d8989295675.html",
+      "bytes": 67889,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.sciencemediacentre.co.nz/2024/02/29/ultra-processed-foods-linked-to-32-health-issues-expert-reaction/"
+      ],
+      "titles": [
+        "Science Media Centre NZ — expert reaction to the BMJ ultra-processed food umbrella review"
+      ],
+      "used_by": [],
+      "note": ""
+    },
+    "e95aca1562741ad9a7534d8fdbef31032713b82bd3d975b63a4b5b47d0e29ae3": {
+      "file": "docs/e9/e95aca1562741ad9a7534d8fdbef31032713b82bd3d975b63a4b5b47d0e29ae3.xml",
+      "bytes": 162623,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7946062"
+      ],
+      "titles": [
+        "Hall et al. — Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake (Cell Metab 2019)"
+      ],
+      "used_by": [],
+      "note": ""
+    },
+    "7206dc0a84fee6b8282c389e18b06d3830b8e240a9502ac3b1ed8e5dd83fa233": {
+      "file": "docs/72/7206dc0a84fee6b8282c389e18b06d3830b8e240a9502ac3b1ed8e5dd83fa233.xml",
+      "bytes": 10635,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7959109"
+      ],
+      "titles": [
+        "Correction notice to Hall et al. 2019 (Cell Metab, 10.1016/j.cmet.2019.05.020)"
+      ],
+      "used_by": [],
+      "note": ""
+    },
+    "ffc3c8c4286ab391bf4cc35600dd3dd21f7935903e702f044544ba48728f2664": {
+      "file": "docs/ff/ffc3c8c4286ab391bf4cc35600dd3dd21f7935903e702f044544ba48728f2664.xml",
+      "bytes": 44449,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13617801/fullTextXML"
+      ],
+      "titles": [
+        "Ibsen, Fridén & Tomova — Public health policy should be grounded in established evidence that acknowledges uncertainty: a response to The Lancet series on ultra-processed foods (BMC Med 2026)"
+      ],
+      "used_by": [],
+      "note": ""
+    },
+    "7af09662a48d4fe46d6a78a7ce946f62c1b6c03b6af5e7d0ffd5d2c7798bc3be": {
+      "file": "docs/7a/7af09662a48d4fe46d6a78a7ce946f62c1b6c03b6af5e7d0ffd5d2c7798bc3be.xml",
+      "bytes": 249392,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12175170/fullTextXML"
+      ],
+      "titles": [
+        "Semnani-Azad et al. — Intermittent fasting strategies and their effects on body weight and other cardiometabolic risk factors: systematic review and network meta-analysis (BMJ 2025;389:e082007)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S002"
+      ],
+      "note": ""
+    },
+    "662af2426ecc88d9505b285a35d5a676ca95c493d04ff9d506799013609d896c": {
+      "file": "docs/66/662af2426ecc88d9505b285a35d5a676ca95c493d04ff9d506799013609d896c.xml",
+      "bytes": 3947,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12359177/fullTextXML"
+      ],
+      "titles": [
+        "Correction to Semnani-Azad et al. (BMJ 2025;390:r1737)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S003"
+      ],
+      "note": ""
+    },
+    "70ec190a56c147f9dbbec1cee397b52233c9366b8a409e7d5a55d42f4820c5fc": {
+      "file": "docs/70/70ec190a56c147f9dbbec1cee397b52233c9366b8a409e7d5a55d42f4820c5fc.html",
+      "bytes": 75997,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://news.cuanschutz.edu/news-stories/intermittent-fasting-outperforms-calorie-counting-in-weight-loss-study"
+      ],
+      "titles": [
+        "CU Anschutz news — Intermittent fasting outperforms calorie counting in weight loss study (2025)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S008"
+      ],
+      "note": ""
+    },
+    "84eff34b65a06de348759e68147804cf24cd35ce2b100dbad647ea468dbc3758": {
+      "file": "docs/84/84eff34b65a06de348759e68147804cf24cd35ce2b100dbad647ea468dbc3758.html",
+      "bytes": 183328,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.sciencealert.com/one-simple-strategy-for-weight-loss-outperforms-daily-dieting-study-says"
+      ],
+      "titles": [
+        "ScienceAlert — One simple strategy for weight loss outperforms daily dieting, study says (2025)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S009"
+      ],
+      "note": ""
+    },
+    "59f0aab3ca02532e276333521a3ef8b84d87d1f12454b730f84e0bbb29901e97": {
+      "file": "docs/59/59f0aab3ca02532e276333521a3ef8b84d87d1f12454b730f84e0bbb29901e97.xml",
+      "bytes": 112785,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=12863240"
+      ],
+      "titles": [
+        "Catenacci et al. — The Effect of 4:3 Intermittent Fasting on Weight Loss at 12 Months: A Randomized Clinical Trial (Ann Intern Med 2025)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S006"
+      ],
+      "note": ""
+    },
+    "61d37ffc91cfb8b864b588acd9752b2fd6bed9f1fcd145f74845df105fec5520": {
+      "file": "docs/61/61d37ffc91cfb8b864b588acd9752b2fd6bed9f1fcd145f74845df105fec5520.json",
+      "bytes": 12482,
+      "content_type": "application/json",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:41692034%20AND%20SRC:MED&resultType=core&format=json"
+      ],
+      "titles": [
+        "Cochrane 2026 — Intermittent fasting for adults with overweight or obesity (CD015610.pub2)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S001"
+      ],
+      "note": ""
+    },
+    "ea0d69e78a75378d8751eab9869118990dd389c89c10211fadbd81d29ef696a4": {
+      "file": "docs/ea/ea0d69e78a75378d8751eab9869118990dd389c89c10211fadbd81d29ef696a4.json",
+      "bytes": 14649,
+      "content_type": "application/json",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:35443107%20AND%20SRC:MED&resultType=core&format=json"
+      ],
+      "titles": [
+        "Liu et al. — Calorie Restriction with or without Time-Restricted Eating in Weight Loss (N Engl J Med 2022)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S004"
+      ],
+      "note": ""
+    },
+    "ba362db699bacfe8e0a75d6ac54dcf013706cb3165a9f2a49bda6e37f4ebe4ba": {
+      "file": "docs/ba/ba362db699bacfe8e0a75d6ac54dcf013706cb3165a9f2a49bda6e37f4ebe4ba.xml",
+      "bytes": 98983,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=5680777"
+      ],
+      "titles": [
+        "Trepanowski et al. — Effect of Alternate-Day Fasting on Weight Loss, Weight Maintenance, and Cardioprotection Among Metabolically Healthy Obese Adults (JAMA Intern Med 2017)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S005"
+      ],
+      "note": "FORCED: substance() refused (43,497 chars; sections methods/results/discussion/conclusion present). Opened by this session: 29 <ref> elements, full methods, results and discussion of the JAMA IM 2017 author manuscript. The refusal appears to be the reference-list detector missing XML-tagged refs."
+    },
+    "2ae65943c77b3364dffe57d0eaa6668f83a041e4fed6e38a028dddb41b572633": {
+      "file": "docs/2a/2ae65943c77b3364dffe57d0eaa6668f83a041e4fed6e38a028dddb41b572633.xml",
+      "bytes": 20237,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=7522780"
+      ],
+      "titles": [
+        "Lowe et al. — Effects of Time-Restricted Eating on Weight Loss and Other Metabolic Parameters in Women and Men With Overweight and Obesity: The TREAT Randomized Clinical Trial (JAMA Intern Med 2020)"
+      ],
+      "used_by": [
+        "ctp-intermittent-fasting:S007"
+      ],
+      "note": "FORCED, as an ABSTRACT: opened by this session; 8,759 characters = key points + structured abstract only, no body. Treated as abstract_held in sources.json."
+    },
+    "c466d94869cf1b8e5305e1a36cf72137219ebc81671431a35edb73348aba81f8": {
+      "file": "docs/c4/c466d94869cf1b8e5305e1a36cf72137219ebc81671431a35edb73348aba81f8.xml",
+      "bytes": 144114,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8718069/fullTextXML"
+      ],
+      "titles": [
+        "Waterhouse et al. — Vitamin D supplementation and risk of falling: outcomes from the randomized, placebo-controlled D-Health Trial (J Cachexia Sarcopenia Muscle 2021)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S002"
+      ],
+      "note": ""
+    },
+    "5367abd6bb0b76ae27ce7ab09a49de946ed7f2f3b9b930dc8e11db1a82986259": {
+      "file": "docs/53/5367abd6bb0b76ae27ce7ab09a49de946ed7f2f3b9b930dc8e11db1a82986259.xml",
+      "bytes": 64360,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13172633/fullTextXML"
+      ],
+      "titles": [
+        "Revisiting the Role of Vitamin D in Fracture Prevention in the Era of Mega-Trials (Endocrinol Metab 2026)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S004"
+      ],
+      "note": ""
+    },
+    "ff8065666c5783f5b34c088b250fe27fce6f86943f1ceeeecd2dbb95ea523acc": {
+      "file": "docs/ff/ff8065666c5783f5b34c088b250fe27fce6f86943f1ceeeecd2dbb95ea523acc.html",
+      "bytes": 113791,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/vitamin-d-calcium-or-combined-supplementation-for-the-primary-prevention-of-fractures-in-adults-preventive-medication"
+      ],
+      "titles": [
+        "USPSTF — Vitamin D, Calcium, or Combined Supplementation for the Primary Prevention of Fractures in Community-Dwelling Adults (recommendation page)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S007"
+      ],
+      "note": ""
+    },
+    "72fe641d84a9331c30d7a70df0e90a598d86bddcb685aa90a5ab33219dac66b4": {
+      "file": "docs/72/72fe641d84a9331c30d7a70df0e90a598d86bddcb685aa90a5ab33219dac66b4.html",
+      "bytes": 894041,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.healthday.com/healthpro-news/senior-health/uspstf-recommends-against-vitamin-d-supplementation-for-fracture-fall-prevention"
+      ],
+      "titles": [
+        "HealthDay — USPSTF Recommends Against Vitamin D Supplementation for Fracture, Fall Prevention"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S008"
+      ],
+      "note": ""
+    },
+    "3162aa38425b71f54a94f3a021e563b157ab222de64030c0ffc2e8a00857ace7": {
+      "file": "docs/31/3162aa38425b71f54a94f3a021e563b157ab222de64030c0ffc2e8a00857ace7.xml",
+      "bytes": 100788,
+      "content_type": "application/xml",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc&id=9716639"
+      ],
+      "titles": [
+        "LeBoff et al. — Supplemental Vitamin D and Incident Fractures in Midlife and Older Adults (N Engl J Med 2022)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S001"
+      ],
+      "note": ""
+    },
+    "1de7f0c8c3ad76348baeb64a0716067f8a9993383d13e30f5b46a53b66e7d257": {
+      "file": "docs/1d/1de7f0c8c3ad76348baeb64a0716067f8a9993383d13e30f5b46a53b66e7d257.json",
+      "bytes": 8972,
+      "content_type": "application/json",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:30293909%20AND%20SRC:MED&resultType=core&format=json"
+      ],
+      "titles": [
+        "Bolland, Grey & Avenell — Effects of vitamin D supplementation on musculoskeletal health: a systematic review, meta-analysis, and trial sequential analysis (Lancet Diabetes Endocrinol 2018)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S005"
+      ],
+      "note": ""
+    },
+    "f01aa52316b668fa849dee04be2c423968eb2b9893c77cd0ce4dad38ee5a76f5": {
+      "file": "docs/f0/f01aa52316b668fa849dee04be2c423968eb2b9893c77cd0ce4dad38ee5a76f5.json",
+      "bytes": 14630,
+      "content_type": "application/json",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:38828931%20AND%20SRC:MED&resultType=core&format=json"
+      ],
+      "titles": [
+        "Demay et al. — Vitamin D for the Prevention of Disease: An Endocrine Society Clinical Practice Guideline (J Clin Endocrinol Metab 2024)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S006"
+      ],
+      "note": ""
+    },
+    "950834ee19e9e5ab5584182ca988134c1331eb3b0a9592952b21a8894fd88bf7": {
+      "file": "docs/95/950834ee19e9e5ab5584182ca988134c1331eb3b0a9592952b21a8894fd88bf7.html",
+      "bytes": 41931,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.uspreventiveservicestaskforce.org/uspstf/draft-update-summary/vitamin-d-calcium-combined-supplementation-primary-prevention-falls-fractures-communitydwelling-adults"
+      ],
+      "titles": [
+        "USPSTF — Draft update summary: Vitamin D, Calcium, or Combined Supplementation for the Primary Prevention of Falls and Fractures in Community-Dwelling Adults (December 2024)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S009"
+      ],
+      "note": ""
+    },
+    "cb88d13939ba0552e51d611cb144feaf949a593ce7b65fc3db238e4ef97ae1e2": {
+      "file": "docs/cb/cb88d13939ba0552e51d611cb144feaf949a593ce7b65fc3db238e4ef97ae1e2.html",
+      "bytes": 88979,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-16",
+      "urls": [
+        "https://www.uspreventiveservicestaskforce.org/uspstf/draft-recommendation/vitamin-d-calcium-combined-supplementation-primary-prevention-falls-fractures-communitydwelling-adults"
+      ],
+      "titles": [
+        "USPSTF — Draft Recommendation Statement: Vitamin D, Calcium, or Combined Supplementation for the Primary Prevention of Falls and Fractures in Community-Dwelling Adults (December 2024)"
+      ],
+      "used_by": [
+        "ctp-vitamin-d-over-60:S010"
+      ],
+      "note": ""
+    },
     "c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e": {
       "file": "docs/c9/c9a31194f7da3d36c628942b8c5ebcc175cddbb44977a4a227c0f084cd128e5e.pdf",
       "bytes": 147809,
@@ -1632,6 +2215,2125 @@
         "deskilling:S049"
       ],
       "note": ""
+    },
+    "6025a4b27ad25f12056da64f756b6d626a500420618575de762fc3a45eb415e9": {
+      "file": "docs/60/6025a4b27ad25f12056da64f756b6d626a500420618575de762fc3a45eb415e9.pdf",
+      "bytes": 6201386,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-19",
+      "urls": [
+        "https://arxiv.org/pdf/2604.04721v6"
+      ],
+      "titles": [
+        "AI Assistance Reduces Persistence and Hurts Independent Performance (arXiv:2604.04721v6, 13 Oct 2026)"
+      ],
+      "used_by": [
+        "deskilling:S001"
+      ],
+      "note": "v6 of the paper held as v4; read to compare the figures the page uses"
+    },
+    "925395dc67329b851eafa2d73b1d1eba50055d9da2b328821a5c1de167c203cf": {
+      "file": "docs/92/925395dc67329b851eafa2d73b1d1eba50055d9da2b328821a5c1de167c203cf.xml",
+      "bytes": 148412,
+      "content_type": "application/xml",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10730313/fullTextXML"
+      ],
+      "titles": [
+        "Cordova R et al. — Consumption of ultra-processed foods and risk of multimorbidity of cancer and cardiometabolic diseases: a multinational cohort study (Lancet Reg Health Eur 2023)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S007"
+      ],
+      "note": ""
+    },
+    "8d97cbac4f67ae656218959a311e8900e6ab149ef0d2a842faaa4c5f395cf80e": {
+      "file": "docs/8d/8d97cbac4f67ae656218959a311e8900e6ab149ef0d2a842faaa4c5f395cf80e.xml",
+      "bytes": 240023,
+      "content_type": "application/xml",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11403639/fullTextXML"
+      ],
+      "titles": [
+        "Mendoza K et al. — Ultra-processed foods and cardiovascular disease: analysis of three large US prospective cohorts and a systematic review and meta-analysis of prospective cohort studies (Lancet Reg Health Am 2024)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S009"
+      ],
+      "note": ""
+    },
+    "407c60e8528e2470d6969b99daa80125d79fca516d523f76b3f548706c0e55dc": {
+      "file": "docs/40/407c60e8528e2470d6969b99daa80125d79fca516d523f76b3f548706c0e55dc.xml",
+      "bytes": 476307,
+      "content_type": "application/xml",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8747015/fullTextXML"
+      ],
+      "titles": [
+        "Dicken SJ, Batterham RL — The Role of Diet Quality in Mediating the Association between Ultra-Processed Food Intake, Obesity and Health-Related Outcomes: A Review of Prospective Cohort Studies (Nutrients 2021;14:23)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S010"
+      ],
+      "note": ""
+    },
+    "47d4a5886b3c19172b99b6c0eb62ce59c3d7d286bc20a90c4d9cafc424afc9d0": {
+      "file": "docs/47/47d4a5886b3c19172b99b6c0eb62ce59c3d7d286bc20a90c4d9cafc424afc9d0.pdf",
+      "bytes": 568558,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://assets.publishing.service.gov.uk/media/67ea98e4ba01abac8e9fe963/sacn-processed-foods-review.pdf"
+      ],
+      "titles": [
+        "Scientific Advisory Committee on Nutrition — Processed foods and health: SACN's rapid evidence update (2025)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S011"
+      ],
+      "note": ""
+    },
+    "0e3233d2f88149c5bf85374f2bd4bbeb5c5f1f3c57d53fbd3a0d69f9eb50a773": {
+      "file": "docs/0e/0e3233d2f88149c5bf85374f2bd4bbeb5c5f1f3c57d53fbd3a0d69f9eb50a773.xml",
+      "bytes": 77885,
+      "content_type": "application/xml",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11347361/fullTextXML"
+      ],
+      "titles": [
+        "Causality or confounding? Applying E values to examine associations between ultra-processed food consumption and risk of weight gain and obesity (Int J Obes 2024)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S014"
+      ],
+      "note": ""
+    },
+    "71c78ec942a2b4ebca91921b26a101b54c3e466d82ac6ad1def23024c0d4e660": {
+      "file": "docs/71/71c78ec942a2b4ebca91921b26a101b54c3e466d82ac6ad1def23024c0d4e660.html",
+      "bytes": 97523,
+      "content_type": "text/html",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.lbc.co.uk/article/ultra-processed-food-harm-organ-threat-5HjdN68_2/"
+      ],
+      "titles": [
+        "LBC — Ultra-processed food linked to harm in every human organ - as experts warn of 'seismic threat' (19 Nov 2025)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S015"
+      ],
+      "note": ""
+    },
+    "585f34c4ecef4db3df042c7473ea38a368627e2539fcd3437f470d5f03824737": {
+      "file": "docs/58/585f34c4ecef4db3df042c7473ea38a368627e2539fcd3437f470d5f03824737.html",
+      "bytes": 170178,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.fox6now.com/news/ultra-processed-foods-higher-risk-cancer-heart-disease-early-death-study-2024"
+      ],
+      "titles": [
+        "FOX6 Milwaukee — Ultra-processed foods linked to higher risk of cancer, heart disease, early death, study says (1 Mar 2024)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S016"
+      ],
+      "note": ""
+    },
+    "433fb897ba2d2c04a5051d441d9610b537028853aa8805ab20f17ccc683e2d98": {
+      "file": "docs/43/433fb897ba2d2c04a5051d441d9610b537028853aa8805ab20f17ccc683e2d98.html",
+      "bytes": 363220,
+      "content_type": "text/html",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://www.dailymaverick.co.za/article/2025-11-24-new-lancet-series-warns-ultraprocessed-fd-foods-are-reshaping-diets-and-fuelling/"
+      ],
+      "titles": [
+        "Daily Maverick — New Lancet series warns ultra-processed foods are reshaping diets and fuelling global burden of disease (24 Nov 2025)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S017"
+      ],
+      "note": ""
+    },
+    "829a14b85cbbcae7c948cacb94c2351cfae34109c1db75cf1fd433a47502fa58": {
+      "file": "docs/82/829a14b85cbbcae7c948cacb94c2351cfae34109c1db75cf1fd433a47502fa58.pdf",
+      "bytes": 1257441,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://edepot.wur.nl/706773"
+      ],
+      "titles": [
+        "Monteiro CA et al. — Ultra-processed foods and human health: the main thesis and the evidence (Lancet 2025)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S013"
+      ],
+      "note": ""
+    },
+    "753bf7d79fb3b5ca2197b6f7fd9e56daa1d92c4ccbf8eca06379e79122625aac": {
+      "file": "docs/75/753bf7d79fb3b5ca2197b6f7fd9e56daa1d92c4ccbf8eca06379e79122625aac.pdf",
+      "bytes": 113273,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10260459/"
+      ],
+      "titles": [
+        "Monteiro CA et al. — Ultra-processed foods: what they are and how to identify them (Public Health Nutr 2019;22:936-941)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S012"
+      ],
+      "note": ""
+    },
+    "d38cd31268dcb4ff00737755345c3fac9216cf57da4a5c3319160c1b48c3a76a": {
+      "file": "docs/d3/d38cd31268dcb4ff00737755345c3fac9216cf57da4a5c3319160c1b48c3a76a.pdf",
+      "bytes": 136479,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://doi.org/10.1016/j.cmet.2020.08.014"
+      ],
+      "titles": [
+        "Correction on Hall et al., Cell Metab 2020 (10.1016/j.cmet.2020.08.014)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S004"
+      ],
+      "note": ""
+    },
+    "8580b0951391ba1a3c914bb3f6945ebf128ca8e6294dec64be205920358a3a8b": {
+      "file": "docs/85/8580b0951391ba1a3c914bb3f6945ebf128ca8e6294dec64be205920358a3a8b.pdf",
+      "bytes": 1319016,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7946062/"
+      ],
+      "titles": [
+        "Hall KD et al. — Ultra-Processed Diets Cause Excess Calorie Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake (Cell Metab 2019;30:67-77)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S002"
+      ],
+      "note": ""
+    },
+    "44315e0c73877cde3dada490aaafeb6f4b13df42050fb8836eb7689bad79151e": {
+      "file": "docs/44/44315e0c73877cde3dada490aaafeb6f4b13df42050fb8836eb7689bad79151e.pdf",
+      "bytes": 26953,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7959109/"
+      ],
+      "titles": [
+        "Erratum/notice on Hall et al., Cell Metab 2019 (10.1016/j.cmet.2019.05.020)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S003"
+      ],
+      "note": ""
+    },
+    "efdd3333590d55ce6c4f230fc523284493a851a7ae3da8360393bef8688052b8": {
+      "file": "docs/ef/efdd3333590d55ce6c4f230fc523284493a851a7ae3da8360393bef8688052b8.pdf",
+      "bytes": 35516052,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-20",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10300524/"
+      ],
+      "titles": [
+        "Chen Z et al. — Ultra-Processed Food Consumption and Risk of Type 2 Diabetes: Three Large Prospective U.S. Cohort Studies (Diabetes Care 2023;46:1335-1344)"
+      ],
+      "used_by": [
+        "ultra-processed-foods:S008"
+      ],
+      "note": ""
+    },
+    "0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84": {
+      "file": "docs/0a/0a3b9f671d7150c69a3088e006b7fab84e41ed90fc4eefdf92d076b2d3c8ce84.pdf",
+      "bytes": 2159848,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_SPM.pdf"
+      ],
+      "titles": [
+        "IPCC — Summary for Policymakers, Climate Change 2022: Mitigation of Climate Change (AR6 Working Group III)",
+        "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S001",
+        "urban-form-transport-emissions:S003",
+        "whu-rerun-s07:S006",
+        "whu-quarterly-r1-04:S004",
+        "whu-lean-q1-04:S003",
+        "whu-lean-q1-04b:S003",
+        "whu-lean-q1-04c:S004"
+      ],
+      "note": ""
+    },
+    "b08dcc7c7293e773bea4c7efac3833d165b36580cd02b67806a6b4dc8c00f9a2": {
+      "file": "docs/b0/b08dcc7c7293e773bea4c7efac3833d165b36580cd02b67806a6b4dc8c00f9a2.pdf",
+      "bytes": 2679979,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter02.pdf"
+      ],
+      "titles": [
+        "Dhakal S et al. — Chapter 2: Emissions Trends and Drivers, in Climate Change 2022: Mitigation of Climate Change (IPCC AR6 WGIII)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S002"
+      ],
+      "note": ""
+    },
+    "49dbec3db572232217ecebddc1afb05789f140ad0de485cfd289070ce1e370da": {
+      "file": "docs/49/49dbec3db572232217ecebddc1afb05789f140ad0de485cfd289070ce1e370da.pdf",
+      "bytes": 2142034,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_summary-for-policymakers.pdf"
+      ],
+      "titles": [
+        "IPCC — Summary for Policymakers, Climate Change 2014: Mitigation of Climate Change (AR5 Working Group III)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S003"
+      ],
+      "note": ""
+    },
+    "f7e6d5addfdc7a0e7424bf74396b7dbea07072842283ca62dc4e53e94a9286d3": {
+      "file": "docs/f7/f7e6d5addfdc7a0e7424bf74396b7dbea07072842283ca62dc4e53e94a9286d3.pdf",
+      "bytes": 7243436,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://essd.copernicus.org/articles/13/5213/2021/essd-13-5213-2021.pdf"
+      ],
+      "titles": [
+        "Minx JC et al. — A comprehensive and synthetic dataset for global, regional, and national greenhouse gas emissions by sector 1970–2018 with an extension to 2019 (Earth Syst Sci Data 2021;13:5213-5252)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S004"
+      ],
+      "note": ""
+    },
+    "166e10a66b4dfb1e3396be57dc0596a9e3de6c17a293a2f0b933d5f30572df12": {
+      "file": "docs/16/166e10a66b4dfb1e3396be57dc0596a9e3de6c17a293a2f0b933d5f30572df12.pdf",
+      "bytes": 13426392,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://essd.copernicus.org/articles/18/3211/2026/essd-18-3211-2026.pdf"
+      ],
+      "titles": [
+        "Friedlingstein P et al. — Global Carbon Budget 2025 (Earth Syst Sci Data 2026;18:3211)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S005"
+      ],
+      "note": ""
+    },
+    "795eb30a2ed5defdffb78499b0c3eac2314eac3a4ab5d7e9f093bef336acafeb": {
+      "file": "docs/79/795eb30a2ed5defdffb78499b0c3eac2314eac3a4ab5d7e9f093bef336acafeb.pdf",
+      "bytes": 9736703,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://essd.copernicus.org/articles/18/3889/2026/essd-18-3889-2026.pdf"
+      ],
+      "titles": [
+        "Forster PM et al. — Indicators of Global Climate Change 2025: annual update of key indicators of the state of the climate system and human influence (Earth Syst Sci Data 2026;18:3889-3933)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S006"
+      ],
+      "note": ""
+    },
+    "6c88ab8e1c0abf5ffda912e8dad7a2b18871f6a5ffda7d1cdb52cedeb6682d19": {
+      "file": "docs/6c/6c88ab8e1c0abf5ffda912e8dad7a2b18871f6a5ffda7d1cdb52cedeb6682d19.html",
+      "bytes": 49043,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ipcc.ch/2014/04/13/ipcc-greenhouse-gas-emissions-accelerate-despite-reduction-efforts/"
+      ],
+      "titles": [
+        "IPCC newsroom — IPCC: Greenhouse gas emissions accelerate despite reduction efforts (Berlin, 13 April 2014)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S008"
+      ],
+      "note": ""
+    },
+    "294849d1947b484b29a36f3de16274d9fcbd29fa615e9d742e84bfc76aa92eb9": {
+      "file": "docs/29/294849d1947b484b29a36f3de16274d9fcbd29fa615e9d742e84bfc76aa92eb9.html",
+      "bytes": 144170,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://c4scourses.in/national-affairs/unep-emissions-gap-report-2025/"
+      ],
+      "titles": [
+        "C4S Courses — UNEP Emissions Gap Report 2025 (6 Nov 2025)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S009"
+      ],
+      "note": ""
+    },
+    "c46605afbcc6c2061404c6c3f25fb1c4388d632733dfa50b3cc471bc35b2209a": {
+      "file": "docs/c4/c46605afbcc6c2061404c6c3f25fb1c4388d632733dfa50b3cc471bc35b2209a.html",
+      "bytes": 225198,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://jamaica-gleaner.com/index%2Ephp/article/news/20251204/earth-today-countries-failing"
+      ],
+      "titles": [
+        "Jamaica Gleaner — Earth Today: Countries failing (4 Dec 2025)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S010"
+      ],
+      "note": ""
+    },
+    "d5364c4761df1a88a39b942a982e24c6bfe205ad49ff3ed8b2af7a728992ff30": {
+      "file": "docs/d5/d5364c4761df1a88a39b942a982e24c6bfe205ad49ff3ed8b2af7a728992ff30.pdf",
+      "bytes": 4115807,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://wedocs.unep.org/handle/20.500.11822/48854"
+      ],
+      "titles": [
+        "UNEP — Emissions Gap Report 2025: Off Target (Nairobi, November 2025)"
+      ],
+      "used_by": [
+        "greenhouse-gas-emissions-growth:S007"
+      ],
+      "note": ""
+    },
+    "c498bfa48b5d992d0b8cf8d36a19717031ace27b6788943c423524e8c4c88e2d": {
+      "file": "docs/c4/c498bfa48b5d992d0b8cf8d36a19717031ace27b6788943c423524e8c4c88e2d.xml",
+      "bytes": 194297,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12713157/fullTextXML"
+      ],
+      "titles": [
+        "Otieno JA et al. — Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes (Cochrane Database Syst Rev 2025, CD016194)",
+        "Impact of rapid nucleic acid amplification tests for tuberculosis on patient outcomes"
+      ],
+      "used_by": [
+        "tb-dna-testing:S001",
+        "whu-rerun-s01:S015"
+      ],
+      "note": ""
+    },
+    "3845fa0eacb276680570bfd72e9664013fe69d742432098a608750e5852d11b2": {
+      "file": "docs/38/3845fa0eacb276680570bfd72e9664013fe69d742432098a608750e5852d11b2.xml",
+      "bytes": 332398,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8208889/fullTextXML"
+      ],
+      "titles": [
+        "Haraka F et al. — Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis (Cochrane Database Syst Rev 2021, CD012972.pub2)",
+        "Impact of the diagnostic test Xpert MTB/RIF on patient outcomes for tuberculosis"
+      ],
+      "used_by": [
+        "tb-dna-testing:S002",
+        "whu-rerun-s01:S001"
+      ],
+      "note": ""
+    },
+    "477b8cd2fa66c6db64461eb505f7f630113cbf00d3b0df5ff07ddd6a8bde6591": {
+      "file": "docs/47/477b8cd2fa66c6db64461eb505f7f630113cbf00d3b0df5ff07ddd6a8bde6591.xml",
+      "bytes": 119530,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6366854/fullTextXML"
+      ],
+      "titles": [
+        "Di Tanna GL et al. — Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis (Lancet Glob Health 2019;7:e191-e199)",
+        "Effect of Xpert MTB/RIF on clinical outcomes in routine care settings: individual patient data meta-analysis"
+      ],
+      "used_by": [
+        "tb-dna-testing:S003",
+        "whu-rerun-s01:S002"
+      ],
+      "note": ""
+    },
+    "c056b0004cbce7a2e0d461ff9464f5440ed35df9d621826b91f3cfb283a09102": {
+      "file": "docs/c0/c056b0004cbce7a2e0d461ff9464f5440ed35df9d621826b91f3cfb283a09102.xml",
+      "bytes": 235934,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9748908/fullTextXML"
+      ],
+      "titles": [
+        "Lee JH et al. — Impact of molecular diagnostic tests on diagnostic and treatment delays in tuberculosis: a systematic review and meta-analysis (BMC Infect Dis 2022;22:940)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S004"
+      ],
+      "note": ""
+    },
+    "cf52ff4760a76db647ffb3f44c606b7cfac6a3fd4c816911c73cff63832aa177": {
+      "file": "docs/cf/cf52ff4760a76db647ffb3f44c606b7cfac6a3fd4c816911c73cff63832aa177.html",
+      "bytes": 376563,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.nature.com/articles/s41591-023-02247-1?error=cookies_not_supported&code=eec6eaf9-a13b-4c20-8079-7fd929a7e1d0"
+      ],
+      "titles": [
+        "Esmail A et al. — Comparison of two diagnostic intervention packages for community-based active case finding for tuberculosis: an open-label randomized controlled trial (Nat Med 2023;29:1009-1016)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S005"
+      ],
+      "note": ""
+    },
+    "e3f4c2e6adc556520cf24b897d15018da47294bb58e76e0f382a8e852aaae68c": {
+      "file": "docs/e3/e3f4c2e6adc556520cf24b897d15018da47294bb58e76e0f382a8e852aaae68c.xml",
+      "bytes": 79584,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11629260/fullTextXML"
+      ],
+      "titles": [
+        "Katamba A et al. — Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned analysis of a cluster-randomized trial (EClinicalMedicine 2024;78:102953)",
+        "Impact of a multicomponent strategy including decentralized molecular testing for tuberculosis on mortality: planned analysis of a cluster-randomized trial in Uganda"
+      ],
+      "used_by": [
+        "tb-dna-testing:S007",
+        "whu-rerun-s01:S009"
+      ],
+      "note": ""
+    },
+    "996b0f4b22e51d6206edcf54de07b3eb52bd723bdb66bf681fe7b34bf840ca4b": {
+      "file": "docs/99/996b0f4b22e51d6206edcf54de07b3eb52bd723bdb66bf681fe7b34bf840ca4b.xml",
+      "bytes": 89579,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9808509/fullTextXML"
+      ],
+      "titles": [
+        "Mukoka M et al. — Utility of Xpert MTB/RIF Ultra and digital chest radiography for the diagnosis and treatment of TB in people living with HIV: a randomised controlled trial (XACT-TB) (Trans R Soc Trop Med Hyg 2023;117:28-37)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S008"
+      ],
+      "note": ""
+    },
+    "22c9004b0346598e26d982d7b45e7b947b6f0da79b4ffefeb85caa15c4ec937b": {
+      "file": "docs/22/22c9004b0346598e26d982d7b45e7b947b6f0da79b4ffefeb85caa15c4ec937b.xml",
+      "bytes": 117535,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4244039/fullTextXML"
+      ],
+      "titles": [
+        "Cox HS et al. — Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pragmatic randomised trial (PLoS Med 2014;11:e1001760)",
+        "Impact of Xpert MTB/RIF for TB diagnosis in a primary care clinic with high TB and HIV prevalence in South Africa: a pragmatic randomised trial"
+      ],
+      "used_by": [
+        "tb-dna-testing:S011",
+        "whu-rerun-s01:S004"
+      ],
+      "note": ""
+    },
+    "691b0c9945a8072b7a6cfd02213cc4ef5c416f5444f075e176b4e4e591074f82": {
+      "file": "docs/69/691b0c9945a8072b7a6cfd02213cc4ef5c416f5444f075e176b4e4e591074f82.xml",
+      "bytes": 218832,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4260794/fullTextXML"
+      ],
+      "titles": [
+        "Durovni B et al. — Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-randomized trial (PLoS Med 2014;11:e1001766)",
+        "Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil: a stepped-wedge cluster-randomized trial"
+      ],
+      "used_by": [
+        "tb-dna-testing:S012",
+        "whu-rerun-s01:S005"
+      ],
+      "note": ""
+    },
+    "bb932bb75e467db0a082a7051eeddd424251cf7a9b8d2d5a56e800dba15407ef": {
+      "file": "docs/bb/bb932bb75e467db0a082a7051eeddd424251cf7a9b8d2d5a56e800dba15407ef.xml",
+      "bytes": 15874,
+      "content_type": "application/xml",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4669082/fullTextXML"
+      ],
+      "titles": [
+        "Correction: Impact of replacing smear microscopy with Xpert MTB/RIF for diagnosing tuberculosis in Brazil (PLoS Med 2015;12:e1001928)",
+        "Correction: Impact of Replacing Smear Microscopy with Xpert MTB/RIF for Diagnosing Tuberculosis in Brazil: A Stepped-Wedge Cluster-Randomized Trial"
+      ],
+      "used_by": [
+        "tb-dna-testing:S013",
+        "whu-rerun-s01:S006"
+      ],
+      "note": ""
+    },
+    "98c40185a88970499b57612faa852e2a36ebca298285284e8c570c25f2174d82": {
+      "file": "docs/98/98c40185a88970499b57612faa852e2a36ebca298285284e8c570c25f2174d82.html",
+      "bytes": 142366,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://news.harvard.edu/gazette/story/2012/11/tb-test-offers-rapid-results/"
+      ],
+      "titles": [
+        "Harvard Gazette — TB test offers rapid results (November 2012)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S014"
+      ],
+      "note": ""
+    },
+    "ba0225eac80d5197dfc76bca91ad095db4f051c7bba7be35185acf29885788b9": {
+      "file": "docs/ba/ba0225eac80d5197dfc76bca91ad095db4f051c7bba7be35185acf29885788b9.html",
+      "bytes": 488558,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://health-e.org.za/2011/03/24/a%c2%80%c2%98bazookaa%c2%80%c2%99-against-tb-launched/"
+      ],
+      "titles": [
+        "Health-e News — 'Bazooka' against TB launched (24 March 2011)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S015"
+      ],
+      "note": ""
+    },
+    "eb8631128ebf387a675decd14fba4e0ec598f6fb02a0d1377cef89acd1710e53": {
+      "file": "docs/eb/eb8631128ebf387a675decd14fba4e0ec598f6fb02a0d1377cef89acd1710e53.html",
+      "bytes": 42987,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-21",
+      "urls": [
+        "https://www.theglobalfund.org/en/news/2026/2026-06-16-new-rapid-tb-testing-13-countries-lifesaving-diagnosis-closer-to-communities/"
+      ],
+      "titles": [
+        "The Global Fund — news release on new rapid TB testing in 13 countries (16 June 2026)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S016"
+      ],
+      "note": ""
+    },
+    "0da6489bd016703c83e23faf14f0f32a3a6c8fc584014f7217895e89c8ab4fdd": {
+      "file": "docs/0d/0da6489bd016703c83e23faf14f0f32a3a6c8fc584014f7217895e89c8ab4fdd.pdf",
+      "bytes": 514850,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9212879/"
+      ],
+      "titles": [
+        "Cattamanchi A et al. — Multicomponent strategy with decentralized molecular testing for tuberculosis (N Engl J Med 2021;385:2441-2450)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S006"
+      ],
+      "note": ""
+    },
+    "4c2090e4c0b8f0097ac1df4b0fb8a5cf3251fc0d8d3c3a4512c8c0a3dd0c1e12": {
+      "file": "docs/4c/4c2090e4c0b8f0097ac1df4b0fb8a5cf3251fc0d8d3c3a4512c8c0a3dd0c1e12.pdf",
+      "bytes": 198594,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://doi.org/10.1016/S2214-109X(15)00100-X"
+      ],
+      "titles": [
+        "Churchyard GJ et al. — Xpert MTB/RIF versus sputum microscopy as the initial diagnostic test for tuberculosis: a cluster-randomised trial embedded in South African roll-out of Xpert MTB/RIF (Lancet Glob Health 2015;3:e450-e457)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S010"
+      ],
+      "note": ""
+    },
+    "8c24a05cbcd1a62168c118acf73a51d4ec05d3f3059925d8186d351e1b02f5d6": {
+      "file": "docs/8c/8c24a05cbcd1a62168c118acf73a51d4ec05d3f3059925d8186d351e1b02f5d6.html",
+      "bytes": 2606,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://linkinghub.elsevier.com/retrieve/pii/S2214109X19300464"
+      ],
+      "titles": [
+        "Correction to Lancet Glob Health 2019; 7: e191-99 (Di Tanna et al.) (Lancet Glob Health 2019)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S017"
+      ],
+      "note": ""
+    },
+    "1a51906416ec55b1fa6e8e474beb3b3d297a4b96f5e79d97cc3a4f16b003bd76": {
+      "file": "docs/1a/1a51906416ec55b1fa6e8e474beb3b3d297a4b96f5e79d97cc3a4f16b003bd76.html",
+      "bytes": 88120,
+      "content_type": "text/html",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6800215/"
+      ],
+      "titles": [
+        "Correction to Lancet Glob Health 2019; 7: e191-99 (Di Tanna et al.) (Lancet Glob Health 2019)"
+      ],
+      "used_by": [
+        "tb-dna-testing:S017"
+      ],
+      "note": ""
+    },
+    "f0aa091dd7e207a25fbd5761e0cb215560d7619ba12364354c320315ac82aa0e": {
+      "file": "docs/f0/f0aa091dd7e207a25fbd5761e0cb215560d7619ba12364354c320315ac82aa0e.xml",
+      "bytes": 966422,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10771715/fullTextXML"
+      ],
+      "titles": [
+        "Bjornstad G et al. — A comparison of the effectiveness of cognitive behavioural interventions based on delivery features for elevated symptoms of depression in adolescents: a systematic review (Campbell Systematic Reviews 2024;20:e1376)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S001"
+      ],
+      "note": ""
+    },
+    "2c5988c88d8481406b20a8534265894fef4e473e11b7131fd6a279e6d090e3f0": {
+      "file": "docs/2c/2c5988c88d8481406b20a8534265894fef4e473e11b7131fd6a279e6d090e3f0.xml",
+      "bytes": 116353,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13002926/fullTextXML"
+      ],
+      "titles": [
+        "Bevilacqua L et al. — Effectiveness of technology-assisted vs face-to-face cognitive behavioural therapy for anxiety and depression in children and young people: a systematic review and meta-analysis (Clin Child Psychol Psychiatry 2024)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S002"
+      ],
+      "note": ""
+    },
+    "e7cbc146f7d0346a3a7136f5453a395a3468741cb618e23adc75bef931e043d9": {
+      "file": "docs/e7/e7cbc146f7d0346a3a7136f5453a395a3468741cb618e23adc75bef931e043d9.xml",
+      "bytes": 153794,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9039813/fullTextXML"
+      ],
+      "titles": [
+        "Wickersham A et al. — Computerized cognitive behavioral therapy for treatment of depression and anxiety in adolescents: systematic review and meta-analysis (J Med Internet Res 2022;24:e29842)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S003"
+      ],
+      "note": ""
+    },
+    "d9f20d7b2b9185eb46114541d97bbd91884f2061a80ee36a8e405c7b19be44ba": {
+      "file": "docs/d9/d9f20d7b2b9185eb46114541d97bbd91884f2061a80ee36a8e405c7b19be44ba.xml",
+      "bytes": 112285,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11380195/fullTextXML"
+      ],
+      "titles": [
+        "Ma Q et al. — Effectiveness of internet-based self-help interventions for depression in adolescents and young adults: a systematic review and meta-analysis (BMC Psychiatry 2024;24:604)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S005"
+      ],
+      "note": ""
+    },
+    "21ddee8954c9dc8f548c44bea41fc1cc47249a9ea62c4b83c9ec5fc8167ee83c": {
+      "file": "docs/21/21ddee8954c9dc8f548c44bea41fc1cc47249a9ea62c4b83c9ec5fc8167ee83c.xml",
+      "bytes": 168302,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9908674/fullTextXML"
+      ],
+      "titles": [
+        "Cuijpers P et al. — The effects of psychological treatments of depression in children and adolescents on response, reliable change, and deterioration: a systematic review and meta-analysis (Eur Child Adolesc Psychiatry 2023;32:177-192)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S006"
+      ],
+      "note": ""
+    },
+    "36403a2cbae8245f61951963ec9a34148f26f854315e7e2da8b67d0450603aec": {
+      "file": "docs/36/36403a2cbae8245f61951963ec9a34148f26f854315e7e2da8b67d0450603aec.xml",
+      "bytes": 146037,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3330131/fullTextXML"
+      ],
+      "titles": [
+        "Merry SN et al. — The effectiveness of SPARX, a computerised self help intervention for adolescents seeking help for depression: randomised controlled non-inferiority trial (BMJ 2012;344:e2598)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S007"
+      ],
+      "note": ""
+    },
+    "f5eb09af86f547aec6755054c2ff8e1de22a984f4d155aab93740238ee6700a3": {
+      "file": "docs/f5/f5eb09af86f547aec6755054c2ff8e1de22a984f4d155aab93740238ee6700a3.html",
+      "bytes": 118160,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.nice.org.uk/guidance/ng134/chapter/Recommendations"
+      ],
+      "titles": [
+        "NICE guideline NG134 — Depression in children and young people: identification and management (Recommendations)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S008"
+      ],
+      "note": ""
+    },
+    "8e68224295b88e80c5eb65b35e9092b57e46fd005ca2c8706e3f828788658a76": {
+      "file": "docs/8e/8e68224295b88e80c5eb65b35e9092b57e46fd005ca2c8706e3f828788658a76.html",
+      "bytes": 85108,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.uea.ac.uk:443/about/news/article/technology-assisted-therapy-for-children-and-young-people-is-an-effective-alternative-to-traditional-face-to-face-therapy"
+      ],
+      "titles": [
+        "University of East Anglia news — Technology-assisted therapy for children and young people is an effective alternative to traditional face-to-face therapy (2024)"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S009"
+      ],
+      "note": ""
+    },
+    "9633de5db320fa48b8f3842296fb65cad58f96955c26dca45b051db23dbfd4a0": {
+      "file": "docs/96/9633de5db320fa48b8f3842296fb65cad58f96955c26dca45b051db23dbfd4a0.html",
+      "bytes": 90721,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://pharmaphorum.com/news/nice-backs-digital-cbt-for-youngsters-with-depression"
+      ],
+      "titles": [
+        "pharmaphorum — NICE backs digital CBT for youngsters with depression"
+      ],
+      "used_by": [
+        "teen-depression-therapy-format:S010"
+      ],
+      "note": ""
+    },
+    "bbac407e99579e5ca863ab0861bd711c555cfda1ca396e00ccc3e8339c19bfd3": {
+      "file": "docs/bb/bbac407e99579e5ca863ab0861bd711c555cfda1ca396e00ccc3e8339c19bfd3.pdf",
+      "bytes": 1341321,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://cdn.prod.website-files.com/65b77644e6021e9021de8916/68627aa486c48ed7c60064d4_Policy%20impact%20of%20the%20French%20Citizens_WITH%20EXECUTIVE%20(19.06.25)-kombineret%20(1).pdf"
+      ],
+      "titles": [
+        "Averchenkova A, Koehl M, Smith G — Policy impact of the French Citizens' Convention for the Climate: untangling the fate of the citizens' recommendations (KNOCA briefing, 2025)"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S001"
+      ],
+      "note": ""
+    },
+    "025f93af204c843ae9b6f52ae161bcc8108557ba7fdfbd171cce27f811267c15": {
+      "file": "docs/02/025f93af204c843ae9b6f52ae161bcc8108557ba7fdfbd171cce27f811267c15.xml",
+      "bytes": 163095,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9214676/fullTextXML"
+      ],
+      "titles": [
+        "Giraudet LG et al. — \"Co-construction\" in deliberative democracy: lessons from the French Citizens' Convention for Climate (Humanit Soc Sci Commun 2022;9:207)"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S002"
+      ],
+      "note": ""
+    },
+    "fe2c1b967e640d319157b8043300cb5c3186dcf389958fa9906fa257c8001f8a": {
+      "file": "docs/fe/fe2c1b967e640d319157b8043300cb5c3186dcf389958fa9906fa257c8001f8a.pdf",
+      "bytes": 2028948,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://doras.dcu.ie/30736/1/Saude_2025_Climate.pdf"
+      ],
+      "titles": [
+        "Suiter J, Saude K, McNally B — Climate change assemblies as spaces for the potential mitigation of climate policy misperceptions: a survey experiment (Environ Sci Policy 2025;164:103995)"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S004"
+      ],
+      "note": ""
+    },
+    "365226bb3e1558fa1b7fc94460fcbf413ca2938c8c6c27879c3f208cb40564d8": {
+      "file": "docs/36/365226bb3e1558fa1b7fc94460fcbf413ca2938c8c6c27879c3f208cb40564d8.xml",
+      "bytes": 116143,
+      "content_type": "application/xml",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11519151/fullTextXML"
+      ],
+      "titles": [
+        "Ainscough J, Lewis P, Farrow L — Distrust and reflexive impotence in the net zero transition: findings from a longitudinal deliberative mini-public (Climatic Change 2024)"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S005"
+      ],
+      "note": ""
+    },
+    "cbdb11c379de66e11c39f550a61d5cef52e0953db454f615c291ff5a6e638123": {
+      "file": "docs/cb/cbdb11c379de66e11c39f550a61d5cef52e0953db454f615c291ff5a6e638123.pdf",
+      "bytes": 1185829,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter13.pdf"
+      ],
+      "titles": [
+        "IPCC AR6 Working Group III, Chapter 13 — National and sub-national policies and institutions (Dubash NK, Mitchell C et al., 2022)"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S006"
+      ],
+      "note": ""
+    },
+    "8843c83b2331546029b77419c5bb2dc322286f6224c6d8f7cc343e5849eb2075": {
+      "file": "docs/88/8843c83b2331546029b77419c5bb2dc322286f6224c6d8f7cc343e5849eb2075.html",
+      "bytes": 108508,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.advancedsciencenews.com/engaging-the-public-in-climate-policymaking/"
+      ],
+      "titles": [
+        "Advanced Science News — Engaging the public in climate policymaking"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S007"
+      ],
+      "note": ""
+    },
+    "67e3c991ed99a163a1615128cc60b73b8797075eeca60a4013f26feb3bec3399": {
+      "file": "docs/67/67e3c991ed99a163a1615128cc60b73b8797075eeca60a4013f26feb3bec3399.html",
+      "bytes": 95936,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://www.uk100.org/campaigns/local-climate-engagement-building"
+      ],
+      "titles": [
+        "UK100 — Local Climate Engagement: building public consent for climate action"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S008"
+      ],
+      "note": ""
+    },
+    "fc184364c0b104b7a9c7381013bdfff58a7b0e91f28584ff44cefe314f92f21a": {
+      "file": "docs/fc/fc184364c0b104b7a9c7381013bdfff58a7b0e91f28584ff44cefe314f92f21a.pdf",
+      "bytes": 2277756,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-22",
+      "urls": [
+        "https://orbilu.uni.lu/bitstream/10993/65437/1/ESP_2025.pdf"
+      ],
+      "titles": [
+        "Paulis E, Pilet J-B, Vittori D, Rojon S — When climate assemblies call for stringent climate mitigation policies: unlocking public acceptance or fighting a losing battle? (Environ Sci Policy 2025;171:104159)"
+      ],
+      "used_by": [
+        "public-involvement-climate-policy:S003"
+      ],
+      "note": ""
+    },
+    "dde489125987b9d743b7df0849f7c90b497f81f3c4703c64cd6061a84693f9e5": {
+      "file": "docs/dd/dde489125987b9d743b7df0849f7c90b497f81f3c4703c64cd6061a84693f9e5.pdf",
+      "bytes": 1389642,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_SummaryForPolicymakers.pdf"
+      ],
+      "titles": [
+        "IPCC — Summary for Policymakers, in Climate Change 2022: Impacts, Adaptation and Vulnerability (AR6 Working Group II)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S001"
+      ],
+      "note": ""
+    },
+    "57e9bb6ec3f8b870899732dc73561bff007cf8c3b656fe97776ac688da0e12d7": {
+      "file": "docs/57/57e9bb6ec3f8b870899732dc73561bff007cf8c3b656fe97776ac688da0e12d7.pdf",
+      "bytes": 3651767,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg2/downloads/report/IPCC_AR6_WGII_Chapter06.pdf"
+      ],
+      "titles": [
+        "Dodman D, Hayward B, Pelling M, et al. — Cities, Settlements and Key Infrastructure (IPCC AR6 WGII Chapter 6, 2022)",
+        "Cities, Settlements and Key Infrastructure"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S002",
+        "settlement-planning-climate-resilience:S003"
+      ],
+      "note": ""
+    },
+    "318c540691f2a52642992854670f2832b8e2f6196d8febac806eecd6244475bf": {
+      "file": "docs/31/318c540691f2a52642992854670f2832b8e2f6196d8febac806eecd6244475bf.html",
+      "bytes": 361371,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.nature.com/articles/s41586-023-06468-9?error=cookies_not_supported&code=1d150de8-1a6d-4a29-b2b9-97a4f43ad380"
+      ],
+      "titles": [
+        "Rentschler J, Avner P, Marconcini M, et al. — Global evidence of rapid urban growth in flood zones since 1985 (Nature 2023;622:87-92)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S003"
+      ],
+      "note": ""
+    },
+    "649f1b6b7334966ab326facd8eb29dbf9bd9395f1d1623e7b04d022da6e522ef": {
+      "file": "docs/64/649f1b6b7334966ab326facd8eb29dbf9bd9395f1d1623e7b04d022da6e522ef.xml",
+      "bytes": 144706,
+      "content_type": "application/xml",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8521713/fullTextXML"
+      ],
+      "titles": [
+        "Tuholske C, Caylor K, Funk C, et al. — Global urban population exposure to extreme heat (PNAS 2021;118:e2024792118)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S004"
+      ],
+      "note": ""
+    },
+    "a6b9e8ba3399917b2101f7ec70f13756e70677e8c8e69078f238f28e5ed7a377": {
+      "file": "docs/a6/a6b9e8ba3399917b2101f7ec70f13756e70677e8c8e69078f238f28e5ed7a377.html",
+      "bytes": 311590,
+      "content_type": "text/html;charset=UTF-8",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0118571"
+      ],
+      "titles": [
+        "Neumann B, Vafeidis AT, Zimmermann J, Nicholls RJ — Future coastal population growth and exposure to sea-level rise and coastal flooding: a global assessment (PLoS ONE 2015;10:e0118571)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S006"
+      ],
+      "note": ""
+    },
+    "8871dcdbd90ce7f137c03ccf984a014245f0773fd1ccbb53c9e82d54128fdc90": {
+      "file": "docs/88/8871dcdbd90ce7f137c03ccf984a014245f0773fd1ccbb53c9e82d54128fdc90.html",
+      "bytes": 872126,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.downtoearth.org.in/world/more-people-moved-into-high-flood-zones-exposing-larger-populations-to-water-disasters-world-bank-92201"
+      ],
+      "titles": [
+        "Down To Earth — More people moved into high flood zones, exposing larger populations to water disasters: World Bank (2023)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S007"
+      ],
+      "note": ""
+    },
+    "008e001194aeb7a2aa260b64f73942545f9a68e234e4edc40e6399be891da525": {
+      "file": "docs/00/008e001194aeb7a2aa260b64f73942545f9a68e234e4edc40e6399be891da525.html",
+      "bytes": 62752,
+      "content_type": "text/html;charset=utf-8",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://blogs.worldbank.org/en/sustainablecities/world-bank-has-new-climate-action-plan-whats-it-cities"
+      ],
+      "titles": [
+        "World Bank blog (Sustainable Cities) — The World Bank Group has a new Climate Action Plan: what's in it for cities?"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S008"
+      ],
+      "note": ""
+    },
+    "a5085a645c7063a80928946d3103c5d3531068172f086709c2668ca934720738": {
+      "file": "docs/a5/a5085a645c7063a80928946d3103c5d3531068172f086709c2668ca934720738.pdf",
+      "bytes": 4210670,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.cell.com/one-earth/fulltext/S2590-3322(20)30050-6"
+      ],
+      "titles": [
+        "Satterthwaite D, Archer D, Colenbrander S, et al. — Building resilience to climate change in informal settlements (One Earth 2020;2:143-156)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S005"
+      ],
+      "note": ""
+    },
+    "172fa2b11c6e83d0b689af80237564730dc9ed03bc957fac4ec5bd0072b27756": {
+      "file": "docs/17/172fa2b11c6e83d0b689af80237564730dc9ed03bc957fac4ec5bd0072b27756.pdf",
+      "bytes": 3115961,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://doi.org/10.21203/rs.3.rs-1460344/v1"
+      ],
+      "titles": [
+        "Rentschler J, Avner P, Marconcini M, Su R, Strano E, Hallegatte S — Global evidence of rapid urban growth in flood zones since 1985 (preprint, Research Square rs-1460344 v1, posted 22 March 2022; CC BY 4.0)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S009"
+      ],
+      "note": ""
+    },
+    "2b4e2f80b13424d30e0d234d34abedb42ebb52541535f9ceef9f08dba6fbe781": {
+      "file": "docs/2b/2b4e2f80b13424d30e0d234d34abedb42ebb52541535f9ceef9f08dba6fbe781.xml",
+      "bytes": 5476,
+      "content_type": "application/xml",
+      "first_held": "2026-10-23",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4473734/fullTextXML"
+      ],
+      "titles": [
+        "PLOS ONE Staff — Correction: Future coastal population growth and exposure to sea-level rise and coastal flooding — a global assessment (PLoS ONE 2015;10:e0131375)"
+      ],
+      "used_by": [
+        "city-growth-climate-coping:S010"
+      ],
+      "note": ""
+    },
+    "164a4fb9c42c20af7c3fc7fb2e43bf7449f6360222c06baf88fed2d9b9a8e76d": {
+      "file": "docs/16/164a4fb9c42c20af7c3fc7fb2e43bf7449f6360222c06baf88fed2d9b9a8e76d.pdf",
+      "bytes": 9548259,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter08.pdf"
+      ],
+      "titles": [
+        "Lwasa S, Seto KC, et al. 2022. Chapter 8: Urban systems and other settlements. In: IPCC, Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+        "Urban Systems and Other Settlements"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S001",
+        "whu-rerun-s07:S001"
+      ],
+      "note": ""
+    },
+    "6e96d0d324200c244f624acc1514f0d10e939fecf3f8c81c46ae42e685379533": {
+      "file": "docs/6e/6e96d0d324200c244f624acc1514f0d10e939fecf3f8c81c46ae42e685379533.pdf",
+      "bytes": 3394328,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter10.pdf"
+      ],
+      "titles": [
+        "Jaramillo P, Kahn Ribeiro S, et al. 2022. Chapter 10: Transport. In: IPCC, Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+        "Transport. Climate Change 2022: Mitigation of Climate Change"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S002",
+        "whu-rerun-s07:S002"
+      ],
+      "note": ""
+    },
+    "b27996d1c03af7b66161678482332989f4687fcefb47881575905df87b5ecbfb": {
+      "file": "docs/b2/b27996d1c03af7b66161678482332989f4687fcefb47881575905df87b5ecbfb.pdf",
+      "bytes": 5648032,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://faculty.wharton.upenn.edu/wp-content/uploads/2016/01/UFD.pdf"
+      ],
+      "titles": [
+        "Duranton G, Turner MA. Urban form and driving: Evidence from US cities (working paper version; published in Journal of Urban Economics 108:170-191, 2018)"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S007"
+      ],
+      "note": ""
+    },
+    "76841549b31328d8acf66728b88cfefb104a7d35ca9c027911708f0408cb57ee": {
+      "file": "docs/76/76841549b31328d8acf66728b88cfefb104a7d35ca9c027911708f0408cb57ee.pdf",
+      "bytes": 1782261,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://n-somerset.gov.uk/sites/default/files/2022-11/CD10.27%20Kuss%20P%20and%20Nicholas%20KA%202022%20Interventions%20to%20reduce%20car%20use.pdf"
+      ],
+      "titles": [
+        "Kuss P, Nicholas KA. 2022. A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management. Case Studies on Transport Policy 10:1494-1513",
+        "A dozen effective interventions to reduce car use in European cities: Lessons learned from a meta-analysis and transition management"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S009",
+        "whu-rerun-s07:S003"
+      ],
+      "note": ""
+    },
+    "5296a3262fba4f49ab0a858f435551be66dc850aa4829506b7a47edbf7b7f613": {
+      "file": "docs/52/5296a3262fba4f49ab0a858f435551be66dc850aa4829506b7a47edbf7b7f613.html",
+      "bytes": 303482,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.nature.com/articles/s41560-022-01095-6?error=cookies_not_supported&code=04ddc25f-67a9-461b-8ca1-1b4e34edc588"
+      ],
+      "titles": [
+        "Koch N, Naumann L, Pretis F, Ritter N, Schwarz M. 2022. Attributing agnostically detected large reductions in road CO2 emissions to policy mixes. Nature Energy 7:844-853"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S010"
+      ],
+      "note": ""
+    },
+    "09c220036b49b1720dc9dba23bdf013237b1b3f3c3410846089db11b54b3ddc1": {
+      "file": "docs/09/09c220036b49b1720dc9dba23bdf013237b1b3f3c3410846089db11b54b3ddc1.html",
+      "bytes": 140051,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.thejakartapost.com/business/2021/12/09/electric-vehicle-and-compact-city-combo-could-reach-emissions-targets"
+      ],
+      "titles": [
+        "Reuters, republished by The Jakarta Post, 9 December 2021: Electric vehicle and 'compact' city combo could reach emissions targets"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S012"
+      ],
+      "note": ""
+    },
+    "285bfe2806d1f83c102a90d61b44c40cd74154bfec4e4bd2ba21e7d73d704467": {
+      "file": "docs/28/285bfe2806d1f83c102a90d61b44c40cd74154bfec4e4bd2ba21e7d73d704467.html",
+      "bytes": 164249,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.popsci.com/environment/urban-sprawl-cities-sustainable/"
+      ],
+      "titles": [
+        "Popular Science: Urban sprawl defines unsustainable cities, but it can be undone"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S013"
+      ],
+      "note": ""
+    },
+    "aa73497304c57b303c819495e68d851fb5aba567856c75ad10e24fe69b637e70": {
+      "file": "docs/aa/aa73497304c57b303c819495e68d851fb5aba567856c75ad10e24fe69b637e70.html",
+      "bytes": 111952,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://cleantechnica.com/2015/01/19/instead-tripling-cut-city-energy-25-2050/"
+      ],
+      "titles": [
+        "CleanTechnica, 19 January 2015: Instead Of Tripling, Cut City Energy Use 25% By 2050?"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S014"
+      ],
+      "note": ""
+    },
+    "2b2751e3b773b7f8cbdaba523e40d54e8fcd2f47e59b0fdd1a0cf7ff5b3c41aa": {
+      "file": "docs/2b/2b2751e3b773b7f8cbdaba523e40d54e8fcd2f47e59b0fdd1a0cf7ff5b3c41aa.pdf",
+      "bytes": 375866,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://eprints.gla.ac.uk/257975/2/257975.pdf"
+      ],
+      "titles": [
+        "A systematic global stocktake of evidence on human adaptation to climate change"
+      ],
+      "used_by": [
+        "settlement-planning-climate-resilience:S001"
+      ],
+      "note": ""
+    },
+    "758659ee8d3584ffc78f8a14f4123fc2bd97396cb879ad9772632b3285befe45": {
+      "file": "docs/75/758659ee8d3584ffc78f8a14f4123fc2bd97396cb879ad9772632b3285befe45.pdf",
+      "bytes": 417601,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://ageconsearch.umn.edu/nanna/record/284989/files/Manuscript_Frimpong_19-1.pdf?withWatermark=0&withMetadata=0&registerDownload=1&version=1"
+      ],
+      "titles": [
+        "Flood Insurance and Claims: The Impact of the Community Rating System"
+      ],
+      "used_by": [
+        "settlement-planning-climate-resilience:S004"
+      ],
+      "note": ""
+    },
+    "1ea5aeba767c8ef8451fdc9e40d363ba28a55a512ae8cac99826ca467f521f0b": {
+      "file": "docs/1e/1ea5aeba767c8ef8451fdc9e40d363ba28a55a512ae8cac99826ca467f521f0b.xml",
+      "bytes": 122873,
+      "content_type": "application/xml",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8276060/fullTextXML"
+      ],
+      "titles": [
+        "The effects on public health of climate change adaptation responses: a systematic review of evidence from low- and middle-income countries"
+      ],
+      "used_by": [
+        "settlement-planning-climate-resilience:S002"
+      ],
+      "note": ""
+    },
+    "366ef103af1eec3167919a3e10273f5841f0aaa137177ad4a270ca183be86ed1": {
+      "file": "docs/36/366ef103af1eec3167919a3e10273f5841f0aaa137177ad4a270ca183be86ed1.pdf",
+      "bytes": 1930434,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://www.transportportal.se/swopec/cts2017-2.pdf"
+      ],
+      "titles": [
+        "Börjesson M, Kristoffersson I. 2017. The Swedish Congestion Charges: Ten Years On - and Effects of Increasing Charging Levels (CTS Working Paper 2017:2)"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S015"
+      ],
+      "note": ""
+    },
+    "d489cac93d08d6bcad28efc1b743e42e6ffedc1d918de89f981ff88be3313eab": {
+      "file": "docs/d4/d489cac93d08d6bcad28efc1b743e42e6ffedc1d918de89f981ff88be3313eab.pdf",
+      "bytes": 977003,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4443311/"
+      ],
+      "titles": [
+        "Creutzig F, Baiocchi G, Bierkandt R, Pichler PP, Seto KC. 2015. Global typology of urban energy use and potentials for an urbanization mitigation wedge. PNAS 112(20):6283-6288"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S008"
+      ],
+      "note": ""
+    },
+    "871109eb7b0ac8224000e0f7d564355de4c56613756217effd143b40a23ea5b8": {
+      "file": "docs/87/871109eb7b0ac8224000e0f7d564355de4c56613756217effd143b40a23ea5b8.pdf",
+      "bytes": 3842111,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-24",
+      "urls": [
+        "https://nap.nationalacademies.org/catalog/12747"
+      ],
+      "titles": [
+        "Transportation Research Board and National Research Council 2009. Driving and the Built Environment: The Effects of Compact Development on Motorized Travel, Energy Use, and CO2 Emissions. Special Report 298"
+      ],
+      "used_by": [
+        "urban-form-transport-emissions:S004"
+      ],
+      "note": ""
+    },
+    "5925eb699733395ddecdb40902d68aec67961bda0a9f55996784adf71b61933c": {
+      "file": "docs/59/5925eb699733395ddecdb40902d68aec67961bda0a9f55996784adf71b61933c.xml",
+      "bytes": 354749,
+      "content_type": "application/xml",
+      "first_held": "2026-10-26",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10765125/fullTextXML"
+      ],
+      "titles": [
+        "A mixed methods systematic review on the effects of arts interventions for children and young people at-risk of offending, or who have offended on behavioural, psychosocial, cognitive and offending outcomes: A systematic review"
+      ],
+      "used_by": [
+        "arts-youth-offending:S001"
+      ],
+      "note": ""
+    },
+    "fd7f2fbccd5806c8a5e4f5abfc3cca759f18ab65fc24f79cc7c1eece78840e97": {
+      "file": "docs/fd/fd7f2fbccd5806c8a5e4f5abfc3cca759f18ab65fc24f79cc7c1eece78840e97.pdf",
+      "bytes": 661084,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-26",
+      "urls": [
+        "https://youthendowmentfund.org.uk/wp-content/uploads/2024/04/YEF-Technical-Report_Arts-Programmes-March-2024.pdf"
+      ],
+      "titles": [
+        "Arts Programmes: Toolkit technical report"
+      ],
+      "used_by": [
+        "arts-youth-offending:S002"
+      ],
+      "note": ""
+    },
+    "19ab72542788a4d0ee6df5e40360cb9172f181d26eb920d86dfc54b258b048b1": {
+      "file": "docs/19/19ab72542788a4d0ee6df5e40360cb9172f181d26eb920d86dfc54b258b048b1.html",
+      "bytes": 100284,
+      "content_type": "text/html; charset=UTF-8",
+      "first_held": "2026-10-26",
+      "urls": [
+        "https://youthendowmentfund.org.uk/toolkit/arts-programmes/"
+      ],
+      "titles": [
+        "Arts programmes | YEF Toolkit"
+      ],
+      "used_by": [
+        "arts-youth-offending:S003"
+      ],
+      "note": ""
+    },
+    "fb0687c1d188538c52f4fe0ceded8f5aa6436a10ae4ab0270245e6b3e17b632d": {
+      "file": "docs/fb/fb0687c1d188538c52f4fe0ceded8f5aa6436a10ae4ab0270245e6b3e17b632d.pdf",
+      "bytes": 875097,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-26",
+      "urls": [
+        "https://researchspace.bathspa.ac.uk/13301/1/13301.pdf"
+      ],
+      "titles": [
+        "'It's not just music, it helps you from inside': mixing methods to understand the impact of music on young people in contact with the criminal justice system"
+      ],
+      "used_by": [
+        "arts-youth-offending:S004"
+      ],
+      "note": ""
+    },
+    "47fceab15cedb6773d83119d5802fa7a5cb8d988fd5a7a4eb8bda126b9cb44c5": {
+      "file": "docs/47/47fceab15cedb6773d83119d5802fa7a5cb8d988fd5a7a4eb8bda126b9cb44c5.pdf",
+      "bytes": 46233,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-26",
+      "urls": [
+        "https://www.isrctn.com/pdf/ISRCTN96905637"
+      ],
+      "titles": [
+        "Is a music-based mentoring programme delivered with young people aged 11 - 17 years involved in or deemed to be at risk of involvement in violent or non-violent offending"
+      ],
+      "used_by": [
+        "arts-youth-offending:S005"
+      ],
+      "note": ""
+    },
+    "1bd3075ae07c29871d6c4db6fa5b1c13d2d4c88c3a7e5d409a1408690d397ade": {
+      "file": "docs/1b/1bd3075ae07c29871d6c4db6fa5b1c13d2d4c88c3a7e5d409a1408690d397ade.xml",
+      "bytes": 278615,
+      "content_type": "application/xml",
+      "first_held": "2026-10-27",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11165671/fullTextXML"
+      ],
+      "titles": [
+        "Undernutrition as a risk factor for tuberculosis disease"
+      ],
+      "used_by": [
+        "undernutrition-tb-risk:S001"
+      ],
+      "note": ""
+    },
+    "04c5d2c483158d5214711e4380d7b0b482c98e39dc73fa537dd2d9d4ef1e875a": {
+      "file": "docs/04/04c5d2c483158d5214711e4380d7b0b482c98e39dc73fa537dd2d9d4ef1e875a.xml",
+      "bytes": 167660,
+      "content_type": "application/xml",
+      "first_held": "2026-10-27",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5105945/fullTextXML"
+      ],
+      "titles": [
+        "Nutritional Status and Tuberculosis Risk in Adult and Pediatric Household Contacts"
+      ],
+      "used_by": [
+        "undernutrition-tb-risk:S002"
+      ],
+      "note": ""
+    },
+    "ac141cd0ddc51f129150dedf37e3f4f1daf16f0504a482ce9b116fce9f1b485e": {
+      "file": "docs/ac/ac141cd0ddc51f129150dedf37e3f4f1daf16f0504a482ce9b116fce9f1b485e.xml",
+      "bytes": 85928,
+      "content_type": "application/xml",
+      "first_held": "2026-10-27",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9519877/fullTextXML"
+      ],
+      "titles": [
+        "Association of underweight status with the risk of tuberculosis: a nationwide population-based cohort study"
+      ],
+      "used_by": [
+        "undernutrition-tb-risk:S003"
+      ],
+      "note": ""
+    },
+    "185b8a54a08f124a2bbd5bbb5a979bf6d4286044b11441e06a30fb44114faa3a": {
+      "file": "docs/18/185b8a54a08f124a2bbd5bbb5a979bf6d4286044b11441e06a30fb44114faa3a.html",
+      "bytes": 30933,
+      "content_type": "text/html",
+      "first_held": "2026-10-27",
+      "urls": [
+        "https://web.archive.org/web/20231208015752id_/https://www.culturallearningalliance.org.uk/evidence/key-research-findings-the-case-for-cultural-learning/finding-8-young-offenders/"
+      ],
+      "titles": [
+        "Finding 8: Young offenders"
+      ],
+      "used_by": [
+        "arts-youth-offending:S006"
+      ],
+      "note": ""
+    },
+    "d81d5e06aff728f3ae28562c377bc46f29817b7527df77d3660b87fbf15b6900": {
+      "file": "docs/d8/d81d5e06aff728f3ae28562c377bc46f29817b7527df77d3660b87fbf15b6900.pdf",
+      "bytes": 921017,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-27",
+      "urls": [
+        "https://doi.org/10.1016/S0140-6736(23)01231-X"
+      ],
+      "titles": [
+        "Nutritional supplementation to prevent tuberculosis incidence in household contacts of patients with pulmonary tuberculosis in India (RATIONS): a field-based, open-label, cluster-randomised, controlled trial"
+      ],
+      "used_by": [
+        "undernutrition-tb-risk:S004"
+      ],
+      "note": ""
+    },
+    "1b2ff6fb16f4632cbd945b36ebda87952d679f5dd2926ab41d653fc12eaf8117": {
+      "file": "docs/1b/1b2ff6fb16f4632cbd945b36ebda87952d679f5dd2926ab41d653fc12eaf8117.pdf",
+      "bytes": 56181,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-27",
+      "urls": [
+        "https://doi.org/10.1016/S0140-6736(24)01500-9"
+      ],
+      "titles": [
+        "Department of Error"
+      ],
+      "used_by": [
+        "undernutrition-tb-risk:S005"
+      ],
+      "note": ""
+    },
+    "b07cc0449d01a8c582e1fbe51ad832103d841855d59d774c364684362aeb9923": {
+      "file": "docs/b0/b07cc0449d01a8c582e1fbe51ad832103d841855d59d774c364684362aeb9923.pdf",
+      "bytes": 4534570,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://arxiv.org/pdf/2401.01411v1"
+      ],
+      "titles": [
+        "Urban Street Network Design and Transport-Related Greenhouse Gas Emissions around the World"
+      ],
+      "used_by": [
+        "whu-rerun-s07:S004"
+      ],
+      "note": ""
+    },
+    "f961cbcd1fe8c11435d7a63ef83b3e015b503942818c23e259b53e0ab65c93e0": {
+      "file": "docs/f9/f961cbcd1fe8c11435d7a63ef83b3e015b503942818c23e259b53e0ab65c93e0.pdf",
+      "bytes": 140121,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://www.jtlu.org/index.php/jtlu/article/download/815/845"
+      ],
+      "titles": [
+        "Non-linear influences of the built environment on transportation emissions: Focusing on densities"
+      ],
+      "used_by": [
+        "whu-rerun-s07:S005"
+      ],
+      "note": ""
+    },
+    "5e7ab39771f795bb1264dafeca401d9fbdd0db4a52ac8eb97c6510873c8c6148": {
+      "file": "docs/5e/5e7ab39771f795bb1264dafeca401d9fbdd0db4a52ac8eb97c6510873c8c6148.xml",
+      "bytes": 121493,
+      "content_type": "application/xml",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7438967/fullTextXML"
+      ],
+      "titles": [
+        "Variation in the observed effect of Xpert MTB/RIF testing for tuberculosis on mortality: A systematic review and analysis of trial design considerations"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S003"
+      ],
+      "note": ""
+    },
+    "7a96ccaa9020e39b3b1e12980243076896dba1c06867a3be52fdf43e2ddf4d60": {
+      "file": "docs/7a/7a96ccaa9020e39b3b1e12980243076896dba1c06867a3be52fdf43e2ddf4d60.html",
+      "bytes": 175932,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov:443/articles/PMC6769397/"
+      ],
+      "titles": [
+        "Screening for Tuberculosis With Xpert MTB/RIF Assay Versus Fluorescent Microscopy Among Adults Newly Diagnosed With Human Immunodeficiency Virus in Rural Malawi: A Cluster Randomized Trial (Chepetsa)"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S007"
+      ],
+      "note": ""
+    },
+    "1e68f2100cac6434cfd773fdac22aadba0f623e708d8712a372119b3ed98a8a0": {
+      "file": "docs/1e/1e68f2100cac6434cfd773fdac22aadba0f623e708d8712a372119b3ed98a8a0.html",
+      "bytes": 246034,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov:443/articles/PMC9212879/"
+      ],
+      "titles": [
+        "Multicomponent Strategy with Decentralized Molecular Testing for Tuberculosis"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S008"
+      ],
+      "note": ""
+    },
+    "c560e5d6276722d526d8137c491966352f87268b6ee9984b7775ac4495690929": {
+      "file": "docs/c5/c560e5d6276722d526d8137c491966352f87268b6ee9984b7775ac4495690929.pdf",
+      "bytes": 3619007,
+      "content_type": "application/pdf;charset=UTF-8",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://iris.who.int/server/api/core/bitstreams/ae20e43e-17fd-4951-b475-3e36e166e7ae/content"
+      ],
+      "titles": [
+        "WHO consolidated guidelines on tuberculosis: module 3: diagnosis"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S010"
+      ],
+      "note": ""
+    },
+    "6de7f9838f8d0e7940f2434881f7e04ccb1129a72a6cf89b08c98f7747040d32": {
+      "file": "docs/6d/6de7f9838f8d0e7940f2434881f7e04ccb1129a72a6cf89b08c98f7747040d32.html",
+      "bytes": 104521,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://www.who.int/news/item/08-12-2010-who-endorses-new-rapid-tuberculosis-test"
+      ],
+      "titles": [
+        "WHO endorses new rapid tuberculosis test"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S011"
+      ],
+      "note": ""
+    },
+    "5a60e8b134afb67ef6571bb4d45f327401aedba2a50778ace34cf70f2bd82d62": {
+      "file": "docs/5a/5a60e8b134afb67ef6571bb4d45f327401aedba2a50778ace34cf70f2bd82d62.html",
+      "bytes": 88120,
+      "content_type": "text/html; charset=utf-8",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://pmc.ncbi.nlm.nih.gov:443/articles/PMC6800215/"
+      ],
+      "titles": [
+        "Correction to Lancet Glob Health 2019; 7: e191-99"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S012"
+      ],
+      "note": ""
+    },
+    "7dad9da27e493ec6cb907cdbcf636a0e40e27c0ffe1f3ac954ccc5e78182f2db": {
+      "file": "docs/7d/7dad9da27e493ec6cb907cdbcf636a0e40e27c0ffe1f3ac954ccc5e78182f2db.xml",
+      "bytes": 77909,
+      "content_type": "application/xml",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4411054/fullTextXML"
+      ],
+      "titles": [
+        "Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a Stepped-Wedge Randomized Clinical Trial"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S016"
+      ],
+      "note": ""
+    },
+    "5b8632ff52c82acdf220154cb72e04ef1cc0d0c9a9e40e2cd7cbde718dffc4c8": {
+      "file": "docs/5b/5b8632ff52c82acdf220154cb72e04ef1cc0d0c9a9e40e2cd7cbde718dffc4c8.xml",
+      "bytes": 22875,
+      "content_type": "application/xml",
+      "first_held": "2026-10-28",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4878764/fullTextXML"
+      ],
+      "titles": [
+        "Correction: Impact on Patients' Treatment Outcomes of XpertMTB/RIF Implementation for the Diagnosis of Tuberculosis: Follow-Up of a Stepped-Wedge Randomized Clinical Trial"
+      ],
+      "used_by": [
+        "whu-rerun-s01:S017"
+      ],
+      "note": ""
+    },
+    "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e": {
+      "file": "docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+      "bytes": 1164109,
+      "content_type": "application/xml",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11975193/fullTextXML"
+      ],
+      "titles": [
+        "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-01:S001",
+        "whu-lean-q1-01:S001",
+        "whu-lean-q1-01b:S001",
+        "whu-lean-q1-01c:S001"
+      ],
+      "note": ""
+    },
+    "3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5": {
+      "file": "docs/31/3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5.pdf",
+      "bytes": 1820258,
+      "content_type": "application/pdf;charset=UTF-8",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://iris.who.int/server/api/core/bitstreams/c3c53f30-23cc-48d0-a3b5-c05ddd7f5349/content"
+      ],
+      "titles": [
+        "WHO guideline: recommendations on digital interventions for health system strengthening"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-01:S002",
+        "whu-lean-q1-01c:S002"
+      ],
+      "note": ""
+    },
+    "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac": {
+      "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "bytes": 395517,
+      "content_type": "application/xml",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11799928/fullTextXML"
+      ],
+      "titles": [
+        "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review",
+        "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review (Campbell Systematic Reviews 2025, doi 10.1002/cl2.70016, PMC11799928)",
+        "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review."
+      ],
+      "used_by": [
+        "whu-quarterly-r1-02:S001",
+        "whu-lean-q1-02:S001",
+        "whu-lean-q1-02r:S001",
+        "whu-lean-q1-02b:S001",
+        "whu-lean-orch-t1-q1-02c:S001",
+        "whu-lean-orch-t1-q1-02d:S001",
+        "whu-lean-orch-t1-q1-02e:S001",
+        "whu-lean-orch-t1-q1-02f:S001",
+        "whu-lean-orch-t1-q1-02g:S001",
+        "whu-lean-orch-t1-q1-02h:S001",
+        "whu-lean-orch-t1-q1-02i:S001"
+      ],
+      "note": "",
+      "trial_used_by": [
+        "whu-lean-orch-t1-q1-02c:S001",
+        "whu-lean-orch-t1-q1-02d:S001",
+        "whu-lean-orch-t1-q1-02e:S001",
+        "whu-lean-orch-t1-q1-02f:S001",
+        "whu-lean-orch-t1-q1-02g:S001",
+        "whu-lean-orch-t1-q1-02h:S001",
+        "whu-lean-orch-t1-q1-02i:S001"
+      ],
+      "origin": "real",
+      "trial_note": "tagged 2026-11-23 (advisor's ruling 5 after attempt 11): the used_by rows in trial_used_by are orchestrator trial 1 runs, whose outputs are discarded; nothing was deleted. From 2026-11-23 trial runs hold their documents in backend/data/whatholdsup/library_trial/."
+    },
+    "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3": {
+      "file": "docs/08/088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3.xml",
+      "bytes": 379448,
+      "content_type": "application/xml",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/fullTextXML"
+      ],
+      "titles": [
+        "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries",
+        "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries (Campbell Systematic Reviews 2020, doi 10.1002/cl2.1070, PMC8356326)",
+        "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries",
+        "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries."
+      ],
+      "used_by": [
+        "whu-quarterly-r1-02:S002",
+        "whu-lean-q1-02:S002",
+        "whu-lean-q1-02r:S002",
+        "whu-lean-orch-t1-q1-02d:S003",
+        "whu-lean-orch-t1-q1-02e:S003",
+        "whu-lean-orch-t1-q1-02f:S003",
+        "whu-lean-orch-t1-q1-02h:S003",
+        "whu-lean-orch-t1-q1-02i:S003"
+      ],
+      "note": "",
+      "trial_used_by": [
+        "whu-lean-orch-t1-q1-02d:S003",
+        "whu-lean-orch-t1-q1-02e:S003",
+        "whu-lean-orch-t1-q1-02f:S003",
+        "whu-lean-orch-t1-q1-02h:S003",
+        "whu-lean-orch-t1-q1-02i:S003"
+      ],
+      "origin": "real",
+      "trial_note": "tagged 2026-11-23 (advisor's ruling 5 after attempt 11): the used_by rows in trial_used_by are orchestrator trial 1 runs, whose outputs are discarded; nothing was deleted. From 2026-11-23 trial runs hold their documents in backend/data/whatholdsup/library_trial/."
+    },
+    "eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010": {
+      "file": "docs/ef/eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010.pdf",
+      "bytes": 1238506,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/738206/Education_Rapid_Review_full_report.pdf",
+        "https://assets.publishing.service.gov.uk/media/5b8ea83040f0b67d9a6fe669/Education_Rapid_Review_full_report.pdf"
+      ],
+      "titles": [
+        "Rapid Evidence Assessment (REA) of what works to improve educational outcomes for people with disabilities in low- and middle-income countries",
+        "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-02:S003",
+        "whu-lean-q1-02b:S002"
+      ],
+      "note": ""
+    },
+    "e697c094155a2eea5016f81332f83877f9c11c19f3dc5144252b58732f7fdd09": {
+      "file": "docs/e6/e697c094155a2eea5016f81332f83877f9c11c19f3dc5144252b58732f7fdd09.pdf",
+      "bytes": 1141067,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://eprints.whiterose.ac.uk/id/eprint/185675/1/00131911.2022.pdf"
+      ],
+      "titles": [
+        "Educational technology for learners with disabilities in primary school settings in low- and middle-income countries: a systematic literature review"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-02:S004"
+      ],
+      "note": ""
+    },
+    "164589e2de7a78f0e4d2ea1eef331dabb1084118a7b49dec1e8289bf0364cc19": {
+      "file": "docs/16/164589e2de7a78f0e4d2ea1eef331dabb1084118a7b49dec1e8289bf0364cc19.pdf",
+      "bytes": 50201379,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter08.pdf"
+      ],
+      "titles": [
+        "Water Cycle Changes. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (Chapter 8)"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-03:S002"
+      ],
+      "note": ""
+    },
+    "610dc22ad6485389b6fe6ecfd90e54a30bf056e6266dfb96ea4e9103a5f98708": {
+      "file": "docs/61/610dc22ad6485389b6fe6ecfd90e54a30bf056e6266dfb96ea4e9103a5f98708.pdf",
+      "bytes": 34815048,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter09.pdf"
+      ],
+      "titles": [
+        "Ocean, Cryosphere and Sea Level Change. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (Chapter 9)"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-03:S003"
+      ],
+      "note": ""
+    },
+    "d0dc4fae531a7b6a76a456cb12db9c7d68099265e377973d508484c3289ddce1": {
+      "file": "docs/d0/d0dc4fae531a7b6a76a456cb12db9c7d68099265e377973d508484c3289ddce1.pdf",
+      "bytes": 17110209,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter11.pdf"
+      ],
+      "titles": [
+        "Weather and Climate Extreme Events in a Changing Climate. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (Chapter 11)"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-03:S004"
+      ],
+      "note": ""
+    },
+    "b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6": {
+      "file": "docs/b1/b1f31cc6390b25eef57a56511f3626f18c88ab81109c8e0e90a20e65143619b6.pdf",
+      "bytes": 3093036,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg3/downloads/report/IPCC_AR6_WGIII_Chapter12.pdf"
+      ],
+      "titles": [
+        "Cross-sectoral Perspectives. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII Chapter 12)",
+        "IPCC 2022. Chapter 12: Cross-sectoral Perspectives. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+        "IPCC 2022, Chapter 12: Cross-sectoral perspectives, in Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+        "Chapter 12: Cross-sectoral perspectives. In: Climate Change 2022: Mitigation of Climate Change. IPCC Sixth Assessment Report, Working Group III"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-04:S001",
+        "whu-lean-q1-04:S001",
+        "whu-lean-q1-04b:S001",
+        "whu-lean-q1-04c:S001"
+      ],
+      "note": ""
+    },
+    "7af8dc58566beeab8eeceb75f713d9592d289a31b539601b304f7f773b98b62d": {
+      "file": "docs/7a/7af8dc58566beeab8eeceb75f713d9592d289a31b539601b304f7f773b98b62d.pdf",
+      "bytes": 6627987,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.stateofcdr.org/asset/State-of-Carbon-Dioxide-Removal-Edition-3_June2026.pdf",
+        "https://www.stateofcdr.org/asset/State-of-Carbon-Dioxide-Removal-Edition-3_June-2026.pdf"
+      ],
+      "titles": [
+        "The State of Carbon Dioxide Removal, 3rd Edition",
+        "The State of Carbon Dioxide Removal - 3rd Edition (2026)",
+        "The State of Carbon Dioxide Removal, 3rd edition (2026)"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-04:S003",
+        "whu-lean-q1-04:S004",
+        "whu-lean-q1-04b:S002"
+      ],
+      "note": ""
+    },
+    "37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446": {
+      "file": "docs/37/37c9fa760757524c8d69630a89cecab9ebcacb66786970a3439da0619875e446.pdf",
+      "bytes": 3361797,
+      "content_type": "application/pdf",
+      "first_held": "2026-10-29",
+      "urls": [
+        "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_SPM.pdf"
+      ],
+      "titles": [
+        "Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change",
+        "Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis (AR6 WGI)",
+        "IPCC 2021. Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis (AR6 WGI)"
+      ],
+      "used_by": [
+        "whu-quarterly-r1-03:S001",
+        "whu-quarterly-r1-04:S002",
+        "whu-lean-q1-03:S001",
+        "whu-lean-q1-03b:S001"
+      ],
+      "note": ""
+    },
+    "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81": {
+      "file": "docs/3e/3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81.xml",
+      "bytes": 392279,
+      "content_type": "application/xml",
+      "first_held": "2026-11-05",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9700054/fullTextXML"
+      ],
+      "titles": [
+        "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map",
+        "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map."
+      ],
+      "used_by": [
+        "whu-lean-q1-02r:S003",
+        "whu-lean-orch-t1-q1-02d:S002",
+        "whu-lean-orch-t1-q1-02e:S002",
+        "whu-lean-orch-t1-q1-02f:S002",
+        "whu-lean-orch-t1-q1-02h:S002",
+        "whu-lean-orch-t1-q1-02i:S002"
+      ],
+      "note": "",
+      "trial_used_by": [
+        "whu-lean-orch-t1-q1-02d:S002",
+        "whu-lean-orch-t1-q1-02e:S002",
+        "whu-lean-orch-t1-q1-02f:S002",
+        "whu-lean-orch-t1-q1-02h:S002",
+        "whu-lean-orch-t1-q1-02i:S002"
+      ],
+      "origin": "real",
+      "trial_note": "tagged 2026-11-23 (advisor's ruling 5 after attempt 11): the used_by rows in trial_used_by are orchestrator trial 1 runs, whose outputs are discarded; nothing was deleted. From 2026-11-23 trial runs hold their documents in backend/data/whatholdsup/library_trial/."
+    },
+    "bd358b3f131267a2a119191a807b981ed48f3c811ebd8d2f368569f34af596db": {
+      "file": "docs/bd/bd358b3f131267a2a119191a807b981ed48f3c811ebd8d2f368569f34af596db.xml",
+      "bytes": 3993,
+      "content_type": "application/xml",
+      "first_held": "2026-11-05",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9968378/fullTextXML"
+      ],
+      "titles": [
+        "Corrigendum to Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map"
+      ],
+      "used_by": [
+        "whu-lean-q1-02r:S004"
+      ],
+      "note": ""
+    },
+    "882af3ff1e5e14c069d4dfa4681e4613c74c49b9290a8b2cd1b8e1aa226bfa1b": {
+      "file": "docs/88/882af3ff1e5e14c069d4dfa4681e4613c74c49b9290a8b2cd1b8e1aa226bfa1b.pdf",
+      "bytes": 16630876,
+      "content_type": "application/pdf",
+      "first_held": "2026-11-05",
+      "urls": [
+        "https://www.stateofcdr.org/asset/SoCDR-2nd-Edition-Full-Report.pdf"
+      ],
+      "titles": [
+        "Smith, S. M. et al. (2024). The State of Carbon Dioxide Removal - 2nd Edition"
+      ],
+      "used_by": [
+        "whu-lean-q1-04:S002"
+      ],
+      "note": ""
+    },
+    "d510ce3fc5ea81378aebf7796282266c8ace48b985b107eab26acf441bea2135": {
+      "file": "docs/d5/d510ce3fc5ea81378aebf7796282266c8ace48b985b107eab26acf441bea2135.pdf",
+      "bytes": 123452,
+      "content_type": "application/pdf",
+      "first_held": "2026-11-05",
+      "urls": [
+        "https://www.stateofcdr.org/asset/Errata-in-SoCDR-ED3_July_26-1.pdf"
+      ],
+      "titles": [
+        "Errata in The State of Carbon Dioxide Removal 3rd Edition (July 2026)"
+      ],
+      "used_by": [
+        "whu-lean-q1-04:S005"
+      ],
+      "note": ""
+    },
+    "7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3": {
+      "file": "docs/7a/7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3.pdf",
+      "bytes": 1586324,
+      "content_type": "application/pdf",
+      "first_held": "2026-11-06",
+      "urls": [
+        "https://eenet.org.uk/resources/docs/Implementation%20of%20Inclusive%20Education%20A%20Systematic%20Review%20of%20Studies%20of%20Inclusive%20Education%20Interventions%20in%20Low-%20and%20Lower-Middle-Income%20Countries.pdf"
+      ],
+      "titles": [
+        "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries"
+      ],
+      "used_by": [
+        "whu-lean-q1-02b:S003"
+      ],
+      "note": ""
+    },
+    "1986f453b0f6aa1c807a453c371b870030b94ae7f1625172fd183d32a6cc3313": {
+      "file": "docs/19/1986f453b0f6aa1c807a453c371b870030b94ae7f1625172fd183d32a6cc3313.pdf",
+      "bytes": 1937668,
+      "content_type": "application/pdf",
+      "first_held": "2026-11-06",
+      "urls": [
+        "https://www.stateofcdr.org/asset/SoCDR-Ed3_Chapter-7_Final.pdf"
+      ],
+      "titles": [
+        "Chapter 7: Current levels of CDR. In: The State of Carbon Dioxide Removal, 3rd Edition"
+      ],
+      "used_by": [
+        "whu-lean-q1-04c:S002"
+      ],
+      "note": ""
+    },
+    "8ab3ce1b14a6e599bde9ece8bd6245caf700dff4d43e4aa73157b513daaa6ae2": {
+      "file": "docs/8a/8ab3ce1b14a6e599bde9ece8bd6245caf700dff4d43e4aa73157b513daaa6ae2.pdf",
+      "bytes": 1967352,
+      "content_type": "application/pdf",
+      "first_held": "2026-11-06",
+      "urls": [
+        "https://www.stateofcdr.org/asset/SoCDR-Ed3_Chapter-8_Final.pdf"
+      ],
+      "titles": [
+        "Chapter 8: Paris-consistent CDR scenarios. In: The State of Carbon Dioxide Removal, 3rd Edition"
+      ],
+      "used_by": [
+        "whu-lean-q1-04c:S003"
+      ],
+      "note": ""
+    },
+    "6e7d8a4acc4bb70484d7de5dad076704fd55be52d46650f59c8eb42592e65d0a": {
+      "file": "docs/6e/6e7d8a4acc4bb70484d7de5dad076704fd55be52d46650f59c8eb42592e65d0a.xml",
+      "bytes": 151104,
+      "content_type": "application/xml",
+      "first_held": "2026-11-07",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10844053/fullTextXML"
+      ],
+      "titles": [
+        "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive education schools in Low and Middle-Income Countries (LMICs)"
+      ],
+      "used_by": [
+        "whu-lean-orch-t1-q1-02c:S002"
+      ],
+      "note": "",
+      "trial_used_by": [
+        "whu-lean-orch-t1-q1-02c:S002"
+      ],
+      "origin": "trial",
+      "trial_note": "tagged 2026-11-23 (advisor's ruling 5 after attempt 11): the used_by rows in trial_used_by are orchestrator trial 1 runs, whose outputs are discarded; nothing was deleted. From 2026-11-23 trial runs hold their documents in backend/data/whatholdsup/library_trial/."
+    },
+    "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204": {
+      "file": "docs/b2/b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204.xml",
+      "bytes": 140497,
+      "content_type": "application/xml",
+      "first_held": "2026-11-23",
+      "urls": [
+        "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8988635/fullTextXML"
+      ],
+      "titles": [
+        "PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review."
+      ],
+      "used_by": [
+        "whu-lean-orch-t1-q1-02k:S002"
+      ],
+      "note": "",
+      "trial_used_by": [
+        "whu-lean-orch-t1-q1-02k:S002"
+      ],
+      "origin": "trial",
+      "trial_note": "tagged 2026-11-23 (advisor's ruling 5 after attempt 11): the used_by rows in trial_used_by are orchestrator trial 1 runs, whose outputs are discarded; nothing was deleted. From 2026-11-23 trial runs hold their documents in backend/data/whatholdsup/library_trial/."
     }
   }
 }

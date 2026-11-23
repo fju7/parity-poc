@@ -1,0 +1,47 @@
+{
+  "what_this_is": "Which document in the library each of this issue's sources points at. The library holds the bytes; this says what we were reading when we wrote the page.",
+  "issue": "whu-lean-orch-t1-q1-02d",
+  "sources": {
+    "S001": {
+      "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "bytes": 395517,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11799928/fullTextXML",
+      "held": "2026-11-07",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "165887 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S002": {
+      "sha256": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+      "file": "docs/3e/3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81.xml",
+      "bytes": 392279,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9700054/fullTextXML",
+      "held": "2026-11-07",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "184771 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S003": {
+      "sha256": "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3",
+      "file": "docs/08/088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3.xml",
+      "bytes": 379448,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/fullTextXML",
+      "held": "2026-11-07",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "157297 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    }
+  },
+  "run_status": "trial",
+  "run_id": "whu-lean-orch-t1-q1-02d"
+}

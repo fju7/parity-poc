@@ -1,0 +1,34 @@
+{
+  "what_this_is": "Which document in the library each of this issue's sources points at. The library holds the bytes; this says what we were reading when we wrote the page.",
+  "issue": "whu-lean-orch-t1-q1-02c",
+  "sources": {
+    "S001": {
+      "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "bytes": 395517,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11799928/fullTextXML",
+      "held": "2026-11-07",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "165887 characters, reference list and discussion present",
+      "superseded": [],
+      "also_held": []
+    },
+    "S002": {
+      "sha256": "6e7d8a4acc4bb70484d7de5dad076704fd55be52d46650f59c8eb42592e65d0a",
+      "file": "docs/6e/6e7d8a4acc4bb70484d7de5dad076704fd55be52d46650f59c8eb42592e65d0a.xml",
+      "bytes": 151104,
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10844053/fullTextXML",
+      "held": "2026-11-07",
+      "via": "acquire_sources.py on the operator's machine",
+      "note": "",
+      "kind": "full_text",
+      "kind_why": "67753 characters, reference list and discussion/introduction present",
+      "superseded": [],
+      "also_held": []
+    }
+  },
+  "run_status": "trial",
+  "run_id": "whu-lean-orch-t1-q1-02c"
+}
