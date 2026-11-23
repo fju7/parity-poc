@@ -1,0 +1,280 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "review",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+      "year": 2025,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Hunt",
+      "used_for": "Most recent Campbell systematic review directly answering which education interventions work for disabled people in LMICs.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.70016",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Hunt X",
+          "Saran A",
+          "White H",
+          "Kuper H"
+        ],
+        "year": 2025,
+        "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+        "container": "Campbell systematic reviews"
+      },
+      "pmcid": "PMC11799928",
+      "url": "https://europepmc.org/article/PMC/PMC11799928",
+      "also_called": [
+        "Effectiveness of interventions for improving educational outcomes for people wit"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        },
+        "on": "2026-11-23"
+      },
+      "form": "article"
+    },
+    {
+      "id": "S002",
+      "type": "review",
+      "title": "Inclusive Strategies for Children With Developmental Disabilities in Mainstream Classrooms in African Countries: A Systematic Review of Stakeholder Experiences, Attitudes, and Perspectives.",
+      "year": 2024,
+      "container": "Review of Educational Research",
+      "authors": "Genovesi",
+      "used_for": "2024 systematic review of inclusive teaching strategies for children with developmental disabilities in African LMIC mainstream classrooms.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.3102/00346543241288247",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Genovesi E",
+          "Gaches A",
+          "McKenzie J",
+          "Hanlon C",
+          "Hoekstra RA"
+        ],
+        "year": 2025,
+        "title": "Inclusive Strategies for Children With Developmental Disabilities in Mainstream Classrooms in African Countries: A Systematic Review of Stakeholder Experiences, Attitudes, and Perspectives.",
+        "container": "Review of educational research"
+      },
+      "pmcid": "PMC12598068",
+      "url": "https://europepmc.org/article/PMC/PMC12598068",
+      "also_called": [
+        "Inclusive Strategies for Children With Developmental Disabilities in Mainstream "
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/7f/7f6d414873a8737a737f0ef0921179efb73801ae304230d361f4af240d5c4b4d.xml",
+          "sha256": "7f6d414873a8737a737f0ef0921179efb73801ae304230d361f4af240d5c4b4d",
+          "bytes": 181058,
+          "identified_by": "contains its identifier PMC12598068 — 95497 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "95497 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-23"
+      },
+      "form": "article"
+    },
+    {
+      "id": "S003",
+      "type": "review",
+      "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+      "year": 2022,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Ahmed",
+      "used_for": "Evidence and gap map of teacher professional development interventions for disability inclusion across LMIC Asia-Pacific; 50 studies, 16 countries.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.1287",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Ahmed SK",
+          "Jeffries D",
+          "Chakraborty A",
+          "Carslake T",
+          "Lietz P",
+          "Rahayu B",
+          "Armstrong D",
+          "Kaushik A",
+          "Sundarsagar K"
+        ],
+        "year": 2022,
+        "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+        "container": "Campbell systematic reviews"
+      },
+      "pmcid": "PMC9700054",
+      "url": "https://europepmc.org/article/PMC/PMC9700054",
+      "also_called": [
+        "Teacher professional development for disability inclusion in low- and middle-inc"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/3e/3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81.xml",
+          "sha256": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+          "bytes": 392279,
+          "identified_by": "contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "184771 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-23"
+      },
+      "form": "article"
+    },
+    {
+      "id": "S004",
+      "type": "review",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+      "year": 2020,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Saran",
+      "used_for": "Foundational Campbell EGM mapping all disability intervention evidence in LMICs, including 40 education studies; identifies evidence gaps.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1002/cl2.1070",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Saran A",
+          "White H",
+          "Kuper H"
+        ],
+        "year": 2020,
+        "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+        "container": "Campbell systematic reviews"
+      },
+      "pmcid": "PMC8356326",
+      "url": "https://europepmc.org/article/PMC/PMC8356326",
+      "also_called": [
+        "Evidence and gap map of studies assessing the effectiveness of interventions for"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/08/088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3.xml",
+          "sha256": "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3",
+          "bytes": 379448,
+          "identified_by": "contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "157297 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-23"
+      },
+      "form": "article"
+    },
+    {
+      "id": "S005",
+      "type": "review",
+      "title": "Stakeholder experiences, attitudes and perspectives on inclusive education for children with developmental disabilities in sub-Saharan Africa: A systematic review of qualitative studies.",
+      "year": 2022,
+      "container": "Autism",
+      "authors": "Genovesi",
+      "used_for": "Systematic review of qualitative evidence on barriers and enablers of inclusive education for children with developmental disabilities in sub-Saharan Africa.",
+      "proposed_by": "orchestrator discover step",
+      "doi": "10.1177/13623613221096208",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Genovesi E",
+          "Jakobsson C",
+          "Nugent L",
+          "Hanlon C",
+          "Hoekstra RA"
+        ],
+        "year": 2022,
+        "title": "Stakeholder experiences, attitudes and perspectives on inclusive education for children with developmental disabilities in sub-Saharan Africa: A systematic review of qualitative studies.",
+        "container": "Autism : the international journal of research and practice"
+      },
+      "pmcid": "PMC9483198",
+      "url": "https://europepmc.org/article/PMC/PMC9483198",
+      "also_called": [
+        "Stakeholder experiences, attitudes and perspectives on inclusive education for c"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/0c/0cd5dbda122c1d5bebdbfd2cf4a07931262e7da65390eb09be2685573281dd3b.xml",
+          "sha256": "0cd5dbda122c1d5bebdbfd2cf4a07931262e7da65390eb09be2685573281dd3b",
+          "bytes": 224020,
+          "identified_by": "contains its identifier PMC9483198 — 103166 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "103166 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-23"
+      },
+      "form": "article"
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: systematic review inclusive education children disabilities low middle income countries",
+      "web search: disability inclusive education interventions LMIC effectiveness review",
+      "web search: evidence gap map disability education interventions LMIC White Campbell 2020",
+      "web search: UNICEF \"effectiveness of inclusive interventions for children with disabilities\" 2022 report",
+      "web search: Wapling systematic review disability education strategies children LMIC 2016",
+      "web search: teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map 2022",
+      "web search: inclusive education developmental disabilities Africa systematic review 2024 \"Review of Educational Research\"",
+      "registry: Europe PMC"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [
+    {
+      "proposal": {
+        "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+        "first_author": "Mendoza",
+        "year": 2022,
+        "container": "International Journal of Disability, Development and Education",
+        "type": "review",
+        "url": "https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359",
+        "why": "First systematic review of IE interventions specifically in low- and lower-middle-income countries; covers 31 studies across 19 countries."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+        "first_author": "Wapling",
+        "year": 2016,
+        "container": "CBM",
+        "type": "review",
+        "url": "https://portal.qader.org/cached_uploads/download/2019/01/08/inclusive-education-and-children-with-disabilities-quality-education-for-all-in-low-and-middle-income-countries-2016-1546936875.pdf",
+        "why": "Systematic literature review commissioned by CBM examining strategies for quality education for children with disabilities in LMICs; widely cited baseline."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    },
+    {
+      "proposal": {
+        "title": "Inclusion Matters: Inclusive interventions for children with disabilities (Evidence and Gap Map)",
+        "first_author": "UNICEF Office of Research – Innocenti",
+        "year": 2022,
+        "container": "UNICEF Office of Research – Innocenti",
+        "type": "review",
+        "url": "https://www.unicef.org/innocenti/reports/effectiveness-inclusive-interventions-children-disabilities",
+        "why": "UNICEF EGM mapping inclusive interventions for children with disabilities in LMICs, including education; highlights evidence gaps in inclusive schooling outcomes."
+      },
+      "why": "Europe PMC returned no record for the title (or did not answer)",
+      "status": "NOT_FOUND"
+    }
+  ],
+  "not_of_a_type": []
+}
