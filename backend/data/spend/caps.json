@@ -43,11 +43,11 @@
   "_why_whu_lean_orch_t1": "Advisor ruling 2026-11-07, 'orchestrator trial 1': one paid orchestrator run on WHU-Q1-02, from the lean runs line (validity_plan.md §12; $10.05 left on it). $10, the run cap also in the issue's run_cap_usd. Attempts 2 and 3 (advisor's ruling after attempt 1): each in a new folder on its own ledger issue, capped at what is left of the $10. Raised to $20 in all on 2026-11-07 (advisor's ruling after attempt 8): $10 from the new-questions line; each attempt's per-issue cap is what is left of the $20. Raised to $30 on 2026-11-23 (advisor's ruling after attempt 15): $10 more from the new-questions line.",
   "lines": {
     "new-questions test": {
-      "cap_usd": 130,
+      "cap_usd": 120,
       "ledger_issue_prefix": "whu-cf-"
     },
     "orchestrator trial 1": {
-      "cap_usd": 30,
+      "cap_usd": 40,
       "ledger_issue_prefix": "whu-lean-orch-t1-"
     },
     "seeded-defect test": {

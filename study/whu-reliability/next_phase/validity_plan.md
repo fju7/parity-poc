@@ -498,6 +498,8 @@ the room rule each day.
 
 **Ruling after orchestrator trial 1's attempt 15 (advisor, 2026-11-23):** $10 more moves from the "new-questions test" line ($140 → **$130**) to orchestrator trial 1 ($20 → **$30**; $14.04 spent on attempts 1-15, **$15.96** left). Attempt 16 runs at the orchestrator's $10 per-run cap.
 
+**Ruling after orchestrator trial 1's attempt 20 (advisor, 2026-11-23):** attempt 20 was stopped by a registry outage, which counts as a stop for this move; $10 more moves from the "new-questions test" line ($130 → **$120**) to orchestrator trial 1 ($30 → **$40**; $22.37 spent on attempts 1-20, **$17.63** left) for one more attempt. No further moves without Fred. Attempt 21 runs at the $10 per-run cap only when Europe PMC probes clean and fast (every probe HTTP 200 in under 10 s).
+
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
 
