@@ -299,12 +299,14 @@ def plain(html_text: str) -> str:
 # capital + full stop is an initial only if the token before it is a capitalised word, a comma (the token ends in
 # one), "and", "&", the start of a reference entry (the block's start, or a "[n]" tag), or another initial; after a
 # lowercase word ("vitamin D.", "hepatitis B.", "group A.") or anything else it is a possible sentence end. So
-# "Smith, J. and Jones, K." and "Smith and J. Jones" stay whole, and "cited by J. Smith" splits after "J.".
+# "Smith, J. and Jones, K." and "Smith and J. Jones" stay whole. After attempt 20 (advisor): the lowercase words
+# by, with, from, to, of, per, see, cf. also mark an initial, so "cited by J. Smith" stays whole.
 ABBREVIATION = re.compile(r"(?<![A-Za-z])(?:et al|e\.g|i\.e|cf|vs|approx|figs?)\.$", re.I)
 NUMBER_ABBREVIATION = re.compile(r"(?:^|[\s(])No\.$")
 INITIAL = re.compile(r"(?:^|[\s(])[A-Z]\.$")
 ONE_INITIAL = re.compile(r"\(?[A-Z]\.")
 ENTRY_TAG = re.compile(r"\[\d+\]")
+BEFORE_A_NAME = frozenset(("by", "with", "from", "to", "of", "per", "see", "cf."))
 
 
 def _keeps_abbreviations() -> bool:
@@ -324,7 +326,7 @@ def _initial_by_token_before(prefix: str) -> bool:
     if not toks:
         return True                                  # the start of the block: a reference entry
     t = toks[-1].lstrip("(")
-    return (t.endswith(",") or t in ("and", "&") or bool(ENTRY_TAG.fullmatch(t)) or bool(ONE_INITIAL.fullmatch(t))
+    return (t.endswith(",") or t in ("and", "&") or t in BEFORE_A_NAME or bool(ENTRY_TAG.fullmatch(t)) or bool(ONE_INITIAL.fullmatch(t))
             or (t[:1].isupper() and any(c.isalpha() for c in t) and not t.endswith((".", "!", "?", ":", ";"))))
 
 

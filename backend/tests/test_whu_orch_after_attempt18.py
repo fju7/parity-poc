@@ -69,7 +69,21 @@ def test_initials_after_a_capitalised_word_comma_and_or_another_initial_stay_who
 
 
 def test_an_initial_after_a_lowercase_word_is_a_possible_end(lean_on):
-    assert L.sentences("It was cited by J. Smith in 2020.") == ["It was cited by J.", "Smith in 2020."]
+    assert L.sentences("The rate was set at J. Smith's clinic.") == ["The rate was set at J.", "Smith's clinic."]
+
+
+@pytest.mark.parametrize("word", ["by", "with", "from", "to", "of", "per", "see", "cf."])
+def test_the_ruled_lowercase_words_mark_an_initial(word, lean_on):
+    """Advisor's ruling after attempt 20: "cited by J. Smith" stays whole."""
+    s = "It was cited %s J. Smith in 2020." % word
+    assert L.sentences(s + " Then another.") == [s, "Then another."]
+
+
+def test_cited_by_j_smith_stays_whole_and_the_lowercase_word_cases_still_split(lean_on):
+    assert L.sentences("It was cited by J. Smith in 2020.") == ["It was cited by J. Smith in 2020."]
+    assert L.sentences("Levels of vitamin D. The next trial.") == ["Levels of vitamin D.", "The next trial."]
+    assert L.sentences("Infected with hepatitis B. Patients were seen.") == \
+        ["Infected with hepatitis B.", "Patients were seen."]
 
 
 def test_a_reference_entry_tag_starts_an_entry(lean_on):
