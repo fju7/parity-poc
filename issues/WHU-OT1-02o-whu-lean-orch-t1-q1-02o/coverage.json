@@ -1,0 +1,89 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only gives the number of studies included in the review. It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:27:51+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many included studies targeted children with disabilities. It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:27:53+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "It only counts how many studies targeted family members versus service providers. It reports no effect or certainty, so it does not change whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:27:56+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only counts which impairment groups interventions targeted (n=17 for intellectual or learning impairments). It reports no effectiveness result and does not compare programme types, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:01+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appears most often across studies, with an example. It describes the volume of evidence, not effectiveness or comparison, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:03+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes the education gap and its cause for children with disabilities, not whether interventions work. That is problem description, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Prevalence of disability or the size of the education gap for children with disabilities",
+   "decided_at": "2026-11-23T19:28:18+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes for the group, not education outcomes, so it falls under the health/functional outcomes exclusion.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, functional or rehabilitation outcomes (e.g. mobility, vision correction itself) where no education outcome is measured",
+   "decided_at": "2026-11-23T19:28:21+00:00"
+  },
+  "S002@4325-4537": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies exist and where they are located (evidence map coverage). It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:30+00:00"
+  },
+  "S002@4538-4608": {
+   "state": "not_material",
+   "reason": "The finding only says two research gaps exist in professional learning research, without naming them or giving any effect or certainty information, so it cannot change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:34+00:00"
+  },
+  "S002@5282-6096": {
+   "state": "not_material",
+   "reason": "The finding is only publication metadata (GEM Centre partnership, PMC status flags, license, converter details). It contains no result on programme effectiveness or certainty, so nothing can change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:41+00:00"
+  },
+  "S003@5491-5648": {
+   "state": "not_material",
+   "reason": "A generic policy statement about well-being and the 2030 agenda; it reports no effect, programme type, or education outcome, so it would not change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:43+00:00"
+  },
+  "S003@5649-6168": {
+   "state": "not_material",
+   "reason": "The finding only describes the evidence and gap map's purpose as a starting point for researchers and policymakers. It reports no result on whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T19:28:45+00:00"
+  }
+ }
+}

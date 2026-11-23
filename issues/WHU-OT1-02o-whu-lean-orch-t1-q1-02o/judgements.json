@@ -1,0 +1,242 @@
+{
+ "candidates": {
+  "S001@7611-7692": {
+   "source": "S001",
+   "at": [
+    7611,
+    7692
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "52303d29cdac048f98e3f4cf128ebdc5940ae2a055dc35bb7eaf416d7de24dbc",
+   "relevant": true,
+   "words": "the certainty of that evidence",
+   "reason": "The judgement says nearly all included studies were rated low confidence, which bears directly on how certain the evidence is that disability education programmes work.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "9d7e64799a74d6d5",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:28:48+00:00"
+  },
+  "S001@7900-8058": {
+   "source": "S001",
+   "at": [
+    7900,
+    8058
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes the education gap for children with disabilities and its cause, not whether any programme improves their outcomes, which the scope explicitly excludes as describing the problem rather than intervention effects.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bfd4d9fd62956116",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:28:53+00:00"
+  },
+  "S001@8059-8153": {
+   "source": "S001",
+   "at": [
+    8059,
+    8153
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1c076ae3121c7c8d69bd2d6d36ece31cb5d966f90937974d30f88603255cab1e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equalising health outcomes, which the scope explicitly excludes, not the educational outcomes the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "28ce1cdb46106b64",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:28:57+00:00"
+  },
+  "S001@8154-8406": {
+   "source": "S001",
+   "at": [
+    8154,
+    8406
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "5d0f6ac542fa71f8f502445044b00c65a04949eb412cfb5470dbeb7d264f9364",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement recommends a twin-track approach, combining disability-specific support with inclusion in mainstream activities, which bears on which programme types work best for children with disabilities.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "a15f231639353e64",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:28:59+00:00"
+  },
+  "S001@8407-8703": {
+   "source": "S001",
+   "at": [
+    8407,
+    8703
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "670f201f6cde47824d552b933cf707e4305f6d90e3fe7e6905e87649b2b0a1f2",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says most interventions in the review targeted individual children rather than system- or school-level change, which affects how the programme types can be compared and how far the evidence supports any conclusion about which kind works best.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "c651d68e6c9d40b7",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:01+00:00"
+  },
+  "S001@8704-8859": {
+   "source": "S001",
+   "at": [
+    8704,
+    8859
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "b26bf5ba5ec5469f82e23231ff29c2d93272e410897769bbb77960c2932310c0",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says evaluation should focus on interventions that target the broader environment as well as the individual with a disability, which bears on which programme types are evaluated and which work best.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "8a28ff40079290b7",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:03+00:00"
+  },
+  "S002@5029-5281": {
+   "source": "S002",
+   "at": [
+    5029,
+    5281
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e16519865c01cf1fbe0466595d8c551334a18ea2f4d2ef36332612468e61e6fa",
+   "relevant": true,
+   "words": "programmes meant to improve education for children and young people with disabilities",
+   "reason": "The judgement says evidence on disability-inclusive teacher professional development (TPD) interventions in LMICs is scarce and needs to be evaluated and published, which bears on how certain the evidence is for this programme type.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "cddfc4d99a7d69cb",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:05+00:00"
+  },
+  "S002@5282-6096": {
+   "source": "S002",
+   "at": [
+    5282,
+    6096
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "f4c87024bfba2051e5cd294b0489753450e07d401521f21ebb87aa50b00aec14",
+   "relevant": false,
+   "words": "",
+   "reason": "The text is only funder/acknowledgement information and PMC metadata, with no finding about whether disability education interventions work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fa68c278895a1839",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:08+00:00"
+  },
+  "S002@6097-6230": {
+   "source": "S002",
+   "at": [
+    6097,
+    6230
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6af30405a3f6dcc73d3d7047a0c0308dd7f2968eaddf851d3feaff19dbd4e138",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is only a fragment of an author list with no claim about any intervention, outcome or evidence, so it cannot bear on the question.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9f1c314246b0baf1",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:12+00:00"
+  },
+  "S002@6241-6374": {
+   "source": "S002",
+   "at": [
+    6241,
+    6374
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "7161480f4569e75ecf68b573dc7ec34fc36998ee4819e15ac3901bf15ac5ae56",
+   "relevant": true,
+   "words": "programmes meant to improve education for children and young people with disabilities",
+   "reason": "The judgement is an evidence and gap map of teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries, so it bears on one programme type and on how much evidence exists for it in LMICs.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "53b3947df499cb03",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:14+00:00"
+  },
+  "S002@6375-6502": {
+   "source": "S002",
+   "at": [
+    6375,
+    6502
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6a6684b47d3edb73a13f8af8f71c76d5546e7cff34f9a1eb4256ef35934f5d3a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is only a bibliographic citation (journal, DOI, PMC and PubMed IDs, a linked protocol and an evidence and gap map) and says nothing about whether education programmes for children with disabilities in low- and middle-income countries work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "01944a4e2273393b",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:19+00:00"
+  },
+  "S003@5491-5648": {
+   "source": "S003",
+   "at": [
+    5491,
+    5648
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "c0dd7cbf969b352778d87cf9821d469e289f40fccb4f998bda6c780e892bfb92",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general advocacy statement that investing in disability well-being matters for the SDGs; it says nothing about whether education programmes for children with disabilities in LMICs work or which types work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "84de93a3caeb232d",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:23+00:00"
+  },
+  "S003@5649-6168": {
+   "source": "S003",
+   "at": [
+    5649,
+    6168
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "0e5c1f13ffff482464f66268c91c92dc23504dbd509ae06c1910aea7933c713e",
+   "relevant": false,
+   "words": "",
+   "reason": "This is only a purpose statement for an evidence gap map on interventions for people with disabilities in LMICs; it gives no findings on education outcomes, effectiveness or evidence certainty.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "09156e27ee113185",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:30+00:00"
+  },
+  "S003@6169-6638": {
+   "source": "S003",
+   "at": [
+    6169,
+    6638
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "9959795ca90f15ee7a0ffdfff52001d5fbcf81434b930fd0f06fbab806a18082",
+   "relevant": false,
+   "words": "",
+   "reason": "The passage is only a list of abbreviations; it makes no claim about whether programmes improve education outcomes for children with disabilities in LMICs.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "904601a0ab53e062",
+   "to_person": false,
+   "decided_at": "2026-11-23T19:29:34+00:00"
+  }
+ }
+}
