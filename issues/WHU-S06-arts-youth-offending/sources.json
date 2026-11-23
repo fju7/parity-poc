@@ -80,6 +80,11 @@
             "on": "2026-10-27",
             "by": "Claude Code (session 40c6f9bd)",
             "what": "the same reference-list DOI was written back as S002's identifier by sweep_sources.py resolve --write (resolved_on 2026-10-26, after the 3b commit), which does not read identifier_refused; removed again by hand. S002's corrections status is not known clean (advisor ruling, 2026-10-27)"
+          },
+          {
+            "on": "2026-11-02",
+            "by": "Claude Code (session WT, 2026-11-23)",
+            "what": "the same reference-list DOI was written back as S002’s identifier by sweep_sources.py resolve --write in the weekly lead scan (launchd org.whatholdsup.leadscan, Monday 2 Nov; resolved_on 2026-11-02), uncommitted; removed per this record on 2026-11-23 (advisor ruling 4). Since that ruling sweep_sources.py never resolves or writes a value listed here."
           }
         ]
       }
