@@ -1,0 +1,157 @@
+{
+ "candidates": {
+  "S001@7611-7692": {
+   "source": "S001",
+   "at": [
+    7611,
+    7692
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "52303d29cdac048f98e3f4cf128ebdc5940ae2a055dc35bb7eaf416d7de24dbc",
+   "relevant": true,
+   "words": "do programmes meant to improve education for children and young people with disabilities work",
+   "reason": "A low-confidence rating on nearly all studies in a source on this topic bears on how far the evidence shows that such programmes work, so a reader needs it to weigh the answer.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "5f10adaf04bfcfc5",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:36+00:00"
+  },
+  "S001@7900-8058": {
+   "source": "S001",
+   "at": [
+    7900,
+    8058
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes that disabled children fall behind and why, which is about the existence of the education gap (excluded as out of scope), not about whether any intervention improves outcomes or how intervention types compare.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0be606da99b6199e",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:41+00:00"
+  },
+  "S001@8059-8153": {
+   "source": "S001",
+   "at": [
+    8059,
+    8153
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1c076ae3121c7c8d69bd2d6d36ece31cb5d966f90937974d30f88603255cab1e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns interventions to equalise health outcomes, which the scope explicitly excludes; it says nothing about educational access, participation or learning outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4230f08c2de79bcf",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:46+00:00"
+  },
+  "S001@8154-8406": {
+   "source": "S001",
+   "at": [
+    8154,
+    8406
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "5d0f6ac542fa71f8f502445044b00c65a04949eb412cfb5470dbeb7d264f9364",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement recommends a twin-track approach, combining disability-specific support with inclusion in mainstream activities, which bears directly on which kinds of programme work best for children with disabilities.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "db7c8ff008d8b719",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:47+00:00"
+  },
+  "S001@8407-8703": {
+   "source": "S001",
+   "at": [
+    8407,
+    8703
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "670f201f6cde47824d552b933cf707e4305f6d90e3fe7e6905e87649b2b0a1f2",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says most reviewed interventions targeted individual children's functioning rather than school- or system-level mainstreaming, which bears on how the evidence on intervention types can be compared and weighed.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "ed490cf606f43f83",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:48+00:00"
+  },
+  "S001@8704-8859": {
+   "source": "S001",
+   "at": [
+    8704,
+    8859
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "b26bf5ba5ec5469f82e23231ff29c2d93272e410897769bbb77960c2932310c0",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says evaluations should cover interventions that target the child's broader environment as well as the individual, which bears on comparing intervention types and on what evidence exists about them.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "635bfe386dd4b6bc",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:50+00:00"
+  },
+  "S002@5491-5648": {
+   "source": "S002",
+   "at": [
+    5491,
+    5648
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "c0dd7cbf969b352778d87cf9821d469e289f40fccb4f998bda6c780e892bfb92",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general policy statement that investing in disability well-being matters for the SDGs; it gives no evidence on whether education programmes for disabled children in low- and middle-income countries improve educational outcomes, or which kinds work best.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ba0db96443b7dbd0",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:54+00:00"
+  },
+  "S002@5649-6168": {
+   "source": "S002",
+   "at": [
+    5649,
+    6168
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "0e5c1f13ffff482464f66268c91c92dc23504dbd509ae06c1910aea7933c713e",
+   "relevant": true,
+   "words": "programmes meant to improve education for children and young people with disabilities",
+   "reason": "The judgement describes an evidence and gap map of research on the effectiveness of interventions for people with disabilities in LMICs, which bears on whether the evidence shows such programmes work, though it is broader than education alone.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "7e087a6835baf952",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:56+00:00"
+  },
+  "S002@6169-6638": {
+   "source": "S002",
+   "at": [
+    6169,
+    6638
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "9959795ca90f15ee7a0ffdfff52001d5fbcf81434b930fd0f06fbab806a18082",
+   "relevant": false,
+   "words": "",
+   "reason": "The passage is only a list of abbreviations and makes no claim about whether education interventions for children with disabilities in LMICs work.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7e28be98d747a551",
+   "to_person": false,
+   "decided_at": "2026-11-23T16:37:59+00:00"
+  }
+ }
+}

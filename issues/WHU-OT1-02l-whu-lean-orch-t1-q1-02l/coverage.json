@@ -1,0 +1,61 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T16:37:05+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "A descriptive count of how many studies targeted children with disabilities says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T16:37:07+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only counts which actors studies targeted (family members versus service providers). It reports no effect or comparison of intervention types, so it would not change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T16:37:09+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment groups were most often targeted by studied interventions. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T16:37:11+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only describes which intervention category appears most often in the evidence base. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T16:37:14+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes the education gap and its causes for disabled children, not whether interventions work; scope excludes describing the size of the gap as distinct from testing interventions.",
+   "by": "claude-sonnet-5-5",
+   "element": "The prevalence of disability among out-of-school children and the size of the education gap",
+   "decided_at": "2026-11-23T16:37:23+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns health outcomes of interventions, not educational outcomes, so it falls under the scope entry excluding health or rehabilitation outcomes when no education outcome is measured.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation outcomes of disability programmes (e.g., motor function, hearing improvement) when no education outcome is measured",
+   "decided_at": "2026-11-23T16:37:26+00:00"
+  },
+  "S002@5649-6168": {
+   "state": "not_material",
+   "reason": "The finding only describes the purpose of an evidence gap map (a starting point for accessing research and guiding agendas) plus metadata; it states no result on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T16:37:33+00:00"
+  }
+ }
+}
