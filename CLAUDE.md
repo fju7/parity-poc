@@ -3087,6 +3087,10 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
   (whu-cf-), orchestrator trial 1 $20 (whu-lean-orch-t1-), seeded-defect test $89 (whu-validity-sd-).
 - `orch/lock.RunLock` removes backend/data/whatholdsup/orchestrator.lock on every exit path that runs code.
 - From 2026-11-30 the day cap is $25 (Fred) and the room rule is ledger + likely <= $15 per day.
+- Orchestrated acquire: registry timeouts/5xx/429 retried 4x (`acquire_sources.fetch_retrying`), then the run stops
+  "registry unavailable; run again later"; no held source reporting results (`orch/results.py`) stops it too.
+- Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
+  honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,
   `schedule/run_scan.sh`) runs `sweep_sources.py resolve --write` on EVERY issues/*/sources.json, including trial
   folders, and writes sweeps.json / scan.log; it does not read `identifier_refused` (S06's refused DOI returns weekly).

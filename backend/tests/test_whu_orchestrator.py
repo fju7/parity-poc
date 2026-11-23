@@ -1849,3 +1849,117 @@ def test_orchestrator_counts_malformed_replies_and_reasks():
 
 def test_coverage_call_limit_allows_a_reask_on_every_try():
     assert ST.BY_NAME["coverage"].max_calls >= 60 * 4
+
+
+
+# Ruling 1 after attempt 11 (2026-11-23): the judgements step reads judgements.json through judgements.load.
+
+def test_judgements_step_with_no_candidates_and_no_file_passes(tmp_path, monkeypatch):
+    import orchestrator as O
+    import ruling as R
+    c = _case(tmp_path)
+    assert not (c / "judgements.json").exists()
+    Page({"title": "T", "blocks": [{"tag": "p", "section": "findings", "sentences": ["One [1]."]}]}).save(
+        c / "draft" / "page.json")
+    monkeypatch.setattr(R, "held_texts", lambda slug: {"S001": "text"})
+    monkeypatch.setattr(O, "_cite_numbers", lambda ctx: {"S001": 1})
+    monkeypatch.setattr(O, "code_bind", lambda ctx, step, only=None: None)
+    ctx = SimpleNamespace(case=c, slug="orch-x", page_json=c / "draft" / "page.json", page=c / "draft" / "p.html",
+                          ask=lambda *a: (_ for _ in ()).throw(AssertionError("no call expected")), replies=[])
+    assert O.code_judgements(ctx, ST.BY_NAME["judgements"]) == {"outcome": "0 judgement(s) stated"}
+    assert not (c / "judgements.json").exists()           # the step writes nothing of the tool's
+
+
+def test_with_no_file_the_preflight_row_still_decides_a_held_candidate(tmp_path, monkeypatch):
+    import judgements as J
+    import omissions as OM
+    import coverage_check as C
+    cand = {"key": "S001@0-4", "source": "S001", "at": [0, 4], "section": "SPM", "kind": "assessment"}
+    monkeypatch.setattr(J, "candidates", lambda held: [cand])
+    monkeypatch.setattr(OM, "skipped", lambda *a: None)
+    monkeypatch.setattr(C, "load", lambda case: {})
+    monkeypatch.setattr(OM, "load", lambda case: {})
+    rows = J.preflight_rows("orch-x", held={"S001": "text"}, rows={}, case=tmp_path)
+    assert rows[0][0] == J.ROW and rows[0][1] != "ok" and "not yet ruled" in rows[0][2]
+
+
+# Ruling 2 after attempt 11 (2026-11-23): no held source reporting results stops the page; a registry still
+# unavailable after retries stops the run ("registry unavailable; run again later").
+
+def _attempt(folder):
+    return json.loads((ROOT / "issues" / folder / "sources.json").read_text())["sources"]
+
+
+def test_attempt_11s_protocol_and_gap_map_report_no_results_and_attempt_9s_review_does():
+    from orch import results as RS
+    s001, s002 = _attempt("WHU-OT1-02k-whu-lean-orch-t1-q1-02k")
+    assert s001["type"] == "synthesis" and "gap map" in RS.why_not(s001)          # typed synthesis by the model
+    assert s002["type"] == "methods" and "protocol" in RS.why_not(s002).lower()
+    assert RS.stop_reason([s002]).startswith("no held source reports results")
+    review = _attempt("WHU-OT1-02i-whu-lean-orch-t1-q1-02i")[0]
+    assert RS.why_not(review) is None and RS.stop_reason([s002, review]) is None
+    for t in ("registry", "editorial", "secondary", "critique", "coverage", "methods"):
+        assert RS.why_not({"type": t, "title": "Effects of X on Y"})
+    for title in ("Commentary on the trial", "Study protocol for a randomised trial", "Registration of a trial"):
+        assert RS.why_not({"type": "primary", "title": title})
+
+
+def test_acquire_stops_when_no_held_source_reports_results(tmp_path):
+    import orchestrator as O
+    c = _case(tmp_path)
+    proto = {"id": "S001", "type": "methods", "used_for": "x", "title": "PROTOCOL: Effectiveness of interventions",
+             "access": {"state": "full_text_held"}}
+    (c / "sources.json").write_text(json.dumps({"sources": [proto]}))
+    ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=_crossref, fulltext=_fulltext)
+    with pytest.raises(O.RunStop, match="no held source reports results"):
+        O.code_acquire(ctx, ST.BY_NAME["acquire"])
+
+
+def test_acquire_stops_registry_unavailable_rather_than_not_found(tmp_path):
+    import orchestrator as O
+    c = _case(tmp_path)
+    held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
+            "access": {"state": "full_text_held"}}
+    down = {"id": "S002", "type": "synthesis", "title": "A review we could not reach", "used_for": "x",
+            "access": {"last_fetch": {"on": "2026-11-23", "result": "not fetched", "registry_unavailable": True,
+                                      "why": "TimeoutError at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC1/"}}}
+    (c / "sources.json").write_text(json.dumps({"sources": [held, down]}))
+    ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=_crossref, fulltext=_fulltext)
+    with pytest.raises(O.RunStop, match="registry unavailable; run again later"):
+        O.code_acquire(ctx, ST.BY_NAME["acquire"])
+
+
+def test_fetch_is_retried_four_times_in_an_orchestrated_run_only(monkeypatch):
+    import urllib.error
+    import acquire_sources as AQ
+    calls, slept = [], []
+    monkeypatch.setattr(AQ, "_sleep", lambda s: slept.append(s))
+
+    def flaky(fail, exc):
+        def f(url, timeout=45):
+            calls.append(url)
+            if len(calls) <= fail:
+                raise exc
+            return b"x", "text/plain", url
+        return f
+    monkeypatch.setenv("WHU_ORCH_STEP", "acquire")
+    monkeypatch.setattr(AQ, "fetch", flaky(3, TimeoutError("t")))
+    assert AQ.fetch_retrying("u")[0] == b"x" and len(calls) == 4 and slept == [2, 4, 8]
+    calls.clear()
+    monkeypatch.setattr(AQ, "fetch", flaky(9, TimeoutError("t")))
+    with pytest.raises(TimeoutError):
+        AQ.fetch_retrying("u")
+    assert len(calls) == 4
+    calls.clear()
+    monkeypatch.setattr(AQ, "fetch", flaky(9, urllib.error.HTTPError("u", 404, "nf", {}, None)))
+    with pytest.raises(urllib.error.HTTPError):
+        AQ.fetch_retrying("u")
+    assert len(calls) == 1                                  # a 404 is an answer, not an outage
+    calls.clear()
+    monkeypatch.delenv("WHU_ORCH_STEP")
+    monkeypatch.setattr(AQ, "fetch", flaky(9, TimeoutError("t")))
+    with pytest.raises(TimeoutError):
+        AQ.fetch_retrying("u")
+    assert len(calls) == 1                                  # the old study behaviour: one try
+    assert AQ.transient(urllib.error.HTTPError("u", 503, "x", {}, None)) and AQ.transient(
+        urllib.error.HTTPError("u", 429, "x", {}, None)) and not AQ.transient(urllib.error.HTTPError("u", 403, "x", {}, None))

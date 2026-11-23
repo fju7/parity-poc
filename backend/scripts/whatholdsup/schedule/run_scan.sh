@@ -87,6 +87,11 @@ esac
 for SRC in "$REPO"/issues/*/sources.json; do
   [ -e "$SRC" ] || continue
   SLUG="$(basename "$(dirname "$SRC")")"
+  # Trial, seeded-defect and locked folders are not swept (advisor's ruling 4, 2026-11-23).
+  if WHY="$(/usr/bin/python3 "$REPO/backend/scripts/whatholdsup/schedule/scan_skip.py" "$(dirname "$SRC")")"; then
+    echo "skip $(date -u +%Y-%m-%dT%H:%M:%SZ)  $SLUG  ($WHY)" >> "$LOG"
+    continue
+  fi
   {
     echo "--------------------------------------------------------------"
     echo "sweep $(date -u +%Y-%m-%dT%H:%M:%SZ)  $SLUG"

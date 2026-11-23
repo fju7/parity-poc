@@ -597,8 +597,19 @@ def code_acquire(ctx: Ctx, step) -> dict:
     (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     held = [s["id"] for s in doc.get("sources") or [] if (s.get("access") or {}).get("state") == SL.FULL_TEXT_HELD]
     not_held = [s["id"] for s in doc.get("sources") or [] if (s.get("access") or {}).get("not_held")]
+    # Ruling 2 after attempt 11 (2026-11-23): a registry still unavailable after acquire_sources' retries stops
+    # the run; the source is never treated as not found.
+    down = [s for s in doc.get("sources") or [] if s["id"] in not_held
+            and ((s.get("access") or {}).get("last_fetch") or {}).get("registry_unavailable")]
+    if down:
+        raise RunStop("acquire: registry unavailable; run again later (%s)" % "; ".join(
+            "%s: %s" % (s["id"], (s["access"]["last_fetch"].get("why") or "")[:120]) for s in down))
     if not held:
         raise RunStop("acquire: no source is held (Not Ready)")
+    from orch import results as RS
+    why = RS.stop_reason([s for s in doc.get("sources") or [] if s["id"] in held])
+    if why:
+        raise RunStop("acquire: " + why)
     return {"outcome": "%d held, %d not held" % (len(held), len(not_held)), "not_held": not_held,
             "lines": {s["id"]: s["access"]["not_held"]["line"] for s in doc.get("sources") or []
                       if s["access"].get("not_held")}}
@@ -822,7 +833,8 @@ def code_judgements(ctx: Ctx, step) -> dict:
     from orch import model_steps as M
     from orch.page import Page
     import ruling as R
-    doc = json.loads((ctx.case / "judgements.json").read_text(encoding="utf-8"))
+    import judgements as J
+    doc = J.load(ctx.case)        # the tool's own reader: no file = no decisions (ruling 1 after attempt 11)
     page = Page.load(ctx.page_json)
     held = R.held_texts(ctx.slug)
     nums = _cite_numbers(ctx)

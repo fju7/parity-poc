@@ -189,6 +189,33 @@ def fetch(url: str, timeout: int = 45) -> tuple[bytes, str, str]:
         return r.read(), r.headers.get("Content-Type", ""), r.geturl()
 
 
+# A registry that times out or errors is retried in orchestrated runs (advisor's ruling 2 after attempt 11,
+# 2026-11-23): 4 attempts in all, with backoff; still unavailable -> the fetch record says so and the
+# orchestrator stops the run ("registry unavailable; run again later"), never treating it as not found.
+FETCH_ATTEMPTS = 4
+BACKOFF = (2, 4, 8)
+_sleep = __import__("time").sleep
+
+
+def transient(e: Exception) -> bool:
+    """A failure that says nothing about the source: timeout, connection error, HTTP 5xx or 429."""
+    if isinstance(e, urllib.error.HTTPError):
+        return e.code >= 500 or e.code == 429
+    return isinstance(e, (TimeoutError, ConnectionError, urllib.error.URLError, OSError))
+
+
+def fetch_retrying(url: str) -> tuple[bytes, str, str]:
+    """fetch(), retried on a transient failure in an orchestrated run (WHU_ORCH_STEP set); once otherwise."""
+    tries = FETCH_ATTEMPTS if os.environ.get("WHU_ORCH_STEP") else 1
+    for i in range(tries):
+        try:
+            return fetch(url)
+        except Exception as e:
+            if i + 1 >= tries or not transient(e):
+                raise
+            _sleep(BACKOFF[min(i, len(BACKOFF) - 1)])
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -267,15 +294,18 @@ def main(argv=None) -> int:
         targets = list(routes.get(sid) or []) + [acquisition_url(s)]
         data = ct = final = None
         why, check, tried = "no route tried", {}, []
+        unavailable = False
         for target in targets:
             try:
-                data, ct, final = fetch(target)
+                data, ct, final = fetch_retrying(target)
             except urllib.error.HTTPError as e:
                 why = "HTTP %s at %s" % (e.code, target[:60]); data = None
-                tried.append({"url": target, "result": why}); continue
+                unavailable = unavailable or transient(e)
+                tried.append({"url": target, "result": why, "unavailable": transient(e)}); continue
             except Exception as e:
                 why = "%s at %s" % (type(e).__name__, target[:60]); data = None
-                tried.append({"url": target, "result": why}); continue
+                unavailable = unavailable or transient(e)
+                tried.append({"url": target, "result": why, "unavailable": transient(e)}); continue
             # Identity is not substance, for EVERY type (2026-10-22). Until
             # then only article types were asked whether the bytes are the
             # document; any other type that identified itself was recorded as
@@ -294,6 +324,8 @@ def main(argv=None) -> int:
             # nothing was stored, so nothing is claimed.
             acc["last_fetch"] = {"on": store.utc_today(), "by": "acquire_sources.py",
                                  "result": "not fetched", "why": why, "tried": tried}
+            if unavailable:          # a route timed out or errored, after the retries: not evidence of absence
+                acc["last_fetch"]["registry_unavailable"] = True
             failed.append((sid, why, s.get("title", ""))); continue
         row = store.put(args.slug, sid, data, url=final, via="acquire_sources.py on the "
                         "operator's machine", content_type=ct, title=s.get("title", ""))

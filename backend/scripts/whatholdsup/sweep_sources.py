@@ -504,16 +504,28 @@ def resolve_candidate(cand: dict, src: dict) -> tuple[dict | None, str]:
     return None, "unknown candidate kind %r" % kind
 
 
+def refused_values(src: dict) -> set[str]:
+    """The identifier values a person refused for this source (its `identifier_refused` record: one
+    {"value", ...} or a list of them), lower-cased. Never resolved or written again (advisor's ruling 4,
+    2026-11-23: the weekly scan had re-added WHU-S06 S002's refused reference-list DOI on 26 Oct and 2 Nov)."""
+    rec = src.get("identifier_refused")
+    recs = rec if isinstance(rec, list) else [rec] if isinstance(rec, dict) else []
+    return {str(r.get("value")).strip().lower() for r in recs if isinstance(r, dict) and r.get("value")}
+
+
 def write_identifier(slug_dir: Path, sid: str, block: dict) -> None:
     """Record a verified identifier on the source's ledger entry. The only
     writer of sources.json in this file, and it writes only blocks that
-    resolve_candidate() returned."""
+    resolve_candidate() returned. A refused value is never written."""
     p = slug_dir / "sources.json"
     raw = p.read_text(encoding="utf-8")
     doc = json.loads(raw)
     rows = doc["sources"] if isinstance(doc, dict) else doc
     for r in rows:
         if r.get("id") == sid:
+            if str(block.get("value") or "").strip().lower() in refused_values(r):
+                raise SystemExit("%s %s: %s was refused by a person (identifier_refused); not written"
+                                 % (p, sid, block.get("value")))
             r["identifier"] = block
             break
     else:
@@ -909,7 +921,12 @@ def cmd_resolve(args) -> int:
                 print("    %-6s %-44s %s" % (sid, shape["shape"][:44], _title(src)[:34]))
                 continue
             block, why, errored = None, "", False
+            refused_ids = refused_values(src)
             for cand in candidate_shapes(src, short_slug(d)):
+                if str(cand.get("value") or "").strip().lower() in refused_ids:
+                    w = "%s: %s was refused by a person (identifier_refused); not resolved" % (cand["shape"], cand["value"])
+                    why = (why + " | " if why else "") + w
+                    continue
                 try:
                     block, w = resolve_candidate(cand, src)
                 except Exception as exc:
