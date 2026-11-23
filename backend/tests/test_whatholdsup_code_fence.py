@@ -321,7 +321,7 @@ def test_attempt_12s_recency_reply_is_read_from_its_final_block(monkeypatch):
 def test_prose_in_the_final_block_is_still_malformed_and_reasked(monkeypatch):
     monkeypatch.setenv("WHU_LEAN", "1")
     bad = _search_response([("server_tool_use", ""), ("web_search_tool_result", ""),
-                            ("text", "Let me consolidate:\n" + A12_FINAL)])
+                            ("text", "Let me consolidate:\n" + A12_FINAL.replace("```json\n", "").replace("\n```", ""))])
     good = _search_response([("server_tool_use", ""), ("web_search_tool_result", ""), ("text", A12_FINAL)])
     C, seen = _client_of([bad, good], monkeypatch)
     assert fc.call("s", "u", search=True, label="recency")["studies"]
@@ -332,3 +332,41 @@ def test_prose_in_the_final_block_is_still_malformed_and_reasked(monkeypatch):
 def test_a_reply_with_no_tool_use_is_all_reply():
     r, n = fc._final_text(_search_response([("text", "{\"a\": 1}")]))
     assert r == '{"a": 1}' and n == []
+
+
+
+# Ruling after attempt 14 (2026-11-23): one fenced json block, one value of the type, no other JSON value.
+
+def _a14_final_blocks():
+    d = json.loads((ROOT / "issues/WHU-OT1-02n-whu-lean-orch-t1-q1-02n/orchestrator/run_paid.json").read_text())
+    return [e["text"] for e in d["malformed_replies"]["events"] if e["event"] == "malformed"]
+
+
+def test_attempt_14s_two_recorded_replies_are_accepted(monkeypatch):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    blocks = _a14_final_blocks()
+    assert len(blocks) == 2 and all(b.startswith("I now have sufficient information") for b in blocks)
+    for b in blocks:
+        assert "[1]" in b.split("```")[0]                       # citation markers in the prose (not JSON values)
+        resp = _search_response([("text", "I'll search."), ("server_tool_use", ""), ("web_search_tool_result", ""),
+                                 ("text", b)])
+        C, _ = _client_of([resp], monkeypatch)
+        out = fc.call("s", "u", search=True, label="recency")
+        assert isinstance(out, dict) and C.calls == 1
+        assert [e["event"] for e in fc.MALFORMED_EVENTS] == ["narration", "narration"]   # before the search; around the fence
+
+
+@pytest.mark.parametrize("block", [
+    "Summary.\n```json\n{\"a\": 1}\n```\nAnd again:\n```json\n{\"a\": 2}\n```",             # two fences
+    "Summary.\n```json\n{\"a\": 1}\n```\nAlso {\"a\": 2}",                                   # fence plus a bare value
+    "Summary [1].\n```json\n{\"a\": 1}\n```\nsee [\"x\"]",                                   # a non-citation array outside
+    "Summary.\n```json\n[{\"a\": 1}]\n```",                                                    # wrong type for an object prompt
+    "Summary.\n```json\n{\"a\": 1} {\"a\": 2}\n```",                                          # two values in the fence
+])
+def test_the_negatives_stay_malformed(block):
+    assert fc.fenced_value(block, "object")[0] is None
+
+
+def test_citation_markers_only_are_allowed_outside():
+    v, prose = fc.fenced_value("Hunt [1] and Saran [2, 4].\n```json\n{\"a\": 1}\n```", "object")
+    assert v == {"a": 1} and "Hunt [1]" in prose

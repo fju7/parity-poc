@@ -739,6 +739,56 @@ def one_value(text: str, kind: str):
     return v if isinstance(v, list if kind == "array" else dict) else None
 
 
+FENCE = re.compile(r"```")
+JSON_FENCE = re.compile(r"```json[ \t]*\n?(.*?)```", re.DOTALL | re.IGNORECASE)
+
+
+def _citation_marker(v) -> bool:
+    """[1], [2, 4]: the page's citation numbers, which a reply quotes in its prose. Not a JSON value for the
+    fenced-block rule (session WT's reading, recorded for the advisor: both of attempt 14's replies cite this way)."""
+    return isinstance(v, list) and bool(v) and all(isinstance(x, int) and not isinstance(x, bool) for x in v)
+
+
+def _json_values_in(prose: str) -> list:
+    """Every JSON object or array that decodes at a "{" or "[" in PROSE, citation markers excepted."""
+    dec, out, i = json.JSONDecoder(), [], 0
+    while True:
+        m = re.search(r"[\[{]", prose[i:])
+        if not m:
+            return out
+        at = i + m.start()
+        try:
+            v, end = dec.raw_decode(prose, at)
+        except ValueError:
+            i = at + 1
+            continue
+        if not _citation_marker(v):
+            out.append(v)
+        i = end
+
+
+def fenced_value(text: str, kind: str):
+    """Advisor's ruling after attempt 14 (2026-11-23): the final block's one value when it holds exactly one
+    fenced ```json block containing exactly one JSON value of KIND and no other JSON value anywhere outside it;
+    else None. Returns (value, prose outside the fence)."""
+    t = text or ""
+    if len(FENCE.findall(t)) != 2:
+        return None, ""
+    m = JSON_FENCE.search(t)
+    if not m:
+        return None, ""
+    try:
+        v = json.loads(m.group(1).strip())
+    except ValueError:
+        return None, ""
+    if not isinstance(v, list if kind == "array" else dict):
+        return None, ""
+    outside = t[:m.start()] + "\n" + t[m.end():]
+    if _json_values_in(outside):
+        return None, ""
+    return v, outside.strip()
+
+
 def _note_malformed(label: str, event: str, text: str) -> None:
     e = {"role": label or "call", "event": event, "text": (text or "")[:20000],
          "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
@@ -908,6 +958,11 @@ def call(system: str, user: str, *, search: bool,
                 _note_malformed(label, "narration", n)
             v = one_value(reply, kind)
             if v is not None:
+                return v
+            v, prose = fenced_value(reply, kind)
+            if v is not None:
+                if prose:
+                    _note_malformed(label, "narration", prose)    # the prose around the fence: logged, not parsed
                 return v
             text = reply
             _note_malformed(label, "malformed", text)
