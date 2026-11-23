@@ -1,0 +1,15 @@
+{
+ "slug": "whu-lean-orch-t1-q1-02k",
+ "complete": true,
+ "held": [
+  "S002"
+ ],
+ "not_held": [
+  {
+   "id": "S001",
+   "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+   "reason": "TimeoutError at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/"
+  }
+ ],
+ "skipped": []
+}

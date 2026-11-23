@@ -1,0 +1,1291 @@
+{
+  "_what_this_is": "One row per empirical sentence on the page: the source it rests on, the exact words in that source that support it, and who signed for each of the three questions. Spec: docs/whatholdsup-claim-bindings-spec.md.",
+  "_r1": "This file records the presence or absence of a span. It does not record that a sentence is true. A row with every verdict signed means the sentence is WARRANTED by named evidence and named signers -- which is not the same claim and must never be printed as though it were.",
+  "bindings": {
+    "cae90542e9343a1b": {
+      "sentence": "The question is: “In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?”",
+      "sentence_sha": "cae90542e9343a1b",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "3e20a8375ef23651": {
+      "sentence": "The passages come from a protocol for a systematic review, which describes a planned review rather than reporting its results, so they do not say whether these programmes work [2].",
+      "sentence_sha": "3e20a8375ef23651",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@0",
+      "span": "4072 csysrev Campbell Systematic Reviews Campbell Syst Rev SAGE Publications PMC8988635 8988635 8988635 36950342 10.1002/cl2.1197 PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review Hunt Xanthe 1 ✉ Saran Ashrita 2 White Howard 2 Kuper Hannah 3 1 Stellenbosch University, Cape Town, South Africa 2 Campbell Collaboration, Delhi, India 3 International Centre for Evidence on Disability, London School of Hygiene & Tropical Medicine, London, UK * Correspondence Xanthe Hunt, Institute for Life Course Health Research, Department of Global Health, Faculty of Medicine and Health Sciences, Stellenbosch University, Tygerberg 7505, South Africa. Email: xanthehuntwrites@gmail.com ✉ Corresponding author. 23 10 2021 17 4 e1197 e1197 21 3 2023 © 2021 The Authors.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        0,
+        865
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "EXTERNAL SOURCES This systematic review is supported by the UK Department of International Development (DFID) under its support for the Centre for Excellence for Development Impact and Learning (CEDIL) and the Programme for Evidence to iNform Disability Action (PENDA). Supporting information Supporting information. Click here for additional data file. ACKNOWLEDGEMENTS This systematic review is supported by the UK Department of International Development (DFID) under its support for the Centre for Excellence for Development Impact and Learning (CEDIL) and the Programme for Evidence to iNform Disability Action (PENDA). Hunt, X. , Saran, A. , White, H. , & Kuper, H. (2021). PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review. Campbell Systematic Reviews, 17, e1197.",
+          "offsets": [
+            70177,
+            71058
+          ]
+        }
+      ]
+    },
+    "7f329359d5be2ec0": {
+      "sentence": "The protocol states that evidence on which interventions are effective in achieving the goals set by international directives on the right to education of people with disabilities has not been established or comprehensively reviewed [2].",
+      "sentence_sha": "7f329359d5be2ec0",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@13597",
+      "span": "In response to these circumstances, education is a core component in the World Health Organization's (WHO's) Community Based Rehabilitation (CBR) programme, which is a comprehensive and multisectoral strategy to equalise opportunities and include people with disabilities in all aspects of community life. The guidance document on CBR in education notes the global need to expand and improve the quality, availability, accessibility, and equitability of education for children with disabilities. The CBR programme also has an emphasis on early education, lifelong learning and nonformal education for people with disabilities. Although these international directives place obligations on states to respect, protect, and fulfil the right to education of people with disabilities, evidence on which interventions are effective to achieve the goals they outline, have not been established.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        13597,
+        14483
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "Why it is important to do this review International directives place obligations on states to respect, protect, and fulfil the right to education of people with disabilities, as described above. However, evidence on which interventions are effective to achieve the goals they outline have not been established or comprehensively reviewed. Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review. From the Cochrane databases, a review (Pennington et al., 2018 ) assessed the effectiveness of parent‐mediated communication interventions, for improving the communication skills of preschool children up to 5 years of age who have nonprogressive motor disorders.",
+          "offsets": [
+            30893,
+            31658
+          ]
+        }
+      ]
+    },
+    "f7ec099bf192faa8": {
+      "sentence": "Which interventions work, and which appear most effective for different types of disability, are listed as questions the review sets out to answer, not as findings [2].",
+      "sentence_sha": "f7ec099bf192faa8",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@1586",
+      "span": "(2) What is the size and quality of the evidence base of the effectiveness of interventions to improve educational outcomes for people with disabilities in low‐ and middle‐income countries (LMICs)? (3) What works to improve educational outcomes for people with disabilities in LMICs? (4) Which interventions appear most effective for different types of disability? (5) What are the barriers and facilitators to improving of educational outcomes for people with disabilities? Is there evidence of cumulative effects—that certain interventions are effective when done in combination with others, but are less or ineffective when done alone? status released display-pdf yes is-olf no is-manuscript no is-preprint no is-journal-matter no is-scanned no is-retracted no Collection date 2021 Dec. 1. BACKGROUND 1.1.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        1586,
+        2394
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "Their EGM included impact evaluation and systematic reviews assessing the effect of interventions for people with disabilities and their families/carers in LMICs. The EGM included 46 studies related to education outcomes. While we will include all the EGM's included studies in our review, our focus will be narrower (the EGM was broader in scope than our proposed review), and our proposed review will cover an extended publication timeframe. 2. OBJECTIVES The objectives of this review are to answer the following research questions: 1. What is the nature of the interventions used to support education for people with disabilities? 2. What is the size and quality of the evidence base of the effectiveness of interventions to improve educational outcomes for people with disabilities in LMICs? 3. What works to improve educational outcomes for people with disabilities in LMICs? 4.",
+          "offsets": [
+            34551,
+            35435
+          ]
+        }
+      ]
+    },
+    "72e5da9be054309c": {
+      "sentence": "The protocol notes that the article has since been updated by a full systematic review, but that review's findings are not among these passages [2].",
+      "sentence_sha": "72e5da9be054309c",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@866",
+      "span": "Campbell Systematic Reviews published by John Wiley & Sons Ltd on behalf of The Campbell Collaboration This is an open access article under the terms of the http://creativecommons.org/licenses/by/4.0/ License, which permits use, distribution and reproduction in any medium, provided the original work is properly cited. This article has been updated. See \" Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review \" in volume 21, e70016. Abstract The objectives of this review are to answer the following research questions: (1) What is the nature of the interventions used to support education for people with disabilities?",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        866,
+        1585
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "65f9489ab080bde6": {
+      "sentence": "Recent reports cited in the protocol showed that people with disabilities were consistently falling behind their peers without disabilities in school enrolment, school completion, mean years of schooling and literacy levels [2].",
+      "sentence_sha": "65f9489ab080bde6",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@2395",
+      "span": "The problem, condition or issue People with disabilities are less likely to be enroled in school or to progress as well as their peers without disabilities. Due in part to these inequalities in educational access and attainment, people with disabilities are also less likely to achieve employment (Department of Economic and Social Affairs, n.d.), or earn as much if they are employed (Equality and Human Rights Commission, 2017 ), as people without disabilities. Despite the lack of comparable data on education for people with disabilities, recent reports (UNESCO, 2018 ; World Bank Group, 2019 ) showed that people with disabilities were consistently falling behind in educational outcomes compared to their peers without disabilities, whether measured in terms of school enrolment, school completion, mean years of schooling, or literacy levels.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        2395,
+        3244
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c6d231f814b84ed9": {
+      "sentence": "UNESCO's 2020 report, as cited, noted that children with disabilities make up 15% of the out-of-school population [2].",
+      "sentence_sha": "c6d231f814b84ed9",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@3245",
+      "span": "For instance, UNESCO's 2020 Global Education Monitoring Report (UNESCO, 2020 ) noted that children with disabilities make up 15% of the out‐of‐school population, and that individuals with a sensory, physical or intellectual disability are two‐and‐a‐half times more likely than nondisabled individual to have never been in school (UNESCO, 2020 ). Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC. In a 2014 study, children with disabilities were found to be 5–10 times more likely to be excluded from school than children without disabilities, and children with learning or communication impairments were consistently among the least likely to attend school, particularly in Africa (Kuper et al., 2014 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        3245,
+        4017
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "37ecb71ac0008ec1": {
+      "sentence": "The same report noted that individuals with a sensory, physical or intellectual disability are two-and-a-half times more likely than nondisabled individuals to have never been in school [2].",
+      "sentence_sha": "37ecb71ac0008ec1",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@3245",
+      "span": "For instance, UNESCO's 2020 Global Education Monitoring Report (UNESCO, 2020 ) noted that children with disabilities make up 15% of the out‐of‐school population, and that individuals with a sensory, physical or intellectual disability are two‐and‐a‐half times more likely than nondisabled individual to have never been in school (UNESCO, 2020 ). Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC. In a 2014 study, children with disabilities were found to be 5–10 times more likely to be excluded from school than children without disabilities, and children with learning or communication impairments were consistently among the least likely to attend school, particularly in Africa (Kuper et al., 2014 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        3245,
+        4017
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "7ddae5299e02c396": {
+      "sentence": "The protocol says evidence suggests the attainment gap between people with and without disabilities is greatest in low- and middle-income countries [2].",
+      "sentence_sha": "7ddae5299e02c396",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@3245",
+      "span": "For instance, UNESCO's 2020 Global Education Monitoring Report (UNESCO, 2020 ) noted that children with disabilities make up 15% of the out‐of‐school population, and that individuals with a sensory, physical or intellectual disability are two‐and‐a‐half times more likely than nondisabled individual to have never been in school (UNESCO, 2020 ). Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC. In a 2014 study, children with disabilities were found to be 5–10 times more likely to be excluded from school than children without disabilities, and children with learning or communication impairments were consistently among the least likely to attend school, particularly in Africa (Kuper et al., 2014 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        3245,
+        4017
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "9b3934c7968686c1": {
+      "sentence": "A 2014 study it cites found children with disabilities to be 5–10 times more likely to be excluded from school than children without disabilities [2].",
+      "sentence_sha": "9b3934c7968686c1",
+      "why_empirical": "the bare integer 5 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@3245",
+      "span": "For instance, UNESCO's 2020 Global Education Monitoring Report (UNESCO, 2020 ) noted that children with disabilities make up 15% of the out‐of‐school population, and that individuals with a sensory, physical or intellectual disability are two‐and‐a‐half times more likely than nondisabled individual to have never been in school (UNESCO, 2020 ). Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC. In a 2014 study, children with disabilities were found to be 5–10 times more likely to be excluded from school than children without disabilities, and children with learning or communication impairments were consistently among the least likely to attend school, particularly in Africa (Kuper et al., 2014 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        3245,
+        4017
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ef9f088a287c7916": {
+      "sentence": "The protocol reports barriers at the level of the system, such as lack of policy, at the level of the school, such as inaccessible infrastructure or a lack of skilled teachers, and at the level of the family and child, such as poor health [2].",
+      "sentence_sha": "ef9f088a287c7916",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@12986",
+      "span": "These barriers operate at the level of the system (e.g., lack of policy), school (e.g., lack of accessible infrastructure or skilled teachers), and the family/child (e.g., poor health), as highlighted in UNESCO's 2020 Global Education Monitoring Report (UNESCO, 2020 ). The report notes, for instance, that policy and legislative barriers are prevalent as laws in 25% of countries (but over 40% in Asia and in Latin America and the Caribbean) make provisions for education in separate settings, 10% for integration and only 17% for inclusion of children with disabilities in mainstream schools (UNESCO, 2020 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        12986,
+        13596
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "175287b69b3041f8": {
+      "sentence": "Large class sizes and poor attitudes among mainstream educators are also reported to hinder educational success among children with disabilities in these countries [2].",
+      "sentence_sha": "175287b69b3041f8",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@5343",
+      "span": "Wapling, 2016 ) and poor attitudes to educating children with disabilities by mainstream school educators (De Boer et al., 2011 ) are also reported to hinder educational success among children with disabilities in LMIC. 1.1.1. Inclusive education An important issue which must be flagged when considering disability and education, is the debate around “mainstreaming” or inclusive education, versus “special‐needs” or segregated education. Historically, where people with disabilities were granted access to education, that education mostly happened in so‐called “special” schools ‐ segregated learning environments where only children with disabilities were admitted, and where they would engage in learning separately from children without disabilities.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        5343,
+        6098
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8eb3ec05e95db7fd": {
+      "sentence": "Past evidence syntheses cited in the protocol highlighted that very little literature in low- and middle-income countries has examined educational outcomes comparing disabled and nondisabled peers [2].",
+      "sentence_sha": "8eb3ec05e95db7fd",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@14484",
+      "span": "Indeed, past evidence syntheses on the topic of education and disability in LMIC have highlighted that very little literature has examined educational outcomes, comparing disabled and nondisabled peers (Wapling, 2016 ). Furthermore, a majority of studies have focussed on special school populations and addressed epidemiological questions rather than ones of attendance of attainment (Maulik & Darmstadt, 2007 ). Consequently, there is a real need to evaluate interventions in the realm of disability and education, to determine “what works” to produce educational inclusion and good educational outcomes for people with disabilities. 1.1.3. A note on defining education Many low‐ and middle‐income countries (LMICs)—the settings in which this review is interested—are non‐Western and, often, postcolonial settings.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        14484,
+        15299
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4c7b42181273d9a4": {
+      "sentence": "According to the protocol, most studies have focused on special school populations and on epidemiological questions rather than attendance or attainment [2].",
+      "sentence_sha": "4c7b42181273d9a4",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@14484",
+      "span": "Indeed, past evidence syntheses on the topic of education and disability in LMIC have highlighted that very little literature has examined educational outcomes, comparing disabled and nondisabled peers (Wapling, 2016 ). Furthermore, a majority of studies have focussed on special school populations and addressed epidemiological questions rather than ones of attendance of attainment (Maulik & Darmstadt, 2007 ). Consequently, there is a real need to evaluate interventions in the realm of disability and education, to determine “what works” to produce educational inclusion and good educational outcomes for people with disabilities. 1.1.3. A note on defining education Many low‐ and middle‐income countries (LMICs)—the settings in which this review is interested—are non‐Western and, often, postcolonial settings.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        14484,
+        15299
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c2eed0dbe54705bd": {
+      "sentence": "The protocol concludes that there is a real need to evaluate interventions in this area to determine what works [2].",
+      "sentence_sha": "c2eed0dbe54705bd",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@14484",
+      "span": "Indeed, past evidence syntheses on the topic of education and disability in LMIC have highlighted that very little literature has examined educational outcomes, comparing disabled and nondisabled peers (Wapling, 2016 ). Furthermore, a majority of studies have focussed on special school populations and addressed epidemiological questions rather than ones of attendance of attainment (Maulik & Darmstadt, 2007 ). Consequently, there is a real need to evaluate interventions in the realm of disability and education, to determine “what works” to produce educational inclusion and good educational outcomes for people with disabilities. 1.1.3. A note on defining education Many low‐ and middle‐income countries (LMICs)—the settings in which this review is interested—are non‐Western and, often, postcolonial settings.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        14484,
+        15299
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "1dbb872e8af207c0": {
+      "sentence": "The existing Cochrane reviews it identifies are far narrower in scope [2].",
+      "sentence_sha": "1dbb872e8af207c0",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@30893",
+      "span": "Why it is important to do this review International directives place obligations on states to respect, protect, and fulfil the right to education of people with disabilities, as described above. However, evidence on which interventions are effective to achieve the goals they outline have not been established or comprehensively reviewed. Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review. From the Cochrane databases, a review (Pennington et al., 2018 ) assessed the effectiveness of parent‐mediated communication interventions, for improving the communication skills of preschool children up to 5 years of age who have nonprogressive motor disorders.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        30893,
+        31658
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "Also from Cochrane, a review (Cogo‐Moreira et al., 2012 ) of the evidence concerning music education for improving reading skills in children and adolescents with dyslexia has been conducted. Another Cochrane review has been undertaken on task‐oriented interventions for children with developmental co‐ordination disorder (Miyahara et al., 2017 ). In all cases, the scope of the reviews is far narrower than our proposed review. In all, the focus is on children with particular conditions (nonprogressive motor disorders, dyslexia and developmental co‐ordination disorder only) and the type of intervention and outcome are narrowly focussed (parent‐mediated interventions, music interventions and task‐oriented interventions only; communication and reading skills only).",
+          "offsets": [
+            31659,
+            32429
+          ]
+        }
+      ]
+    },
+    "33412159d582fede": {
+      "sentence": "Those reviews cover parent-mediated communication interventions, music education for dyslexia, and task-oriented interventions for developmental co-ordination disorder [2].",
+      "sentence_sha": "33412159d582fede",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@30893",
+      "span": "Why it is important to do this review International directives place obligations on states to respect, protect, and fulfil the right to education of people with disabilities, as described above. However, evidence on which interventions are effective to achieve the goals they outline have not been established or comprehensively reviewed. Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review. From the Cochrane databases, a review (Pennington et al., 2018 ) assessed the effectiveness of parent‐mediated communication interventions, for improving the communication skills of preschool children up to 5 years of age who have nonprogressive motor disorders.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        30893,
+        31658
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "Also from Cochrane, a review (Cogo‐Moreira et al., 2012 ) of the evidence concerning music education for improving reading skills in children and adolescents with dyslexia has been conducted. Another Cochrane review has been undertaken on task‐oriented interventions for children with developmental co‐ordination disorder (Miyahara et al., 2017 ). In all cases, the scope of the reviews is far narrower than our proposed review. In all, the focus is on children with particular conditions (nonprogressive motor disorders, dyslexia and developmental co‐ordination disorder only) and the type of intervention and outcome are narrowly focussed (parent‐mediated interventions, music interventions and task‐oriented interventions only; communication and reading skills only).",
+          "offsets": [
+            31659,
+            32429
+          ]
+        }
+      ]
+    },
+    "b534a2965bdfac63": {
+      "sentence": "An earlier evidence and gap map of interventions for people with disabilities in low- and middle-income countries included 46 studies related to education outcomes [2].",
+      "sentence_sha": "b534a2965bdfac63",
+      "why_empirical": "the bare integer 46 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@34551",
+      "span": "Their EGM included impact evaluation and systematic reviews assessing the effect of interventions for people with disabilities and their families/carers in LMICs. The EGM included 46 studies related to education outcomes. While we will include all the EGM's included studies in our review, our focus will be narrower (the EGM was broader in scope than our proposed review), and our proposed review will cover an extended publication timeframe. 2. OBJECTIVES The objectives of this review are to answer the following research questions: 1. What is the nature of the interventions used to support education for people with disabilities? 2. What is the size and quality of the evidence base of the effectiveness of interventions to improve educational outcomes for people with disabilities in LMICs? 3. What works to improve educational outcomes for people with disabilities in LMICs? 4.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        34551,
+        35435
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "894790c674ac6303": {
+      "sentence": "The protocol groups interventions in clusters along a causal chain [2].",
+      "sentence_sha": "894790c674ac6303",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@20976",
+      "span": "These different categories of intervention can be conceived of in clusters along a causal chain. The first set of interventions pertain to (a) addressing the structural forces shaping the context in which education happen, and (b) improving the conditions of a learning environment to better facilitate education for people with disabilities. Structural interventions include those aiming to alleviate poverty, reduce community‐wide stigma against people with disabilities, and/or improve the resources allocated to education at a national or regional level. While many structural interventions may not measure educational outcomes, where they do, these interventions will be eligible for inclusion in this review, as altering the context in which education happens for people with disabilities, in a way which improves educational outcomes, is an educational intervention.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        20976,
+        21849
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "cde7cdd91b0b0e46": {
+      "sentence": "The first cluster covers structural interventions and the conditions of the learning environment [2].",
+      "sentence_sha": "cde7cdd91b0b0e46",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@20976",
+      "span": "These different categories of intervention can be conceived of in clusters along a causal chain. The first set of interventions pertain to (a) addressing the structural forces shaping the context in which education happen, and (b) improving the conditions of a learning environment to better facilitate education for people with disabilities. Structural interventions include those aiming to alleviate poverty, reduce community‐wide stigma against people with disabilities, and/or improve the resources allocated to education at a national or regional level. While many structural interventions may not measure educational outcomes, where they do, these interventions will be eligible for inclusion in this review, as altering the context in which education happens for people with disabilities, in a way which improves educational outcomes, is an educational intervention.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        20976,
+        21849
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b94a36a0dd4e2e62": {
+      "sentence": "The second cluster covers skills for learning [2].",
+      "sentence_sha": "b94a36a0dd4e2e62",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@22589",
+      "span": "The second cluster of interventions which may improve educational outcomes among people with disabilities are those which aim to equip people with disabilities with the skills necessary to engage in learning. These interventions include a broad range of initiatives in the formal and nonformal sectors, delivered to individuals of all ages, which aim to equip disabled learners with skills for formal learning (for instance, learning in schools), school readiness programming, and those which are more broadly focussed on developing individuals with disabilities' with life skills. Once learning environments are made accessible, and people with disabilities are equipped with the tools necessary to engage in further learning, interventions aimed at improving attendance and enrolment of people with disabilities in a variety of forms of learning, become important.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        22589,
+        23455
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "2e40e18a58bd9b3a": {
+      "sentence": "The third cluster covers attendance and enrolment [2].",
+      "sentence_sha": "2e40e18a58bd9b3a",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@22589",
+      "span": "The second cluster of interventions which may improve educational outcomes among people with disabilities are those which aim to equip people with disabilities with the skills necessary to engage in learning. These interventions include a broad range of initiatives in the formal and nonformal sectors, delivered to individuals of all ages, which aim to equip disabled learners with skills for formal learning (for instance, learning in schools), school readiness programming, and those which are more broadly focussed on developing individuals with disabilities' with life skills. Once learning environments are made accessible, and people with disabilities are equipped with the tools necessary to engage in further learning, interventions aimed at improving attendance and enrolment of people with disabilities in a variety of forms of learning, become important.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        22589,
+        23455
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "Programming focused on increasing levels of formal enrolment and nonformal enrolment/participation in nonformal education, as well as those focussed on improving inclusion of disabled people in inclusive/mainstream education settings, form part of this cluster. Such interventions seek to improve school completion and attendance among people with disabilities, given that successful educational attainment is largely predicated on educational participation. The final cluster of interventions are those which have to do with educational outcomes. Interventions which aim to equip people with disabilities with qualifications or improve through‐put rates of people with disabilities at various stages of education, those seeking to improve the education‐related quality of life of disabled students, and interventions aimed at supporting transitions between different levels of education.",
+          "offsets": [
+            23456,
+            24344
+          ]
+        }
+      ]
+    },
+    "5bb2ff481f56f4ae": {
+      "sentence": "The final cluster covers educational outcomes such as qualifications, education-related quality of life and transitions between levels of education [2].",
+      "sentence_sha": "5bb2ff481f56f4ae",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@23456",
+      "span": "Programming focused on increasing levels of formal enrolment and nonformal enrolment/participation in nonformal education, as well as those focussed on improving inclusion of disabled people in inclusive/mainstream education settings, form part of this cluster. Such interventions seek to improve school completion and attendance among people with disabilities, given that successful educational attainment is largely predicated on educational participation. The final cluster of interventions are those which have to do with educational outcomes. Interventions which aim to equip people with disabilities with qualifications or improve through‐put rates of people with disabilities at various stages of education, those seeking to improve the education‐related quality of life of disabled students, and interventions aimed at supporting transitions between different levels of education.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        23456,
+        24344
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "eb8db864469313ce": {
+      "sentence": "Inclusive education models range from placing children with disabilities in mainstream schools without additional supports to providing a range of supports, such as teaching aides, occupational therapists and specialist disability training for teachers [2].",
+      "sentence_sha": "eb8db864469313ce",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@9133",
+      "span": "So‐called inclusive environments range from settings where there simply are not specialised services for children with disabilities and so the assumption is that they are being absorbed into mainstream classrooms, to well‐resourced, integrated classrooms in which children with disabilities participate fully in learning activities with children without disabilities and are provided the supports necessary to participate fully, where such a necessary. Second, where inclusive education is implemented, the models for doing so are numerous, and range from integrating children with disabilities into mainstream schools without additional supports, to including them in mainstream schools through a range of additional supports and accommodations (including, for instance, teaching aides and occupational therapists, specialist training on disability for all teachers etc.).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        9133,
+        10006
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "2cf631b8002cd6cb": {
+      "sentence": "The review plans to arrange inclusive education interventions on a continuum from lowest to highest intensity [2].",
+      "sentence_sha": "2cf631b8002cd6cb",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@10702",
+      "span": "For instance, where an inclusive education intervention mentions provision of additional human resources for inclusion (such as teaching aides), training on inclusive education and disability for mainstream teachers, inclusion of specialist staff in the school to support children with disabilities (such as occupational therapists, physiotherapists etc.), and any other measures aimed at moving inclusive education beyond simply moving children with disabilities into mainstream schools, these will be noted, and used to organise inclusive education interventions on a continuum from lowest to highest intensity (see Figure 1 , below, for an example of this thinking). Figure 1 Inverted pyramid of inclusive education intensity 1.1.2.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        10702,
+        11437
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ae014f7eb5a357a6": {
+      "sentence": "On special versus inclusive settings, the protocol says only that children with certain types of impairments may benefit from separate instruction [2].",
+      "sentence_sha": "ae014f7eb5a357a6",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@8290",
+      "span": "Further, while special education has long been criticised as segregationist and discriminatory (Lipsky & Gartner, 1987 ), children with certain types of impairments may benefit from separate instruction where the environment and educators cater to their specific learning needs, and there are issues with social integration, communication, and friendship for children who are deaf in mainstream schools (Wolters et al., 2011 ). This, as well as the slow pace of transformation to inclusive education in many countries, means that it is important to consider both inclusive and “special school” settings to fully account for the state of education for people with disabilities. In the context of a systematic review, inclusive education is a thorny issue. First, this is because definitions of what passes as inclusive education differ widely.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        8290,
+        9132
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ab51017289833f34": {
+      "sentence": "It also notes that there are issues with social integration, communication and friendship for deaf children in mainstream schools [2].",
+      "sentence_sha": "ab51017289833f34",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@8290",
+      "span": "Further, while special education has long been criticised as segregationist and discriminatory (Lipsky & Gartner, 1987 ), children with certain types of impairments may benefit from separate instruction where the environment and educators cater to their specific learning needs, and there are issues with social integration, communication, and friendship for children who are deaf in mainstream schools (Wolters et al., 2011 ). This, as well as the slow pace of transformation to inclusive education in many countries, means that it is important to consider both inclusive and “special school” settings to fully account for the state of education for people with disabilities. In the context of a systematic review, inclusive education is a thorny issue. First, this is because definitions of what passes as inclusive education differ widely.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        8290,
+        9132
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "7074730268cd8f0c": {
+      "sentence": "Only impact evaluations will be included, and descriptive studies such as qualitative interviews and single time-point cross-sectional surveys will be excluded [2].",
+      "sentence_sha": "7074730268cd8f0c",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@37446",
+      "span": "Descriptive studies of various designs and methodologies (such as qualitative interview studies, single time point cross‐sectional surveys etc.) will not be included because impact evaluations are better suited to answering the questions about effectiveness such as “What works to improve educational outcomes for people with disabilities in LMICs?”—the purpose of the proposed review. 3.1.2. Types of participants We will include studies which examine the impact of interventions for the following population: people with disabilities living in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        37446,
+        37998
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "Even if we cannot conduct a meta‐analysis, we are interested in certain specific populations of people with disabilities, including women, children (particularly vulnerable children, e.g., those in care), different impairment groups, conflict (conflict and postconflict settings), migrants/refugees/internally displaced people, and ethnic minority groups. For papers addressing these issues, we will extract effect sizes and if data allows, disaggregate outcome findings by group. However, our expectation is that we will instead be able to provide a narrative description of any apparent notable characteristics of papers addressing these groups, but these findings will be descriptive and tentative. 3.3.13. Treatment of qualitative research We will not include qualitative research in this systematic review.",
+          "offsets": [
+            69365,
+            70176
+          ]
+        }
+      ]
+    },
+    "2019fb95f5f68f2c": {
+      "sentence": "Studies will be combined by meta-analysis only when two or more effect sizes use a similar outcome construct and a similar comparison group [2].",
+      "sentence_sha": "2019fb95f5f68f2c",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@67286",
+      "span": "Nonetheless, following Waddington et al. ( 2018 ), we will only combine studies using meta‐analysis when we identify two or more effect sizes using a similar outcome construct and where the comparison group is similar across the two studies. If possible, we will conduct separate analyses for the major outcome groups: Conditions for inclusion of people with disabilities in education Skills for learning Attendance and enrolment Outcomes of education. We do not plan a subgroup analysis.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        67286,
+        67774
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "548d62b437fd0f9b": {
+      "sentence": "The narrative synthesis will describe findings by suboutcome and note the strength of the evidence, evidence gaps and confidence in the evidence [2].",
+      "sentence_sha": "548d62b437fd0f9b",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@67775",
+      "span": "However, in the final narrative, attention will be paid to describing findings according to suboutcome, that is, by: learning social environment and social inclusion; accessibility of built environment and learning materials; anti‐bullying policies and programmes implemented; educational services development; inclusive education policies implemented and resourced; skills for formal/learning in schools; school readiness; skills for life; formal enrolment; nonformal enrolment/participation; education in inclusive/mainstream settings; school completion; attendance; qualifications gained; education‐related quality of life; and transition to higher levels of education. In each of these suboutcome narratives, the main themes and findings will be described, and note will be made of the strength of the evidence, any evidence gaps, and confidence in the evidence. 3.3.12.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        67775,
+        68649
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "e19e2284578157e0": {
+      "sentence": "For subgroups such as children, women and different impairment groups, the authors expect any findings to be descriptive and tentative [2].",
+      "sentence_sha": "e19e2284578157e0",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S002@69365",
+      "span": "Even if we cannot conduct a meta‐analysis, we are interested in certain specific populations of people with disabilities, including women, children (particularly vulnerable children, e.g., those in care), different impairment groups, conflict (conflict and postconflict settings), migrants/refugees/internally displaced people, and ethnic minority groups. For papers addressing these issues, we will extract effect sizes and if data allows, disaggregate outcome findings by group. However, our expectation is that we will instead be able to provide a narrative description of any apparent notable characteristics of papers addressing these groups, but these findings will be descriptive and tentative. 3.3.13. Treatment of qualitative research We will not include qualitative research in this systematic review.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        69365,
+        70176
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c6d0e0d4ad378a06": {
+      "sentence": "Nothing in these passages shows that any education programme for children and young people with disabilities in low- and middle-income countries works.",
+      "sentence_sha": "c6d0e0d4ad378a06",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "43c5aeda90b5efbc": {
+      "sentence": "Nothing in them shows that one kind of programme works better than another.",
+      "sentence_sha": "43c5aeda90b5efbc",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "7430eac6242a66f7": {
+      "sentence": "What does hold up is the protocol authors' own statement that evidence on which interventions are effective has not been established.",
+      "sentence_sha": "7430eac6242a66f7",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "24cc46f0c8a07518": {
+      "sentence": "Also well supported is their description of the existing research as thin and narrowly focused.",
+      "sentence_sha": "24cc46f0c8a07518",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "e62b98ad1754882d": {
+      "sentence": "The passages are firmer on the size of the educational gap and the barriers behind it than on any remedy.",
+      "sentence_sha": "e62b98ad1754882d",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "067dfbfd3e00c7e8": {
+      "sentence": "Answering which kinds of programme work best would require the results of the completed review, which these passages do not contain.",
+      "sentence_sha": "067dfbfd3e00c7e8",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "c9798b57a47a339e": {
+      "sentence": "We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but could not hold it, so nothing on this page draws on it.",
+      "sentence_sha": "c9798b57a47a339e",
+      "why_empirical": "names Evidence and gap map of studies assessing the effectiveness of interventions for",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "682f76e31c8affb1": {
+      "sentence": "We hold the full text of PROTOCOL: Effectiveness of interventions for improving educational outcomes for [2].",
+      "sentence_sha": "682f76e31c8affb1",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "a4506f73c02c9ae6": {
+      "sentence": "We searched the full text of PROTOCOL: Effectiveness of interventions for improving educational outcomes for [2] and checked the passages relevant to each sentence; we did not read it in full.",
+      "sentence_sha": "a4506f73c02c9ae6",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "980032bbced4bfdb": {
+      "sentence": "We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability inclusive education interventions LMIC effectiveness review; web search: evidence gap map disability education interventions LMIC White Campbell 2018; web search: UNESCO guidelines inclusive education disability developing countries policy; web search: Wapling systematic review disability education strategies LMIC 2016; web search: intersectional barriers facilitators educational inclusion disabilities LMIC systematic review 2025; web search: \"intersectional barriers\" \"educational inclusion\" \"persons with disabilities\" \"low- and middle-income\" 2025 journal; registry: Europe PMC.",
+      "sentence_sha": "980032bbced4bfdb",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "14e77c10f5b71f9f": {
+      "sentence": "We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.",
+      "sentence_sha": "14e77c10f5b71f9f",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "c869e44562ef9c40": {
+      "sentence": "Saran.",
+      "sentence_sha": "c869e44562ef9c40",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "662b3a7c6de22a0a": {
+      "sentence": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries..",
+      "sentence_sha": "662b3a7c6de22a0a",
+      "why_empirical": "names Evidence and gap map of studies assessing the effectiveness of interventions for",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "dcef1e84ecc7e593": {
+      "sentence": "Campbell Systematic Reviews.",
+      "sentence_sha": "dcef1e84ecc7e593",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "99400924f2fac1b5": {
+      "sentence": "2020.",
+      "sentence_sha": "99400924f2fac1b5",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "e32c75d4adb69f41": {
+      "sentence": "Hunt.",
+      "sentence_sha": "e32c75d4adb69f41",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "d61c331a0fb231a6": {
+      "sentence": "PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review..",
+      "sentence_sha": "d61c331a0fb231a6",
+      "why_empirical": "names PROTOCOL: Effectiveness of interventions for improving educational outcomes for ",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    },
+    "f098a66186401b77": {
+      "sentence": "2021.",
+      "sentence_sha": "f098a66186401b77",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true
+    }
+  }
+}

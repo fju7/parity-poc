@@ -1,0 +1,228 @@
+{
+ "result": "Not Ready: FileNotFoundError: [Errno 2] No such file or directory: '/Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02k-whu-lean-orch-t1-q1-02k/judgements.json'",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-23T15:18:33+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (109 code files)"
+   },
+   "end": "2026-11-23T15:18:33+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-23T15:18:33+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "end": "2026-11-23T15:18:48+00:00",
+   "usd": 0.031084
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-23T15:18:48+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "2 source(s), 6 unresolved proposal(s)"
+   },
+   "end": "2026-11-23T15:21:30+00:00",
+   "usd": 0.4619
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-23T15:21:30+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02k",
+      "--out",
+      "issues/WHU-OT1-02k-whu-lean-orch-t1-q1-02k/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S002   b2156b3dbf5d                                     140497 B  (contains its identifier PMC8988635 — 81493 characters, reference list and discussion/introduction present; title present (10 of 12 title words in the visible text))\n\n  held now: 1   failed: 1   skipped: 0\n\n  NOT HELD S001   Evidence and gap map of studies assessing the effectiveness of\n           why: TimeoutError at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/\n\n",
+     "proof": "proved: issues/WHU-OT1-02k-whu-lean-orch-t1-q1-02k/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-02k",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            1 document(s) in the library, every hash matches\n  warn     sources we hold                  1 of 2 held — not held: S001\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-02k"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-02k\n\n  S001   AMENDED      Erratum in:  37133285\n  S002   clean        Crossref, publisher deposits updates\n\n  ok     sources checked for corrections        all 2 source(s) have had their bibliographic record read for errata\n  BLOCKED corrections not yet read               1 source(s) have been formally corrected and we do not hold the correction: S001: Erratum in 37133285 — until it is read we do not know whether it touches a figure on this page\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-02k",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-02k-whu-lean-orch-t1-q1-02k — what can be swept at all\n\n    S001   doi   10.1002/cl2.1070                   url/field Evidence and gap map of studies asse\n    S002   doi   10.1002/cl2.1197                   url/field PROTOCOL: Effectiveness of intervent\n\n  2 of 2 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-02k"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-02k\n  ok      checks can read the documents      1 of 1 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "1 held, 1 not held",
+    "not_held": [
+     "S001"
+    ],
+    "lines": {
+     "S001": "could_not_hold"
+    }
+   },
+   "end": "2026-11-23T15:24:36+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-23T15:24:36+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "36 sentences drafted from 63 passages"
+   },
+   "end": "2026-11-23T15:25:06+00:00",
+   "usd": 0.144408
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-23T15:25:06+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-02k",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  49 empirical sentence(s) on the page\n  -1 bound, 50 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02k-whu-lean-orch-t1-q1-02k/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "30 sentence(s) bound to their passages"
+   },
+   "end": "2026-11-23T15:25:06+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-23T15:25:06+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 coverage decision(s), 0 left in scope"
+   },
+   "end": "2026-11-23T15:25:09+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-23T15:25:09+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-02k",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.00 (0 candidate(s) x $0.0072 per candidate (mean of 1326 logged relevance ruling(s))); $58.87 left today, $9.36 left on whu-lean-orch-t1-q1-02k\n  0 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02k-whu-lean-orch-t1-q1-02k/rulings/rulings.jsonl\n  usd this run: 0.0000\n"
+    }
+   ],
+   "failed": "FileNotFoundError: [Errno 2] No such file or directory: '/Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02k-whu-lean-orch-t1-q1-02k/judgements.json'",
+   "end": "2026-11-23T15:25:10+00:00",
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "by_role": {},
+  "events": []
+ },
+ "sources": {
+  "found": 2,
+  "held": 1,
+  "not_held": 1,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "type": "synthesis",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: TimeoutError at https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8356326/"
+   },
+   {
+    "id": "S002",
+    "title": "PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "type": "methods",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 6,
+  "unconfirmed": [
+   {
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Intersectional Barriers to and Facilitators of Educational Inclusion for Persons With Disabilities in Low‐ and Middle‐Income Countries: A Systematic Literature Review",
+    "reason": "the record carries no DOI or PMID"
+   },
+   {
+    "title": "A Guide for Ensuring Inclusion and Equity in Education",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Barriers to, and facilitators of, education for children with disabilities worldwide: a descriptive review",
+    "reason": "first author 'Kuper' not in the record's authors"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  }
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-23T15:25:10+00:00"
+}
