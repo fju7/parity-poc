@@ -22,7 +22,9 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(HERE / "orch"))
+# NOT HERE / "orch": with that folder on sys.path, orch/google.py shadowed the google package, and the Google
+# paid-tier preflight failed with "cannot import name 'genai' from 'google'" (orchestrator trial 1, attempt 19).
+# Nothing imports an orch module by its bare name; orch modules are imported as orch.<name>.
 import applied_check as AC  # noqa: E402
 import lean_failsafe as FS  # noqa: E402
 

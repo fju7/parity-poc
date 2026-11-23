@@ -219,3 +219,19 @@ def test_the_standing_check_reports_with_its_prefix():
     ctx = SimpleNamespace(case=A18)
     bad = O.entry_problems(ctx, (A18 / "draft" / "whu-lean-orch-t1-q1-02r.html").read_text())
     assert bad and all(b.startswith(O.ENTRY_PREFIX) for b in bad)
+
+
+# ----------------------------------------------------------------- attempt 19: the google package is not shadowed
+
+def test_orch_folder_is_never_on_sys_path_so_google_resolves_to_the_sdk():
+    """Attempt 19: orch/apply.py put backend/scripts/whatholdsup/orch on sys.path, so `from google import genai` in
+    orch/google.py found orch/google.py itself. Run in a fresh interpreter, after importing every orch module the
+    orchestrator loads."""
+    code = ("import sys; sys.path.insert(0, %r)\n"
+            "import orchestrator, orch.apply, orch.google, orch.overstatement, orch.preflight\n"
+            "import os; orch_dir = os.path.join(%r, 'orch')\n"
+            "assert all(os.path.abspath(p) != orch_dir for p in sys.path), 'orch/ is on sys.path'\n"
+            "from google import genai\n"
+            "assert 'site-packages' in genai.__file__, genai.__file__\n" % (str(WHU), str(WHU)))
+    r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, cwd=str(ROOT))
+    assert r.returncode == 0, r.stderr[-2000:]

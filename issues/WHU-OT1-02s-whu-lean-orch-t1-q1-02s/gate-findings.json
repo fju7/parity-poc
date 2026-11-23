@@ -1,0 +1,82 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f50464b13-rec-2",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries. Campbell Systematic Reviews. 2020;16(1):e1070. is SUPERSEDED: the draft uses Studies focus on 'fixing individuals'; absence of evidence on disability inclusion called 'a very striking gap'; over half of impact evaluations came fro",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "newer edition disclosed on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): A newer edition exists of Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries; this page uses the edition listed as Evidence and gap map of studies assessing the effectiveness of interventions for [2].",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries. Campbell Systematic Reviews. 2020;16(1):e1070.",
+        "sources": [
+          "S002"
+        ],
+        "rows": [
+          "dfdb21a1a539ae38",
+          "03f8d2e21c447b7c",
+          "7ea04b77d05fd325",
+          "074ba0a6f8949b91",
+          "b5b75156dbfd5712",
+          "7c5d13d6cc995775",
+          "fb468e23878a1f3b"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f50464b13-rec-3",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Kuper H, Saran A, White H. Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries. Campbell Collaboration and International Centre for Evidence in Disability. 2018. is SUPERSEDED: the draft uses The draft explicitly states it could not hold this source and that nothing on the page draws on it. The source is lis",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "newer edition disclosed on the page (lean rule 3b; matched by identifier (url:gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works)): A newer edition exists of Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries; this page uses the edition listed as Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes fo [3].",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Kuper H, Saran A, White H. Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries. Campbell Collaboration and International Centre for Evidence in Disability. 2018.",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S003 (first author 'kuper' and 18 title words (overlap 1.00), source-list entry), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f50464b13-rec-4",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell Systematic Reviews. 2022;18(4):e1287. is UNKNOWN: the draft uses 50 studies from 16 of 41 LMIC countries in Asia-Pacific; significant number of interventions focus on changing teacher attitudes and understanding of",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: researchonline.lshtm.ac.uk, onlinelibrary.wiley.com, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, campbellsouthasia.org, eric.ed.gov, semanticscholar.org, journals.sagepub.com, econpapers.repec.org, evidenceaid.org, ideas.repec.org, voced.edu.au, doi.org, gov.uk, assets.publishing.service.gov.uk, research.acer.edu.au, people.acer.org, pmc.ncbi.nlm.nih.gov, cambridge.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell Systematic Reviews. 2022;18(4):e1287.",
+        "sources": [
+          "S004"
+        ],
+        "rows": [
+          "861969aa2cddd3ac",
+          "48dcb9f6429f7463",
+          "77a2b8537ae64dd6",
+          "1104ceb55b90030d",
+          "5b2157d3d3631ccd",
+          "3a8a5c5e96d86ed9",
+          "a455ff3ccb5732ff",
+          "6d46f7643ec3b0bb"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

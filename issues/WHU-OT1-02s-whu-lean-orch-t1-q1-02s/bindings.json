@@ -1687,6 +1687,69 @@
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null
+    },
+    "fb468e23878a1f3b": {
+      "sentence": "Programmes that change schools, systems or institutions have been studied far less, and the few studies, on conditions for inclusion and on teacher knowledge, showed some positive effects, but the evidence remains thin [1, 2].",
+      "sentence_sha": "fb468e23878a1f3b",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8860",
+      "span": "Keywords: disability, education, inclusion, LMIC, school status released display-pdf yes is-olf no is-manuscript no is-preprint no is-journal-matter no is-scanned no is-retracted no Revised 2024 Oct 4; Received 2023 Oct 10; Accepted 2024 Oct 16; Collection date 2025 Mar. 1. PLAIN LANGUAGE SUMMARY 1.1. Title A range of individual‐level interventions work to improve educational outcomes among people with disabilities in low‐ and middle‐income countries, but there is little research on systemic or school‐level change. 1.2. The review in brief A range of interventions work to improve educational outcomes among people with disabilities, but these are mostly targeted at people with disabilities. More systemic approaches are needed to improve rates of access to, and likelihood of successful engagement in, education. 1.3. What is this review about?",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        8860,
+        9712
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "It is apparent from the reviews that the focus of studies is on fixing individuals, that is, the medical approach, for instance, focussing on improving social or learning skills for people with disabilities. Fewer studies focus on improving infrastructure or institutions, and therefore address social barriers to inclusion. Development agencies, including DFID, are stressing the biopsychosocial approach in their work, so the absence of evidence on what works to promote disability inclusion is a very striking gap. Future systematic reviews from the EGM will be able to provide more guidance for action for policy and programme decision‐makers. 9.1.4. Limitations of the EGM The EGM provide a rich source of information on existing systematic reviews and impact evaluations relating to interventions to improve the lives of people with disabilities and their families in LMICs.",
+          "offsets": [
+            82582,
+            83462
+          ]
+        }
+      ]
+    },
+    "1c88a2f3adc81b36": {
+      "sentence": "The source, \"Teacher professional development for disability inclusion in low‐ and middle‐income Asia‐Pacific countries: An evidence and gap map\", identified fifty studies from 16 of the 41 LMICs in the Asia‐Pacific region, found that only three studies reported interventions supporting mental health among students with a disability, and concluded that more rigorous studies with larger samples and higher evidence quality are still required [4].",
+      "sentence_sha": "1c88a2f3adc81b36",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+      "locator_type": "prose",
+      "locator": "passage S004@6241",
+      "span": "Teacher professional development for disability inclusion in low‐ and middle‐income Asia‐Pacific countries: An evidence and gap map .",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        6241,
+        6374
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

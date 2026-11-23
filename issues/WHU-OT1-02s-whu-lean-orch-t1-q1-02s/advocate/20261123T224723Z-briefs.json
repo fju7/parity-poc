@@ -1,0 +1,105 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The review covers people with disabilities generally rather than only children and young people [1].",
+        "objection": "The page implies a broad, all-ages evidence base, but the review reports that almost all included studies targeted children, so the findings are really about children.",
+        "source_says": "Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.",
+        "locator": "Authors' Conclusions (abstract and main Authors' conclusions section)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The review's scope covers all people with disabilities, but 25 of its 28 studies were with children. Without that figure, a reader would assume the effects apply to adults and young people, which the review's evidence does not support.",
+        "source_says_first": "\"Most studies (n = 25) targeted children with disabilities.\" The authors' conclusions are also framed around children: \"Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries (LMICs), but there is little research on systemic or school-level change [1].",
+        "objection": "The lead sentence gives the review's headline claim without the authors' explicit instruction, stated in the abstract and summary, to interpret the findings cautiously.",
+        "source_says": "\"However, the findings of this review must be interpreted cautiously, given the low confidence in study methods, severe heterogeneity and significant publication bias.\"",
+        "locator": "Plain language summary / abstract (main findings)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review's own caveat uses stronger wording (\"severe\" heterogeneity, \"significant\" publication bias) than the page's later \"high\" and \"frequently high\". That caveat belongs next to the word \"work\" in the opening sentence, not several sentences later.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The interventions and outcome measures differed across studies, which made direct comparison difficult, so the review does not establish a single best kind of programme [1].",
+        "objection": "The page treats the lack of a best programme as a measurement limitation, but the authors state it as a substantive conclusion.",
+        "source_says": "There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.",
+        "locator": "Authors' Conclusions (summary) and AUTHORS' CONCLUSIONS section",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's conclusion stands. However, the authors say no single intervention suffices and draw the twin-track recommendation from that. The page reads the same point as only \"we can't compare\".",
+        "source_says_first": "\"There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.\" The authors follow this with the call for a twin-track approach.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Because interventions and outcome measures varied so much, the sources do not support ranking one kind of programme as the best [1].",
+        "objection": "The page again attributes the lack of a ranking only to heterogeneity, and omits the authors' own statement that no single intervention is the answer.",
+        "source_says": "\"There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.\"",
+        "locator": "Authors' Conclusions (abstract)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This is the same omission as above, repeated in the closing summary. The authors make an affirmative claim, not merely a statement that the evidence can't rank programmes.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Programmes that change schools, systems or institutions have been studied far less, so the evidence is too thin to say whether they work [1, 2].",
+        "objection": "The review does report some effects for inclusion-focused and teacher-focused interventions, so the evidence is thin but not silent.",
+        "source_says": "\"included studies concerned with ‘Conditions for inclusion of people with disabilities in education’ showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size.\"",
+        "locator": "Abstract / Main results (intervention effects)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page itself cites these results earlier (the 'Conditions for inclusion' and teacher-knowledge sentences), then concludes the evidence cannot say whether system-level programmes work. The page should say the evidence is sparse and low-confidence, with limited positive signals, rather than that it cannot say anything.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S004",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  }
+]
