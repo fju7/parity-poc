@@ -1,0 +1,115 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries (LMICs), but that there is little research on systemic or school-level change [1].",
+        "objection": "The page never says that no included study measured attendance, enrolment or completion, so \"educational outcomes\" in the headline means skills-for-learning measures and nothing about access or retention.",
+        "source_says": "No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.",
+        "locator": "Results/Main findings section describing outcomes of included studies (after the sentence on outcomes most frequently reflected in reviewed studies)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page opens by describing the problem as falling behind in enrolment, retention and completion. A reader will assume the interventions that \"work\" address that problem, but the evidence covers skills outcomes only. The conclusion survives only in this narrower form.",
+        "source_says_first": "\"No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.\" The Authors' Conclusions also call for interventions to be evaluated on outcomes such as qualifications gained and transition to higher levels of education.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The review's authors conclude that more systemic approaches are needed, alongside interventions that address attendance, enrolment, completion and transition to higher levels of education [1].",
+        "objection": "The page presents attendance, enrolment and completion as things the authors want addressed, but omits that the review found zero studies on these outcomes. That zero is the reason for the recommendation.",
+        "source_says": "No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.",
+        "locator": "Final paragraph of the held text (discussion of outcomes most frequently reflected in the reviewed studies)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Without the zero count, the sentence reads as a general policy preference. It is actually an evidence gap that the review documents.",
+        "source_says_first": "The Campbell summary says: \"Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.\" The full text also states that no study looked at attendance, enrolment or completion outcomes.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Effects on literacy, cognitive skills, handwriting and numeracy were significant, and the review describes all these effects as large but based on a low number of studies [1].",
+        "objection": "The page gives only the \"low number of studies\" caveat. It omits that the review pairs the literacy effects with very high heterogeneity, possible publication bias and a confidence interval that barely excludes zero.",
+        "source_says": "Literacy d = 2.46 (0.01 to 4.90) k = 4 n = 389 I ² = 93% Egger's test 3.61 ( t = 1.66, p = 0.24) Large effect based on a low number of studies with high heterogeneity and potentially high publication bias",
+        "locator": "Section 5.3 Effects of interventions, Table 14 Effects of interventions (Literacy row)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "A reader will take \"significant\" and \"large\" at face value. Estimates this wide and this heterogeneous are better read as direction-of-effect signals than as magnitudes.",
+        "source_says_first": "Literacy: \"Large effect based on a low number of studies with high heterogeneity and potentially high publication bias\". The same table gives d = 2.46 (0.01 to 4.90), k = 4, I² = 93%. Numeracy is d = 4.60 (0.69 to 8.50), k = 2, I² = 85%, with publication bias not assessable.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It holds up that a range of individual-level, skills-focused interventions show significant and sometimes large effects on outcomes such as literacy and numeracy, though these findings rest on a low number of studies and the review calls the support \"emerging\" [1].",
+        "objection": "The page's \"holds up\" verdict omits the specific statistical qualifiers the review attaches to those same effects: I² of 85–93%, a literacy interval running from 0.01, and publication bias flagged as potentially high or not assessable.",
+        "source_says": "Literacy d = 2.46 (0.01 to 4.90) k = 4 n = 389 I ² = 93% Egger's test 3.61 ( t = 1.66, p = 0.24) Large effect based on a low number of studies with high heterogeneity and potentially high publication bias",
+        "locator": "Section 5.3 Effects of interventions, Table 14 (Literacy row)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion that effects exist survives. The page's \"it holds up\" overstates how precisely the review can size those effects.",
+        "source_says_first": "Numeracy d = 4.60 (0.69 to 8.50), k = 2, n = 110, I² = 85%. Literacy d = 2.46 (0.01 to 4.90), k = 4, n = 389, I² = 93%. The joint 'Skills for learning' effect is described as significant but with considerable heterogeneity and a marginally significant publication bias.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Included studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect [1].",
+        "objection": "The page omits the size, study count and heterogeneity behind \"moderately significant\". The result rests on four studies with very high heterogeneity and possible publication bias.",
+        "source_says": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias",
+        "locator": "Table 14 Effects of interventions (section 5.3)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the page's main positive evidence on school-level change. The review's own caveats show that evidence is weaker than \"moderately significant\" suggests.",
+        "source_says_first": "Conditions for inclusion: d = 0.35 (0.12 to 0.58), k = 4, n = 401, I² = 86%. The review rates it a \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate\" publication bias.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The passages do not identify which interventions work best for different types of disability, although the review set this out as one of its questions [1].",
+        "objection": "The page leaves out what the review does report on impairment type: the evidence is concentrated on intellectual and learning impairments, and none of the included studies covered psychosocial or mental impairments.",
+        "source_says": "No studies identified in our review captured education interventions for people with psychosocial/mental impairments.",
+        "locator": "Results section on participants by impairment type (before Figure 4, 'Participants by impairment type')",
+        "could_not_find": "I found no subgroup analysis or finding by impairment type that answers question (4). I searched the abstract, discussion summary and results excerpts, but not the full results text. The page's statement that this is not identified is consistent with what I found.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review cannot say which interventions work for which disability, and it also cannot speak to some impairment groups at all. The page should say so.",
+        "source_says_first": "\"No studies identified in our review captured education interventions for people with psychosocial/mental impairments.\" The abstract adds that individuals with intellectual or learning and developmental impairments were most frequently targeted (n = 17).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S003",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  }
+]

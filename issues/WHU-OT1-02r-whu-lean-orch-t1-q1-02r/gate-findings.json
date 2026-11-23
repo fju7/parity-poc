@@ -1,0 +1,49 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f505892f9-rec-2",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Kuper, Saran & White — Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in LMICs is UNKNOWN: the draft uses Not drawn upon — draft explicitly states it could not hold this source and that nothing on the page draws on it (source [2]); the latest known is Original 2018 publication (Campbell Collaboration and International Centre for Evidence ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by identifier (url:gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works)): Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, pubmed.ncbi.nlm.nih.gov, campbellcollaboration.org, researchonline.lshtm.ac.uk, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, voced.edu.au, doi.org, gov.uk, assets.publishing.service.gov.uk, ideas.repec.org, semanticscholar.org, evidenceaid.org, academia.edu, globalpartnership.org, frontiersin.org, dgsjournal.org, tandfonline.com, includeplatform.net, cedilprogramme.org, lshtm.ac.uk, unicef.org, pmc.ncbi.nlm.nih.gov, doaj.org) could not establish whether Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Kuper, Saran & White — Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in LMICs",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S002 (first author 'kuper' and 10 title words (overlap 0.77), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f505892f9-rec-3",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Saran, White & Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in LMICs is SUPERSEDED: the draft uses Two claims drawn from this source: (1) the EGM 'provides a starting point for researchers, decision makers and programme managers…'; (2) most impact evaluations came from upper-middle income countries, with limited evidence from low",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "newer edition disclosed on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): A newer edition exists of Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries; this page uses the edition listed as Evidence and gap map of studies assessing the effectiveness of interventions for [3].",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Saran, White & Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in LMICs",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "3099ee9e113884eb",
+          "4b2310524914fb46",
+          "b08f6d11ee449cf0"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

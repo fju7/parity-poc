@@ -21,9 +21,11 @@
    "section": "answer",
    "sentences": [
     "A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries (LMICs), but that there is little research on systemic or school-level change [1].",
+    "The review found that \"no study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education,\" so it offers no evidence on whether these interventions affect those outcomes [1].",
     "The review's authors describe the evidence as providing \"emerging support\" for the efficacy and effectiveness of these interventions [1].",
     "The clearest signals are for interventions that build learners' skills, with significant effects on literacy, cognitive skills, handwriting and numeracy, but these effects are based on a low number of studies [1].",
-    "The passages do not identify which interventions work best for different types of disability, although the review set this out as one of its questions [1]."
+    "The passages do not identify which interventions work best for different types of disability, although the review set this out as one of its questions [1].",
+    "The review reports that \"no studies identified in our review captured education interventions for people with psychosocial/mental impairments,\" so it offers no evidence on what works for this group [1]."
    ]
   },
   {
@@ -61,6 +63,7 @@
    "sentences": [
     "Of the 18 studies included in the review's analysis of intervention effects on 'Skills for learning', 12 interventions had a significant effect [1].",
     "Effects on literacy, cognitive skills, handwriting and numeracy were significant, and the review describes all these effects as large but based on a low number of studies [1].",
+    "For literacy specifically, the review reports an effect of d = 2.46 (0.01 to 4.90) from 4 studies with 389 participants (I² = 93%), which it describes as a \"Large effect based on a low number of studies with high heterogeneity and potentially high publication bias\" [1].",
     "Examples of included studies range from a language and literacy randomised trial with 65 participants in South Africa to a writing-skills programme based on self-regulated strategy development in Egypt with 67 participants [1]."
    ]
   },
@@ -74,6 +77,7 @@
    "section": "findings",
    "sentences": [
     "Included studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect [1].",
+    "For 'Conditions for inclusion of people with disabilities in education', the review reports an effect of d = 0.35 (0.12 to 0.58) from four studies with 401 participants (I² = 86%), which it summarises as a \"moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\" [1].",
     "One study concerned with teacher knowledge showed a significant effect size [1].",
     "'Accessible learning environments' was the second most common intervention category, including programmes that aimed to improve social skills or to reduce victimisation of children with disabilities in schools [1].",
     "Examples include the Good School Toolkit, a school-wide intervention in Ugandan primary schools tested in a randomised trial with 3,820 participants, and a teacher training programme in Kenya assessed with an uncontrolled before-and-after design [1]."
@@ -127,7 +131,6 @@
    "sentences": [
     "It holds up that a range of individual-level, skills-focused interventions show significant and sometimes large effects on outcomes such as literacy and numeracy, though these findings rest on a low number of studies and the review calls the support \"emerging\" [1].",
     "Evidence on changing schools and systems is thin: there is a moderately significant effect for conditions for inclusion and a single significant teacher-knowledge study, but no studies of built-environment accessibility or inclusive education policies [1].",
-    "So the passages cannot say which kinds of programme work best overall, because the alternatives to skills interventions have barely been tested and differing measures make comparison difficult.",
     "The review's authors conclude that more systemic approaches are needed, alongside interventions that address attendance, enrolment, completion and transition to higher levels of education [1]."
    ]
   },
@@ -139,7 +142,7 @@
   {
    "tag": "html",
    "section": "limits",
-   "html": "  <p>We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].</p>\n  <p>We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries but could not hold it, so nothing on this page draws on it.</p>\n  <p>We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.</p>\n  <p>We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability inclusive education interventions LMIC effectiveness review; web search: evidence gap map disability education interventions LMIC White Saran Kuper Campbell; web search: UNESCO guidelines inclusive education disability developing countries policy; web search: Kuper rapid evidence assessment educational outcomes disabilities LMIC 2018; web search: UNICEF \"effectiveness of inclusive interventions\" children disabilities 2022 education; web search: Wapling inclusive education children disabilities LMIC systematic review strategies 2016; registry: Europe PMC.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>\n  <p>Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>"
+   "html": "  <p>We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].</p>\n  <p>We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries but could not hold it, so nothing on this page draws on it.</p>\n  <p>We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.</p>\n  <p>We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability inclusive education interventions LMIC effectiveness review; web search: evidence gap map disability education interventions LMIC White Saran Kuper Campbell; web search: UNESCO guidelines inclusive education disability developing countries policy; web search: Kuper rapid evidence assessment educational outcomes disabilities LMIC 2018; web search: UNICEF \"effectiveness of inclusive interventions\" children disabilities 2022 education; web search: Wapling inclusive education children disabilities LMIC systematic review strategies 2016; registry: Europe PMC.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>\n  <p>Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, pubmed.ncbi.nlm.nih.gov, campbellcollaboration.org, researchonline.lshtm.ac.uk, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, voced.edu.au, doi.org, gov.uk, assets.publishing.service.gov.uk, ideas.repec.org, semanticscholar.org, evidenceaid.org, academia.edu, globalpartnership.org, frontiersin.org, dgsjournal.org, tandfonline.com, includeplatform.net, cedilprogramme.org, lshtm.ac.uk, unicef.org, pmc.ncbi.nlm.nih.gov, doaj.org) could not establish whether Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries has a newer edition.</p>\n  <p>A newer edition exists of Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries; this page uses the edition listed as Evidence and gap map of studies assessing the effectiveness of interventions for [3].</p>\n  <p>Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>"
   },
   {
    "tag": "html",
@@ -461,6 +464,34 @@
     "source": "S003",
     "start": 5649,
     "end": 6168
+   }
+  ],
+  "The review reports that \"no studies identified in our review captured education interventions for people with psychosocial/mental impairments,\" so it offers no evidence on what works for this group [1].": [
+   {
+    "source": "S001",
+    "start": 83184,
+    "end": 83301
+   }
+  ],
+  "For 'Conditions for inclusion of people with disabilities in education', the review reports an effect of d = 0.35 (0.12 to 0.58) from four studies with 401 participants (I² = 86%), which it summarises as a \"moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\" [1].": [
+   {
+    "source": "S001",
+    "start": 116620,
+    "end": 116887
+   }
+  ],
+  "For literacy specifically, the review reports an effect of d = 2.46 (0.01 to 4.90) from 4 studies with 389 participants (I² = 93%), which it describes as a \"Large effect based on a low number of studies with high heterogeneity and potentially high publication bias\" [1].": [
+   {
+    "source": "S001",
+    "start": 117574,
+    "end": 117778
+   }
+  ],
+  "The review found that \"no study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education,\" so it offers no evidence on whether these interventions affect those outcomes [1].": [
+   {
+    "source": "S001",
+    "start": 122630,
+    "end": 122748
    }
   ]
  }
