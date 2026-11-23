@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -217,6 +218,12 @@ def run_step(ctx: Ctx, step) -> dict:
     after = CH.snapshot(ctx.case, ctx.slug)
     bad = CH.violations(CH.diff(before, after), ST.owns_for(step, ctx.slug)) + page_bad
     bad += ["frozen field changed: %s" % b for b in CH.frozen_breaks(ctx.case, ctx.frozen)]
+    split = [b for b in bad if b.startswith(SPLIT_PREFIX)]
+    if split:                    # the standing check (ruling after attempt 15): its own stop, before any paid audit
+        e = RunStop("%s: %d page sentence(s) are not the audit's units, stopped at $0: %s"
+                    % (step.name, len(split), "; ".join(split[:3])))
+        _log_failed(ctx, step, result, e)
+        raise e
     if bad:
         e = RunStop("%s: %s: %s" % (step.name, CH.STOP, "; ".join(bad[:6])))
         _log_failed(ctx, step, result, e)
@@ -265,7 +272,26 @@ def _account_page(ctx: Ctx, step) -> list[str]:
     generated = {"question": q_html, "limits": limits_html, "readers": readers_html, "sources": _source_list(ctx)}
     bad = AA.problems(ctx.case, page, generated, getattr(ctx, "page_prev", None))
     ctx.page_prev = AA.on_page(page)
-    return bad
+    return bad + splitter_mismatches(ctx.slug, page, ctx.page.read_text(encoding="utf-8") if ctx.page.exists() else "")
+
+
+SPLIT_PREFIX = "page sentence is not one unit of the audit's splitter: "
+
+
+def splitter_mismatches(slug: str, page, html: str) -> list[str]:
+    """Standing check (advisor's ruling after attempt 15): every sentence stored on the page must be exactly one
+    unit of the audit's splitter (bindings.page_sentences on the rendered page). Run after every page-changing step,
+    so a mismatch stops the run at $0, before any paid audit rules on text that is on no page."""
+    import bindings as B
+    units = {" ".join(u.split()) for u in B.page_sentences(slug, html=html)}
+    out = []
+    for b in page.blocks():
+        if b.get("tag") != "p":
+            continue
+        for s in b.get("sentences") or []:
+            if " ".join(s.split()) not in units:
+                out.append(SPLIT_PREFIX + "%r" % s[-160:])
+    return out
 
 
 def step_cost(entries: list[dict], slug: str, step: str, since: str) -> float:
@@ -659,10 +685,21 @@ def _cite_numbers(ctx: Ctx) -> dict:
     return {s["id"]: n for n, s in enumerate(doc.get("sources") or [], 1)}
 
 
+_ENDS_IN_QUOTE = re.compile(r"^(.*?)([.!?])([\"\u201d\u2019']+)$", re.S)
+
+
 def _with_marker(text: str, nums: list[int]) -> str:
+    """The citation goes before the sentence's final period: "... [1].". A sentence ending in a quotation takes
+    the marker after the closing quote and the period after the marker, the quoted words verbatim:
+    '... are needed" [1].' (advisor's ruling after attempt 15, option a: the period moves outside the quote).
+    A quotation ending in "?" or "!" keeps it inside the quote."""
     if not nums:
         return text
     mark = " [%s]" % ", ".join(str(n) for n in sorted(set(nums)))
+    m = _ENDS_IN_QUOTE.match(text)
+    if m:
+        body, punct, quotes = m.groups()
+        return body + ("" if punct == "." else punct) + quotes + mark + "."
     return text[:-1] + mark + "." if text.endswith(".") else text + mark
 
 

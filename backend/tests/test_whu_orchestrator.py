@@ -2156,3 +2156,71 @@ def test_acquire_does_not_request_a_full_text_the_metadata_says_is_not_served(mo
     assert AQ.epmc_not_served("https://example.org/paper.pdf", look) is None
     monkeypatch.delenv("WHU_ORCH_STEP")
     assert AQ.epmc_not_served(url % "PMC8356339", look) is None            # outside orchestrated runs: as before
+
+
+# Rulings after attempt 15 (2026-11-23): (1) the marker after a closing quote, period outside; (2) every stored
+# page sentence is exactly one unit of the audit's splitter, checked after every page-changing step.
+
+A15 = "WHU-OT1-02o-whu-lean-orch-t1-q1-02o"
+
+
+def _a15_page():
+    import json as _j
+    c = ROOT / "issues" / A15
+    return Page.load(c / "draft" / "page.json"), (c / "draft" / ("%s.html" % A15.split("-", 3)[3])).read_text()
+
+
+def _a15_u17():
+    """The three page sentences attempt 15's audit read as one unit (u17), as stored."""
+    page, _ = _a15_page()
+    prose = [s for b in page.blocks() if b.get("tag") == "p" for s in b.get("sentences") or []]
+    i = next(k for k, s in enumerate(prose) if s.startswith('The source states that, "Consequently'))
+    return prose[i:i + 3]
+
+
+def test_attempt_15s_three_sentences_take_the_marker_after_the_quote():
+    import orchestrator as O
+    import re as _re
+    three = _a15_u17()
+    assert three[0].endswith('are needed." [1]') and three[1].endswith('programs." [2]') and three[2].endswith("[2].")
+    fixed = []
+    for s in three:
+        m = _re.match(r"^(.*?) \[(\d+)\]\.?$", s)
+        fixed.append(O._with_marker(m.group(1) + ("." if s.endswith(".") else ""), [int(m.group(2))]))
+    assert fixed[0].endswith('are needed" [1].') and fixed[1].endswith('programs" [2].') and fixed[2] == three[2]
+    assert '"Consequently, a focus on evaluation of interventions which target not just the individual with a ' \
+           'disability but also their broader environment, are needed"' in fixed[0]        # the quoted words verbatim
+    import bindings as B
+    units = [" ".join(u.split()) for u in B.page_sentences(A15.split("-", 3)[3], html="<p>%s</p>" % " ".join(fixed))]
+    assert units == [" ".join(s.split()) for s in fixed]                                 # three units, as stored
+    assert O._with_marker('He asked "why?"', [3]) == 'He asked "why?" [3].'
+    assert O._with_marker("It holds.", [1]) == "It holds [1]." and O._with_marker("No stop", [1]) == "No stop [1]"
+
+
+def test_the_splitter_check_catches_attempt_15s_page_and_passes_it_fixed():
+    import orchestrator as O
+    page, html = _a15_page()
+    slug = A15.split("-", 3)[3]
+    bad = O.splitter_mismatches(slug, page, html)
+    assert len(bad) == 4 and all(b.startswith(O.SPLIT_PREFIX) for b in bad)
+    import re as _re
+    for b in page.blocks():
+        if b.get("tag") == "p":
+            b["sentences"] = [O._with_marker(m.group(1), [int(m.group(2))]) if (m := _re.match(r'^(.*"|.*”) \[(\d+)\]$', s))
+                              else s for s in b["sentences"]]
+    left = O.splitter_mismatches(slug, page, page.render())
+    # The marker fix clears the three run-together sentences and the ones joined to them. What remains is a second
+    # kind the check exists to catch: a judgement "sentence" the model wrote as two sentences (one held span, S002).
+    assert len(left) == 1 and "own reports. In Vietnam, teachers reported" in left[0]
+
+
+def test_a_splitter_mismatch_stops_the_step_at_zero_cost(tmp_path, monkeypatch):
+    import orchestrator as O
+    c = _case(tmp_path)
+    ctx = O.Ctx.__new__(O.Ctx)
+    ctx.slug, ctx.case, ctx.mode, ctx.root, ctx.lock, ctx.frozen, ctx.log = "orch-x", c, "trial", tmp_path, None, {}, []
+    monkeypatch.setattr(O, "_study_log", lambda *a: None)
+    monkeypatch.setattr(O, "_account_page", lambda ctx, step: [O.SPLIT_PREFIX + "'x.\" [1]'"])
+    monkeypatch.setitem(O.STEP_CODE, "noop", lambda ctx, step: {"outcome": "ok"})
+    with pytest.raises(O.RunStop, match="are not the audit's units, stopped at \\$0"):
+        O.run_step(ctx, ST.Step("bind", "code", owns=("bindings.json",), code="noop"))
