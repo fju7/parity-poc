@@ -1,0 +1,89 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:53:28+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many included studies targeted children with disabilities. It is a descriptive count of the evidence base and says nothing about whether programmes work or which types work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:53:30+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding describes only how many studies targeted family members versus service providers. It reports no effect or comparison of effectiveness, so it would not change the answer to whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:53:31+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "It only counts which impairment groups interventions targeted; it reports no effect on any outcome, so it does not bear on whether programmes work or which types work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:53:35+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only reports which intervention category appears most often in the studies. It gives no effect or comparison of effectiveness, so it does not answer whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:53:38+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "not_material",
+   "reason": "The finding is background on why children with disabilities fall behind. It reports no programme effect and does not compare programme types, so it would not change the answer on whether programmes work.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:53:55+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes for a group, not education outcomes, so it falls under clinical or health outcomes that the question excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, rehabilitation or functional outcomes of disability interventions (e.g. surgery, therapy) that are not measured on education outcomes",
+   "decided_at": "2026-11-23T18:53:58+00:00"
+  },
+  "S002@5491-5648": {
+   "state": "not_material",
+   "reason": "The finding is a generic policy statement about investing in well-being for people with disabilities. It reports no effect size or comparison of education programmes, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:54:08+00:00"
+  },
+  "S002@5649-6168": {
+   "state": "not_material",
+   "reason": "The finding only describes an evidence gap map as a resource for researchers and policymakers. It reports no effect, direction or comparison of programmes, so it adds nothing to whether programmes work.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:54:10+00:00"
+  },
+  "S003@4325-4537": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies exist and where they come from in the Asia-Pacific region. It says nothing about whether programmes work or which types work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:54:12+00:00"
+  },
+  "S003@4538-4608": {
+   "state": "not_material",
+   "reason": "The finding is a vague statement about research gaps in professional learning. It reports no effect or comparison, so it would not change the answer on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:54:14+00:00"
+  },
+  "S003@5282-6096": {
+   "state": "not_material",
+   "reason": "The finding is only publication metadata (a GEM Centre description and PMC status flags). It reports no result about whether education programmes for children with disabilities work.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T18:54:21+00:00"
+  }
+ }
+}

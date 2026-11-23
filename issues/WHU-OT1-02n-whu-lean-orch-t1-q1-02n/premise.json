@@ -1,0 +1,90 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Inclusive education is the accepted best approach. Programmes that train teachers, adapt classrooms and provide assistive devices such as glasses, hearing aids or braille materials get more disabled children into school and help them learn. The evidence for this is reasonably solid, even if it is mostly from small projects.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "Ministries of education, donors such as DFID/FCDO, USAID, the World Bank and UNICEF, and NGOs designing or funding disability-inclusive education in low- and middle-income countries. They must decide which interventions to fund or scale and how much to invest: teacher training, assistive technology, community-based rehabilitation, cash transfers, resource rooms or special schools. They must also decide whether to commission further rigorous evaluation first.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "Systematic reviews or rigorous evaluations in low- and middle-income countries show, at moderate or high certainty, that these programmes consistently raise enrolment, attendance and learning for children with disabilities. They also show which programme types work better than others. If so, the common belief is confirmed, and both the effect and the ranking are well established.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Interventions in low- and middle-income countries aimed at improving educational access, participation, retention or learning outcomes for children and young people with disabilities. Examples include teacher training, inclusive-school reforms, assistive devices, curriculum adaptation, community and parent programmes, financial support, and school infrastructure. The question asks whether these work and how the different types compare.",
+    "out": [
+      {
+        "what": "Effectiveness of disability-inclusive education programmes in high-income countries",
+        "why": "Context, resources and systems differ substantially, and the question is restricted to low- and middle-income countries."
+      },
+      {
+        "what": "Whether inclusive schooling or special schooling is the right model as a matter of rights and principle",
+        "why": "That is a normative and legal question under the UN Convention on the Rights of Persons with Disabilities (CRPD, Article 24), not an empirical question about programme effects."
+      },
+      {
+        "what": "Health, rehabilitation or functional outcomes of disability interventions (e.g. surgery, therapy) that are not measured on education outcomes",
+        "why": "The question concerns educational outcomes. Clinical effectiveness is a separate body of evidence."
+      },
+      {
+        "what": "How many children with disabilities are out of school, and how disability is measured (e.g. the Washington Group questions)",
+        "why": "Prevalence and the size of the gap are context for the question, not evidence of programme effectiveness."
+      },
+      {
+        "what": "General education interventions for all disadvantaged children that do not report effects separately for children with disabilities",
+        "why": "Those studies do not answer whether the programmes work for this group."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-23T18:49:09+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Effect estimates from impact evaluations: randomised trials, quasi-experimental studies and controlled before-after designs. These cover enrolment, attendance, retention, completion, test scores or learning assessments, and participation for children with disabilities. Pooled effect sizes from meta-analyses also count, along with counts of how many rigorous studies exist per intervention type and per country.",
+    "assessed": "Certainty or confidence ratings that systematic reviews or evidence gap maps assign to the body of evidence. Examples are GRADE ratings (high, moderate, low or very low), risk-of-bias judgements, and review authors' or panels' conclusions on whether an intervention type is effective, promising or insufficiently evidenced. Examples of such sources include Campbell Collaboration, 3ie, and DFID/FCDO-commissioned reviews.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-23T18:49:09+00:00"
+  }
+}
