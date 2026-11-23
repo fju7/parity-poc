@@ -1963,3 +1963,58 @@ def test_fetch_is_retried_four_times_in_an_orchestrated_run_only(monkeypatch):
     assert len(calls) == 1                                  # the old study behaviour: one try
     assert AQ.transient(urllib.error.HTTPError("u", 503, "x", {}, None)) and AQ.transient(
         urllib.error.HTTPError("u", 429, "x", {}, None)) and not AQ.transient(urllib.error.HTTPError("u", 403, "x", {}, None))
+
+
+def test_stage_malformed_events_reach_the_run_record_and_the_log_is_removed(tmp_path):
+    import orchestrator as O
+    log = tmp_path / "m.jsonl"
+    log.write_text(json.dumps({"role": "advocate", "event": "malformed", "text": "x"}) + "\n"
+                   + json.dumps({"role": "advocate", "event": "reask", "text": ""}) + "\n")
+    ev = O._stage_malformed(log)
+    assert not log.exists()
+    s = O.malformed_summary(ev)
+    assert (s["malformed"], s["reasks"]) == (1, 1)
+    ctx = SimpleNamespace(lock=None, mode="paid", slug="x", malformed_log=log)
+    env = O.Ctx.env(ctx, ST.BY_NAME["advocate"])
+    assert env["WHU_ORCH_MALFORMED_LOG"] == str(log) and env["WHU_LEAN"] == "1"
+
+
+# Ruling 5 after attempt 11 (2026-11-23): paid trial runs hold their documents in a separate library.
+
+def test_trial_issues_are_recognised():
+    import orchestrator as O
+    assert O.is_trial_issue({"round": "orchestrator trial 1"})
+    assert O.is_trial_issue({"library": "trial"})
+    assert not O.is_trial_issue({"round": "new-questions test"}) and not O.is_trial_issue({})
+    for folder in ("WHU-OT1-02i-whu-lean-orch-t1-q1-02i", "WHU-OT1-02k-whu-lean-orch-t1-q1-02k"):
+        assert O.is_trial_issue(json.loads((ROOT / "issues" / folder / "issue.json").read_text()))
+
+
+def test_a_trial_run_points_the_store_and_its_children_at_the_trial_library(tmp_path, monkeypatch):
+    import orchestrator as O
+    import source_store as store
+    from orch import chain as CHN
+    monkeypatch.setattr(store, "LIB", store.LIB_REAL)
+    monkeypatch.setattr(store, "LIB_TRIAL", tmp_path / "library_trial")
+    monkeypatch.delenv("WHU_LIBRARY_ROOT", raising=False)
+    c = tmp_path / "issues" / "WHU-OT1-99-orch-x"
+    c.mkdir(parents=True)
+    (c / "issue.json").write_text(json.dumps({"slug": "orch-x", "round": "orchestrator trial 1"}))
+    assert O.trial_library("orch-x", root=tmp_path) == str(tmp_path / "library_trial")
+    assert store.index_path() == tmp_path / "library_trial" / "index.json"
+    assert os.environ["WHU_LIBRARY_ROOT"] == str(tmp_path / "library_trial")      # children inherit it
+    assert CHN.library_issues() == tmp_path / "library_trial" / "issues"
+    r = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, %r); import source_store as s; print(s.LIB)"
+                        % str(W)], capture_output=True, text=True, env=dict(os.environ))
+    assert r.stdout.strip() == str(tmp_path / "library_trial")
+    monkeypatch.setattr(store, "LIB", store.LIB_REAL)
+    monkeypatch.delenv("WHU_LIBRARY_ROOT")
+    real = tmp_path / "issues" / "WHU-Q9-01-real-x"
+    real.mkdir()
+    (real / "issue.json").write_text(json.dumps({"slug": "real-x", "round": "new-questions test"}))
+    assert O.trial_library("real-x", root=tmp_path) == str(store.LIB_REAL)
+
+
+def test_the_trial_library_is_not_committed():
+    gi = (ROOT / ".gitignore").read_text()
+    assert "backend/data/whatholdsup/library_trial/" in gi

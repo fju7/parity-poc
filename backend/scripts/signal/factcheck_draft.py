@@ -698,6 +698,47 @@ def searches_in(response) -> dict:
     return {"queries": queries, "domains": domains}
 
 
+# Lean / orchestrated mode (advisor's ruling 3 after attempt 11, 2026-11-23, wording approved the same day):
+# the reply must be, after stripping a code fence, exactly one JSON value of the type the prompt asks for (an
+# array where it says "return only a JSON array", an object otherwise). No salvage. A malformed reply is
+# re-asked once with REASK_ONE; a second malformed reply returns None, the stage's unusable-reply path. Every
+# malformed reply and re-ask is counted (MALFORMED_EVENTS, and WHU_ORCH_MALFORMED_LOG for the orchestrator).
+ASKS_ARRAY = re.compile(r"return\s+only\s+a\s+json\s+array", re.IGNORECASE)
+REASK_ONE = "\n\nReturn exactly one JSON %s and nothing else."
+MALFORMED_EVENTS: list[dict] = []
+
+
+def strict_json_mode() -> bool:
+    return (os.environ.get("WHU_LEAN", "").strip() in ("1", "true", "yes", "on")
+            or bool(os.environ.get("WHU_ORCH_STEP")))
+
+
+def expected_kind(system: str, user: str) -> str:
+    return "array" if ASKS_ARRAY.search((system or "") + "\n" + (user or "")) else "object"
+
+
+def one_value(text: str, kind: str):
+    """The reply's one JSON value of KIND, or None. The whole reply (code fence stripped) must parse."""
+    try:
+        v = json.loads(strip_code_fence(text or "").strip())
+    except ValueError:
+        return None
+    return v if isinstance(v, list if kind == "array" else dict) else None
+
+
+def _note_malformed(label: str, event: str, text: str) -> None:
+    e = {"role": label or "call", "event": event, "text": (text or "")[:600],
+         "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    MALFORMED_EVENTS.append(e)
+    path = os.environ.get("WHU_ORCH_MALFORMED_LOG")
+    if path:
+        try:
+            with open(path, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(e, ensure_ascii=False) + "\n")
+        except OSError:
+            pass
+
+
 def call(system: str, user: str, *, search: bool,
          max_tokens: int = MAX_OUTPUT_TOKENS, label: str = "", raw: bool = False):
     """One model call, optionally with web search. Returns parsed JSON or None.
@@ -764,6 +805,9 @@ def call(system: str, user: str, *, search: bool,
     if search:
         kwargs["tools"] = [dict(WEB_SEARCH_TOOL, max_uses=MAX_SEARCHES_PER_CALL)]
 
+    strict = strict_json_mode() and not raw
+    kind = expected_kind(system, user)
+    user_now = user
     for json_attempt in range(JSON_RETRIES + 1):
         response = None
         for attempt in range(len(BACKOFF_DELAYS) + 1):
@@ -781,7 +825,7 @@ def call(system: str, user: str, *, search: bool,
                     max_tokens=max_tokens,
                     temperature=0,
                     system=system,
-                    messages=[{"role": "user", "content": user}],
+                    messages=[{"role": "user", "content": user_now}],
                     **kwargs,
                 )
                 if SIGNAL_MODEL in FIXED_SAMPLING:
@@ -839,6 +883,24 @@ def call(system: str, user: str, *, search: bool,
                     print(f"          the cut-off answer is at {where}")
                 return None
             return text
+        if strict:
+            if truncated:
+                where = _dump_truncated(label, text, response)
+                print(f"  [ERROR] {label}: the answer was cut off at max_tokens ({max_tokens}).")
+                if where:
+                    print(f"          the cut-off answer is at {where}")
+                return None
+            v = one_value(text, kind)
+            if v is not None:
+                return v
+            _note_malformed(label, "malformed", text)
+            if json_attempt == 0:
+                _note_malformed(label, "reask", "")
+                print(f"  [RE-ASK] {label}: not exactly one JSON {kind}; asking once more")
+                user_now = user + REASK_ONE % kind
+                continue
+            print(f"  [ERROR] {label}: not exactly one JSON {kind} after one re-ask. Tail: {text[-200:]!r}")
+            return None
         try:
             parsed = json.loads(strip_code_fence(text))      # ```json ... ``` (WHU-S03)
             if truncated:

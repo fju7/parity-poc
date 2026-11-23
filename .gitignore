@@ -67,6 +67,8 @@ backend/data/whatholdsup/dashboard.html
 #   backend/venv/bin/python3 scripts/whatholdsup/source_store.py <slug> gaps
 # to see what is missing.
 backend/data/whatholdsup/library/docs/
+# Paid orchestrator TRIAL runs hold their documents here (ruling 5, 2026-11-23); outputs are discarded.
+backend/data/whatholdsup/library_trial/
 
 # WHU reliability study (advisor ruling 3, 2026-10-20; study/whu-reliability/RUN.md).
 # The repository is public: audit and ruling logs, and every file that quotes

@@ -3089,6 +3089,9 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - From 2026-11-30 the day cap is $25 (Fred) and the room rule is ledger + likely <= $15 per day.
 - Orchestrated acquire: registry timeouts/5xx/429 retried 4x (`acquire_sources.fetch_retrying`), then the run stops
   "registry unavailable; run again later"; no held source reporting results (`orch/results.py`) stops it too.
+- Lean/orchestrated `factcheck_draft.call`: exactly one JSON value of the prompt's type, one re-ask, then None
+  (no salvage; non-lean unchanged). Paid trial runs use `backend/data/whatholdsup/library_trial/` (WHU_LIBRARY_ROOT,
+  gitignored); trial entries in the real index carry `trial_used_by` / `origin`.
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

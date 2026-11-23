@@ -20,11 +20,18 @@ from __future__ import annotations
 import fnmatch
 import hashlib
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
 LIBRARY = ROOT / "backend" / "data" / "whatholdsup" / "library" / "issues"
+
+
+def library_issues() -> Path:
+    """The issue records of the library in use (WHU_LIBRARY_ROOT, for a trial run's separate library)."""
+    root = os.environ.get("WHU_LIBRARY_ROOT")
+    return Path(root) / "issues" if root else LIBRARY
 CHAIN = "orchestrator/chain.jsonl"
 # Written by the orchestrator itself at every step.
 ALWAYS_OWNED = ("orchestrator/*", "study_log.md")
@@ -44,7 +51,7 @@ def snapshot(case: Path, slug: str) -> dict:
             if rel == CHAIN:
                 continue
             out[rel] = _sha(p)
-    lib = LIBRARY / ("%s.json" % slug)
+    lib = library_issues() / ("%s.json" % slug)
     if lib.exists():
         out["library:%s.json" % slug] = _sha(lib)
     return out

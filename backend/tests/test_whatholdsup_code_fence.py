@@ -166,3 +166,91 @@ def test_discover_paid_path_reasks_a_two_object_reply(model, tmp_path, monkeypat
     ask.note_malformed = lambda role, ev, text: events.append(ev)
     assert M.ask_json(ask, "P", 100, "discover") == {"sources": []}
     assert client.calls == 2 and events == ["malformed", "reask"]
+
+
+# Ruling 3 after attempt 11 (2026-11-23): lean / orchestrated mode takes exactly one JSON value of the type the
+# prompt asks for, re-asks once, then None; non-lean behaviour unchanged.
+
+TWO = '{"label": "a"}\n\nWait, reconsidering:\n\n{"label": "b"}'
+
+
+def _seq(monkeypatch, texts):
+    texts = list(texts)
+    seen = []
+
+    class Seq(FakeClient):
+        def create(self, **kw):
+            seen.append(kw["messages"][0]["content"])
+            self.text = texts[min(len(seen), len(texts)) - 1]
+            return FakeClient.create(self, **kw)
+    client = Seq("")
+    monkeypatch.setattr(fc, "_get_client", lambda: client)
+    monkeypatch.setattr(fc, "_spend", None)
+    monkeypatch.setattr(fc, "_LEDGER_ISSUE", "fence-test")
+    monkeypatch.setattr(fc.time, "sleep", lambda s: None)
+    monkeypatch.setattr(fc, "MALFORMED_EVENTS", [])
+    return client, seen
+
+
+def test_lean_two_objects_reasked_once_then_none(monkeypatch, tmp_path):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    log = tmp_path / "m.jsonl"
+    monkeypatch.setenv("WHU_ORCH_MALFORMED_LOG", str(log))
+    client, seen = _seq(monkeypatch, [TWO, TWO, '{"label": "never"}'])
+    assert fc.call("s", "U", search=False, label="conclusions") is None
+    assert client.calls == 2 and seen[1] == "U" + fc.REASK_ONE % "object"
+    assert "Return exactly one JSON object and nothing else." in seen[1]
+    assert [e["event"] for e in fc.MALFORMED_EVENTS] == ["malformed", "reask", "malformed"]
+    assert [json.loads(l)["event"] for l in log.read_text().splitlines()] == ["malformed", "reask", "malformed"]
+
+
+def test_lean_reask_then_a_good_reply_is_taken(monkeypatch):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    client, _ = _seq(monkeypatch, [TWO, '```json\n{"label": "b"}\n```'])
+    assert fc.call("s", "U", search=False, label="x") == {"label": "b"} and client.calls == 2
+
+
+def test_strict_mode_is_on_in_lean_or_inside_an_orchestrator_step(monkeypatch):
+    for k in ("WHU_LEAN", "WHU_ORCH_STEP"):
+        monkeypatch.delenv(k, raising=False)
+    assert not fc.strict_json_mode()
+    monkeypatch.setenv("WHU_ORCH_STEP", "advocate")
+    assert fc.strict_json_mode()
+    monkeypatch.delenv("WHU_ORCH_STEP")
+    monkeypatch.setenv("WHU_LEAN", "1")
+    assert fc.strict_json_mode()
+
+
+def test_lean_array_prompt_takes_one_array_and_refuses_an_object(monkeypatch):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    sysmsg = "RETURN ONLY a JSON array. One object per objection:"
+    client, seen = _seq(monkeypatch, ['[{"a": 1}, {"a": 2}]'])
+    assert fc.call(sysmsg, "U", search=False, label="advocate") == [{"a": 1}, {"a": 2}] and client.calls == 1
+    client, seen = _seq(monkeypatch, ['{"a": 1}', '[{"a": 1}]'])
+    assert fc.call(sysmsg, "U", search=False, label="advocate") == [{"a": 1}]
+    assert seen[1].endswith("Return exactly one JSON array and nothing else.")
+
+
+def test_lean_prose_around_one_object_is_malformed(monkeypatch):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    client, _ = _seq(monkeypatch, ['Here you go: {"label": "a"}', 'Sure {"label": "a"}'])
+    assert fc.call("s", "U", search=False, label="x") is None and client.calls == 2
+
+
+def test_non_lean_behaviour_is_unchanged(monkeypatch):
+    for k in ("WHU_LEAN", "WHU_ORCH_STEP"):
+        monkeypatch.delenv(k, raising=False)
+    client, _ = _seq(monkeypatch, [TWO])
+    assert isinstance(fc.call("s", "U", search=False, label="x"), dict) and client.calls == 1   # salvaged, as before
+    assert fc.MALFORMED_EVENTS == []
+
+
+def test_every_prompt_that_asks_for_an_array_is_read_as_one():
+    import re
+    srcs = [(ROOT / "backend/scripts/signal/factcheck_draft.py"), WHU / "source_advocate.py", WHU / "counterexample.py"]
+    for p in srcs:
+        for line in p.read_text().splitlines():
+            if re.search(r"(?i)return only a json array", line):
+                assert fc.expected_kind(line, "") == "array"
+            if re.search(r"(?i)return only (a )?json( object)?:", line):
+                assert fc.expected_kind(line, "") == "object"

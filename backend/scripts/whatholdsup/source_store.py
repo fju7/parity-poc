@@ -102,6 +102,7 @@ import argparse
 import hashlib
 import json
 import mimetypes
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -118,8 +119,19 @@ def utc_today() -> str:
 
 
 ROOT = Path(__file__).resolve().parents[3]
-LIB = ROOT / "backend" / "data" / "whatholdsup" / "library"
+LIB_REAL = ROOT / "backend" / "data" / "whatholdsup" / "library"
+LIB_TRIAL = ROOT / "backend" / "data" / "whatholdsup" / "library_trial"
+# Paid TRIAL runs hold their documents in a separate library (advisor's ruling 5 after attempt 11, 2026-11-23):
+# WHU_LIBRARY_ROOT names it; the orchestrator sets it (and calls use_library) for a trial issue.
+LIB = Path(os.environ.get("WHU_LIBRARY_ROOT") or LIB_REAL)
 CASES = ROOT / "issues"
+
+
+def use_library(root) -> None:
+    """Point this process (and, through WHU_LIBRARY_ROOT, its children) at the library under ROOT."""
+    global LIB
+    LIB = Path(root)
+    os.environ["WHU_LIBRARY_ROOT"] = str(LIB)
 
 OK, BAD, WARN = "ok", "BLOCKED", "warn"
 

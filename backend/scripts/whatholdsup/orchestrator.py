@@ -81,6 +81,8 @@ class Ctx:
                   "WHU_ORCH_STEP_CAP": str(step.cap_usd), "WHU_ORCH_STEP_CALLS": str(step.max_calls)})
         if self.lock:
             e["WHU_ORCH_LOCK"] = str(self.lock.path)
+        if getattr(self, "malformed_log", None):
+            e["WHU_ORCH_MALFORMED_LOG"] = str(self.malformed_log)   # fc.call counts malformed replies here
         return e
 
 
@@ -1076,6 +1078,10 @@ def run(ctx: Ctx) -> dict:
     order = list(ST.STEPS)
     i = 0
     result = "Not Ready"
+    import tempfile
+    fd, log = tempfile.mkstemp(prefix="whu-orch-malformed-", suffix=".jsonl")
+    os.close(fd)
+    ctx.malformed_log = Path(log)          # outside the case folder: a run record input, not a case file
     try:
         with RunLock(ctx.slug, ctx.mode, path=Path(os.environ.get("WHU_ORCH_LOCK") or
                                                      ctx.root / "backend/data/whatholdsup/orchestrator.lock")) as lk:
@@ -1101,8 +1107,42 @@ def run(ctx: Ctx) -> dict:
         result = "Not Ready: %s: %s" % (type(e).__name__, e)
     except SystemExit as e:                     # a stage library's refusal (attempt 4: run_paid.json was lost)
         result = "Not Ready: SystemExit: %s" % e
-    return {"result": result, "steps": ctx.log,
-            "malformed_replies": malformed_summary(getattr(ctx, "malformed", None) or [])}
+    events = list(getattr(ctx, "malformed", None) or []) + _stage_malformed(ctx.malformed_log)
+    return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events)}
+
+
+def is_trial_issue(issue: dict) -> bool:
+    """A paid run whose outputs are discarded by rule: an orchestrator trial ("round" starts "orchestrator
+    trial"), or an issue that says "library": "trial" (a seeded-defect copy)."""
+    return (str(issue.get("round") or "").lower().startswith("orchestrator trial")
+            or issue.get("library") == "trial")
+
+
+def trial_library(slug: str, root: Path = ROOT) -> str:
+    """Ruling 5 after attempt 11 (2026-11-23): a trial issue holds its documents in the separate trial library,
+    so discarded runs never mix with real holdings. Returns the library root in use, for the run record."""
+    import source_store as store
+    case = next((root / "issues").glob("WHU-*-%s" % slug))
+    issue = json.loads((case / "issue.json").read_text(encoding="utf-8"))
+    if is_trial_issue(issue):
+        store.use_library(store.LIB_TRIAL)
+    return str(store.LIB)
+
+
+def _stage_malformed(path: Path) -> list[dict]:
+    """The stages' malformed replies and re-asks (factcheck_draft.call in lean mode), then the log is removed."""
+    out = []
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                out.append(json.loads(line))
+    except (OSError, ValueError):
+        pass
+    try:
+        path.unlink()
+    except OSError:
+        pass
+    return out
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -1130,8 +1170,10 @@ def main(argv=None) -> int:
                 out = run(Ctx(a.slug, "trial", root=sb.root))
             print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]]}, indent=1))
             return 0
+        lib = trial_library(a.slug)
         ctx = Ctx(a.slug, "paid")
         out = run(ctx)
+        out["library_root"] = lib
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
         out["models_reported"] = record_models_reported(ctx)   # the model id each response reported (advisor)
         rec = ctx.case / "orchestrator" / "run_paid.json"          # every step's commands, exit codes and outcome
