@@ -83,6 +83,9 @@ class Ctx:
             e["WHU_ORCH_LOCK"] = str(self.lock.path)
         if getattr(self, "malformed_log", None):
             e["WHU_ORCH_MALFORMED_LOG"] = str(self.malformed_log)   # fc.call counts malformed replies here
+        if getattr(self, "unavailable_log", None):                  # every registry lookup retried, outages logged
+            e["WHU_ORCH_UNAVAILABLE_LOG"] = str(self.unavailable_log)
+            e["PYTHONPATH"] = os.pathsep.join([str(SITE)] + ([e["PYTHONPATH"]] if e.get("PYTHONPATH") else []))
         return e
 
 
@@ -338,18 +341,23 @@ def _counting(ctx: Ctx, ask):
     def note(role, event, text):
         if getattr(ctx, "malformed", None) is None:
             ctx.malformed = []
-        ctx.malformed.append({"role": role, "event": event, "at": now(), "text": (text or "")[:600]})
+        ctx.malformed.append({"role": role, "event": event, "at": now(), "text": (text or "")[:20000]})
     ask.note_malformed = note
     return ask
 
 
 def malformed_summary(events: list[dict]) -> dict:
+    """Counts by role. "narration" (a web-search reply's text before its last search; ruling 1 after attempt 12)
+    is logged and counted apart: it is not a malformed reply."""
     by: dict = {}
     for e in events:
         r = by.setdefault(e["role"], {"malformed": 0, "reasks": 0})
-        r["malformed" if e["event"] == "malformed" else "reasks"] += 1
+        if e["event"] == "narration":
+            r["narration"] = r.get("narration", 0) + 1
+        else:
+            r["malformed" if e["event"] == "malformed" else "reasks"] += 1
     return {"malformed": sum(r["malformed"] for r in by.values()), "reasks": sum(r["reasks"] for r in by.values()),
-            "by_role": by, "events": events}
+            "narration": sum(r.get("narration", 0) for r in by.values()), "by_role": by, "events": events}
 
 
 def code_provenance(ctx: Ctx, step) -> dict:
@@ -559,7 +567,10 @@ def code_acquire(ctx: Ctx, step) -> dict:
     for s in doc.get("sources") or []:
         acc = s.setdefault("access", {})
         acc.pop("not_held", None)
-        st = CR.status(s, lookup, crossref)
+        try:
+            st = CR.status(s, lookup, crossref)
+        except CR.RegistryUnavailable as e:    # never a status from a subset of registries (ruling 2, attempt 12)
+            raise RunStop("acquire: registry unavailable; run again later (%s: %s)" % (s.get("id"), e))
         s["retraction_check"] = {"retracted": st["retracted"], "concern": st.get("concern", False), "why": st["why"],
                                  "answered": st["answered"],
                                  "corrections": st["corrections"], "on": now()[:10]}
@@ -573,7 +584,10 @@ def code_acquire(ctx: Ctx, step) -> dict:
             continue
         held_notices, missing = [], None
         for c in st["corrections"]:
-            text, how = CR.notice_text(c, lookup, fulltext)
+            try:
+                text, how = CR.notice_text(c, lookup, fulltext)
+            except CR.RegistryUnavailable as e:
+                raise RunStop("acquire: registry unavailable; run again later (%s: %s)" % (s.get("id"), e))
             if text is None:
                 missing = ("correction_not_held", "%s %s: %s" % (c["type"], c["id"], how))
                 break
@@ -1082,6 +1096,11 @@ def run(ctx: Ctx) -> dict:
     fd, log = tempfile.mkstemp(prefix="whu-orch-malformed-", suffix=".jsonl")
     os.close(fd)
     ctx.malformed_log = Path(log)          # outside the case folder: a run record input, not a case file
+    from orch import registry_http as RH
+    fd, ulog = tempfile.mkstemp(prefix="whu-orch-unavailable-", suffix=".jsonl")
+    os.close(fd)
+    ctx.unavailable_log = Path(ulog)
+    RH.install(ctx.unavailable_log)        # this process; the steps' subprocesses through orch/site (env)
     try:
         with RunLock(ctx.slug, ctx.mode, path=Path(os.environ.get("WHU_ORCH_LOCK") or
                                                      ctx.root / "backend/data/whatholdsup/orchestrator.lock")) as lk:
@@ -1089,7 +1108,12 @@ def run(ctx: Ctx) -> dict:
             changed_in_group = False
             while i < len(order):
                 step = order[i]
-                r = run_step(ctx, step)
+                try:
+                    r = run_step(ctx, step)
+                except Exception:
+                    _stop_if_unavailable(ctx, step)
+                    raise
+                _stop_if_unavailable(ctx, step)
                 if step.repeat_group and isinstance(r.get("code"), dict) and r["code"].get("changed") \
                         and step.name != ST.BY_NAME["findings"].name:
                     changed_in_group = True
@@ -1107,8 +1131,28 @@ def run(ctx: Ctx) -> dict:
         result = "Not Ready: %s: %s" % (type(e).__name__, e)
     except SystemExit as e:                     # a stage library's refusal (attempt 4: run_paid.json was lost)
         result = "Not Ready: SystemExit: %s" % e
+    finally:
+        RH.uninstall()
     events = list(getattr(ctx, "malformed", None) or []) + _stage_malformed(ctx.malformed_log)
-    return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events)}
+    outages = RH.outages(ctx.unavailable_log)
+    try:
+        ctx.unavailable_log.unlink()
+    except OSError:
+        pass
+    return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events),
+            "registry_outages": outages}
+
+
+SITE = Path(__file__).resolve().parent / "orch" / "site"
+
+
+def _stop_if_unavailable(ctx, step) -> None:
+    """A registry still unavailable after the retries, anywhere in the step: the run stops (ruling 2, attempt 12)."""
+    from orch import registry_http as RH
+    out = RH.outages(getattr(ctx, "unavailable_log", None) or "")
+    if out:
+        raise RunStop("%s: registry unavailable; run again later (%s)" % (
+            step.name, "; ".join("%s: %s" % (o["url"][:100], o["error"][:80]) for o in out[:3])))
 
 
 def is_trial_issue(issue: dict) -> bool:

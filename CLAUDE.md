@@ -3092,6 +3092,9 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - Lean/orchestrated `factcheck_draft.call`: exactly one JSON value of the prompt's type, one re-ask, then None
   (no salvage; non-lean unchanged). Paid trial runs use `backend/data/whatholdsup/library_trial/` (WHU_LIBRARY_ROOT,
   gitignored); trial entries in the real index carry `trial_used_by` / `origin`.
+- Web-search replies: the final text block after the last tool use is the reply (`_final_text`). Orchestrated
+  runs wrap urllib (`orch/registry_http.py`; subprocesses via `orch/site/sitecustomize.py` on PYTHONPATH): a
+  registry still down after 4 tries stops the run "registry unavailable; run again later".
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

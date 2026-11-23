@@ -40,6 +40,20 @@ PATH = "correction"
 NOTICE_DIR = "corrections"
 
 
+class RegistryUnavailable(RuntimeError):
+    """A registry did not answer (after the orchestrator's retries): no status is recorded from the others."""
+
+
+UNANSWERED = re.compile(r"^HTTP (5\d\d|429) from|^[A-Za-z_.]*(Error|Exception|Timeout)\b|^timed out", re.I)
+
+
+def _answered_or_raise(rec, why: str, what: str):
+    """lookup/crossref return (None, why) both for 'no record' (an answer) and for an outage (not one)."""
+    if rec is None and UNANSWERED.search(why or ""):
+        raise RegistryUnavailable("%s: %s" % (what, why))
+    return rec, why
+
+
 def _ids(src: dict) -> list[tuple[str, str]]:
     out = []
     for kind, key in (("PMCID", "pmcid"), ("PMID", "pmid"), ("DOI", "doi")):
@@ -58,7 +72,7 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
     out = {"retracted": False, "concern": False, "why": [], "corrections": [], "answered": [], "doi": src.get("doi")}
     rec = None
     for kind, value in _ids(src):
-        rec, why = lookup(kind, value)
+        rec, why = _answered_or_raise(*lookup(kind, value), "Europe PMC %s %s" % (kind, value))
         if rec is not None:
             same, why_same = E.resolves_to_us(rec, src)
             if not same:
@@ -90,7 +104,7 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
                 out["corrections"].append({"id": str(a.get("id")), "registry": a.get("source") or "MED", "type": t})
         out["doi"] = out["doi"] or rec.get("doi")
     if out["doi"]:
-        msg, why = crossref(out["doi"])
+        msg, why = _answered_or_raise(*crossref(out["doi"]), "Crossref %s" % out["doi"])
         if msg is not None:
             out["answered"].append("Crossref %s" % out["doi"])
             for a in E.crossref_amendments(msg):
@@ -126,13 +140,15 @@ def notice_text(c: dict, lookup=None, fulltext=None) -> tuple[str | None, str]:
     """(the notice's text, how it was got), or (None, why not)."""
     lookup = lookup or E.lookup
     kind = "PMID" if c.get("registry") in ("MED", "PMID") else "DOI"
-    rec, why = lookup(kind, c["id"])
+    rec, why = _answered_or_raise(*lookup(kind, c["id"]), "Europe PMC %s %s (correction notice)" % (kind, c["id"]))
     if rec is None:
         return None, why
     text = _plain(rec.get("abstractText") or "")
     pmcid = rec.get("pmcid")
     if pmcid:
         body, how = (fulltext or _fulltext)(pmcid)
+        if body is None and UNANSWERED.search(how or "") and not re.search(r"HTTP Error 4\d\d", how or ""):
+            raise RegistryUnavailable("Europe PMC full text %s: %s" % (pmcid, how))
         if body and len(body) > len(text):
             return body, "Europe PMC full text %s" % pmcid
     if len(text) >= MIN_NOTICE_CHARS and not text.startswith("[This corrects the article"):

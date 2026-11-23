@@ -206,7 +206,7 @@ def transient(e: Exception) -> bool:
 
 def fetch_retrying(url: str) -> tuple[bytes, str, str]:
     """fetch(), retried on a transient failure in an orchestrated run (WHU_ORCH_STEP set); once otherwise."""
-    tries = FETCH_ATTEMPTS if os.environ.get("WHU_ORCH_STEP") else 1
+    tries = FETCH_ATTEMPTS if os.environ.get("WHU_ORCH_STEP") and not os.environ.get("WHU_ORCH_UNAVAILABLE_LOG") else 1
     for i in range(tries):
         try:
             return fetch(url)

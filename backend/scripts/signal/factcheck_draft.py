@@ -572,6 +572,19 @@ def _response_text(response) -> str:
     return "\n".join(parts).strip()
 
 
+TOOL_BLOCKS = ("server_tool_use", "web_search_tool_result", "tool_use", "tool_result")
+
+
+def _final_text(response) -> tuple[str, list[str]]:
+    """(the reply, the narration before it). The reply is the text after the response's LAST tool block, its
+    final text; the text blocks before that are narration between searches (advisor's ruling 1 after attempt
+    12, 2026-11-23). A response with no tool block is all reply."""
+    blocks = list(getattr(response, "content", []) or [])
+    last = max((i for i, b in enumerate(blocks) if getattr(b, "type", None) in TOOL_BLOCKS), default=-1)
+    texts = lambda bs: [getattr(b, "text", "") or "" for b in bs if getattr(b, "type", None) == "text"]
+    return "\n".join(texts(blocks[last + 1:])).strip(), [t for t in texts(blocks[:last + 1]) if t.strip()]
+
+
 def _salvage_rank(value) -> int:
     """How much a salvaged JSON value looks like a role's answer.
 
@@ -727,7 +740,7 @@ def one_value(text: str, kind: str):
 
 
 def _note_malformed(label: str, event: str, text: str) -> None:
-    e = {"role": label or "call", "event": event, "text": (text or "")[:600],
+    e = {"role": label or "call", "event": event, "text": (text or "")[:20000],
          "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     MALFORMED_EVENTS.append(e)
     path = os.environ.get("WHU_ORCH_MALFORMED_LOG")
@@ -890,9 +903,13 @@ def call(system: str, user: str, *, search: bool,
                 if where:
                     print(f"          the cut-off answer is at {where}")
                 return None
-            v = one_value(text, kind)
+            reply, narration = _final_text(response)
+            for n in narration:              # between searches: logged, never parsed, not malformed
+                _note_malformed(label, "narration", n)
+            v = one_value(reply, kind)
             if v is not None:
                 return v
+            text = reply
             _note_malformed(label, "malformed", text)
             if json_attempt == 0:
                 _note_malformed(label, "reask", "")

@@ -254,3 +254,81 @@ def test_every_prompt_that_asks_for_an_array_is_read_as_one():
                 assert fc.expected_kind(line, "") == "array"
             if re.search(r"(?i)return only (a )?json( object)?:", line):
                 assert fc.expected_kind(line, "") == "object"
+
+
+# Ruling 1 after attempt 12 (2026-11-23): a web-search reply is its final text block after the last tool use.
+# Rebuilt from attempt 12's run record (WHU-OT1-02l run_paid.json): the narration openings as recorded (first 600
+# characters of each malformed event) and the final block ending in the recorded tail; the middle of the replies
+# was not recorded in full.
+
+def _a12_events():
+    d = json.loads((ROOT / "issues/WHU-OT1-02l-whu-lean-orch-t1-q1-02l/orchestrator/run_paid.json").read_text())
+    return [e["text"] for e in d["malformed_replies"]["events"] if e["event"] == "malformed"]
+
+
+A12_FINAL = ('```json\n{"studies": [{"ref": "[2]", "status": "corrected", "note": "two figures in the map'
+             ' are confirmed wrong — but the uncorrected version of e1070 is the only one the draft could access, '
+             'and the corrected version changes at least some content in the original publication"\n    }\n  ]\n}\n```')
+
+
+def _search_response(blocks):
+    return types.SimpleNamespace(
+        model=fc.SIGNAL_MODEL, stop_reason="end_turn",
+        usage=types.SimpleNamespace(input_tokens=10, output_tokens=5, cache_creation_input_tokens=0,
+                                    cache_read_input_tokens=0, server_tool_use=None),
+        content=[types.SimpleNamespace(type=t, text=x) for t, x in blocks])
+
+
+def _client_of(responses, monkeypatch):
+    seen = []
+
+    class C:
+        calls = 0
+        messages = None
+
+        def create(self, **kw):
+            seen.append(kw["messages"][0]["content"])
+            C.calls += 1
+            return responses[min(C.calls, len(responses)) - 1]
+
+        def stream(self, **kw):
+            import contextlib
+            msg = self.create(**kw)
+            return contextlib.nullcontext(types.SimpleNamespace(get_final_message=lambda: msg))
+    c = C()
+    c.messages = c
+    monkeypatch.setattr(fc, "_get_client", lambda: c)
+    monkeypatch.setattr(fc, "_spend", None)
+    monkeypatch.setattr(fc, "_LEDGER_ISSUE", "fence-test")
+    monkeypatch.setattr(fc.time, "sleep", lambda s: None)
+    monkeypatch.setattr(fc, "MALFORMED_EVENTS", [])
+    return C, seen
+
+
+def test_attempt_12s_recency_reply_is_read_from_its_final_block(monkeypatch):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    first, second = _a12_events()
+    assert first.startswith("I now have enough information") and second.startswith("I'll search")
+    resp = _search_response([("text", second[:200]), ("server_tool_use", ""), ("web_search_tool_result", ""),
+                             ("text", first[:300]), ("server_tool_use", ""), ("web_search_tool_result", ""),
+                             ("text", A12_FINAL)])
+    C, _ = _client_of([resp], monkeypatch)
+    out = fc.call("s", "u", search=True, label="recency")
+    assert out["studies"][0]["status"] == "corrected" and C.calls == 1
+    assert [e["event"] for e in fc.MALFORMED_EVENTS] == ["narration", "narration"]     # logged, not malformed
+
+
+def test_prose_in_the_final_block_is_still_malformed_and_reasked(monkeypatch):
+    monkeypatch.setenv("WHU_LEAN", "1")
+    bad = _search_response([("server_tool_use", ""), ("web_search_tool_result", ""),
+                            ("text", "Let me consolidate:\n" + A12_FINAL)])
+    good = _search_response([("server_tool_use", ""), ("web_search_tool_result", ""), ("text", A12_FINAL)])
+    C, seen = _client_of([bad, good], monkeypatch)
+    assert fc.call("s", "u", search=True, label="recency")["studies"]
+    assert C.calls == 2 and seen[1].endswith("Return exactly one JSON object and nothing else.")
+    assert [e["event"] for e in fc.MALFORMED_EVENTS] == ["malformed", "reask"]
+
+
+def test_a_reply_with_no_tool_use_is_all_reply():
+    r, n = fc._final_text(_search_response([("text", "{\"a\": 1}")]))
+    assert r == '{"a": 1}' and n == []

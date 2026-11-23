@@ -2018,3 +2018,93 @@ def test_a_trial_run_points_the_store_and_its_children_at_the_trial_library(tmp_
 def test_the_trial_library_is_not_committed():
     gi = (ROOT / ".gitignore").read_text()
     assert "backend/data/whatholdsup/library_trial/" in gi
+
+
+# Ruling 2 after attempt 12 (2026-11-23): every registry lookup retried; an outage stops the run; no retraction
+# or correction status from a subset of registries. Case: attempt 12's HTTP 503 from Europe PMC.
+
+def _a12_s002():
+    return json.loads((ROOT / "issues/WHU-OT1-02l-whu-lean-orch-t1-q1-02l/sources.json").read_text())["sources"][1]
+
+
+def test_attempt_12s_503_raises_rather_than_recording_a_crossref_only_status():
+    from orch import corrections as CR
+    s = _a12_s002()
+    assert "HTTP 503 from Europe PMC" in " ".join(s["retraction_check"]["answered"])     # what attempt 12 recorded
+    with pytest.raises(CR.RegistryUnavailable, match="HTTP 503 from Europe PMC"):
+        CR.status(s, lambda k, v: (None, "HTTP 503 from Europe PMC"), lambda d: ({"relation": {}}, "ok"))
+    with pytest.raises(CR.RegistryUnavailable):
+        CR.status(s, lambda k, v: (None, "Europe PMC has no record for %s %s" % (k, v)),
+                  lambda d: (None, "TimeoutError: timed out"))
+    st = CR.status(s, lambda k, v: (None, "Europe PMC has no record for %s %s" % (k, v)),
+                   lambda d: (None, "HTTP 404 from Crossref"))                                # answers, not outages
+    assert st["retracted"] is False
+    with pytest.raises(CR.RegistryUnavailable):
+        CR.notice_text({"id": "10.1002/cl2.1104", "registry": "DOI"}, lambda k, v: (None, "HTTP 503 from Europe PMC"))
+
+
+def test_acquire_stops_registry_unavailable_on_a_retraction_lookup(tmp_path):
+    import orchestrator as O
+    c = _case(tmp_path)
+    s = _a12_s002()
+    s["access"] = {"state": "full_text_held"}
+    s.pop("retraction_check", None)
+    (c / "sources.json").write_text(json.dumps({"sources": [s]}))
+    ctx = SimpleNamespace(case=c, lookup=lambda k, v: (None, "HTTP 503 from Europe PMC"), crossref=_crossref,
+                          fulltext=_fulltext)
+    with pytest.raises(O.RunStop, match="registry unavailable; run again later"):
+        O.code_acquire(ctx, ST.BY_NAME["acquire"])
+
+
+def test_registry_http_retries_four_times_and_logs_only_registry_outages(tmp_path, monkeypatch):
+    import urllib.error
+    import urllib.request
+    from orch import registry_http as RH
+    log = tmp_path / "u.jsonl"
+    calls, slept = [], []
+
+    def fake(req, *a, **kw):
+        url = RH.url_of(req)
+        calls.append(url)
+        code = 404 if "missing" in url else 503
+        raise urllib.error.HTTPError(url, code, "x", {}, None)
+    monkeypatch.setattr(urllib.request, "urlopen", fake)
+    monkeypatch.setattr(RH, "_sleep", lambda s: slept.append(s))
+    RH.install(log)
+    try:
+        import errata as E
+        rec, why = E.lookup("PMCID", "PMC8356326")                 # errata's own lookup goes through the wrapper
+        assert rec is None and why == "HTTP 503 from Europe PMC" and len(calls) == 4 and slept == [2, 4, 8]
+        assert RH.outages(log)[0]["url"].startswith("https://www.ebi.ac.uk/") and RH.outages(log)[0]["attempts"] == 4
+        calls.clear()
+        with pytest.raises(urllib.error.HTTPError):
+            urllib.request.urlopen("https://www.ebi.ac.uk/missing")
+        assert len(calls) == 1 and len(RH.outages(log)) == 1        # a 404 is an answer: no retry, no outage
+        calls.clear()
+        with pytest.raises(urllib.error.HTTPError):
+            urllib.request.urlopen("https://publisher.example/article")
+        assert len(calls) == 4 and len(RH.outages(log)) == 1        # retried, but not a registry
+    finally:
+        RH.uninstall()
+    assert urllib.request.urlopen is fake
+
+
+def test_after_a_step_an_outage_stops_the_run(tmp_path):
+    import orchestrator as O
+    log = tmp_path / "u.jsonl"
+    ctx = SimpleNamespace(unavailable_log=log)
+    O._stop_if_unavailable(ctx, ST.BY_NAME["acquire"])             # nothing logged: no stop
+    log.write_text(json.dumps({"url": "https://www.ebi.ac.uk/x", "error": "HTTPError: 503"}) + "\n")
+    with pytest.raises(O.RunStop, match="acquire: registry unavailable; run again later"):
+        O._stop_if_unavailable(ctx, ST.BY_NAME["acquire"])
+
+
+def test_step_subprocesses_get_the_wrapper(tmp_path):
+    import orchestrator as O
+    ctx = SimpleNamespace(lock=None, mode="paid", slug="x", malformed_log=None, unavailable_log=tmp_path / "u.jsonl")
+    env = O.Ctx.env(ctx, ST.BY_NAME["acquire"])
+    assert env["WHU_ORCH_UNAVAILABLE_LOG"] == str(tmp_path / "u.jsonl")
+    assert env["PYTHONPATH"].split(os.pathsep)[0] == str(O.SITE)
+    r = subprocess.run([sys.executable, "-c", "import urllib.request; print(urllib.request.urlopen.__name__)"],
+                       env=env, capture_output=True, text=True)
+    assert r.stdout.strip() == "_wrapped", r.stderr
