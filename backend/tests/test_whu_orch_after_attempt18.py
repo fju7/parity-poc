@@ -44,28 +44,36 @@ def lean_off(monkeypatch):
     lean._forced = None
 
 
-# ----------------------------------------------------------------- (0) initials and sentence openers
+# ----------------------------------------------------------------- (0) initials by the token before
+# (advisor's ruling after attempt 19, replacing attempt 18's sentence-opener list)
 
 def test_vitamin_d_then_the_splits(lean_on):
     assert L.sentences("Levels of vitamin D. The next trial was larger.") == \
         ["Levels of vitamin D.", "The next trial was larger."]
 
 
-@pytest.mark.parametrize("opener", sorted(L.SENTENCE_OPENERS))
-def test_every_listed_opener_ends_the_sentence(opener, lean_on):
-    assert len(L.sentences("It was type B. %s next one followed." % opener)) == 2
-
-
-@pytest.mark.xfail(strict=True, reason="'Patients' is not on the ruled opener list, so 'B. Patients' still reads "
-                                       "as an initial; reported to the advisor")
 def test_hepatitis_b_then_patients_splits(lean_on):
     assert L.sentences("Infected with hepatitis B. Patients were followed for a year.") == \
         ["Infected with hepatitis B.", "Patients were followed for a year."]
 
 
-@pytest.mark.parametrize("s", ["The review by J. Smith was cited.", "The review by J. R. Smith was cited."])
-def test_initials_before_a_name_stay_one_sentence(s, lean_on):
+def test_group_a_after_a_lowercase_word_splits(lean_on):
+    assert L.sentences("Cases of strep group A. Rates rose.") == ["Cases of strep group A.", "Rates rose."]
+
+
+@pytest.mark.parametrize("s", ["J. Smith wrote the review.", "J. R. Smith wrote the review.",
+                               "Smith, J. and Jones, K. wrote the review.", "Smith and J. Jones wrote the review.",
+                               "Smith & J. Jones wrote the review.", "Saran A, White H, Kuper H. Evidence and gap map."])
+def test_initials_after_a_capitalised_word_comma_and_or_another_initial_stay_whole(s, lean_on):
     assert L.sentences(s + " Then another.") == [s, "Then another."]
+
+
+def test_an_initial_after_a_lowercase_word_is_a_possible_end(lean_on):
+    assert L.sentences("It was cited by J. Smith in 2020.") == ["It was cited by J.", "Smith in 2020."]
+
+
+def test_a_reference_entry_tag_starts_an_entry(lean_on):
+    assert L.sentences("[2] K. Kuper. A title. 2018.") == ["[2] K. Kuper.", "A title.", "2018."]
 
 
 def test_off_initials_split_as_before(lean_off):

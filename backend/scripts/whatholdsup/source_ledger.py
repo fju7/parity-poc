@@ -295,13 +295,16 @@ def plain(html_text: str) -> str:
 # all call, so they cannot disagree. Non-lean runs split exactly as before: measured on 2026-11-23, the new rule
 # would re-split 27 of the 59 committed pages under issues/ and site/whatholdsup/ (both published pages and every
 # study issue), moving their units and fingerprints (scope confirmed by the advisor after attempt 18 for that reason).
-# A single capital + full stop is an initial only if the next word is not a common sentence opener (advisor's
-# ruling after attempt 18): "vitamin D. The next" splits; "J. Smith" does not.
+# INITIALS BY THE TOKEN BEFORE (advisor's ruling after attempt 19, replacing attempt 18's opener list): a single
+# capital + full stop is an initial only if the token before it is a capitalised word, a comma (the token ends in
+# one), "and", "&", the start of a reference entry (the block's start, or a "[n]" tag), or another initial; after a
+# lowercase word ("vitamin D.", "hepatitis B.", "group A.") or anything else it is a possible sentence end. So
+# "Smith, J. and Jones, K." and "Smith and J. Jones" stay whole, and "cited by J. Smith" splits after "J.".
 ABBREVIATION = re.compile(r"(?<![A-Za-z])(?:et al|e\.g|i\.e|cf|vs|approx|figs?)\.$", re.I)
 NUMBER_ABBREVIATION = re.compile(r"(?:^|[\s(])No\.$")
 INITIAL = re.compile(r"(?:^|[\s(])[A-Z]\.$")
-SENTENCE_OPENERS = frozenset(("The", "This", "That", "These", "In", "A", "An", "We", "It", "However", "Our", "For",
-                              "On", "At", "As", "But", "And", "Of", "To"))
+ONE_INITIAL = re.compile(r"\(?[A-Z]\.")
+ENTRY_TAG = re.compile(r"\[\d+\]")
 
 
 def _keeps_abbreviations() -> bool:
@@ -315,21 +318,30 @@ def _keeps_abbreviations() -> bool:
     return lean.enabled()
 
 
-def _not_an_end(before: str, after: str) -> bool:
+def _initial_by_token_before(prefix: str) -> bool:
+    """PREFIX: the block up to and including "X." (X one capital). True if the token before X makes it an initial."""
+    toks = prefix[:-2].split()
+    if not toks:
+        return True                                  # the start of the block: a reference entry
+    t = toks[-1].lstrip("(")
+    return (t.endswith(",") or t in ("and", "&") or bool(ENTRY_TAG.fullmatch(t)) or bool(ONE_INITIAL.fullmatch(t))
+            or (t[:1].isupper() and any(c.isalpha() for c in t) and not t.endswith((".", "!", "?", ":", ";"))))
+
+
+def _not_an_end(before: str, after: str, prefix: str | None = None) -> bool:
     if ABBREVIATION.search(before):
         return True
     if NUMBER_ABBREVIATION.search(before) and re.match(r"\d", after):
         return True
-    if not (INITIAL.search(before) and re.match(r"[A-Z](?:[a-z]|\.)", after)):
+    if not INITIAL.search(before):
         return False
-    nxt = re.match(r"[A-Za-z]+", after)
-    return not (nxt and nxt.group(0) in SENTENCE_OPENERS)
+    return _initial_by_token_before(prefix if prefix is not None else before)
 
 
 def _split_keeping_abbreviations(chunk: str) -> list[str]:
     out, start = [], 0
     for m in SENTENCE.finditer(chunk):
-        if _not_an_end(chunk[start:m.start()], chunk[m.end():]):
+        if _not_an_end(chunk[start:m.start()], chunk[m.end():], chunk[:m.start()]):
             continue
         out.append(chunk[start:m.start()])
         start = m.end()

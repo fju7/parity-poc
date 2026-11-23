@@ -203,8 +203,8 @@ ABBREVIATED = [
     "The gap was approx. 12 points.",
     "Fig. 2 shows the map and Figs. 3 and 4 show the trends.",
     "Report No. 5 gives the totals.",
-    "The review by J. Smith was cited.",
-    "The review by J. R. Smith was cited.",
+    "The review of Smith, J. was cited.",                   # initials by the token before (ruling after attempt 19)
+    "The review of Smith, J. R. was cited.",
 ]
 
 
