@@ -3079,6 +3079,18 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - The pipeline finds cases only under issues/ (source_store.case_dir, publish.case_dir): seeded-defect copies run as
   issues/WHU-SD-* (git-ignored), archived and deleted before any lean drafting session.
 
+## WHU orchestrator: malformed replies, budget lines, the lock (session WT, 2026-11-23)
+- `orch/model_steps.parse_json`: one JSON object (first "{" to last "}") or `Malformed`; `ask_json` re-asks once, then
+  `Unusable` (coverage -> in_scope; other steps fail). Counted in run_paid.json `malformed_replies`.
+- caps.json `lines` are ENFORCED since this date: `spend_ledger.check_line_cap` (inside `check_cap`) sums every ledger
+  issue with the line's prefix; `OverLineCap`; WHU_SPEND_OVERRIDE does not lift it. Lines: new-questions test $140
+  (whu-cf-), orchestrator trial 1 $20 (whu-lean-orch-t1-), seeded-defect test $89 (whu-validity-sd-).
+- `orch/lock.RunLock` removes backend/data/whatholdsup/orchestrator.lock on every exit path that runs code.
+- From 2026-11-30 the day cap is $25 (Fred) and the room rule is ledger + likely <= $15 per day.
+- The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,
+  `schedule/run_scan.sh`) runs `sweep_sources.py resolve --write` on EVERY issues/*/sources.json, including trial
+  folders, and writes sweeps.json / scan.log; it does not read `identifier_refused` (S06's refused DOI returns weekly).
+
 ## RULE — a test run whose exit code is hidden counts as not run (2026-10-30)
 Never pipe a test or check command through `tail`, `head` or `grep` without `set -o pipefail`, or else check the
 command's own exit code (e.g. write the output to a file, then `echo "exit=$?"`). The pipe's exit code is the last

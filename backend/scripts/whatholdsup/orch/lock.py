@@ -4,6 +4,16 @@ An exclusive fcntl lock on backend/data/whatholdsup/orchestrator.lock for the
 whole run. The lock file carries the run's token and current step, which the
 spend ledger's guard (spend_ledger.orch_guard) compares with the caller's
 environment before any paid call.
+
+The lock file is removed on every exit path the process can run code on
+(advisor's ruling 7, 2026-11-23): a normal return, an exception, SystemExit,
+KeyboardInterrupt, and SIGTERM / SIGHUP (turned into SystemExit while the lock
+is held, so the same clean-up runs). It is removed only while this run still
+holds the flock and only if the file still carries this run's token. A SIGKILL
+runs no code; the kernel then releases the flock, so a leftover file never
+blocks the next run, which overwrites it. On acquiring, the file's inode is
+checked against the path's, so a run that opened the file just before another
+run removed it cannot lock the orphaned inode.
 """
 from __future__ import annotations
 
@@ -11,6 +21,8 @@ import fcntl
 import json
 import os
 import secrets
+import signal
+import threading
 from pathlib import Path
 
 import importlib.util
@@ -43,8 +55,20 @@ class RunLock:
         except OSError:
             fh.close()
             raise Busy("another orchestrator run holds %s; one run at a time (E4)" % self.path)
+        try:
+            same = os.stat(self.path).st_ino == os.fstat(fh.fileno()).st_ino
+        except FileNotFoundError:
+            same = False
+        if not same:                       # the file was removed by a run that was finishing
+            fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+            fh.close()
+            raise Busy("the lock file %s changed while it was being taken; try again" % self.path)
         self._fh = fh
         self._write(step="")
+        self._old_handlers = {}
+        if threading.current_thread() is threading.main_thread():
+            for sig in (signal.SIGTERM, signal.SIGHUP):
+                self._old_handlers[sig] = signal.signal(sig, _raise_exit)
         return self
 
     def _write(self, **kw):
@@ -60,10 +84,29 @@ class RunLock:
 
     def __exit__(self, *exc):
         try:
-            self._fh.seek(0)
-            self._fh.truncate()
-            self._fh.flush()
+            for sig, h in getattr(self, "_old_handlers", {}).items():
+                signal.signal(sig, h)
+            if _token_at(self.path) == self.token:     # a file that is not this run's is left as found
+                try:
+                    if os.stat(self.path).st_ino == os.fstat(self._fh.fileno()).st_ino:
+                        os.unlink(self.path)    # still holding the flock: no other run can be inside
+                except FileNotFoundError:
+                    pass
+                self._fh.seek(0)
+                self._fh.truncate()
+                self._fh.flush()
             fcntl.flock(self._fh.fileno(), fcntl.LOCK_UN)
         finally:
             self._fh.close()
         return False
+
+
+def _raise_exit(signum, frame):
+    raise SystemExit(128 + signum)
+
+
+def _token_at(path: Path) -> str:
+    try:
+        return json.loads(Path(path).read_text(encoding="utf-8")).get("token", "")
+    except (OSError, ValueError, AttributeError):
+        return ""

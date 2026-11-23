@@ -14,7 +14,8 @@
     "whu-lean-orch-t1-q1-02f": 7.84,
     "whu-lean-orch-t1-q1-02g": 6.84,
     "whu-lean-orch-t1-q1-02h": 5.42,
-    "whu-lean-orch-t1-q1-02i": 10
+    "whu-lean-orch-t1-q1-02i": 10,
+    "whu-lean-orch-t1-q1-02j": 10
   },
   "study_per_issue": 50,
   "_why_the_study_cap": "ruled 2026-10-20, protocol rev 27. Each reliability-study issue (issue.json \"study\": true) has a $50 limit, set before the freeze. If an answer cannot finish within it, that is recorded as a result and the limit is not raised. The day cap below still applies, and a run picks up the next day.",
@@ -38,7 +39,12 @@
     "orchestrator trial 1": {
       "cap_usd": 20,
       "ledger_issue_prefix": "whu-lean-orch-t1-"
+    },
+    "seeded-defect test": {
+      "cap_usd": 89,
+      "ledger_issue_prefix": "whu-validity-sd-"
     }
   },
-  "_why_new_questions_line": "Advisor ruling, Fred's approval, 2026-11-07: line 'new-questions test', $150, outside the $350 WHU validity phase (validity_plan.md §12). Summed over every ledger issue starting whu-cf-; the runner checks it before each paid call (built with the comparison rule, before any call). Lowered to $140 on 2026-11-07 (advisor's ruling after orchestrator trial 1's attempt 8): $10 moved to orchestrator trial 1."
+  "_why_new_questions_line": "Advisor ruling, Fred's approval, 2026-11-07: line 'new-questions test', $150, outside the $350 WHU validity phase (validity_plan.md §12). Summed over every ledger issue starting whu-cf-; the runner checks it before each paid call (built with the comparison rule, before any call). Lowered to $140 on 2026-11-07 (advisor's ruling after orchestrator trial 1's attempt 8): $10 moved to orchestrator trial 1.",
+  "_why_seeded_defect_line": "validity_plan.md §12 line 'Seeded defects', $89 (from $110 after two moves to the check-pilot line). Added 2026-11-23 (advisor's ruling 3): summed over every ledger issue starting whu-validity-sd-. Since 2026-11-23 spend_ledger.check_line_cap sums every line here before a paid call; before that the lines were declarations only. The redesigned test is re-estimated after orchestrator trial 1; likely over $89 stops."
 }

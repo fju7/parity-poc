@@ -86,7 +86,7 @@ STEPS: tuple[Step, ...] = (
                (PY, W + "canary.py", "{slug}")), code="acquire"),
     Step("draft", "model", models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
     Step("bind", "code", cmds=((PY, W + "bindings.py", "{slug}", "scan"),), code="bind"),
-    Step("coverage", "model", models=(STEP_MODEL,), max_calls=120, cap_usd=1.20, code="coverage"),   # 60 units, each re-asked at most once
+    Step("coverage", "model", models=(STEP_MODEL,), max_calls=240, cap_usd=1.20, code="coverage"),   # 60 units: an element retry, each try re-asked once if malformed (ruling 1)
     Step("judgements", "mixed", models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
     Step("corrections_3b", "code", models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling

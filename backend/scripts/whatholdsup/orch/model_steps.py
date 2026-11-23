@@ -20,6 +20,16 @@ class StepFailed(RuntimeError):
     pass
 
 
+class Malformed(StepFailed):
+    """A reply that is not exactly one JSON object."""
+
+
+class Unusable(StepFailed):
+    """A reply that was malformed, re-asked once, and malformed again (advisor's ruling 1, 2026-11-23). The
+    step then applies its own unusable-reply rule: coverage treats the unit as in scope; every other step keeps
+    its existing fail-safe (the step fails and the run stops Not Ready)."""
+
+
 from orch.steps import REPLY_LIMITS as LIMITS, FIELD_LIMITS as F  # noqa: E402
 
 def now() -> str:
@@ -27,16 +37,44 @@ def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def parse_json(text: str):
+def parse_json(text: str) -> dict:
+    """The reply's one JSON object. Well-formed means: the text from its first "{" to its last "}" decodes as a
+    single JSON object (a code fence and text outside that span are allowed). Two objects (attempt 9: an answer,
+    prose, a second answer), a cut-off object, or no object is Malformed. Code never selects among several
+    objects, and never takes an inner object out of a broken one (advisor's ruling 1, 2026-11-23)."""
     t = re.sub(r"^```(?:json)?\s*|\s*```$", "", (text or "").strip())
-    for opener, closer in (("{", "}"), ("[", "]")):
-        i, j = t.find(opener), t.rfind(closer)
-        if i >= 0 and j > i:
-            try:
-                return json.loads(t[i:j + 1])
-            except Exception:
-                continue
-    raise StepFailed("the reply is not JSON: %r" % (text or "")[:200])
+    i, j = t.find("{"), t.rfind("}")
+    if i >= 0 and j > i and not t.startswith("["):     # an array is not an object, whatever it holds
+        try:
+            d = json.loads(t[i:j + 1])
+        except ValueError:
+            d = None
+        if isinstance(d, dict):
+            return d
+    raise Malformed("the reply is not exactly one JSON object: %r" % (text or "")[:200])
+
+
+REASK_NOTE = "\n\nReturn exactly one JSON object and nothing else.\n"
+
+
+def ask_json(ask, prompt: str, max_tokens: int, role: str) -> dict:
+    """ASK, then parse_json. A malformed reply is re-asked once with REASK_NOTE; a second malformed reply raises
+    Unusable. Every malformed reply and every re-ask is reported to ask.note_malformed(role, event, text) when
+    the caller provides it (the orchestrator counts them in the run record)."""
+    note = getattr(ask, "note_malformed", None) or (lambda *a: None)
+    text = ask(prompt, max_tokens, role)
+    try:
+        return parse_json(text)
+    except Malformed:
+        note(role, "malformed", text)
+    note(role, "reask", "")
+    text = ask(prompt + REASK_NOTE, max_tokens, role)
+    try:
+        return parse_json(text)
+    except Malformed:
+        note(role, "malformed", text)
+        raise Unusable("%s: the reply was not exactly one JSON object, and again after one re-ask: %r"
+                       % (role, (text or "")[:200]))
 
 
 def _str(d: dict, k: str, limit: int, required: bool = True) -> str:
@@ -73,7 +111,7 @@ PREMISE_FIXED = ("belief", "kill_condition", "reader_with_a_decision", "scope", 
 
 def premise(question: str, ask, by: str) -> dict:
     """The rows fixed before any source (ruling C): belief, kill condition, reader, scope, evidence standard."""
-    d = parse_json(ask(PREMISE_PROMPT.format(question=question), LIMITS["premise"], "premise"))
+    d = ask_json(ask, PREMISE_PROMPT.format(question=question), LIMITS["premise"], "premise")
     if not isinstance(d, dict):
         raise StepFailed("the premise reply is not an object")
     weighs = _str(d, "weighs", F["premise.weighs"])
@@ -249,7 +287,11 @@ def coverage_decision(question: str, scope: str, unit: str, ask, outs: list[str]
     for attempt in range(2):
         prompt = COVERAGE_PROMPT.format(question=question, scope=scope, unit=unit, outs=listing,
                                         retry=RETRY_NOTE if attempt else "")
-        d = parse_json(ask(prompt, LIMITS["coverage"], "coverage"))
+        try:
+            d = ask_json(ask, prompt, LIMITS["coverage"], "coverage")
+        except Unusable as e:                    # ruling 1: coverage's unusable-reply rule is "in scope"
+            return {"decision": "in_scope", "why": "the reply was unusable (not exactly one JSON object, twice)",
+                    "element": "", "unusable": str(e)[:300]}
         if not isinstance(d, dict) or d.get("decision") not in ("out_of_scope", "not_material", "state"):
             raise StepFailed("decision must be out_of_scope, not_material or state")
         out = {"decision": d["decision"], "why": _str(d, "why", F["coverage.why"])}
@@ -277,7 +319,7 @@ ASSESSMENT (verbatim from the source):
 
 
 def judgement_sentence(text: str, ask) -> str:
-    d = parse_json(ask(JUDGEMENT_PROMPT.format(text=text), LIMITS["judgement_sentence"], "judgement_sentence"))
+    d = ask_json(ask, JUDGEMENT_PROMPT.format(text=text), LIMITS["judgement_sentence"], "judgement_sentence")
     if not isinstance(d, dict):
         raise StepFailed("not an object")
     return _str(d, "sentence", F["judgement.sentence"])

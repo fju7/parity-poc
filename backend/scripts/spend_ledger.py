@@ -176,6 +176,54 @@ class OverIssueCap(OverCap):
     """The per-issue cap, as distinct from the day cap (both are OverCap)."""
 
 
+class OverLineCap(OverIssueCap):
+    """A budget line's cap (caps.json "lines"), summed over every ledger issue with the line's prefix."""
+
+
+def line_for(issue: str | None) -> tuple[str, dict] | None:
+    """The caps.json budget line an issue belongs to: the line whose ledger_issue_prefix the issue starts with
+    (the longest, if several match). None if no line."""
+    if not issue:
+        return None
+    best = None
+    for name, ln in (caps().get("lines") or {}).items():
+        pre = (ln or {}).get("ledger_issue_prefix") or ""
+        if pre and issue.startswith(pre) and (best is None or len(pre) > len(best[1]["ledger_issue_prefix"])):
+            best = (name, ln)
+    return best
+
+
+def line_spent(prefix: str) -> tuple[float, list[dict]]:
+    """(dollars spent, unpriced rows) over every ledger issue starting with prefix."""
+    total, bad = 0.0, []
+    for e in entries():
+        if not (e.get("issue") or "").startswith(prefix):
+            continue
+        if e.get("usd") is None:
+            bad.append(e)
+        total += e.get("usd") or 0
+    return total, bad
+
+
+def check_line_cap(issue: str | None, about_to_spend: float = 0.0) -> None:
+    """Stop before a budget line (caps.json "lines") would pass its cap (advisor's ruling 3, 2026-11-23: until
+    then the lines were declarations that nothing summed). Fails closed; WHU_SPEND_OVERRIDE does not lift it:
+    a line moves only by a ruling written into caps.json."""
+    hit = line_for(issue)
+    if not hit:
+        return
+    name, ln = hit
+    cap = float(ln.get("cap_usd") or 0)
+    already, bad = line_spent(ln["ledger_issue_prefix"])
+    if bad:
+        raise UnpricedModel("line %r cannot be summed: %d ledger row(s) have no established cost. First: %s"
+                            % (name, len(bad), bad[0]))
+    if already + about_to_spend > cap:
+        raise OverLineCap("line %r (issues %s*) has spent $%.2f of its $%.2f cap and this run would add about "
+                          "$%.2f. A line moves only by a ruling written into caps.json."
+                          % (name, ln["ledger_issue_prefix"], already, cap, about_to_spend))
+
+
 # STUDY ISSUES (2026-10-20, protocol rev 27). An issue whose issue.json says
 # "study": true is capped at caps.json's study_per_issue, set before the freeze
 # and never raised for a run: an answer that cannot finish within it is a
@@ -269,6 +317,7 @@ def check_cap(issue: str, about_to_spend: float = 0.0) -> None:
     a decision that leaves no trace.
     """
     check_day_cap(about_to_spend)
+    check_line_cap(issue, about_to_spend)
     limit = cap_for(issue)
     if not limit:
         return

@@ -117,3 +117,46 @@ def test_the_two_price_tables_agree():
             ns[node.targets[0].id] = ast.literal_eval(node.value)
     assert ns.get("PRICES") == sl.PRICES, "the gate's price table has drifted from the ledger's"
     assert ns.get("WEB_SEARCH_PER_1000") == sl.WEB_SEARCH_PER_1000
+
+
+# Ruling 3 (2026-11-23): a budget line in caps.json "lines" is summed over every ledger issue with its prefix.
+
+def _rows(ledger, rows):
+    with (ledger / "ledger.jsonl").open("a", encoding="utf-8") as fh:
+        for issue, usd in rows:
+            fh.write(json.dumps({"at": "2026-11-23T00:00:00+00:00", "script": "t", "role": "", "issue": issue,
+                                 "usd": usd}) + "\n")
+
+
+def test_a_line_is_summed_across_its_issues(ledger, monkeypatch):
+    monkeypatch.delenv("WHU_SPEND_OVERRIDE", raising=False)
+    set_caps(ledger, default_per_issue=40, default_per_day=1000,
+             lines={"seeded-defect test": {"cap_usd": 89, "ledger_issue_prefix": "whu-validity-sd-"}})
+    _rows(ledger, [("whu-validity-sd-full", 50.0), ("whu-validity-sd-sonnet", 30.0), ("other", 500.0)])
+    assert sl.line_spent("whu-validity-sd-")[0] == pytest.approx(80.0)
+    sl.check_cap("whu-validity-sd-haiku", 9.0)                 # 89.00: at the cap, allowed
+    with pytest.raises(sl.OverLineCap, match="seeded-defect test"):
+        sl.check_cap("whu-validity-sd-haiku", 9.5)             # each issue is under $40; the line is not
+    sl.check_cap("other-issue", 9.5)                           # an issue outside the line is untouched
+
+
+def test_a_line_cap_is_not_lifted_by_the_override(ledger, monkeypatch):
+    set_caps(ledger, default_per_issue=40, default_per_day=1000,
+             lines={"t1": {"cap_usd": 20, "ledger_issue_prefix": "whu-lean-orch-t1-"}})
+    _rows(ledger, [("whu-lean-orch-t1-q1-02", 19.0)])
+    monkeypatch.setenv("WHU_SPEND_OVERRIDE", "a reason")
+    with pytest.raises(sl.OverLineCap):
+        sl.check_cap("whu-lean-orch-t1-q1-02j", 2.0)
+
+
+def test_an_unpriced_row_makes_the_line_unsummable(ledger):
+    set_caps(ledger, default_per_day=1000, lines={"x": {"cap_usd": 10, "ledger_issue_prefix": "whu-cf-"}})
+    _rows(ledger, [("whu-cf-01", None)])
+    with pytest.raises(sl.UnpricedModel):
+        sl.check_cap("whu-cf-02", 0.1)
+
+
+def test_the_committed_lines_hold_todays_spend():
+    real = json.loads((ROOT / "backend/data/spend/caps.json").read_text())["lines"]
+    assert real["seeded-defect test"] == {"cap_usd": 89, "ledger_issue_prefix": "whu-validity-sd-"}
+    assert real["orchestrator trial 1"]["cap_usd"] == 20 and real["new-questions test"]["cap_usd"] == 140

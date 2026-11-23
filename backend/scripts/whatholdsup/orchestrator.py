@@ -62,6 +62,7 @@ class Ctx:
         self.lock = None
         self.page_prev = None
         self.replies: list[dict] = []
+        self.malformed: list[dict] = []     # every malformed reply and re-ask (ruling 1, 2026-11-23)
 
     def rel(self, p: Path) -> str:
         return p.relative_to(self.root).as_posix()
@@ -327,7 +328,26 @@ def _kept(ctx: Ctx, ask):
             raise
         ctx.replies.append({"role": role, "max_tokens": max_tokens, "text": text})
         return text
-    return kept
+    return _counting(ctx, kept)
+
+
+def _counting(ctx: Ctx, ask):
+    """Give ASK the note_malformed hook model_steps.ask_json reports to (ruling 1: counted in the run record)."""
+    def note(role, event, text):
+        if getattr(ctx, "malformed", None) is None:
+            ctx.malformed = []
+        ctx.malformed.append({"role": role, "event": event, "at": now(), "text": (text or "")[:600]})
+    ask.note_malformed = note
+    return ask
+
+
+def malformed_summary(events: list[dict]) -> dict:
+    by: dict = {}
+    for e in events:
+        r = by.setdefault(e["role"], {"malformed": 0, "reasks": 0})
+        r["malformed" if e["event"] == "malformed" else "reasks"] += 1
+    return {"malformed": sum(r["malformed"] for r in by.values()), "reasks": sum(r["reasks"] for r in by.values()),
+            "by_role": by, "events": events}
 
 
 def code_provenance(ctx: Ctx, step) -> dict:
@@ -450,19 +470,25 @@ def code_discover(ctx: Ctx, step) -> dict:
     prompt = M.discover_prompt(issue.get("question") or "", 8, types)
     searched = {"queries": [], "domains": []}
     if ctx.ask is not None:
-        reply = _kept(ctx, ctx.ask)(prompt, ST.REPLY_LIMITS["discover"], "discover")
+        ask = _kept(ctx, ctx.ask)
     else:
         sys.path.insert(0, str(ctx.root / "backend" / "scripts" / "signal"))
         import factcheck_draft as fc
         fc.enter_issue(ctx.slug)
-        reply = fc.call("You find primary sources for a fact-check. JSON only.", prompt, search=True,
-                        label="discover", max_tokens=ST.REPLY_LIMITS["discover"])
-        if reply is None:
-            raise RunStop("discover: no reply")
-        if getattr(ctx, "replies", None) is None:
-            ctx.replies = []
-        ctx.replies.append({"role": "discover", "max_tokens": ST.REPLY_LIMITS["discover"], "text": reply})
-        searched = dict(fc.LAST_SEARCH)
+
+        def ask(p, max_tokens, role):          # a re-ask (ruling 1) repeats the search call
+            r = fc.call("You find primary sources for a fact-check. JSON only.", p, search=True,
+                        label="discover", max_tokens=max_tokens)
+            if r is None:
+                raise RunStop("discover: no reply")
+            if getattr(ctx, "replies", None) is None:
+                ctx.replies = []
+            ctx.replies.append({"role": role, "max_tokens": max_tokens, "text": r})
+            for k, v in dict(fc.LAST_SEARCH).items():
+                searched[k] = list(dict.fromkeys(list(searched.get(k) or []) + list(v or [])))
+            return r
+        ask = _counting(ctx, ask)
+    reply = M.ask_json(ask, prompt, ST.REPLY_LIMITS["discover"], "discover")
     proposals = M.discover_proposals(reply, set(types), 8)
     search = ctx.search
     if search is None:
@@ -646,9 +672,8 @@ def code_draft(ctx: Ctx, step) -> dict:
     from orch.page import Page
     issue = json.loads((ctx.case / "issue.json").read_text(encoding="utf-8"))
     passages = _passages(ctx)
-    reply = _ask_for(ctx, step, ST.DRAFT_MODEL)(M.draft_prompt(issue.get("question") or "", passages),
-                                                ST.REPLY_LIMITS["draft"],
-                                                "draft")
+    reply = M.ask_json(_ask_for(ctx, step, ST.DRAFT_MODEL), M.draft_prompt(issue.get("question") or "", passages),
+                       ST.REPLY_LIMITS["draft"], "draft")
     d = M.draft_page(reply, passages)
     nums = _cite_numbers(ctx)
     q_html, limits_html, readers_html = _generated_blocks(ctx)
@@ -1064,7 +1089,8 @@ def run(ctx: Ctx) -> dict:
         result = "Not Ready: %s: %s" % (type(e).__name__, e)
     except SystemExit as e:                     # a stage library's refusal (attempt 4: run_paid.json was lost)
         result = "Not Ready: SystemExit: %s" % e
-    return {"result": result, "steps": ctx.log}
+    return {"result": result, "steps": ctx.log,
+            "malformed_replies": malformed_summary(getattr(ctx, "malformed", None) or [])}
 
 
 # ---------------------------------------------------------------------------------------------------------------

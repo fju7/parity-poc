@@ -274,6 +274,85 @@ def test_e4_second_orchestrator_refused(tmp_path):
         pass
 
 
+# Ruling 7 (2026-11-23): the lock file is cleared on every exit path the process can run code on.
+
+def test_lock_removed_on_normal_exit_exception_and_systemexit(tmp_path):
+    from orch.lock import RunLock
+    p = tmp_path / "orch.lock"
+    with RunLock("a", "trial", path=p):
+        assert p.exists()
+    assert not p.exists()
+    for exc in (RuntimeError("boom"), SystemExit(3), KeyboardInterrupt()):
+        with pytest.raises(type(exc)):
+            with RunLock("a", "trial", path=p):
+                assert p.exists()
+                raise exc
+        assert not p.exists(), type(exc).__name__
+
+
+def test_lock_not_removed_when_the_file_is_not_this_runs(tmp_path):
+    from orch.lock import RunLock
+    p = tmp_path / "orch.lock"
+    with RunLock("a", "trial", path=p):
+        p.write_text(json.dumps({"token": "someone else's"}))
+    assert p.exists() and json.loads(p.read_text())["token"] == "someone else's"
+
+
+_HOLD = """
+import sys, time
+sys.path.insert(0, %r)
+from orch.lock import RunLock
+with RunLock("a", "paid", path=%r):
+    print("held", flush=True)
+    time.sleep(30)
+"""
+
+
+def _hold_lock(p):
+    proc = subprocess.Popen([sys.executable, "-c", _HOLD % (str(W), str(p))], stdout=subprocess.PIPE, text=True)
+    assert proc.stdout.readline().strip() == "held"
+    assert p.exists()
+    return proc
+
+
+def test_lock_removed_on_sigterm_and_sighup(tmp_path):
+    import signal as SG
+    for sig in (SG.SIGTERM, SG.SIGHUP):
+        p = tmp_path / ("orch-%d.lock" % sig)
+        proc = _hold_lock(p)
+        proc.send_signal(sig)
+        assert proc.wait(timeout=20) == 128 + sig
+        assert not p.exists()
+
+
+def test_after_sigkill_the_leftover_file_does_not_block_the_next_run(tmp_path):
+    import signal as SG
+    from orch.lock import RunLock
+    p = tmp_path / "orch.lock"
+    proc = _hold_lock(p)
+    proc.send_signal(SG.SIGKILL)
+    proc.wait(timeout=20)
+    assert p.exists()                      # no code runs on SIGKILL; the kernel released the flock
+    with RunLock("b", "trial", path=p) as lk:
+        assert json.loads(p.read_text())["token"] == lk.token
+    assert not p.exists()
+
+
+def test_orchestrator_run_clears_its_lock_when_a_step_fails(tmp_path, monkeypatch):
+    import orchestrator as O
+    p = tmp_path / "orch.lock"
+    monkeypatch.setenv("WHU_ORCH_LOCK", str(p))
+
+    def fail(ctx, step):
+        assert p.exists()
+        raise RuntimeError("a step failed")
+    monkeypatch.setattr(O, "run_step", fail)
+    ctx = SimpleNamespace(slug="orch-x", mode="trial", root=tmp_path, lock=None, log=[], repeats=0)
+    out = O.run(ctx)
+    assert out["result"].startswith("Not Ready: RuntimeError")
+    assert not p.exists()
+
+
 def test_steps_run_in_one_fixed_sequence():
     assert len(set(ST.NAMES)) == len(ST.NAMES)
     assert ST.NAMES[0] == "provenance" and ST.NAMES[-2:] == ("preflight", "archive")
@@ -820,7 +899,8 @@ def test_each_model_step_asks_with_its_limit():
     M.judgement_sentence("t", ask)
     assert seen == {k: ST.REPLY_LIMITS[k] for k in ("premise", "coverage", "judgement_sentence")}
     src = (W / "orchestrator.py").read_text()
-    assert 'ST.REPLY_LIMITS["draft"]' in src and src.count('ST.REPLY_LIMITS["discover"]') >= 2
+    assert 'ST.REPLY_LIMITS["draft"]' in src and 'M.ask_json(ask, prompt, ST.REPLY_LIMITS["discover"], "discover")' in src
+    assert 'label="discover", max_tokens=max_tokens)' in src        # the paid path sends the limit it was given
 
 
 def test_a_cut_off_reply_keeps_its_text():
@@ -1682,3 +1762,90 @@ def test_every_response_records_the_model_the_api_reported(S, monkeypatch, tmp_p
                         (ROOT / "backend/scripts/signal/factcheck_draft.py", 'model=entry.get("model")'),
                         (W / "orch" / "google.py", "model=mv or None")):
         assert needle in src.read_text(), src.name
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Ruling 1 (2026-11-23): a reply that is not exactly one JSON object is re-asked once; never selected among.
+
+ATTEMPT9_REPLY = (
+    '{"decision": "out_of_scope", "why": "The finding only counts studies by country in the Asia-Pacific evidence '
+    'map; it describes where evidence exists, not whether programmes work or which kinds work best.", "element": "", '
+    '"sentence": ""}\n\nWait — the element must be filled for out_of_scope, and the finding does not match any '
+    'listed entry. Reclassifying:\n\n{"decision": "not_material", "why": "The finding only describes how many studies '
+    'exist per country in Asia-Pacific; it does not say whether programmes work or which types work best, so it would '
+    'not change the answer.", "element": "", "sentence": ""}')
+
+
+def _stub(replies):
+    calls = []
+
+    def ask(prompt, max_tokens, role):
+        calls.append(prompt)
+        return replies[len(calls) - 1]
+    events = []
+    ask.note_malformed = lambda role, event, text: events.append((role, event))
+    return ask, calls, events
+
+
+def test_parse_json_one_object_only():
+    from orch import model_steps as M
+    assert M.parse_json('```json\n{"a": 1}\n```') == {"a": 1}
+    assert M.parse_json('Here it is: {"a": {"b": 2}} done') == {"a": {"b": 2}}
+    for bad in (ATTEMPT9_REPLY, '{"a": {"b": 2}, "c": ', '[{"a": 1}]', "no json here", "", None,
+                '{"a": 1} {"a": 2}'):
+        with pytest.raises(M.Malformed):
+            M.parse_json(bad)
+
+
+def test_ask_json_reasks_once_then_takes_the_good_reply():
+    from orch import model_steps as M
+    ask, calls, events = _stub([ATTEMPT9_REPLY, '{"decision": "not_material", "why": "w"}'])
+    assert M.ask_json(ask, "PROMPT", 600, "coverage") == {"decision": "not_material", "why": "w"}
+    assert len(calls) == 2 and calls[1] == "PROMPT" + M.REASK_NOTE
+    assert "Return exactly one JSON object and nothing else." in M.REASK_NOTE
+    assert events == [("coverage", "malformed"), ("coverage", "reask")]
+
+
+def test_ask_json_twice_malformed_is_unusable_and_never_selects():
+    from orch import model_steps as M
+    ask, calls, events = _stub([ATTEMPT9_REPLY, ATTEMPT9_REPLY, '{"never": "asked"}'])
+    with pytest.raises(M.Unusable):
+        M.ask_json(ask, "P", 600, "premise")
+    assert len(calls) == 2
+    assert events == [("premise", "malformed"), ("premise", "reask"), ("premise", "malformed")]
+    assert issubclass(M.Unusable, M.StepFailed)          # other steps: the existing fail-safe (the step fails)
+
+
+def test_coverage_unusable_reply_is_in_scope():
+    from orch import model_steps as M
+    ask, calls, _ = _stub([ATTEMPT9_REPLY, ATTEMPT9_REPLY])
+    d = M.coverage_decision("Do programmes work?", "{}", "a finding", ask, ["costs"])
+    assert d["decision"] == "in_scope" and len(calls) == 2
+    ask, calls, _ = _stub([ATTEMPT9_REPLY, '{"decision": "not_material", "why": "w", "element": "", "sentence": ""}'])
+    assert M.coverage_decision("Do programmes work?", "{}", "a finding", ask, [])["decision"] == "not_material"
+
+
+def test_premise_and_judgement_unusable_fail_the_step():
+    from orch import model_steps as M
+    ask, _, _ = _stub(["prose only", "still prose"])
+    with pytest.raises(M.StepFailed):
+        M.premise("Q?", ask, "x")
+    ask, _, _ = _stub(["{}{}", "{}{}"])
+    with pytest.raises(M.StepFailed):
+        M.judgement_sentence("text", ask)
+
+
+def test_orchestrator_counts_malformed_replies_and_reasks():
+    import orchestrator as O
+    from orch import model_steps as M
+    ctx = SimpleNamespace(replies=[], malformed=[])
+    seq = iter([ATTEMPT9_REPLY, '{"ok": true}'])
+    ask = O._kept(ctx, lambda p, m, r: next(seq))
+    assert M.ask_json(ask, "P", 10, "coverage") == {"ok": True}
+    s = O.malformed_summary(ctx.malformed)
+    assert (s["malformed"], s["reasks"]) == (1, 1) and s["by_role"] == {"coverage": {"malformed": 1, "reasks": 1}}
+    assert "Reclassifying" in ctx.malformed[0]["text"] and len(ctx.replies) == 2
+
+
+def test_coverage_call_limit_allows_a_reask_on_every_try():
+    assert ST.BY_NAME["coverage"].max_calls >= 60 * 4
