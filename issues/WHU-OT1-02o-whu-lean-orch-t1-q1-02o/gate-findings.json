@@ -1,0 +1,62 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f6bd0a414-rec-2",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ahmed et al. — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map is UNKNOWN: the draft uses 50 studies found; 16 of 41 countries report evidence on in-service TPD; Vietnam teachers reported training improved teaching quality; Malaysia special educators agreed technology-based practices improved professional knowledge",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, campbellcollaboration.org, researchonline.lshtm.ac.uk, pubmed.ncbi.nlm.nih.gov, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, research.acer.edu.au, journals.sagepub.com, people.acer.org, doi.org, semanticscholar.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, econpapers.repec.org, ideas.repec.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Ahmed et al. — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map",
+        "sources": [
+          "S002"
+        ],
+        "rows": [
+          "71f1ce4fb9d1282f",
+          "346b087fedcc5848",
+          "cd58f78fe5203941",
+          "65a90be6ff451358",
+          "c41f231a9d8328dd",
+          "b9702d8adf7b6823",
+          "c1a6a18b96e8e33b",
+          "6f19fb950444baf3",
+          "b4ed8e4653a64417",
+          "0ab232f09dadc51e"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f6bd0a414-rec-3",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Saran, White & Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in LMICs is SUPERSEDED: the draft uses Studies mostly target individual characteristics rather than structures; absence of evidence on what works to promote disability inclusion described as a very striking gap; most studies from upper-middle-income countries with limite",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "newer edition disclosed on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): A newer edition exists of Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries; this page uses the edition listed as Evidence and gap map of studies assessing the effectiveness of interventions for [3].",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Saran, White & Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in LMICs",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "407d2e36a0bb5f3d",
+          "963c008550b537c1",
+          "dc748d4f79fcfd88",
+          "7c91697a07096d24",
+          "4ad22ebe4b52b001"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

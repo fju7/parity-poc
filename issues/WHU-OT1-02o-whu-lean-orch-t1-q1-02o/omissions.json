@@ -1,0 +1,111 @@
+{
+ "omissions": [
+  {
+   "key": "S001@83184-83301",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    83184,
+    83301
+   ],
+   "quote_sha256": "5d056650c386d9bb823cad9db8673cf733a4189fdffb71de0fd0e1d72ca1802a",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question and scope cover children and young people with 'any type of disability' in LMICs, so how far the evidence reaches across disability types bears directly on whether programmes work. Step 2: The finding narrows the answer by showing the evidence base has no studies for psychosocial/mental impairments. A programme officer funding interventions for such children would weigh this gap. The draft notes only that the passages do not say which interventions work best by disability type; it never states this gap.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bc8bbdb8c0a81a38",
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": "f7881cbb3b2fff61",
+   "after": "7feae6e2a4bce158",
+   "decided_at": "2026-11-23T19:35:11+00:00"
+  },
+  {
+   "key": "S001@116620-116887",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    116620,
+    116887
+   ],
+   "quote_sha256": "2f1ab9e74fee7a20b456d0c7cea279f4eec624d1e861d313fcf30d3ffb7052e2",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: In scope. The finding is a pooled effectiveness estimate, with its certainty, for a programme type aimed at educational [S001@22835-22877] LMICs. That bears directly on 'whether these programmes work at all and how the main programme types compare on effectiveness and on the certainty of that evidence'. Step 2: Material. The draft says only that this category showed a 'moderately significant effect'. It does not give the effect size. It also does not say that this result rests on just 4 studies (n = 401) [S001@116822-116887]. Its low-study-count caveat is attached only to the skills effects, and its heterogeneity and publication-bias remarks are general rather than specific to this category. A programme officer comparing school-level or teacher-focused interventions against individual skills interventions needs this magnitude and this category-specific certainty limit.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "56e70366945ae4f9",
+   "origins": [
+    "S001-02",
+    "S001-03"
+   ],
+   "on_page": "2fb13163ce88e9f6",
+   "after": "7739a551ea5aa048",
+   "decided_at": "2026-11-23T19:35:19+00:00"
+  },
+  {
+   "key": "S001@117779-117936",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    117779,
+    117936
+   ],
+   "quote_sha256": "f8df699f50e86dbb64a740f585358b7988c9ef7736b92ac1624e06fa7c20aaa1",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is a learning outcome (handwriting) from a skills-for-learning intervention in LMICs, which bears directly on whether these programmes work. Step 2 fails: the draft already says the handwriting effect was significant and large but [S001@7378-7415] extra figures (d = 4.86, k = 2, I² = 0%) only restate that conclusion with more precision. They would not change what a programme officer funds or how much confidence they place in it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e6601e0c70a9dc4e",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-23T19:35:24+00:00"
+  },
+  {
+   "key": "S001@118841-118958",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    118841,
+    118958
+   ],
+   "quote_sha256": "b46a4f2deae1d98fe5a8409b47cb9ec5746209dcdfb52e4064d24a01ab8824c7",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is a pooled effect of LMIC disability education interventions on learning skills, which bears directly on whether such programmes work. Step 2 fails: the draft already states the substance of the quotation. It says 'Skills for learning' interventions showed significant effects, that the effects [S001@7268-7324] were large, and that heterogeneity across studies is high, which lowers confidence in the pooled results. The quoted words add no distinct outcome, qualifier or narrowing that would change the programme officer's decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6bf6cfde6edb622b",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-23T19:35:29+00:00"
+  },
+  {
+   "key": "S001@128597-128838",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    128597,
+    128838
+   ],
+   "quote_sha256": "e54348e568a74cc7c0a4409bc2c0d55c5a3e1467b8023069a7cac8b8f9c1947f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding compares how well interventions work in mainstream versus segregated settings in the LMIC review. That bears on 'which kinds work best'. It is an empirical finding about effectiveness, not the normative or rights question the scope excludes. Step 2: A programme officer choosing between inclusive and specialised delivery would weigh the finding that no systematic difference was found, along with the authors' caveat that this was likely because most studies reported positive results. That caveat qualifies the answer. Nothing in ALREADY states this comparison.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "27b633f3fb75f579",
+   "origins": [
+    "S001-06",
+    "S001-07"
+   ],
+   "on_page": "e8baacfc771a9d16",
+   "after": "fa7de64bf7f018b5",
+   "decided_at": "2026-11-23T19:35:35+00:00"
+  }
+ ]
+}

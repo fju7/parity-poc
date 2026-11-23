@@ -1,0 +1,147 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The passages do not show which interventions work best for different types of disability; the review asked this question, but its answer is not given in the passages here [1].",
+        "objection": "The review does report how its evidence base is distributed by impairment type, including a complete absence of psychosocial or mental impairment studies, and this explains why 'what works best for whom' cannot be answered. The page treats the answer as simply missing from the passages.",
+        "source_says": "No studies identified in our review captured education interventions for people with psychosocial/mental impairments.",
+        "locator": "Section 5.1, Target group (participants by impairment type)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page could say the review had too few studies for most impairment types, and none for psychosocial impairments, to support impairment-specific effectiveness claims. It could also say the authors explicitly reject any single best intervention.",
+        "source_says_first": "Section 5.1, Target group: \"No studies identified in our review captured education interventions for people with psychosocial/mental impairments.\" The same section gives the counts: intellectual or learning and developmental impairments n = 16, hearing n = 7, physical n = 4, vision n = 2. (The abstract says n = 17 for the first group.) The authors' conclusions add: \"There is no one 'magic bullet' intervention\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "In that review, interventions aimed at 'Skills for learning' and at 'Conditions for inclusion of people with disabilities in education' both showed significant effects, but the large effects on specific skills are based on a low number of studies [1].",
+        "objection": "The page attaches the low-number caveat only to the skills effects. The 'Conditions for inclusion' pooled effect is also based on very few studies and has very high heterogeneity, so the two categories are presented as more evenly supported than they are.",
+        "source_says": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias",
+        "locator": "Section 5.3, Table 14 Effects of interventions",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 'both showed significant effects' claim holds. It rests on four studies with I² of 86%, which is a weaker basis than the sentence implies.",
+        "source_says_first": "Summary table of effects, 'Conditions for inclusion': d = 0.35 (0.12 to 0.58), k = 4, n = 401, I² = 86%. The authors label it a moderate effect based on a low number of studies with high heterogeneity, and potentially moderate bias.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect [1].",
+        "objection": "The page gives no study count or heterogeneity for this effect, although the review reports both. Without them a reader cannot judge how much weight 'moderately significant' deserves.",
+        "source_says": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29)",
+        "locator": "5.3. Effects of interventions, Table 14 Effects of interventions",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The effect is real in the data but rests on four heterogeneous studies. That affects how far it can support claims about inclusion-focused interventions.",
+        "source_says_first": "Effect summary table: d = 0.35 (0.12 to 0.58) from k = 4 studies and n = 401 participants, with I² = 86%. The Egger's test result given is 2.01 (t = 1.43, p = 0.29).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each is based on a low number of studies [1].",
+        "objection": "'A low number of studies' understates the fragility of at least one headline effect. The handwriting estimate comes from two studies and has an extremely wide confidence interval.",
+        "source_says": "Handwriting d = 4.86 (0.25 to 9.48) k = 2 n = 101 I ² = 0% Egger's test Low sample size Large effect based on a low number of studies with low heterogeneity.",
+        "locator": "Table 14 Effects of interventions (effect summary table), Handwriting row",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "A confidence interval running from 0.25 to 9.48 means the size of the handwriting effect is essentially unknown. The page's 'large' needs that qualifier, and the same applies to the repeat at sentence 21.",
+        "source_says_first": "Effect summary table, 'Skills for learning – Handwriting': d = 4.86 (0.25 to 9.48), k = 2, n = 101, I² = 0%. The authors describe it as a large effect based on a low number of studies with low heterogeneity.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Skills-for-learning interventions show large, significant effects on literacy, cognitive skills, handwriting and numeracy, but each of these effects rests on a low number of studies [1].",
+        "objection": "The page repeats the large-effects claim without the review's statement that the skills-for-learning effects are heterogeneous. It also omits the handwriting confidence interval (0.25 to 9.48) and that the other studies in the category did not all show significant effects.",
+        "source_says": "interventions tended to have a large effect on skills, but that there was high heterogeneity across published sources",
+        "locator": "Results on 'Skills for learning', text after the Figure 8 forest plot: 'The forest plot also indicates that...'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 'best-supported' framing around this sentence overstates certainty. The review reports 12 of 18 significant effects, high heterogeneity, and wide intervals on the large effects.",
+        "source_says_first": "Results on 'Skills for learning': \"interventions tended to have a large effect on skills, but that there was high heterogeneity across published sources\". The abstract notes that only 12 of 18 interventions had a significant effect. Handwriting: d = 4.86 (0.25 to 9.48), k = 2.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, a twin‐track approach is needed, which both addresses the specific needs of children with disabilities but also ensures that they are included in mainstream activities (e.g., through improving the skills of teachers and accessibility of the classroom) [1].",
+        "objection": "The page presents the twin-track recommendation without saying the review's own data could not distinguish mainstream from specialised delivery. The recommendation is the authors' judgement, not an empirical finding of the pooled effects.",
+        "source_says": "Our review did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings.",
+        "locator": "Discussion, paragraph comparing with prior reviews (before the Wapling (2016) sentence)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Twin-track is a policy inference. The review could not test it against any setting comparison, and the page should not let it read as evidence-derived.",
+        "source_says_first": "Discussion: \"Our review did not reveal any systematic differences\" between mainstream and segregated or specialised settings. The authors say this was likely because the majority of interventions reported positive findings.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A twin-track approach is needed, one that addresses the specific needs of children with disabilities and also includes them in mainstream activities, for example by improving teachers' skills and classroom accessibility [1].",
+        "objection": "This is the same omission as at sentence 7. The page does not say the review found no systematic difference in effectiveness between mainstream and specialised settings, and attributed this to mostly positive findings.",
+        "source_says": "Our review did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings.",
+        "locator": "Discussion (6.x), paragraph following the Ruijs and Peetsma (2009) summary, before the Wapling (2016) discussion",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the same qualification as the previous entry, and it also affects the repeated statement in the page's later section.",
+        "source_says_first": "Discussion: the review found no systematic differences by setting, but this was \"likely due to the majority of interventions reporting positive findings\" (paraphrased from the Discussion; see locator).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S003",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S004",
+    "title": "PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": []
+  }
+]
