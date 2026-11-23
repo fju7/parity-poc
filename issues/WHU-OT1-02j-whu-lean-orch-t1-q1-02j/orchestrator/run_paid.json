@@ -1,0 +1,139 @@
+{
+ "result": "Not Ready: AttributeError: 'dict' object has no attribute 'strip'",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-23T15:06:20+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (109 code files)"
+   },
+   "end": "2026-11-23T15:06:20+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-23T15:06:20+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "end": "2026-11-23T15:06:36+00:00",
+   "usd": 0.033884
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-23T15:06:36+00:00",
+   "cmds": [],
+   "failed": "AttributeError: 'dict' object has no attribute 'strip'",
+   "end": "2026-11-23T15:07:17+00:00",
+   "replies": [
+    {
+     "role": "discover",
+     "max_tokens": 4000,
+     "text": {
+      "sources": [
+       {
+        "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review",
+        "first_author": "Hunt",
+        "year": 2025,
+        "container": "Campbell Systematic Reviews",
+        "type": "review",
+        "url": "https://onlinelibrary.wiley.com/doi/10.1002/cl2.70016",
+        "why": "Most recent Campbell systematic review directly answering what works for disability education in LMICs; 28 studies included."
+       },
+       {
+        "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+        "first_author": "Mendoza",
+        "year": 2022,
+        "container": "International Journal of Disability, Development and Education",
+        "type": "review",
+        "url": "https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359",
+        "why": "First systematic review of IE interventions in low/lower-middle-income countries; 31 studies across 19 countries."
+       },
+       {
+        "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low‐and middle‐income countries",
+        "first_author": "Saran",
+        "year": 2020,
+        "container": "Campbell Systematic Reviews",
+        "type": "review",
+        "url": "https://onlinelibrary.wiley.com/doi/10.1002/cl2.1070",
+        "why": "Campbell EGM mapping all disability intervention evidence in LMICs; 40 education studies identified."
+       },
+       {
+        "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+        "first_author": "Wapling",
+        "year": 2016,
+        "container": "CBM",
+        "type": "review",
+        "url": "https://www.inclusive-education-in-action.org/resources/inclusive-education-and-children-disabilities-quality-education-all-low-and-middle-income",
+        "why": "Systematic literature review of education strategies for children with disabilities in LMICs; 131 articles analysed."
+       },
+       {
+        "title": "Intersectional Barriers to and Facilitators of Educational Inclusion for Persons With Disabilities in Low‐ and Middle‐Income Countries: A Systematic Literature Review",
+        "first_author": "Simra",
+        "year": 2026,
+        "container": "Health Science Reports",
+        "type": "review",
+        "url": "https://ajod.org/index.php/ajod/article/view/946/1686",
+        "why": "Most recent systematic review examining structural, environmental, and psychosocial barriers and facilitators to educational inclusion in LMICs."
+       },
+       {
+        "title": "Barriers to, and facilitators of, education for children with disabilities worldwide: a descriptive review",
+        "first_author": "Kuper",
+        "year": 2024,
+        "container": "Frontiers in Public Health",
+        "type": "review",
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10824976/",
+        "why": "Descriptive review of barriers and facilitators to education for children with disabilities globally, including LMIC-specific findings."
+       },
+       {
+        "title": "Policy Guidelines on Inclusion in Education",
+        "first_author": "UNESCO",
+        "year": 2009,
+        "container": "UNESCO",
+        "type": "guideline",
+        "url": "https://inee.org/sites/default/files/resources/UNESCO_Policy_Guidelines_on_Inclusion_in_Education_2009.pdf",
+        "why": "Key UNESCO policy guideline on inclusive education, covering cost-effective measures for countries with scarce resources."
+       },
+       {
+        "title": "A Guide for Ensuring Inclusion and Equity in Education",
+        "first_author": "UNESCO",
+        "year": 2017,
+        "container": "UNESCO",
+        "type": "guideline",
+        "url": "https://www.minedu.gov.gr/publications/docs2023/eidiki-agogi/A.%20UNESCO%20Guide%202017.pdf",
+        "why": "UNESCO operational guide for governments on implementing inclusive education policies, with LMIC examples including Cambodia and Ethiopia."
+       }
+      ]
+     }
+    }
+   ],
+   "usd": 0.4582
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "by_role": {},
+  "events": []
+ },
+ "sources": {
+  "found": 0,
+  "held": 0,
+  "not_held": 0,
+  "sources": [],
+  "proposals_not_confirmed": 0,
+  "unconfirmed": []
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  }
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-23T15:07:17+00:00"
+}
