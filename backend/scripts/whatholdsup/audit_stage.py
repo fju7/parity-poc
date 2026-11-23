@@ -702,6 +702,82 @@ def build_read_prompt(batch: list[dict], docs: dict[str, str], records: dict[str
             .replace("{sentences}", stext)
 
 
+# --------------------------------------------------------------------------
+# Replies (advisor's rulings after orchestrator trial 1 attempt 17, 2026-11-23)
+# --------------------------------------------------------------------------
+# (1) Every reply that cannot be parsed has its text saved in the audit run folder (UNPARSED_FILE), in every mode.
+# (2) In lean / orchestrated mode a reply (a verdict batch, a re-quote, a ruling) must be, after stripping a code
+#     fence, exactly one JSON object: no brace-matching fallback. A malformed reply is re-asked once with REASK_ONE;
+#     a second one fails the audit as before. Each case is noted to WHU_ORCH_MALFORMED_LOG, which the orchestrator
+#     counts in the run record's malformed-reply count. Non-lean runs parse with parse_json, unchanged.
+UNPARSED_FILE = "unparsed_replies.jsonl"
+REASK_ONE = "\n\nReturn exactly one JSON object and nothing else."
+REPLIES: dict = {"dir": None}       # the run folder, set by run()
+
+
+def strict_replies() -> bool:
+    import lean
+    return lean.enabled() or bool(os.environ.get("WHU_ORCH_STEP"))
+
+
+def one_object(text: str) -> dict | None:
+    """The reply's one JSON object, or None: the whole reply (code fence stripped) must parse as one object
+    (the audit's twin of factcheck_draft.one_value)."""
+    try:
+        v = json.loads(jsonio.strip_code_fence(text or ""))
+    except ValueError:
+        return None
+    return v if isinstance(v, dict) else None
+
+
+def save_unparsed(role: str, text: str, why: str) -> None:
+    d = REPLIES.get("dir")
+    if d is None:
+        return
+    rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "role": role, "why": why,
+           "chars": len(text or ""), "text": text or ""}
+    with open(Path(d) / UNPARSED_FILE, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+
+def note_malformed(role: str, event: str, text: str) -> None:
+    path = os.environ.get("WHU_ORCH_MALFORMED_LOG")
+    if not path:
+        return
+    e = {"role": "audit:" + role, "event": event, "text": (text or "")[:20000],
+         "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    try:
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(e, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
+
+
+def parse_reply(text: str, role: str, reask=None) -> dict | list:
+    """A reply's value. REASK: a no-argument function returning a second reply's text (strict mode only)."""
+    if not strict_replies():
+        try:
+            return parse_json(text)
+        except AuditFailure as e:
+            save_unparsed(role, text, str(e))
+            raise
+    v = one_object(text)
+    if v is not None:
+        return v
+    save_unparsed(role, text, "not exactly one JSON object")
+    note_malformed(role, "malformed", text)
+    if reask is None:
+        raise AuditFailure("reply is not exactly one JSON object (%s)" % role)
+    note_malformed(role, "reask", "")
+    t2 = reask()
+    v = one_object(t2)
+    if v is not None:
+        return v
+    save_unparsed(role + "-reask", t2, "not exactly one JSON object after a re-ask")
+    note_malformed(role, "malformed", t2)
+    raise AuditFailure("reply is not exactly one JSON object after a re-ask (%s)" % role)
+
+
 def parse_json(text: str) -> dict | list:
     s = jsonio.strip_code_fence(text)
     try:
@@ -1000,8 +1076,10 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
             if pre:
                 return call(prompt, READ_MAX_OUT, r, cache_prefix=pre)
         return call(prompt, READ_MAX_OUT, r)
-    text, usage = ask(build(batch), role + ("-summary" if summary else ""))
-    vs = check_verdicts(batch, parse_json(text), summary)
+    r0 = role + ("-summary" if summary else "")
+    p0 = build(batch)
+    text, usage = ask(p0, r0)
+    vs = check_verdicts(batch, parse_reply(text, r0, lambda: ask(p0 + REASK_ONE, r0 + "-reask")[0]), summary)
     # Every rejected quotation, raw, to the run's private log (on_reject): the
     # sentence, the document it named and the reader's own words, so a failure
     # can be read against the held text afterwards.
@@ -1026,7 +1104,9 @@ def read_batch(call: Caller, slug: str, batch: list[dict], held: dict, ctx: dict
             "Quote only text that appears character for character in the document you name."
             % ", ".join(u["id"] for u in retry))
         t2, _u2 = ask(p2, role + "-requote")
-        v2 = {v["id"]: v for v in check_verdicts(retry, parse_json(t2), summary)}
+        v2 = {v["id"]: v for v in check_verdicts(
+            retry, parse_reply(t2, role + "-requote", lambda: ask(p2 + REASK_ONE, role + "-requote-reask")[0]),
+            summary)}
         for i, (u, v) in enumerate(zip(batch, vs)):
             if u["id"] in v2:
                 vs[i] = v2[u["id"]]
@@ -1074,6 +1154,7 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     import lean
     LEAN = lean.enabled()
     out_dir.mkdir(parents=True, exist_ok=True)
+    REPLIES["dir"] = out_dir
     us = unit_list if unit_list is not None else units(slug)
     if limit:
         us = us[:limit]
@@ -1297,8 +1378,10 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                         continue
                     tags = _claimed_missing(v, u, "reader", delivery_report(slug, batch, held, docs, lic))
                     payload = ruling_payload(v, u["sentence"], docs, records)
-                    rtext, _ru = rule_call(build_rule_prompt(payload), RULE_MAX_OUT, "rule")
-                    r = check_ruling(parse_json(rtext))
+                    rp = build_rule_prompt(payload)
+                    rtext, _ru = rule_call(rp, RULE_MAX_OUT, "rule")
+                    r = check_ruling(parse_reply(rtext, "rule",
+                                                 lambda: rule_call(rp + REASK_ONE, RULE_MAX_OUT, "rule-reask")[0]))
                     log("rulings", {"unit": u["id"], "sha": u["sha"], "round": u["round"],
                                     "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                     "by": "ruling model %s" % rule_call.model, "model": rule_call.model,
@@ -1381,8 +1464,10 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                     tags = _claimed_missing(v, u, "second reader",
                                             delivery_report(slug, batch, held, docs, lic))
                     payload = ruling_payload(v, u["sentence"], docs, records)
-                    rtext, _ru = rule_call(build_rule_prompt(payload), RULE_MAX_OUT, "rule-second")
-                    r = check_ruling(parse_json(rtext))
+                    rp = build_rule_prompt(payload)
+                    rtext, _ru = rule_call(rp, RULE_MAX_OUT, "rule-second")
+                    r = check_ruling(parse_reply(rtext, "rule-second", lambda: rule_call(
+                        rp + REASK_ONE, RULE_MAX_OUT, "rule-second-reask")[0]))
                     # A card or meta wording that is not a whole body sentence
                     # is recorded with apply: False and left for a person.
                     summary_bad = (u["part"] in SUMMARY_PARTS and r["ruling"] != "reject"

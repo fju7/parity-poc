@@ -286,11 +286,58 @@ def plain(html_text: str) -> str:
     return t.replace("\r", " ").replace("\n", " ")
 
 
+# ABBREVIATIONS ARE NOT SENTENCE ENDS (advisor's ruling after orchestrator trial 1 attempt 17, 2026-11-23).
+# The split after "." broke "Smith et al. (2020) found" and "e.g. reading" into two units. In lean / orchestrated
+# runs the split does not break after et al., e.g., i.e., cf., vs., approx., Fig./Figs., No. before a number, or an
+# initial ("J. Smith", "J. R. Smith": one capital letter after a space, before a capitalised word or another
+# initial). This one function is what the audit (bindings.page_sentences), the page-sentence check
+# (orchestrator.splitter_mismatches), the page writer (orch/page.split) and the one-sentence rule (one_sentence)
+# all call, so they cannot disagree. Non-lean runs split exactly as before: measured on 2026-11-23, the new rule
+# would re-split 27 of the 59 committed pages under issues/ and site/whatholdsup/ (both published pages and every
+# study issue), moving their units and fingerprints. Known limit: "vitamin D. The" is read as an initial.
+ABBREVIATION = re.compile(r"(?<![A-Za-z])(?:et al|e\.g|i\.e|cf|vs|approx|figs?)\.$", re.I)
+NUMBER_ABBREVIATION = re.compile(r"(?:^|[\s(])No\.$")
+INITIAL = re.compile(r"(?:^|[\s(])[A-Z]\.$")
+
+
+def _keeps_abbreviations() -> bool:
+    import os
+    if os.environ.get("WHU_ORCH_STEP"):
+        return True
+    try:
+        import lean      # the switch WHU_LEAN / --lean / lean.enable reads; lean imports nothing of ours
+    except ImportError:  # loaded by path without this folder on sys.path: the switch's environment variable
+        return os.environ.get("WHU_LEAN", "").strip() in ("1", "true", "yes", "on")
+    return lean.enabled()
+
+
+def _not_an_end(before: str, after: str) -> bool:
+    if ABBREVIATION.search(before):
+        return True
+    if NUMBER_ABBREVIATION.search(before) and re.match(r"\d", after):
+        return True
+    return bool(INITIAL.search(before) and re.match(r"[A-Z](?:[a-z]|\.)", after))
+
+
+def _split_keeping_abbreviations(chunk: str) -> list[str]:
+    out, start = [], 0
+    for m in SENTENCE.finditer(chunk):
+        if _not_an_end(chunk[start:m.start()], chunk[m.end():]):
+            continue
+        out.append(chunk[start:m.start()])
+        start = m.end()
+    out.append(chunk[start:])
+    return [s.strip() for s in out if s.strip()]
+
+
 def sentences(text: str) -> list[str]:
-    """Split on terminal punctuation AND on block boundaries (see plain())."""
+    """Split on terminal punctuation AND on block boundaries (see plain()). In lean / orchestrated runs, never
+    after a common abbreviation (see ABBREVIATION above)."""
+    keep = _keeps_abbreviations()
     out: list[str] = []
     for chunk in re.split(r"[%s\n]" % BREAK, text):
-        out += [s.strip() for s in SENTENCE.split(chunk) if s.strip()]
+        out += (_split_keeping_abbreviations(chunk) if keep
+                else [s.strip() for s in SENTENCE.split(chunk) if s.strip()])
     return out
 
 

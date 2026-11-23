@@ -3095,6 +3095,10 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - Web-search replies: the final text block after the last tool use is the reply (`_final_text`). Orchestrated
   runs wrap urllib (`orch/registry_http.py`; subprocesses via `orch/site/sitecustomize.py` on PYTHONPATH): a
   registry still down after 4 tries stops the run "registry unavailable; run again later".
+- Audit replies (ruling after attempt 17): every unparseable audit reply is saved to <run>/unparsed_replies.jsonl;
+  lean/orchestrated audit replies must be exactly one JSON object (one re-ask, then fail; `audit_stage.parse_reply`).
+  `source_ledger.sentences` keeps et al., e.g., i.e., cf., vs., approx., Fig., No. <n> and initials in lean/orchestrated
+  mode only (non-lean split unchanged: ungated it would re-split both published pages and every study issue).
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,
