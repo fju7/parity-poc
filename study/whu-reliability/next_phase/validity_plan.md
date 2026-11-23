@@ -496,6 +496,8 @@ the room rule each day.
 
 **Ruling after orchestrator trial 1's attempt 8 (advisor, 2026-11-07):** $10 moves from the "new-questions test" line ($150 → **$140**) to orchestrator trial 1 ($10 → **$20**; $6.39 spent on attempts 1-8, **$13.61** left). The trial's first $10 came from the lean runs line; the second $10 from the new-questions line. Attempts continue under the room rule until a full run reaches Ready or a failure needs a design decision.
 
+**Ruling after orchestrator trial 1's attempt 15 (advisor, 2026-11-23):** $10 more moves from the "new-questions test" line ($140 → **$130**) to orchestrator trial 1 ($20 → **$30**; $14.04 spent on attempts 1-15, **$15.96** left). Attempt 16 runs at the orchestrator's $10 per-run cap.
+
 Step 1's unspent $6.97 stays inside its line (caps are not moved between items without a ruling). Spending at
 up to $60 a day (§0) takes about six spending days.
 
