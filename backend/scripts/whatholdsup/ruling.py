@@ -409,12 +409,28 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
         raise RulingFailed("%s: cut off at %d tokens on all %d attempts (record %s)"
                            % (kind, MAX_OUT, ATTEMPTS, failed["id"]))
     got = parse(kind, text, n_quotes)
+    import one_sentence as OS
+    reasked = None
+    if OS.strict() and kind != "relevance" and isinstance(got.get("text"), str) and got["text"].strip() \
+            and not OS.is_one(got["text"]):
+        OS.note("rule-%s" % kind, "multi_sentence", got["text"])
+        OS.note("rule-%s" % kind, "reask")
+        reasked = {"first_text": got["text"], "first_usage": usage}
+        text, usage = call(prompt + OS.REASK, MAX_OUT, "rule-%s-one-sentence" % kind)
+        got = parse(kind, text, n_quotes)
+        if isinstance(got.get("text"), str) and got["text"].strip() and not OS.is_one(got["text"]):
+            OS.note("rule-%s" % kind, "multi_sentence", got["text"])
+            _append(attempts_log(log), {"type": "not_one_sentence", "at": datetime.now(timezone.utc).isoformat(
+                timespec="seconds"), **base, **ref, "texts": [reasked["first_text"], got["text"]]})
+            raise RulingError("the ruling's sentence is more than one sentence, after one re-ask")
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": by,
            "model": model, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
            "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
            **ref, **got, "got": got, "usage": usage}
     if cut:
         rec["after_cut_off"] = cut          # the attempt(s) cut off before this reply
+    if reasked:
+        rec["one_sentence_reask"] = reasked  # the first reply was more than one sentence
     _append(log, rec)
     return got
 
@@ -1247,6 +1263,7 @@ BEYOND_BY = "code (lean: the proposed sentence went beyond the finding)"
 # ADD past the additions budget becomes code's "Not added ... (over the additions budget)".
 OVER_BUDGET_WHY = "over the ADD budget"
 OVER_BUDGET_BY = "code (lean: over the additions budget)"
+NOT_ONE_BY = "code (not one sentence after one re-ask)"
 
 
 def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None = None) -> dict:
@@ -1264,7 +1281,8 @@ def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None
     origins = list(dict.fromkeys(had + list(f.get("origins") or [f.get("origin")])))
     f = dict(f, origins=origins)
     outcome = outcome or O.NOT_ADDED_NO_PLACE
-    by = {O.NOT_ADDED_BEYOND: BEYOND_BY, O.NOT_ADDED_OVER_BUDGET: OVER_BUDGET_BY}.get(outcome, NO_PLACE_BY)
+    by = {O.NOT_ADDED_BEYOND: BEYOND_BY, O.NOT_ADDED_OVER_BUDGET: OVER_BUDGET_BY,
+          O.NOT_ADDED_NOT_ONE: NOT_ONE_BY}.get(outcome, NO_PLACE_BY)
     O.record(case, f, held_text=held, outcome=outcome, reason=why, by=by)
     print("  lean: %s (%s) -- listed for readers as Not added" % (why[:60], ", ".join(f.get("origins") or [])))
     return {"outcome": outcome, "origins": f.get("origins"), "why": why}

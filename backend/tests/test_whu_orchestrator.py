@@ -2224,3 +2224,118 @@ def test_a_splitter_mismatch_stops_the_step_at_zero_cost(tmp_path, monkeypatch):
     monkeypatch.setitem(O.STEP_CODE, "noop", lambda ctx, step: {"outcome": "ok"})
     with pytest.raises(O.RunStop, match="are not the audit's units, stopped at \\$0"):
         O.run_step(ctx, ST.Step("bind", "code", owns=("bindings.json",), code="noop"))
+
+
+# Ruling after attempt 15 (2026-11-23): a model-written page sentence the audit's splitter reads as more than one
+# sentence is malformed: one re-ask "Write exactly one sentence", then the step's fail-safe. Case: attempt 15's
+# judgement sentence (S002, one held span) written as two.
+
+A15_TWO = ("Some included studies were qualitative and relied on teachers' own reports. In Vietnam, teachers reported "
+           "that training seminars and workshops improved the general quality of teaching in their schools.")
+
+
+def test_the_splitter_reads_attempt_15s_judgement_sentence_as_two():
+    import one_sentence as OS
+    page, _ = _a15_page()
+    stored = [s for b in page.blocks() if b.get("tag") == "p" for s in b.get("sentences") or [] if "In Vietnam" in s][0]
+    assert OS.count(stored) == 2 and OS.count(A15_TWO) == 2
+    assert all(OS.count(s) == 1 for s in ('The source states that, "Consequently, a focus on evaluation" [1].',
+                                          "It holds [1].", "Per Hunt and colleagues [1], for teachers it helped [2]."))
+    # The audit's splitter breaks at "et al." and "e.g.", so such a sentence is more than one unit to the audit
+    # and, under this rule, more than one sentence (recorded for the advisor, 2026-11-23).
+    assert OS.count("Per Hunt et al. [1], it helped.") == 2 and OS.count("For example, e.g. teachers, it helped.") == 2
+
+
+def _ask_seq(replies):
+    events, prompts = [], []
+    it = iter(replies)
+
+    def ask(prompt, n, role):
+        prompts.append(prompt)
+        return next(it)
+    ask.note_malformed = lambda role, ev, text: events.append((role, ev))
+    return ask, events, prompts
+
+
+def test_a_two_sentence_judgement_is_reasked_once():
+    from orch import model_steps as M
+    import one_sentence as OS
+    ask, events, prompts = _ask_seq([json.dumps({"sentence": A15_TWO}), json.dumps({"sentence": "One sentence."})])
+    assert M.judgement_sentence("t", ask) == "One sentence."
+    assert prompts[1].endswith(OS.REASK) and "Write exactly one sentence." in OS.REASK
+    assert events == [("judgement_sentence", "multi_sentence"), ("judgement_sentence", "reask")]
+    ask, events, _ = _ask_seq([json.dumps({"sentence": A15_TWO})] * 2)
+    with pytest.raises(M.NotOneSentence):
+        M.judgement_sentence("t", ask)
+    assert [e for _, e in events] == ["multi_sentence", "reask", "multi_sentence"]
+
+
+def test_a_relevant_judgement_that_stays_two_sentences_is_declared_never_dropped(tmp_path, monkeypatch):
+    import orchestrator as O
+    import ruling as R
+    import omissions as OM
+    import judgements as J
+    import coverage_check as C
+    c = _case(tmp_path)
+    (c / "judgements.json").write_text(json.dumps({"candidates": {"S001@0-40": {
+        "source": "S001", "at": [0, 40], "section": "x", "kind": "assessment", "relevant": True}}}))
+    Page({"title": "T", "blocks": [{"tag": "p", "section": "findings", "sentences": ["One [1]."]}]}).save(
+        c / "draft" / "page.json")
+    held = {"S001": "Some studies relied on reports. Others did not, it is said."}
+    monkeypatch.setattr(R, "held_texts", lambda slug: held)
+    monkeypatch.setattr(O, "_cite_numbers", lambda ctx: {"S001": 1})
+    monkeypatch.setattr(O, "code_bind", lambda ctx, step, only=None: None)
+    monkeypatch.setattr(R, "lean_no_place", lambda case, f, held, why, outcome=None:
+                        OM.record(case, f, held_text=held, outcome=outcome, reason=why, by=R.NOT_ONE_BY))
+    ctx = SimpleNamespace(case=c, slug="orch-x", page_json=c / "draft" / "page.json", page=c / "draft" / "p.html",
+                          ask=lambda p, n, r: json.dumps({"sentence": A15_TWO}), replies=[], malformed=[])
+    out = O.code_judgements(ctx, ST.BY_NAME["judgements"])
+    assert out["outcome"] == "0 judgement(s) stated; 1 declared, not one sentence after one re-ask"
+    om = OM.load(c)
+    assert om["omissions"][0]["outcome"] == OM.NOT_ADDED_NOT_ONE
+    st, how = J.state_of({"key": "S001@0-40", "source": "S001", "at": [0, 40]}, held["S001"], {}, held, {}, om, [])
+    assert (st, how) == ("declared", "not_added_not_one_sentence")                 # the preflight row counts it
+    line = C.declaration_sentence(C.NOT_ONE, "Some studies relied on reports", "Hunt [1]", None)
+    assert line == "Not added: “Some studies relied on reports” (Hunt [1]) (it could not be written as one sentence)."
+    s = O.malformed_summary(ctx.malformed)
+    assert s["multi_sentence"] == 2 and s["reasks"] == 1
+
+
+def test_a_coverage_sentence_that_stays_two_sentences_is_left_in_scope():
+    from orch import model_steps as M
+    two = json.dumps({"decision": "state", "why": "w", "element": "", "sentence": A15_TWO})
+    ask, events, _ = _ask_seq([two, two])
+    assert M.coverage_decision("Q?", "{}", "u", ask, [])["decision"] == "in_scope"
+    assert [e for _, e in events] == ["multi_sentence", "reask", "multi_sentence"]
+    ask, _, _ = _ask_seq([two, json.dumps({"decision": "state", "why": "w", "element": "", "sentence": "One."})])
+    assert M.coverage_decision("Q?", "{}", "u", ask, [])["sentence"] == "One."
+
+
+def test_a_ruling_text_of_two_sentences_is_reasked_then_refused(tmp_path, monkeypatch):
+    import ruling as R
+    monkeypatch.setenv("WHU_LEAN", "1")
+    log = tmp_path / "rulings" / "omissions.jsonl"
+    elog = tmp_path / "m.jsonl"
+    monkeypatch.setenv("WHU_ORCH_MALFORMED_LOG", str(elog))
+    p = R.omission_payload("Q?", {"covers": "c"}, "r", "a finding", "ctx", [], [])
+    add = lambda t: json.dumps({"outcome": "ADD", "draft_text": t, "span": "a finding", "in_scope": True,
+                                "material": True, "reason": "r"})
+
+    class Call:
+        model = "claude-opus-5-5"
+
+        def __init__(self, texts):
+            self.texts, self.prompts = list(texts), []
+
+        def __call__(self, prompt, n, role):
+            self.prompts.append(prompt)
+            return self.texts.pop(0), {"usd": 0.01}
+    call = Call([add(A15_TWO), add("One sentence [1].")])
+    got = R.rule("omission", p, 0, call, log, {"f": 1})
+    assert got["text"] == "One sentence [1]." and len(call.prompts) == 2
+    assert json.loads(log.read_text().splitlines()[-1])["one_sentence_reask"]["first_text"] == A15_TWO
+    call = Call([add(A15_TWO), add(A15_TWO)])
+    with pytest.raises(R.RulingError, match="more than one sentence"):
+        R.rule("omission", dict(p, finding="another"), 0, call, log, {"f": 2})
+    ev = [json.loads(l)["event"] for l in elog.read_text().splitlines()]
+    assert ev == ["multi_sentence", "reask", "multi_sentence", "reask", "multi_sentence"]

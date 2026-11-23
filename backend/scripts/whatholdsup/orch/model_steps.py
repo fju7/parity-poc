@@ -297,6 +297,22 @@ def coverage_decision(question: str, scope: str, unit: str, ask, outs: list[str]
         out = {"decision": d["decision"], "why": _str(d, "why", F["coverage.why"])}
         if d["decision"] == "state":
             out["sentence"] = _str(d, "sentence", F["coverage.sentence"])
+            import one_sentence as OS
+            if not OS.is_one(out["sentence"]):          # ruling after attempt 15: one re-ask, then in scope
+                note = getattr(ask, "note_malformed", None) or (lambda *a: None)
+                note("coverage", "multi_sentence", out["sentence"])
+                note("coverage", "reask", "")
+                try:
+                    d2 = ask_json(ask, prompt + OS.REASK, LIMITS["coverage"], "coverage")
+                except Unusable as e:
+                    return {"decision": "in_scope", "why": "the re-asked reply was unusable", "element": "",
+                            "unusable": str(e)[:300]}
+                s2 = d2.get("sentence") if isinstance(d2, dict) and d2.get("decision") == "state" else None
+                if not (isinstance(s2, str) and s2.strip() and OS.is_one(s2)):
+                    note("coverage", "multi_sentence", s2 if isinstance(s2, str) else json.dumps(d2)[:600])
+                    return {"decision": "in_scope", "why": "the sentence to state was not one sentence, after one re-ask",
+                            "element": ""}
+                out["sentence"] = _str(d2, "sentence", F["coverage.sentence"])
             return out
         if d["decision"] == "not_material":
             return out
@@ -318,8 +334,29 @@ ASSESSMENT (verbatim from the source):
 """
 
 
+class NotOneSentence(StepFailed):
+    """A model sentence the audit's splitter reads as more than one, again after one re-ask (ruling, 2026-11-23)."""
+
+
+def one_sentence(ask, prompt: str, limit: int, role: str, field: str, flimit: int) -> str:
+    """ask_json, then the sentence in FIELD; more than one sentence -> one re-ask ("Write exactly one sentence"),
+    then NotOneSentence. Counted through ask.note_malformed as "multi_sentence"."""
+    import one_sentence as OS
+    note = getattr(ask, "note_malformed", None) or (lambda *a: None)
+    d = ask_json(ask, prompt, limit, role)
+    s = _str(d, field, flimit)
+    if OS.is_one(s):
+        return s
+    note(role, "multi_sentence", s)
+    note(role, "reask", "")
+    d = ask_json(ask, prompt + OS.REASK, limit, role)
+    s2 = _str(d, field, flimit)
+    if OS.is_one(s2):
+        return s2
+    note(role, "multi_sentence", s2)
+    raise NotOneSentence("%s: more than one sentence, again after one re-ask: %r" % (role, s2[:200]))
+
+
 def judgement_sentence(text: str, ask) -> str:
-    d = ask_json(ask, JUDGEMENT_PROMPT.format(text=text), LIMITS["judgement_sentence"], "judgement_sentence")
-    if not isinstance(d, dict):
-        raise StepFailed("not an object")
-    return _str(d, "sentence", F["judgement.sentence"])
+    return one_sentence(ask, JUDGEMENT_PROMPT.format(text=text), LIMITS["judgement_sentence"], "judgement_sentence",
+                        "sentence", F["judgement.sentence"])

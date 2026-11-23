@@ -380,10 +380,13 @@ def malformed_summary(events: list[dict]) -> dict:
         r = by.setdefault(e["role"], {"malformed": 0, "reasks": 0})
         if e["event"] == "narration":
             r["narration"] = r.get("narration", 0) + 1
+        elif e["event"] == "multi_sentence":
+            r["multi_sentence"] = r.get("multi_sentence", 0) + 1
         else:
             r["malformed" if e["event"] == "malformed" else "reasks"] += 1
     return {"malformed": sum(r["malformed"] for r in by.values()), "reasks": sum(r["reasks"] for r in by.values()),
-            "narration": sum(r.get("narration", 0) for r in by.values()), "by_role": by, "events": events}
+            "narration": sum(r.get("narration", 0) for r in by.values()),
+            "multi_sentence": sum(r.get("multi_sentence", 0) for r in by.values()), "by_role": by, "events": events}
 
 
 def code_provenance(ctx: Ctx, step) -> dict:
@@ -892,13 +895,23 @@ def code_judgements(ctx: Ctx, step) -> dict:
     held = R.held_texts(ctx.slug)
     nums = _cite_numbers(ctx)
     ask = _ask_for(ctx, step, ST.STEP_MODEL)
-    stated = 0
+    import omissions as O_
+    stated, declared_not_one = 0, 0
     for key, c in sorted((doc.get("candidates") or {}).items()):
         if not c.get("relevant"):
             continue
         a, b = c["at"]
         text = (held.get(c["source"]) or "")[a:b]
-        s = _with_marker(M.judgement_sentence(text, ask), [nums[c["source"]]])
+        try:
+            js = M.judgement_sentence(text, ask)
+        except M.NotOneSentence as e:     # a relevant judgement is declared in code-written text, never dropped
+            R.lean_no_place(ctx.case, {"source": c["source"], "at": [a, b], "origin": "judgement:%s" % key,
+                                       "origins": ["judgement:%s" % key]}, held,
+                            "the judgement's sentence was not one sentence after one re-ask (%s)" % str(e)[:200],
+                            outcome=O_.NOT_ADDED_NOT_ONE)
+            declared_not_one += 1
+            continue
+        s = _with_marker(js, [nums[c["source"]]])
         blk = next(x for x in page.blocks() if x.get("section") == "findings" and x.get("tag") == "p")
         blk["sentences"].append(s)
         page.doc.setdefault("provenance", {})[s] = [{"source": c["source"], "start": a, "end": b}]
@@ -906,7 +919,8 @@ def code_judgements(ctx: Ctx, step) -> dict:
     page.save(ctx.page_json)
     ctx.page.write_text(page.render(), encoding="utf-8")
     code_bind(ctx, step)
-    return {"outcome": "%d judgement(s) stated" % stated}
+    return {"outcome": "%d judgement(s) stated" % stated + (
+        "; %d declared, not one sentence after one re-ask" % declared_not_one if declared_not_one else "")}
 
 
 def code_apply(ctx: Ctx, step) -> dict:

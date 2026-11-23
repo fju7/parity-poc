@@ -67,9 +67,12 @@ NOT_ADDED_BEYOND = "NOT_ADDED_BEYOND"
 # Lean WHU (process doc §4.6.1, "Correction after Q1-04b"; advisor, 6 November 2026): an
 # ADD past the additions budget becomes code's own "Not added" line; no person is asked.
 NOT_ADDED_OVER_BUDGET = "NOT_ADDED_OVER_BUDGET"
-CODE_NOT_ADDED = (NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND, NOT_ADDED_OVER_BUDGET)
+# Advisor, 2026-11-23 (after attempt 15): a sentence that could not be written as one sentence (twice) becomes
+# code's own "Not added" line; for a relevant held judgement this is its declaration, never a drop.
+NOT_ADDED_NOT_ONE = "NOT_ADDED_NOT_ONE_SENTENCE"
+CODE_NOT_ADDED = (NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND, NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE)
 OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP, NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND,
-            NOT_ADDED_OVER_BUDGET)
+            NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE)
 CAPS = ("additions", "declarations")
 TO_PERSON = "TO_PERSON"
 RECORD = "omissions.json"
