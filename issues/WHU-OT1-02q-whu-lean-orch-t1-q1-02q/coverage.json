@@ -1,0 +1,110 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:03+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "Describes which population the included studies targeted (a characteristic of the evidence base); it says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:06+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only counts which groups (family members vs service providers) the studies targeted. It gives no result on whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:10+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only counts which impairment groups interventions targeted; it says nothing about whether programmes work or which types work best, so it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:12+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appears most often in the studies. It gives no effectiveness result and no comparison of which programmes work best, so it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:16+00:00"
+  },
+  "S001@6557-6784": {
+   "state": "not_material",
+   "reason": "The finding only describes how common one intervention category was in the evidence base and gives examples; it reports no effect on outcomes and would not change the answer on whether programmes work.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:18+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes the education gap and its cause, not whether programmes work; this is descriptive context about the gap rather than evidence on programme effectiveness.",
+   "by": "claude-sonnet-5-5",
+   "element": "Prevalence of disability and the size of the education gap for children with disabilities",
+   "decided_at": "2026-11-23T21:35:40+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding is about equalising health outcomes, with no stated link to education or learning outcomes, so it falls under the health/rehabilitation exclusion.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation outcomes (e.g. functional improvement, vision correction) that are not linked to education outcomes",
+   "decided_at": "2026-11-23T21:35:43+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic call for more evaluation of interventions that also target the environment. It reports no effect size or comparative result on what works, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:51+00:00"
+  },
+  "S002@5491-5648": {
+   "state": "not_material",
+   "reason": "The finding is a generic policy statement about well-being and the 2030 agenda. It gives no evidence on whether education programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:53+00:00"
+  },
+  "S002@5649-6168": {
+   "state": "not_material",
+   "reason": "The finding only describes the evidence gap map as a resource for researchers and policymakers. It reports no result on whether education programmes work or which types work best, so it adds nothing to the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:55+00:00"
+  },
+  "S003@4325-4537": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies exist and where they come from (an evidence-map count), not whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:57+00:00"
+  },
+  "S003@4538-4608": {
+   "state": "not_material",
+   "reason": "The finding is a vague statement about research gaps in professional learning, with no effect or comparison, so it does not change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:35:59+00:00"
+  },
+  "S003@4609-4725": {
+   "state": "out_of_scope",
+   "reason": "The finding counts studies of mental-health-supporting interventions. It reports no education outcomes, so it falls under health outcomes not linked to schooling or learning.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation outcomes (e.g. functional improvement, vision correction) that are not linked to education outcomes",
+   "decided_at": "2026-11-23T21:36:04+00:00"
+  },
+  "S003@5282-6096": {
+   "state": "not_material",
+   "reason": "The finding is only PMC metadata and a partnership description (GEM Centre, ACER, DFAT) with no result on whether disability education programmes work, so it has nothing to add to the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T21:36:07+00:00"
+  }
+ }
+}
