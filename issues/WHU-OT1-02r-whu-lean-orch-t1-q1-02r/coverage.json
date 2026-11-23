@@ -1,0 +1,47 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It states no result on whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T22:07:44+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many included studies targeted children with disabilities. It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T22:07:46+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies targeted family members versus service providers; it reports no effect or comparison, so it would not change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T22:07:48+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only reports which intervention category appears most often in the studies. It says nothing about whether any intervention works or which works best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-23T22:07:57+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding explains why children with disabilities fall behind (school systems not set up for different impairments). That is about barriers, not whether programmes work or which types work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "How many children with disabilities are out of school, and why",
+   "decided_at": "2026-11-23T22:08:10+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes, not educational outcomes, so it falls under the excluded health/functional outcomes literature rather than education programme effectiveness.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, rehabilitation or functional outcomes not tied to education",
+   "decided_at": "2026-11-23T22:08:13+00:00"
+  }
+ }
+}
