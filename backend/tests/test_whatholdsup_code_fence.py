@@ -135,3 +135,34 @@ def test_ruling_parse_strips_a_fence():
     r = {"ruling": "reject", "text": None, "reason": "the source says so", "quotation": 1}
     for wrap in ("```json\n%s\n```", "```JSON\n%s\n```", "%s"):
         assert R.parse("gate", wrap % json.dumps(r), 1)["ruling"] == "reject"
+
+
+# Ruling 1 (2026-11-23): raw=True hands the orchestrator the text, never a salvaged pick among several values.
+
+def test_raw_call_returns_the_text_unparsed_with_no_retry(model):
+    two = '{"decision": "out_of_scope"}\n\nWait. Reclassifying:\n\n{"decision": "not_material"}'
+    client = model(two)
+    assert fc.call("s", "u", search=False, label="discover", raw=True) == two
+    assert client.calls == 1
+    client = model(two)
+    assert isinstance(fc.call("s", "u", search=False, label="x"), dict)     # the default path still salvages
+
+
+def test_discover_paid_path_reasks_a_two_object_reply(model, tmp_path, monkeypatch):
+    sys.path.insert(0, str(WHU))
+    from orch import model_steps as M
+    replies = iter(['{"sources": []}\n\nWait:\n\n{"sources": []}', '{"sources": []}'])
+
+    class Seq(FakeClient):
+        def create(self, **kw):
+            self.text = next(replies)
+            return FakeClient.create(self, **kw)
+    client = Seq("")
+    monkeypatch.setattr(fc, "_get_client", lambda: client)
+    monkeypatch.setattr(fc, "_spend", None)
+    monkeypatch.setattr(fc, "_LEDGER_ISSUE", "fence-test")
+    ask = lambda p, m, r: fc.call("s", p, search=False, label=r, max_tokens=m, raw=True)
+    events = []
+    ask.note_malformed = lambda role, ev, text: events.append(ev)
+    assert M.ask_json(ask, "P", 100, "discover") == {"sources": []}
+    assert client.calls == 2 and events == ["malformed", "reask"]

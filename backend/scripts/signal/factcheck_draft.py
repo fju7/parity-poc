@@ -699,8 +699,12 @@ def searches_in(response) -> dict:
 
 
 def call(system: str, user: str, *, search: bool,
-         max_tokens: int = MAX_OUTPUT_TOKENS, label: str = ""):
+         max_tokens: int = MAX_OUTPUT_TOKENS, label: str = "", raw: bool = False):
     """One model call, optionally with web search. Returns parsed JSON or None.
+
+    raw=True returns the reply's text unparsed (None if cut off at max_tokens), with no JSON retry and no
+    salvage: the orchestrator's model steps parse it themselves under the one-object rule (advisor's ruling 1,
+    2026-11-23), because the salvage below ranks every JSON value in a reply and returns one of them.
 
     THE CAP IS ENFORCED HERE, NOT IN main().
 
@@ -827,6 +831,14 @@ def call(system: str, user: str, *, search: bool,
         except Exception:
             LAST_SEARCH.update({"queries": [], "domains": []})
         text = _response_text(response)
+        if raw:
+            if truncated:
+                where = _dump_truncated(label, text, response)
+                print(f"  [ERROR] {label}: the answer was cut off at max_tokens ({max_tokens}).")
+                if where:
+                    print(f"          the cut-off answer is at {where}")
+                return None
+            return text
         try:
             parsed = json.loads(strip_code_fence(text))      # ```json ... ``` (WHU-S03)
             if truncated:

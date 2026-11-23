@@ -900,7 +900,7 @@ def test_each_model_step_asks_with_its_limit():
     assert seen == {k: ST.REPLY_LIMITS[k] for k in ("premise", "coverage", "judgement_sentence")}
     src = (W / "orchestrator.py").read_text()
     assert 'ST.REPLY_LIMITS["draft"]' in src and 'M.ask_json(ask, prompt, ST.REPLY_LIMITS["discover"], "discover")' in src
-    assert 'label="discover", max_tokens=max_tokens)' in src        # the paid path sends the limit it was given
+    assert 'label="discover", max_tokens=max_tokens, raw=True)' in src   # the paid path sends its limit, unparsed
 
 
 def test_a_cut_off_reply_keeps_its_text():

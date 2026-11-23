@@ -478,7 +478,7 @@ def code_discover(ctx: Ctx, step) -> dict:
 
         def ask(p, max_tokens, role):          # a re-ask (ruling 1) repeats the search call
             r = fc.call("You find primary sources for a fact-check. JSON only.", p, search=True,
-                        label="discover", max_tokens=max_tokens)
+                        label="discover", max_tokens=max_tokens, raw=True)
             if r is None:
                 raise RunStop("discover: no reply")
             if getattr(ctx, "replies", None) is None:
