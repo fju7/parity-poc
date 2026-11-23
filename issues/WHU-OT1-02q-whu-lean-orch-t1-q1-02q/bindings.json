@@ -1760,6 +1760,239 @@
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null
+    },
+    "cbf6dbb4478416ed": {
+      "sentence": "An evidence and gap map and other reviews agree that research concentrates on building individual skills, leaving school-level, systemic and institutional approaches under-studied [1, 2, 3].",
+      "sentence_sha": "cbf6dbb4478416ed",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3",
+      "locator_type": "prose",
+      "locator": "passage S002@82582",
+      "span": "It is apparent from the reviews that the focus of studies is on fixing individuals, that is, the medical approach, for instance, focussing on improving social or learning skills for people with disabilities. Fewer studies focus on improving infrastructure or institutions, and therefore address social barriers to inclusion. Development agencies, including DFID, are stressing the biopsychosocial approach in their work, so the absence of evidence on what works to promote disability inclusion is a very striking gap. Future systematic reviews from the EGM will be able to provide more guidance for action for policy and programme decision‐makers. 9.1.4. Limitations of the EGM The EGM provide a rich source of information on existing systematic reviews and impact evaluations relating to interventions to improve the lives of people with disabilities and their families in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        82582,
+        83462
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "A current EGM on disability interventions (Saran et al., 2020 ) illustrates various initiatives for improving health, education, livelihood, social issues, empowerment and advocacy and governance for people with disabilities. However, this review reports only a single study on in‐service TPD in Kenya (Carew et al., 2019 ). A key point to note is that most research in this space focuses on evidence from interventions that attempt to improve skills in the students with disabilities ‘rather than addressing institutional or environmental barriers, which are often the key focus of disability‐inclusive development’ (Kuper et al., 2020 , p. 2).",
+          "offsets": [
+            30420,
+            31065
+          ]
+        },
+        {
+          "source_id": "S001",
+          "span": "Keywords: disability, education, inclusion, LMIC, school status released display-pdf yes is-olf no is-manuscript no is-preprint no is-journal-matter no is-scanned no is-retracted no Revised 2024 Oct 4; Received 2023 Oct 10; Accepted 2024 Oct 16; Collection date 2025 Mar. 1. PLAIN LANGUAGE SUMMARY 1.1. Title A range of individual‐level interventions work to improve educational outcomes among people with disabilities in low‐ and middle‐income countries, but there is little research on systemic or school‐level change. 1.2. The review in brief A range of interventions work to improve educational outcomes among people with disabilities, but these are mostly targeted at people with disabilities. More systemic approaches are needed to improve rates of access to, and likelihood of successful engagement in, education. 1.3. What is this review about?",
+          "offsets": [
+            8860,
+            9712
+          ]
+        }
+      ]
+    },
+    "b086ce40cf770e7e": {
+      "sentence": "For future evaluations, the review's authors recommend that, where possible, interventions should be evaluated in terms of concrete outcomes like school completion [1].",
+      "sentence_sha": "b086ce40cf770e7e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@12717",
+      "span": "Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        12717,
+        12820
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "62d3c1211d8ebb82": {
+      "sentence": "For 'conditions for inclusion of people with disabilities in education', the review reports a pooled effect of d = 0.35 (0.12 to 0.58) from k = 4 studies (n = 401, I² = 86%), which the authors summarise as a \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\" [1].",
+      "sentence_sha": "62d3c1211d8ebb82",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116620",
+      "span": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        116620,
+        116887
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "3243f864885ba8bc": {
+      "sentence": "The review reports that studies \"aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction\" [1].",
+      "sentence_sha": "3243f864885ba8bc",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@123163",
+      "span": "Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        123163,
+        123396
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "1cf9c481276486b5": {
+      "sentence": "The review's authors note that most studies were conducted in the southern region of sub-Saharan Africa, with South Africa accounting for half of the research included, \"possibly limiting the transferability of results to other countries and communities\" [4].",
+      "sentence_sha": "1cf9c481276486b5",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "0cd5dbda122c1d5bebdbfd2cf4a07931262e7da65390eb09be2685573281dd3b",
+      "locator_type": "prose",
+      "locator": "passage S004@69299",
+      "span": "Most studies were conducted in the southern region of sub-Saharan Africa, with South Africa accounting for half of the research included, possibly limiting the transferability of results to other countries and communities.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        69299,
+        69521
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "03e94e2e87062298": {
+      "sentence": "The sub-Saharan African review also notes a gap in its evidence base, concluding that future research should explore attitudes towards mainstream education of the majority of children with developmental disabilities in sub-Saharan Africa, who cannot access school or drop out, and their parents [4].",
+      "sentence_sha": "03e94e2e87062298",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "0cd5dbda122c1d5bebdbfd2cf4a07931262e7da65390eb09be2685573281dd3b",
+      "locator_type": "prose",
+      "locator": "passage S004@70475",
+      "span": "Future research should explore attitudes towards mainstream education of the majority of children with DD in sub-Saharan Africa, who cannot access school or drop out, and their parents.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        70475,
+        70660
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "03ebf761e39a6fb6": {
+      "sentence": "The review's authors suggest that a broader focus on whole-class approaches compared to individualized attention, in line with indigenous perspectives, may reduce the impact of challenges posed by large class sizes [5].",
+      "sentence_sha": "03ebf761e39a6fb6",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "7f6d414873a8737a737f0ef0921179efb73801ae304230d361f4af240d5c4b4d",
+      "locator_type": "prose",
+      "locator": "passage S005@64151",
+      "span": "For example, a broader focus on whole-class approaches compared to individualized attention, in line with indigenous perspectives ( Bannink, Nalugya, et al., 2020 ), may reduce the impact of challenges posed by large class sizes.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        64151,
+        64380
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a85f1524d4601814": {
+      "sentence": "The authors of that review caution that the transferability of their synthesis is limited because the studies it drew on showed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries and arguably the one most prominently influenced by Western cultures [5].",
+      "sentence_sha": "a85f1524d4601814",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "7f6d414873a8737a737f0ef0921179efb73801ae304230d361f4af240d5c4b4d",
+      "locator_type": "prose",
+      "locator": "passage S005@67709",
+      "span": "The transferability of the synthesis presented is limited by the selection of studies included in the original review ( Genovesi et al., 2022 ), which revealed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries ( World Bank, 2023 ) and arguably the one most prominently influenced by Western cultures ( van den Berghe, 1967 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        67709,
+        68119
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

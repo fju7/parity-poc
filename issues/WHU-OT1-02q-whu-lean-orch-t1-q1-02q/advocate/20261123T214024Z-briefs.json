@@ -1,0 +1,251 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A 2025 systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but that there is little research on systemic or school-level change [1].",
+        "objection": "The page never says the outcomes behind \"improve educational outcomes\" are mostly learning-skill measures. The review itself says concrete outcomes such as school completion are rarely evaluated.",
+        "source_says": "Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.",
+        "locator": "Plain language summary, section 1.6 'What do the findings of this review mean?'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "\"Work to improve educational outcomes\" overstates the evidence if the measured outcomes are mostly learning skills. The reader should be told that enrolment and completion are largely unmeasured.",
+        "source_says_first": "Campbell plain-language summary: \"Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.\" The same summary says integrating disability measures into mainstream education evaluations is needed. The review's significant effects are reported for literacy, cognitive skills, handwriting and numeracy, plus 'Skills for learning'.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The best-supported claim is the 2025 systematic review's conclusion that a range of individual-level interventions work to improve educational outcomes for people with disabilities in low- and middle-income countries [1].",
+        "objection": "Calling this the best-supported claim omits that the review's outcomes are mostly learning-skill measures. It also omits the review's call to measure concrete outcomes such as school completion.",
+        "source_says": "Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.",
+        "locator": "Plain-language summary, section 1.6 \"What do the findings of this review mean?\"",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The claim survives only as: individual-level interventions improve measured learning skills, in a thin and low-confidence evidence base. It does not establish effects on attainment or access.",
+        "source_says_first": "Campbell plain-language summary: \"Where possible, interventions should be evaluated in terms of concrete outcomes like school completion.\" Significant effects are reported for literacy, cognitive skills, handwriting and numeracy.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Most interventions in the systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them through system-level or school-level changes [1].",
+        "objection": "The page omits that the review's second-largest intervention category was 'accessible learning environments'. It also omits that those studies reported positive impacts on teachers, parents and violence.",
+        "source_says": "Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.",
+        "locator": "Discussion/Conclusions section: 'Among those studies which aimed to improve educational attainment...' paragraph",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page implies there is essentially no evidence beyond the individual level. The review found a small, positive but thin body of environment-level evidence, much of it on social skills and victimisation.",
+        "source_says_first": "Results: studies aimed at improving accessibility of learning environments \"reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.\" Abstract: \"Only two studies directly targeted family members, and the remaining three focused on service providers.\" Conditions for inclusion showed a pooled effect of d = 0.35 (0.12 to 0.58), k = 4, I² = 86%.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The same review notes that the interventions shown to work are mostly targeted at people with disabilities themselves, and it calls for more systemic approaches to improve access to education and the likelihood of successful engagement in it [1].",
+        "objection": "The page leaves out that some interventions beyond the individual child (teacher training, accessible environments) did show effects. That makes the \"shown to work are mostly individual\" framing starker than the review's.",
+        "source_says": "Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.",
+        "locator": "Summary of main results (paragraph beginning 'Among those studies which aimed to improve educational attainment')",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion that the evidence is mostly individual-level stands. The page should add that the few non-individual studies pointed the same way, with low confidence.",
+        "source_says_first": "Results: studies aimed at improving accessibility of learning environments \"reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction.\" The summary-of-findings table gives d = 0.35 (0.12 to 0.58), k = 4, for conditions for inclusion.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Included studies on conditions for including people with disabilities in education showed a moderately significant effect, and one study on teacher knowledge showed a significant effect size [1].",
+        "objection": "The page gives no number of studies or heterogeneity here. The review's own table labels this a moderate effect from few studies with high heterogeneity and potentially moderate publication bias.",
+        "source_says": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias",
+        "locator": "Section 5.3 Effects of interventions, Table 14 Effects of interventions",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's later general caveat on heterogeneity covers this in spirit. This sentence is the one place where the reader would want k = 4 and I² = 86%.",
+        "source_says_first": "Summary-of-findings table: \"d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86%\", described as a \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Several evidence maps agree that research concentrates on building individual skills, leaving school-level, institutional and policy approaches under-studied [1, 2, 3].",
+        "objection": "Source [1] is a systematic review of effectiveness studies, not an evidence map. It reports little research on \"systemic or school-level change\" and does not separately find institutional or policy approaches under-studied.",
+        "source_says": "A range of individual‐level interventions work to improve educational outcomes among people with disabilities in low‐ and middle‐income countries, but there is little research on systemic or school‐level change.",
+        "locator": "1. PLAIN LANGUAGE SUMMARY, 1.1. Title",
+        "could_not_find": "I searched the abstract, plain-language summary, main results and authors' conclusions for any statement about institutional or policy approaches being under-studied. I found only the \"systemic or school-level change\" wording, and the protocol's list of inclusive education policies as an intervention category.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page counts this review as one of several independent \"evidence maps\" agreeing, which overstates the corroboration. It also attributes to the review a finding on policy that it does not state.",
+        "source_says_first": "\"A range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but there is little research on systemic or school-level change.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S003",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S004",
+    "title": "Stakeholder experiences, attitudes and perspectives on inclusive education for children with developmental disabilities in sub-Saharan Africa: A systematic review of qualitative studies.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Stakeholder experiences, attitudes and perspectives on inclusive education for children with developmental disabilities in sub-Saharan Africa: A systematic review of qualitative studies.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A systematic review of 32 qualitative articles from seven sub-Saharan African countries found that unclear policies and insufficient training, resources and support for teachers often blocked the implementation of inclusive education [4].",
+        "objection": "The page presents seven countries as the geographic base of the findings and leaves out the authors' own limitation that half of the studies were from South Africa, which they say may limit transferability.",
+        "source_says": "\"Most studies were conducted in the southern region of sub-Saharan Africa, with South Africa accounting for half of the research included, possibly limiting the transferability of results to other countries and communities.\"",
+        "locator": "Discussion, 'Limitations and future research'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's region-wide claims (sub-Saharan Africa, 'all countries studied') rest on evidence that is half South African. The authors flag that this limits how far the findings carry to the rest of the region, and the page does not pass that on.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Both of these recommendations rest on reviews of qualitative studies of stakeholder views and experiences rather than on tested effects [4, 5].",
+        "objection": "The page names the qualitative design as the evidence limit but omits the review's more specific cautions: the South Africa concentration, and that the included studies cover only pupils who are already in mainstream school.",
+        "source_says": "Future research should explore attitudes towards mainstream education of the majority of children with DD in sub-Saharan Africa, who cannot access school or drop out, and their parents.",
+        "locator": "Limitations and future research section, final sentence",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The caveat 'qualitative, not tested effects' is correct. It understates the limits, because the evidence base also leaves out most children with developmental disabilities, who are out of school. It also gives no weight to the authors' note on South African over-representation, so the teacher-training recommendation is supported more narrowly than the page implies.",
+        "source_says_first": "\"Future research should explore attitudes towards mainstream education of the majority of children with DD in sub-Saharan Africa, who cannot access school or drop out, and their parents.\" Also: \"Pupils identified and diagnosed with DD in sub-Saharan Africa tend to be those whose disabilities have substantial impacts on their daily functioning.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Inadequate teacher skills and confidence for inclusive education were reported in 15 studies, but there was a similar number of indications that teachers' skills, confidence and attitudes towards inclusion could improve through training and, more frequently, experience [4].",
+        "objection": "The page leaves out the review's finding on the quality of the included studies, which bears on how firmly counts like '15 studies' can be read.",
+        "source_says": "Table 1 details the main study features and quality judgements.",
+        "locator": "Results/quality appraisal paragraph, just before Table 1 (Characteristics of included studies)",
+        "could_not_find": "I could not retrieve the full text in this session. I could not confirm the '15 studies' count, the 'similar number' count, or the 'equally lacking in all countries' statement, or find the section where the review gives the overall quality distribution.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The study counts are presented without the quality context the review supplies. Study counts from a qualitative synthesis are not effect sizes.",
+        "source_says_first": "The results table gives each study a quality rating. At least one included study (a South African/US parents' study, 2007) is rated \"Poor\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The sub-Saharan African review suggests that motivated teachers should be given appropriate training, resources and support, directly and by promoting the work of non-governmental organisations [4].",
+        "objection": "The review's stated conclusion is that teachers need access to appropriate training, resources and support. The 'by promoting NGOs' route may be the page's inference rather than the authors' recommendation.",
+        "source_says": "\"To effectively implement inclusive education for pupils with developmental disabilities, teachers need access to appropriate training, resources and support.\"",
+        "locator": "Abstract, conclusion",
+        "could_not_find": "I searched the abstract and the search-result excerpts of the Discussion. I did not find any statement in them that the authors recommend promoting NGO work. I could not read the full Discussion, so this may be stated there.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The review does identify NGOs as an enabling factor, which is a finding. Presenting 'promote NGOs' as the review's own recommendation may go beyond what the authors say.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      }
+    ]
+  },
+  {
+    "source": "S005",
+    "title": "Inclusive Strategies for Children With Developmental Disabilities in Mainstream Classrooms in African Countries: A Systematic Review of Stakeholder Experiences, Attitudes, and Perspectives.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Inclusive Strategies for Children With Developmental Disabilities in Mainstream Classrooms in African Countries: A Systematic Review of Stakeholder Experiences, Attitudes, and Perspectives.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "That review found that teachers' inclusion efforts appeared progressive but were mostly based on Western pedagogies and were challenged by limited resources and training [5].",
+        "objection": "The page reports the 'mostly Western pedagogies' finding without the authors' own warning that their study pool leaned heavily on South Africa, the best-resourced and most Western-influenced country in it, which limits how far the finding transfers.",
+        "source_says": "The transferability of the synthesis presented is limited by the selection of studies included in the original review ( Genovesi et al., 2022 ), which revealed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries ( World Bank, 2023 ) and arguably the one most prominently influenced by Western cultures ( van den Berghe, 1967 ).",
+        "locator": "Limitations section",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 'mostly Western' finding is partly a product of which countries' studies were included. The page presents it as a general description of African classrooms, but the authors limit it to the studies reviewed.",
+        "source_says_first": "<cite index=\"28-2\">The Limitations section says transferability is limited by the original review's selection of studies, which had a high prevalence of research from South Africa, described as substantially better-resourced than most other sub-Saharan African countries and arguably the most prominently influenced by Western cultures.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Both of these recommendations rest on reviews of qualitative studies of stakeholder views and experiences rather than on tested effects [4, 5].",
+        "objection": "The page is right that the evidence is qualitative. It leaves out that the authors say the transferability of the synthesis is limited by a South Africa-heavy study pool, which is a second weakness in the same evidence.",
+        "source_says": "The transferability of the synthesis presented is limited by the selection of studies included in the original review ( Genovesi et al., 2022 ), which revealed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries ( World Bank, 2023 ) and arguably the one most prominently influenced by Western cultures ( van den Berghe, 1967 ).",
+        "locator": "Limitations section",
+        "could_not_find": "I did not retrieve the full Discussion text. I found no passage in the Abstract, Theme 6 or Limitations that reports tested intervention effects, so the page's 'rather than tested effects' framing stands.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's conclusion stands. A reader would still be better served by knowing the authors flagged the narrow geographic base as well as the qualitative design.",
+        "source_says_first": "<cite index=\"28-2\">The Limitations section says the synthesis's transferability is constrained by the study selection in the original review, which was dominated by South African research.</cite> The authors also frame the indigenous-pedagogy training point as something that 'could' help. They call for future qualitative studies to uncover indigenous perspectives (Discussion, as excerpted in the ResearchGate full text).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A related review reported large class sizes of 40 to 80 students under a single teacher as a striking everyday challenge for including children with developmental disabilities [5].",
+        "objection": "The page gives the class-size problem without the review's finding that teachers often used whole-class approaches, which the authors say fit indigenous perspectives and may reduce the impact of large classes.",
+        "source_says": "For example, a broader focus on whole-class approaches compared to individualized attention, in line with indigenous perspectives ( Bannink, Nalugya, et al., 2020 ), may reduce the impact of challenges posed by large class sizes.",
+        "locator": "Discussion paragraph on indigenous frameworks of disability and inclusion in Uganda (Bannink, Nalugya, et al., 2020)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "If the page uses class size as an unqualified barrier, it misses the review's point that a locally rooted whole-class approach is a possible way around it.",
+        "source_says_first": "<cite index=\"19-4\">The review says a broader focus on whole-class approaches, \"in line with indigenous perspectives\", may reduce the impact of challenges posed by large class sizes.</cite> The abstract also says teachers' pedagogies <cite index=\"22-2\">often reflected a whole-class approach (Theme 3)</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

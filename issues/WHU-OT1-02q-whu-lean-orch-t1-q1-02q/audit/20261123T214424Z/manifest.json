@@ -1,0 +1,1553 @@
+{
+ "slug": "whu-lean-orch-t1-q1-02q",
+ "started": "2026-11-23T21:44:25+00:00",
+ "model": "claude-opus-5-5",
+ "read_prompt_sha256": "6ea2f39f88794f68d8fd81bfe41b329d5531e8c8fa41461013930bb19db04792",
+ "rule_prompt_sha256": "388a27cee450b3cd27c5dfc394cb63f39bfda40016ac6df96c67d1958d57ac11",
+ "summary_prompt_sha256": "1c7e7082472ee657c7014b4ce805ec62cf1ff16bd91cd0cf2548ca111764335a",
+ "licensed_sources_never_sent": [],
+ "cap_usd": 4.0,
+ "ledger_issue": "whu-lean-orch-t1-q1-02q",
+ "units": 106,
+ "limit": null,
+ "max_rounds": 3,
+ "second_share": 0.1,
+ "second_seed": 20261019,
+ "inputs": {
+  "held_texts": {
+   "S001": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "S002": "8cbf8790921f4a9c11883fea483c2b964d9f4032366dcdf642876b3c0ffdb5a2",
+   "S003": "222ba319fd316b7bfdb8d7540a380f4e06c183c433ac22c3edc7bdc75a438de6",
+   "S004": "1128d1710eba743ea20c7d720377ca1b327f06087dff652d1df6244ed33d2afd",
+   "S005": "ecc2d90cb77271ddd026d8a44fa65aae67f98db63c524c38b62043b3c3641dec"
+  },
+  "units_sha256": "5b657d9990ef6e3805ad562ebcb17c4d1b7a2c2574ff64fd0039c51243f38653",
+  "page_sha256": "8bdcc4afe389aacc8e43e19ee4dc9ffaa2d0a14a098f0cbd7e7110fd9531faa3",
+  "bindings_sha256": "269d98e0e4839f6705b8fc01c93d81c353b10ab1ac1b8dfb701a68f2bbc9cf99"
+ },
+ "status": "failed",
+ "deliveries": [
+  {
+   "source": "S001",
+   "units": [
+    "u4",
+    "u5",
+    "u6",
+    "u10",
+    "u12",
+    "u13",
+    "u14",
+    "u15",
+    "u26",
+    "u41",
+    "u42",
+    "u43",
+    "u44",
+    "u45",
+    "u46",
+    "u47",
+    "u48",
+    "u49",
+    "u50",
+    "u51"
+   ],
+   "held_chars": 164975,
+   "delivered_chars": 42601,
+   "bound_spans": 21,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S001",
+   "units": [
+    "u52",
+    "u54"
+   ],
+   "held_chars": 164975,
+   "delivered_chars": 42601,
+   "bound_spans": 2,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  }
+ ],
+ "splits": [],
+ "lean_config": {
+  "models": {
+   "audit_first": "claude-sonnet-5-5",
+   "audit_escalate": "claude-opus-5-5",
+   "audit_rule": "claude-opus-5-5",
+   "audit_second": "claude-opus-5-5"
+  },
+  "k": 4,
+  "min_score": 2.0,
+  "min_terms": 2,
+  "passage_chars": 900
+ },
+ "unit_list": [
+  [
+   "u1",
+   "page",
+   "ed65b5dde19f2e09"
+  ],
+  [
+   "u2",
+   "page",
+   "cae90542e9343a1b"
+  ],
+  [
+   "u3",
+   "page",
+   "2bca89dcaa0d546c"
+  ],
+  [
+   "u4",
+   "page",
+   "40489b5b6c215691"
+  ],
+  [
+   "u5",
+   "page",
+   "b086ce40cf770e7e"
+  ],
+  [
+   "u6",
+   "page",
+   "6f9f281b00dd44e1"
+  ],
+  [
+   "u7",
+   "page",
+   "c311b923abdb8e08"
+  ],
+  [
+   "u8",
+   "page",
+   "53790508ec2b8fd7"
+  ],
+  [
+   "u9",
+   "page",
+   "c01d55c539de4197"
+  ],
+  [
+   "u10",
+   "page",
+   "4e2f2944e7c0b652"
+  ],
+  [
+   "u11",
+   "page",
+   "7cd478fb5f769755"
+  ],
+  [
+   "u12",
+   "page",
+   "d05e7f6425d61076"
+  ],
+  [
+   "u13",
+   "page",
+   "0ede4b32d4692db9"
+  ],
+  [
+   "u14",
+   "page",
+   "84dfabf5cebc03c3"
+  ],
+  [
+   "u15",
+   "page",
+   "6137afb903c63008"
+  ],
+  [
+   "u16",
+   "page",
+   "71b681482f6c8789"
+  ],
+  [
+   "u17",
+   "page",
+   "8f244b849db5b5e0"
+  ],
+  [
+   "u18",
+   "page",
+   "53c7b2f34cb76c30"
+  ],
+  [
+   "u19",
+   "page",
+   "01cb29494f037528"
+  ],
+  [
+   "u20",
+   "page",
+   "d2362cf3f0b0e8af"
+  ],
+  [
+   "u21",
+   "page",
+   "f6c34dbc2a79f883"
+  ],
+  [
+   "u22",
+   "page",
+   "a4525836c91b76d4"
+  ],
+  [
+   "u23",
+   "page",
+   "41815dc487f2ba91"
+  ],
+  [
+   "u24",
+   "page",
+   "92f695960cd4642d"
+  ],
+  [
+   "u25",
+   "page",
+   "7a053562195b6a35"
+  ],
+  [
+   "u26",
+   "page",
+   "4d22a47556586f78"
+  ],
+  [
+   "u27",
+   "page",
+   "6a023418d502b608"
+  ],
+  [
+   "u28",
+   "page",
+   "78d6a158f2d9dc6c"
+  ],
+  [
+   "u29",
+   "page",
+   "2659c8208e60c21f"
+  ],
+  [
+   "u30",
+   "page",
+   "b2b84177d31ad157"
+  ],
+  [
+   "u31",
+   "page",
+   "f6dfdc7ac0790a8e"
+  ],
+  [
+   "u32",
+   "page",
+   "6d454fbed6a9b9e1"
+  ],
+  [
+   "u33",
+   "page",
+   "1cf9c481276486b5"
+  ],
+  [
+   "u34",
+   "page",
+   "e275ec47dc64d326"
+  ],
+  [
+   "u35",
+   "page",
+   "c7267fdc7754d6f5"
+  ],
+  [
+   "u36",
+   "page",
+   "6958bffdc31ec8ab"
+  ],
+  [
+   "u37",
+   "page",
+   "c77c5287cc6631d0"
+  ],
+  [
+   "u38",
+   "page",
+   "03ebf761e39a6fb6"
+  ],
+  [
+   "u39",
+   "page",
+   "09973eeca18193e9"
+  ],
+  [
+   "u40",
+   "page",
+   "a85f1524d4601814"
+  ],
+  [
+   "u41",
+   "page",
+   "36e0140d256279b6"
+  ],
+  [
+   "u42",
+   "page",
+   "62d3c1211d8ebb82"
+  ],
+  [
+   "u43",
+   "page",
+   "51b43aeb2aae2de5"
+  ],
+  [
+   "u44",
+   "page",
+   "21a0721b4c8863e4"
+  ],
+  [
+   "u45",
+   "page",
+   "d596d32ccf6f8346"
+  ],
+  [
+   "u46",
+   "page",
+   "426d018ca6d6a4b7"
+  ],
+  [
+   "u47",
+   "page",
+   "c2c25e1f2b80b229"
+  ],
+  [
+   "u48",
+   "page",
+   "a04fdc2c39bf96ec"
+  ],
+  [
+   "u49",
+   "page",
+   "1841da7bb49bc953"
+  ],
+  [
+   "u50",
+   "page",
+   "526daba26fc6f524"
+  ],
+  [
+   "u51",
+   "page",
+   "82982786c67d05e1"
+  ],
+  [
+   "u52",
+   "page",
+   "3243f864885ba8bc"
+  ],
+  [
+   "u53",
+   "page",
+   "5d4cccb8f291a5d5"
+  ],
+  [
+   "u54",
+   "page",
+   "cd6a61fc0b883e5c"
+  ],
+  [
+   "u55",
+   "page",
+   "cbf6dbb4478416ed"
+  ],
+  [
+   "u56",
+   "page",
+   "f08355de6ace147f"
+  ],
+  [
+   "u57",
+   "page",
+   "7e325a7ac83007a1"
+  ],
+  [
+   "u58",
+   "page",
+   "04efe647f1e2ef3b"
+  ],
+  [
+   "u59",
+   "page",
+   "03e94e2e87062298"
+  ],
+  [
+   "u60",
+   "page",
+   "99ae7d6ef36cc15e"
+  ],
+  [
+   "u61",
+   "page",
+   "bb1d6dca06204ac1"
+  ],
+  [
+   "u62",
+   "page",
+   "b2d9716945d0d264"
+  ],
+  [
+   "u63",
+   "page",
+   "8fdf714376d973b9"
+  ],
+  [
+   "u64",
+   "page",
+   "9561f64406eb0cd0"
+  ],
+  [
+   "u65",
+   "page",
+   "7e0be04aacb5210a"
+  ],
+  [
+   "u66",
+   "page",
+   "47fd35e6e29393dc"
+  ],
+  [
+   "u67",
+   "page",
+   "4aca927da837373a"
+  ],
+  [
+   "u68",
+   "page",
+   "ccde760afb11dce2"
+  ],
+  [
+   "u69",
+   "page",
+   "3a7565d6f64dd045"
+  ],
+  [
+   "u70",
+   "page",
+   "ecf0a7dcdc641083"
+  ],
+  [
+   "u71",
+   "page",
+   "14e77c10f5b71f9f"
+  ],
+  [
+   "u72",
+   "page",
+   "4a334e4793b9594b"
+  ],
+  [
+   "u73",
+   "page",
+   "33a392cccc18c3ee"
+  ],
+  [
+   "u74",
+   "page",
+   "d5b83661a81a52af"
+  ],
+  [
+   "u75",
+   "page",
+   "9233ab8714b39ad7"
+  ],
+  [
+   "u76",
+   "page",
+   "6d8078f281cfc07b"
+  ],
+  [
+   "u77",
+   "page",
+   "ce751528b1752a64"
+  ],
+  [
+   "u78",
+   "page",
+   "4ae79588d827c918"
+  ],
+  [
+   "u79",
+   "page",
+   "b9f46a6956798028"
+  ],
+  [
+   "u80",
+   "page",
+   "f560e1321963c92d"
+  ],
+  [
+   "u81",
+   "page",
+   "5be3346b9342066c"
+  ],
+  [
+   "u82",
+   "page",
+   "bedfc15be6d26054"
+  ],
+  [
+   "u83",
+   "page",
+   "d15a5d6cdb180db1"
+  ],
+  [
+   "u84",
+   "page",
+   "ac5dc9219537ae5b"
+  ],
+  [
+   "u85",
+   "page",
+   "1b89a3677f42fe45"
+  ],
+  [
+   "u86",
+   "page",
+   "49c1fecf51c7f77a"
+  ],
+  [
+   "u87",
+   "page",
+   "4551b86d23e0cef1"
+  ],
+  [
+   "u88",
+   "page",
+   "d8279010e0deeac2"
+  ],
+  [
+   "u89",
+   "page",
+   "2e4c983cde38ae2d"
+  ],
+  [
+   "u90",
+   "page",
+   "c3c5f223ba2f85af"
+  ],
+  [
+   "u91",
+   "page",
+   "caf85b0888d78f1f"
+  ],
+  [
+   "u92",
+   "page",
+   "e32c75d4adb69f41"
+  ],
+  [
+   "u93",
+   "page",
+   "c512156f19895ccd"
+  ],
+  [
+   "u94",
+   "page",
+   "dcef1e84ecc7e593"
+  ],
+  [
+   "u95",
+   "page",
+   "b86a07ac8e1fee5e"
+  ],
+  [
+   "u96",
+   "page",
+   "c869e44562ef9c40"
+  ],
+  [
+   "u97",
+   "page",
+   "662b3a7c6de22a0a"
+  ],
+  [
+   "u98",
+   "page",
+   "99400924f2fac1b5"
+  ],
+  [
+   "u99",
+   "page",
+   "8069fa15d2a22b10"
+  ],
+  [
+   "u100",
+   "page",
+   "7d1f23086c5217ae"
+  ],
+  [
+   "u101",
+   "page",
+   "c73c05bf136419f8"
+  ],
+  [
+   "u102",
+   "page",
+   "c98e2709ab730d21"
+  ],
+  [
+   "u103",
+   "page",
+   "963ec805d4576b6d"
+  ],
+  [
+   "u104",
+   "page",
+   "bd028b3dab69af45"
+  ],
+  [
+   "u105",
+   "page",
+   "7f2ef8fd709f0a28"
+  ],
+  [
+   "u106",
+   "page",
+   "02b1fd8064082d90"
+  ]
+ ],
+ "reaudit": {
+  "mode": "full",
+  "read": [
+   "u1",
+   "u2",
+   "u3",
+   "u4",
+   "u5",
+   "u6",
+   "u7",
+   "u8",
+   "u9",
+   "u10",
+   "u11",
+   "u12",
+   "u13",
+   "u14",
+   "u15",
+   "u16",
+   "u17",
+   "u18",
+   "u19",
+   "u20",
+   "u21",
+   "u22",
+   "u23",
+   "u24",
+   "u25",
+   "u26",
+   "u27",
+   "u28",
+   "u29",
+   "u30",
+   "u31",
+   "u32",
+   "u33",
+   "u34",
+   "u35",
+   "u36",
+   "u37",
+   "u38",
+   "u39",
+   "u40",
+   "u41",
+   "u42",
+   "u43",
+   "u44",
+   "u45",
+   "u46",
+   "u47",
+   "u48",
+   "u49",
+   "u50",
+   "u51",
+   "u52",
+   "u53",
+   "u54",
+   "u55",
+   "u56",
+   "u57",
+   "u58",
+   "u59",
+   "u60",
+   "u61",
+   "u62",
+   "u63",
+   "u64",
+   "u65",
+   "u66",
+   "u67",
+   "u68",
+   "u69",
+   "u70",
+   "u71",
+   "u72",
+   "u73",
+   "u74",
+   "u75",
+   "u76",
+   "u77",
+   "u78",
+   "u79",
+   "u80",
+   "u81",
+   "u82",
+   "u83",
+   "u84",
+   "u85",
+   "u86",
+   "u87",
+   "u88",
+   "u89",
+   "u90",
+   "u91",
+   "u92",
+   "u93",
+   "u94",
+   "u95",
+   "u96",
+   "u97",
+   "u98",
+   "u99",
+   "u100",
+   "u101",
+   "u102",
+   "u103",
+   "u104",
+   "u105",
+   "u106"
+  ],
+  "why": "no prior complete audit run",
+  "carried": 0
+ },
+ "failure": "reply is not JSON: Extra data: line 3 column 1 (char 528)",
+ "finished": "2026-11-23T21:44:54+00:00",
+ "state": {
+  "cae90542e9343a1b": "holds_by_record_check",
+  "b2d9716945d0d264": "holds_by_record_check",
+  "8fdf714376d973b9": "holds_by_record_check",
+  "9561f64406eb0cd0": "holds_by_record_check",
+  "7e0be04aacb5210a": "holds_by_record_check",
+  "47fd35e6e29393dc": "holds_by_record_check",
+  "4aca927da837373a": "holds_by_record_check",
+  "ccde760afb11dce2": "holds_by_record_check",
+  "3a7565d6f64dd045": "holds_by_record_check",
+  "ecf0a7dcdc641083": "holds_by_record_check",
+  "14e77c10f5b71f9f": "holds_by_record_check",
+  "4a334e4793b9594b": "holds_by_record_check",
+  "33a392cccc18c3ee": "holds_by_record_check",
+  "d5b83661a81a52af": "holds_by_record_check",
+  "9233ab8714b39ad7": "holds_by_record_check",
+  "6d8078f281cfc07b": "holds_by_record_check",
+  "ce751528b1752a64": "holds_by_record_check",
+  "4ae79588d827c918": "holds_by_record_check",
+  "b9f46a6956798028": "holds_by_record_check",
+  "f560e1321963c92d": "holds_by_record_check",
+  "5be3346b9342066c": "holds_by_record_check",
+  "bedfc15be6d26054": "holds_by_record_check",
+  "d15a5d6cdb180db1": "holds_by_record_check",
+  "ac5dc9219537ae5b": "holds_by_record_check",
+  "1b89a3677f42fe45": "holds_by_record_check",
+  "49c1fecf51c7f77a": "holds_by_record_check",
+  "4551b86d23e0cef1": "holds_by_record_check",
+  "d8279010e0deeac2": "holds_by_record_check",
+  "2e4c983cde38ae2d": "holds_by_record_check",
+  "c3c5f223ba2f85af": "holds_by_record_check",
+  "40489b5b6c215691": "holds",
+  "b086ce40cf770e7e": "holds",
+  "6f9f281b00dd44e1": "holds",
+  "4e2f2944e7c0b652": "holds",
+  "d05e7f6425d61076": "holds",
+  "0ede4b32d4692db9": "holds",
+  "84dfabf5cebc03c3": "holds",
+  "6137afb903c63008": "holds",
+  "4d22a47556586f78": "holds",
+  "36e0140d256279b6": "holds",
+  "62d3c1211d8ebb82": "holds",
+  "51b43aeb2aae2de5": "holds",
+  "21a0721b4c8863e4": "holds",
+  "d596d32ccf6f8346": "holds",
+  "426d018ca6d6a4b7": "holds",
+  "c2c25e1f2b80b229": "holds",
+  "a04fdc2c39bf96ec": "holds",
+  "1841da7bb49bc953": "holds",
+  "526daba26fc6f524": "holds",
+  "82982786c67d05e1": "holds"
+ },
+ "progress": {
+  "done": {
+   "u2": {
+    "id": "u2",
+    "sentence": "The question is: “In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?”",
+    "sha": "cae90542e9343a1b",
+    "status": "holds_by_record_check"
+   },
+   "u62": {
+    "id": "u62",
+    "sentence": "We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].",
+    "sha": "b2d9716945d0d264",
+    "status": "holds_by_record_check"
+   },
+   "u63": {
+    "id": "u63",
+    "sentence": "We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "8fdf714376d973b9",
+    "status": "holds_by_record_check"
+   },
+   "u64": {
+    "id": "u64",
+    "sentence": "We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.",
+    "sha": "9561f64406eb0cd0",
+    "status": "holds_by_record_check"
+   },
+   "u65": {
+    "id": "u65",
+    "sentence": "We found Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map but it has a published correction we could not read, so nothing on this page draws on it.",
+    "sha": "7e0be04aacb5210a",
+    "status": "holds_by_record_check"
+   },
+   "u66": {
+    "id": "u66",
+    "sentence": "We hold the full text of Stakeholder experiences, attitudes and perspectives on inclusive education for c [4].",
+    "sha": "47fd35e6e29393dc",
+    "status": "holds_by_record_check"
+   },
+   "u67": {
+    "id": "u67",
+    "sentence": "We searched the full text of Stakeholder experiences, attitudes and perspectives on inclusive education for c [4] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "4aca927da837373a",
+    "status": "holds_by_record_check"
+   },
+   "u68": {
+    "id": "u68",
+    "sentence": "We hold the full text of Inclusive Strategies for Children With Developmental Disabilities in Mainstream [5].",
+    "sha": "ccde760afb11dce2",
+    "status": "holds_by_record_check"
+   },
+   "u69": {
+    "id": "u69",
+    "sentence": "We searched the full text of Inclusive Strategies for Children With Developmental Disabilities in Mainstream [5] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "3a7565d6f64dd045",
+    "status": "holds_by_record_check"
+   },
+   "u70": {
+    "id": "u70",
+    "sentence": "We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability education interventions LMIC children young people effectiveness review; web search: evidence gap map disability education interventions LMIC Campbell White Saran Kuper; web search: Wapling systematic review education children disabilities developing countries strategies 2016; web search: teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map Campbell 2023 2024; web search: UNESCO guidelines inclusive education policy 2020 2022; web search: inclusive education developmental disabilities Africa systematic review qualitative 2025; registry: Europe PMC.",
+    "sha": "ecf0a7dcdc641083",
+    "status": "holds_by_record_check"
+   },
+   "u71": {
+    "id": "u71",
+    "sentence": "We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.",
+    "sha": "14e77c10f5b71f9f",
+    "status": "holds_by_record_check"
+   },
+   "u72": {
+    "id": "u72",
+    "sentence": "Our recency check (searched: onlinelibrary.wiley.com, eric.ed.gov, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, researchgate.net, ncbi.nlm.nih.gov, semanticscholar.org, doi.org, researchonline.lshtm.ac.uk, methods.cochrane.org, research.acer.edu.au, journals.sagepub.com, people.acer.org, research.ed.ac.uk, kclpure.kcl.ac.uk, dx.doi.org, ajod.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, ideas.repec.org) could not establish whether Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries has a newer edition.",
+    "sha": "4a334e4793b9594b",
+    "status": "holds_by_record_check"
+   },
+   "u73": {
+    "id": "u73",
+    "sentence": "Our recency check (searched: onlinelibrary.wiley.com, eric.ed.gov, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, researchgate.net, ncbi.nlm.nih.gov, semanticscholar.org, doi.org, researchonline.lshtm.ac.uk, methods.cochrane.org, research.acer.edu.au, journals.sagepub.com, people.acer.org, research.ed.ac.uk, kclpure.kcl.ac.uk, dx.doi.org, ajod.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, ideas.repec.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+    "sha": "33a392cccc18c3ee",
+    "status": "holds_by_record_check"
+   },
+   "u74": {
+    "id": "u74",
+    "sentence": "Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "d5b83661a81a52af",
+    "status": "holds_by_record_check"
+   },
+   "u75": {
+    "id": "u75",
+    "sentence": "Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "9233ab8714b39ad7",
+    "status": "holds_by_record_check"
+   },
+   "u76": {
+    "id": "u76",
+    "sentence": "Outside this question: “First, only three studies reported interventions aimed at supporting mental health among students with a disability.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).",
+    "sha": "6d8078f281cfc07b",
+    "status": "holds_by_record_check"
+   },
+   "u77": {
+    "id": "u77",
+    "sentence": "Findings in our sources we judged outside this question",
+    "sha": "ce751528b1752a64",
+    "status": "holds_by_record_check"
+   },
+   "u78": {
+    "id": "u78",
+    "sentence": "Judged not material to this question: “Twenty‐eight studies were included in this review.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "4ae79588d827c918",
+    "status": "holds_by_record_check"
+   },
+   "u79": {
+    "id": "u79",
+    "sentence": "Judged not material to this question: “Most studies ( n = 25) targeted children with disabilities.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "b9f46a6956798028",
+    "status": "holds_by_record_check"
+   },
+   "u80": {
+    "id": "u80",
+    "sentence": "Judged not material to this question: “Only two studies directly targeted family members, and the remaining three focused on service providers.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "f560e1321963c92d",
+    "status": "holds_by_record_check"
+   },
+   "u81": {
+    "id": "u81",
+    "sentence": "Judged not material to this question: “Individuals with intellectual or learning and developmental impairments were most frequently targeted by interventions ( n = 17).” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "5be3346b9342066c",
+    "status": "holds_by_record_check"
+   },
+   "u82": {
+    "id": "u82",
+    "sentence": "Judged not material to this question: “The category of interventions most represented across studies was ‘Educational attainment support’, for instance, a reading comprehension intervention that combined strategy instruction (graphic organisers, visual …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "bedfc15be6d26054",
+    "status": "holds_by_record_check"
+   },
+   "u83": {
+    "id": "u83",
+    "sentence": "Judged not material to this question: “The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "d15a5d6cdb180db1",
+    "status": "holds_by_record_check"
+   },
+   "u84": {
+    "id": "u84",
+    "sentence": "Judged not material to this question: “Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).",
+    "sha": "ac5dc9219537ae5b",
+    "status": "holds_by_record_check"
+   },
+   "u85": {
+    "id": "u85",
+    "sentence": "Judged not material to this question: “Investing in interventions to improve well‐being of people with disabilities will be critical to achieving the 2030 agenda for sustainable development goals.” (Evidence and gap map of studies assessing the effectiveness of interventions for [2]).",
+    "sha": "1b89a3677f42fe45",
+    "status": "holds_by_record_check"
+   },
+   "u86": {
+    "id": "u86",
+    "sentence": "Judged not material to this question: “The EGM summarized here provides a starting point for researchers, decision makers and programme managers to access the available research evidence on the effectiveness of …” (Evidence and gap map of studies assessing the effectiveness of interventions for [2]).",
+    "sha": "49c1fecf51c7f77a",
+    "status": "holds_by_record_check"
+   },
+   "u87": {
+    "id": "u87",
+    "sentence": "Judged not material to this question: “Fifty studies from 16 countries out of the 41 LMICs in the Asia‐Pacific region were identified, whereby Thailand had the largest number of studies with …” (Teacher professional development for disability inclusion in low- and middle-inc [3]).",
+    "sha": "4551b86d23e0cef1",
+    "status": "holds_by_record_check"
+   },
+   "u88": {
+    "id": "u88",
+    "sentence": "Judged not material to this question: “Two main gaps in research about professional learning were identified.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).",
+    "sha": "d8279010e0deeac2",
+    "status": "holds_by_record_check"
+   },
+   "u89": {
+    "id": "u89",
+    "sentence": "Judged not material to this question: “The Global Education Monitoring (GEM) Centre, a long‐term, strategic partnership between the Australian Council for Educational Research (ACER) and the Australian Government's Department of Foreign …” (Teacher professional development for disability inclusion in low- and middle-inc [3]).",
+    "sha": "2e4c983cde38ae2d",
+    "status": "holds_by_record_check"
+   },
+   "u90": {
+    "id": "u90",
+    "sentence": "Judged not material to this question: “Table 1 details the main study features and quality judgements.” (Stakeholder experiences, attitudes and perspectives on inclusive education for c [4]).",
+    "sha": "c3c5f223ba2f85af",
+    "status": "holds_by_record_check"
+   },
+   "u4": {
+    "id": "u4",
+    "sentence": "A 2025 systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but that there is little research on systemic or school-level change [1].",
+    "sha": "40489b5b6c215691",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u5": {
+    "id": "u5",
+    "sentence": "For future evaluations, the review's authors recommend that, where possible, interventions should be evaluated in terms of concrete outcomes like school completion [1].",
+    "sha": "b086ce40cf770e7e",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u6": {
+    "id": "u6",
+    "sentence": "The same review notes that the interventions shown to work are mostly targeted at people with disabilities themselves, and it calls for more systemic approaches to improve access to education and the likelihood of successful engagement in it [1].",
+    "sha": "6f9f281b00dd44e1",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u10": {
+    "id": "u10",
+    "sentence": "The review states that evidence suggests the gap in educational attainment between people with and without disabilities is greatest in low- and middle-income countries [1].",
+    "sha": "4e2f2944e7c0b652",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u12": {
+    "id": "u12",
+    "sentence": "According to the source, all but one study received an overall rating of low confidence in study findings [1].",
+    "sha": "d05e7f6425d61076",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u13": {
+    "id": "u13",
+    "sentence": "According to the source, a twin-track approach is needed, which both addresses the specific needs of children with disabilities but also ensures that they are included in mainstream activities (e.g., through improving the skills of teachers and accessibility of the classroom) [1].",
+    "sha": "0ede4b32d4692db9",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u14": {
+    "id": "u14",
+    "sentence": "According to the source, currently most interventions included in this systematic review targeted individual children with disabilities in an attempt to improve their functioning, skills, and competencies, but did not focus on mainstreaming these children into the school by system-level or school-level changes [1].",
+    "sha": "84dfabf5cebc03c3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u15": {
+    "id": "u15",
+    "sentence": "The source states: \"Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed\" [1].",
+    "sha": "6137afb903c63008",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u26": {
+    "id": "u26",
+    "sentence": "The 2025 review set out to ask which interventions appear most effective for different types of disability, but the passages available here do not report its answer to that question [1].",
+    "sha": "4d22a47556586f78",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u41": {
+    "id": "u41",
+    "sentence": "Included studies on conditions for including people with disabilities in education showed a moderately significant effect, and one study on teacher knowledge showed a significant effect size [1].",
+    "sha": "36e0140d256279b6",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u42": {
+    "id": "u42",
+    "sentence": "For 'conditions for inclusion of people with disabilities in education', the review reports a pooled effect of d = 0.35 (0.12 to 0.58) from k = 4 studies (n = 401, I² = 86%), which the authors summarise as a \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\" [1].",
+    "sha": "62d3c1211d8ebb82",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u43": {
+    "id": "u43",
+    "sentence": "Of 18 studies analysed for effects on 'Skills for learning', 12 interventions were found to have a significant effect [1].",
+    "sha": "51b43aeb2aae2de5",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u44": {
+    "id": "u44",
+    "sentence": "Interventions had significant effects on literacy, cognitive skills, handwriting, and numeracy outcomes [1].",
+    "sha": "21a0721b4c8863e4",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u45": {
+    "id": "u45",
+    "sentence": "All these effects are large but are based on a low number of studies [1].",
+    "sha": "d596d32ccf6f8346",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u46": {
+    "id": "u46",
+    "sentence": "The studies concerned with speech and school behaviour show no significant effect of intervention [1].",
+    "sha": "426d018ca6d6a4b7",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u47": {
+    "id": "u47",
+    "sentence": "Across the studies, heterogeneity is high, and the risk of publication bias varies but was frequently high, which limits confidence in the pooled results [1].",
+    "sha": "c2c25e1f2b80b229",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u48": {
+    "id": "u48",
+    "sentence": "All but one of the included studies were rated low confidence in their findings overall, so the evidence on what works is weak [1].",
+    "sha": "a04fdc2c39bf96ec",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u49": {
+    "id": "u49",
+    "sentence": "The low confidence across studies was largely due to low-rigour study designs, and did not always reflect multiple points of weakness within a given study [1].",
+    "sha": "1841da7bb49bc953",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u50": {
+    "id": "u50",
+    "sentence": "The sources say a twin-track approach is needed, one that meets the specific needs of children with disabilities and also includes them in mainstream activities, for example by improving teacher skills and classroom accessibility [1].",
+    "sha": "526daba26fc6f524",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u51": {
+    "id": "u51",
+    "sentence": "Most interventions in the systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them through system-level or school-level changes [1].",
+    "sha": "82982786c67d05e1",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   }
+  },
+  "flagged": [],
+  "queue": [
+   {
+    "id": "u1",
+    "sentence": "The question",
+    "sha": "ed65b5dde19f2e09",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u3",
+    "sentence": "The short answer",
+    "sha": "2bca89dcaa0d546c",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u7",
+    "sentence": "On which kinds work best, the material here does not settle the matter, because evidence on changing schools, institutions and policies is thin compared with evidence on building individual learners' skills.",
+    "sha": "c311b923abdb8e08",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u8",
+    "sentence": "What the evidence covers and what it shows",
+    "sha": "53790508ec2b8fd7",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u9",
+    "sentence": "Why the question matters",
+    "sha": "c01d55c539de4197",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u11",
+    "sentence": "In sub-Saharan Africa, pupils with developmental disabilities are described as remaining mostly unschooled, often excluded from mainstream education and facing barriers to enrolment in special schools, which are usually few, expensive, located in the capital and low in capacity [4].",
+    "sha": "7cd478fb5f769755",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u16",
+    "sentence": "According to the source, the evidence gap map (EGM) summarized there \"provides a starting point for researchers, decision makers and programme managers to access the available research evidence on the effectiveness of interventions for people with disabilities in LMICs in order to guide policy and programme activity, and encourage a more strategic, policy-oriented approach to setting the future research agenda\" [2].",
+    "sha": "71b681482f6c8789",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u17",
+    "sentence": "The source states that the report illustrates the critical value of evaluating and publishing evidence from disability inclusive TPD interventions in LMICs, including any that are ongoing, or are components of highly resource intensive large-scale education sector programs [3].",
+    "sha": "8f244b849db5b5e0",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u18",
+    "sentence": "The source, titled \"Teacher professional development for disability inclusion in low‐ and middle‐income Asia‐Pacific countries: An evidence and gap map,\" presents an evidence and gap map on that topic, and the text provided contains no findings or certainty or confidence wording to quote [3].",
+    "sha": "53c7b2f34cb76c30",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u19",
+    "sentence": "The evidence leans towards fixing individuals rather than systems",
+    "sha": "01cb29494f037528",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u20",
+    "sentence": "An evidence and gap map of disability interventions in low- and middle-income countries found that studies focus on fixing individuals, for instance by improving social or learning skills, and that fewer studies focus on improving infrastructure or institutions [2].",
+    "sha": "d2362cf3f0b0e8af",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u21",
+    "sentence": "That map describes the absence of evidence on what works to promote disability inclusion as a very striking gap [2].",
+    "sha": "f6c34dbc2a79f883",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u22",
+    "sentence": "A separate evidence map on teacher training likewise notes that most research in this space focuses on interventions that try to improve skills in students with disabilities rather than addressing institutional or environmental barriers [3].",
+    "sha": "a4525836c91b76d4",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u23",
+    "sentence": "Gaps in where and for whom the evidence exists",
+    "sha": "41815dc487f2ba91",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u24",
+    "sentence": "The evidence and gap map reports that most studies come from upper-middle-income countries and that there is limited evidence from low-income countries [2].",
+    "sha": "92f695960cd4642d",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u25",
+    "sentence": "It also says more studies are needed on all types of impairment, including visual and hearing impairments [2].",
+    "sha": "7a053562195b6a35",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u27",
+    "sentence": "Teacher training",
+    "sha": "6a023418d502b608",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u28",
+    "sentence": "An evidence and gap map found 50 studies on teacher training for the inclusion of students with disabilities in low- and middle-income Asia-Pacific countries, with only 16 of 41 countries reporting evidence on in-service teacher professional development for disability inclusion [3].",
+    "sha": "78d6a158f2d9dc6c",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u29",
+    "sentence": "That map found no studies reporting on how teachers could support positive student behaviour [3].",
+    "sha": "2659c8208e60c21f",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u30",
+    "sentence": "One included example was a one-day teacher workshop in an inclusive education programme, which is reported to have influenced students' perspectives of themselves and developed their social awareness skills [3].",
+    "sha": "b2b84177d31ad157",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u31",
+    "sentence": "What teachers and families in sub-Saharan Africa report",
+    "sha": "f6dfdc7ac0790a8e",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u32",
+    "sentence": "A systematic review of 32 qualitative articles from seven sub-Saharan African countries found that unclear policies and insufficient training, resources and support for teachers often blocked the implementation of inclusive education [4].",
+    "sha": "6d454fbed6a9b9e1",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u33",
+    "sentence": "The review's authors note that most studies were conducted in the southern region of sub-Saharan Africa, with South Africa accounting for half of the research included, \"possibly limiting the transferability of results to other countries and communities\" [4].",
+    "sha": "1cf9c481276486b5",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u34",
+    "sentence": "Inadequate teacher skills and confidence for inclusive education were reported in 15 studies, but there was a similar number of indications that teachers' skills, confidence and attitudes towards inclusion could improve through training and, more frequently, experience [4].",
+    "sha": "e275ec47dc64d326",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u35",
+    "sentence": "The review found in-service training on inclusive education equally lacking in all countries studied and, when available, it often failed to provide specific skills and knowledge on developmental disabilities [4].",
+    "sha": "c7267fdc7754d6f5",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u36",
+    "sentence": "Factors in favour of inclusive education included the commitment of many teachers and the work of non-governmental organisations, which provided resources and training [4].",
+    "sha": "6958bffdc31ec8ab",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u37",
+    "sentence": "A related review reported large class sizes of 40 to 80 students under a single teacher as a striking everyday challenge for including children with developmental disabilities [5].",
+    "sha": "c77c5287cc6631d0",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u38",
+    "sentence": "The review's authors suggest that a broader focus on whole-class approaches compared to individualized attention, in line with indigenous perspectives, may reduce the impact of challenges posed by large class sizes [5].",
+    "sha": "03ebf761e39a6fb6",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u39",
+    "sentence": "That review found that teachers' inclusion efforts appeared progressive but were mostly based on Western pedagogies and were challenged by limited resources and training [5].",
+    "sha": "09973eeca18193e9",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u40",
+    "sentence": "The authors of that review caution that the transferability of their synthesis is limited because the studies it drew on showed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries and arguably the one most prominently influenced by Western cultures [5].",
+    "sha": "a85f1524d4601814",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u52",
+    "sentence": "The review reports that studies \"aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction\" [1].",
+    "sha": "3243f864885ba8bc",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u53",
+    "sentence": "What holds up",
+    "sha": "5d4cccb8f291a5d5",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u54",
+    "sentence": "The best-supported claim is the 2025 systematic review's conclusion that a range of individual-level interventions work to improve educational outcomes for people with disabilities in low- and middle-income countries [1].",
+    "sha": "cd6a61fc0b883e5c",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u55",
+    "sentence": "An evidence and gap map and other reviews agree that research concentrates on building individual skills, leaving school-level, systemic and institutional approaches under-studied [1, 2, 3].",
+    "sha": "cbf6dbb4478416ed",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u56",
+    "sentence": "The sub-Saharan African review suggests that motivated teachers should be given appropriate training, resources and support, directly and by promoting the work of non-governmental organisations [4].",
+    "sha": "f08355de6ace147f",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u57",
+    "sentence": "The other African review proposes that training based on indigenous pedagogies could improve the use and outcomes of inclusive strategies [5].",
+    "sha": "7e325a7ac83007a1",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u58",
+    "sentence": "Both of these recommendations rest on reviews of qualitative studies of stakeholder views and experiences rather than on tested effects [4, 5].",
+    "sha": "04efe647f1e2ef3b",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u59",
+    "sentence": "The sub-Saharan African review also notes a gap in its evidence base, concluding that future research should explore attitudes towards mainstream education of the majority of children with developmental disabilities in sub-Saharan Africa, who cannot access school or drop out, and their parents [4].",
+    "sha": "03e94e2e87062298",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u60",
+    "sentence": "Because evidence from low-income countries and on many impairment types is limited, claims about which kinds of programme work best should be treated as unsettled [2].",
+    "sha": "99ae7d6ef36cc15e",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u61",
+    "sentence": "What we read and what we did not",
+    "sha": "bb1d6dca06204ac1",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u91",
+    "sentence": "Sources",
+    "sha": "caf85b0888d78f1f",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u92",
+    "sentence": "Hunt.",
+    "sha": "e32c75d4adb69f41",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u93",
+    "sentence": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review..",
+    "sha": "c512156f19895ccd",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u94",
+    "sentence": "Campbell Systematic Reviews.",
+    "sha": "dcef1e84ecc7e593",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u95",
+    "sentence": "2025.",
+    "sha": "b86a07ac8e1fee5e",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u96",
+    "sentence": "Saran.",
+    "sha": "c869e44562ef9c40",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u97",
+    "sentence": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries..",
+    "sha": "662b3a7c6de22a0a",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u98",
+    "sentence": "2020.",
+    "sha": "99400924f2fac1b5",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u99",
+    "sentence": "Ahmed.",
+    "sha": "8069fa15d2a22b10",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u100",
+    "sentence": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map..",
+    "sha": "7d1f23086c5217ae",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u101",
+    "sentence": "2022.",
+    "sha": "c73c05bf136419f8",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u102",
+    "sentence": "Genovesi.",
+    "sha": "c98e2709ab730d21",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u103",
+    "sentence": "Stakeholder experiences, attitudes and perspectives on inclusive education for children with developmental disabilities in sub-Saharan Africa: A systematic review of qualitative studies..",
+    "sha": "963ec805d4576b6d",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u104",
+    "sentence": "Autism.",
+    "sha": "bd028b3dab69af45",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u105",
+    "sentence": "Inclusive Strategies for Children With Developmental Disabilities in Mainstream Classrooms in African Countries: A Systematic Review of Stakeholder Experiences, Attitudes, and Perspectives..",
+    "sha": "7f2ef8fd709f0a28",
+    "round": 1,
+    "history": []
+   },
+   {
+    "id": "u106",
+    "sentence": "Review of Educational Research.",
+    "sha": "02b1fd8064082d90",
+    "round": 1,
+    "history": []
+   }
+  ],
+  "next": [],
+  "second": null
+ },
+ "calls": [
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 42910,
+   "input": 6575,
+   "output": 3501,
+   "usd": 0.081873,
+   "seconds": 19.4,
+   "cache_write": 13485,
+   "cache_read": 0
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 42910,
+   "input": 1705,
+   "output": 1312,
+   "usd": 0.017878,
+   "seconds": 8.6,
+   "cache_write": 0,
+   "cache_read": 13485
+  }
+ ],
+ "usd": 0.099751
+}

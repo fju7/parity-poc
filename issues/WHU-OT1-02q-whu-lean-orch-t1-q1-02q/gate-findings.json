@@ -1,0 +1,63 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f2907dacf-rec-2",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Saran, White & Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries is UNKNOWN: the draft uses 2020 publication (Campbell Systematic Reviews, 16(1), e1070); cited as [2]. Draft notes a published correction it could not hold, yet the body text draws on this source for claims about income-country distrib",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: onlinelibrary.wiley.com, eric.ed.gov, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, researchgate.net, ncbi.nlm.nih.gov, semanticscholar.org, doi.org, researchonline.lshtm.ac.uk, methods.cochrane.org, research.acer.edu.au, journals.sagepub.com, people.acer.org, research.ed.ac.uk, kclpure.kcl.ac.uk, dx.doi.org, ajod.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, ideas.repec.org) could not establish whether Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Saran, White & Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries",
+        "sources": [
+          "S002"
+        ],
+        "rows": [
+          "d2362cf3f0b0e8af",
+          "f6c34dbc2a79f883",
+          "92f695960cd4642d",
+          "7a053562195b6a35",
+          "978344c1bcd549bc",
+          "99ae7d6ef36cc15e",
+          "71b681482f6c8789",
+          "cbf6dbb4478416ed"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f2907dacf-rec-3",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ahmed et al. — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map is UNKNOWN: the draft uses 2022 publication (Campbell Systematic Reviews, 18(4), e1287, published 25 November 2022); cited as [3]. Draft states it 'found a published correction we could not read, so nothing on this page draws on it' — but the body text ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: onlinelibrary.wiley.com, eric.ed.gov, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, researchgate.net, ncbi.nlm.nih.gov, semanticscholar.org, doi.org, researchonline.lshtm.ac.uk, methods.cochrane.org, research.acer.edu.au, journals.sagepub.com, people.acer.org, research.ed.ac.uk, kclpure.kcl.ac.uk, dx.doi.org, ajod.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, ideas.repec.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-23",
+      "attached_to": {
+        "study": "Ahmed et al. — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "a4525836c91b76d4",
+          "78d6a158f2d9dc6c",
+          "2659c8208e60c21f",
+          "b2b84177d31ad157",
+          "978344c1bcd549bc",
+          "8f244b849db5b5e0",
+          "53c7b2f34cb76c30",
+          "cbf6dbb4478416ed"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

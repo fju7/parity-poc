@@ -9,3 +9,10 @@
 | coverage (orchestrator) | 2026-11-23T21:34:59+00:00 | 2026-11-23T21:36:07+00:00 | $0.1041 | 0 | 25 coverage decision(s), 0 left in scope |
 | judgements (orchestrator) | 2026-11-23T21:36:07+00:00 | 2026-11-23T21:37:27+00:00 | $0.1417 | 0 | 7 judgement(s) stated |
 | corrections_3b (orchestrator) | 2026-11-23T21:37:27+00:00 | 2026-11-23T21:37:28+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-23T21:37:28+00:00 | 2026-11-23T21:39:29+00:00 | $0.0000 | 0 | committed 5d166b488fa9 |
+| gate (orchestrator) | 2026-11-23T21:39:29+00:00 | 2026-11-23T21:40:24+00:00 | $0.5194 | 0 | done |
+| advocate (orchestrator) | 2026-11-23T21:40:24+00:00 | 2026-11-23T21:42:56+00:00 | $0.7886 | 0 | 1 record(s) applied |
+| omissions (orchestrator) | 2026-11-23T21:42:56+00:00 | 2026-11-23T21:44:20+00:00 | $0.2560 | 0 | 7 record(s) applied |
+| findings (orchestrator) | 2026-11-23T21:44:20+00:00 | 2026-11-23T21:44:22+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| conclusions (orchestrator) | 2026-11-23T21:44:22+00:00 | 2026-11-23T21:44:24+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| audit (orchestrator) | 2026-11-23T21:44:24+00:00 | 2026-11-23T21:44:54+00:00 | $0.0998 | 0 | FAILED: RunStop: audit: backend/scripts/whatholdsup/audit_stage.py run exited 2 |

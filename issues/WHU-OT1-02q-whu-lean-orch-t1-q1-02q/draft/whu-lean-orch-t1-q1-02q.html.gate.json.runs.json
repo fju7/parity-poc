@@ -1,0 +1,12 @@
+{
+  "cycle": 1,
+  "runs": [
+    {
+      "at": "2026-11-23T21:40:23+00:00",
+      "sha": "2907dacf9462ce5daf510bd232199cc52729ac172780bf39e339e8f38d34aa71",
+      "past_cap": null,
+      "cycle": 1
+    }
+  ],
+  "reason": null
+}

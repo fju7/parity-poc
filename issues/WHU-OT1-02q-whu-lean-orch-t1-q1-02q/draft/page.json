@@ -21,6 +21,7 @@
    "section": "answer",
    "sentences": [
     "A 2025 systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but that there is little research on systemic or school-level change [1].",
+    "For future evaluations, the review's authors recommend that, where possible, interventions should be evaluated in terms of concrete outcomes like school completion [1].",
     "The same review notes that the interventions shown to work are mostly targeted at people with disabilities themselves, and it calls for more systemic approaches to improve access to education and the likelihood of successful engagement in it [1].",
     "On which kinds work best, the material here does not settle the matter, because evidence on changing schools, institutions and policies is thin compared with evidence on building individual learners' skills."
    ]
@@ -102,12 +103,16 @@
    "section": "findings",
    "sentences": [
     "A systematic review of 32 qualitative articles from seven sub-Saharan African countries found that unclear policies and insufficient training, resources and support for teachers often blocked the implementation of inclusive education [4].",
+    "The review's authors note that most studies were conducted in the southern region of sub-Saharan Africa, with South Africa accounting for half of the research included, \"possibly limiting the transferability of results to other countries and communities\" [4].",
     "Inadequate teacher skills and confidence for inclusive education were reported in 15 studies, but there was a similar number of indications that teachers' skills, confidence and attitudes towards inclusion could improve through training and, more frequently, experience [4].",
     "The review found in-service training on inclusive education equally lacking in all countries studied and, when available, it often failed to provide specific skills and knowledge on developmental disabilities [4].",
     "Factors in favour of inclusive education included the commitment of many teachers and the work of non-governmental organisations, which provided resources and training [4].",
     "A related review reported large class sizes of 40 to 80 students under a single teacher as a striking everyday challenge for including children with developmental disabilities [5].",
+    "The review's authors suggest that a broader focus on whole-class approaches compared to individualized attention, in line with indigenous perspectives, may reduce the impact of challenges posed by large class sizes [5].",
     "That review found that teachers' inclusion efforts appeared progressive but were mostly based on Western pedagogies and were challenged by limited resources and training [5].",
+    "The authors of that review caution that the transferability of their synthesis is limited because the studies it drew on showed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries and arguably the one most prominently influenced by Western cultures [5].",
     "Included studies on conditions for including people with disabilities in education showed a moderately significant effect, and one study on teacher knowledge showed a significant effect size [1].",
+    "For 'conditions for inclusion of people with disabilities in education', the review reports a pooled effect of d = 0.35 (0.12 to 0.58) from k = 4 studies (n = 401, I² = 86%), which the authors summarise as a \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\" [1].",
     "Of 18 studies analysed for effects on 'Skills for learning', 12 interventions were found to have a significant effect [1].",
     "Interventions had significant effects on literacy, cognitive skills, handwriting, and numeracy outcomes [1].",
     "All these effects are large but are based on a low number of studies [1].",
@@ -116,7 +121,8 @@
     "All but one of the included studies were rated low confidence in their findings overall, so the evidence on what works is weak [1].",
     "The low confidence across studies was largely due to low-rigour study designs, and did not always reflect multiple points of weakness within a given study [1].",
     "The sources say a twin-track approach is needed, one that meets the specific needs of children with disabilities and also includes them in mainstream activities, for example by improving teacher skills and classroom accessibility [1].",
-    "Most interventions in the systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them through system-level or school-level changes [1]."
+    "Most interventions in the systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them through system-level or school-level changes [1].",
+    "The review reports that studies \"aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction\" [1]."
    ]
   },
   {
@@ -129,10 +135,11 @@
    "section": "verdict",
    "sentences": [
     "The best-supported claim is the 2025 systematic review's conclusion that a range of individual-level interventions work to improve educational outcomes for people with disabilities in low- and middle-income countries [1].",
-    "Several evidence maps agree that research concentrates on building individual skills, leaving school-level, institutional and policy approaches under-studied [1, 2, 3].",
+    "An evidence and gap map and other reviews agree that research concentrates on building individual skills, leaving school-level, systemic and institutional approaches under-studied [1, 2, 3].",
     "The sub-Saharan African review suggests that motivated teachers should be given appropriate training, resources and support, directly and by promoting the work of non-governmental organisations [4].",
     "The other African review proposes that training based on indigenous pedagogies could improve the use and outcomes of inclusive strategies [5].",
     "Both of these recommendations rest on reviews of qualitative studies of stakeholder views and experiences rather than on tested effects [4, 5].",
+    "The sub-Saharan African review also notes a gap in its evidence base, concluding that future research should explore attitudes towards mainstream education of the majority of children with developmental disabilities in sub-Saharan Africa, who cannot access school or drop out, and their parents [4].",
     "Because evidence from low-income countries and on many impairment types is limited, claims about which kinds of programme work best should be treated as unsettled [2]."
    ]
   },
@@ -144,12 +151,12 @@
   {
    "tag": "html",
    "section": "limits",
-   "html": "  <p>We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].</p>\n  <p>We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.</p>\n  <p>We found Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map but it has a published correction we could not read, so nothing on this page draws on it.</p>\n  <p>We hold the full text of Stakeholder experiences, attitudes and perspectives on inclusive education for c [4].</p>\n  <p>We searched the full text of Stakeholder experiences, attitudes and perspectives on inclusive education for c [4] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of Inclusive Strategies for Children With Developmental Disabilities in Mainstream  [5].</p>\n  <p>We searched the full text of Inclusive Strategies for Children With Developmental Disabilities in Mainstream  [5] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability education interventions LMIC children young people effectiveness review; web search: evidence gap map disability education interventions LMIC Campbell White Saran Kuper; web search: Wapling systematic review education children disabilities developing countries strategies 2016; web search: teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map Campbell 2023 2024; web search: UNESCO guidelines inclusive education policy 2020 2022; web search: inclusive education developmental disabilities Africa systematic review qualitative 2025; registry: Europe PMC.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>\n  <p>Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “First, only three studies reported interventions aimed at supporting mental health among students with a disability.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>"
+   "html": "  <p>We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].</p>\n  <p>We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.</p>\n  <p>We found Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map but it has a published correction we could not read, so nothing on this page draws on it.</p>\n  <p>We hold the full text of Stakeholder experiences, attitudes and perspectives on inclusive education for c [4].</p>\n  <p>We searched the full text of Stakeholder experiences, attitudes and perspectives on inclusive education for c [4] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of Inclusive Strategies for Children With Developmental Disabilities in Mainstream  [5].</p>\n  <p>We searched the full text of Inclusive Strategies for Children With Developmental Disabilities in Mainstream  [5] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability education interventions LMIC children young people effectiveness review; web search: evidence gap map disability education interventions LMIC Campbell White Saran Kuper; web search: Wapling systematic review education children disabilities developing countries strategies 2016; web search: teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map Campbell 2023 2024; web search: UNESCO guidelines inclusive education policy 2020 2022; web search: inclusive education developmental disabilities Africa systematic review qualitative 2025; registry: Europe PMC.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>\n  <p>Our recency check (searched: onlinelibrary.wiley.com, eric.ed.gov, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, researchgate.net, ncbi.nlm.nih.gov, semanticscholar.org, doi.org, researchonline.lshtm.ac.uk, methods.cochrane.org, research.acer.edu.au, journals.sagepub.com, people.acer.org, research.ed.ac.uk, kclpure.kcl.ac.uk, dx.doi.org, ajod.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, ideas.repec.org) could not establish whether Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries has a newer edition.</p>\n  <p>Our recency check (searched: onlinelibrary.wiley.com, eric.ed.gov, campbellcollaboration.org, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, researchgate.net, ncbi.nlm.nih.gov, semanticscholar.org, doi.org, researchonline.lshtm.ac.uk, methods.cochrane.org, research.acer.edu.au, journals.sagepub.com, people.acer.org, research.ed.ac.uk, kclpure.kcl.ac.uk, dx.doi.org, ajod.org, evidenceaid.org, pmc.ncbi.nlm.nih.gov, ideas.repec.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.</p>\n  <p>Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “First, only three studies reported interventions aimed at supporting mental health among students with a disability.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>"
   },
   {
    "tag": "html",
    "section": "readers",
-   "html": "  <p><strong>Findings in our sources we judged outside this question</strong></p>\n  <p>Judged not material to this question: “Twenty‐eight studies were included in this review.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Most studies ( n = 25) targeted children with disabilities.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Only two studies directly targeted family members, and the remaining three focused on service providers.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Individuals with intellectual or learning and developmental impairments were most frequently targeted by interventions ( n = 17).” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “The category of interventions most represented across studies was ‘Educational attainment support’, for instance, a reading comprehension intervention that combined strategy instruction (graphic organisers, visual …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Investing in interventions to improve well‐being of people with disabilities will be critical to achieving the 2030 agenda for sustainable development goals.” (Evidence and gap map of studies assessing the effectiveness of interventions for [2]).</p>\n  <p>Judged not material to this question: “The EGM summarized here provides a starting point for researchers, decision makers and programme managers to access the available research evidence on the effectiveness of …” (Evidence and gap map of studies assessing the effectiveness of interventions for [2]).</p>\n  <p>Judged not material to this question: “Fifty studies from 16 countries out of the 41 LMICs in the Asia‐Pacific region were identified, whereby Thailand had the largest number of studies with …” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Judged not material to this question: “Two main gaps in research about professional learning were identified.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Outside this question: “First, only three studies reported interventions aimed at supporting mental health among students with a disability.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Judged not material to this question: “The Global Education Monitoring (GEM) Centre, a long‐term, strategic partnership between the Australian Council for Educational Research (ACER) and the Australian Government's Department of Foreign …” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n"
+   "html": "  <p><strong>Findings in our sources we judged outside this question</strong></p>\n  <p>Judged not material to this question: “Twenty‐eight studies were included in this review.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Most studies ( n = 25) targeted children with disabilities.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Only two studies directly targeted family members, and the remaining three focused on service providers.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Individuals with intellectual or learning and developmental impairments were most frequently targeted by interventions ( n = 17).” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “The category of interventions most represented across studies was ‘Educational attainment support’, for instance, a reading comprehension intervention that combined strategy instruction (graphic organisers, visual …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Investing in interventions to improve well‐being of people with disabilities will be critical to achieving the 2030 agenda for sustainable development goals.” (Evidence and gap map of studies assessing the effectiveness of interventions for [2]).</p>\n  <p>Judged not material to this question: “The EGM summarized here provides a starting point for researchers, decision makers and programme managers to access the available research evidence on the effectiveness of …” (Evidence and gap map of studies assessing the effectiveness of interventions for [2]).</p>\n  <p>Judged not material to this question: “Fifty studies from 16 countries out of the 41 LMICs in the Asia‐Pacific region were identified, whereby Thailand had the largest number of studies with …” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Judged not material to this question: “Two main gaps in research about professional learning were identified.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Outside this question: “First, only three studies reported interventions aimed at supporting mental health among students with a disability.” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Judged not material to this question: “The Global Education Monitoring (GEM) Centre, a long‐term, strategic partnership between the Australian Council for Educational Research (ACER) and the Australian Government's Department of Foreign …” (Teacher professional development for disability inclusion in low- and middle-inc [3]).</p>\n  <p>Judged not material to this question: “Table 1 details the main study features and quality judgements.” (Stakeholder experiences, attitudes and perspectives on inclusive education for c [4]).</p>\n"
   },
   {
    "tag": "h2",
@@ -476,6 +483,72 @@
     "source": "S003",
     "start": 6241,
     "end": 6374
+   }
+  ],
+  "An evidence and gap map and other reviews agree that research concentrates on building individual skills, leaving school-level, systemic and institutional approaches under-studied [1, 2, 3].": [
+   {
+    "source": "S002",
+    "start": 82582,
+    "end": 83462
+   },
+   {
+    "source": "S003",
+    "start": 30420,
+    "end": 31065
+   },
+   {
+    "source": "S001",
+    "start": 8860,
+    "end": 9712
+   }
+  ],
+  "For future evaluations, the review's authors recommend that, where possible, interventions should be evaluated in terms of concrete outcomes like school completion [1].": [
+   {
+    "source": "S001",
+    "start": 12717,
+    "end": 12820
+   }
+  ],
+  "For 'conditions for inclusion of people with disabilities in education', the review reports a pooled effect of d = 0.35 (0.12 to 0.58) from k = 4 studies (n = 401, I² = 86%), which the authors summarise as a \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias\" [1].": [
+   {
+    "source": "S001",
+    "start": 116620,
+    "end": 116887
+   }
+  ],
+  "The review reports that studies \"aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction\" [1].": [
+   {
+    "source": "S001",
+    "start": 123163,
+    "end": 123396
+   }
+  ],
+  "The review's authors note that most studies were conducted in the southern region of sub-Saharan Africa, with South Africa accounting for half of the research included, \"possibly limiting the transferability of results to other countries and communities\" [4].": [
+   {
+    "source": "S004",
+    "start": 69299,
+    "end": 69521
+   }
+  ],
+  "The sub-Saharan African review also notes a gap in its evidence base, concluding that future research should explore attitudes towards mainstream education of the majority of children with developmental disabilities in sub-Saharan Africa, who cannot access school or drop out, and their parents [4].": [
+   {
+    "source": "S004",
+    "start": 70475,
+    "end": 70660
+   }
+  ],
+  "The review's authors suggest that a broader focus on whole-class approaches compared to individualized attention, in line with indigenous perspectives, may reduce the impact of challenges posed by large class sizes [5].": [
+   {
+    "source": "S005",
+    "start": 64151,
+    "end": 64380
+   }
+  ],
+  "The authors of that review caution that the transferability of their synthesis is limited because the studies it drew on showed a high prevalence of research from South Africa, which is substantially better-resourced than most other sub-Saharan African countries and arguably the one most prominently influenced by Western cultures [5].": [
+   {
+    "source": "S005",
+    "start": 67709,
+    "end": 68119
    }
   ]
  }
