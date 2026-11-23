@@ -743,14 +743,25 @@ FENCE = re.compile(r"```")
 JSON_FENCE = re.compile(r"```json[ \t]*\n?(.*?)```", re.DOTALL | re.IGNORECASE)
 
 
-def _citation_marker(v) -> bool:
-    """[1], [2, 4]: the page's citation numbers, which a reply quotes in its prose. Not a JSON value for the
-    fenced-block rule (session WT's reading, recorded for the advisor: both of attempt 14's replies cite this way)."""
-    return isinstance(v, list) and bool(v) and all(isinstance(x, int) and not isinstance(x, bool) for x in v)
+# Stages whose required value is itself an array of integers: the citation-marker exception never applies to
+# them (advisor's condition 2, 2026-11-23). None today; a fenced value that is an integer array also switches it off.
+INT_ARRAY_STAGES: set[str] = set()
 
 
-def _json_values_in(prose: str) -> list:
-    """Every JSON object or array that decodes at a "{" or "[" in PROSE, citation markers excepted."""
+def _citation_marker(v, prose: str, start: int, end: int) -> bool:
+    """[1], [2, 4]: the page's citation numbers quoted in a reply's prose. Advisor's condition 1 (2026-11-23): an
+    inline array of small integers (1-999) within prose -- the line it sits on carries other text."""
+    if not (isinstance(v, list) and v and all(isinstance(x, int) and not isinstance(x, bool) and 1 <= x <= 999
+                                              for x in v)):
+        return False
+    line_start = prose.rfind("\n", 0, start) + 1
+    line_end = prose.find("\n", end)
+    line = prose[line_start:start] + prose[end:len(prose) if line_end < 0 else line_end]
+    return bool(line.strip())
+
+
+def _json_values_in(prose: str, citations_allowed: bool = True) -> list:
+    """Every JSON object or array that decodes at a "{" or "[" in PROSE, citation markers excepted when allowed."""
     dec, out, i = json.JSONDecoder(), [], 0
     while True:
         m = re.search(r"[\[{]", prose[i:])
@@ -762,12 +773,12 @@ def _json_values_in(prose: str) -> list:
         except ValueError:
             i = at + 1
             continue
-        if not _citation_marker(v):
+        if not (citations_allowed and _citation_marker(v, prose, at, end)):
             out.append(v)
         i = end
 
 
-def fenced_value(text: str, kind: str):
+def fenced_value(text: str, kind: str, label: str = ""):
     """Advisor's ruling after attempt 14 (2026-11-23): the final block's one value when it holds exactly one
     fenced ```json block containing exactly one JSON value of KIND and no other JSON value anywhere outside it;
     else None. Returns (value, prose outside the fence)."""
@@ -784,7 +795,9 @@ def fenced_value(text: str, kind: str):
     if not isinstance(v, list if kind == "array" else dict):
         return None, ""
     outside = t[:m.start()] + "\n" + t[m.end():]
-    if _json_values_in(outside):
+    int_array = label in INT_ARRAY_STAGES or (isinstance(v, list) and bool(v) and all(
+        isinstance(x, int) and not isinstance(x, bool) for x in v))
+    if _json_values_in(outside, citations_allowed=not int_array):
         return None, ""
     return v, outside.strip()
 
@@ -959,7 +972,7 @@ def call(system: str, user: str, *, search: bool,
             v = one_value(reply, kind)
             if v is not None:
                 return v
-            v, prose = fenced_value(reply, kind)
+            v, prose = fenced_value(reply, kind, label)
             if v is not None:
                 if prose:
                     _note_malformed(label, "narration", prose)    # the prose around the fence: logged, not parsed

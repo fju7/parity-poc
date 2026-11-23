@@ -370,3 +370,25 @@ def test_the_negatives_stay_malformed(block):
 def test_citation_markers_only_are_allowed_outside():
     v, prose = fc.fenced_value("Hunt [1] and Saran [2, 4].\n```json\n{\"a\": 1}\n```", "object")
     assert v == {"a": 1} and "Hunt [1]" in prose
+
+
+# The advisor's two conditions on the citation-marker exception (2026-11-23).
+
+@pytest.mark.parametrize("prose,ok", [
+    ("Hunt [1] found it.", True), ("Saran [1, 2] and Hunt [999].", True),
+    ("Count [1000] here.", False), ("Zero [0] here.", False), ("Negative [-1] here.", False),
+    ("[1]", False),                                                  # alone on its line: not inline within prose
+    ("Floats [1.5] here.", False), ("Strings [\"1\"] here.", False),
+])
+def test_condition_1_a_citation_marker_is_an_inline_array_of_1_to_999(prose, ok):
+    v, _ = fc.fenced_value(prose + "\n```json\n{\"a\": 1}\n```", "object")
+    assert (v is not None) is ok
+
+
+def test_condition_2_no_exception_when_the_required_value_is_an_integer_array(monkeypatch):
+    block = "Hunt [1] found it.\n```json\n[3, 4]\n```"
+    assert fc.fenced_value(block, "array")[0] is None                     # the value is an integer array
+    assert fc.fenced_value("Hunt [1] found it.\n```json\n[{\"a\": 1}]\n```", "array")[0] == [{"a": 1}]
+    monkeypatch.setattr(fc, "INT_ARRAY_STAGES", {"ids"})
+    assert fc.fenced_value("Hunt [1] found it.\n```json\n{\"a\": 1}\n```", "object", "ids")[0] is None
+    assert fc.fenced_value("Hunt [1] found it.\n```json\n{\"a\": 1}\n```", "object", "recency")[0] == {"a": 1}
