@@ -1854,6 +1854,13 @@ def preflight(slug: str, *, for_email: bool,
             out.extend(lean_sentences.preflight_rows(slug))
         except BaseException as exc:
             out.append((lean_sentences.ROW, BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
+        # Source-list entries from each source's registry record (advisor's ruling 3 after orchestrator trial 1
+        # attempt 18). BLOCKED when it cannot run.
+        try:
+            out.extend(_sibling("source_entries").preflight_rows(slug, page, OK, BAD))
+        except BaseException as exc:
+            out.append(("source-list entries match their registry records", BAD,
+                        "did not run: %s: %s" % (type(exc).__name__, exc)))
         # Fixes 4-6 and rule 3b (process doc §4.6.1, "What 'we read' means";
         # advisor, 5 November 2026). BLOCKED when they cannot run, as above.
         try:

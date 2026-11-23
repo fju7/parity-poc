@@ -88,4 +88,6 @@ def _checked(rec: dict, title: str, first_author, year, pmcid: str | None = None
     else:
         return Unresolved("the record carries no DOI or PMID")
     extra = {k: rec.get(k) for k in ("pmcid", "pmid", "license") if rec.get(k)}
+    import source_entries as SE
+    extra["record"] = SE.record_from_epmc(rec)     # authors, year, title, container: this record's own
     return Found(ident, rec.get("title") or title, "europepmc", extra)

@@ -294,10 +294,14 @@ def plain(html_text: str) -> str:
 # (orchestrator.splitter_mismatches), the page writer (orch/page.split) and the one-sentence rule (one_sentence)
 # all call, so they cannot disagree. Non-lean runs split exactly as before: measured on 2026-11-23, the new rule
 # would re-split 27 of the 59 committed pages under issues/ and site/whatholdsup/ (both published pages and every
-# study issue), moving their units and fingerprints. Known limit: "vitamin D. The" is read as an initial.
+# study issue), moving their units and fingerprints (scope confirmed by the advisor after attempt 18 for that reason).
+# A single capital + full stop is an initial only if the next word is not a common sentence opener (advisor's
+# ruling after attempt 18): "vitamin D. The next" splits; "J. Smith" does not.
 ABBREVIATION = re.compile(r"(?<![A-Za-z])(?:et al|e\.g|i\.e|cf|vs|approx|figs?)\.$", re.I)
 NUMBER_ABBREVIATION = re.compile(r"(?:^|[\s(])No\.$")
 INITIAL = re.compile(r"(?:^|[\s(])[A-Z]\.$")
+SENTENCE_OPENERS = frozenset(("The", "This", "That", "These", "In", "A", "An", "We", "It", "However", "Our", "For",
+                              "On", "At", "As", "But", "And", "Of", "To"))
 
 
 def _keeps_abbreviations() -> bool:
@@ -316,7 +320,10 @@ def _not_an_end(before: str, after: str) -> bool:
         return True
     if NUMBER_ABBREVIATION.search(before) and re.match(r"\d", after):
         return True
-    return bool(INITIAL.search(before) and re.match(r"[A-Z](?:[a-z]|\.)", after))
+    if not (INITIAL.search(before) and re.match(r"[A-Z](?:[a-z]|\.)", after)):
+        return False
+    nxt = re.match(r"[A-Za-z]+", after)
+    return not (nxt and nxt.group(0) in SENTENCE_OPENERS)
 
 
 def _split_keeping_abbreviations(chunk: str) -> list[str]:

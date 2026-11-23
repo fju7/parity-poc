@@ -247,6 +247,8 @@ def _log_failed(ctx: Ctx, step, result: dict, e: BaseException) -> None:
     result["end"] = now()
     if getattr(e, "cmds", None) is not None:
         result["cmds"] = e.cmds
+    if getattr(e, "consistency", None) is not None:          # ruling 2 after attempt 18: outputs kept on a stop
+        result["consistency"] = e.consistency
     replies = list(getattr(ctx, "replies", None) or [])
     if getattr(e, "cut_off", False) and getattr(e, "text", None) is not None and \
             not any(r.get("cut_off") for r in replies):
@@ -272,7 +274,19 @@ def _account_page(ctx: Ctx, step) -> list[str]:
     generated = {"question": q_html, "limits": limits_html, "readers": readers_html, "sources": _source_list(ctx)}
     bad = AA.problems(ctx.case, page, generated, getattr(ctx, "page_prev", None))
     ctx.page_prev = AA.on_page(page)
-    return bad + splitter_mismatches(ctx.slug, page, ctx.page.read_text(encoding="utf-8") if ctx.page.exists() else "")
+    html = ctx.page.read_text(encoding="utf-8") if ctx.page.exists() else ""
+    return bad + splitter_mismatches(ctx.slug, page, html) + entry_problems(ctx, html)
+
+
+ENTRY_PREFIX = "source-list entry: "
+
+
+def entry_problems(ctx: Ctx, html: str) -> list[str]:
+    """Standing check (advisor's ruling 3 after attempt 18): every source-list entry on the page is its source's own
+    registry record -- no doubled punctuation, one year, the first author's initials where the registry gives them."""
+    import source_entries as SE
+    doc = json.loads((ctx.case / "sources.json").read_text(encoding="utf-8"))
+    return [ENTRY_PREFIX + p for p in SE.page_problems(doc.get("sources") or [], html)]
 
 
 SPLIT_PREFIX = "page sentence is not one unit of the audit's splitter: "
@@ -480,6 +494,9 @@ def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple
                 src[kind] = value
             src["title"] = getattr(got, "heading", None) or p["title"]
             src["registry"] = getattr(got, "registry", None)
+            rec = (getattr(got, "extra", {}) or {}).get("record")
+            if rec:                     # the source-list entry is built from this (source_entries, ruling 3)
+                src["registry_record"] = rec
             pmcid = (getattr(got, "extra", {}) or {}).get("pmcid") or src.get("pmcid")
             if pmcid:
                 src["pmcid"] = pmcid
@@ -721,15 +738,12 @@ def _generated_blocks(ctx: Ctx) -> tuple[str, str, str]:
 
 
 def _source_list(ctx: Ctx) -> str:
-    import html as H
+    """Each entry from its source's own registry record (source_entries; advisor's ruling 3 after attempt 18)."""
+    import source_entries as SE
     doc = json.loads((ctx.case / "sources.json").read_text(encoding="utf-8"))
     out = ['<div class="sources">']
     for n, s in enumerate(doc.get("sources") or [], 1):
-        text = ". ".join(x for x in (s.get("authors"), s.get("title"), s.get("container"),
-                                     str(s["year"]) if s.get("year") else None) if x) + "."
-        link = s.get("url") or ("https://doi.org/%s" % s["doi"] if s.get("doi") else "")
-        out.append('<div class="src"><span class="tag">[%d]</span> %s</div>'
-                   % (n, '<a href="%s">%s</a>' % (H.escape(link), H.escape(text)) if link else H.escape(text)))
+        out.append(SE.entry_html(n, s))
     out.append("</div>")
     return "\n".join(out)
 
@@ -987,14 +1001,47 @@ def code_audit(ctx: Ctx, step) -> dict:
         run_cmds(ctx, step)
         rounds += 1
         out = code_apply(ctx, step)
-    runs = sorted(p.name for p in (ctx.case / "audit").glob("*") if p.is_dir())
-    if runs:
-        r = subprocess.run([ST.PY, ST.W + "consistency.py", "audit", ctx.slug, runs[-1], "--cap",
-                            "%.2f" % step.cap_usd], cwd=str(ctx.root), env=ctx.env(step), capture_output=True,
-                           text=True)
+    sampled = consistency_audit(ctx, step)
+    return {"outcome": "%d audit round(s)" % rounds, "changed": changed_any or bool(out.get("changed")),
+            "consistency": sampled}
+
+
+NO_RULINGS = "no rulings to sample"
+
+
+def rounds_to_sample(case: Path, slug: str) -> list[str]:
+    """Advisor's ruling 1 after attempt 18: every audit round of the step (each run folder under <case>/audit) that
+    has rulings and has not been sampled yet (no consistency.jsonl line with step "audit-<run>"). A withdrawn round
+    or a changed prompt is NOT filtered here: consistency.py refuses it, and the refusal stops the run."""
+    import consistency as CN
+    done = {r.get("step") for r in CN.load(case / "rulings" / "consistency.jsonl")}
+    out = []
+    for run in sorted(p.name for p in (case / "audit").glob("*") if p.is_dir()):
+        if "audit-%s" % run in done:
+            continue
+        rp = case / "audit" / run / "rulings.jsonl"
+        if rp.exists() and any(l.strip() for l in rp.read_text(encoding="utf-8").splitlines()):
+            out.append(run)
+    return out
+
+
+def consistency_audit(ctx: Ctx, step) -> dict:
+    """Ruling 1 (above) and ruling 2 after attempt 18: each sampling's argv, exit code, stdout and stderr are kept in
+    the run record; none to sample is recorded as NO_RULINGS, never skipped silently; a non-zero exit stops the run
+    with the outputs kept."""
+    runs = rounds_to_sample(ctx.case, ctx.slug)
+    if not runs:
+        return {"outcome": NO_RULINGS, "rounds": [], "calls": []}
+    calls = []
+    for run in runs:
+        argv = [ST.PY, ST.W + "consistency.py", "audit", ctx.slug, run, "--cap", "%.2f" % step.cap_usd]
+        r = subprocess.run(argv, cwd=str(ctx.root), env=ctx.env(step), capture_output=True, text=True)
+        calls.append({"run": run, "argv": argv[1:], "rc": r.returncode, "stdout": r.stdout, "stderr": r.stderr})
         if r.returncode != 0:
-            raise RunStop("audit: consistency audit exited %d" % r.returncode)
-    return {"outcome": "%d audit round(s)" % rounds, "changed": changed_any or bool(out.get("changed"))}
+            e = RunStop("audit: consistency audit of round %s exited %d" % (run, r.returncode))
+            e.consistency = {"outcome": "stopped", "rounds": runs, "calls": calls}
+            raise e
+    return {"outcome": "sampled %d round(s)" % len(runs), "rounds": runs, "calls": calls}
 
 
 def code_corrections(ctx: Ctx, step) -> dict:

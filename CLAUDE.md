@@ -3099,6 +3099,9 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
   lean/orchestrated audit replies must be exactly one JSON object (one re-ask, then fail; `audit_stage.parse_reply`).
   `source_ledger.sentences` keeps et al., e.g., i.e., cf., vs., approx., Fig., No. <n> and initials in lean/orchestrated
   mode only (non-lean split unchanged: ungated it would re-split both published pages and every study issue).
+- After attempt 18: the consistency audit samples every audit round with rulings (none -> "no rulings to sample"),
+  its output kept in run_paid.json; an initial is never read before a sentence opener (SENTENCE_OPENERS, lean only);
+  source-list entries come from `registry_record` (source_entries.py; standing check + lean preflight row).
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,
