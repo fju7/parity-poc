@@ -145,7 +145,8 @@ def notice_text(c: dict, lookup=None, fulltext=None) -> tuple[str | None, str]:
         return None, why
     text = _plain(rec.get("abstractText") or "")
     pmcid = rec.get("pmcid")
-    if pmcid:
+    served = bool(pmcid) and E.epmc_full_text_served(rec)     # the record's own metadata, read first (ruling, attempt 13)
+    if served:
         body, how = (fulltext or _fulltext)(pmcid)
         if body is None and UNANSWERED.search(how or "") and not re.search(r"HTTP Error 4\d\d", how or ""):
             raise RegistryUnavailable("Europe PMC full text %s: %s" % (pmcid, how))
@@ -154,7 +155,8 @@ def notice_text(c: dict, lookup=None, fulltext=None) -> tuple[str | None, str]:
     if len(text) >= MIN_NOTICE_CHARS and not text.startswith("[This corrects the article"):
         return text, "Europe PMC abstract of %s %s" % (kind, c["id"])
     return None, "no text of the notice could be held (abstract %d characters%s)" % (
-        len(text), "; full text not served" if pmcid else "; no full text")
+        len(text), "; full text not served (Europe PMC metadata: isOpenAccess %s)" % rec.get("isOpenAccess")
+        if pmcid and not served else "; full text not served" if pmcid else "; no full text")
 
 
 def _fulltext(pmcid: str) -> tuple[str | None, str]:

@@ -2108,3 +2108,51 @@ def test_step_subprocesses_get_the_wrapper(tmp_path):
     r = subprocess.run([sys.executable, "-c", "import urllib.request; print(urllib.request.urlopen.__name__)"],
                        env=env, capture_output=True, text=True)
     assert r.stdout.strip() == "_wrapped", r.stderr
+
+
+# Ruling after attempt 13 (2026-11-23): read Europe PMC's metadata before requesting a full text. Fixtures: the
+# search responses (resultType core, as errata.lookup asks) recorded 2026-11-23 for PMC8356339 (a Corrigendum,
+# isOpenAccess N; its fullTextXML answered HTTP 500 to every request) and PMC8988635 (open access).
+
+EPMC_FIX = ROOT / "backend" / "tests" / "fixtures" / "whu_orch_epmc"
+
+
+def _epmc(pmcid):
+    return json.loads((EPMC_FIX / ("search_core_%s.json" % pmcid)).read_text())["resultList"]["result"][0]
+
+
+def test_metadata_says_which_full_texts_are_served():
+    import errata as E
+    rec = _epmc("PMC8356339")
+    assert (rec["inEPMC"], rec["hasPDF"], rec["isOpenAccess"]) == ("Y", "Y", "N")
+    assert not E.epmc_full_text_served(rec) and E.epmc_full_text_served(_epmc("PMC8988635"))
+
+
+def test_a_notice_whose_full_text_is_not_served_is_never_requested():
+    from orch import corrections as CR
+    rec = _epmc("PMC8356339")
+
+    def fulltext(pmcid):
+        raise AssertionError("not served: must not be requested")
+    text, why = CR.notice_text({"id": "10.1002/cl2.1104", "registry": "DOI"}, lambda k, v: (rec, "matched"), fulltext)
+    assert text is None and "not served" in why and "isOpenAccess N" in why          # -> correction_not_held
+
+
+def test_a_served_full_text_that_fails_after_the_retries_is_an_outage():
+    from orch import corrections as CR
+    rec = dict(_epmc("PMC8988635"), abstractText="")
+    with pytest.raises(CR.RegistryUnavailable, match="HTTP Error 500"):
+        CR.notice_text({"id": "10.1002/x", "registry": "DOI"}, lambda k, v: (rec, "matched"),
+                       lambda pmcid: (None, "HTTPError: HTTP Error 500: "))
+
+
+def test_acquire_does_not_request_a_full_text_the_metadata_says_is_not_served(monkeypatch):
+    import acquire_sources as AQ
+    url = "https://www.ebi.ac.uk/europepmc/webservices/rest/%s/fullTextXML"
+    look = lambda k, v: (_epmc(v), "matched")
+    monkeypatch.setenv("WHU_ORCH_STEP", "acquire")
+    assert "isOpenAccess N" in AQ.epmc_not_served(url % "PMC8356339", look)
+    assert AQ.epmc_not_served(url % "PMC8988635", look) is None
+    assert AQ.epmc_not_served("https://example.org/paper.pdf", look) is None
+    monkeypatch.delenv("WHU_ORCH_STEP")
+    assert AQ.epmc_not_served(url % "PMC8356339", look) is None            # outside orchestrated runs: as before

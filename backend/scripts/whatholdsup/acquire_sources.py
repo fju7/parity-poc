@@ -197,6 +197,25 @@ BACKOFF = (2, 4, 8)
 _sleep = __import__("time").sleep
 
 
+EPMC_FULLTEXT = re.compile(r"europepmc/webservices/rest/(PMC\d+)/fullTextXML", re.I)
+
+
+def epmc_not_served(url: str, lookup=None) -> str | None:
+    """In an orchestrated run, before a Europe PMC full text is requested, its record's metadata is read
+    (advisor's ruling after attempt 13). Returns the reason it is not requested, or None to request it. A
+    metadata lookup that fails is an outage, which the run-wide wrapper records; the request then goes ahead and
+    the run stops after the step."""
+    m = EPMC_FULLTEXT.search(url or "")
+    if not m or not os.environ.get("WHU_ORCH_STEP"):
+        return None
+    import errata as E
+    rec, _why = (lookup or E.lookup)("PMCID", m.group(1))
+    if rec is not None and not E.epmc_full_text_served(rec):
+        return "not served: Europe PMC metadata for %s says isOpenAccess %s (not requested)" % (
+            m.group(1), rec.get("isOpenAccess"))
+    return None
+
+
 def transient(e: Exception) -> bool:
     """A failure that says nothing about the source: timeout, connection error, HTTP 5xx or 429."""
     if isinstance(e, urllib.error.HTTPError):
@@ -296,6 +315,10 @@ def main(argv=None) -> int:
         why, check, tried = "no route tried", {}, []
         unavailable = False
         for target in targets:
+            nsv = epmc_not_served(target)
+            if nsv:                  # the record's metadata says this endpoint serves no full text: not requested
+                why = nsv
+                tried.append({"url": target, "result": why, "unavailable": False}); continue
             try:
                 data, ct, final = fetch_retrying(target)
             except urllib.error.HTTPError as e:

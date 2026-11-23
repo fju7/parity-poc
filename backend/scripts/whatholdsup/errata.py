@@ -258,6 +258,15 @@ def lookup(kind: str, value: str, *, timeout: int = 25) -> tuple[dict | None, st
     return hits[0], "matched on %s %s" % (kind, value)
 
 
+def epmc_full_text_served(rec: dict | None) -> bool:
+    """Does Europe PMC's REST full-text endpoint (/{PMCID}/fullTextXML) serve this record? Only its open-access
+    subset: isOpenAccess "Y". inEPMC / inPMC / hasPDF say a copy exists on the website, not that this endpoint
+    serves it: PMC8356339 (a Corrigendum) is inEPMC Y, inPMC Y, hasPDF Y, isOpenAccess N, and the endpoint
+    answered HTTP 500 to every request on 2026-11-23 (advisor's ruling after attempt 13: read the metadata
+    before requesting a full text; not served is not an outage)."""
+    return (rec or {}).get("isOpenAccess") == "Y"
+
+
 def crossref(doi: str, *, timeout: int = 25) -> tuple[dict | None, str]:
     """The registration agency's own record. (record, why); None means we could
     not look, never that there is nothing to find.
