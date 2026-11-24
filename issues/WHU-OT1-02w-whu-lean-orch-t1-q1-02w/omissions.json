@@ -1,0 +1,44 @@
+{
+ "omissions": [
+  {
+   "key": "S001@-",
+   "source": "S001",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S001",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-24T14:27:27+00:00"
+  },
+  {
+   "key": "S001@128597-128838",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    128597,
+    128838
+   ],
+   "quote_sha256": "e54348e568a74cc7c0a4409bc2c0d55c5a3e1467b8023069a7cac8b8f9c1947f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: SCOPE explicitly covers 'the comparative effectiveness of programme types: inclusive versus special or segregated provision', and the finding compares mainstream with segregated/specialised settings. Step 2: ALREADY never compares effects by setting. The finding speaks to a choice the reader faces, whether to fund mainstream or segregated delivery. Its caveat, that the lack of difference likely reflects most interventions reporting positive findings, limits how much confidence the reader should place in either option. It qualifies the 'which kinds work best' answer, so it is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a6b9b105bce2a69b",
+   "origins": [
+    "S001-01",
+    "S001-02"
+   ],
+   "on_page": "6a9b5eb788c84d92",
+   "after": "2844e4986a4c66db",
+   "decided_at": "2026-11-24T14:27:31+00:00"
+  }
+ ]
+}

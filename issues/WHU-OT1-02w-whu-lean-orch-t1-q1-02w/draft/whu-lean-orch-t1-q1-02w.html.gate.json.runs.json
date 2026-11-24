@@ -1,0 +1,18 @@
+{
+  "cycle": 1,
+  "runs": [
+    {
+      "at": "2026-11-24T14:26:04+00:00",
+      "sha": "7edc0a8cfd4c1515749b3fcc1a61916aa19c6426142ca74bd5b300a05a677682",
+      "past_cap": null,
+      "cycle": 1
+    },
+    {
+      "at": "2026-11-24T14:37:36+00:00",
+      "sha": "9a7efaa18276856dacebb31e0db80cd75e25e54a8fde7dc95e8016e2e5bc83a6",
+      "past_cap": null,
+      "cycle": 1
+    }
+  ],
+  "reason": null
+}

@@ -1761,6 +1761,60 @@
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null
+    },
+    "8deb72d9a81eef58": {
+      "sentence": "No studies in this evidence base evaluated inclusive education policies or the accessibility of the built environment and learning materials, so nothing can be said here about whether those specific approaches work [1].",
+      "sentence_sha": "8deb72d9a81eef58",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@100269",
+      "span": "In other words, these interventions aimed to improve the quality and/or inclusiveness of learning social environments. Among programmes coded under this sub‐category were those that aimed to improve social skills (Lee et al., 2019 ) and reduce rates of victimisation of children with disabilities in school (Devries et al., 2018 ). Other sub‐categories reflected in the literature included ‘Structural interventions’ ( n = 1) (Carew et al., 2019 ), ‘Anti‐bullying policies and programmes’ ( n = 1) (Devries et al., 2018 ), ‘Educational services development’ ( n = 6) (Carew et al., 2019 ; Pawar & Mohite, 2014 ), and ‘Rehabilitation and health services, and assistive technologies’ (Lal, 2010 ). No studies represented the intervention categories of ‘Accessibility of built environment and learning materials’ or ‘Inclusive education policies’.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        100269,
+        101113
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "6a9b5eb788c84d92": {
+      "sentence": "On inclusive versus segregated provision specifically, the review authors report that their review 'did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings' [1].",
+      "sentence_sha": "6a9b5eb788c84d92",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@128597",
+      "span": "Our review did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        128597,
+        128838
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

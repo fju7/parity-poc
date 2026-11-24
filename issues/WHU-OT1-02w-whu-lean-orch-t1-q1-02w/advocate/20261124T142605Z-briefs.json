@@ -1,0 +1,75 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "On which kinds work best, these passages give no firm ranking, and the authors say more research is needed to understand which types are most efficacious [1].",
+        "objection": "The review reports a specific comparison on this question, mainstream versus specialised delivery, and its result and its caveat are both missing from the page.",
+        "source_says": "Our review did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings.",
+        "locator": "Section 6.5 Agreements and disagreements with other studies or reviews",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'No firm ranking' is right, but the page gives the impression the review tested nothing on 'which kinds'. It did test delivery setting and found no difference. The authors attribute that to almost everything looking positive, not to the two settings being equally good, so the null cannot be read as parity.",
+        "source_says_first": "Section 6.5 (Agreements and disagreements with other studies or reviews): \"did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings\". The authors add that this was likely because most interventions reported positive findings. Section 6 (Discussion) gives the split: 13 interventions in mainstream settings, 12 in segregated or specialised settings, and 3 unreported.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "One of the review's stated questions was which interventions appear most effective for different types of disability [1].",
+        "objection": "The page raises this question but never says what the review found on it, namely that it found no systematic differences, with the likely reason the authors give.",
+        "source_says": "Our review did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings.",
+        "locator": "Discussion section, paragraph following the comparison of mainstream and special educational needs settings, before the Wapling (2016) sentence",
+        "could_not_find": "I did not find a subgroup table of effects by impairment type in the passages I could reach. I looked in the Abstract, Section 6 (Discussion), Section 6.5 and the Plain Language Summary. The page's framing of question 4 as open may therefore be partly correct for impairment type specifically.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page leaves a stated question hanging. The review gives a (weak) answer: no systematic difference found, and the authors explain why that is not informative.",
+        "source_says_first": "Section 6.5: \"did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings\", which the authors put down to the majority of interventions reporting positive findings. The Authors' conclusions also state: \"There is no one 'magic bullet' intervention\". The extracted text of the same passage also places the words 'impairment types' immediately after this sentence, but I could not confirm the full wording of that clause.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "All but one of the included studies received an overall rating of low confidence in study findings, so the evidence on these programmes is weak [1].",
+        "objection": "The page leaves out the authors' own overall confidence grade for the body of evidence, which is 'low to medium'. That is a softer verdict than the page's bare 'weak'.",
+        "source_says": "Section 5.2 / 6.3: \"Our confidence in the overall findings is low to medium on the basis of our appraisal of the studies.\" The same section also says the findings \"must be interpreted cautiously\", given low confidence in study methods, heterogeneity and publication bias.",
+        "locator": "Section 5.2 (Confidence in study findings); Section 6.3 (Quality of the evidence)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review itself calls for caution, so 'weak' is defensible. The page omits the authors' own rating for the evidence base, low to medium, and 'weak' reads as harsher than that.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Systemic approaches such as inclusive education policy and accessible buildings have not been evaluated in this evidence base, so nothing can be said here about whether they work [1].",
+        "objection": "Policy and built-environment interventions had no studies, but the review did evaluate school-level and environment-level interventions and reports effects for them, so 'systemic approaches ... nothing can be said' overstates the gap.",
+        "source_says": "No studies represented the intervention categories of ‘Accessibility of built environment and learning materials’ or ‘Inclusive education policies’.",
+        "locator": "Intervention characteristics, 'Accessible learning environments' sub-categories paragraph (preceding Table 9)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's own earlier sentences cite the d = 0.35 estimate and the Good School Toolkit. The closing line is therefore inconsistent with them. The accurate version is that two categories were empty, while a thin and low-confidence environment-level literature (four studies in the pooled estimate) exists and points positive.",
+        "source_says_first": "Section 5 (Results): \"Included studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size.\" The review also reports positive effects on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction from interventions aimed at making learning environments more accessible. The only categories with no studies were 'Accessibility of built environment and learning materials' and 'Inclusive education policies'.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

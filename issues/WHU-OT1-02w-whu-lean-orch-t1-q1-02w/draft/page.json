@@ -23,7 +23,6 @@
     "One Campbell systematic review summarises its own finding this way: a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but there is little research on systemic or school-level change [1].",
     "The review authors call this evidence 'emerging support' for the efficacy and effectiveness of such interventions [1].",
     "They also judge the quality of the included studies to be largely low [1].",
-    "The largest pooled effects were for literacy, cognitive skills, handwriting and numeracy, but each of these rests on a low number of studies [1].",
     "The authors say more research is needed to understand which types of interventions are most efficacious and how best to deliver them [1]."
    ]
   },
@@ -121,7 +120,6 @@
     "One of the review's stated questions was which interventions appear most effective for different types of disability [1].",
     "The authors call for studies with larger samples, more rigorous designs and standardised measures [1].",
     "The studies concerned with speech and school behaviour show no significant effect of intervention [1].",
-    "Across the studies reviewed, heterogeneity is high and the risk of publication bias varies but was frequently high, so the pooled evidence should be treated with caution [1].",
     "All but one of the included studies received an overall rating of low confidence in study findings, so the evidence on these programmes is weak [1].",
     "The low confidence in the evidence across studies was largely due to the use of low-rigour study designs, and did not always reflect multiple points of weakness within any single study [1].",
     "A twin-track approach is needed, meeting the specific needs of children with disabilities while also including them in mainstream activities, for example by improving teachers' skills and classroom accessibility [1].",
@@ -139,11 +137,9 @@
    "section": "verdict",
    "sentences": [
     "The best-supported claim is narrow: many individual-level programmes that build children's skills showed significant effects, and two-thirds of the skills studies analysed reported a significant effect [1].",
-    "The very large effects for numeracy and handwriting should be read cautiously, because each comes from only two studies.",
-    "Pooled effects for speech and communication and for school behaviour were not significant, despite positive individual studies.",
-    "Programmes that change the learning environment, such as teacher training and violence reduction, show a moderate effect, but this rests on few studies with high heterogeneity.",
     "On which kinds work best, these passages give no firm ranking, and the authors say more research is needed to understand which types are most efficacious [1].",
-    "Systemic approaches such as inclusive education policy and accessible buildings have not been evaluated in this evidence base, so nothing can be said here about whether they work [1].",
+    "On inclusive versus segregated provision specifically, the review authors report that their review 'did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings' [1].",
+    "No studies in this evidence base evaluated inclusive education policies or the accessibility of the built environment and learning materials, so nothing can be said here about whether those specific approaches work [1].",
     "The authors conclude that interventions targeting both the individual with a disability and their broader environment are needed [1]."
    ]
   },
@@ -532,6 +528,20 @@
     "source": "S001",
     "start": 8704,
     "end": 8859
+   }
+  ],
+  "No studies in this evidence base evaluated inclusive education policies or the accessibility of the built environment and learning materials, so nothing can be said here about whether those specific approaches work [1].": [
+   {
+    "source": "S001",
+    "start": 100269,
+    "end": 101113
+   }
+  ],
+  "On inclusive versus segregated provision specifically, the review authors report that their review 'did not reveal any systematic differences between the effectiveness of interventions delivered in mainstream or segregated/specialised settings, but this was likely due to the majority of interventions reporting positive findings' [1].": [
+   {
+    "source": "S001",
+    "start": 128597,
+    "end": 128838
    }
   ]
  }

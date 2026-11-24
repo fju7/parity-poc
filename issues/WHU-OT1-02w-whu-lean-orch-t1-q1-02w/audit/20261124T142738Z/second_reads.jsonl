@@ -1,0 +1,7 @@
+{"unit": "u43", "sha": "ac03f332509ea8dc", "verdict": "holds", "kind": null, "reason": "The source states this almost verbatim.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u17", "sha": "d05e7f6425d61076", "verdict": "holds", "kind": null, "reason": "The sentence matches the source exactly.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u29", "sha": "0ad0cb2b34c5437b", "verdict": "holds", "kind": null, "reason": "The narrative summary does list positive effects for speech and communication and for school behaviour, and the sentence correctly attributes the claim to that summary.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u65", "sha": "70c3df40108dd3f8", "verdict": "holds", "kind": null, "reason": "This matches the authors' conclusion.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u39", "sha": "063ae9ec03578d8d", "verdict": "holds", "kind": null, "reason": "The country, design, sample size and programme all match the study table.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u36", "sha": "ad8618279a9a1bec", "verdict": "holds", "kind": null, "reason": "The country, design, sample size and aim match the study table.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u5", "sha": "1493ac2047c4b16c", "verdict": "holds", "kind": null, "reason": "The phrase 'emerging support' appears in the review's own text.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}

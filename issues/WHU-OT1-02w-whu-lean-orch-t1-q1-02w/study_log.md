@@ -9,3 +9,13 @@
 | coverage (orchestrator) | 2026-11-24T14:21:59+00:00 | 2026-11-24T14:22:36+00:00 | $0.0651 | 0 | 14 coverage decision(s), 0 left in scope |
 | judgements (orchestrator) | 2026-11-24T14:22:36+00:00 | 2026-11-24T14:23:09+00:00 | $0.0555 | 0 | 4 judgement(s) stated |
 | corrections_3b (orchestrator) | 2026-11-24T14:23:09+00:00 | 2026-11-24T14:23:10+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-24T14:23:10+00:00 | 2026-11-24T14:25:09+00:00 | $0.0000 | 0 | committed a73e30d2496b |
+| gate (orchestrator) | 2026-11-24T14:25:09+00:00 | 2026-11-24T14:26:05+00:00 | $0.4624 | 0 | done |
+| advocate (orchestrator) | 2026-11-24T14:26:05+00:00 | 2026-11-24T14:27:16+00:00 | $0.5217 | 0 | 1 record(s) applied |
+| omissions (orchestrator) | 2026-11-24T14:27:16+00:00 | 2026-11-24T14:27:35+00:00 | $0.0458 | 0 | 1 record(s) applied |
+| findings (orchestrator) | 2026-11-24T14:27:35+00:00 | 2026-11-24T14:27:37+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| conclusions (orchestrator) | 2026-11-24T14:27:37+00:00 | 2026-11-24T14:27:38+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| audit (orchestrator) | 2026-11-24T14:27:38+00:00 | 2026-11-24T14:29:17+00:00 | $0.3509 | 0 | 2 audit round(s) |
+| overstatement (orchestrator) | 2026-11-24T14:29:17+00:00 | 2026-11-24T14:37:34+00:00 | $0.0743 | 0 | 53 pair(s): 2 yes, 51 no |
+| corrections (orchestrator) | 2026-11-24T14:37:34+00:00 | 2026-11-24T14:37:35+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| final_gate (orchestrator) | 2026-11-24T14:37:35+00:00 | 2026-11-24T14:37:37+00:00 | $0.0000 | 0 | 0 record(s) applied |
