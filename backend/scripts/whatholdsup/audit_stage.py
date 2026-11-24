@@ -85,6 +85,19 @@ _spec = importlib.util.spec_from_file_location("spend_ledger", ROOT / "backend" 
 S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
 
+
+def _PR():
+    """provider_retry, loaded by path (the shared module object; see provider_retry.py)."""
+    import sys as _sys
+    m = _sys.modules.get("provider_retry")
+    if m is None:
+        _s = importlib.util.spec_from_file_location("provider_retry", ROOT / "backend" / "scripts" / "provider_retry.py")
+        m = importlib.util.module_from_spec(_s)
+        _sys.modules["provider_retry"] = m
+        _s.loader.exec_module(m)
+    return m
+
+
 READ_PROMPT = HERE / "audit_prompts" / "read.md"
 SUMMARY_PROMPT = HERE / "audit_prompts" / "summary.md"
 RULE_PROMPT = HERE / "audit_prompts" / "rule.md"
@@ -1010,8 +1023,8 @@ class Caller:
         if cache_prefix:
             import lean
             content = lean.cache_blocks(prompt, cache_prefix)
-        n_in = self._raw.messages.count_tokens(model=self.model,
-                                               messages=[{"role": "user", "content": content}]).input_tokens
+        n_in = _PR().call(lambda: self._raw.messages.count_tokens(
+            model=self.model, messages=[{"role": "user", "content": content}]), "anthropic", "count_tokens").input_tokens
         p = S.rates(self.model, n_in) if hasattr(S, "rates") else S.PRICES[self.model]
         # A cached prefix may be written at the cache-write price, the higher one.
         worst = (n_in * max(p["input"], p["cache_write"] if cache_prefix else 0) + max_tokens * p["output"]) / 1e6
@@ -1023,8 +1036,9 @@ class Caller:
         S.check_cap(self.issue, worst)
         t0 = time.time()
         kw = {"timeout": LONG_REPLY_TIMEOUT_S} if max_tokens > LONG_REPLY_TOKENS else {}
-        r = self._client.messages.create(model=self.model, max_tokens=max_tokens,
-                                         messages=[{"role": "user", "content": content}], **kw)
+        r = _PR().call(lambda: self._client.messages.create(model=self.model, max_tokens=max_tokens,
+                                                            messages=[{"role": "user", "content": content}], **kw),
+                       "anthropic", role)
         if r.stop_reason == "refusal":
             raise AuditFailure("the model refused (%s)" % role)
         text = "".join(getattr(b, "text", "") for b in r.content)

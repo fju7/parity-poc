@@ -24,6 +24,19 @@ _spec = importlib.util.spec_from_file_location("spend_ledger", ROOT / "backend" 
 S = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(S)
 
+
+def _PR():
+    """provider_retry, loaded by path (the shared module object; see provider_retry.py)."""
+    import sys as _sys
+    m = _sys.modules.get("provider_retry")
+    if m is None:
+        _s = importlib.util.spec_from_file_location("provider_retry", ROOT / "backend" / "scripts" / "provider_retry.py")
+        m = importlib.util.module_from_spec(_s)
+        _sys.modules["provider_retry"] = m
+        _s.loader.exec_module(m)
+    return m
+
+
 MODEL = "gemini-4-argon"
 SCRIPT = "orch/google.py"
 PREFLIGHT_TEXT = "Reply with the single word: ok"
@@ -89,7 +102,10 @@ class Gateway:
             return self.preflight_record
         S.orch_guard(MODEL, SCRIPT, "google-preflight", self.issue, 0.001)
         try:
-            r = self.client().models.generate_content(model=MODEL, contents=PREFLIGHT_TEXT, config=_config(64))
+            r = _PR().call(lambda: self.client().models.generate_content(model=MODEL, contents=PREFLIGHT_TEXT,
+                                                                         config=_config(64)), "google", "preflight")
+        except _PR().ModelUnavailable:
+            raise                          # the run stops "model unavailable; run again later" (ruling after attempt 22)
         except Exception as e:
             if free_tier(e):
                 raise Stop("PREFLIGHT: the key is on Google's Free Tier; no Google call is made")
@@ -111,7 +127,10 @@ class Gateway:
         n_in = approx_tokens(text)
         S.orch_guard(MODEL, SCRIPT, role, self.issue, worst_usd(n_in))
         try:
-            r = self.client().models.generate_content(model=MODEL, contents=text, config=_config(MAX_OUT))
+            r = _PR().call(lambda: self.client().models.generate_content(model=MODEL, contents=text,
+                                                                         config=_config(MAX_OUT)), "google", role)
+        except _PR().ModelUnavailable:
+            raise                          # the run stops "model unavailable; run again later" (ruling after attempt 22)
         except Exception as e:
             raise Stop("no reply from %s (%s)" % (MODEL, str(e)[:200]))
         mv = getattr(r, "model_version", None) or ""

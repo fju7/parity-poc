@@ -210,6 +210,28 @@ def _load_spend():
         return None
 
 
+
+def _PR():
+    """provider_retry, loaded by path like spend_ledger (the shared module object). Orchestrated model calls are
+    retried and an outage stops the run (advisor's ruling after orchestrator trial 1 attempt 22)."""
+    import importlib.util
+    m = sys.modules.get("provider_retry")
+    if m is None:
+        p = Path(__file__).resolve().parents[1] / "provider_retry.py"
+        sp = importlib.util.spec_from_file_location("provider_retry", p)
+        m = importlib.util.module_from_spec(sp)
+        sys.modules["provider_retry"] = m
+        sp.loader.exec_module(m)
+    return m
+
+
+
+def _final_message(stream_manager):
+    """The streamed reply's final message (it carries stop_reason and usage as a non-streaming one does)."""
+    with stream_manager as stream:
+        return stream.get_final_message()
+
+
 _spend = _load_spend()
 
 
@@ -907,10 +929,10 @@ def call(system: str, user: str, *, search: bool,
                 if SIGNAL_MODEL in FIXED_SAMPLING:
                     params.pop("temperature")
                 if max_tokens > STREAM_ABOVE:
-                    with client.messages.stream(**params) as stream:
-                        response = stream.get_final_message()
+                    response = _PR().call(lambda: _final_message(client.messages.stream(**params)),
+                                          "anthropic", label or "call")
                 else:
-                    response = client.messages.create(**params)
+                    response = _PR().call(lambda: client.messages.create(**params), "anthropic", label or "call")
                 _record_usage(label, response)
                 # AFTER SPENDING: the response names the model that actually
                 # answered. If that is not in PRICES the line above was written
@@ -927,6 +949,8 @@ def call(system: str, user: str, *, search: bool,
             except SystemExit:
                 raise                       # the unpriced-model stop above is not an API error
             except Exception as exc:
+                if isinstance(exc, _PR().ModelUnavailable):
+                    raise                   # orchestrated: the run stops "model unavailable; run again later"
                 err = str(exc)
                 if "529" in err and attempt < len(BACKOFF_DELAYS):
                     delay = BACKOFF_DELAYS[attempt]

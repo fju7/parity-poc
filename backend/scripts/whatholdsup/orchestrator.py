@@ -87,6 +87,8 @@ class Ctx:
         if getattr(self, "unavailable_log", None):                  # every registry lookup retried, outages logged
             e["WHU_ORCH_UNAVAILABLE_LOG"] = str(self.unavailable_log)
             e["PYTHONPATH"] = os.pathsep.join([str(SITE)] + ([e["PYTHONPATH"]] if e.get("PYTHONPATH") else []))
+        if getattr(self, "model_log", None):                        # every model call retried, outages logged
+            e[MODEL_LOG_ENV] = str(self.model_log)
         return e
 
 
@@ -1259,6 +1261,13 @@ def run(ctx: Ctx) -> dict:
     os.close(fd)
     ctx.unavailable_log = Path(ulog)
     RH.install(ctx.unavailable_log)        # this process; the steps' subprocesses through orch/site (env)
+    # Ruling after attempt 22: every model-provider call is retried (provider_retry.call) and an outage is logged
+    # here, in this process (os.environ) and in every step's subprocess (Ctx.env).
+    fd, mlog = tempfile.mkstemp(prefix="whu-orch-model-unavailable-", suffix=".jsonl")
+    os.close(fd)
+    ctx.model_log = Path(mlog)
+    _prev_mlog = os.environ.get(MODEL_LOG_ENV)
+    os.environ[MODEL_LOG_ENV] = str(ctx.model_log)
     try:
         with RunLock(ctx.slug, ctx.mode, path=Path(os.environ.get("WHU_ORCH_LOCK") or
                                                      ctx.root / "backend/data/whatholdsup/orchestrator.lock")) as lk:
@@ -1291,21 +1300,50 @@ def run(ctx: Ctx) -> dict:
         result = "Not Ready: SystemExit: %s" % e
     finally:
         RH.uninstall()
+        if _prev_mlog is None:
+            os.environ.pop(MODEL_LOG_ENV, None)
+        else:
+            os.environ[MODEL_LOG_ENV] = _prev_mlog
     events = list(getattr(ctx, "malformed", None) or []) + _stage_malformed(ctx.malformed_log)
     outages = RH.outages(ctx.unavailable_log)
-    try:
-        ctx.unavailable_log.unlink()
-    except OSError:
-        pass
+    model_out = PR().outages(ctx.model_log)
+    for p in (ctx.unavailable_log, ctx.model_log):
+        try:
+            p.unlink()
+        except OSError:
+            pass
     return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events),
-            "registry_outages": outages}
+            "registry_outages": outages, "model_outages": model_out}
 
 
 SITE = Path(__file__).resolve().parent / "orch" / "site"
 
 
+MODEL_LOG_ENV = "WHU_ORCH_MODEL_LOG"
+MODEL_UNAVAILABLE = "model unavailable; run again later"
+
+
+def PR():
+    """provider_retry, loaded by path (the shared module object; see provider_retry.py)."""
+    m = sys.modules.get("provider_retry")
+    if m is None:
+        import importlib.util
+        s = importlib.util.spec_from_file_location("provider_retry", ROOT / "backend" / "scripts" / "provider_retry.py")
+        m = importlib.util.module_from_spec(s)
+        sys.modules["provider_retry"] = m
+        s.loader.exec_module(m)
+    return m
+
+
 def _stop_if_unavailable(ctx, step) -> None:
-    """A registry still unavailable after the retries, anywhere in the step: the run stops (ruling 2, attempt 12)."""
+    """A registry still unavailable after the retries, anywhere in the step: the run stops (ruling 2, attempt 12).
+    A model provider still unavailable after its retries, likewise (ruling after attempt 22): read from the log,
+    so a stage that caught the error and carried on still stops the run -- a check that could not run never
+    passes. Both are outage stops under revised ruling 3."""
+    mo = PR().outages(getattr(ctx, "model_log", None) or "")
+    if mo:
+        raise RunStop("%s: %s (%s)" % (step.name, MODEL_UNAVAILABLE, "; ".join(
+            "%s %s: %s" % (o.get("provider"), o.get("what"), (o.get("error") or "")[:100]) for o in mo[:3])))
     from orch import registry_http as RH
     out = RH.outages(getattr(ctx, "unavailable_log", None) or "")
     if out:
