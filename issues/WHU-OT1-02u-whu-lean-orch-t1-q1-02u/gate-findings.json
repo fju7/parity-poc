@@ -1,0 +1,59 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f319368c2-rec-2",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries. Campbell Systematic Reviews. 2020;16(1):e1070. is SUPERSEDED: the draft uses 2020 original EGM: claims that over half of impact evaluations come from upper-middle-income countries, notable gap for low-income countries (n=9), signif",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "newer edition disclosed on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): A newer edition exists of Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries; this page uses the edition listed as Evidence and gap map of studies assessing the effectiveness of interventions for [2].",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-24",
+      "attached_to": {
+        "study": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries. Campbell Systematic Reviews. 2020;16(1):e1070.",
+        "sources": [
+          "S002"
+        ],
+        "rows": [
+          "110b0cc241dadb4a",
+          "234fff26a2ff3c53",
+          "ab6829fca6f513d0",
+          "5b90f20fa705374d"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f319368c2-rec-3",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell Systematic Reviews. 2022;18(4):e1287. is SUPERSEDED: the draft uses 2022 EGM: 50 studies found across 16 of 41 countries; focus on changing teacher attitudes; qualitative reports of teacher-reported benefits (e.g.,",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "newer edition disclosed on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): A newer edition exists of Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map; this page uses the edition listed as Teacher professional development for disability inclusion in low- and middle-inc [3].",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-24",
+      "attached_to": {
+        "study": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell Systematic Reviews. 2022;18(4):e1287.",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "7bb8c94d82590cf7",
+          "e1376edc889e7a20",
+          "3b30bc60b908ad34",
+          "933fc91c8521426d",
+          "4fac1dfa26ec5950",
+          "a9ad5bac8f44ffbd",
+          "2aa1aef4c35b9208",
+          "2b4093e86adab9ed"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

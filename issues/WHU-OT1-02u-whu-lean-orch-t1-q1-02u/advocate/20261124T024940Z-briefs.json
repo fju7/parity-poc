@@ -1,0 +1,75 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The clearest reported effects are for interventions that build learners' skills, with significant and large effects on literacy, cognitive skills, handwriting and numeracy, but these effects are based on a low number of studies [1].",
+        "objection": "The page says only that these effects rest on few studies. It leaves out that the review's own table gives very wide confidence intervals for these estimates and flags them as high-heterogeneity or small-sample effects, which makes 'clearest' too strong.",
+        "source_says": "Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+        "locator": "Section 5.3 Effects of interventions, Table 14 (Effects of interventions), Skills for learning, Numeracy row",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The direction of effect holds, but 'clearest' overstates it. The magnitudes are imprecise and the review itself says the pooled estimate carries considerable heterogeneity. The page should say the size of these effects is highly uncertain, not just that few studies contributed.",
+        "source_says_first": "Section 5.3, 'Skills for learning' effects table: Numeracy \"d = 4.60 (0.69 to 8.50) k = 2 n = 110 I² = 85%\", annotated \"High effect based on a low number of studies with high heterogeneity.\" Handwriting: \"d = 4.86 (0.25 to 9.48) k = 2 n = 101\". The overall skills estimate is \"d = 2.10 (0.91 to 3.29) k = 22 n = 1313 I² = 99%\", with a \"marginally significant publication bias.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It holds up that a range of individual-level interventions, especially those building skills such as literacy and numeracy, have shown significant effects, though the authors call the support 'emerging' and the effects rest on few studies [1].",
+        "objection": "The page names literacy and numeracy as the robust core. It omits the review's outcome-level caveats: the numeracy estimate has I² of 85% and a confidence interval of 0.69 to 8.50, and the review treats publication bias for some of these outcomes as likely or unassessable.",
+        "source_says": "Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+        "locator": "Section 5.3 Effects of interventions, Table 14 (Skills for learning, Numeracy row)",
+        "could_not_find": "The extracted text of the publication-bias passage for literacy and cognitive skills was garbled. I could not reliably quote the exact sentence saying which outcomes are likely affected by publication bias. I searched the Wiley full text and ResearchGate PDF excerpts of Section 5.3.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion that skills interventions show significant effects survives. The page's 'it holds up' framing is narrower than the review supports, because the headline outcomes are the ones with the least precise and potentially inflated estimates.",
+        "source_says_first": "Section 5.3 table: Numeracy \"d = 4.60 (0.69 to 8.50) k = 2 n = 110 I² = 85%\"; Handwriting \"d = 4.86 (0.25 to 9.48) k = 2 n = 101 I² = 0%\". The surrounding text says the joint skills effect \"presents considerable heterogeneity and a marginally significant publication bias.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The review set out to ask which interventions appear most effective for different types of disability, but the passages used here do not report an answer to that question [1].",
+        "objection": "The page is right that no answer is reported, but the review does report why one is hard to give. Its evidence by impairment type is lopsided, and it found no education intervention studies at all for psychosocial or mental impairments.",
+        "source_says": "Individuals with intellectual or learning and developmental impairments were the most frequently targeted by included interventions ( n = 16). This was followed by individuals with hearing impairments ( n = 7), physical impairments ( n = 4), and then vision impairments ( n = 2). No studies identified in our review captured education interventions for people with psychosocial/mental impairments.",
+        "locator": "Section 5.1 Target group (results text on impairment type, preceding Figure 4)",
+        "could_not_find": "I found no impairment-specific effect estimates, so no subgroup answer to research question 4. I searched the abstract, Section 5.1 and Section 5.3 excerpts.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's statement stands. The omitted distribution (vision n=2, psychosocial none) explains the gap and tells readers where the evidence is thinnest, which is more useful than a bare statement that no answer was found.",
+        "source_says_first": "Section 5.1 Target group: \"Individuals with intellectual or learning and developmental impairments were the most frequently targeted by included interventions (n = 16). This was followed by individuals with hearing impairments (n = 7), physical impairments (n = 4), and then vision impairments (n = 2). No studies identified in our review captured education interventions for people with psychosocial/mental impairments.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  },
+  {
+    "source": "S003",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "mode": "skipped",
+    "state": "blocked",
+    "note": "nobody can open this source, so no advocate runs on it. The ledger blocks new characterisation of it instead — which is the correct control, because an advocate here would be guessing.",
+    "objections": []
+  }
+]

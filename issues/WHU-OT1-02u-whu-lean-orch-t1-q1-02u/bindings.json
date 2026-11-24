@@ -1306,6 +1306,87 @@
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null
+    },
+    "1cbcfd6c281ffe1d": {
+      "sentence": "The review reports that 'individuals with intellectual or learning and developmental impairments were the most frequently targeted by included interventions (n = 16)', followed by those with hearing impairments (n = 7), physical impairments (n = 4) and vision impairments (n = 2), and that 'no studies identified in our review captured education interventions for people with psychosocial/mental impairments' [1].",
+      "sentence_sha": "1cbcfd6c281ffe1d",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@82904",
+      "span": "Individuals with intellectual or learning and developmental impairments were the most frequently targeted by included interventions ( n = 16). This was followed by individuals with hearing impairments ( n = 7), physical impairments ( n = 4), and then vision impairments ( n = 2). No studies identified in our review captured education interventions for people with psychosocial/mental impairments.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        82904,
+        83301
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "32b5afc2b6cedfea": {
+      "sentence": "The evidence and gap map identified 50 studies from 16 of the 41 low- and middle-income Asia-Pacific countries, but it did not appraise the quality of the included studies [3].",
+      "sentence_sha": "32b5afc2b6cedfea",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+      "locator_type": "prose",
+      "locator": "passage S003@6241",
+      "span": "Teacher professional development for disability inclusion in low‐ and middle‐income Asia‐Pacific countries: An evidence and gap map .",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        6241,
+        6374
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "cb2e3c7741e61979": {
+      "sentence": "The report's abstract states that no studies were found on how teachers could support positive student behaviour, although its results section reports fourteen studies with outcomes for enabling positive student behaviour [3].",
+      "sentence_sha": "cb2e3c7741e61979",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+      "locator_type": "prose",
+      "locator": "passage S003@4726",
+      "span": "Second, no studies were found that reported on how teachers could support positive student behaviour.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-23",
+      "on_page": true,
+      "offsets": [
+        4726,
+        4827
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }
