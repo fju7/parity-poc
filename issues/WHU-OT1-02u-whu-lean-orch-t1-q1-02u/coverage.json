@@ -1,0 +1,110 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:44:45+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding describes how many studies targeted children with disabilities. It is a descriptive feature of the evidence base and does not say whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:44:46+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies targeted family members versus service providers. It reports no effect on outcomes, so it would not change the answer on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:44:49+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "It only describes which impairment groups interventions most often targeted; it gives no evidence on whether programmes work or which types work best, so the answer would not change.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:44:52+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only reports which intervention category appeared most often in the studies. It says nothing about effects or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:44:55+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes why children with disabilities fall behind (school systems not set up for them), which describes the problem and the education gap rather than whether interventions work.",
+   "by": "claude-sonnet-5-5",
+   "element": "Prevalence of disability and the size of the education gap for children with disabilities",
+   "decided_at": "2026-11-24T02:45:08+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes, not educational outcomes, so it is about interventions judged only on health outcomes, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation interventions judged only on health or functional outcomes",
+   "decided_at": "2026-11-24T02:45:11+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation that evaluations should target the broader environment as well as the individual. It reports no effect size or comparison, so it would not change the answer on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:20+00:00"
+  },
+  "S002@5649-6168": {
+   "state": "not_material",
+   "reason": "The finding only describes the purpose of an evidence gap map as a starting point for researchers and policymakers. It reports no result about whether education programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:22+00:00"
+  },
+  "S003@4325-4537": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies exist and where they are located, not whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:24+00:00"
+  },
+  "S003@4538-4608": {
+   "state": "not_material",
+   "reason": "The finding is a vague note about research gaps in professional learning. It gives no effect, direction or comparison, so it cannot change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:26+00:00"
+  },
+  "S003@4609-4725": {
+   "state": "not_material",
+   "reason": "It only counts how few studies examined mental-health support for students with disabilities. It reports no effect on education outcomes, so it does not change whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:30+00:00"
+  },
+  "S003@4828-5007": {
+   "state": "out_of_scope",
+   "reason": "The finding describes disability as a risk factor for mental health conditions, which concerns the problem and health outcomes rather than whether education programmes for children with disabilities work.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation interventions judged only on health or functional outcomes",
+   "decided_at": "2026-11-24T02:45:33+00:00"
+  },
+  "S003@5029-5281": {
+   "state": "not_material",
+   "reason": "The finding is a general call to evaluate and publish evidence on disability-inclusive teacher professional development in LMICs. It reports no effect or comparison, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:35+00:00"
+  },
+  "S003@5282-6096": {
+   "state": "not_material",
+   "reason": "The finding is only metadata and boilerplate (publisher, PMC flags, GEM Centre partnership description) with no result about whether any education intervention for children with disabilities works.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T02:45:37+00:00"
+  }
+ }
+}
