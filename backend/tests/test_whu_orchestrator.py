@@ -1073,6 +1073,8 @@ def test_b_none_of_these_is_allowed_and_recorded_never_forced(tmp_path):
     ctx = SimpleNamespace(case=c, slug="orch-x", ask=lambda p, n, r: reply, search=lambda t, a, y, k: found,
                           replies=[])
     O.code_discover(ctx, ST.BY_NAME["discover"])
+    assert not (c / "sources.json").exists() and (c / "proposals.json").exists()   # propose, then confirm
+    O.code_confirm(ctx, ST.BY_NAME["confirm"])
     doc = json.loads((c / "sources.json").read_text())
     assert [s["type"] for s in doc["sources"]] == ["review"]                 # never forced into a type
     assert doc["not_of_a_type"][0]["title"] == "Found title"
@@ -1682,12 +1684,16 @@ def test_every_write_traced_in_the_paid_attempts_was_owned_by_its_step():
     for chain in sorted((ROOT / "issues").glob("WHU-OT1-02*/orchestrator/chain.jsonl")):
         slug = json.loads((chain.parents[1] / "issue.json").read_text())["slug"]
         rows = [json.loads(l) for l in chain.read_text().splitlines() if l.strip()]
+        split = any(r["step"] == "confirm" for r in rows)     # discover split into discover + confirm after a24
         for prev, row in zip(rows, rows[1:]):
             step = ST.BY_NAME.get(row["step"])
             if step is None:
                 continue
             d = CH.diff(prev["hashes"], row["hashes"])
-            assert not CH.violations(d, ST.owns_for(step, slug)), (chain.parent.parent.name, row["step"], d)
+            owns = ST.owns_for(step, slug)
+            if row["step"] == "discover" and not split:
+                owns = owns + ("sources.json",)               # before the split, discover wrote sources.json
+            assert not CH.violations(d, owns), (chain.parent.parent.name, row["step"], d)
             seen += 1
     assert seen >= 30
 

@@ -65,23 +65,71 @@ def _ids(src: dict) -> list[tuple[str, str]]:
     return out
 
 
-def status(src: dict, lookup=None, crossref=None) -> dict:
-    """{"retracted", "why", "corrections": [{"id", "registry", "type"}], "answered": [...], "doi"}."""
-    lookup = lookup or E.lookup
-    crossref = crossref or E.crossref
-    out = {"retracted": False, "concern": False, "why": [], "corrections": [], "answered": [], "doi": src.get("doi")}
-    rec = None
-    for kind, value in _ids(src):
-        rec, why = _answered_or_raise(*lookup(kind, value), "Europe PMC %s %s" % (kind, value))
-        if rec is not None:
-            same, why_same = E.resolves_to_us(rec, src)
+MIN_ANSWERING = 2            # ruling 2 after attempt 24: a status needs answers from two of the three registries
+RETRACTION_PUBMED = {"RetractionIn", "RetractionofPublicationIn"}
+CONCERN_PUBMED = {"ExpressionOfConcernIn"}
+CORRECTION_PUBMED = {"ErratumIn", "RepublishedIn", "CorrectedandRepublishedIn"}
+
+
+def _as_answer(registry: str, got):
+    """An injected lookup's (record, why) as a registries.Answer: an outage when WHY reads like one."""
+    import registries as RG
+    if isinstance(got, RG.Answer):
+        return got
+    rec, why = got
+    return RG.Answer(registry, not (rec is None and UNANSWERED.search(why or "")), rec, why=why or "")
+
+
+def _default_clients():
+    import registries as RG
+    return (lambda k, v: RG.epmc_id(k, v), lambda d: RG.crossref_work(d), lambda k, v: RG.pubmed_record(k, v))
+
+
+def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
+    """{"retracted", "concern", "why", "corrections": [{"id", "registry", "type"}], "answered": [...], "doi",
+    "registries": [{"registry", "asked", "answered", "record", "why"}]}.
+
+    Ruling 2 after attempt 24 (2026-11-24): Europe PMC, PubMed and Crossref are each asked (each retried by the
+    orchestrator); a registry ANSWERS when it replies -- with this source's record, or a definite "no record" -- and
+    does not when it is still unavailable after its retries. With fewer than two answering, RegistryUnavailable (the
+    run stops "registry unavailable; run again later"); otherwise the status is the union of what the answering
+    registries record, every registry's answer is recorded, and an outage among them is marked covered.
+    A source with no identifier asks no registry and records none (as before). LOOKUP / CROSSREF / PUBMED are
+    injected in tests; given LOOKUP or CROSSREF without PUBMED, PubMed is recorded "not asked"."""
+    import registries as RG
+    injected = lookup is not None or crossref is not None
+    d_lookup, d_crossref, d_pubmed = _default_clients()
+    lookup = lookup or d_lookup
+    crossref = crossref or d_crossref
+    if pubmed is None and not injected:
+        pubmed = d_pubmed
+    out = {"retracted": False, "concern": False, "why": [], "corrections": [], "answered": [], "doi": src.get("doi"),
+           "registries": []}
+    ids = _ids(src)
+    if not ids:
+        return out
+    answers, outages = [], []          # (Answer, asked) per registry; every unanswered call, to cover
+    # Europe PMC: each identifier until one gives this source's record
+    rec, epmc_answered, epmc_url = None, False, None
+    for kind, value in ids:
+        ans = _as_answer(RG.EUROPE_PMC, lookup(kind, value))
+        if not ans.answered:
+            outages.append(ans)
+            out["answered"].append("Europe PMC %s %s: %s" % (kind, value, ans.why))
+            continue
+        epmc_answered, epmc_url = True, ans.url
+        if ans.record is not None:
+            same, why_same = E.resolves_to_us(ans.record, src)
             if not same:
                 out["answered"].append("Europe PMC %s %s: %s (not used)" % (kind, value, why_same))
-                rec = None
                 continue
+            rec = ans.record
             out["answered"].append("Europe PMC %s %s" % (kind, value))
             break
-        out["answered"].append("Europe PMC %s %s: %s" % (kind, value, why))
+        out["answered"].append("Europe PMC %s %s: %s" % (kind, value, ans.why))
+    answers.append((RG.Answer(RG.EUROPE_PMC, epmc_answered, rec, url=epmc_url,
+                              why="; ".join(a for a in out["answered"] if a.startswith("Europe PMC"))),
+                    ", ".join("%s %s" % i for i in ids)))
     if rec is not None:
         types = (rec.get("pubTypeList") or {}).get("pubType") or []
         types = [types] if isinstance(types, str) else types
@@ -103,8 +151,47 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
             elif t in CORRECTION_EPMC:
                 out["corrections"].append({"id": str(a.get("id")), "registry": a.get("source") or "MED", "type": t})
         out["doi"] = out["doi"] or rec.get("doi")
+    # PubMed: by PMID, else by DOI or PMCID
+    if pubmed is None:
+        answers.append((RG.Answer(RG.PUBMED, False, why="not asked (no PubMed client given)"), "-"))
+    else:
+        pid = next(((k, v) for k, v in ids if k == "PMID"), None) or \
+            (("PMID", str(rec["pmid"])) if rec is not None and rec.get("pmid") else None) or \
+            next(((k, v) for k, v in ids if k in ("DOI", "PMCID")), None)
+        ans = _as_answer(RG.PUBMED, pubmed(*pid)) if pid else RG.Answer(RG.PUBMED, False, why="no identifier")
+        if pid and not ans.answered:
+            outages.append(ans)
+        pm = ans.record
+        if pm is not None:
+            same, why_same = E.resolves_to_us(pm, src)
+            if not same:
+                ans = RG.Answer(RG.PUBMED, True, None, why="%s (not used)" % why_same, url=ans.url)
+                pm = None
+        out["answered"].append("PubMed %s %s%s" % (pid[0], pid[1], "" if pm is not None else ": " + ans.why)
+                               if pid else "PubMed: no identifier to ask by")
+        answers.append((ans, "%s %s" % pid if pid else "-"))
+        if pm is not None:
+            if "Retracted Publication" in pm.get("pubtypes") or []:
+                out["retracted"] = True
+                out["why"].append("PubMed publication type: Retracted Publication")
+            for link in pm.get("links") or []:
+                ty = link.get("type") or ""
+                if ty in RETRACTION_PUBMED:
+                    out["retracted"] = True
+                    out["why"].append("PubMed: %s %s" % (ty, link.get("pmid")))
+                elif ty in CONCERN_PUBMED:
+                    out["concern"] = True
+                    out["why"].append("PubMed: %s %s" % (ty, link.get("pmid")))
+                elif ty in CORRECTION_PUBMED and link.get("pmid"):
+                    out["corrections"].append({"id": str(link["pmid"]), "registry": "MED", "type": ty})
+            out["doi"] = out["doi"] or pm.get("doi")
+    # Crossref: by DOI
     if out["doi"]:
-        msg, why = _answered_or_raise(*crossref(out["doi"]), "Crossref %s" % out["doi"])
+        ans = _as_answer(RG.CROSSREF_NAME, crossref(out["doi"]))
+        if not ans.answered:
+            outages.append(ans)
+        answers.append((ans, "DOI %s" % out["doi"]))
+        msg = ans.record
         if msg is not None:
             out["answered"].append("Crossref %s" % out["doi"])
             for a in E.crossref_amendments(msg):
@@ -121,7 +208,17 @@ def status(src: dict, lookup=None, crossref=None) -> dict:
                 elif t in CORRECTION_CROSSREF:
                     out["corrections"].append({"id": str(ident), "registry": "DOI", "type": t})
         else:
-            out["answered"].append("Crossref %s: %s" % (out["doi"], why))
+            out["answered"].append("Crossref %s: %s" % (out["doi"], ans.why))
+    else:
+        answers.append((RG.Answer(RG.CROSSREF_NAME, False, why="no DOI to ask by"), "-"))
+    out["registries"] = [a.row(asked) for a, asked in answers]
+    answering = [a.registry for a, _ in answers if a.answered]
+    if len(answering) < MIN_ANSWERING:
+        raise RegistryUnavailable("%d of 3 registries answered (%s): %s" % (
+            len(answering), ", ".join(answering) or "none",
+            "; ".join("%s %s" % (a.registry, a.why) for a, _ in answers if not a.answered)))
+    for a in outages:
+        RG.covered(a, answering)
     seen, uniq = set(), []
     for c in out["corrections"]:
         k = c["id"].lower()

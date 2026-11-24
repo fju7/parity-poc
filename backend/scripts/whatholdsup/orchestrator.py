@@ -522,6 +522,10 @@ def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple
                "container": p.get("container") or None, "authors": p.get("first_author"),
                "used_for": p.get("why") or None, "proposed_by": "orchestrator discover step"}
         ident = getattr(got, "identifier", None)
+        rows = (getattr(got, "extra", None) or {}).get("answered") if ident is not None else \
+            getattr(got, "answered", None)
+        if rows:
+            src["identity_lookup"] = rows      # ruling 2 after attempt 24: which registries were asked and answered
         if ident is not None:
             kind, value = getattr(ident, "kind", None), getattr(ident, "value", None)
             if kind in ("doi", "pmid", "pmcid", "nct"):
@@ -548,11 +552,15 @@ def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple
             out.append(src)
         else:
             unresolved.append({"proposal": p, "why": getattr(got, "reason", "not resolved"),
-                               "status": getattr(got, "status", None)})
+                               "status": getattr(got, "status", None),
+                               **({"identity_lookup": rows} if rows else {})})
     return out, unresolved
 
 
 def code_discover(ctx: Ctx, step) -> dict:
+    """The PROPOSE half of discovery (advisor's ruling 1 after attempt 24, 2026-11-24): the model call's proposals,
+    saved with their sha256 in proposals.json. A resume after a registry outage restarts at `confirm` and reuses
+    them (the chain row and checkpoint of this step hold the file); a fresh run makes new proposals."""
     from orch import model_steps as M
     import source_store as store
     issue = json.loads((ctx.case / "issue.json").read_text(encoding="utf-8"))
@@ -580,6 +588,45 @@ def code_discover(ctx: Ctx, step) -> dict:
         ask = _counting(ctx, ask)
     reply = M.ask_json(ask, prompt, ST.REPLY_LIMITS["discover"], "discover")
     proposals = M.discover_proposals(reply, set(types), 8)
+    doc = {"_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the "
+                            "registries", "proposals": proposals, "searched": searched}
+    doc["sha256"] = proposals_sha(doc)
+    (ctx.case / PROPOSALS).write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return {"outcome": "%d proposal(s) saved" % len(proposals), "proposals_sha256": doc["sha256"]}
+
+
+PROPOSALS = "proposals.json"
+
+
+def proposals_sha(doc: dict) -> str:
+    import hashlib
+    body = json.dumps({"proposals": doc.get("proposals"), "searched": doc.get("searched")}, sort_keys=True,
+                      ensure_ascii=False)
+    return hashlib.sha256(body.encode("utf-8")).hexdigest()
+
+
+def saved_proposals(ctx: Ctx) -> dict:
+    """proposals.json, verified: its sha256 is the one it carries and the one the discover step recorded in this
+    run's log (a resume's log is the previous record's). Anything else stops the run."""
+    p = ctx.case / PROPOSALS
+    if not p.exists():
+        raise RunStop("confirm: no saved proposals (%s); run discover first" % PROPOSALS)
+    doc = json.loads(p.read_text(encoding="utf-8"))
+    sha = proposals_sha(doc)
+    if doc.get("sha256") != sha:
+        raise RunStop("confirm: the saved proposals do not match their recorded sha256")
+    rec = [((e.get("code") or {}).get("proposals_sha256")) for e in (getattr(ctx, "log", None) or [])
+           if e.get("step") == "discover" and not e.get("failed")]
+    if rec and rec[-1] != sha:
+        raise RunStop("confirm: the saved proposals are not the ones the discover step recorded")
+    return doc
+
+
+def code_confirm(ctx: Ctx, step) -> dict:
+    """The CONFIRM half of discovery: every saved proposal looked up in the registries (orch/resolve.py: Europe
+    PMC, falling back to PubMed and Crossref on an outage), sources.json written. Repeated alone on a resume."""
+    doc0 = saved_proposals(ctx)
+    proposals, searched = doc0["proposals"], doc0.get("searched") or {}
     search = ctx.search
     if search is None:
         from orch import resolve as RV
@@ -603,17 +650,30 @@ def code_discover(ctx: Ctx, step) -> dict:
                         "url": p.get("url") or None, "why": "not of a type we can check",
                         "registry": getattr(got, "registry", None)})
     if not sources:
-        raise RunStop("discover: no proposal resolved to a source")
+        raise RunStop("confirm: no proposal resolved to a source")
     for s in sources:
         s["also_called"] = [s["title"][:80]]
     doc = {"sources": sources,
            "search": {"searched": ["web search: %s" % q for q in searched.get("queries") or []] +
-                      ["registry: Europe PMC"],
+                      ["registry: %s" % r for r in registries_answered(sources, unresolved)],
                       "not_searched": list(NOT_SEARCHED)},
            "unresolved_proposals": unresolved,
            "not_of_a_type": no_type}
     (ctx.case / "sources.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     return {"outcome": "%d source(s), %d unresolved proposal(s)" % (len(sources), len(unresolved))}
+
+
+def registries_answered(sources: list, unresolved: list) -> list[str]:
+    """The registries that answered an identity lookup in this discovery, in order (Europe PMC first). A source
+    with no lookup record (tests' injected search; an agency page) counts as Europe PMC, as before."""
+    seen = []
+    rows = [r for s in sources for r in (s.get("identity_lookup") or [])] + \
+        [r for u in unresolved for r in (u.get("identity_lookup") or [])]
+    for r in rows:
+        if r.get("answered") and r.get("registry") not in seen:
+            seen.append(r["registry"])
+    order = ["Europe PMC", "PubMed", "Crossref"]
+    return sorted(seen, key=lambda r: order.index(r) if r in order else 9) or ["Europe PMC"]
 
 
 def code_acquire(ctx: Ctx, step) -> dict:
@@ -644,15 +704,16 @@ def code_acquire(ctx: Ctx, step) -> dict:
     # a held source's corrections are fetched as linked records; a correction to a source not held needs nothing.
     lookup, crossref, fulltext = (getattr(ctx, "lookup", None), getattr(ctx, "crossref", None),
                                   getattr(ctx, "fulltext", None))
+    pubmed = getattr(ctx, "pubmed", None)
     for s in doc.get("sources") or []:
         acc = s.setdefault("access", {})
         acc.pop("not_held", None)
         try:
-            st = CR.status(s, lookup, crossref)
+            st = CR.status(s, lookup, crossref, pubmed)    # two of three registries answering (ruling after a24)
         except CR.RegistryUnavailable as e:    # never a status from a subset of registries (ruling 2, attempt 12)
             raise RunStop("acquire: registry unavailable; run again later (%s: %s)" % (s.get("id"), e))
         s["retraction_check"] = {"retracted": st["retracted"], "concern": st.get("concern", False), "why": st["why"],
-                                 "answered": st["answered"],
+                                 "answered": st["answered"], "registries": st.get("registries") or [],
                                  "corrections": st["corrections"], "on": now()[:10]}
         if st["retracted"]:
             mark(s, "retracted", "; ".join(st["why"]))
@@ -1308,6 +1369,7 @@ def code_archive(ctx: Ctx, step) -> dict:
 
 
 STEP_CODE = {"provenance": code_provenance, "premise": code_premise, "discover": code_discover,
+             "confirm": code_confirm,
              "acquire": code_acquire, "draft": code_draft, "bind": code_bind, "coverage": code_coverage,
              "judgements": code_judgements, "commit": code_commit, "apply": code_apply, "audit": code_audit,
              "overstatement": code_overstatement, "corrections": code_corrections, "preflight": code_preflight,
@@ -1474,6 +1536,7 @@ def run(ctx: Ctx, resume: dict | None = None) -> dict:
             os.environ[MODEL_LOG_ENV] = _prev_mlog
     events = list(getattr(ctx, "malformed", None) or []) + _stage_malformed(ctx.malformed_log)
     outages = RH.outages(ctx.unavailable_log)
+    covered = RH.covered_outages(ctx.unavailable_log)     # an outage another registry answered for (after a24)
     model_out = PR().outages(ctx.model_log)
     for p in (ctx.unavailable_log, ctx.model_log):
         try:
@@ -1481,7 +1544,7 @@ def run(ctx: Ctx, resume: dict | None = None) -> dict:
         except OSError:
             pass
     return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events),
-            "registry_outages": outages, "model_outages": model_out}
+            "registry_outages": outages, "registry_outages_covered": covered, "model_outages": model_out}
 
 
 SITE = Path(__file__).resolve().parent / "orch" / "site"

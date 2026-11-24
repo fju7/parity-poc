@@ -392,6 +392,88 @@ def save(slug: str, doc: dict) -> None:
                                  encoding="utf-8")
 
 
+PUBMED_AMENDING = {"ErratumIn": "Erratum in", "CorrectedandRepublishedIn": "Corrected and republished in",
+                   "RetractionIn": "Retraction in", "RetractionofPublicationIn": "Retraction in",
+                   "ExpressionOfConcernIn": "Expression of concern in", "RepublishedIn": "Republished in",
+                   "UpdateIn": "Update in"}
+
+
+def orchestrated() -> bool:
+    import os
+    return bool(os.environ.get("WHU_ORCH_MODE"))
+
+
+def orchestrated_row(src: dict, kind: str, value: str, clients=None) -> dict:
+    """The errata row in an orchestrated run (advisor's ruling 2 after attempt 24, 2026-11-24): Europe PMC, PubMed
+    and (with a DOI) Crossref are asked; with fewer than two answering the row is UNCHECKED and the outage is left
+    in the run's log, so the run stops "registry unavailable; run again later". Otherwise the amendments are the
+    union of what the answering registries record (Europe PMC's AMENDING types; PubMed's CommentsCorrections, in
+    the same names; Crossref's relations), every registry's answer is recorded (`registries`), and an outage among
+    them is marked covered. No registry holding this source's record is UNCHECKED, as before."""
+    import registries as RG
+    epmc, pubmed, crossref_ = clients or (RG.epmc_id, RG.pubmed_record, RG.crossref_work)
+    answers, amend, disc, found, doi = [], [], [], [], (value if kind == "DOI" else src.get("doi"))
+    a = epmc(kind, value)
+    answers.append((a, "%s %s" % (kind, value)))
+    if a.record is not None:
+        same, why_same = resolves_to_us(a.record, src)
+        if same:
+            found.append(RG.EUROPE_PMC)
+            am, di = amendments(a.record)
+            amend += am
+            disc += di
+            doi = doi or a.record.get("doi")
+            pmid = a.record.get("pmid")
+        else:
+            pmid = None
+    else:
+        pmid = None
+    pk, pv = ("PMID", pmid or src.get("pmid")) if (pmid or src.get("pmid")) else (kind, value)
+    b = pubmed(pk, str(pv)) if pk in ("PMID", "DOI", "PMCID") else RG.Answer(RG.PUBMED, False, why="no identifier")
+    answers.append((b, "%s %s" % (pk, pv)))
+    if b.record is not None and resolves_to_us(b.record, src)[0]:
+        found.append(RG.PUBMED)
+        for link in b.record.get("links") or []:
+            ty = PUBMED_AMENDING.get(link.get("type") or "")
+            if ty:
+                amend.append({"type": ty, "id": link.get("pmid"), "source": "MED", "registry": "PubMed"})
+        doi = doi or b.record.get("doi")
+    policy = None
+    if doi:
+        c = crossref_(doi)
+        answers.append((c, "DOI %s" % doi))
+        if c.record is not None and resolves_to_us(crossref_title_record(c.record), src)[0]:
+            found.append(RG.CROSSREF_NAME)
+            amend += [dict(x, registry="Crossref") for x in crossref_amendments(c.record)
+                      if str(x.get("id") or "").lower() != doi.lower()]
+            policy = c.record.get("update-policy")
+    answering = [x.registry for x, _ in answers if x.answered]
+    row = {"identifier": "%s %s" % (kind, value), "registries": [x.row(asked) for x, asked in answers],
+           "comments": disc}
+    if len(answering) < 2:
+        row.update(state="UNCHECKED", amendments=[],
+                   why="%d of 3 registries answered (%s); a correction status needs two" % (
+                       len(answering), ", ".join(answering) or "none"))
+        return row
+    for x, _ in answers:
+        if not x.answered:
+            RG.covered(x, answering)
+    if not found:
+        row.update(state="UNCHECKED", amendments=[],
+                   why="no registry that answered (%s) holds this source's record" % ", ".join(answering))
+        return row
+    seen, uniq = set(), []
+    for x in amend:
+        k = str(x.get("id") or x.get("type")).lower()
+        if k not in seen:
+            seen.add(k)
+            uniq.append(x)
+    row.update(amendments=uniq, index=" + ".join(found), update_policy=policy,
+               state="AMENDED" if uniq else "CLEAN",
+               why="record read at %s; %s answered" % (", ".join(found), ", ".join(answering)))
+    return row
+
+
 def sweep(slug: str, *, only: set[str] | None = None, pause: float = 1.0) -> dict:
     doc = load(slug)
     for src in store.sources(slug):
@@ -424,6 +506,13 @@ def sweep(slug: str, *, only: set[str] | None = None, pause: float = 1.0) -> dic
             print("  %-6s UNCHECKABLE  %s" % (sid, row["why"][:70]))
             continue
         kind, value = ident
+        if orchestrated():
+            row.update(orchestrated_row(src, kind, value))
+            row["identifier_from"] = "the held document" if from_held else "the source URL"
+            doc["checked"][sid] = row
+            print("  %-6s %-12s %s" % (sid, row["state"], row["why"][:70]))
+            time.sleep(pause)
+            continue
         rec, why = lookup(kind, value)
         # A PII resolves the article for its publisher and not for Europe PMC.
         # Falling back to a DOI READ OUT OF THE HELD BYTES is what makes MONARCH

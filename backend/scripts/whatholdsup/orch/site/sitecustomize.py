@@ -26,5 +26,6 @@ if os.environ.get("WHU_ORCH_UNAVAILABLE_LOG"):
     _p = os.path.join(os.path.dirname(_here), "registry_http.py")
     _rs = importlib.util.spec_from_file_location("whu_registry_http", _p)
     _m = importlib.util.module_from_spec(_rs)
+    sys.modules["whu_registry_http"] = _m       # registries.covered finds the installed wrapper here (after a24)
     _rs.loader.exec_module(_m)
     _m.install(os.environ["WHU_ORCH_UNAVAILABLE_LOG"])

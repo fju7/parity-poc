@@ -1,0 +1,23 @@
+{
+ "_what_this_is": "Offline rehearsal plan (advisor's ruling after attempt 24): Europe PMC answers HTTP 503 to every request for the whole run. Identity lookups must fall back to PubMed and Crossref, a status must come from two answering registries, and where only Europe PMC can serve (a full text it hosts) the run stops \"registry unavailable; run again later\".",
+ "registry": [
+  {
+   "step": "*",
+   "what": "https://www.ebi.ac.uk/*",
+   "error": "503",
+   "times": 100000
+  },
+  {
+   "step": "*",
+   "what": "https://europepmc.org/*",
+   "error": "503",
+   "times": 100000
+  },
+  {
+   "step": "*",
+   "what": "https://www.europepmc.org/*",
+   "error": "503",
+   "times": 100000
+  }
+ ]
+}

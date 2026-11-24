@@ -317,7 +317,10 @@ def cached_urlopen(orig, req, *a, **kw):
     step = _now_step()
     rule = take("registry", step, url)
     if rule:
-        raise urllib.error.URLError("rehearsal registry fault: %s" % rule.get("error", "timed out"))
+        err = str(rule.get("error", "timed out"))
+        if err.isdigit():                    # an HTTP status (ruling after attempt 24: Europe PMC answering 503)
+            raise urllib.error.HTTPError(url, int(err), "rehearsal registry fault", Message(), io.BytesIO(b""))
+        raise urllib.error.URLError("rehearsal registry fault: %s" % err)
     k = _key(req)
     meta, body = http_dir() / (k + ".json"), http_dir() / (k + ".body")
     if meta.exists():

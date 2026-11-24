@@ -1,0 +1,11 @@
+{
+ "_what_this_is": "Offline rehearsal plan (advisor's ruling after attempt 24): Europe PMC's search API answers HTTP 503 for the whole run (its full-text endpoint still serves). Identity and status must go through PubMed and Crossref and the run must proceed.",
+ "registry": [
+  {
+   "step": "*",
+   "what": "https://www.ebi.ac.uk/europepmc/webservices/rest/search*",
+   "error": "503",
+   "times": 100000
+  }
+ ]
+}

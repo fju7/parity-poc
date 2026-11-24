@@ -148,12 +148,12 @@ def premise_fp(case: Path) -> str:
 
 
 FROZEN = {  # fingerprint name -> (function, the step after which it is frozen, why)
-    "source_list": (source_list_fp, "discover", "the source list is fixed by `discover` (no new source, "
-                                                "edition or type afterwards)"),
+    "source_list": (source_list_fp, "confirm", "the source list is fixed by `confirm` (no new source, "
+                                               "edition or type afterwards)"),
     "reading": (reading_fp, "acquire", "reading records are written by code at `acquire` only"),
     "forms": (forms_fp, "acquire", "a source's form is derived from its type by code at `acquire` (E6)"),
     "premise": (premise_fp, "premise", "the premise's fixed rows are written before any source and never changed"),
-    "identifiers": (identifiers_now, "discover", "a source's registry identifiers may be added to, never changed"),
+    "identifiers": (identifiers_now, "confirm", "a source's registry identifiers may be added to, never changed"),
 }
 
 

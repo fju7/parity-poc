@@ -81,6 +81,9 @@ STEPS: tuple[Step, ...] = (
          cmds=((PY, W + "premise.py", "init", "{slug}"),), code="premise"),
     Step("discover", "model", models=(GATE_MODEL,), max_calls=3, cap_usd=1.50,
          code="discover"),
+    # advisor's ruling 1 after attempt 24: discovery's registry lookups are their own step, so a resume after a
+    # registry outage repeats them alone and reuses the saved proposals (orchestrator.code_confirm)
+    Step("confirm", "code", code="confirm"),
     Step("acquire", "code", cmds=((PY, W + "acquire_sources.py", "{slug}", "--out", "{case}/orchestrator/acquire.json"), (PY, W + "source_store.py", "{slug}", "status"),
                (PY, W + "errata.py", "{slug}"), (PY, W + "sweep_sources.py", "resolve", "{slug}", "--write"),
                (PY, W + "canary.py", "{slug}")), code="acquire"),

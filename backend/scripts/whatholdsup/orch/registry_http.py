@@ -7,6 +7,11 @@ REGISTRY's and it is still unavailable, one line goes to LOG. The orchestrator i
 and, through orch/site/sitecustomize.py on PYTHONPATH, in every step's subprocess; after each step it stops the
 run "registry unavailable; run again later" if LOG has a line, however the module read the failure. So no
 status (a retraction, a correction, an identifier, "not found") is ever recorded from a subset of registries.
+
+Covered outages (advisor's rulings after attempt 24, 2026-11-24): when another registry answers in place of the one
+that was down (registries.py: identity falls back from Europe PMC to PubMed and Crossref; a status needs two
+answering), covered(url, by) appends a line naming the registries that answered, and outages() no longer counts
+that outage. An outage nothing covered still stops the run.
 """
 from __future__ import annotations
 
@@ -81,8 +86,39 @@ def installed() -> bool:
     return _orig is not None
 
 
-def outages(log) -> list[dict]:
+def covered(url: str, by) -> None:
+    """The last uncovered outage of URL in this run was covered by the registries BY (which answered)."""
+    if _log:
+        with open(_log, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"covered": url[:300], "by": list(by),
+                                 "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}) + "\n")
+
+
+def entries(log) -> list[dict]:
     try:
         return [json.loads(l) for l in open(log, encoding="utf-8") if l.strip()]
     except (OSError, ValueError):
         return []
+
+
+def covered_outages(log) -> list[dict]:
+    """Outages another registry answered for, each with the registries that did (`covered_by`)."""
+    return _split(entries(log))[1]
+
+
+def _split(rows: list[dict]) -> tuple[list[dict], list[dict]]:
+    open_, done = [], []
+    for r in rows:
+        if "covered" in r:
+            for i in range(len(open_) - 1, -1, -1):          # the latest uncovered outage of that URL
+                if open_[i].get("url") == r["covered"]:
+                    done.append(dict(open_.pop(i), covered_by=r.get("by") or []))
+                    break
+        elif "url" in r:
+            open_.append(r)
+    return open_, done
+
+
+def outages(log) -> list[dict]:
+    """Outages nothing covered: each stops the run."""
+    return _split(entries(log))[0]

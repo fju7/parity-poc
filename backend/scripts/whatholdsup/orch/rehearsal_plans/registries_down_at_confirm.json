@@ -1,0 +1,23 @@
+{
+ "_what_this_is": "Offline rehearsal plan (advisor's ruling after attempt 24): every registry (Europe PMC, PubMed, Crossref) answers HTTP 503 during the confirm step only. The run must stop at confirm \"registry unavailable; run again later\"; resumed under none.json it restarts at confirm, reuses the saved proposals and makes no new discover call.",
+ "registry": [
+  {
+   "step": "confirm",
+   "what": "https://www.ebi.ac.uk/*",
+   "error": "503",
+   "times": 100000
+  },
+  {
+   "step": "confirm",
+   "what": "https://eutils.ncbi.nlm.nih.gov/*",
+   "error": "503",
+   "times": 100000
+  },
+  {
+   "step": "confirm",
+   "what": "https://api.crossref.org/*",
+   "error": "503",
+   "times": 100000
+  }
+ ]
+}

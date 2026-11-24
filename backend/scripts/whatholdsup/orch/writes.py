@@ -99,7 +99,8 @@ _APPLY = PAGE + ("bindings.json",) + MODULE_WRITES["applied_check"] + MODULE_WRI
 CODE_WRITES = {
     "provenance": (),
     "premise": ("premise.json",),
-    "discover": ("sources.json",),
+    "discover": ("proposals.json",),
+    "confirm": ("sources.json",),
     "acquire": ("sources.json", "corrections/*"),
     "draft": PAGE,
     "bind": PAGE + ("bindings.json",),
