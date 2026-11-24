@@ -1,0 +1,54 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T14:22:05+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many included studies targeted children with disabilities. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T14:22:06+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "It only describes who the five studies targeted (family members or service providers). It reports no outcomes, so it does not show whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T14:22:10+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment groups interventions targeted (n=17 for intellectual/learning); it says nothing about effectiveness or comparative performance, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T14:22:12+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "It only says which intervention category appears most often across studies, with a dyslexia reading example. It gives no effectiveness result, no LMIC setting, and no comparison of what works best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T14:22:15+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "not_material",
+   "reason": "The finding is general background on why disabled children fall behind. It says nothing about whether any programme works or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T14:22:28+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes, not educational outcomes. The scope excludes health, functional or rehabilitation outcomes that are not educational.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, functional or rehabilitation outcomes (e.g. mobility, hearing restoration) that are not educational",
+   "decided_at": "2026-11-24T14:22:30+00:00"
+  }
+ }
+}

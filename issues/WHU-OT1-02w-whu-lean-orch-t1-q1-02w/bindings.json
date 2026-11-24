@@ -1,0 +1,1766 @@
+{
+  "_what_this_is": "One row per empirical sentence on the page: the source it rests on, the exact words in that source that support it, and who signed for each of the three questions. Spec: docs/whatholdsup-claim-bindings-spec.md.",
+  "_r1": "This file records the presence or absence of a span. It does not record that a sentence is true. A row with every verdict signed means the sentence is WARRANTED by named evidence and named signers -- which is not the same claim and must never be printed as though it were.",
+  "bindings": {
+    "cae90542e9343a1b": {
+      "sentence": "The question is: “In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?”",
+      "sentence_sha": "cae90542e9343a1b",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "dd6cb319803564e4": {
+      "sentence": "One Campbell systematic review summarises its own finding this way: a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but there is little research on systemic or school-level change [1].",
+      "sentence_sha": "dd6cb319803564e4",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8860",
+      "span": "Keywords: disability, education, inclusion, LMIC, school status released display-pdf yes is-olf no is-manuscript no is-preprint no is-journal-matter no is-scanned no is-retracted no Revised 2024 Oct 4; Received 2023 Oct 10; Accepted 2024 Oct 16; Collection date 2025 Mar. 1. PLAIN LANGUAGE SUMMARY 1.1. Title A range of individual‐level interventions work to improve educational outcomes among people with disabilities in low‐ and middle‐income countries, but there is little research on systemic or school‐level change. 1.2. The review in brief A range of interventions work to improve educational outcomes among people with disabilities, but these are mostly targeted at people with disabilities. More systemic approaches are needed to improve rates of access to, and likelihood of successful engagement in, education. 1.3. What is this review about?",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8860,
+        9712
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "1493ac2047c4b16c": {
+      "sentence": "The review authors call this evidence 'emerging support' for the efficacy and effectiveness of such interventions [1].",
+      "sentence_sha": "1493ac2047c4b16c",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@123684",
+      "span": "The interventions and outcome measures used by the included studies were all different, making direct comparison (e.g., across countries) difficult. Most interventions tried to improve children's skills but did not focus on system‐level or school‐level changes. None of the studies were undertaken in humanitarian settings, and while almost all were undertaken with both male and female participants, few disaggregated their findings by gender. 6.2. Overall completeness and applicability of evidence The evidence presented here provides emerging support for the efficacy and effectiveness of interventions to improve the education outcomes among people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        123684,
+        124365
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "58c296cf88f336eb": {
+      "sentence": "They also judge the quality of the included studies to be largely low [1].",
+      "sentence_sha": "58c296cf88f336eb",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@124366",
+      "span": "However, due to the broad variety of interventions and outcomes assessed under the domain of education, and the limited number of high‐quality RCT and quasi‐experimental studies available, more research is needed to understand which types of interventions are most efficacious, and how best to deliver them. 6.3. Quality of the evidence The quality of the included studies is largely low, as determined by the confidence in study findings tool used in this review. Most study designs employed were unable to consider many potential confounders. Moreover, masking, baseline balance, and attribution were poorly reported. 6.4. Potential biases in the review process Potential bias may be introduced about the lack of grey literature included in the review, as well as the absence of non‐English literature. 6.5.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        124366,
+        125175
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "15a4e39c9721fd01": {
+      "sentence": "The largest pooled effects were for literacy, cognitive skills, handwriting and numeracy, but each of these rests on a low number of studies [1].",
+      "sentence_sha": "15a4e39c9721fd01",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@6557",
+      "span": "The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of victimisation of children with disabilities in schools. Regarding intervention effects, included studies concerned with ‘Conditions for inclusion of people with disabilities in education’ showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size. Among the 18 studies included in the analysis of intervention effects on ‘Skills for learning’, 12 interventions had a significant effect. When considering the effect of interventions on different outcomes, we see that the effect on literacy, cognitive skills, handwriting, and numeracy are significant. All these effects are large but are based on a low number of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        6557,
+        7411
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "3acd31116b3eae78": {
+      "sentence": "The authors say more research is needed to understand which types of interventions are most efficacious and how best to deliver them [1].",
+      "sentence_sha": "3acd31116b3eae78",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@124366",
+      "span": "However, due to the broad variety of interventions and outcomes assessed under the domain of education, and the limited number of high‐quality RCT and quasi‐experimental studies available, more research is needed to understand which types of interventions are most efficacious, and how best to deliver them. 6.3. Quality of the evidence The quality of the included studies is largely low, as determined by the confidence in study findings tool used in this review. Most study designs employed were unable to consider many potential confounders. Moreover, masking, baseline balance, and attribution were poorly reported. 6.4. Potential biases in the review process Potential bias may be introduced about the lack of grey literature included in the review, as well as the absence of non‐English literature. 6.5.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        124366,
+        125175
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b1ee85dec6cd368e": {
+      "sentence": "The review identified, coded, analysed and narratively summarised 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in low- and middle-income countries [1].",
+      "sentence_sha": "b1ee85dec6cd368e",
+      "why_empirical": "the bare integer 28 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@119695",
+      "span": "Handwriting exhibits a significant and a large effect of 4.97 (CI: [4.21, 5.73]) with low heterogeneity ( I ² = 0.00%) but this is based on only two studies. The overview of the funnel plot (Figure 9 ) likewise shows that the former two categories are likely to suffer from publication bias, even though the Eggers Test is insignificant, due to a low sample size. The publication bias for numeracy and handwriting cannot be assessed, as the number of studies is only two. 5.4. Synthesis of results Figure 9 Potential bias in interventions concerned with skills for learning. 6. DISCUSSION 6.1. Summary of main results We identified, coded, analysed, and narratively summarised the findings from 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        119695,
+        120503
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "10178bff7b3a4fc5": {
+      "sentence": "Most of the studies were aimed at children with disabilities, and a few targeted family members or service providers [1].",
+      "sentence_sha": "10178bff7b3a4fc5",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@10599",
+      "span": "What are the main findings of this review? The review shares findings from a range of interventions and outcomes that were identified across 28 studies. Most of the studies included were aimed at children with disabilities, with a few targeting family members or service providers. People with intellectual or learning and developmental impairments were most frequently targeted by interventions. Eight of the included studies were from India, four were from Iran, two were from China, two were from South Africa and two were from Egypt. One study from each of the following countries was also included: Brazil, Jordan, Kenya, Lebanon, Romania, Turkey, Malaysia, Nigeria, Uganda, and Zambia. Few studies reported whether their setting was urban or rural.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        10599,
+        11353
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a5b35e2c0e3a0d2c": {
+      "sentence": "People with intellectual, learning or developmental impairments were the group most often targeted [1].",
+      "sentence_sha": "a5b35e2c0e3a0d2c",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@10599",
+      "span": "What are the main findings of this review? The review shares findings from a range of interventions and outcomes that were identified across 28 studies. Most of the studies included were aimed at children with disabilities, with a few targeting family members or service providers. People with intellectual or learning and developmental impairments were most frequently targeted by interventions. Eight of the included studies were from India, four were from Iran, two were from China, two were from South Africa and two were from Egypt. One study from each of the following countries was also included: Brazil, Jordan, Kenya, Lebanon, Romania, Turkey, Malaysia, Nigeria, Uganda, and Zambia. Few studies reported whether their setting was urban or rural.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        10599,
+        11353
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "06262ded51560f7f": {
+      "sentence": "Eight studies came from India, four from Iran, and two each from China, South Africa and Egypt [1].",
+      "sentence_sha": "06262ded51560f7f",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@10599",
+      "span": "What are the main findings of this review? The review shares findings from a range of interventions and outcomes that were identified across 28 studies. Most of the studies included were aimed at children with disabilities, with a few targeting family members or service providers. People with intellectual or learning and developmental impairments were most frequently targeted by interventions. Eight of the included studies were from India, four were from Iran, two were from China, two were from South Africa and two were from Egypt. One study from each of the following countries was also included: Brazil, Jordan, Kenya, Lebanon, Romania, Turkey, Malaysia, Nigeria, Uganda, and Zambia. Few studies reported whether their setting was urban or rural.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        10599,
+        11353
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "7b4fa429a804a07c": {
+      "sentence": "One study each came from Brazil, Jordan, Kenya, Lebanon, Romania, Turkey, Malaysia, Nigeria, Uganda and Zambia [1].",
+      "sentence_sha": "7b4fa429a804a07c",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@10599",
+      "span": "What are the main findings of this review? The review shares findings from a range of interventions and outcomes that were identified across 28 studies. Most of the studies included were aimed at children with disabilities, with a few targeting family members or service providers. People with intellectual or learning and developmental impairments were most frequently targeted by interventions. Eight of the included studies were from India, four were from Iran, two were from China, two were from South Africa and two were from Egypt. One study from each of the following countries was also included: Brazil, Jordan, Kenya, Lebanon, Romania, Turkey, Malaysia, Nigeria, Uganda, and Zambia. Few studies reported whether their setting was urban or rural.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        10599,
+        11353
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "812eb7271a541ae0": {
+      "sentence": "The authors searched for studies up to March 2022 [1].",
+      "sentence_sha": "812eb7271a541ae0",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@13655",
+      "span": "Efforts should also be made to integrate measures of disability within mainstream education impact evaluations and other demographic/household surveys that include education outcomes, and existing non‐targeted government programmes should evaluate whether they are effective in improving educational outcomes for people with disabilities. 1.7. How up‐to‐date is this review? The review authors searched for studies up to March 2022. This Campbell Systematic Review was published in February 6, 2025. 2. BACKGROUND 2.1. The problem, condition, or issue The main problem addressed by this review is that people with disabilities are less likely to be enroled in school or to progress as well as their peers without disabilities.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        13655,
+        14381
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "43ea1fff10c2ff44": {
+      "sentence": "Of the 18 studies included in the analysis of effects on 'Skills for learning', 12 interventions had a significant effect [1].",
+      "sentence_sha": "43ea1fff10c2ff44",
+      "why_empirical": "the bare integer 18 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@6557",
+      "span": "The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of victimisation of children with disabilities in schools. Regarding intervention effects, included studies concerned with ‘Conditions for inclusion of people with disabilities in education’ showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size. Among the 18 studies included in the analysis of intervention effects on ‘Skills for learning’, 12 interventions had a significant effect. When considering the effect of interventions on different outcomes, we see that the effect on literacy, cognitive skills, handwriting, and numeracy are significant. All these effects are large but are based on a low number of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        6557,
+        7411
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "e0bd6c05786ae349": {
+      "sentence": "Effects on literacy, cognitive skills, handwriting and numeracy were significant, and the review describes all of these effects as large but based on a low number of studies [1].",
+      "sentence_sha": "e0bd6c05786ae349",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@6557",
+      "span": "The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of victimisation of children with disabilities in schools. Regarding intervention effects, included studies concerned with ‘Conditions for inclusion of people with disabilities in education’ showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size. Among the 18 studies included in the analysis of intervention effects on ‘Skills for learning’, 12 interventions had a significant effect. When considering the effect of interventions on different outcomes, we see that the effect on literacy, cognitive skills, handwriting, and numeracy are significant. All these effects are large but are based on a low number of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        6557,
+        7411
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8f07f0807c737b82": {
+      "sentence": "Handwriting showed a large effect of 4.97 (CI 4.21 to 5.73) with low heterogeneity, but this is based on only two studies [1].",
+      "sentence_sha": "8f07f0807c737b82",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@119695",
+      "span": "Handwriting exhibits a significant and a large effect of 4.97 (CI: [4.21, 5.73]) with low heterogeneity ( I ² = 0.00%) but this is based on only two studies. The overview of the funnel plot (Figure 9 ) likewise shows that the former two categories are likely to suffer from publication bias, even though the Eggers Test is insignificant, due to a low sample size. The publication bias for numeracy and handwriting cannot be assessed, as the number of studies is only two. 5.4. Synthesis of results Figure 9 Potential bias in interventions concerned with skills for learning. 6. DISCUSSION 6.1. Summary of main results We identified, coded, analysed, and narratively summarised the findings from 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        119695,
+        120503
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "fa68c7ee88dd5cb2": {
+      "sentence": "Numeracy showed an effect of d = 4.60 (0.69 to 8.50), based on two studies with high heterogeneity [1].",
+      "sentence_sha": "fa68c7ee88dd5cb2",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116597",
+      "span": "Outcome Effect Summary Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias Skills for learning Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        116597,
+        117510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "21b85cac4e833e58": {
+      "sentence": "Publication bias could not be assessed for numeracy or handwriting, because each had only two studies [1].",
+      "sentence_sha": "21b85cac4e833e58",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@119695",
+      "span": "Handwriting exhibits a significant and a large effect of 4.97 (CI: [4.21, 5.73]) with low heterogeneity ( I ² = 0.00%) but this is based on only two studies. The overview of the funnel plot (Figure 9 ) likewise shows that the former two categories are likely to suffer from publication bias, even though the Eggers Test is insignificant, due to a low sample size. The publication bias for numeracy and handwriting cannot be assessed, as the number of studies is only two. 5.4. Synthesis of results Figure 9 Potential bias in interventions concerned with skills for learning. 6. DISCUSSION 6.1. Summary of main results We identified, coded, analysed, and narratively summarised the findings from 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        119695,
+        120503
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b391e53c7ee6f426": {
+      "sentence": "For speech and communication, the pooled effect (d = 0.70, −1.70 to 3.09; five studies) was insignificant, with high heterogeneity [1].",
+      "sentence_sha": "b391e53c7ee6f426",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116597",
+      "span": "Outcome Effect Summary Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias Skills for learning Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        116597,
+        117510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8cc5cd5f7a916999": {
+      "sentence": "For school behaviour and adaptive functioning, the pooled effect (d = 0.49, −1.76 to 2.74; five studies) was also insignificant, with low heterogeneity [1].",
+      "sentence_sha": "8cc5cd5f7a916999",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116597",
+      "span": "Outcome Effect Summary Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias Skills for learning Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        116597,
+        117510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "0ad0cb2b34c5437b": {
+      "sentence": "Even so, the narrative summary reports that positive effects were seen in studies of speech and communication, and of school behaviour and adaptive functioning [1].",
+      "sentence_sha": "0ad0cb2b34c5437b",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@122892",
+      "span": "Among those studies which aimed to improve educational attainment, positive effects of interventions were seen for speech and communication; literacy; numeracy; handwriting; cognitive skills, including attention and memory; and school behaviour and adaptive functioning. Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction. Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        122892,
+        123683
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "3f492a5d2a7b02aa": {
+      "sentence": "The same narrative summary reports positive effects for literacy, numeracy, handwriting, and cognitive skills including attention and memory [1].",
+      "sentence_sha": "3f492a5d2a7b02aa",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@122892",
+      "span": "Among those studies which aimed to improve educational attainment, positive effects of interventions were seen for speech and communication; literacy; numeracy; handwriting; cognitive skills, including attention and memory; and school behaviour and adaptive functioning. Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction. Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        122892,
+        123683
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "374db2c4c7402ca3": {
+      "sentence": "Studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderate effect of d = 0.35 (0.12 to 0.58) [1].",
+      "sentence_sha": "374db2c4c7402ca3",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116597",
+      "span": "Outcome Effect Summary Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias Skills for learning Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        116597,
+        117510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "1f5cfb5a0f042a39": {
+      "sentence": "That estimate is based on a low number of studies (four), with high heterogeneity and potentially moderate publication bias [1].",
+      "sentence_sha": "1f5cfb5a0f042a39",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116597",
+      "span": "Outcome Effect Summary Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias Skills for learning Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        116597,
+        117510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "55dc27f451653819": {
+      "sentence": "Studies aimed at making learning environments more accessible reported positive impacts on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction [1].",
+      "sentence_sha": "55dc27f451653819",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@122892",
+      "span": "Among those studies which aimed to improve educational attainment, positive effects of interventions were seen for speech and communication; literacy; numeracy; handwriting; cognitive skills, including attention and memory; and school behaviour and adaptive functioning. Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction. Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        122892,
+        123683
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "0f565bcbdbc31e1a": {
+      "sentence": "One study concerned with teacher knowledge showed a significant effect size [1].",
+      "sentence_sha": "0f565bcbdbc31e1a",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@6557",
+      "span": "The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of victimisation of children with disabilities in schools. Regarding intervention effects, included studies concerned with ‘Conditions for inclusion of people with disabilities in education’ showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size. Among the 18 studies included in the analysis of intervention effects on ‘Skills for learning’, 12 interventions had a significant effect. When considering the effect of interventions on different outcomes, we see that the effect on literacy, cognitive skills, handwriting, and numeracy are significant. All these effects are large but are based on a low number of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        6557,
+        7411
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ad8618279a9a1bec": {
+      "sentence": "One example is the Good School Toolkit in Uganda, an RCT with 3,820 participants of a school-wide intervention aiming to reduce violence from peers and staff toward students with and without disabilities [1].",
+      "sentence_sha": "ad8618279a9a1bec",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@75793",
+      "span": "Study Country Design Sample size Intervention Education outcome domain(s) a Adnams et al. ( 2007 ) South Africa RCT 65 A language and literacy intervention focused on training in phonological awareness and acquisition of other pre‐ and early literacy skills Educational attainment Akbari et al. ( 2019 ) Iran Controlled before versus after 20 A computer assisted programme for working memory which aimed to improve executive functions and reading performance of students with reading disorder Educational attainment Altakhyneh ( 2019 ) Jordan Controlled before versus after 60 Bruner's approach, developed and supported with the total communication method Educational attainment Awada and Gutiérrez‐Colón ( 2017 ) Lebanon Controlled before versus after 298 A programme delivering combined strategy instruction with the aim of improving the reading comprehension of students with dyslexia Educational attainment Carew et al. ( 2019 ) Kenya Uncontrolled before versus after 130 The Leonard Cheshire Disability inclusive education training programme, designed to increase teaching self‐efficacy, improve inclusive beliefs, attitudes and practices, and reduce concerns around the inclusion of children with disabilities among teachers Accessible learning environments; attendance and completion Costescu et al. ( 2015 ) Romania Controlled before versus after 81 A robot‐assisted reversal learning task to improve cognitive flexibility Educational attainment Devries et al. ( 2018 ) Uganda RCT 3820 The Good School Toolkit, a multi‐component school‐wide intervention which aims to reduce physical violence from peers and school staff toward students with and without disabilities in primary schools Accessible learning environments Eissa ( 2009 ) Egypt Controlled before versus after 67 A programme for school children based on self‐regulated strategy development with a view to improving writing skills Educational attainment Hatamizadeh et al. ( 2020 ) Iran RCT 122 A resilience‐focused intervention focused on building behavioural strengths and addressing difficulties of mainstreamed adolescent students with hearing loss Educational attainment Johnson ( 2018 ) India Controlled before versus after 34 The Cognitive Orientation to Occupational Performance (CO‐OP) programme, which aims to improve handwriting performance in children with Developmental Coordination Disorder (DCD) Educational",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        75793,
+        78183
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b5c96ff9bbe7cd06": {
+      "sentence": "Improving attendance, enrolment and completion by equipping mainstream settings for children with disabilities was achieved in only one study, in which teacher knowledge and attitudes about inclusive education improved [1].",
+      "sentence_sha": "b5c96ff9bbe7cd06",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@122892",
+      "span": "Among those studies which aimed to improve educational attainment, positive effects of interventions were seen for speech and communication; literacy; numeracy; handwriting; cognitive skills, including attention and memory; and school behaviour and adaptive functioning. Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction. Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        122892,
+        123683
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "063ae9ec03578d8d": {
+      "sentence": "That study evaluated the Leonard Cheshire Disability inclusive education training programme for teachers in Kenya, using an uncontrolled before-versus-after design with 130 participants [1].",
+      "sentence_sha": "063ae9ec03578d8d",
+      "why_empirical": "the bare integer 130 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@75793",
+      "span": "Study Country Design Sample size Intervention Education outcome domain(s) a Adnams et al. ( 2007 ) South Africa RCT 65 A language and literacy intervention focused on training in phonological awareness and acquisition of other pre‐ and early literacy skills Educational attainment Akbari et al. ( 2019 ) Iran Controlled before versus after 20 A computer assisted programme for working memory which aimed to improve executive functions and reading performance of students with reading disorder Educational attainment Altakhyneh ( 2019 ) Jordan Controlled before versus after 60 Bruner's approach, developed and supported with the total communication method Educational attainment Awada and Gutiérrez‐Colón ( 2017 ) Lebanon Controlled before versus after 298 A programme delivering combined strategy instruction with the aim of improving the reading comprehension of students with dyslexia Educational attainment Carew et al. ( 2019 ) Kenya Uncontrolled before versus after 130 The Leonard Cheshire Disability inclusive education training programme, designed to increase teaching self‐efficacy, improve inclusive beliefs, attitudes and practices, and reduce concerns around the inclusion of children with disabilities among teachers Accessible learning environments; attendance and completion Costescu et al. ( 2015 ) Romania Controlled before versus after 81 A robot‐assisted reversal learning task to improve cognitive flexibility Educational attainment Devries et al. ( 2018 ) Uganda RCT 3820 The Good School Toolkit, a multi‐component school‐wide intervention which aims to reduce physical violence from peers and school staff toward students with and without disabilities in primary schools Accessible learning environments Eissa ( 2009 ) Egypt Controlled before versus after 67 A programme for school children based on self‐regulated strategy development with a view to improving writing skills Educational attainment Hatamizadeh et al. ( 2020 ) Iran RCT 122 A resilience‐focused intervention focused on building behavioural strengths and addressing difficulties of mainstreamed adolescent students with hearing loss Educational attainment Johnson ( 2018 ) India Controlled before versus after 34 The Cognitive Orientation to Occupational Performance (CO‐OP) programme, which aims to improve handwriting performance in children with Developmental Coordination Disorder (DCD) Educational",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        75793,
+        78183
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "d5e64c54346109a2": {
+      "sentence": "No studies represented the intervention categories 'Accessibility of built environment and learning materials' or 'Inclusive education policies' [1].",
+      "sentence_sha": "d5e64c54346109a2",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@100269",
+      "span": "In other words, these interventions aimed to improve the quality and/or inclusiveness of learning social environments. Among programmes coded under this sub‐category were those that aimed to improve social skills (Lee et al., 2019 ) and reduce rates of victimisation of children with disabilities in school (Devries et al., 2018 ). Other sub‐categories reflected in the literature included ‘Structural interventions’ ( n = 1) (Carew et al., 2019 ), ‘Anti‐bullying policies and programmes’ ( n = 1) (Devries et al., 2018 ), ‘Educational services development’ ( n = 6) (Carew et al., 2019 ; Pawar & Mohite, 2014 ), and ‘Rehabilitation and health services, and assistive technologies’ (Lal, 2010 ). No studies represented the intervention categories of ‘Accessibility of built environment and learning materials’ or ‘Inclusive education policies’.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        100269,
+        101113
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4b60c196fd7ce183": {
+      "sentence": "Most interventions tried to improve children's skills and did not focus on system-level or school-level changes [1].",
+      "sentence_sha": "4b60c196fd7ce183",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@123684",
+      "span": "The interventions and outcome measures used by the included studies were all different, making direct comparison (e.g., across countries) difficult. Most interventions tried to improve children's skills but did not focus on system‐level or school‐level changes. None of the studies were undertaken in humanitarian settings, and while almost all were undertaken with both male and female participants, few disaggregated their findings by gender. 6.2. Overall completeness and applicability of evidence The evidence presented here provides emerging support for the efficacy and effectiveness of interventions to improve the education outcomes among people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        123684,
+        124365
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ac03f332509ea8dc": {
+      "sentence": "The interventions and outcome measures were all different, which makes direct comparison difficult [1].",
+      "sentence_sha": "ac03f332509ea8dc",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@123684",
+      "span": "The interventions and outcome measures used by the included studies were all different, making direct comparison (e.g., across countries) difficult. Most interventions tried to improve children's skills but did not focus on system‐level or school‐level changes. None of the studies were undertaken in humanitarian settings, and while almost all were undertaken with both male and female participants, few disaggregated their findings by gender. 6.2. Overall completeness and applicability of evidence The evidence presented here provides emerging support for the efficacy and effectiveness of interventions to improve the education outcomes among people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        123684,
+        124365
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4f28b5928dde40a3": {
+      "sentence": "None of the studies were done in humanitarian settings, and few disaggregated their findings by gender [1].",
+      "sentence_sha": "4f28b5928dde40a3",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@123684",
+      "span": "The interventions and outcome measures used by the included studies were all different, making direct comparison (e.g., across countries) difficult. Most interventions tried to improve children's skills but did not focus on system‐level or school‐level changes. None of the studies were undertaken in humanitarian settings, and while almost all were undertaken with both male and female participants, few disaggregated their findings by gender. 6.2. Overall completeness and applicability of evidence The evidence presented here provides emerging support for the efficacy and effectiveness of interventions to improve the education outcomes among people with disabilities in LMICs.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        123684,
+        124365
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "7cf27bd3ba23c0e9": {
+      "sentence": "Most study designs could not consider many potential confounders [1].",
+      "sentence_sha": "7cf27bd3ba23c0e9",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@124366",
+      "span": "However, due to the broad variety of interventions and outcomes assessed under the domain of education, and the limited number of high‐quality RCT and quasi‐experimental studies available, more research is needed to understand which types of interventions are most efficacious, and how best to deliver them. 6.3. Quality of the evidence The quality of the included studies is largely low, as determined by the confidence in study findings tool used in this review. Most study designs employed were unable to consider many potential confounders. Moreover, masking, baseline balance, and attribution were poorly reported. 6.4. Potential biases in the review process Potential bias may be introduced about the lack of grey literature included in the review, as well as the absence of non‐English literature. 6.5.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        124366,
+        125175
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "df6b1e4443ac8fd6": {
+      "sentence": "Masking, baseline balance and attribution were poorly reported [1].",
+      "sentence_sha": "df6b1e4443ac8fd6",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@124366",
+      "span": "However, due to the broad variety of interventions and outcomes assessed under the domain of education, and the limited number of high‐quality RCT and quasi‐experimental studies available, more research is needed to understand which types of interventions are most efficacious, and how best to deliver them. 6.3. Quality of the evidence The quality of the included studies is largely low, as determined by the confidence in study findings tool used in this review. Most study designs employed were unable to consider many potential confounders. Moreover, masking, baseline balance, and attribution were poorly reported. 6.4. Potential biases in the review process Potential bias may be introduced about the lack of grey literature included in the review, as well as the absence of non‐English literature. 6.5.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        124366,
+        125175
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "0aafcd121dcaf91f": {
+      "sentence": "The authors note potential bias in the review itself, because grey literature and non-English literature were not included [1].",
+      "sentence_sha": "0aafcd121dcaf91f",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@124366",
+      "span": "However, due to the broad variety of interventions and outcomes assessed under the domain of education, and the limited number of high‐quality RCT and quasi‐experimental studies available, more research is needed to understand which types of interventions are most efficacious, and how best to deliver them. 6.3. Quality of the evidence The quality of the included studies is largely low, as determined by the confidence in study findings tool used in this review. Most study designs employed were unable to consider many potential confounders. Moreover, masking, baseline balance, and attribution were poorly reported. 6.4. Potential biases in the review process Potential bias may be introduced about the lack of grey literature included in the review, as well as the absence of non‐English literature. 6.5.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        124366,
+        125175
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4f5157c0a6df18e7": {
+      "sentence": "One of the review's stated questions was which interventions appear most effective for different types of disability [1].",
+      "sentence_sha": "4f5157c0a6df18e7",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@2423",
+      "span": "Such interventions involve a wide range of initiatives, from those focused on the individual level – such as teaching assistance to make mainstream classes more accessible to children with specific learning needs – to those which address policy or advocacy. Objectives The objectives of this review were to answer the following research questions: (1) What is the nature of the interventions used to support education for people with disabilities in LMICs? (2) What is the size and quality of the evidence base of the effectiveness of interventions to improve educational outcomes for people with disabilities in LMICs? (3) What works to improve educational outcomes for people with disabilities in LMICs? (4) Which interventions appear to be most effective for different types of disability?",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        2423,
+        3215
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "381976f14a147218": {
+      "sentence": "The authors call for studies with larger samples, more rigorous designs and standardised measures [1].",
+      "sentence_sha": "381976f14a147218",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@133954",
+      "span": "Impact evaluations need to be funded and undertaken on ‘what works to improve educational outcomes for people with disabilities’. Studies conducted with larger samples of children are needed, as are those employing more rigorous study designs. The use of standardised measures, where possible, would also benefit comparison between studies and across regions. Studies should consistently consider and report on a broad range of characteristics and aspects of identity (e.g., gender, ethnicity) to understand the differential impacts of interventions on male and female participants with disabilities or impact on different ethnicities. CONTRIBUTIONS OF AUTHORS Content: All Systematic review methods: XH, AS, HW Statistical analysis: AS Information retrieval: XH, AS DECLARATIONS OF INTEREST The authors have no interests to declare.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        133954,
+        134787
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "db493c006d7709a1": {
+      "sentence": "The best-supported claim is narrow: many individual-level programmes that build children's skills showed significant effects, and two-thirds of the skills studies analysed reported a significant effect [1].",
+      "sentence_sha": "db493c006d7709a1",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@6557",
+      "span": "The second most common category of intervention was ‘Accessible learning environments’, for instance, programmes which aimed to improve social skills or to reduce rates of victimisation of children with disabilities in schools. Regarding intervention effects, included studies concerned with ‘Conditions for inclusion of people with disabilities in education’ showed a moderately significant effect, and one study concerned with teacher knowledge showed a significant effect size. Among the 18 studies included in the analysis of intervention effects on ‘Skills for learning’, 12 interventions had a significant effect. When considering the effect of interventions on different outcomes, we see that the effect on literacy, cognitive skills, handwriting, and numeracy are significant. All these effects are large but are based on a low number of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        6557,
+        7411
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "120b093397970791": {
+      "sentence": "The very large effects for numeracy and handwriting should be read cautiously, because each comes from only two studies.",
+      "sentence_sha": "120b093397970791",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "0711bfd5a3454535": {
+      "sentence": "Pooled effects for speech and communication and for school behaviour were not significant, despite positive individual studies.",
+      "sentence_sha": "0711bfd5a3454535",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "8ee0a208815cac6d": {
+      "sentence": "Programmes that change the learning environment, such as teacher training and violence reduction, show a moderate effect, but this rests on few studies with high heterogeneity.",
+      "sentence_sha": "8ee0a208815cac6d",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "2844e4986a4c66db": {
+      "sentence": "On which kinds work best, these passages give no firm ranking, and the authors say more research is needed to understand which types are most efficacious [1].",
+      "sentence_sha": "2844e4986a4c66db",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@124366",
+      "span": "However, due to the broad variety of interventions and outcomes assessed under the domain of education, and the limited number of high‐quality RCT and quasi‐experimental studies available, more research is needed to understand which types of interventions are most efficacious, and how best to deliver them. 6.3. Quality of the evidence The quality of the included studies is largely low, as determined by the confidence in study findings tool used in this review. Most study designs employed were unable to consider many potential confounders. Moreover, masking, baseline balance, and attribution were poorly reported. 6.4. Potential biases in the review process Potential bias may be introduced about the lack of grey literature included in the review, as well as the absence of non‐English literature. 6.5.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        124366,
+        125175
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "7d2afa5c92b6dac2": {
+      "sentence": "Systemic approaches such as inclusive education policy and accessible buildings have not been evaluated in this evidence base, so nothing can be said here about whether they work [1].",
+      "sentence_sha": "7d2afa5c92b6dac2",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@100269",
+      "span": "In other words, these interventions aimed to improve the quality and/or inclusiveness of learning social environments. Among programmes coded under this sub‐category were those that aimed to improve social skills (Lee et al., 2019 ) and reduce rates of victimisation of children with disabilities in school (Devries et al., 2018 ). Other sub‐categories reflected in the literature included ‘Structural interventions’ ( n = 1) (Carew et al., 2019 ), ‘Anti‐bullying policies and programmes’ ( n = 1) (Devries et al., 2018 ), ‘Educational services development’ ( n = 6) (Carew et al., 2019 ; Pawar & Mohite, 2014 ), and ‘Rehabilitation and health services, and assistive technologies’ (Lal, 2010 ). No studies represented the intervention categories of ‘Accessibility of built environment and learning materials’ or ‘Inclusive education policies’.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        100269,
+        101113
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "70c3df40108dd3f8": {
+      "sentence": "The authors conclude that interventions targeting both the individual with a disability and their broader environment are needed [1].",
+      "sentence_sha": "70c3df40108dd3f8",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@131666",
+      "span": "Consequently, a focus on interventions which target not just the individual with a disability but also their broader environment, is needed. 7.1. Implications for practice Most interventions tried to improve children's functioning, skills, and competencies, but did not focus on system‐level or school‐level changes, that is, changes at a wider institutional level. Interventions which target both the individual with a disability, such as provision of speech‐to‐text software and their broader environment(s), such as teacher training programmes and curriculum modifications, are needed. Efforts should also be made to integrate measures of disability within planned or ongoing mainstream education impact evaluations and other demographic or household surveys that include education outcomes.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        131666,
+        132460
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b2d9716945d0d264": {
+      "sentence": "We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].",
+      "sentence_sha": "b2d9716945d0d264",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "8fdf714376d973b9": {
+      "sentence": "We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.",
+      "sentence_sha": "8fdf714376d973b9",
+      "why_empirical": "the bare integer 1 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "9561f64406eb0cd0": {
+      "sentence": "We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.",
+      "sentence_sha": "9561f64406eb0cd0",
+      "why_empirical": "names Evidence and gap map of studies assessing the effectiveness of interventions for",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "7e0be04aacb5210a": {
+      "sentence": "We found Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map but it has a published correction we could not read, so nothing on this page draws on it.",
+      "sentence_sha": "7e0be04aacb5210a",
+      "why_empirical": "process claim: 'We found'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "88a5c9cd3882fe4f": {
+      "sentence": "We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability inclusive education interventions LMIC effectiveness review; web search: evidence gap map disability education interventions LMIC White Saran Kuper Campbell; web search: UNICEF \"effectiveness of inclusive interventions for children with disabilities\" 2022 report; web search: Wapling systematic review education children disabilities developing countries strategies 2016; web search: intersectional barriers facilitators educational inclusion disabilities LMIC systematic review 2025; web search: \"intersectional barriers\" \"educational inclusion\" \"persons with disabilities\" \"low- and middle-income\" systematic review 2025 journal; web search: teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map Campbell; registry: Europe PMC.",
+      "sentence_sha": "88a5c9cd3882fe4f",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "14e77c10f5b71f9f": {
+      "sentence": "We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.",
+      "sentence_sha": "14e77c10f5b71f9f",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "07c9b03cb375ec73": {
+      "sentence": "Hunt X, Saran A, White H, et al. Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+      "sentence_sha": "07c9b03cb375ec73",
+      "why_empirical": "source claim: 'et al.'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "store_subject_markup": [
+        "S001"
+      ],
+      "on_page": true
+    },
+    "c1c6c210d3493add": {
+      "sentence": "Campbell systematic reviews.",
+      "sentence_sha": "c1c6c210d3493add",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "b86a07ac8e1fee5e": {
+      "sentence": "2025.",
+      "sentence_sha": "b86a07ac8e1fee5e",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "4bc020e1778c3dce": {
+      "sentence": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+      "sentence_sha": "4bc020e1778c3dce",
+      "why_empirical": "names Evidence and gap map of studies assessing the effectiveness of interventions for",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "99400924f2fac1b5": {
+      "sentence": "2020.",
+      "sentence_sha": "99400924f2fac1b5",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "3ae7086fa09f15ef": {
+      "sentence": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+      "sentence_sha": "3ae7086fa09f15ef",
+      "why_empirical": "source claim: 'et al.'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "trigger": "source_claim",
+      "store_subject_markup": [
+        "S003"
+      ],
+      "on_page": true
+    },
+    "c73c05bf136419f8": {
+      "sentence": "2022.",
+      "sentence_sha": "c73c05bf136419f8",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true
+    },
+    "426d018ca6d6a4b7": {
+      "sentence": "The studies concerned with speech and school behaviour show no significant effect of intervention [1].",
+      "sentence_sha": "426d018ca6d6a4b7",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@7412",
+      "span": "The studies concerned with speech and school behaviour show no significant effect of intervention.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        7412,
+        7510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "668148a4963767e6": {
+      "sentence": "Across the studies reviewed, heterogeneity is high and the risk of publication bias varies but was frequently high, so the pooled evidence should be treated with caution [1].",
+      "sentence_sha": "668148a4963767e6",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@7511",
+      "span": "Across studies, heterogeneity is high, and risk of publication bias varies but was frequently high.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        7511,
+        7610
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b7e70e9f042085dc": {
+      "sentence": "All but one of the included studies received an overall rating of low confidence in study findings, so the evidence on these programmes is weak [1].",
+      "sentence_sha": "b7e70e9f042085dc",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@7611",
+      "span": "All but one study received an overall rating of low confidence in study findings.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        7611,
+        7692
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a41447f0cbe89300": {
+      "sentence": "The low confidence in the evidence across studies was largely due to the use of low-rigour study designs, and did not always reflect multiple points of weakness within any single study [1].",
+      "sentence_sha": "a41447f0cbe89300",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@7693",
+      "span": "However, this lack of confidence across studies was largely due to the use of low‐rigour study designs and was not always reflective of multiple points of weakness within a given study.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        7693,
+        7878
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c8b431193375eaf1": {
+      "sentence": "A twin-track approach is needed, meeting the specific needs of children with disabilities while also including them in mainstream activities, for example by improving teachers' skills and classroom accessibility [1].",
+      "sentence_sha": "c8b431193375eaf1",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8154",
+      "span": "A twin‐track approach is needed, which both addresses the specific needs of children with disabilities but also ensures that they are included in mainstream activities (e.g., through improving the skills of teachers and accessibility of the classroom).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8154,
+        8406
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8ca600402d726e8e": {
+      "sentence": "Most interventions in this systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them through system-level or school-level changes [1].",
+      "sentence_sha": "8ca600402d726e8e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8407",
+      "span": "However, currently most interventions included in this systematic review targeted individual children with disabilities in an attempt to improve their functioning, skills, and competencies, but did not focus on mainstreaming these children into the school by system‐level or school‐level changes.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8407,
+        8703
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "840e2396e1978dd4": {
+      "sentence": "The source says evaluation is needed of interventions that target not only the individual with a disability but also their broader environment [1].",
+      "sentence_sha": "840e2396e1978dd4",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8704",
+      "span": "Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8704,
+        8859
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "d05e7f6425d61076": {
+      "sentence": "According to the source, all but one study received an overall rating of low confidence in study findings [1].",
+      "sentence_sha": "d05e7f6425d61076",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@7611",
+      "span": "All but one study received an overall rating of low confidence in study findings.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        7611,
+        7692
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8999b17ad3e26fcb": {
+      "sentence": "According to the source, a twin-track approach is needed, one that both addresses the specific needs of children with disabilities and ensures they are included in mainstream activities (e.g., through improving the skills of teachers and the accessibility of the classroom) [1].",
+      "sentence_sha": "8999b17ad3e26fcb",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8154",
+      "span": "A twin‐track approach is needed, which both addresses the specific needs of children with disabilities but also ensures that they are included in mainstream activities (e.g., through improving the skills of teachers and accessibility of the classroom).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8154,
+        8406
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4c3aadc727929d4d": {
+      "sentence": "However, currently most interventions included in this systematic review targeted individual children with disabilities in an attempt to improve their functioning, skills, and competencies, but did not focus on mainstreaming these children into the school by system-level or school-level changes [1].",
+      "sentence_sha": "4c3aadc727929d4d",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8407",
+      "span": "However, currently most interventions included in this systematic review targeted individual children with disabilities in an attempt to improve their functioning, skills, and competencies, but did not focus on mainstreaming these children into the school by system‐level or school‐level changes.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8407,
+        8703
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "6137afb903c63008": {
+      "sentence": "The source states: \"Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed\" [1].",
+      "sentence_sha": "6137afb903c63008",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8704",
+      "span": "Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-24",
+      "on_page": true,
+      "offsets": [
+        8704,
+        8859
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    }
+  }
+}
