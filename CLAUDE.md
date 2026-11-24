@@ -3104,6 +3104,7 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
   source-list entries come from `registry_record` (source_entries.py; standing check + lean preflight row).
 - Never put whatholdsup/orch/ itself on sys.path: orch/google.py shadows the google package (attempt 19).
 - After attempt 21: one holdings record (`holdings.py`); `source_store.held` drops sources sources.json marks blocked / not_held (text readers), `library_held` is the writers' raw view; preflight + standing check "page cites held sources only". Dangling (lean): removed terms are acronyms only; a recorded reject of the exact finding counts as ruled (`orchestrator.dangling_unruled`).
+- Run provenance (2026-11-24): `run_manifest.py build <slug>` commits a hash manifest of the bindings file and every held document and copies the files to ~/Projects/whu-study-private/run_provenance/<slug>/ (never the repo); the orchestrator does it at the end of every paid run; `check` (test) fails a result run (lean Q1-01c/02b/03b/04c, any Ready orchestrated run) with no committed manifest.
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

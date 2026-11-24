@@ -1,0 +1,58 @@
+{
+ "_what_this_is": "Run provenance manifest: the bindings file and every stored document this run's issue holds, by hash (advisor's ruling 2026-11-24). The files themselves are copied to the private study folder, never to this repo (held documents carry publisher text).",
+ "slug": "whu-lean-q1-01c",
+ "built_at": "2026-11-24T13:13:29+00:00",
+ "library_root": "backend/data/whatholdsup/library",
+ "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-q1-01c",
+ "files": [
+  {
+   "role": "bindings",
+   "path": "issues/WHU-L1-01c-whu-lean-q1-01c/bindings.json",
+   "sha256": "fbf174d2ea83251b024868e2e0063dc3220cd5e7c72a3ddd25b57c0a0c0cde1c",
+   "size": 69519,
+   "mtime_utc": "2026-11-05T22:46:51+00:00",
+   "scored": true
+  },
+  {
+   "role": "library_index",
+   "path": "library:issues/whu-lean-q1-01c.json",
+   "sha256": "f67a0d77bedc7f7a7b514c811a834ef6b5a2c23ed6bf38908a416d44bdf05fcb",
+   "size": 1412,
+   "mtime_utc": "2026-11-05T22:17:48+00:00"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+   "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+   "size": 1164109,
+   "mtime_utc": "2026-10-29T00:06:27+00:00",
+   "source_id": "S001",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/31/3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5.pdf",
+   "sha256": "3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5",
+   "size": 1820258,
+   "mtime_utc": "2026-10-29T00:06:28+00:00",
+   "source_id": "S002",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "3107aecff8b84c84e07491361a451e4693102c79cc61697344c11b45365a62c5"
+  }
+ ],
+ "scored_bindings": {
+  "sha256": "fbf174d2ea83251b024868e2e0063dc3220cd5e7c72a3ddd25b57c0a0c0cde1c",
+  "basis": "judging 2026-11-06T16:11:30Z-16:45:59Z (ledger whu-reliability-judging-lean), analysis e390fd1 16:47:06Z; the file was last written 2026-11-05T22:46:51Z (= the 22:53:30Z archive's sha256), before judging began, and not written since",
+  "status": "scored"
+ },
+ "bindings_at_archive": {
+  "sha256": "fbf174d2ea83251b024868e2e0063dc3220cd5e7c72a3ddd25b57c0a0c0cde1c",
+  "archive": "~/Projects/whu-study-private/WHU-L1-01c-whu-lean-q1-01c/20261105T225330Z/",
+  "recorded_in": "issues/WHU-L1-01c-whu-lean-q1-01c/private_manifest.txt",
+  "matches_current": true
+ },
+ "copied": 4
+}

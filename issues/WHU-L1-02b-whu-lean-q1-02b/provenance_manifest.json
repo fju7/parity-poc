@@ -1,0 +1,69 @@
+{
+ "_what_this_is": "Run provenance manifest: the bindings file and every stored document this run's issue holds, by hash (advisor's ruling 2026-11-24). The files themselves are copied to the private study folder, never to this repo (held documents carry publisher text).",
+ "slug": "whu-lean-q1-02b",
+ "built_at": "2026-11-24T13:13:29+00:00",
+ "library_root": "backend/data/whatholdsup/library",
+ "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-q1-02b",
+ "files": [
+  {
+   "role": "bindings",
+   "path": "issues/WHU-L1-02b-whu-lean-q1-02b/bindings.json",
+   "sha256": "9da2a2bf98e38edf1b835e39c4e8b29037b7b8b1b6d158a1e7617bd551d61823",
+   "size": 82906,
+   "mtime_utc": "2026-11-06T00:36:08+00:00",
+   "scored": true
+  },
+  {
+   "role": "library_index",
+   "path": "library:issues/whu-lean-q1-02b.json",
+   "sha256": "f348f9f0c9153eda8aff6c56ee3b5f0549cdb8fe4dd6bdd63f08793a4f7fabf0",
+   "size": 2134,
+   "mtime_utc": "2026-11-06T00:05:39+00:00"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+   "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+   "size": 395517,
+   "mtime_utc": "2026-10-29T00:57:35+00:00",
+   "source_id": "S001",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/ef/eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010.pdf",
+   "sha256": "eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010",
+   "size": 1238506,
+   "mtime_utc": "2026-10-29T00:57:36+00:00",
+   "source_id": "S002",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "eff79be37a05932a1d99c2d3c1ec9db6daf9cda1c8190127394cbfc59d47c010"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/7a/7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3.pdf",
+   "sha256": "7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3",
+   "size": 1586324,
+   "mtime_utc": "2026-11-06T00:05:39+00:00",
+   "source_id": "S003",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "7a7e2b79f497e5def1e756f50a9bd9de9dfe071d403c41b8111c0009e9a1c2a3"
+  }
+ ],
+ "scored_bindings": {
+  "sha256": "9da2a2bf98e38edf1b835e39c4e8b29037b7b8b1b6d158a1e7617bd551d61823",
+  "basis": "judging 2026-11-06T16:11:30Z-16:45:59Z (ledger whu-reliability-judging-lean), analysis e390fd1 16:47:06Z; the file was last written 2026-11-06T00:36:08Z (= the 00:40:14Z archive's sha256), before judging began, and not written since",
+  "status": "scored"
+ },
+ "bindings_at_archive": {
+  "sha256": "9da2a2bf98e38edf1b835e39c4e8b29037b7b8b1b6d158a1e7617bd551d61823",
+  "archive": null,
+  "recorded_in": "issues/WHU-L1-02b-whu-lean-q1-02b/private_manifest.txt",
+  "matches_current": true
+ },
+ "copied": 5
+}

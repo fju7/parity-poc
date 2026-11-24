@@ -1331,6 +1331,19 @@ def trial_library(slug: str, root: Path = ROOT) -> str:
     return str(store.LIB)
 
 
+def write_run_manifest(slug: str) -> dict:
+    """Every orchestrated run, whatever its result (advisor's ruling 2026-11-24): the bindings file and every stored
+    document by hash, in orchestrator/provenance_manifest.json (committed with the run's records), and the files
+    copied to the private study folder. A failure is recorded in the run record, never hidden."""
+    import run_manifest as RM
+    try:
+        man = RM.build(slug)
+        return {"path": RM.ORCH_MANIFEST, "files": len(man["files"]), "copied": man.get("copied"),
+                "private_copy": man["private_copy"]}
+    except BaseException as e:      # noqa: BLE001 -- recorded; the check fails a Ready run that has no manifest
+        return {"error": "%s: %s" % (type(e).__name__, e)}
+
+
 def _stage_malformed(path: Path) -> list[dict]:
     """The stages' malformed replies and re-asks (factcheck_draft.call in lean mode), then the log is removed."""
     out = []
@@ -1378,6 +1391,7 @@ def main(argv=None) -> int:
         out["library_root"] = lib
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
         out["models_reported"] = record_models_reported(ctx)   # the model id each response reported (advisor)
+        out["provenance_manifest"] = write_run_manifest(a.slug)
         rec = ctx.case / "orchestrator" / "run_paid.json"          # every step's commands, exit codes and outcome
         rec.parent.mkdir(parents=True, exist_ok=True)
         rec.write_text(json.dumps(dict(out, ruling=os.environ.get(PAID_RULING_ENV), ended=now()), indent=1,
