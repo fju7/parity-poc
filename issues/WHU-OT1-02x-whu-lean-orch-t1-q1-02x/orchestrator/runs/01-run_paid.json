@@ -1,0 +1,135 @@
+{
+ "result": "Not Ready: discover: registry unavailable; run again later (https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Teacher%20professional%20de: TimeoutError: The read operation timed out)",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-24T18:40:04+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (123 code files)"
+   },
+   "code_hash": "679df5a9ab3d87060400cd842cf378988f5cf8c2594e874865a410bfc3cb1b50",
+   "end": "2026-11-24T18:40:04+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-24T18:40:04+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "679df5a9ab3d87060400cd842cf378988f5cf8c2594e874865a410bfc3cb1b50",
+   "end": "2026-11-24T18:40:21+00:00",
+   "usd": 0.032844
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-24T18:40:21+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "5 source(s), 3 unresolved proposal(s)"
+   },
+   "code_hash": "b457599fb9de1b2975a527b1b46ccc9cd5dd4195373e0cd6b0447d4312472b37",
+   "end": "2026-11-24T18:46:50+00:00",
+   "usd": 0.4635,
+   "failed": "RunStop: discover: registry unavailable; run again later (https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Teacher%20professional%20de: TimeoutError: The read operation timed out)"
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "registry_outages": [
+  {
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22Teacher%20professional%20development%20for%20disability%20inclusion%20in%20low%E2%80%90%20and%20middle%E2%80%90income%20Asia%E2%80%90Pacific%20countries%3A%20An%20evidence%20and%20gap%20map%22&resultType=core&format=json",
+   "error": "TimeoutError: The read operation timed out",
+   "attempts": 4,
+   "at": "2026-11-24T18:44:17+00:00"
+  }
+ ],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "sources": {
+  "found": 5,
+  "held": 0,
+  "not_held": 5,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "type": "review",
+    "held": false,
+    "state": null,
+    "reason": "not held: "
+   },
+   {
+    "id": "S002",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "type": "synthesis",
+    "held": false,
+    "state": null,
+    "reason": "not held: "
+   },
+   {
+    "id": "S003",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "type": "synthesis",
+    "held": false,
+    "state": null,
+    "reason": "not held: "
+   },
+   {
+    "id": "S004",
+    "title": "Barriers to, and facilitators of, education for children with disabilities worldwide: a descriptive review.",
+    "type": "review",
+    "held": false,
+    "state": null,
+    "reason": "not held: "
+   },
+   {
+    "id": "S005",
+    "title": "PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "type": "methods",
+    "held": false,
+    "state": null,
+    "reason": "not held: "
+   }
+  ],
+  "proposals_not_confirmed": 3,
+  "unconfirmed": [
+   {
+    "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Effectiveness of Inclusive Interventions for Children with Disabilities in Low- and Middle-Income Countries: Protocol for an Evidence and Gap Map",
+    "reason": "Europe PMC returned no record for the title (or did not answer)"
+   },
+   {
+    "title": "Intersectional Barriers to and Facilitators of Educational Inclusion for Persons With Disabilities in Low‐ and Middle‐Income Countries: A Systematic Literature Review",
+    "reason": "the record carries no DOI or PMID"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 0,
+  "copied": 0,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-02x"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-24T18:46:50+00:00"
+}
