@@ -1,0 +1,61 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T13:30:22+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes the evidence base: most studies targeted children with disabilities. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T13:30:24+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "It only describes who five studies targeted (family members versus service providers). It reports no effect, comparison or certainty judgement, and its context is unclear, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T13:30:27+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "It only describes which impairment groups interventions most often targeted (n=17); it gives no effect or comparison of intervention types, so it doesn't change the answer on what works.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T13:30:31+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appears most often in the studies, with a dyslexia example. It gives no effect, comparison or certainty, so it does not change the answer on whether or which programmes work.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T13:30:33+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes why children with disabilities fall behind (system barriers), not whether interventions work. This is a barriers question, which the scope excludes alongside out-of-school numbers.",
+   "by": "claude-sonnet-5-5",
+   "element": "How many children with disabilities in low- and middle-income countries are out of school, and why",
+   "decided_at": "2026-11-24T13:30:50+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes for children with disabilities, not education outcomes, so it falls under the excluded health and rehabilitation topic.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health, rehabilitation or medical treatment outcomes for children with disabilities",
+   "decided_at": "2026-11-24T13:30:52+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation that evaluations should target the wider environment as well as the individual. It reports no effect, direction, size or comparison of intervention types, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-24T13:30:58+00:00"
+  }
+ }
+}
