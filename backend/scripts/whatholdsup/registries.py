@@ -18,6 +18,13 @@ reply.
 
 Client name: tls.USER_AGENT (generic, no email), and for NCBI `tool=` the same generic name; no API key is sent, so
 none can be printed or logged.
+
+Rulings after the fallback build (2026-11-24, P090): identity asks all three registries every time (orch/resolve.py);
+a "no record" reply is an answer, an error or timeout never is; Europe PMC's full text falls back to NCBI PMC through
+E-utilities (`pmc_fulltext`: the PMC OA Web Service was retired on 2026-08-25 -- NCBI's page says "the PMC OA Web
+Service is no longer available" -- and NCBI names E-utilities among the services that may be used for automated
+retrieval); every NCBI request, in every mode and from every process, is paced within NCBI's published limit for a
+client with no API key, three requests a second (`ncbi_pace`, a lock file shared by all processes).
 """
 from __future__ import annotations
 
@@ -40,7 +47,9 @@ EPMC = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
 CROSSREF = "https://api.crossref.org/works"
 TIMEOUT = 25
-PAUSE = {"pubmed": 0.4, "crossref": 1.0}       # keyless NCBI allows 3 requests a second; Crossref asks for restraint
+PAUSE = {"crossref": 1.0}                      # Crossref asks for restraint; NCBI is paced by ncbi_pace
+NCBI_INTERVAL = 0.35          # seconds between NCBI requests: under 3 a second, NCBI's limit with no API key
+NCBI_HOSTS = ("eutils.ncbi.nlm.nih.gov", "www.ncbi.nlm.nih.gov", "pmc.ncbi.nlm.nih.gov", "pubmed.ncbi.nlm.nih.gov")
 EUROPE_PMC, PUBMED, CROSSREF_NAME = "Europe PMC", "PubMed", "Crossref"
 # PubMed's title search: content words, each [ti]; a quoted title with punctuation finds nothing (checked live
 # 2026-11-24: '"<title with a colon>"[ti]' -> 0 hits where the words find it).
@@ -58,11 +67,14 @@ class Answer:
     why: str = ""
     url: str | None = None
 
-    def row(self, asked: str) -> dict:
-        """What the status records about this registry."""
-        return {"registry": self.registry, "asked": asked, "answered": self.answered,
-                "record": "found" if (self.record or self.records) else ("none" if self.answered else None),
-                "why": self.why[:300]}
+    def row(self, asked: str, matched: bool | None = None) -> dict:
+        """What a lookup records about this registry: asked, answered, and (identity) whether its record matched."""
+        r = {"registry": self.registry, "asked": asked, "answered": self.answered,
+             "record": "found" if (self.record or self.records) else ("none" if self.answered else None),
+             "why": self.why[:300]}
+        if matched is not None:
+            r["matched"] = matched
+        return r
 
 
 def transient(e: Exception) -> bool:
@@ -72,8 +84,42 @@ def transient(e: Exception) -> bool:
     return isinstance(e, (TimeoutError, ConnectionError, urllib.error.URLError, OSError, ValueError))
 
 
+def pace_file() -> Path:
+    import os
+    return Path(os.environ.get("WHU_NCBI_PACE_FILE") or (Path.home() / ".cache" / "whu" / "ncbi_pace"))
+
+
+def ncbi_pace(now=time.time, sleep=time.sleep) -> float:
+    """Wait until NCBI_INTERVAL has passed since the last NCBI request from ANY process on this machine, then record
+    this one. Returns the seconds waited."""
+    import fcntl
+    p = pace_file()
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with open(p, "a+") as fh:
+        fcntl.flock(fh, fcntl.LOCK_EX)
+        fh.seek(0)
+        try:
+            last = float(fh.read().strip() or 0)
+        except ValueError:
+            last = 0.0
+        wait = max(0.0, last + NCBI_INTERVAL - now())
+        if wait:
+            sleep(wait)
+        fh.seek(0)
+        fh.truncate()
+        fh.write("%.6f" % now())
+        fh.flush()
+    return wait
+
+
+def is_ncbi(url: str) -> bool:
+    return (urllib.parse.urlsplit(url).hostname or "").lower() in NCBI_HOSTS
+
+
 def _get(url: str) -> tuple[bool, bytes | None, str]:
     """(answered, body or None, why). A 4xx other than 429 is an answer with no body (404: no such record)."""
+    if is_ncbi(url):
+        ncbi_pace()
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with tls.urlopen(req, timeout=TIMEOUT) as fh:          # verified, as every WHU fetch
@@ -159,7 +205,6 @@ def _eutils(name: str, **params) -> str:
 def _esearch(term: str, retmax: int = 5) -> Answer:
     url = _eutils("esearch", db="pubmed", term=term, retmode="json", retmax=retmax)
     ok, d, why = _json(url)
-    _pause("pubmed")
     if not ok:
         return Answer(PUBMED, False, why="PubMed did not answer (%s)" % why, url=url)
     ids = ((d or {}).get("esearchresult") or {}).get("idlist") or []
@@ -169,7 +214,6 @@ def _esearch(term: str, retmax: int = 5) -> Answer:
 def _summaries(pmids: list[str]) -> Answer:
     url = _eutils("esummary", db="pubmed", id=",".join(pmids), retmode="json")
     ok, d, why = _json(url)
-    _pause("pubmed")
     if not ok:
         return Answer(PUBMED, False, why="PubMed did not answer (%s)" % why, url=url)
     res = (d or {}).get("result") or {}
@@ -229,7 +273,9 @@ def parse_efetch(xml: str) -> dict:
     own = m.group(1) if m else ""
     doi = re.search(r'<ArticleId IdType="doi">([^<]+)</ArticleId>', own)
     pmc = re.search(r'<ArticleId IdType="pmc">([^<]+)</ArticleId>', own)
+    abst = re.search(r"<Abstract>(.*?)</Abstract>", xml, re.S)
     return {"title": one(r"<ArticleTitle[^>]*>(.*?)</ArticleTitle>") or "",
+            "abstract": " ".join(re.sub(r"<[^>]+>", " ", abst.group(1)).split()) if abst else "",
             "pmid": one(r"<PMID[^>]*>(\d+)</PMID>"),
             "pubtypes": re.findall(r"<PublicationType[^>]*>([^<]+)</PublicationType>", xml),
             "links": links,
@@ -252,13 +298,41 @@ def pubmed_record(kind: str, value: str) -> Answer:
         pmid = s.records[0]
     url = _eutils("efetch", db="pubmed", id=pmid, retmode="xml")
     ok, body, why = _get(url)
-    _pause("pubmed")
     if not ok:
         return Answer(PUBMED, False, why="PubMed did not answer (%s)" % why, url=url)
     xml = (body or b"").decode("utf-8", "replace")
     if "<PubmedArticle>" not in xml and "<PubmedArticle " not in xml:
         return Answer(PUBMED, True, why="PubMed has no record for PMID %s" % pmid, url=url)
     return Answer(PUBMED, True, parse_efetch(xml), why="matched on PMID %s" % pmid, url=url)
+
+
+def pmc_fulltext_url(pmcid: str) -> str:
+    return _eutils("efetch", db="pmc", id=re.sub(r"^PMC", "", pmcid.upper()), retmode="xml")
+
+
+def pmc_fulltext(pmcid: str) -> Answer:
+    """NCBI PMC's copy of an article through E-utilities (efetch db=pmc), the fallback when Europe PMC's full text is
+    unavailable (ruling 2 after the fallback build). The copy rule is Europe PMC's (only the open-access subset is
+    requested there, isOpenAccess "Y"): efetch returns the article <body> only where the publisher allows it --
+    otherwise "The publisher of this article does not allow downloading of the full text in XML form" -- and a copy is
+    used only if it has a body AND a licence statement (<license>), which is recorded. record = {"xml", "licence"}."""
+    url = pmc_fulltext_url(pmcid)
+    ok, body, why = _get(url)
+    if not ok:
+        return Answer("PMC", False, why="NCBI PMC did not answer (%s)" % why, url=url)
+    xml = (body or b"").decode("utf-8", "replace")
+    if "<body" not in xml:
+        m = re.search(r"<!--\s*(The publisher[^>]*?)\s*-->", xml)
+        return Answer("PMC", True, why="not served: NCBI PMC %s" % (
+            m.group(1) if m else "returned no article body for %s" % pmcid), url=url)
+    lic = re.search(r"<license\b[^>]*>(.*?)</license>", xml, re.S)
+    if not lic:
+        return Answer("PMC", True, why="not served: NCBI PMC's copy of %s carries no licence statement" % pmcid,
+                      url=url)
+    href = re.search(r'(https?://creativecommons\.org/[^"<\s]+)', lic.group(0))
+    text = " ".join(re.sub(r"<[^>]+>", " ", lic.group(1)).split())[:300]
+    return Answer("PMC", True, {"xml": xml, "licence": {"url": href.group(1) if href else None, "statement": text}},
+                  why="NCBI PMC full text %s (E-utilities efetch)" % pmcid, url=url)
 
 
 # ---- Crossref ----------------------------------------------------------------------------------------------

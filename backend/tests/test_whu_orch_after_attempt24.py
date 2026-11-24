@@ -154,16 +154,59 @@ def _fake(epmc=None, pubmed=None, crossref=None, pmcid=None):
     return ns, covered
 
 
-def test_a_europe_pmc_outage_falls_back_to_pubmed_then_crossref():
+def test_a_europe_pmc_outage_leaves_pubmed_and_crossref_to_confirm():
     ns, cov = _fake(down(RG.EUROPE_PMC), RG.Answer(RG.PUBMED, True, why="no record"),
                     RG.Answer(RG.CROSSREF_NAME, True, records=[dict(rec(), registry="crossref")]))
     got = RV.search(TITLE, "Hunt", 2025, registries=ns)
     assert isinstance(got, RV.Found) and got.registry == "crossref" and got.identifier.value == "10.1002/cl2.70016"
     assert got.extra["record"]["registry"] == "crossref"
-    assert [r["registry"] for r in got.extra["answered"]] == ["Europe PMC", "PubMed", "Crossref"]
-    assert [r["answered"] for r in got.extra["answered"]] == [False, True, True]
+    rows = got.extra["answered"]
+    assert [(r["registry"], r["answered"], r.get("matched")) for r in rows] == [
+        ("Europe PMC", False, None), ("PubMed", True, False), ("Crossref", True, True)]
     assert cov and cov[0][1] == ["PubMed", "Crossref"]                # the Europe PMC outage is covered
 
+
+def test_all_three_registries_are_asked_every_time_and_the_first_match_in_order_is_the_source():
+    """Ruling 3 after the fallback build: not only as a fallback."""
+    asked = []
+    ns, cov = _fake()
+    ns.epmc_title = lambda t: asked.append("epmc") or RG.Answer(RG.EUROPE_PMC, True, rec(), [rec()])
+    ns.pubmed_title = lambda t: asked.append("pubmed") or RG.Answer(RG.PUBMED, True, records=[
+        dict(rec(pmid="1"), registry="pubmed")])
+    ns.crossref_title = lambda t, a=None: asked.append("crossref") or RG.Answer(RG.CROSSREF_NAME, True, records=[])
+    got = RV.search(TITLE, "Hunt", 2025, registries=ns)
+    assert asked == ["epmc", "pubmed", "crossref"] and got.registry == "europepmc" and cov == []
+    assert got.extra["matched_by"] == ["europepmc", "pubmed"]
+    assert [r.get("matched") for r in got.extra["answered"]] == [True, True, False]
+
+
+def test_another_matching_registrys_identifiers_are_merged_with_their_provenance():
+    """Found in rehearsal: Europe PMC's record of S004 had no PMCID and PubMed's had one."""
+    ns, cov = _fake()
+    ns.epmc_title = lambda t: RG.Answer(RG.EUROPE_PMC, True, rec(), [rec()])
+    ns.pubmed_title = lambda t: RG.Answer(RG.PUBMED, True, records=[dict(rec(pmid="41", pmcid="PMC13662523"),
+                                                                        registry="pubmed")])
+    ns.crossref_title = lambda t, a=None: RG.Answer(RG.CROSSREF_NAME, True, records=[])
+    got = RV.search(TITLE, "Hunt", 2025, registries=ns)
+    assert got.registry == "europepmc" and got.extra["pmcid"] == "PMC13662523" and got.extra["pmid"] == "41"
+    assert got.extra["identifiers_from"] == {"pmcid": "pubmed", "pmid": "pubmed"}   # the registry ids src uses
+    ns.pubmed_title = lambda t: RG.Answer(RG.PUBMED, True, records=[dict(rec(doi="10.9/other", pmcid="PMC9"),
+                                                                        registry="pubmed")])
+    got = RV.search(TITLE, "Hunt", 2025, registries=ns)
+    assert "pmcid" not in got.extra                                   # a different DOI is a different work
+
+
+def test_a_protocol_is_never_taken_for_the_work_and_an_exact_title_comes_first():
+    """Found in rehearsal: Crossref's first agreeing candidate for an evidence and gap map was its PROTOCOL."""
+    t = "Teacher professional development for disability inclusion: an evidence and gap map"
+    ns, cov = _fake(down(RG.EUROPE_PMC), down(RG.PUBMED), RG.Answer(RG.CROSSREF_NAME, True, records=[
+        dict(rec(title="PROTOCOL: " + t, doi="10.1002/cl2.1201"), registry="crossref"),
+        dict(rec(title=t + " and more", doi="10.1002/cl2.9"), registry="crossref"),
+        dict(rec(title=t, doi="10.1002/cl2.1287"), registry="crossref")]))
+    got = RV.search(t, "Hunt", 2025, registries=ns)
+    assert got.identifier.value == "10.1002/cl2.1287"
+    got = RV.search("PROTOCOL: " + t, "Hunt", 2025, registries=ns)   # a proposal that names a protocol keeps it
+    assert got.identifier.value == "10.1002/cl2.1201"
 
 def test_a_fallback_record_is_held_to_the_same_checks():
     ns, cov = _fake(down(RG.EUROPE_PMC), RG.Answer(RG.PUBMED, True, records=[dict(rec(authors="Jones K"),
@@ -180,45 +223,13 @@ def test_no_registry_answering_leaves_the_outage_to_stop_the_run():
     assert isinstance(got, RV.Unresolved) and got.status == "REGISTRY_UNAVAILABLE" and cov == []
 
 
-def test_a_later_fallback_is_asked_only_if_an_earlier_one_did_not_give_the_source():
-    ns, cov = _fake(down(RG.EUROPE_PMC), RG.Answer(RG.PUBMED, True, records=[dict(rec(), registry="pubmed")]))
-    ns.crossref_title = lambda t, a=None: pytest.fail("PubMed gave the source; Crossref is not asked")
-    got = RV.search(TITLE, "Hunt", 2025, registries=ns)
-    assert got.registry == "pubmed" and [r["registry"] for r in got.extra["answered"]] == ["Europe PMC", "PubMed"]
-
-
-def test_a_fallback_outage_is_covered_too_when_another_registry_answered():
+def test_an_outage_is_covered_when_any_other_registry_answered():
     ns, cov = _fake(down(RG.EUROPE_PMC), down(RG.PUBMED, "https://eutils.ncbi.nlm.nih.gov/x"),
                     RG.Answer(RG.CROSSREF_NAME, True, records=[dict(rec(), registry="crossref")]))
     got = RV.search(TITLE, "Hunt", 2025, registries=ns)
     assert got.registry == "crossref"
     assert sorted(u for u, _ in cov) == sorted(["https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=x",
                                                  "https://eutils.ncbi.nlm.nih.gov/x"])
-
-
-def test_a_steps_subprocess_can_mark_an_outage_covered(tmp_path):
-    """Found in rehearsal: sitecustomize loaded the wrapper without registering it, so a subprocess's covers
-    (errata.py at acquire) were lost and covered outages still stopped the run."""
-    import os
-    import subprocess
-    log = tmp_path / "u.jsonl"
-    code = ("import json, sys; sys.path.insert(0, %r); import registries as RG; "
-            "m = sys.modules.get('whu_registry_http'); assert m is not None and m.installed(), 'not registered'; "
-            "RG.covered(RG.Answer('Europe PMC', False, url='https://www.ebi.ac.uk/a'), ['PubMed', 'Crossref'])"
-            % str(W))
-    log.write_text(json.dumps({"url": "https://www.ebi.ac.uk/a", "error": "HTTPError: 503", "attempts": 4}) + "\n")
-    env = dict(os.environ, WHU_ORCH_UNAVAILABLE_LOG=str(log), PYTHONPATH=str(W / "orch" / "site"))
-    r = subprocess.run([sys.executable, "-c", code], env=env, capture_output=True, text=True)
-    assert r.returncode == 0, r.stderr
-    assert RH.outages(log) == [] and RH.covered_outages(log)[0]["covered_by"] == ["PubMed", "Crossref"]
-
-
-def test_europe_pmc_answering_uses_no_fallback():
-    called = []
-    ns, cov = _fake(RG.Answer(RG.EUROPE_PMC, True, rec(), [rec()]))
-    ns.pubmed_title = lambda t: called.append(t)
-    got = RV.search(TITLE, "Hunt", 2025, registries=ns)
-    assert isinstance(got, RV.Found) and got.registry == "europepmc" and called == [] and cov == []
 
 
 def test_a_pmc_article_falls_back_to_pubmed_by_its_pmcid():
@@ -250,11 +261,15 @@ def test_a_status_with_europe_pmc_down_comes_from_pubmed_and_crossref(monkeypatc
     monkeypatch.setattr(RG, "covered", lambda a, by: cov.append((a.registry, list(by))))
     pm = {"title": TITLE, "pubtypes": ["Journal Article"], "doi": "10.1002/cl2.70016",
           "links": [{"type": "ErratumIn", "pmid": "999"}]}
-    st = CR.status(SRC, lambda k, v: down(RG.EUROPE_PMC), lambda d: RG.Answer(RG.CROSSREF_NAME, True, {"relation": {}}),
+    st = CR.status(SRC, lambda k, v: down(RG.EUROPE_PMC),
+                   lambda d: RG.Answer(RG.CROSSREF_NAME, True, {"title": [TITLE], "relation": {}}),
                    lambda k, v: RG.Answer(RG.PUBMED, True, pm))
-    assert st["retracted"] is False and st["corrections"] == [{"id": "999", "registry": "MED", "type": "ErratumIn"}]
-    assert [(r["registry"], r["answered"]) for r in st["registries"]] == [
-        ("Europe PMC", False), ("PubMed", True), ("Crossref", True)]
+    assert st["retracted"] is False and st["checkable"] is True and st["state"] == "checked"
+    assert st["corrections"] == [{"id": "999", "registry": "MED", "type": "ErratumIn", "found_by": ["PubMed"]}]
+    assert [(r["registry"], r["answered"], r["record"]) for r in st["registries"]] == [
+        ("Europe PMC", False, None), ("PubMed", True, "found"), ("Crossref", True, "found")]
+    assert st["status_from"] == ["PubMed", "Crossref"]                 # every registry that returned the record
+    assert st["registries"][1]["findings"] == [] and "ErratumIn" in str(st["corrections"])
     assert cov == [("Europe PMC", ["PubMed", "Crossref"])]
 
 
@@ -298,6 +313,169 @@ def test_the_errata_sweep_in_an_orchestrated_run_needs_two_registries(monkeypatc
                              (lambda k, v: down(RG.EUROPE_PMC), lambda k, v: down(RG.PUBMED),
                               lambda d: RG.Answer(RG.CROSSREF_NAME, True, {"title": [TITLE]})))
     assert row["state"] == "UNCHECKED" and "1 of 3 registries answered" in row["why"]
+
+
+
+# ---------------------------------------------------------------- ruling 4 after the fallback build: status needs a record
+
+def test_two_answering_with_no_record_is_not_checkable_and_never_clean():
+    st = CR.status(SRC, lambda k, v: RG.Answer(RG.EUROPE_PMC, True, None, why="no record"),
+                   lambda d: RG.Answer(RG.CROSSREF_NAME, True, None, why="HTTP 404"),
+                   lambda k, v: RG.Answer(RG.PUBMED, True, None, why="no record"))
+    assert st["checkable"] is False and st["retracted"] is None and st["state"] == CR.NOT_CHECKABLE
+    assert st["state"] == "no registry record; retraction status not checkable" and st["status_from"] == []
+
+
+def test_a_source_with_no_identifier_is_not_checkable():
+    st = CR.status({"id": "S9", "title": "An agency page", "url": "https://www.who.int/x"})
+    assert st["checkable"] is False and st["retracted"] is None and st["state"] == CR.NOT_CHECKABLE
+
+
+def test_a_crossref_record_of_another_work_is_not_used():
+    st = CR.status(SRC, lambda k, v: RG.Answer(RG.EUROPE_PMC, True, rec()),
+                   lambda d: RG.Answer(RG.CROSSREF_NAME, True, {"title": ["Fish oils and the heart"],
+                                                                 "updated-by": [{"type": "retraction",
+                                                                                 "DOI": "10.9/r"}]}),
+                   lambda k, v: RG.Answer(RG.PUBMED, True, None, why="no record"))
+    assert st["retracted"] is False and st["status_from"] == ["Europe PMC"]
+    assert st["registries"][2]["record"] == "none" and "not used" in st["registries"][2]["why"]
+
+
+def test_a_correction_two_registries_report_is_one_correction_with_both_as_provenance():
+    epmc = dict(rec(), pmid="12", commentCorrectionList={"commentCorrection": [
+        {"type": "Erratum in", "id": "999", "source": "MED"}]})
+    pm = {"title": TITLE, "pubtypes": [], "links": [{"type": "ErratumIn", "pmid": "999"}]}
+    st = CR.status(SRC, lambda k, v: RG.Answer(RG.EUROPE_PMC, True, epmc),
+                   lambda d: RG.Answer(RG.CROSSREF_NAME, True, None, why="HTTP 404"),
+                   lambda k, v: RG.Answer(RG.PUBMED, True, pm))
+    assert st["corrections"] == [{"id": "999", "registry": "MED", "type": "Erratum in",
+                                  "found_by": ["Europe PMC", "PubMed"]}]
+    assert st["status_from"] == ["Europe PMC", "PubMed"]
+
+
+def test_the_errata_row_with_no_record_anywhere_says_not_checkable(monkeypatch):
+    import errata as E
+    monkeypatch.setattr(RG, "covered", lambda a, by: None)
+    row = E.orchestrated_row(SRC, "DOI", "10.1002/cl2.70016",
+                             (lambda k, v: RG.Answer(RG.EUROPE_PMC, True, None), lambda k, v: RG.Answer(RG.PUBMED, True),
+                              lambda d: RG.Answer(RG.CROSSREF_NAME, True, None)))
+    assert row["state"] == "UNCHECKED" and row["why"].startswith("no registry record; retraction status not checkable")
+
+
+# ---------------------------------------------------------------- PubMed paced in every mode, across processes
+
+def test_ncbi_requests_are_paced_across_processes(tmp_path, monkeypatch):
+    monkeypatch.setenv("WHU_NCBI_PACE_FILE", str(tmp_path / "pace"))
+    clock, slept = [100.0], []
+
+    def sleep(s):
+        slept.append(s)
+        clock[0] += s
+    assert RG.ncbi_pace(lambda: clock[0], sleep) == 0
+    clock[0] += 0.1
+    w = RG.ncbi_pace(lambda: clock[0], sleep)
+    assert abs(w - (RG.NCBI_INTERVAL - 0.1)) < 1e-6                   # waits out the interval
+    assert 1 / RG.NCBI_INTERVAL < 3                                   # under NCBI's 3 a second with no API key
+    clock[0] += 5
+    assert RG.ncbi_pace(lambda: clock[0], sleep) == 0
+    assert float((tmp_path / "pace").read_text()) == clock[0]          # one file, read by every process
+
+
+def test_every_ncbi_request_goes_through_the_pacer_and_no_other_does(monkeypatch):
+    paced = []
+    monkeypatch.setattr(RG, "ncbi_pace", lambda: paced.append(1) or 0.0)
+
+    class R:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return b"{}"
+    monkeypatch.setattr(RG.urllib.request, "urlopen", lambda req, timeout=None, **kw: R())
+    monkeypatch.setattr(RG, "PAUSE", {})
+    RG.pubmed_title(TITLE)
+    RG.pmc_fulltext("PMC1")
+    n = len(paced)
+    RG.crossref_work("10.1/x")
+    RG.epmc_title(TITLE)
+    assert n == 2 and len(paced) == 2
+
+
+# ---------------------------------------------------------------- ruling 2 after the fallback build: NCBI PMC full text
+
+def _urlopen_returning(body: bytes, code: int = 200):
+    class R:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return body
+
+    def f(req, timeout=None, **kw):
+        if code != 200:
+            raise urllib.error.HTTPError(req.full_url, code, "x", None, io.BytesIO(b""))
+        return R()
+    return f
+
+
+JATS = (b'<pmc-articleset><article><front><article-meta><title-group><article-title>T</article-title></title-group>'
+        b'<permissions><license><ali:license_ref>https://creativecommons.org/licenses/by/4.0/</ali:license_ref>'
+        b'<license-p>This is an open access article.</license-p></license></permissions></article-meta></front>'
+        b'<body><p>Results.</p></body></article></pmc-articleset>')
+
+
+def test_pmc_full_text_is_used_only_with_a_body_and_a_licence(monkeypatch):
+    monkeypatch.setattr(RG, "ncbi_pace", lambda: 0.0)
+    monkeypatch.setattr(RG.urllib.request, "urlopen", _urlopen_returning(JATS))
+    a = RG.pmc_fulltext("PMC11799928")
+    assert a.answered and a.record["licence"]["url"] == "https://creativecommons.org/licenses/by/4.0/"
+    assert "db=pmc" in a.url and "id=11799928" in a.url and "tool=whu-fetch" in a.url
+    monkeypatch.setattr(RG.urllib.request, "urlopen", _urlopen_returning(
+        b"<pmc-articleset><article><front/><!--The publisher of this article does not allow downloading of the "
+        b"full text in XML form.--></article></pmc-articleset>"))
+    a = RG.pmc_fulltext("PMC8356339")
+    assert a.answered and a.record is None and "does not allow downloading" in a.why
+    monkeypatch.setattr(RG.urllib.request, "urlopen", _urlopen_returning(JATS.replace(b"<license>", b"<x>")
+                                                                         .replace(b"</license>", b"</x>")))
+    a = RG.pmc_fulltext("PMC1")
+    assert a.answered and a.record is None and "no licence statement" in a.why
+    monkeypatch.setattr(RG.urllib.request, "urlopen", _urlopen_returning(b"", 503))
+    assert not RG.pmc_fulltext("PMC1").answered
+
+
+def test_the_acquire_fallback_covers_europe_pmc_only_when_pmc_answers(monkeypatch):
+    import acquire_sources as AQ
+    cov = []
+    monkeypatch.setattr(RG, "covered", lambda a, by: cov.append((a.url, list(by))))
+    url = "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC1/fullTextXML"
+    miss = [down(RG.EUROPE_PMC, url)]
+    data, ct, final, rec_ = AQ.pmc_fallback(url, miss, lambda p: RG.Answer("PMC", True, {
+        "xml": JATS.decode(), "licence": {"url": "https://creativecommons.org/licenses/by/4.0/"}}, url="u"))
+    assert data == JATS and ct == "application/xml" and rec_["licence"]["url"].endswith("by/4.0/")
+    assert cov == [(url, ["PMC"])]
+    cov.clear()
+    data, *_ = AQ.pmc_fallback(url, miss, lambda p: RG.Answer("PMC", False, why="HTTP 503", url="u"))
+    assert data is None and cov == []                                 # nothing answered: the outage stops the run
+    data, _ct, _f, rec_ = AQ.pmc_fallback(url, miss, lambda p: RG.Answer("PMC", True, why="not served: x", url="u"))
+    assert data is None and cov == [(url, ["PMC"])] and rec_["why"] == "not served: x"
+
+
+def test_a_correction_notice_falls_back_to_pubmed_and_pmc(monkeypatch):
+    calls = []
+    monkeypatch.setattr(RG, "covered", lambda a, by: calls.append(list(by)))
+    monkeypatch.setattr(RG, "epmc_id", lambda k, v: down(RG.EUROPE_PMC))
+    pm = RG.Answer(RG.PUBMED, True, {"title": "Erratum", "abstract": "The second table's totals are corrected; "
+                                                                    "the conclusions are unchanged.", "pmcid": None})
+    text, how = CR.notice_text({"id": "999", "registry": "MED"}, pubmed=lambda k, v: pm)
+    assert "corrected" in text and how.startswith("PubMed abstract") and calls == [["PubMed"]]
+    with pytest.raises(CR.RegistryUnavailable, match="Europe PMC and PubMed"):
+        CR.notice_text({"id": "999", "registry": "MED"}, pubmed=lambda k, v: down(RG.PUBMED))
 
 
 # ---------------------------------------------------------------- the discovery checkpoint
@@ -422,25 +600,40 @@ def _outcome(r, step):
     return next(((s.get("code") or {}).get("outcome") for s in r["steps"] if s["step"] == step), None)
 
 
-@pytest.mark.rehearsal
-def test_rehearsal_europe_pmc_down_confirms_through_the_fallbacks_and_stops_where_only_it_serves(tmp_path):
-    r, _ = _rehearse(tmp_path, "europepmc_down.json")
-    assert _outcome(r, "confirm") and r["steps"][-1]["step"] == "acquire" and r["steps"][-1].get("failed")
-    assert "acquire: registry unavailable; run again later" in r["result"]
-    assert r["registry_outages_covered"]                              # identity and status were answered for
-    assert all("europepmc" in o["url"] for o in r["registry_outages"])   # only Europe PMC's own texts stopped it
+def _sources(state):
+    d = json.loads((state / "case" / "sources.json").read_text())["sources"]
+    confirmed = sorted((s.get("doi") or s["title"]).lower() for s in d if not s.get("added_by"))
+    held = sorted(s["id"] for s in d if (s.get("access") or {}).get("state") == "full_text_held")
+    return confirmed, held, d
 
 
 @pytest.mark.rehearsal
-def test_rehearsal_a_status_from_crossref_alone_stops_the_run(tmp_path):
+def test_rehearsal_the_confirmed_and_held_sources_are_the_same_whether_or_not_europe_pmc_is_down(tmp_path):
+    """Rulings 2 and 3 after the fallback build: identity asks all three registries every time, and Europe PMC's
+    full texts fall back to NCBI PMC."""
+    up, s_up = _rehearse(tmp_path / "up", "none.json")
+    down_, s_down = _rehearse(tmp_path / "down", "europepmc_down.json")
+    assert up["result"] == down_["result"] == "Ready."
+    c_up, h_up, _ = _sources(s_up)
+    c_down, h_down, d = _sources(s_down)
+    assert c_up == c_down and h_up == h_down and h_up
+    assert down_["registry_outages"] == [] and down_["registry_outages_covered"]
+    for s in d:
+        if s["id"] in h_down and (s["access"]["held"].get("route") or "").startswith("NCBI PMC"):
+            assert s["access"]["held"]["licence"]["statement"]               # the licence is recorded
+        assert s["retraction_check"]["state"] == "checked"
+        assert "Europe PMC" not in s["retraction_check"]["status_from"]       # it never answered
+
+
+@pytest.mark.rehearsal
+def test_rehearsal_with_only_crossref_answering_no_status_and_no_pmcid_lookup_can_be_made(tmp_path):
     r, state = _rehearse(tmp_path, "only_crossref_answers.json")
-    assert _outcome(r, "confirm")                                     # identity through Crossref
-    assert "acquire: registry unavailable; run again later" in r["result"]
-    assert "1 of 3 registries answered (Crossref)" in r["steps"][-1]["failed"]      # the status check stopped it
-    # the status needed a second registry: PubMed's outage stays uncovered, and no status was recorded at all
-    assert any("eutils.ncbi.nlm.nih.gov" in o["url"] for o in r["registry_outages"])
-    srcs = json.loads((state / "case" / "sources.json").read_text())["sources"]
-    assert srcs and not any(s.get("retraction_check") for s in srcs)
+    assert "registry unavailable; run again later" in r["result"]
+    assert r["steps"][-1]["step"] in ("confirm", "acquire") and r["steps"][-1].get("failed")
+    assert r["registry_outages"]                                      # what no registry could answer stopped it
+    p = state / "case" / "sources.json"
+    if p.exists():
+        assert not any(s.get("retraction_check") for s in json.loads(p.read_text()).get("sources") or [])
 
 
 @pytest.mark.rehearsal

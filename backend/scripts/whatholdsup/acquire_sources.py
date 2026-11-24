@@ -200,20 +200,48 @@ _sleep = __import__("time").sleep
 EPMC_FULLTEXT = re.compile(r"europepmc/webservices/rest/(PMC\d+)/fullTextXML", re.I)
 
 
-def epmc_not_served(url: str, lookup=None) -> str | None:
+def epmc_not_served(url: str, lookup=None, misses: list | None = None) -> str | None:
     """In an orchestrated run, before a Europe PMC full text is requested, its record's metadata is read
     (advisor's ruling after attempt 13). Returns the reason it is not requested, or None to request it. A
-    metadata lookup that fails is an outage, which the run-wide wrapper records; the request then goes ahead and
-    the run stops after the step."""
+    metadata lookup that fails is an outage, which the run-wide wrapper records; the request then goes ahead (and,
+    since the ruling after the fallback build, falls back to NCBI PMC). MISSES collects an unanswered lookup, so a
+    fallback that answers can mark it covered."""
     m = EPMC_FULLTEXT.search(url or "")
     if not m or not os.environ.get("WHU_ORCH_STEP"):
         return None
     import errata as E
-    rec, _why = (lookup or E.lookup)("PMCID", m.group(1))
+    if lookup is not None:
+        rec, _why = lookup("PMCID", m.group(1))
+    else:
+        import registries as RG
+        ans = RG.epmc_id("PMCID", m.group(1))      # the same request errata.lookup makes
+        rec = ans.record
+        if not ans.answered and misses is not None:
+            misses.append(ans)
     if rec is not None and not E.epmc_full_text_served(rec):
         return "not served: Europe PMC metadata for %s says isOpenAccess %s (not requested)" % (
             m.group(1), rec.get("isOpenAccess"))
     return None
+
+
+def pmc_fallback(url: str, misses: list, fetcher=None) -> tuple[bytes | None, str, str, dict]:
+    """Europe PMC's full text at URL was unavailable after the retries (or its metadata was): NCBI PMC's copy through
+    E-utilities, under Europe PMC's copy rule (registries.pmc_fulltext: the open-access body, with its licence
+    statement; ruling 2 after the fallback build). Returns (bytes or None, content type, final URL, record). A PMC
+    answer -- a copy, or "not served" -- covers the Europe PMC outages in MISSES; a PMC outage covers nothing."""
+    import registries as RG
+    m = EPMC_FULLTEXT.search(url or "")
+    ans = (fetcher or RG.pmc_fulltext)(m.group(1))
+    rec = {"route": "NCBI PMC (E-utilities efetch db=pmc)", "url": ans.url, "answered": ans.answered,
+           "why": ans.why}
+    if not ans.answered:
+        return None, "", ans.url or "", rec
+    for miss in misses:
+        RG.covered(miss, ["PMC"])
+    if ans.record is None:
+        return None, "", ans.url, rec
+    rec["licence"] = ans.record["licence"]
+    return ans.record["xml"].encode("utf-8"), "application/xml", ans.url, rec
 
 
 def transient(e: Exception) -> bool:
@@ -314,21 +342,39 @@ def main(argv=None) -> int:
         data = ct = final = None
         why, check, tried = "no route tried", {}, []
         unavailable = False
+        via_pmc = None
         for target in targets:
-            nsv = epmc_not_served(target)
+            misses = []
+            nsv = epmc_not_served(target, misses=misses)
             if nsv:                  # the record's metadata says this endpoint serves no full text: not requested
                 why = nsv
                 tried.append({"url": target, "result": why, "unavailable": False}); continue
             try:
                 data, ct, final = fetch_retrying(target)
-            except urllib.error.HTTPError as e:
-                why = "HTTP %s at %s" % (e.code, target[:60]); data = None
-                unavailable = unavailable or transient(e)
-                tried.append({"url": target, "result": why, "unavailable": transient(e)}); continue
             except Exception as e:
-                why = "%s at %s" % (type(e).__name__, target[:60]); data = None
-                unavailable = unavailable or transient(e)
-                tried.append({"url": target, "result": why, "unavailable": transient(e)}); continue
+                why = ("HTTP %s at %s" % (e.code, target[:60]) if isinstance(e, urllib.error.HTTPError)
+                       else "%s at %s" % (type(e).__name__, target[:60]))
+                data = None
+                down = transient(e)
+                tried.append({"url": target, "result": why, "unavailable": down})
+                if down and EPMC_FULLTEXT.search(target) and os.environ.get("WHU_ORCH_STEP"):
+                    import registries as RG
+                    misses.append(RG.Answer(RG.EUROPE_PMC, False, why=why, url=target))
+                    data, ct, final, via_pmc = pmc_fallback(target, misses)
+                    tried.append({"url": via_pmc["url"], "result": via_pmc["why"],
+                                  "unavailable": not via_pmc["answered"]})
+                    if data is None:
+                        why = via_pmc["why"]
+                        unavailable = unavailable or not via_pmc["answered"]
+                        continue
+                else:
+                    unavailable = unavailable or down
+                    continue
+            else:
+                if misses:           # the metadata lookup failed but Europe PMC served the full text itself
+                    import registries as RG
+                    for miss in misses:
+                        RG.covered(miss, ["Europe PMC full text"])
             # Identity is not substance, for EVERY type (2026-10-22). Until
             # then only article types were asked whether the bytes are the
             # document; any other type that identified itself was recorded as
@@ -356,6 +402,9 @@ def main(argv=None) -> int:
         acc.pop("last_fetch", None)
         acc["held"] = {"file": row["file"], "sha256": row["sha256"], "bytes": row["bytes"],
                        "identified_by": why, "kind": row["kind"], "kind_why": row["kind_why"]}
+        if via_pmc and via_pmc.get("licence"):   # held through the NCBI PMC fallback: its route and licence
+            acc["held"]["route"] = via_pmc["route"]
+            acc["held"]["licence"] = via_pmc["licence"]
         acc.setdefault("on", row["retrieved"])
         got.append((sid, row["file"], row["bytes"]))
         print("  HELD     %-6s %-46s %8d B  (%s)"

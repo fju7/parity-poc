@@ -66,6 +66,7 @@ def _ids(src: dict) -> list[tuple[str, str]]:
 
 
 MIN_ANSWERING = 2            # ruling 2 after attempt 24: a status needs answers from two of the three registries
+NOT_CHECKABLE = "no registry record; retraction status not checkable"     # ruling 4 after the fallback build
 RETRACTION_PUBMED = {"RetractionIn", "RetractionofPublicationIn"}
 CONCERN_PUBMED = {"ExpressionOfConcernIn"}
 CORRECTION_PUBMED = {"ErratumIn", "RepublishedIn", "CorrectedandRepublishedIn"}
@@ -94,8 +95,12 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
     does not when it is still unavailable after its retries. With fewer than two answering, RegistryUnavailable (the
     run stops "registry unavailable; run again later"); otherwise the status is the union of what the answering
     registries record, every registry's answer is recorded, and an outage among them is marked covered.
-    A source with no identifier asks no registry and records none (as before). LOOKUP / CROSSREF / PUBMED are
-    injected in tests; given LOOKUP or CROSSREF without PUBMED, PubMed is recorded "not asked"."""
+    Ruling 4 after the fallback build: a status also needs at least one registry returning THIS source's record
+    (each record held to errata.resolves_to_us); the status is taken from every registry that returned it
+    (`status_from`; each correction carries `found_by`; each registry row its `findings`). With two answering and
+    no record anywhere -- or no identifier to ask by -- the status is "no registry record; retraction status not
+    checkable" (`checkable` False, `retracted` None), never clean. LOOKUP / CROSSREF / PUBMED are injected in
+    tests; given LOOKUP or CROSSREF without PUBMED, PubMed is recorded "not asked"."""
     import registries as RG
     injected = lookup is not None or crossref is not None
     d_lookup, d_crossref, d_pubmed = _default_clients()
@@ -107,6 +112,8 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
            "registries": []}
     ids = _ids(src)
     if not ids:
+        out.update(checkable=False, state=NOT_CHECKABLE, retracted=None, status_from=[],
+                   why=["no DOI, PMID or PMCID to ask any registry by"])
         return out
     answers, outages = [], []          # (Answer, asked) per registry; every unanswered call, to cover
     # Europe PMC: each identifier until one gives this source's record
@@ -149,7 +156,8 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
                 out["concern"] = True
                 out["why"].append("Europe PMC: %s %s" % (t, a.get("id")))
             elif t in CORRECTION_EPMC:
-                out["corrections"].append({"id": str(a.get("id")), "registry": a.get("source") or "MED", "type": t})
+                out["corrections"].append({"id": str(a.get("id")), "registry": a.get("source") or "MED", "type": t,
+                                           "found_by": ["Europe PMC"]})
         out["doi"] = out["doi"] or rec.get("doi")
     # PubMed: by PMID, else by DOI or PMCID
     if pubmed is None:
@@ -183,7 +191,8 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
                     out["concern"] = True
                     out["why"].append("PubMed: %s %s" % (ty, link.get("pmid")))
                 elif ty in CORRECTION_PUBMED and link.get("pmid"):
-                    out["corrections"].append({"id": str(link["pmid"]), "registry": "MED", "type": ty})
+                    out["corrections"].append({"id": str(link["pmid"]), "registry": "MED", "type": ty,
+                                               "found_by": ["PubMed"]})
             out["doi"] = out["doi"] or pm.get("doi")
     # Crossref: by DOI
     if out["doi"]:
@@ -192,6 +201,12 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
             outages.append(ans)
         answers.append((ans, "DOI %s" % out["doi"]))
         msg = ans.record
+        if msg is not None:
+            same, why_same = E.resolves_to_us(E.crossref_title_record(msg), src)
+            if not same:                        # a record that is not this source says nothing about it
+                ans = RG.Answer(RG.CROSSREF_NAME, True, None, why="%s (not used)" % why_same, url=ans.url)
+                answers[-1] = (ans, answers[-1][1])
+                msg = None
         if msg is not None:
             out["answered"].append("Crossref %s" % out["doi"])
             for a in E.crossref_amendments(msg):
@@ -206,12 +221,18 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
                     out["concern"] = True
                     out["why"].append("Crossref: %s %s" % (t, ident))
                 elif t in CORRECTION_CROSSREF:
-                    out["corrections"].append({"id": str(ident), "registry": "DOI", "type": t})
+                    out["corrections"].append({"id": str(ident), "registry": "DOI", "type": t,
+                                               "found_by": ["Crossref"]})
         else:
             out["answered"].append("Crossref %s: %s" % (out["doi"], ans.why))
     else:
         answers.append((RG.Answer(RG.CROSSREF_NAME, False, why="no DOI to ask by"), "-"))
-    out["registries"] = [a.row(asked) for a, asked in answers]
+    rows = []
+    for a, asked in answers:
+        r = a.row(asked)
+        r["findings"] = [w for w in out["why"] if w.startswith(a.registry)]
+        rows.append(r)
+    out["registries"] = rows
     answering = [a.registry for a, _ in answers if a.answered]
     if len(answering) < MIN_ANSWERING:
         raise RegistryUnavailable("%d of 3 registries answered (%s): %s" % (
@@ -219,12 +240,20 @@ def status(src: dict, lookup=None, crossref=None, pubmed=None) -> dict:
             "; ".join("%s %s" % (a.registry, a.why) for a, _ in answers if not a.answered)))
     for a in outages:
         RG.covered(a, answering)
-    seen, uniq = set(), []
+    out["status_from"] = [a.registry for a, _ in answers if a.answered and a.record is not None]
+    if not out["status_from"]:
+        out.update(checkable=False, state=NOT_CHECKABLE, retracted=None)
+        out["why"].append("%s answered; none holds this source's record" % ", ".join(answering))
+        return out
+    out.update(checkable=True, state="checked")
+    seen, uniq = {}, []
     for c in out["corrections"]:
         k = c["id"].lower()
         if k not in seen:
-            seen.add(k)
+            seen[k] = c
             uniq.append(c)
+        else:
+            seen[k]["found_by"] = list(dict.fromkeys(seen[k].get("found_by", []) + c.get("found_by", [])))
     out["corrections"] = uniq
     return out
 
@@ -233,11 +262,45 @@ def _plain(xml_or_html: str) -> str:
     return " ".join(re.sub(r"<[^>]+>", " ", xml_or_html or "").split())
 
 
-def notice_text(c: dict, lookup=None, fulltext=None) -> tuple[str | None, str]:
-    """(the notice's text, how it was got), or (None, why not)."""
-    lookup = lookup or E.lookup
+def notice_text(c: dict, lookup=None, fulltext=None, pubmed=None, pmc=None) -> tuple[str | None, str]:
+    """(the notice's text, how it was got), or (None, why not).
+
+    Ruling 2 after the fallback build (2026-11-24): with LOOKUP not injected, a Europe PMC outage on the notice's
+    record falls back to PubMed's record (its abstract and PMCID), and a Europe PMC outage on its full text falls
+    back to NCBI PMC's copy (registries.pmc_fulltext, the same copy rule); a fallback that answers covers the
+    outage. Nothing answering raises RegistryUnavailable, as before."""
     kind = "PMID" if c.get("registry") in ("MED", "PMID") else "DOI"
-    rec, why = _answered_or_raise(*lookup(kind, c["id"]), "Europe PMC %s %s (correction notice)" % (kind, c["id"]))
+    if lookup is None and pubmed is not False:
+        import registries as RG
+        first = RG.epmc_id(kind, c["id"])
+        if first.answered:
+            rec, why = first.record, first.why
+        else:
+            alt = (pubmed or RG.pubmed_record)(kind, c["id"])
+            if not alt.answered:
+                raise RegistryUnavailable("Europe PMC and PubMed %s %s (correction notice): %s; %s" % (
+                    kind, c["id"], first.why, alt.why))
+            RG.covered(first, ["PubMed"])
+            if alt.record is None:
+                return None, "Europe PMC unavailable; PubMed has no record of the notice (%s)" % alt.why
+            pm = alt.record
+            text = _plain(pm.get("abstract") or "")
+            pmcid = pm.get("pmcid")
+            if pmcid:
+                got = (pmc or RG.pmc_fulltext)(pmcid)
+                if not got.answered:
+                    raise RegistryUnavailable("NCBI PMC full text %s (correction notice): %s" % (pmcid, got.why))
+                body = _notice_body(got.record["xml"]) if got.record else None
+                if body and len(body) > len(text):
+                    return body, "NCBI PMC full text %s (Europe PMC unavailable)" % pmcid
+            if len(text) >= MIN_NOTICE_CHARS and not text.startswith("[This corrects the article"):
+                return text, "PubMed abstract of %s %s (Europe PMC unavailable)" % (kind, c["id"])
+            return None, "no text of the notice could be held (Europe PMC unavailable; PubMed abstract %d " \
+                         "characters%s)" % (len(text), "; NCBI PMC serves no full text" if pmcid else "")
+    else:
+        lookup = lookup or E.lookup
+        rec, why = _answered_or_raise(*lookup(kind, c["id"]), "Europe PMC %s %s (correction notice)" % (kind,
+                                                                                                         c["id"]))
     if rec is None:
         return None, why
     text = _plain(rec.get("abstractText") or "")
@@ -246,8 +309,17 @@ def notice_text(c: dict, lookup=None, fulltext=None) -> tuple[str | None, str]:
     if served:
         body, how = (fulltext or _fulltext)(pmcid)
         if body is None and UNANSWERED.search(how or "") and not re.search(r"HTTP Error 4\d\d", how or ""):
-            raise RegistryUnavailable("Europe PMC full text %s: %s" % (pmcid, how))
-        if body and len(body) > len(text):
+            if fulltext is not None or pmc is False:
+                raise RegistryUnavailable("Europe PMC full text %s: %s" % (pmcid, how))
+            import registries as RG
+            got = (pmc or RG.pmc_fulltext)(pmcid)           # ruling 2 after the fallback build
+            if not got.answered:
+                raise RegistryUnavailable("Europe PMC and NCBI PMC full text %s: %s; %s" % (pmcid, how, got.why))
+            RG.covered(RG.Answer(RG.EUROPE_PMC, False, url=_fulltext_url(pmcid)), ["PMC"])
+            body = _notice_body(got.record["xml"]) if got.record else None
+            if body and len(body) > len(text):
+                return body, "NCBI PMC full text %s (Europe PMC unavailable)" % pmcid
+        elif body and len(body) > len(text):
             return body, "Europe PMC full text %s" % pmcid
     if len(text) >= MIN_NOTICE_CHARS and not text.startswith("[This corrects the article"):
         return text, "Europe PMC abstract of %s %s" % (kind, c["id"])
@@ -256,9 +328,13 @@ def notice_text(c: dict, lookup=None, fulltext=None) -> tuple[str | None, str]:
         if pmcid and not served else "; full text not served" if pmcid else "; no full text")
 
 
+def _fulltext_url(pmcid: str) -> str:
+    return "https://www.ebi.ac.uk/europepmc/webservices/rest/%s/fullTextXML" % pmcid
+
+
 def _fulltext(pmcid: str) -> tuple[str | None, str]:
     import urllib.request
-    url = "https://www.ebi.ac.uk/europepmc/webservices/rest/%s/fullTextXML" % pmcid
+    url = _fulltext_url(pmcid)
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": E.UA}), timeout=30) as fh:
             body = fh.read().decode("utf-8", "replace")

@@ -458,9 +458,10 @@ def orchestrated_row(src: dict, kind: str, value: str, clients=None) -> dict:
     for x, _ in answers:
         if not x.answered:
             RG.covered(x, answering)
-    if not found:
+    if not found:                         # never clean (ruling 4 after the fallback build)
         row.update(state="UNCHECKED", amendments=[],
-                   why="no registry that answered (%s) holds this source's record" % ", ".join(answering))
+                   why="no registry record; retraction status not checkable (%s answered; none holds this source's "
+                       "record)" % ", ".join(answering))
         return row
     seen, uniq = set(), []
     for x in amend:

@@ -535,6 +535,10 @@ def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple
             rec = (getattr(got, "extra", {}) or {}).get("record")
             if rec:                     # the source-list entry is built from this (source_entries, ruling 3)
                 src["registry_record"] = rec
+            if (getattr(got, "extra", {}) or {}).get("identifiers_from"):
+                src["identifiers_from"] = got.extra["identifiers_from"]   # another matching registry's (P090 (3))
+            if (getattr(got, "extra", {}) or {}).get("pmid") and not src.get("pmid"):
+                src["pmid"] = got.extra["pmid"]
             pmcid = (getattr(got, "extra", {}) or {}).get("pmcid") or src.get("pmcid")
             if pmcid:
                 src["pmcid"] = pmcid
@@ -714,6 +718,8 @@ def code_acquire(ctx: Ctx, step) -> dict:
             raise RunStop("acquire: registry unavailable; run again later (%s: %s)" % (s.get("id"), e))
         s["retraction_check"] = {"retracted": st["retracted"], "concern": st.get("concern", False), "why": st["why"],
                                  "answered": st["answered"], "registries": st.get("registries") or [],
+                                 "state": st.get("state"), "checkable": st.get("checkable"),
+                                 "status_from": st.get("status_from") or [],
                                  "corrections": st["corrections"], "on": now()[:10]}
         if st["retracted"]:
             mark(s, "retracted", "; ".join(st["why"]))

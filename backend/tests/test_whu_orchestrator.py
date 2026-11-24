@@ -1184,7 +1184,8 @@ def test_acquire_treats_a_retracted_source_as_not_held_and_the_page_says_so(tmp_
     s2, s3 = doc["sources"][1], doc["sources"][2]
     assert s2["access"]["state"] == "blocked" and s2["retraction_check"]["retracted"]
     assert "correction_notices" not in s3                          # (2): a correction to a source not held: nothing
-    assert s3["retraction_check"]["corrections"] == [{"id": "37133285", "registry": "MED", "type": "Erratum in"}]
+    assert s3["retraction_check"]["corrections"] == [{"id": "37133285", "registry": "MED", "type": "Erratum in",
+                                                      "found_by": ["Europe PMC"]}]   # provenance (P090 (4))
     lines = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"]
     assert lines[0] == ("We found %s but it has been retracted, so nothing on this page draws on it."
                         % LS.found_label(doc["sources"], S002["title"], "S002"))
@@ -2045,7 +2046,8 @@ def test_attempt_12s_503_raises_rather_than_recording_a_crossref_only_status():
                   lambda d: (None, "TimeoutError: timed out"))
     st = CR.status(s, lambda k, v: (None, "Europe PMC has no record for %s %s" % (k, v)),
                    lambda d: (None, "HTTP 404 from Crossref"))                                # answers, not outages
-    assert st["retracted"] is False
+    # two answered but neither holds the record: not checkable, never clean (ruling 4 after the fallback build)
+    assert st["retracted"] is None and st["checkable"] is False and st["state"] == CR.NOT_CHECKABLE
     with pytest.raises(CR.RegistryUnavailable):
         CR.notice_text({"id": "10.1002/cl2.1104", "registry": "DOI"}, lambda k, v: (None, "HTTP 503 from Europe PMC"))
 
