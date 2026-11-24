@@ -391,3 +391,73 @@ def test_a_scored_run_with_no_change_resumes_on_its_one_manifest(tmp_path, monke
     pl = O.prepare_resume(ctx, "run_paid.json")
     assert pl["resume_at"] == "acquire"
     assert (ctx.case / "orchestrator" / "manifest.json").read_text() == before
+
+
+# ----------------------------------------------------------------- separate temporary directories (ruling, 2026-11-24)
+
+_SEEN_TMP: list = []
+
+
+def test_each_test_has_its_own_temporary_directory_a():
+    import os
+    import tempfile
+    d = tempfile.gettempdir()
+    assert d == os.environ["TMPDIR"] and "pytest-of-" in d
+    _SEEN_TMP.append(d)
+
+
+def test_each_test_has_its_own_temporary_directory_b():
+    import tempfile
+    d = tempfile.gettempdir()
+    assert _SEEN_TMP and d != _SEEN_TMP[0]
+
+
+def test_a_rehearsal_run_makes_its_copy_and_its_subprocess_temp_files_in_a_directory_of_its_own(tmp_path, monkeypatch):
+    seen = {}
+
+    class FakeSandbox:
+        def __init__(self, slug, base=None):
+            seen["base"] = Path(base)
+            self.root = Path(base) / "whu-orch-copy"
+
+        def __enter__(self):
+            (self.root / "issues").mkdir(parents=True)
+            (self.root / "backend/data/spend").mkdir(parents=True)
+            (self.root / "backend/data/spend/caps.json").write_text("{}")
+            return self
+
+        def __exit__(self, *a):
+            return False
+    import orch.sandbox as SBX
+    monkeypatch.setattr(SBX, "Sandbox", FakeSandbox)
+
+    def fake_run(argv, cwd=None, env=None, stdout=None, stderr=None):
+        seen["env_tmp"] = env["TMPDIR"]
+        return SimpleNamespace(returncode=0)
+    monkeypatch.setattr(O.subprocess, "run", fake_run)
+    a = SimpleNamespace(base_slug="whu-lean-orch-t1-q1-02w", slug="whu-lean-orch-t1-rehearsal", plan=None,
+                        state=str(tmp_path / "state"), offline=True, out=None, then_resume_plan=None)
+    O.rehearse_main(a)
+    base = seen["base"]
+    assert base.name.startswith("whu-rehearse-run-") and seen["env_tmp"] == str(base / "tmp")
+    assert not base.exists()                                         # removed at the end
+
+
+@pytest.mark.rehearsal
+def test_the_suite_passes_while_a_rehearsal_runs(tmp_path):
+    """The two together, as the advisor asked: a full rehearsal in the background and the whole default suite (which
+    excludes the rehearsal tests, so this does not recurse); both must pass."""
+    import os
+    env = dict(os.environ, WHU_LEAN="1")
+    state = tmp_path / "state"
+    reh = subprocess.Popen([str(ROOT / "backend/venv/bin/python3"), str(WHU / "orchestrator.py"), "rehearse",
+                            "whu-lean-orch-t1-q1-02w", "--state", str(state), "--offline", "--plan",
+                            str(PLANS / "shapes_and_faults.json")], cwd=str(ROOT), env=env,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    suite = subprocess.run([str(ROOT / "backend/venv/bin/python"), "-m", "pytest", "-q", "-p", "no:cacheprovider"],
+                           cwd=str(ROOT / "backend"), env={k: v for k, v in os.environ.items() if k != "TMPDIR"},
+                           capture_output=True, text=True, timeout=3000)
+    reh.wait(timeout=3000)
+    assert suite.returncode == 0, suite.stdout[-2000:]
+    r = json.loads((state / "case" / "orchestrator" / "run_rehearse.json").read_text())
+    assert r["result"] == "Ready."

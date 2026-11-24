@@ -1529,7 +1529,21 @@ def rehearse_main(a) -> int:
     base = next((ROOT / "issues").glob("WHU-*-%s" % a.base_slug))
     state = Path(a.state) if a.state else Path(tempfile.mkdtemp(prefix="whu-rehearse-state-"))
     state.mkdir(parents=True, exist_ok=True)
-    with Sandbox(a.slug) as sb:
+    # A UNIQUE temporary directory per rehearsal run (advisor's ruling, 2026-11-24): the Sandbox is made inside it and
+    # the orchestrator's subprocess -- every stage under it -- gets TMPDIR inside it, so nothing a rehearsal writes to
+    # "the temp directory" is shared with the suite or another rehearsal. Removed at the end.
+    tmp_base = Path(tempfile.mkdtemp(prefix="whu-rehearse-run-"))
+    (tmp_base / "tmp").mkdir()
+    try:
+        return _rehearse_in(a, base, state, tmp_base)
+    finally:
+        shutil.rmtree(tmp_base, ignore_errors=True)
+
+
+def _rehearse_in(a, base: Path, state: Path, tmp_base: Path) -> int:
+    import shutil
+    from orch.sandbox import Sandbox
+    with Sandbox(a.slug, base=tmp_base) as sb:
         case = sb.root / "issues" / ("WHU-OT1-RH-%s" % a.slug)
         case.mkdir(parents=True)
         issue = json.loads((base / "issue.json").read_text(encoding="utf-8"))
@@ -1541,6 +1555,7 @@ def rehearse_main(a) -> int:
         c.setdefault("per_issue", {})[a.slug] = float(issue.get("run_cap_usd") or 10)
         caps.write_text(json.dumps(c, indent=2) + "\n", encoding="utf-8")
         env = {k: v for k, v in os.environ.items() if not k.startswith("WHU_ORCH_")}
+        env["TMPDIR"] = str(tmp_base / "tmp")
         env.update({"WHU_LEAN": "1", "WHU_ORCH_MODE": REHEARSE, "WHU_REHEARSE_STATE": str(state),
                     "WHU_PRIVATE_ROOT": str(state / "private"), "WHU_REHEARSE_BASE": str(base)})
         env.pop("WHU_LIBRARY_ROOT", None)

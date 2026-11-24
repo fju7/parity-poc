@@ -45,6 +45,22 @@ def _whu_env_clear(monkeypatch):
     yield
 
 
+# ---------------------------------------------------------------------------
+# A temporary directory of its own for every test (advisor's ruling, 2026-11-24)
+# ---------------------------------------------------------------------------
+# The full suite run alongside the orchestrator's rehearsals failed test_trial_outputs_discarded: it compares the
+# system temp directory's whu-orch-* entries before and after a trial, and the rehearsals' own logs landed there in
+# between. Every test now gets a unique directory as tempfile's default (in-process) and as TMPDIR (for every
+# subprocess it starts), so nothing a test or the code under it creates in "the temp directory" is shared.
+@pytest.fixture(autouse=True)
+def _own_tmp(tmp_path_factory, monkeypatch):
+    import tempfile
+    d = tmp_path_factory.mktemp("tmp")
+    monkeypatch.setattr(tempfile, "tempdir", str(d))
+    monkeypatch.setenv("TMPDIR", str(d))
+    yield d
+
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
