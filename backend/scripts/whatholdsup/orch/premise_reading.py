@@ -9,7 +9,8 @@ challenge, sign-in or paywall page is a wall and is never worked around) and che
 the belief's key words. What is recorded is the model's reading, named as such, with the URL, the fetch time and the
 sha256 of the bytes. If no proposed page verifies, nothing is written and the rows stop the page.
 
-B4 -- "direction recorded" and "kill condition tested" (premise.json direction, kill_condition_tested). One model call,
+B4 -- "what the sources show" (advisor's ruling 1 after the A/B build), "direction recorded" and "kill condition tested"
+(premise.json what_the_sources_show, direction, kill_condition_tested). One model call,
 no search, is given the belief, the kill condition and passages of the HELD sources (source_store.held: never a
 blocked one), and answers both, each with the passage it relies on quoted. CODE checks each quotation verbatim in that
 source's held text; an answer whose quotation is not there is not written, and its row stops the page.
@@ -57,17 +58,20 @@ BELIEF:
 {belief}
 """
 
-READING_PROMPT = """You read the passages below from the sources a fact-check holds, and answer two things about the
-premise the fact-check set before reading them. Answer only from the passages; quote the passage you rely on, copied
-character for character (at most 300 characters), with the id of the source it comes from.
+READING_PROMPT = """You read the passages below from the sources a fact-check holds, and answer three things about the
+premise the fact-check set before reading them. Answer only from the passages; for each, quote the passage you rely on,
+copied character for character (at most 300 characters), with the id of the source it comes from.
 
+0. WHAT THE SOURCES SHOW: one sentence saying what the held sources show on the question, in their own certainty
+   words, and never more than the quoted passage supports.
 1. DIRECTION: does the evidence CONFIRM the belief, CORRECT it (it is wrong), or NARROW it (true only in part, or only
    for some programmes, people or outcomes)?
 2. KILL CONDITION: was the kill condition met? "killed" if the passages show it, "narrowed" if they show it in part,
    "survived" if they show the opposite.
 
 Reply with ONE JSON object and nothing else:
-{{"direction": "confirms" | "corrects" | "narrows", "direction_quote": {{"source": "<id>", "quote": "<verbatim>"}},
+{{"sources_show": "<one sentence>", "sources_show_quote": {{"source": "<id>", "quote": "<verbatim>"}},
+ "direction": "confirms" | "corrects" | "narrows", "direction_quote": {{"source": "<id>", "quote": "<verbatim>"}},
  "direction_why": "<one sentence>",
  "kill_result": "survived" | "narrowed" | "killed", "kill_quote": {{"source": "<id>", "quote": "<verbatim>"}},
  "kill_note": "<one sentence>"}}
@@ -298,13 +302,21 @@ def direction_and_kill(case: Path, slug: str, ask, model: str) -> dict:
         return {"direction": None, "kill": None, "why": "no held passage"}
     body = "\n\n".join("[%s] %s" % (sid, t) for _pid, (sid, t) in passages.items())
     reply = M.ask_json(ask, READING_PROMPT.format(belief=belief, kill=kill, passages=body), 1500, "premise-reading")
-    out = {"direction": None, "kill": None}
+    out = {"direction": None, "kill": None, "sources_show": None}
     r = reply if isinstance(reply, dict) else {}
+    show = " ".join(str(r.get("sources_show") or "").split())
+    sq = _verified(r.get("sources_show_quote"), held) if 20 <= len(show) <= 600 else None
     dq = _verified(r.get("direction_quote"), held) if r.get("direction") in DIRECTIONS else None
     kq = _verified(r.get("kill_quote"), held) if r.get("kill_result") in KILL_RESULTS else None
     by = "a model's reading (%s, from held sources), the quotation verified verbatim by code" % model
     _log(case, {"check": "premise-reading", "by": by, "reply": r,
-                "code": {"direction_quote_verbatim": bool(dq), "kill_quote_verbatim": bool(kq)}})
+                "code": {"sources_show_quote_verbatim": bool(sq), "direction_quote_verbatim": bool(dq),
+                         "kill_quote_verbatim": bool(kq)}})
+    if sq:
+        # advisor's ruling 1 after the A/B build: "what the sources show", the same model-answers-code-verifies rule
+        d["what_the_sources_show"] = {"statement": show, "sources": [sq["source"]], "by": by, "written_at": now(),
+                                      "evidence": sq}
+        out["sources_show"] = True
     if dq:
         d["direction"] = dict(d.get("direction") or {}, value=r["direction"], by=by, written_at=now(),
                               evidence=dq, why=str(r.get("direction_why") or "")[:300])
@@ -314,6 +326,6 @@ def direction_and_kill(case: Path, slug: str, ask, model: str) -> dict:
                                       "note": str(r.get("kill_note") or "")[:300], "evidence": kq,
                                       "_result_values": list(KILL_RESULTS)}
         out["kill"] = r["kill_result"]
-    if dq or kq:
+    if sq or dq or kq:
         _save_premise(case, d)
     return out

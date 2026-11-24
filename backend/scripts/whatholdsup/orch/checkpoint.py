@@ -117,9 +117,12 @@ class ResumeRefused(RuntimeError):
     pass
 
 
-def plan(case: Path, slug: str, record: dict, names: list[str], repeat_steps: set, max_repeats: int) -> dict:
+def plan(case: Path, slug: str, record: dict, names: list[str], repeat_steps: set, max_repeats: int,
+         keep: int | None = None) -> dict:
     """What a resume needs, rebuilt from the previous RECORD and the chain; ResumeRefused if it cannot be proved.
-    NAMES: the steps in order (orch/steps NAMES); REPEAT_STEPS: the names in the repeat group."""
+    NAMES: the steps in order (orch/steps NAMES); REPEAT_STEPS: the names in the repeat group. KEEP: how many of
+    the completed steps to keep (a trial resume after a code change keeps those before the earliest changed step:
+    advisor's ruling 3 after the A/B build); None keeps them all."""
     from orch import chain as CH
     steps = record.get("steps") or []
     done, failed = [], None
@@ -136,6 +139,10 @@ def plan(case: Path, slug: str, record: dict, names: list[str], repeat_steps: se
     if [r["step"] for r in rows] != [s["step"] for s in done]:
         raise ResumeRefused("the chain's steps %s are not the record's completed steps %s"
                             % ([r["step"] for r in rows][-4:], [s["step"] for s in done][-4:]))
+    resume_at = failed["step"]
+    if keep is not None and keep < len(done):
+        resume_at = done[keep]["step"]
+        done, rows = done[:keep], rows[:keep]
     if not rows:
         raise ResumeRefused("no completed step to resume after")
     seq = len(rows) - 1
@@ -159,7 +166,7 @@ def plan(case: Path, slug: str, record: dict, names: list[str], repeat_steps: se
         if s["step"] == "commit_3b":
             code = s.get("code") or {}
             first = code.get("head") or (code.get("outcome") or "").replace("committed ", "").strip() or None
-    return {"checkpoint": d, "seq": seq, "resume_at": failed["step"], "index": names.index(failed["step"]),
+    return {"checkpoint": d, "seq": seq, "resume_at": resume_at, "index": names.index(resume_at),
             "repeats": repeats, "changed_in_group": changed, "first": first, "frozen": rows[-1].get("frozen") or {},
             "log": done, "prior_result": record.get("result"), "hashes": rows[-1]["hashes"], "chain": rows}
 

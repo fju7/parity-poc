@@ -219,7 +219,7 @@ def belief_outlet(prompt, step, what):
         {"outlet": "UNICEF", "url": "https://www.unicef.org/education/inclusive-education", "sentence": "rehearsal"}]})
 
 
-@R.generator("premise-reading", _has("answer two things about the", "KILL CONDITION:", "PASSAGES:"))
+@R.generator("premise-reading", _has("answer three things about the", "KILL CONDITION:", "PASSAGES:"))
 def premise_reading(prompt, step, what):
     q, sid = "", ""
     for m in re.finditer(r"^\[(S\d+)\] (.+)$", _after(prompt, "PASSAGES:"), re.M):
@@ -228,7 +228,8 @@ def premise_reading(prompt, step, what):
             q, sid = s[:290], m.group(1)
             break
     quote = {"source": sid, "quote": q}
-    return json.dumps({"direction": "narrows", "direction_quote": quote,
+    return json.dumps({"sources_show": "The held review reports %s (rehearsal)." % "improved outcomes for some programmes",
+                       "sources_show_quote": quote, "direction": "narrows", "direction_quote": quote,
                        "direction_why": "The held review finds effects for some programmes only (rehearsal).",
                        "kill_result": "survived", "kill_quote": quote,
                        "kill_note": "The held review does report improved outcomes (rehearsal)."})

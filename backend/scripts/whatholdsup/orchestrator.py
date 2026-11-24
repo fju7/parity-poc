@@ -247,7 +247,9 @@ def run_step(ctx: Ctx, step) -> dict:
     for name, (fn, after_step, _why) in CH.FROZEN.items():
         if after_step == step.name:
             ctx.frozen[name] = fn(ctx.case)
-    CH.append(ctx.case, step.name, after, ctx.frozen, {"mode": ctx.mode})
+    code_hash = step_code_hash(step)
+    CH.append(ctx.case, step.name, after, ctx.frozen, {"mode": ctx.mode, "code_hash": code_hash})
+    result["code_hash"] = code_hash                 # advisor's ruling 3 after the A/B build (orch/code_hash.py)
     result["end"] = now()
     ctx.log.append(result)
     _study_log(ctx, result)
@@ -1275,8 +1277,9 @@ def code_premise_reading(ctx: Ctx, step) -> dict:
     """Fred's term B4: direction and the kill-condition test from held sources, each quotation checked by code."""
     from orch import premise_reading as PRD
     got = PRD.direction_and_kill(ctx.case, ctx.slug, _ask_for(ctx, step, ST.CURRENT), ST.CURRENT)
-    return {"outcome": "direction %s; kill condition %s" % (got.get("direction") or "not verified",
-                                                           got.get("kill") or "not verified"), "reading": got}
+    return {"outcome": "sources show %s; direction %s; kill condition %s" % (
+        "verified" if got.get("sources_show") else "not verified", got.get("direction") or "not verified",
+        got.get("kill") or "not verified"), "reading": got}
 
 
 def code_quotations(ctx: Ctx, step) -> dict:
@@ -1312,6 +1315,27 @@ STEP_CODE = {"provenance": code_provenance, "premise": code_premise, "discover":
              "quotations": code_quotations}
 
 
+_CODE_HASHES: dict = {}
+
+
+def step_code_hash(step) -> str:
+    """The step's code hash (orch/code_hash.py), once per process: the code cannot change inside a run without the
+    harness check stopping it."""
+    if step.name not in _CODE_HASHES:
+        from orch import code_hash as CHH
+        _CODE_HASHES[step.name] = CHH.step_hash(step, STEP_CODE)
+    return _CODE_HASHES[step.name]
+
+
+def resume_keep(done: list[dict], current: dict) -> int:
+    """How many completed steps a TRIAL resume keeps: those before the earliest whose recorded code hash differs
+    from the code now (a step with no recorded hash counts as changed)."""
+    for k, s in enumerate(done):
+        if not s.get("code_hash") or s.get("code_hash") != current.get(s["step"]):
+            return k
+    return len(done)
+
+
 def _checkpoint(ctx: Ctx) -> None:
     """The completed step's checkpoint (orch/checkpoint.py; Fred's term A2): paid and rehearse runs."""
     if ctx.mode not in ("paid", REHEARSE):
@@ -1330,10 +1354,29 @@ def prepare_resume(ctx: Ctx, record_name: str) -> dict:
     if not rp.exists():
         raise CP.ResumeRefused("no previous run record (%s) to resume from" % rp.name)
     record = json.loads(rp.read_text(encoding="utf-8"))
-    pl = CP.plan(ctx.case, ctx.slug, record, list(ST.NAMES), {s.name for s in ST.STEPS if s.repeat_group},
-                 ST.MAX_REPEATS)
     old_manifest = (ctx.case / "orchestrator" / "manifest.json").read_text(encoding="utf-8") \
         if (ctx.case / "orchestrator" / "manifest.json").exists() else None
+    from orch import code_hash as CHH
+    current = CHH.all_hashes(ST.STEPS, STEP_CODE)
+    done = [s for s in (record.get("steps") or []) if not s.get("failed")]
+    done = done[:next((i for i, s in enumerate(record.get("steps") or []) if s.get("failed")), len(done))]
+    keep = resume_keep(done, current)
+    issue = json.loads((ctx.case / "issue.json").read_text(encoding="utf-8"))
+    trial = is_trial_issue(issue)
+    if not trial:
+        # SCORED (advisor's ruling 3): one frozen code version end to end; any code or document change since the
+        # run started means a fresh run from step 1, never a resume.
+        drift = MF.changed(json.loads(old_manifest) if old_manifest else {}, MF.build(ctx.root, ST.STEPS, {}))
+        if keep < len(done) or drift:
+            raise CP.ResumeRefused("a scored run runs on one frozen code version: the code changed since it started "
+                                   "(%s); a fresh run from step 1" % ("; ".join(drift[:3]) or
+                                                                     "step %s's code" % done[keep]["step"]))
+    elif keep == 0:
+        raise CP.ResumeRefused("the code of the run's first step (%s) changed: start a fresh attempt"
+                               % (done[0]["step"] if done else "provenance"))
+    pl = CP.plan(ctx.case, ctx.slug, record, list(ST.NAMES), {s.name for s in ST.STEPS if s.repeat_group},
+                 ST.MAX_REPEATS, keep=keep)
+    pl["code_changed_from"] = done[keep]["step"] if keep < len(done) else None
     CP.restore(ctx.case, ctx.slug, pl["checkpoint"], chain=pl["chain"])
     runs = ctx.case / "orchestrator" / "runs"
     runs.mkdir(parents=True, exist_ok=True)
@@ -1342,9 +1385,13 @@ def prepare_resume(ctx: Ctx, record_name: str) -> dict:
                                                        encoding="utf-8")
     if old_manifest is not None:
         (runs / ("%02d-manifest.json" % n)).write_text(old_manifest, encoding="utf-8")
-    m = MF.build(ctx.root, ST.STEPS, {"mode": ctx.mode, "slug": ctx.slug, "resumed_at": pl["resume_at"]})
-    (ctx.case / "orchestrator" / "manifest.json").write_text(json.dumps(m, indent=1, ensure_ascii=False) + "\n",
-                                                             encoding="utf-8")
+    if not trial and old_manifest is not None:
+        # a scored run keeps its ONE manifest, the run's start (unchanged, as checked above), whatever the restore did
+        (ctx.case / "orchestrator" / "manifest.json").write_text(old_manifest, encoding="utf-8")
+    if trial:                                  # both manifests kept; a scored run keeps its one (it did not change)
+        m = MF.build(ctx.root, ST.STEPS, {"mode": ctx.mode, "slug": ctx.slug, "resumed_at": pl["resume_at"]})
+        (ctx.case / "orchestrator" / "manifest.json").write_text(json.dumps(m, indent=1, ensure_ascii=False) +
+                                                                 "\n", encoding="utf-8")
     pl["previous_record"] = "orchestrator/runs/%02d-%s" % (n, record_name)
     return pl
 
@@ -1638,7 +1685,8 @@ def main(argv=None) -> int:
         if resumed:
             out["resumed"] = {"at": resumed["resume_at"], "checkpoint": resumed["checkpoint"].name,
                               "previous_record": resumed["previous_record"], "prior_result": resumed["prior_result"],
-                              "verified_files": len(resumed["hashes"])}
+                              "verified_files": len(resumed["hashes"]),
+                              "code_changed_from": resumed.get("code_changed_from")}
         out["library_root"] = lib
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
         out["models_reported"] = record_models_reported(ctx)   # the model id each response reported (advisor)

@@ -174,7 +174,9 @@ def held(monkeypatch):
 
 def _reading(direction="narrows", kill="survived", quote="Only three studies measured learning outcomes.", sid="S001"):
     q = {"source": sid, "quote": quote}
-    return lambda p, m, r: json.dumps({"direction": direction, "direction_quote": q, "direction_why": "w",
+    return lambda p, m, r: json.dumps({"sources_show": "Only a few studies measured learning outcomes.",
+                                       "sources_show_quote": q, "direction": direction, "direction_quote": q,
+                                       "direction_why": "w",
                                        "kill_result": kill, "kill_quote": q, "kill_note": "n"})
 
 
@@ -182,7 +184,9 @@ def test_a_verbatim_quotation_writes_direction_and_the_kill_test(case, held):
     _premise(case)
     got = P.direction_and_kill(case, "whu-x", _reading(), "claude-opus-5-5")
     d = json.loads((case / "premise.json").read_text())
-    assert got == {"direction": "narrows", "kill": "survived"}
+    assert got == {"direction": "narrows", "kill": "survived", "sources_show": True}
+    assert d["what_the_sources_show"]["statement"] == "Only a few studies measured learning outcomes."
+    assert d["what_the_sources_show"]["sources"] == ["S001"] and d["what_the_sources_show"]["evidence"]["offsets"]
     assert d["direction"]["value"] == "narrows" and d["direction"]["evidence"]["source"] == "S001"
     assert d["kill_condition_tested"]["result"] == "survived" and d["kill_condition_tested"]["by"]
     a, b = d["direction"]["evidence"]["offsets"]
@@ -201,6 +205,8 @@ def test_an_unverified_or_invalid_answer_is_not_written(case, held, kw):
         assert "direction" not in d or not d["direction"].get("value")
     if "kill" in kw or "quote" in kw or "sid" in kw:
         assert "kill_condition_tested" not in d
+    if "quote" in kw or "sid" in kw:
+        assert "what_the_sources_show" not in d            # ruling 1 after the A/B build: verbatim or nothing
 
 
 # ----------------------------------------------------------------- the steps

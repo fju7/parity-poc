@@ -289,11 +289,10 @@ def test_rehearsal_every_shape_and_fault_recovered_and_every_step_ran(tmp_path):
     assert r["steps"][-1]["step"] == "archive" and not any(s.get("failed") for s in r["steps"])
     out = {s["step"]: (s.get("code") or {}).get("outcome") for s in r["steps"]}
     assert out["belief"] == "1 outlet(s) verified of 2 proposed"
-    assert out["premise_reading"] == "direction narrows; kill condition survived"
+    assert out["premise_reading"] == "sources show verified; direction narrows; kill condition survived"
     assert out["quotations"].endswith(", 0 unmatched")
-    # the one row no term of Fred's fills yet (awaiting a ruling, 2026-11-24)
     pf = [s for s in r["steps"] if s["step"] == "preflight"][0]["code"]
-    assert pf["stops"] == ["STOP what the sources show not recorded"]
+    assert pf["stops"] == [] and pf["outcome"] == "Ready."
 
 
 @pytest.mark.rehearsal
@@ -306,3 +305,89 @@ def test_rehearsal_a_model_outage_stops_then_the_resume_finishes(tmp_path):
     r = _rehearse(tmp_path, "model_outage.json", "none.json")
     assert "model unavailable; run again later" in r["resumed"]["prior_result"]
     assert r["resumed"]["at"] == "overstatement" and r["steps"][-1]["step"] == "archive"
+
+
+# ----------------------------------------------------------------- resume after a code change (ruling 3, A/B build)
+
+def test_every_step_records_a_code_hash_that_moves_with_its_code(tmp_path, monkeypatch):
+    from orch import code_hash as CHH
+    from orch import steps as ST
+    h = CHH.all_hashes(ST.STEPS, O.STEP_CODE)
+    assert set(h) == set(ST.NAMES) and all(len(v) == 64 for v in h.values())
+    gate = ST.BY_NAME["gate"]
+    files = {p.name for p in CHH.step_files(gate, O.STEP_CODE)}
+    assert {"factcheck_draft.py", "orchestrator.py", "spend_ledger.py", "provider_retry.py"} <= files
+
+
+def test_resume_keeps_the_steps_before_the_earliest_changed_one():
+    done = [{"step": "provenance", "code_hash": "a"}, {"step": "premise", "code_hash": "b"},
+            {"step": "discover", "code_hash": "c"}]
+    assert O.resume_keep(done, {"provenance": "a", "premise": "b", "discover": "c"}) == 3
+    assert O.resume_keep(done, {"provenance": "a", "premise": "B", "discover": "c"}) == 1
+    assert O.resume_keep(done, {"provenance": "A", "premise": "b", "discover": "c"}) == 0
+    assert O.resume_keep([{"step": "provenance"}], {"provenance": "a"}) == 0          # no hash: changed
+
+
+def _resumable(tmp_path, monkeypatch, trial=True):
+    case = _case(tmp_path)
+    (case / "issue.json").write_text(json.dumps({"slug": "whu-x", "round": "orchestrator trial 1" if trial else
+                                                 "new-questions test"}))
+    from orch import chain as CH
+    rows = CH.rows(case)
+    rec = {"result": "Not Ready: x", "steps": [{"step": r["step"], "code": {"changed": False}, "code_hash": r["step"]}
+                                                for r in rows] + [{"step": "acquire", "failed": "RunStop: x"}]}
+    (case / "orchestrator" / "run_paid.json").write_text(json.dumps(rec))
+    (case / "orchestrator" / "manifest.json").write_text(json.dumps({"code": {"a.py": "1"}}))
+    # each checkpoint was saved before run_paid.json existed: keep that file out of the comparison
+    monkeypatch.setattr(O.CH, "ALWAYS_OWNED", O.CH.ALWAYS_OWNED)
+    ctx = SimpleNamespace(case=case, slug="whu-x", root=tmp_path, mode="paid")
+    return ctx
+
+
+def _hashes(monkeypatch, current, drift=()):
+    from orch import code_hash as CHH
+    monkeypatch.setattr(CHH, "all_hashes", lambda steps, code: dict(current))
+    monkeypatch.setattr(O.MF, "changed", lambda a, b: list(drift))
+    monkeypatch.setattr(O.MF, "build", lambda *a, **k: {"code": {}})
+
+
+SAME = {"provenance": "provenance", "premise": "premise", "discover": "discover"}
+
+
+def test_a_trial_resume_with_no_code_change_restarts_at_the_failed_step(tmp_path, monkeypatch, private):
+    ctx = _resumable(tmp_path, monkeypatch)
+    _hashes(monkeypatch, SAME)
+    pl = O.prepare_resume(ctx, "run_paid.json")
+    assert pl["resume_at"] == "acquire" and pl["code_changed_from"] is None
+
+
+def test_a_trial_resume_after_a_code_change_restarts_at_the_earliest_changed_step(tmp_path, monkeypatch, private):
+    ctx = _resumable(tmp_path, monkeypatch)
+    _hashes(monkeypatch, dict(SAME, premise="changed"))
+    pl = O.prepare_resume(ctx, "run_paid.json")
+    assert pl["resume_at"] == "premise" and pl["code_changed_from"] == "premise" and pl["seq"] == 0
+    assert (ctx.case / "orchestrator" / "runs" / "01-manifest.json").exists()     # both manifests kept
+
+
+def test_a_trial_whose_first_step_changed_starts_afresh(tmp_path, monkeypatch, private):
+    ctx = _resumable(tmp_path, monkeypatch)
+    _hashes(monkeypatch, dict(SAME, provenance="changed"))
+    with pytest.raises(CP.ResumeRefused, match="start a fresh attempt"):
+        O.prepare_resume(ctx, "run_paid.json")
+
+
+@pytest.mark.parametrize("current,drift", [(dict(SAME, discover="changed"), ()), (SAME, ("documents: CLAUDE.md",))])
+def test_a_scored_run_never_resumes_across_a_code_change(tmp_path, monkeypatch, private, current, drift):
+    ctx = _resumable(tmp_path, monkeypatch, trial=False)
+    _hashes(monkeypatch, current, drift)
+    with pytest.raises(CP.ResumeRefused, match="one frozen code version"):
+        O.prepare_resume(ctx, "run_paid.json")
+
+
+def test_a_scored_run_with_no_change_resumes_on_its_one_manifest(tmp_path, monkeypatch, private):
+    ctx = _resumable(tmp_path, monkeypatch, trial=False)
+    _hashes(monkeypatch, SAME)
+    before = (ctx.case / "orchestrator" / "manifest.json").read_text()
+    pl = O.prepare_resume(ctx, "run_paid.json")
+    assert pl["resume_at"] == "acquire"
+    assert (ctx.case / "orchestrator" / "manifest.json").read_text() == before
