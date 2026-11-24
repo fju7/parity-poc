@@ -549,8 +549,12 @@ def orch_guard(model: str, script: str = "", role: str = "", issue: str | None =
     if roles and role and role not in roles:
         raise OrchestratorRefused("step %r does not declare role %r" % (step, role))
     since = env.get("WHU_ORCH_STEP_START", "")
+    # THIS step's calls: recorded under its name (every row written inside a step carries WHU_ORCH_STEP) and since
+    # it started. The time alone counted the previous step's last calls made in the same second as this step's
+    # start (one-second timestamps; found by the offline rehearsal, 2026-11-24: "step 'belief' has made its 2
+    # calls" before it had made any).
     mine = [e for e in entries() if e.get("issue") == run_issue and (e.get("at") or "") >= since
-            and e.get("role") != "google-preflight"]
+            and e.get("step") == step and e.get("role") != "google-preflight"]
     try:
         max_calls = int(env.get("WHU_ORCH_STEP_CALLS", "0") or 0)
     except ValueError:

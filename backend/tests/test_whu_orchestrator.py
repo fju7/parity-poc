@@ -97,7 +97,8 @@ def test_guard_refuses_wrong_step_model_and_issue(S, monkeypatch, tmp_path):
 
 
 def test_guard_holds_the_step_to_its_calls_and_cap(S, monkeypatch, tmp_path):
-    rows = [{"issue": "orch-x", "at": "2026-11-06T01:00:00+00:00", "usd": 0.4, "role": "a"}] * 3
+    # rows written inside the step carry its name (spend_ledger.record: WHU_ORCH_STEP); the guard counts only those
+    rows = [{"issue": "orch-x", "at": "2026-11-06T01:00:00+00:00", "usd": 0.4, "role": "a", "step": "s1"}] * 3
     monkeypatch.setattr(S, "entries", lambda: rows)
     _in_run(monkeypatch, tmp_path, WHU_ORCH_STEP_CALLS=3)
     with pytest.raises(S.OrchestratorRefused, match="made its 3 calls"):

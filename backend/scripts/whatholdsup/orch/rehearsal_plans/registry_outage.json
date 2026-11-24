@@ -1,0 +1,4 @@
+{
+ "_what_this_is": "Offline rehearsal plan: Europe PMC and every registry down for the acquire step. The run must stop Not Ready \"registry unavailable; run again later\", never record a source as not found.",
+ "registry": [{"step": "acquire", "error": "timed out", "times": 10000}]
+}

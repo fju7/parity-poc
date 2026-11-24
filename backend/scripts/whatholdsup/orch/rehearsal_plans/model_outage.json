@@ -1,0 +1,4 @@
+{
+ "_what_this_is": "Offline rehearsal plan: Google overloaded for the overstatement step (attempt 22's 503). The run must retry 4 times and then stop Not Ready \"model unavailable; run again later\".",
+ "provider": [{"step": "overstatement", "what": "overstatement", "error": "503", "times": 10000}]
+}

@@ -59,7 +59,7 @@ MODULE_READS = {
     "audit_stage": ("human_reads.jsonl", "manifest.json", "read.md", "rule.md", "sources.json", "summary.md"),
     "consistency": ("rulings.jsonl",),
     "coverage_check": ("sources.json",),
-    "quotations": (".gate.json", "inherited.json", "sources.json"),
+    "quotations": (".gate.json", "inherited.json", "sources.json", "issue.json"),   # issue.json: match_held's question
     "applied_check": ("manifest.json", "omissions.json", "rulings.jsonl"),
     "omissions": (),
     "publish": (".gate.json", ".runs.json", "changelog.md", "changes.json", "corrections.md", "gate-acceptances.json",
@@ -110,6 +110,9 @@ CODE_WRITES = {
     "audit": _APPLY,
     "overstatement": _APPLY + ("rulings/overstatement.jsonl",),
     "corrections": _APPLY + ("bindings.json", "rulings/corrections.jsonl"),
+    "belief": ("premise.json", "rulings/premise_checks.jsonl"),
+    "premise_reading": ("premise.json", "rulings/premise_checks.jsonl"),
+    "quotations": ("quotations.json",),
     "preflight": (),
     "archive": ("private_manifest.txt",),
 }

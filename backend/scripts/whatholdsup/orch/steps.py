@@ -89,6 +89,10 @@ STEPS: tuple[Step, ...] = (
     Step("coverage", "model", models=(STEP_MODEL,), max_calls=240, cap_usd=1.20, code="coverage"),   # 60 units: an element retry, each try re-asked once if malformed (ruling 1)
     Step("judgements", "mixed", models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
+    # Fred's terms B3 / B4 after attempt 23: the premise rows filled after reading, by bounded model steps checked by
+    # code (orch/premise_reading.py). belief: one web-search call (+ one re-ask); premise_reading: one call (+ one).
+    Step("belief", "model", models=(GATE_MODEL,), max_calls=2, cap_usd=1.00, code="belief"),
+    Step("premise_reading", "model", models=(CURRENT,), max_calls=2, cap_usd=0.40, code="premise_reading"),
     Step("corrections_3b", "code", models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling
     Step("commit_3b", "code", code="commit"),
     Step("gate", "stage", models=(GATE_MODEL,),
@@ -127,6 +131,8 @@ STEPS: tuple[Step, ...] = (
                (PY, W + "ruling.py", "changecheck", "{slug}"),
                (PY, W + "changecheck_coverage.py", "{slug}", "--first", "{first}", "--out",
                 "{case}/orchestrator/changecheck_coverage.json")), code="apply"),
+    # Fred's term B2 after attempt 23: every quoted passage on the final page matched verbatim in held text, by code.
+    Step("quotations", "code", code="quotations"),
     Step("preflight", "code", cmds=((PY, W + "publish.py", "check", "{slug}"),), code="preflight"),
     Step("archive", "code", code="archive"),
 )

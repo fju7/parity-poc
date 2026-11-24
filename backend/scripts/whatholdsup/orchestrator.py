@@ -38,6 +38,20 @@ from orch.model_steps import StepFailed  # noqa: E402
 from orch.page import NotPlaced  # noqa: E402
 
 PAID_RULING_ENV = "WHU_ORCH_PAID_RULED"
+REHEARSE = "rehearse"                    # the offline rehearsal (orch/rehearsal.py; Fred's term A1 after attempt 23)
+SANDBOX_MARKER = ".whu_sandbox"          # written by orch/sandbox.Sandbox; rehearse mode runs only where it is
+
+
+def rehearsal_module():
+    """orch/rehearsal.py, loaded by path and shared as sys.modules["whu_rehearsal"] (see its load())."""
+    m = sys.modules.get("whu_rehearsal")
+    if m is None:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("whu_rehearsal", HERE / "orch" / "rehearsal.py")
+        m = importlib.util.module_from_spec(spec)
+        sys.modules["whu_rehearsal"] = m
+        spec.loader.exec_module(m)
+    return m.load()
 
 
 class RunStop(RuntimeError):
@@ -1202,7 +1216,7 @@ def git_env() -> dict:
 
 
 def code_commit(ctx: Ctx, step) -> dict:
-    if ctx.mode != "paid":
+    if ctx.mode not in ("paid", REHEARSE):
         return {"outcome": "no commit (%s mode)" % ctx.mode}
     paths = [ctx.rel(ctx.case)]
     env = git_env()
@@ -1214,6 +1228,9 @@ def code_commit(ctx: Ctx, step) -> dict:
     if names:
         subprocess.run(["git", "-C", str(ctx.root), "commit", "-m", "%s (orchestrator): %s" % (ctx.slug, step.name)],
                        check=True, env=env)
+    if names and ctx.mode == REHEARSE:
+        pass                                   # the Sandbox's own clone: committed, never pushed
+    elif names:
         push = subprocess.run(["git", "-C", str(ctx.root), "push", "origin", "main"], capture_output=True, text=True,
                               env=env)
         if "main -> main" not in push.stdout + push.stderr:
@@ -1222,7 +1239,52 @@ def code_commit(ctx: Ctx, step) -> dict:
                           text=True, env=env).stdout.strip()
     if step.name == "commit_3b":
         ctx.first = head
-    return {"outcome": "committed %s" % head[:12]}
+    return {"outcome": "committed %s" % head[:12], "head": head}
+
+
+def code_belief(ctx: Ctx, step) -> dict:
+    """Fred's term B3: one web-search call proposes outlets stating the belief; code fetches and checks each."""
+    from orch import premise_reading as PRD
+    if ctx.ask is not None:
+        ask = _kept(ctx, ctx.ask)
+    else:
+        sys.path.insert(0, str(ctx.root / "backend" / "scripts" / "signal"))
+        import factcheck_draft as fc
+        fc.enter_issue(ctx.slug)
+
+        def ask(p, max_tokens, role):           # a re-ask (ruling 1) repeats the search call
+            r = fc.call("You find published pages that state a belief. JSON only.", p, search=True,
+                        label="belief-outlet", max_tokens=max_tokens, raw=True)
+            if r is None:
+                raise RunStop("belief: no reply")
+            ctx.replies.append({"role": role, "max_tokens": max_tokens, "text": r})
+            return r
+        ask = _counting(ctx, ask)
+    pages = Path(os.environ.get("WHU_PRIVATE_ROOT") or (Path.home() / "Projects" / "whu-study-private")) / \
+        "belief_pages" / ctx.slug
+
+    def save(sha, body):                          # the fetched page, privately (it is the outlet's text)
+        pages.mkdir(parents=True, exist_ok=True)
+        (pages / ("%s.html" % sha)).write_bytes(body)
+    got = PRD.belief_outlets(ctx.case, ask, ST.GATE_MODEL, save=save)
+    return {"outcome": "%d outlet(s) verified of %d proposed" % (got.get("verified", 0), got.get("proposed", 0)),
+            "belief": got}
+
+
+def code_premise_reading(ctx: Ctx, step) -> dict:
+    """Fred's term B4: direction and the kill-condition test from held sources, each quotation checked by code."""
+    from orch import premise_reading as PRD
+    got = PRD.direction_and_kill(ctx.case, ctx.slug, _ask_for(ctx, step, ST.CURRENT), ST.CURRENT)
+    return {"outcome": "direction %s; kill condition %s" % (got.get("direction") or "not verified",
+                                                           got.get("kill") or "not verified"), "reading": got}
+
+
+def code_quotations(ctx: Ctx, step) -> dict:
+    """Fred's term B2: quotations.json written by code from held text alone."""
+    import quotations as Q
+    got = Q.match_held(ctx.slug, ctx.page)
+    return {"outcome": "%d quotation(s) matched verbatim, %d unmatched" % (got["matched"], len(got["unmatched"])),
+            "unmatched": [q[:120] for q in got["unmatched"]]}
 
 
 def code_preflight(ctx: Ctx, step) -> dict:
@@ -1233,7 +1295,9 @@ def code_preflight(ctx: Ctx, step) -> dict:
     r = subprocess.run([ST.PY, ST.W + "publish.py", "check", ctx.slug], cwd=str(ctx.root), env=ctx.env(step),
                        capture_output=True, text=True)
     ready = r.stdout.strip().endswith("Ready.")
-    return {"outcome": "Ready." if ready else "Not Ready", "tail": r.stdout[-3000:]}
+    # every STOP row in full (the tail alone cut them off; found by the offline rehearsal, 2026-11-24)
+    stops = [" ".join(ln.split()) for ln in r.stdout.splitlines() if ln.lstrip().startswith("STOP")]
+    return {"outcome": "Ready." if ready else "Not Ready", "stops": stops, "tail": r.stdout[-3000:]}
 
 
 def code_archive(ctx: Ctx, step) -> dict:
@@ -1243,10 +1307,49 @@ def code_archive(ctx: Ctx, step) -> dict:
 STEP_CODE = {"provenance": code_provenance, "premise": code_premise, "discover": code_discover,
              "acquire": code_acquire, "draft": code_draft, "bind": code_bind, "coverage": code_coverage,
              "judgements": code_judgements, "commit": code_commit, "apply": code_apply, "audit": code_audit,
-             "overstatement": code_overstatement, "corrections": code_corrections, "preflight": code_preflight, "archive": code_archive}
+             "overstatement": code_overstatement, "corrections": code_corrections, "preflight": code_preflight,
+             "archive": code_archive, "belief": code_belief, "premise_reading": code_premise_reading,
+             "quotations": code_quotations}
 
 
-def run(ctx: Ctx) -> dict:
+def _checkpoint(ctx: Ctx) -> None:
+    """The completed step's checkpoint (orch/checkpoint.py; Fred's term A2): paid and rehearse runs."""
+    if ctx.mode not in ("paid", REHEARSE):
+        return
+    from orch import checkpoint as CP
+    rows = CH.rows(ctx.case)
+    if rows:
+        CP.save(ctx.case, ctx.slug, len(rows) - 1, rows[-1]["step"], rows[-1]["hashes"], ctx.root)
+
+
+def prepare_resume(ctx: Ctx, record_name: str) -> dict:
+    """Verify the last checkpoint against the chain, restore the case from it, keep the previous run record and
+    harness manifest beside the new ones, and return the plan run() resumes with (orch/checkpoint.py)."""
+    from orch import checkpoint as CP
+    rp = ctx.case / "orchestrator" / record_name
+    if not rp.exists():
+        raise CP.ResumeRefused("no previous run record (%s) to resume from" % rp.name)
+    record = json.loads(rp.read_text(encoding="utf-8"))
+    pl = CP.plan(ctx.case, ctx.slug, record, list(ST.NAMES), {s.name for s in ST.STEPS if s.repeat_group},
+                 ST.MAX_REPEATS)
+    old_manifest = (ctx.case / "orchestrator" / "manifest.json").read_text(encoding="utf-8") \
+        if (ctx.case / "orchestrator" / "manifest.json").exists() else None
+    CP.restore(ctx.case, ctx.slug, pl["checkpoint"], chain=pl["chain"])
+    runs = ctx.case / "orchestrator" / "runs"
+    runs.mkdir(parents=True, exist_ok=True)
+    n = len(list(runs.glob("*.json"))) + 1
+    (runs / ("%02d-%s" % (n, record_name))).write_text(json.dumps(record, indent=1, ensure_ascii=False) + "\n",
+                                                       encoding="utf-8")
+    if old_manifest is not None:
+        (runs / ("%02d-manifest.json" % n)).write_text(old_manifest, encoding="utf-8")
+    m = MF.build(ctx.root, ST.STEPS, {"mode": ctx.mode, "slug": ctx.slug, "resumed_at": pl["resume_at"]})
+    (ctx.case / "orchestrator" / "manifest.json").write_text(json.dumps(m, indent=1, ensure_ascii=False) + "\n",
+                                                             encoding="utf-8")
+    pl["previous_record"] = "orchestrator/runs/%02d-%s" % (n, record_name)
+    return pl
+
+
+def run(ctx: Ctx, resume: dict | None = None) -> dict:
     """Every step in order; the repeat group (12-18) re-runs at most MAX_REPEATS times when a step in it changed
     the page. Returns {"result", "steps"}."""
     order = list(ST.STEPS)
@@ -1260,6 +1363,8 @@ def run(ctx: Ctx) -> dict:
     fd, ulog = tempfile.mkstemp(prefix="whu-orch-unavailable-", suffix=".jsonl")
     os.close(fd)
     ctx.unavailable_log = Path(ulog)
+    if ctx.mode == "rehearse":             # the offline rehearsal's HTTP cache, under the retry wrapper
+        rehearsal_module().install_http()
     RH.install(ctx.unavailable_log)        # this process; the steps' subprocesses through orch/site (env)
     # Ruling after attempt 22: every model-provider call is retried (provider_retry.call) and an outage is logged
     # here, in this process (os.environ) and in every step's subprocess (Ctx.env).
@@ -1273,6 +1378,14 @@ def run(ctx: Ctx) -> dict:
                                                      ctx.root / "backend/data/whatholdsup/orchestrator.lock")) as lk:
             ctx.lock = lk
             changed_in_group = False
+            if resume:                       # the loop's state after the last completed step (orch/checkpoint.py)
+                i, ctx.repeats, changed_in_group = resume["index"], resume["repeats"], resume["changed_in_group"]
+                ctx.first, ctx.frozen = resume["first"], dict(resume["frozen"])
+                ctx.log = [dict(s, resumed_from=resume["previous_record"]) for s in resume["log"]]
+                if ctx.page_json.exists():
+                    from orch import accounting as AA
+                    from orch.page import Page
+                    ctx.page_prev = AA.on_page(Page.load(ctx.page_json))
             while i < len(order):
                 step = order[i]
                 try:
@@ -1280,7 +1393,15 @@ def run(ctx: Ctx) -> dict:
                 except Exception:
                     _stop_if_unavailable(ctx, step)
                     raise
-                _stop_if_unavailable(ctx, step)
+                try:
+                    _stop_if_unavailable(ctx, step)
+                except RunStop as e:
+                    # an outage during a step that otherwise finished: the step did not complete (some of its calls
+                    # got no reply), so it is the failed step a resume restarts at, and it gets no checkpoint
+                    if ctx.log and ctx.log[-1].get("step") == step.name and not ctx.log[-1].get("failed"):
+                        ctx.log[-1]["failed"] = "RunStop: %s" % e
+                    raise
+                _checkpoint(ctx)
                 if step.repeat_group and isinstance(r.get("code"), dict) and r["code"].get("changed") \
                         and step.name != ST.BY_NAME["findings"].name:
                     changed_in_group = True
@@ -1351,6 +1472,69 @@ def _stop_if_unavailable(ctx, step) -> None:
             step.name, "; ".join("%s: %s" % (o["url"][:100], o["error"][:80]) for o in out[:3])))
 
 
+def rehearse_main(a) -> int:
+    """Build a Sandbox, put a fresh case for --slug in it (BASE_SLUG's issue.json, its question), and run the
+    orchestrator INSIDE the copy in rehearse mode, so every module -- the orchestrator's own and every stage's --
+    resolves paths to the copy. Returns the run's exit code; the copy is deleted, the state folder kept."""
+    import shutil
+    import tempfile
+    from orch.sandbox import Sandbox
+    base = next((ROOT / "issues").glob("WHU-*-%s" % a.base_slug))
+    state = Path(a.state) if a.state else Path(tempfile.mkdtemp(prefix="whu-rehearse-state-"))
+    state.mkdir(parents=True, exist_ok=True)
+    with Sandbox(a.slug) as sb:
+        case = sb.root / "issues" / ("WHU-OT1-RH-%s" % a.slug)
+        case.mkdir(parents=True)
+        issue = json.loads((base / "issue.json").read_text(encoding="utf-8"))
+        issue.update({"id": "WHU-OT1-RH", "slug": a.slug,
+                      "_round_note": "Offline rehearsal copy of %s (orch/rehearsal.py); never kept." % a.base_slug})
+        (case / "issue.json").write_text(json.dumps(issue, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        caps = sb.root / "backend" / "data" / "spend" / "caps.json"
+        c = json.loads(caps.read_text(encoding="utf-8"))
+        c.setdefault("per_issue", {})[a.slug] = float(issue.get("run_cap_usd") or 10)
+        caps.write_text(json.dumps(c, indent=2) + "\n", encoding="utf-8")
+        env = {k: v for k, v in os.environ.items() if not k.startswith("WHU_ORCH_")}
+        env.update({"WHU_LEAN": "1", "WHU_ORCH_MODE": REHEARSE, "WHU_REHEARSE_STATE": str(state),
+                    "WHU_PRIVATE_ROOT": str(state / "private"), "WHU_REHEARSE_BASE": str(base)})
+        env.pop("WHU_LIBRARY_ROOT", None)
+        if a.plan:
+            env["WHU_REHEARSE_PLAN"] = str(Path(a.plan).resolve())
+        if a.offline:
+            env["WHU_REHEARSE_OFFLINE"] = "1"
+        argv = [str(sb.root / "backend" / "venv" / "bin" / "python3"),
+                str(sb.root / "backend" / "scripts" / "whatholdsup" / "orchestrator.py"), "run", a.slug, "--mode",
+                REHEARSE]
+        with (state / "orchestrator.log").open("w", encoding="utf-8") as fh:
+            rc = subprocess.run(argv, cwd=str(sb.root), env=env, stdout=fh, stderr=subprocess.STDOUT).returncode
+        rec = case / "orchestrator" / "run_rehearse.json"
+        first = json.loads(rec.read_text(encoding="utf-8")) if rec.exists() else {"result": "no run record"}
+        out = first
+        if a.then_resume_plan:
+            (state / "consumed.json").unlink(missing_ok=True)       # the second plan's entries start unconsumed
+            env["WHU_REHEARSE_PLAN"] = str(Path(a.then_resume_plan).resolve())
+            with (state / "orchestrator-resume.log").open("w", encoding="utf-8") as fh:
+                rc = subprocess.run(argv + ["--resume"], cwd=str(sb.root), env=env, stdout=fh,
+                                    stderr=subprocess.STDOUT).returncode
+            out = json.loads(rec.read_text(encoding="utf-8")) if rec.exists() else {"result": "no run record"}
+            out["first_run_result"] = first.get("result")
+        keep = state / "case"
+        if keep.exists():
+            shutil.rmtree(keep)
+        shutil.copytree(case, keep)                 # the rehearsal's case folder, for reading (state is private)
+    summary = {"rc": rc, "result": out.get("result"), "first_run_result": out.get("first_run_result"),
+               "resumed": out.get("resumed"),
+               "steps": [{"step": s.get("step"), "failed": (s.get("failed") or "")[:300]} for s in
+                         out.get("steps") or []],
+               "malformed_replies": {k: (out.get("malformed_replies") or {}).get(k)
+                                     for k in ("malformed", "reasks", "narration", "multi_sentence")},
+               "model_outages": len(out.get("model_outages") or []),
+               "registry_outages": len(out.get("registry_outages") or []), "state": str(state)}
+    if a.out:
+        Path(a.out).write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8")
+    print(json.dumps(summary, indent=1))
+    return rc
+
+
 def is_trial_issue(issue: dict) -> bool:
     """A paid run whose outputs are discarded by rule: an orchestrator trial ("round" starts "orchestrator
     trial"), or an issue that says "library": "trial" (a seeded-defect copy)."""
@@ -1403,8 +1587,18 @@ def _stage_malformed(path: Path) -> list[dict]:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
-    r = sub.add_parser("run"); r.add_argument("slug"); r.add_argument("--mode", choices=("paid", "trial"),
+    r = sub.add_parser("run"); r.add_argument("slug"); r.add_argument("--mode", choices=("paid", "trial", REHEARSE),
                                                                        required=True)
+    r.add_argument("--resume", action="store_true",
+                   help="restart at the previous run's failed step from the verified checkpoint (orch/checkpoint.py)")
+    h = sub.add_parser("rehearse", help="the offline rehearsal: every step at $0 in a scratch copy")
+    h.add_argument("base_slug", help="the issue whose issue.json the rehearsal copies (its question)")
+    h.add_argument("--slug", default="whu-lean-orch-t1-rehearsal")
+    h.add_argument("--plan", help="faults and reply shapes (JSON); see orch/rehearsal.py")
+    h.add_argument("--state", help="where the rehearsal's events, unknown prompts and log go (kept)")
+    h.add_argument("--offline", action="store_true", help="serve HTTP from the recorded cache only")
+    h.add_argument("--out", help="write the summary (counts only) here")
+    h.add_argument("--then-resume-plan", help="after the run, resume it in the same copy under this plan")
     p = sub.add_parser("replay"); p.add_argument("slug", nargs="+"); p.add_argument("--out")
     s = sub.add_parser("status"); s.add_argument("slug")
     e = sub.add_parser("estimate"); e.add_argument("slug", nargs="+"); e.add_argument("--out")
@@ -1412,7 +1606,13 @@ def main(argv=None) -> int:
     if os.environ.get("WHU_LEAN") != "1":
         print("refusing: the orchestrator runs lean WHU only (WHU_LEAN=1)")
         return 2
+    if a.cmd == "rehearse":
+        return rehearse_main(a)
     if a.cmd == "run":
+        if a.mode == REHEARSE and not (ROOT / SANDBOX_MARKER).exists():
+            print("refusing: rehearse mode runs only inside a Sandbox (orchestrator.py rehearse), never in the "
+                  "repository")
+            return 2
         if a.mode == "paid" and not os.environ.get(PAID_RULING_ENV, "").strip():
             print("refusing: no paid run until the advisor rules on one (set %s to the ruling's deviations row)"
                   % PAID_RULING_ENV)
@@ -1424,13 +1624,26 @@ def main(argv=None) -> int:
             print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]]}, indent=1))
             return 0
         lib = trial_library(a.slug)
-        ctx = Ctx(a.slug, "paid")
-        out = run(ctx)
+        ctx = Ctx(a.slug, a.mode)
+        record_name = "run_paid.json" if a.mode == "paid" else "run_rehearse.json"
+        resumed = None
+        if getattr(a, "resume", False):
+            from orch import checkpoint as CP
+            try:
+                resumed = prepare_resume(ctx, record_name)
+            except CP.ResumeRefused as e:
+                print("refusing to resume: %s" % e)
+                return 2
+        out = run(ctx, resume=resumed)
+        if resumed:
+            out["resumed"] = {"at": resumed["resume_at"], "checkpoint": resumed["checkpoint"].name,
+                              "previous_record": resumed["previous_record"], "prior_result": resumed["prior_result"],
+                              "verified_files": len(resumed["hashes"])}
         out["library_root"] = lib
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
         out["models_reported"] = record_models_reported(ctx)   # the model id each response reported (advisor)
         out["provenance_manifest"] = write_run_manifest(a.slug)
-        rec = ctx.case / "orchestrator" / "run_paid.json"          # every step's commands, exit codes and outcome
+        rec = ctx.case / "orchestrator" / record_name
         rec.parent.mkdir(parents=True, exist_ok=True)
         rec.write_text(json.dumps(dict(out, ruling=os.environ.get(PAID_RULING_ENV), ended=now()), indent=1,
                                   ensure_ascii=False, default=str) + "\n", encoding="utf-8")

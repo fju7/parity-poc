@@ -766,3 +766,91 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+# ---------------------------------------------------------------------------
+# CODE-ONLY MATCHING FOR ORCHESTRATED RUNS (Fred's term B2 after orchestrator trial 1 attempt 23, 2026-11-24)
+# ---------------------------------------------------------------------------
+#
+# Attempt 23's page carried 11 quoted passages and no quotations.json: no orchestrator step wrote it, and in the
+# lean test a drafting session typed each row. Here code alone writes it: every quoted passage on the page is
+# searched for VERBATIM in the held text of every source the holdings record holds (source_store.held; a blocked
+# source is never searched), by the same normalisation the "quotations match the source" row uses. A match is
+# recorded with the source, its offsets in that source's reading-order text (spancheck._norm), the document's
+# sha256 and the span's sha256; the verbatim field is the source's own words at those offsets. A quotation found
+# in no held text is recorded UNMATCHED (no source, no wording), which the quotation rows stop the page on. No
+# model is involved, and nothing is attested by a person.
+
+MATCHED_BY = "code (quotations.match_held: verbatim in held text)"
+
+
+def _span_of(quote_norm: str, text: str) -> tuple[int, int] | None:
+    """(start, end) in TEXT (reading-order) of QUOTE_NORM (norm()ed), via the segments between ellipses."""
+    import passage_index as PX
+    segs = [s.strip() for s in quote_norm.split(ELLIPSIS)] if ELLIPSIS in quote_norm else [quote_norm]
+    segs = [s for s in segs if s]
+    if not segs:
+        return None
+    first = PX.find_span(text, segs[0])
+    last = PX.find_span(text, segs[-1]) if len(segs) > 1 else first
+    if first is None or last is None or last[1] < first[0]:
+        return None
+    return first[0], last[1]
+
+
+def match_held(slug: str, page: Path) -> dict:
+    """Write quotations.json for SLUG from held text alone; return {"matched": n, "unmatched": [quotes]}."""
+    import hashlib
+    import spancheck as _SC
+    import source_store as _store
+    held = _store.held(slug) or {}
+    texts = {}
+    for sid in sorted(held):
+        for f, t in _SC._texts(slug, sid):
+            texts.setdefault(sid, []).append((f, _SC._norm(t)))
+    out, unmatched = [], []
+    try:
+        question = json.loads((case_dir(slug) / "issue.json").read_text(encoding="utf-8")).get("question") or ""
+    except Exception:
+        question = ""
+    for n, q in enumerate(extract(page.read_text(encoding="utf-8")), 1):
+        qn = norm(q)
+        if question and qn == norm(question):
+            # THE PAGE'S OWN QUESTION, which lean_sentences.QUESTION_FRAME quotes from issue.json: not a quotation
+            # from a source. Recorded as the page's own voice only on exact equality with the recorded question.
+            out.append({"id": "Q-%02d" % n, "quote": q, "source_id": "", "verbatim": "", "kind": "rhetorical",
+                        "why": "the page's own question, equal to issue.json's question (code); not a quotation "
+                               "from a source", "attested": {"by": "", "on": ""}, "matched_by": MATCHED_BY})
+            continue
+        hit = None
+        for sid, renditions in texts.items():
+            for f, t in renditions:
+                if not quoted_in(qn, norm(t)):
+                    continue
+                sp = _span_of(qn, t)
+                if sp is None:
+                    continue
+                verbatim = t[sp[0]:sp[1]]
+                if quoted_in(qn, norm(verbatim)):
+                    hit = (sid, f, sp, verbatim)
+                    break
+            if hit:
+                break
+        row = {"id": "Q-%02d" % n, "quote": q, "kind": "", "why": "", "attested": {"by": "", "on": ""},
+               "matched_by": MATCHED_BY}
+        if hit:
+            sid, f, sp, verbatim = hit
+            row.update(source_id=sid, verbatim=verbatim, offsets=list(sp), rendition=f,
+                       offsets_in="spancheck._norm reading-order text of the rendition",
+                       document_sha256=(held.get(sid) or {}).get("sha256"),
+                       span_sha256=hashlib.sha256(verbatim.encode("utf-8")).hexdigest())
+        else:
+            row.update(source_id="", verbatim="", unmatched=True,
+                       why="found verbatim in no held source's text (code); the page stops on it")
+            unmatched.append(q)
+        out.append(row)
+    path(slug).write_text(json.dumps(
+        {"what_this_is": "What Holds Up: quotations on %s and what the sources actually say (written by code: "
+                         "every quoted passage searched verbatim in the held texts)." % slug,
+         "how_to_use_it": TEMPLATE_NOTE, "quotations": out}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return {"matched": len(out) - len(unmatched), "unmatched": unmatched}

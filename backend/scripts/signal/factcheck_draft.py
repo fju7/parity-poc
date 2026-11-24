@@ -488,6 +488,10 @@ def _api_key() -> str:
 def _get_client():
     global _client
     if _client is None:
+        stub = _PR().rehearsal_client("anthropic")       # the offline rehearsal's stub (orch/rehearsal.py)
+        if stub is not None:
+            _client = stub
+            return _client
         api_key = _api_key()
         if not api_key:
             print("[ERROR] %s is not set, and is not in %s." % (KEY_VAR, ENVFILE))

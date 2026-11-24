@@ -69,6 +69,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -1181,6 +1182,16 @@ def cmd_run(args) -> int:
     bp.write_text(
         json.dumps(briefs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     p = write_template(args.slug, day, briefs, name=run_id)
+    unrun = unrun_sources(briefs)
+    if unrun and _strict():
+        # A CHECK THAT COULD NOT RUN NEVER PASSES (Fred's terms after orchestrator trial 1 attempt 23; found by the
+        # offline rehearsal): an advocate call that returned nothing usable, after its one re-ask, used to leave
+        # "-> 0 objections" and exit 0, so the run carried on as if the source had no objection. In lean /
+        # orchestrated mode the run is now recorded failed and exits UNRUN_EXIT, which stops an orchestrated run.
+        _state(rd, status="failed", reason="unrun check: no usable reply for %s" % ", ".join(unrun))
+        print("\n  BLOCKED  the advocate call for %s returned nothing usable after one re-ask: an unrun check, "
+              "not a clean one" % ", ".join(unrun))
+        return UNRUN_EXIT
     _state(rd, status="complete", resumed=bool(resume))
     print()
     print(f"  briefs      {bp.relative_to(ROOT)}")
@@ -1188,6 +1199,25 @@ def cmd_run(args) -> int:
     print(f"  {sum(len(b.get('objections') or []) for b in briefs)} item(s) need a "
           f"MERIT and an EFFECT line before this issue can publish.")
     return 0
+
+
+UNRUN_EXIT = 5
+
+
+def unrun_sources(briefs: list[dict]) -> list[str]:
+    """The sources whose advocate call returned nothing usable (brief "failed"): unrun checks, never clean ones."""
+    return [b["source"] for b in briefs if b.get("failed")]
+
+
+def _strict() -> bool:
+    """Lean / orchestrated mode, decided at each call (WHU_ORCH_STEP, else lean.enabled())."""
+    if os.environ.get("WHU_ORCH_STEP"):
+        return True
+    try:
+        import lean
+    except ImportError:
+        return os.environ.get("WHU_LEAN", "").strip() in ("1", "true", "yes", "on")
+    return lean.enabled()
 
 
 def cmd_status(args) -> int:

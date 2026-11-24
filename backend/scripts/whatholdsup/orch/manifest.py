@@ -55,7 +55,10 @@ def _model_sources(steps) -> dict:
 
 def build(root: Path, steps, extra: dict | None = None) -> dict:
     code = sorted(list((root / "backend/scripts/whatholdsup").rglob("*.py")) +
-                  [root / "backend/scripts/signal/factcheck_draft.py", root / "backend/scripts/spend_ledger.py"])
+                  [root / "backend/scripts/signal/factcheck_draft.py", root / "backend/scripts/spend_ledger.py",
+                   root / "backend/scripts/provider_retry.py"])
+    # the prompts the stages send are process documents too (Fred's term B1 after attempt 23)
+    prompts = sorted((root / "backend/scripts/whatholdsup/audit_prompts").glob("*.md"))
     try:
         commit = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"], capture_output=True,
                                 text=True).stdout.strip() or None
@@ -64,8 +67,9 @@ def build(root: Path, steps, extra: dict | None = None) -> dict:
     return {
         "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "commit": commit,
-        "documents": {p: _sha(root / p) for p in ("CLAUDE.md", "docs/whatholdsup-process.md",
-                                                  "docs/whu-orchestrator.md")},
+        "documents": dict({p: _sha(root / p) for p in ("CLAUDE.md", "docs/whatholdsup-process.md",
+                                                       "docs/whu-orchestrator.md")},
+                          **{p.relative_to(root).as_posix(): _sha(p) for p in prompts}),
         "code": {p.relative_to(root).as_posix(): _sha(p) for p in code if "__pycache__" not in p.parts},
         "models": {s.name: list(s.models) for s in steps},
         # every model each step may call and where it comes from, read from the code (advisor, after attempt 8)
@@ -76,10 +80,17 @@ def build(root: Path, steps, extra: dict | None = None) -> dict:
     }
 
 
+# What the harness check compares (Fred's term B1 after attempt 23): code and process-document hashes, models,
+# limits and tools -- never git HEAD. Attempt 23 stopped at preflight because HEAD had moved with the run's own
+# case-folder commits (commit_3b, commit_8), which no paid run that commits can avoid. "commit" stays in the
+# manifest as a record of where the run started; it is not compared.
+COMPARED = ("documents", "code", "models", "limits", "tools")
+
+
 def changed(old: dict, new: dict) -> list[str]:
-    """What differs between two manifests in what the run depends on (not the clock)."""
+    """What differs between two manifests in what the run depends on (not the clock, not git HEAD)."""
     out = []
-    for k in ("commit", "documents", "code", "models", "limits", "tools"):
+    for k in COMPARED:
         a, b = old.get(k), new.get(k)
         if isinstance(a, dict) and isinstance(b, dict):
             out += ["%s: %s" % (k, x) for x in sorted(set(a) | set(b)) if a.get(x) != b.get(x)]

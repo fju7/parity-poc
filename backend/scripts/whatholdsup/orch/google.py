@@ -93,6 +93,10 @@ class Gateway:
 
     def client(self):
         if self._client is None:
+            stub = _PR().rehearsal_client("google")       # the offline rehearsal's stub (orch/rehearsal.py)
+            if stub is not None:
+                self._client = stub
+                return self._client
             from google import genai
             self._client = genai.Client(api_key=_key())
         return self._client

@@ -38,6 +38,23 @@ TRANSIENT_NAMES = ("Timeout", "TimeoutError", "APITimeoutError", "ReadTimeout", 
 TRANSIENT_WORDS = ("503", "529", "429", "UNAVAILABLE", "overloaded", "Overloaded", "RESOURCE_EXHAUSTED",
                    "rate limit", "timed out", "Timeout", "Connection error", "connection reset")
 _sleep = time.sleep
+CURRENT: dict = {}             # the call in progress (provider, what): read by the rehearsal's stub clients
+REHEARSAL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "whatholdsup", "orch", "rehearsal.py")
+
+
+def _rehearsal():
+    """The offline rehearsal (orch/rehearsal.py), when WHU_ORCH_MODE is "rehearse"; else None."""
+    if os.environ.get("WHU_ORCH_MODE") != "rehearse":
+        return None
+    import importlib.util
+    import sys
+    m = sys.modules.get("whu_rehearsal")
+    if m is None:
+        spec = importlib.util.spec_from_file_location("whu_rehearsal", REHEARSAL)
+        m = importlib.util.module_from_spec(spec)
+        sys.modules["whu_rehearsal"] = m
+        spec.loader.exec_module(m)
+    return m.load()
 
 
 class ModelUnavailable(Exception):
@@ -81,12 +98,25 @@ def _log(provider: str, what: str, e: BaseException) -> None:
                              "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}) + "\n")
 
 
+def rehearsal_client(provider: str):
+    """In rehearse mode, the stub client for PROVIDER ("anthropic" | "google"); else None (build the real one)."""
+    reh = _rehearsal()
+    if reh is None:
+        return None
+    return reh.AnthropicStub() if provider == "anthropic" else reh.GoogleStub()
+
+
 def call(fn, provider: str, what: str = ""):
     """FN() in orchestrated mode retried RETRIES times on a transient provider error, then ModelUnavailable."""
+    CURRENT.clear()
+    CURRENT.update({"provider": provider, "what": what})
     if not orchestrated():
         return fn()
+    reh = _rehearsal()
     for i in range(RETRIES + 1):
         try:
+            if reh is not None:          # the rehearsal's planned provider faults, once each
+                reh.maybe_fault(provider, os.environ.get("WHU_ORCH_STEP", ""), what)
             return fn()
         except Exception as e:
             if not transient(e):
@@ -97,7 +127,7 @@ def call(fn, provider: str, what: str = ""):
                                        % (provider, what, type(e).__name__, str(e)[:200])) from e
             print("  [RETRY] %s %s: %s; retry %d/%d in %ds" % (provider, what, type(e).__name__, i + 1, RETRIES,
                                                                 RETRY_DELAYS[i]))
-            _sleep(RETRY_DELAYS[i])
+            _sleep(RETRY_DELAYS[i] / (50.0 if reh is not None else 1.0))      # the rehearsal runs the same waits, shortened
 
 
 def outages(path) -> list[dict]:

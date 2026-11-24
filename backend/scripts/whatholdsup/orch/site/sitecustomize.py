@@ -13,6 +13,15 @@ if _spec is not None and _spec.loader is not None:
     _own = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(_own)
 
+if os.environ.get("WHU_ORCH_MODE") == "rehearse":
+    # The offline rehearsal's record-then-replay HTTP cache, under the retry wrapper (installed next).
+    _rp = os.path.join(os.path.dirname(_here), "rehearsal.py")
+    _rr = importlib.util.spec_from_file_location("whu_rehearsal", _rp)
+    _reh = importlib.util.module_from_spec(_rr)
+    sys.modules["whu_rehearsal"] = _reh
+    _rr.loader.exec_module(_reh)
+    _reh.load().install_http()
+
 if os.environ.get("WHU_ORCH_UNAVAILABLE_LOG"):
     _p = os.path.join(os.path.dirname(_here), "registry_http.py")
     _rs = importlib.util.spec_from_file_location("whu_registry_http", _p)

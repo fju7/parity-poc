@@ -987,7 +987,12 @@ class Caller:
                 raise S.OrchestratorRefused("orchestrator %s mode makes no paid call" % _mode)
             self._ask = _refuse
             ask = _refuse
-        if ask is None:
+        stub = _PR().rehearsal_client("anthropic") if ask is None else None
+        if stub is not None:
+            # The offline rehearsal (orch/rehearsal.py): a stub client behind the same meter, guard and caps.
+            self._raw = stub
+            self._client = S.metered(self._raw, script="audit_stage.py", issue=ledger_issue, role="audit")
+        elif ask is None:
             import anthropic
             key = None
             for line in (ROOT / "backend" / ".env").read_text().splitlines():

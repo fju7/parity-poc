@@ -1,0 +1,27 @@
+{
+ "_what_this_is": "Offline rehearsal plan (orch/rehearsal.py): every reply shape and transient fault met in orchestrator trial 1, each consumed once by the first matching call. The run must recover from all of them and run every step.",
+ "narrate_searches": true,
+ "shape": [
+  {"step": "premise", "shape": "prose_around"},
+  {"step": "draft", "shape": "fenced_with_prose"},
+  {"step": "coverage", "shape": "two_values"},
+  {"step": "judgements", "what": "judgement_sentence", "shape": "multi_sentence"},
+  {"step": "judgements", "what": "rule-relevance", "shape": "mid_reply_revision"},
+  {"step": "audit", "what": "read", "shape": "mid_reply_revision"},
+  {"step": "gate", "what": "recency", "shape": "empty"},
+  {"step": "advocate", "what": "advocate:*", "shape": "prose_around"}
+ ],
+ "provider": [
+  {"step": "draft", "error": "503"},
+  {"step": "draft", "error": "429"},
+  {"step": "coverage", "error": "529"},
+  {"step": "audit", "error": "timeout"},
+  {"step": "gate", "what": "recency", "error": "connection"},
+  {"step": "overstatement", "what": "overstatement", "error": "503"},
+  {"step": "overstatement", "what": "overstatement", "error": "503"}
+ ],
+ "registry": [
+  {"step": "acquire", "error": "timed out", "times": 2},
+  {"step": "discover", "error": "Connection reset by peer", "times": 1}
+ ]
+}

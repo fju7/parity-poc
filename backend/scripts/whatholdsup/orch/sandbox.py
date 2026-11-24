@@ -34,6 +34,10 @@ class Sandbox:
         subprocess.run(["git", "clone", "-q", "--local", "--no-checkout", str(ROOT), str(r / ".clone")], check=True)
         (r / ".clone" / ".git").rename(r / ".git")
         (r / ".clone").rmdir()
+        # The clone has no checkout, so its index is empty and every tracked file reads as a staged deletion; a
+        # run that commits (the rehearsal) would then stage the whole tree. Point the index at HEAD (no files are
+        # touched): only what a step changes is then staged (rehearsal, 2026-11-24).
+        subprocess.run(["git", "-C", str(r), "reset", "-q"], check=True)
         shutil.copytree(ROOT / "backend" / "scripts", r / "backend" / "scripts", ignore=SKIP)
         (r / "backend" / "venv").symlink_to(ROOT / "backend" / "venv")
         for name in ("spend", "signal", "verify"):
@@ -70,6 +74,8 @@ class Sandbox:
         for f in ("CLAUDE.md",):
             if (ROOT / f).exists():
                 shutil.copy2(ROOT / f, r / f)
+        # The marker rehearse mode requires (orchestrator.py refuses rehearse mode anywhere else).
+        (r / ".whu_sandbox").write_text("scratch copy; deleted at the end\n")
         # An .env with no key in it: stages that read the file at start find it, and find no key.
         (r / "backend" / ".env").write_text("# scratch copy for a trial or replay run: no model key, by rule\n")
         assert "KEY" not in (r / "backend" / ".env").read_text()
