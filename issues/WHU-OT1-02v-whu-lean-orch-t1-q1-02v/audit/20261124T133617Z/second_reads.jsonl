@@ -1,0 +1,5 @@
+{"unit": "u42", "sha": "c5e484ab9e2b5ee3", "verdict": "holds", "kind": null, "reason": "The review's implications for practice recommend exactly this focus.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u22", "sha": "43ea1fff10c2ff44", "verdict": "holds", "kind": null, "reason": "The counts of 18 studies and 12 significant effects match the source verbatim.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u15", "sha": "3be83bcafbd95469", "verdict": "holds", "kind": null, "reason": "The sentence faithfully paraphrases the source's conclusion.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u72", "sha": "3ae7086fa09f15ef", "verdict": "not_a_correction", "kind": null, "reason": "This is a bibliographic reference-list entry, which is citation apparatus rather than a claim about the world or about what a source says.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}
+{"unit": "u9", "sha": "3bf3290db4a145e3", "verdict": "not_a_correction", "kind": null, "reason": "This is a section heading and makes no claim.", "agrees": true, "why_read": "seeded sample (seed 20261019)"}

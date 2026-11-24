@@ -1,0 +1,107 @@
+{
+ "omissions": [
+  {
+   "key": "S001@-",
+   "source": "S001",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S001",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S001-01"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-24T13:35:41+00:00"
+  },
+  {
+   "key": "S001@7900-8058",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    7900,
+    8058
+   ],
+   "quote_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The sentence opens the review's Authors' Conclusions and frames which kinds of intervention are needed. It concerns falling behind in educational outcomes, not how many children are out of school, so the 'out of school, and why' exclusion does not clearly apply. Step 2: It is a general diagnosis of why children with disabilities fall behind, not evidence on whether or which programmes work. Its practical implication is already in the draft: the twin-track approach, the need for more systemic approaches, and the call to evaluate interventions that target the broader environment. Adding it would not change or qualify the answer a funder relies on.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3f8d066feb56fb8d",
+   "origins": [
+    "S001-06"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-24T13:35:49+00:00"
+  },
+  {
+   "key": "S001@111857-111910",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    111857,
+    111910
+   ],
+   "quote_sha256": "83098daeec3342cbb5f9fa766f480b8c18baa38bd3ff9368b5bc24b9c79c4607",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding is about the design ratings of the included studies. That bears on 'how certain the evidence is', which SCOPE covers, so it is in scope. Step 2: The draft already says that all but one study was rated low confidence overall, and that this was largely due to low-rigour study designs. The added detail is that the four high design ratings went to RCTs. That is a methodological detail within one rating domain. It does not change the overall certainty of the evidence or any answer about which interventions work, so a funding decision-maker would not weigh it separately.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a126f0bc324594f5",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-24T13:35:54+00:00"
+  },
+  {
+   "key": "S001@117574-117778",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    117574,
+    117778
+   ],
+   "quote_sha256": "a29af9b9e0fe04ec89db40b9690bed39b2514ef7b268bfdc6c6febc6b5b427fb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about learning or achievement outcomes for children with disabilities [S001@163740-163774], which the question and the 'Covers' entry include. Step 2: the draft already says literacy effects were significant and large but rest on few studies. It does not give the effect size, the confidence interval (whose lower bound, 0.01, barely clears zero), the 93% heterogeneity, or the specific flag of potentially high publication bias. Those qualifiers bear directly on how much weight a funder should put on literacy-focused interventions, so the finding is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e5fdc042c412973c",
+   "origins": [
+    "S001-02",
+    "S001-03"
+   ],
+   "on_page": "5dbb2b641d876ec8",
+   "after": "694d46e4c08618df",
+   "decided_at": "2026-11-24T13:36:00+00:00"
+  },
+  {
+   "key": "S001@122630-122748",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    122630,
+    122748
+   ],
+   "quote_sha256": "75b344bf86655390a8da77c889f1e23be3d5a1662cabe987dfa475c433834147",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: SCOPE lists access, enrolment, attendance and completion as covered outcomes, so a finding about evidence on them bears on the question. Step 2: The draft recommends focusing on these outcomes but never says the review found no evidence on them at all. That gap limits the answer. A reader deciding whether to fund programmes for enrolment or attendance gains would need to know this review gives no evidence either way.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bd3b79d5732c6ed5",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": "81d034459cad15a7",
+   "after": "c5e484ab9e2b5ee3",
+   "decided_at": "2026-11-24T13:36:05+00:00"
+  }
+ ]
+}

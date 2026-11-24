@@ -1,0 +1,45 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f754f52f7-rec-2",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Saran, White, Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries is UNKNOWN: the draft uses Cited as source [2]; the draft explicitly states it found this source but that it 'has a published correction we could not hold, so nothing on this page draws on it.' The draft therefore draws no figures or cl",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "recency question not tied to any source on this page (title overlap with 3 sources (S001, S002, S004)); recorded and counted on the page, not acted on (lean rule 3b)",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-24",
+      "attached_to": {
+        "study": "Saran, White, Kuper — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S002 (first author 'saran' and 10 title words (overlap 0.91), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f754f52f7-rec-3",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ahmed, Jeffries, Chakraborty et al. — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map is UNKNOWN: the draft uses Cited as source [3]; the draft explicitly states it found this source but that it 'has a published correction we could not read, so nothing on this page draws on it.' The draft therefore draws no figures",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: campbellcollaboration.org, onlinelibrary.wiley.com, researchonline.lshtm.ac.uk, pubmed.ncbi.nlm.nih.gov, inclusive-education-initiative.org, ncbi.nlm.nih.gov, researchgate.net, eric.ed.gov, semanticscholar.org, econpapers.repec.org, evidenceaid.org, journals.sagepub.com, ideas.repec.org, research.acer.edu.au, people.acer.org, pmc.ncbi.nlm.nih.gov, doi.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-24",
+      "attached_to": {
+        "study": "Ahmed, Jeffries, Chakraborty et al. — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S003 (first author 'ahmed' and 12 title words (overlap 1.00), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}
