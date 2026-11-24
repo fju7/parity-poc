@@ -276,7 +276,7 @@ def main(argv=None) -> int:
     doc = json.loads(sp.read_text(encoding="utf-8"))
     srcs = doc.get("sources", doc)
     only = {x.strip() for x in args.only.split(",")} if args.only else None
-    have = store.held(args.slug)
+    have = store.library_held(args.slug)     # what is already fetched (a writer's view; blocked included)
 
     got, failed, skipped = [], [], []
     added = [] if args.no_summaries else summaries_to_add(srcs, store.utc_today())

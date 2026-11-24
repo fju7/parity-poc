@@ -312,6 +312,18 @@ def terms(sentence: str) -> set[str]:
     return out
 
 
+def _acronyms_only() -> bool:
+    """Lean / orchestrated mode, decided at each call (WHU_ORCH_STEP, else lean.enabled())."""
+    import os
+    if os.environ.get("WHU_ORCH_STEP"):
+        return True
+    try:
+        import lean
+    except ImportError:
+        return os.environ.get("WHU_LEAN", "").strip() in ("1", "true", "yes", "on")
+    return lean.enabled()
+
+
 def _uses(term: str, sentence: str) -> bool:
     return re.search(r"(?<![A-Za-z0-9])%s(?![A-Za-z0-9])" % re.escape(term), sentence or "") is not None
 
@@ -327,6 +339,11 @@ def dangling(case: Path, page_html: str) -> list[dict]:
         old = " ".join((r.get("ruled_on") or "").split())
         new = " ".join((r.get("text") or "").split())
         removed = terms(old) - terms(new)
+        if _acronyms_only():
+            # Advisor's ruling A after orchestrator trial 1 attempt 21 (lean / orchestrated only): a removed term is
+            # flagged only if it is an acronym, as the inserted-sentence branch below does -- a capitalised name
+            # ("Asia-Pacific", attempt 21) is introduced by the sentence that uses it.
+            removed = {t for t in removed if _ACRONYM.fullmatch(t) and len(t) >= 2}
         if not removed:
             continue
         new_first = norm_sentences(new)[0] if new else None

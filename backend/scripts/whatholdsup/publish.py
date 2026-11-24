@@ -1861,6 +1861,12 @@ def preflight(slug: str, *, for_email: bool,
         except BaseException as exc:
             out.append(("source-list entries match their registry records", BAD,
                         "did not run: %s: %s" % (type(exc).__name__, exc)))
+        # The page cites held sources only (advisor's ruling C after orchestrator trial 1 attempt 21): STOP on any
+        # sentence citing a source the holdings record does not hold. BLOCKED when it cannot run.
+        try:
+            out.extend(_sibling("holdings").preflight_rows(slug, page, OK, BAD))
+        except BaseException as exc:
+            out.append(("page cites held sources only", BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
         # Fixes 4-6 and rule 3b (process doc §4.6.1, "What 'we read' means";
         # advisor, 5 November 2026). BLOCKED when they cannot run, as above.
         try:

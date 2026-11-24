@@ -913,8 +913,44 @@ def held_check(slug: str, sid: str, src: dict, data: bytes,
                   "why": "%s — %s; %s" % (id_why, kind_why, t_why)}
 
 
-def held(slug: str) -> dict:
+def library_held(slug: str) -> dict:
+    """Every source whose bytes the library stores for this issue, blocked or not. For WRITERS only (what is
+    already fetched, so it is not fetched again); no stage reads a source's text through this."""
     return load_issue_index(slug).get("sources") or {}
+
+
+def blocked_ids(slug: str) -> set:
+    """Sources the issue's holdings record (sources.json `access`) marks blocked or not held: state "blocked", or a
+    `not_held` line (the orchestrator's acquire: could_not_hold, retracted, concern, correction_not_held,
+    correction_unread). Their bytes may sit in the library; their text is invisible to every stage (advisor's
+    ruling C after orchestrator trial 1 attempt 21: attempt 21's draft drew 12 passages from two blocked
+    sources, and its dangling ruling was shown one of them)."""
+    try:
+        p = case_dir(slug) / "sources.json"
+    except Exception:
+        return set()
+    if not p.exists():
+        return set()
+    try:
+        raw = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return set()
+    srcs = raw.get("sources", []) if isinstance(raw, dict) else raw
+    out = set()
+    for s in srcs or []:
+        acc = (s.get("access") or {}) if isinstance(s, dict) else {}
+        if acc.get("state") == "blocked" or acc.get("not_held"):
+            out.add(s.get("id"))
+    return out
+
+
+def held(slug: str) -> dict:
+    """The sources whose text a stage may read: the library's, minus every source the holdings record blocks
+    (blocked_ids). Every text reader goes through this (spancheck, audit_stage.held_for_audit, ruling.held_texts,
+    the draft's passages, coverage, judgements, canary ...)."""
+    lib = library_held(slug)
+    gone = blocked_ids(slug) if lib else set()
+    return {k: v for k, v in lib.items() if k not in gone}
 
 
 def verify(slug: str) -> tuple[list[str], list[str]]:

@@ -192,7 +192,7 @@ def main() -> int:
     ap.add_argument("--only")
     args = ap.parse_args()
     only = {x.strip() for x in args.only.split(",")} if args.only else None
-    h = store.held(args.slug)
+    h = store.library_held(args.slug)       # what is already fetched (a writer's view)
     out = {}
     print()
     for s in store.sources(args.slug):

@@ -275,7 +275,23 @@ def _account_page(ctx: Ctx, step) -> list[str]:
     bad = AA.problems(ctx.case, page, generated, getattr(ctx, "page_prev", None))
     ctx.page_prev = AA.on_page(page)
     html = ctx.page.read_text(encoding="utf-8") if ctx.page.exists() else ""
-    return bad + splitter_mismatches(ctx.slug, page, html) + entry_problems(ctx, html)
+    return bad + splitter_mismatches(ctx.slug, page, html) + entry_problems(ctx, html) + holding_problems(ctx, html)
+
+
+HOLDING_PREFIX = "cites a source not held: "
+
+
+def holding_problems(ctx: Ctx, html: str) -> list[str]:
+    """Standing check (advisor's ruling C after attempt 21): no page sentence cites a source the holdings record
+    (holdings.record) does not hold; the generated record sentences are exempt (holdings.page_problems)."""
+    import bindings as B
+    import holdings as HD
+    if not html:
+        return []
+    srcs = json.loads((ctx.case / "sources.json").read_text(encoding="utf-8")).get("sources") or []
+    rec = HD.classify(srcs, {s.get("id") for s in srcs if is_held(s)})   # in a run, held = full text held
+    return [HOLDING_PREFIX + p for p in HD.page_problems(ctx.slug, B.page_sentences(ctx.slug, html=html),
+                                                         sources=srcs, rec=rec)]
 
 
 ENTRY_PREFIX = "source-list entry: "
@@ -672,7 +688,10 @@ def code_acquire(ctx: Ctx, step) -> dict:
     why = RS.stop_reason([s for s in doc.get("sources") or [] if s["id"] in held])
     if why:
         raise RunStop("acquire: " + why)
+    import holdings as HD
     return {"outcome": "%d held, %d not held" % (len(held), len(not_held)), "not_held": not_held,
+            # the one record every stage reads (ruling C after attempt 21); in a run, held = full text held
+            "holdings": HD.classify(doc.get("sources") or [], held),
             "lines": {s["id"]: s["access"]["not_held"]["line"] for s in doc.get("sources") or []
                       if s["access"].get("not_held")}}
 
@@ -967,6 +986,7 @@ def code_apply(ctx: Ctx, step) -> dict:
         raise RunStop("%s: applied_check found %d mismatch(es)" % (step.name, len(res["mismatches"])))
     # GAP-016: a reference an applied ruling left pointing at nothing is ruled (ruling.py dangling) and that
     # ruling applied, once; anything still dangling stops the run.
+    rejected: list = []
     if ops and AC.dangling(ctx.case, ctx.page.read_text(encoding="utf-8")) and not _depth.get("dangling"):
         _depth["dangling"] = True
         try:
@@ -979,10 +999,50 @@ def code_apply(ctx: Ctx, step) -> dict:
             page = Page.load(ctx.page_json)             # the nested apply saved a newer page
         finally:
             _depth.pop("dangling", None)
-        if AC.dangling(ctx.case, ctx.page.read_text(encoding="utf-8")):
+        left, rejected = dangling_unruled(ctx.case, AC.dangling(ctx.case, ctx.page.read_text(encoding="utf-8")))
+        if rejected:
+            lp = ctx.case / DANGLING_RULED_LOG
+            lp.parent.mkdir(parents=True, exist_ok=True)
+            with lp.open("a", encoding="utf-8") as fh:
+                for f in rejected:
+                    fh.write(json.dumps(dict(f, step=step.name, at=now()), ensure_ascii=False) + "\n")
+        if left:
             raise RunStop("%s: references still point at nothing after the dangling ruling" % step.name)
     _rerender(ctx, page)
-    return {"outcome": "%d record(s) applied" % len(ops), "changed": bool(ops), "applied": len(ops)}
+    out = {"outcome": "%d record(s) applied" % len(ops), "changed": bool(ops), "applied": len(ops)}
+    if rejected:
+        out["dangling_ruled_reject"] = rejected        # logged in the step's record (run_paid.json)
+    return out
+
+
+DANGLING_RULED_LOG = "orchestrator/dangling_ruled.jsonl"
+
+
+def dangling_unruled(case: Path, found: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Advisor's ruling B after orchestrator trial 1 attempt 21: after the dangling ruling, a finding a recorded
+    "reject" covers -- that exact finding: the term, the later sentence, and the applied ruling it came from --
+    counts as ruled and is logged; the run stops only on findings no ruling covers. Code never dismisses a finding
+    without a ruling: an amend or cut that still leaves the term dangling, a reject of another term, sentence or
+    applied ruling, or no record at all, stays a finding."""
+    rejects = set()
+    lp = case / "rulings" / "rulings.jsonl"
+    for line in (lp.read_text(encoding="utf-8").splitlines() if lp.exists() else []):
+        r = json.loads(line) if line.strip() else {}
+        if r.get("ruling_kind") != "dangling" or r.get("ruling") != "reject":
+            continue
+        sent = (r.get("inputs") or {}).get("sentence")
+        for c in r.get("covers") or []:
+            rejects.add((c.get("term"), sent, c.get("after_ruling"), r.get("id")))
+    by_key = {(t, s, a): rid for t, s, a, rid in rejects}
+    left, ruled = [], []
+    for f in found:
+        rid = by_key.get((f.get("term"), f.get("later_sentence"), f.get("log")))
+        if rid:
+            ruled.append({"term": f["term"], "later_sentence": f["later_sentence"], "after_ruling": f["log"],
+                          "ruled_by": "rulings/rulings.jsonl id %s (reject)" % rid})
+        else:
+            left.append(f)
+    return left, ruled
 
 
 _depth: dict = {}

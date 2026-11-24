@@ -98,7 +98,22 @@ def _norm(t: str) -> str:
 
 
 def held_text(slug: str, cache: bool = True) -> dict[str, str]:
-    """{source id: extracted text} for every document held for this issue."""
+    """{issue:source id: extracted text} for every document held for this issue, minus every source its issue's
+    holdings record blocks (source_store.blocked_ids; advisor's ruling C after orchestrator trial 1 attempt 21)."""
+    out = _held_text_all(slug, cache)
+    blocked: dict[str, set] = {}
+    keep = {}
+    for k, v in out.items():
+        iss, _, sid = k.rpartition(":")
+        if iss not in blocked:
+            blocked[iss] = S.blocked_ids(iss)
+        if sid not in blocked[iss]:
+            keep[k] = v
+    return keep
+
+
+def _held_text_all(slug: str, cache: bool = True) -> dict[str, str]:
+    """{issue:source id: extracted text} for every document the library stores (blocked included)."""
     root = S.case_dir(slug).parent if False else None       # noqa: F841
     lib = Path(S.issue_index_path(slug)).resolve().parent.parent
     # The reading-order cache (2026-10-20). The old _reachability_<slug>.json
