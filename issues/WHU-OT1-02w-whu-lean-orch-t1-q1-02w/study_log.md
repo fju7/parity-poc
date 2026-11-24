@@ -27,3 +27,6 @@
 | overstatement (orchestrator) | 2026-11-24T14:39:41+00:00 | 2026-11-24T14:39:42+00:00 | $0.0000 | 0 | 53 pair(s): 2 yes, 51 no |
 | corrections (orchestrator) | 2026-11-24T14:39:42+00:00 | 2026-11-24T14:39:43+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
 | final_gate (orchestrator) | 2026-11-24T14:39:43+00:00 | 2026-11-24T14:39:45+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| commit_8 (orchestrator) | 2026-11-24T14:39:45+00:00 | 2026-11-24T14:41:43+00:00 | $0.0000 | 0 | committed 29145ce46d15 |
+| changecheck (orchestrator) | 2026-11-24T14:41:43+00:00 | 2026-11-24T14:41:46+00:00 | $0.0096 | 0 | 0 record(s) applied |
+| preflight (orchestrator) | 2026-11-24T14:41:46+00:00 | 2026-11-24T14:41:59+00:00 | $0.0000 | 0 | FAILED: RunStop: preflight: the harness changed during the run: commit |
