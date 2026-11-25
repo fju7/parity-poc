@@ -1,0 +1,48 @@
+{
+ "result": "Not Ready: issue.json needs a run cap (run_cap_usd, at most $10): every paid call checks it",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-25T20:10:09+00:00",
+   "cmds": [],
+   "failed": "RunStop: issue.json needs a run cap (run_cap_usd, at most $10): every paid call checks it",
+   "end": "2026-11-25T20:10:09+00:00",
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 0,
+  "held": 0,
+  "not_held": 0,
+  "sources": [],
+  "proposals_not_confirmed": 0,
+  "unconfirmed": []
+ },
+ "models_reported": {},
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 0,
+  "copied": 0,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-02zb"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-25T20:10:09+00:00"
+}
