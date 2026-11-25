@@ -277,6 +277,10 @@ def main(argv=None) -> int:
     ap.add_argument("--use-routes", action="store_true",
                     help="try the free routes find_access.py recorded, in order, "
                          "before the source's own url")
+    ap.add_argument("--open-copies", action="store_true",
+                    help="when a source's own copy cannot be held, try the permitted open copies OpenAlex lists for "
+                         "its recorded DOI (open_copy.py: copy rule, robots.txt and TDM before any fetch, never past "
+                         "a wall); the orchestrated acquire passes it (advisor's ruling on P107)")
     ap.add_argument("--out", help="also write this run's acquire record as JSON: every source held and every "
                                   "source not held with its reason (the orchestrator's proof of completion)")
     args = ap.parse_args(argv)
@@ -398,6 +402,23 @@ def main(argv=None) -> int:
                 break
             why = "%s (%d bytes at %s)" % (why, len(data), target[:60]); data = None
             tried.append({"url": target, "result": why})
+        via_open = None
+        if data is None and args.open_copies and not unavailable:
+            # the source's own copy could not be held: its permitted open copies (open_copy.py, ruling on P107)
+            import open_copy as OC
+            res = OC.find(s, url, fetch_retrying,
+                          lambda d, c, _sid=sid, _s=s: store.held_check(args.slug, _sid, _s, d, c))
+            acc["open_copies"] = dict(res["record"], on=store.utc_today())
+            tried.append({"url": OC.ROUTE, "result": res["record"].get("outcome"),
+                          "unavailable": bool(res.get("unavailable"))})
+            if res.get("unavailable"):
+                unavailable = True
+                why = "%s; %s" % (why, res["record"]["outcome"])
+            elif res.get("data") is not None:
+                data, ct, final, check, via_open = res["data"], res["ct"], res["final"], res["check"], res["copy"]
+                why = check["why"]
+            else:
+                why = "%s; %s: %s" % (why, OC.ROUTE, res["record"].get("outcome"))
         if data is None:
             # NOT FETCHED, and the ledger says why. The state is left as it was:
             # nothing was stored, so nothing is claimed.
@@ -415,6 +436,11 @@ def main(argv=None) -> int:
         if via_pmc and via_pmc.get("licence"):   # held through the NCBI PMC fallback: its route and licence
             acc["held"]["route"] = via_pmc["route"]
             acc["held"]["licence"] = via_pmc["licence"]
+        if via_open:                             # held through an open copy: where, its version and its licence
+            acc["held"]["route"] = "%s: %s (%s)" % (OC.ROUTE, via_open["where"], via_open["why"])
+            acc["held"]["version"] = via_open["version"]
+            acc["held"]["licence"] = {"name": via_open["licence"], "from": via_open["licence_from"],
+                                      "url": via_open["url"]}
         acc.setdefault("on", row["retrieved"])
         got.append((sid, row["file"], row["bytes"]))
         print("  HELD     %-6s %-46s %8d B  (%s)"

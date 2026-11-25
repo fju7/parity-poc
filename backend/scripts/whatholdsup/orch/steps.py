@@ -84,7 +84,8 @@ STEPS: tuple[Step, ...] = (
     # advisor's ruling 1 after attempt 24: discovery's registry lookups are their own step, so a resume after a
     # registry outage repeats them alone and reuses the saved proposals (orchestrator.code_confirm)
     Step("confirm", "code", code="confirm"),
-    Step("acquire", "code", cmds=((PY, W + "acquire_sources.py", "{slug}", "--out", "{case}/orchestrator/acquire.json"), (PY, W + "source_store.py", "{slug}", "status"),
+    # --open-copies: a source whose own copy cannot be held falls back to a permitted open copy (ruling on P107)
+    Step("acquire", "code", cmds=((PY, W + "acquire_sources.py", "{slug}", "--open-copies", "--out", "{case}/orchestrator/acquire.json"), (PY, W + "source_store.py", "{slug}", "status"),
                (PY, W + "errata.py", "{slug}"), (PY, W + "sweep_sources.py", "resolve", "{slug}", "--write"),
                (PY, W + "canary.py", "{slug}")), code="acquire"),
     Step("draft", "model", models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),

@@ -1,0 +1,36 @@
+{
+ "id": "https://openalex.org/W4286214449",
+ "doi": "https://doi.org/10.1080/1034912x.2022.2095359",
+ "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+ "open_access": {
+  "is_oa": true,
+  "oa_status": "hybrid",
+  "oa_url": "https://doi.org/10.1080/1034912x.2022.2095359",
+  "any_repository_has_fulltext": true
+ },
+ "locations": [
+  {
+   "is_oa": true,
+   "landing_page_url": "https://doi.org/10.1080/1034912x.2022.2095359",
+   "pdf_url": null,
+   "license": "cc-by-nc-nd",
+   "version": "publishedVersion",
+   "source": {
+    "display_name": "International Journal of Disability Development and Education",
+    "type": "journal"
+   }
+  },
+  {
+   "is_oa": true,
+   "landing_page_url": "https://escholarship.org/uc/item/0bs2s446",
+   "pdf_url": null,
+   "license": "cc-by-nc-nd",
+   "version": "submittedVersion",
+   "source": {
+    "display_name": "eScholarship (California Digital Library)",
+    "type": "repository"
+   }
+  }
+ ],
+ "_recorded": "2026-11-25, https://api.openalex.org/works/https://doi.org/10.1080/1034912x.2022.2095359 (metadata fields only)"
+}

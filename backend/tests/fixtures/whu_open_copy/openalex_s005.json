@@ -1,0 +1,25 @@
+{
+ "id": "https://openalex.org/W4321463381",
+ "doi": "https://doi.org/10.54676/jjnk6989",
+ "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+ "open_access": {
+  "is_oa": false,
+  "oa_status": "closed",
+  "oa_url": null,
+  "any_repository_has_fulltext": false
+ },
+ "locations": [
+  {
+   "is_oa": false,
+   "landing_page_url": "https://doi.org/10.54676/jjnk6989",
+   "pdf_url": null,
+   "license": null,
+   "version": "publishedVersion",
+   "source": {
+    "display_name": "UNESCO eBooks",
+    "type": "ebook platform"
+   }
+  }
+ ],
+ "_recorded": "2026-11-25, https://api.openalex.org/works/https://doi.org/10.54676/jjnk6989 (metadata fields only)"
+}
