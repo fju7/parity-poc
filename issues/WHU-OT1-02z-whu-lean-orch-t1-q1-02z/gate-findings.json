@@ -1,0 +1,85 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "ff8b09f55-rec-3",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell Systematic Reviews. 2022. is UNKNOWN: the draft uses Listed as source [3] but the draft explicitly states it has a published correction the draft could not read, and draws nothing from it.; the latest known is Orig",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, campbellcollaboration.org, researchonline.lshtm.ac.uk, pubmed.ncbi.nlm.nih.gov, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, eenet.org.uk, academia.edu, reachjournal.ie, internationalsped.com, ijci.net, arxiv.org, research.acer.edu.au, people.acer.org, semanticscholar.org, doi.org, pmc.ncbi.nlm.nih.gov, lshtm-eprints-repo-prod.lshtm-eprints.cdl.cosector.com, ideas.repec.org, voced.edu.au, assets.publishing.service.gov.uk, gov.uk, unesco.org, unesco.de, unicef.org, africacheck.org, unesco.at, gesci.org, right-to-education.org, journals.sagepub.com, briogroup.com.au, inclusion-international.org, european-agency.org, world-education-blog.org, ensureias.com) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell Systematic Reviews. 2022.",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S003 (first author 'ahmed' and 12 title words (overlap 1.00), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "ff8b09f55-rec-4",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries. Campbell Systematic Reviews. 2020. is UNKNOWN: the draft uses Listed as source [4] but the draft explicitly states it has a published correction the draft could not hold, and draws nothing from it.; the latest known is Original EG",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by identifier (doi:10.1002/cl2.1070)): Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, campbellcollaboration.org, researchonline.lshtm.ac.uk, pubmed.ncbi.nlm.nih.gov, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, eenet.org.uk, academia.edu, reachjournal.ie, internationalsped.com, ijci.net, arxiv.org, research.acer.edu.au, people.acer.org, semanticscholar.org, doi.org, pmc.ncbi.nlm.nih.gov, lshtm-eprints-repo-prod.lshtm-eprints.cdl.cosector.com, ideas.repec.org, voced.edu.au, assets.publishing.service.gov.uk, gov.uk, unesco.org, unesco.de, unicef.org, africacheck.org, unesco.at, gesci.org, right-to-education.org, journals.sagepub.com, briogroup.com.au, inclusion-international.org, european-agency.org, world-education-blog.org, ensureias.com) could not establish whether Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low- and middle-income countries. Campbell Systematic Reviews. 2020.",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S004 (first author 'saran' and 10 title words (overlap 0.91), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "ff8b09f55-rec-5",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Kuper H, Saran A, White H. Rapid evidence assessment (REA) of what works to improve educational outcomes for people with disabilities in low- and middle-income countries. Campbell Collaboration and International Centre for Evidence in Disability. 2018. is UNKNOWN: the draft uses Listed as source [5] but the draft explicitly states it could not hold this source and draws nothing from it.; the lates",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by identifier (url:gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works)): Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, campbellcollaboration.org, researchonline.lshtm.ac.uk, pubmed.ncbi.nlm.nih.gov, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, eenet.org.uk, academia.edu, reachjournal.ie, internationalsped.com, ijci.net, arxiv.org, research.acer.edu.au, people.acer.org, semanticscholar.org, doi.org, pmc.ncbi.nlm.nih.gov, lshtm-eprints-repo-prod.lshtm-eprints.cdl.cosector.com, ideas.repec.org, voced.edu.au, assets.publishing.service.gov.uk, gov.uk, unesco.org, unesco.de, unicef.org, africacheck.org, unesco.at, gesci.org, right-to-education.org, journals.sagepub.com, briogroup.com.au, inclusion-international.org, european-agency.org, world-education-blog.org, ensureias.com) could not establish whether Rapid evidence assessment (REA) of what works to improve educational outcomes for people with disabilities in low- and middle-income countries has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "Kuper H, Saran A, White H. Rapid evidence assessment (REA) of what works to improve educational outcomes for people with disabilities in low- and middle-income countries. Campbell Collaboration and International Centre for Evidence in Disability. 2018.",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S005 (first author 'kuper' and 18 title words (overlap 1.00), source-list entry), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "ff8b09f55-rec-6",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "UNESCO. Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris. 2020. is UNKNOWN: the draft uses Listed as source [6] but the draft explicitly states it could not hold this source and draws nothing from it.; the latest known is The 2020 GEM Report remains the dedicated thematic report on inclusion in education. Subsequent GEM Reports cover different themes: 2023 (te",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: eric.ed.gov, onlinelibrary.wiley.com, campbellcollaboration.org, researchonline.lshtm.ac.uk, pubmed.ncbi.nlm.nih.gov, researchgate.net, inclusive-education-initiative.org, ncbi.nlm.nih.gov, eenet.org.uk, academia.edu, reachjournal.ie, internationalsped.com, ijci.net, arxiv.org, research.acer.edu.au, people.acer.org, semanticscholar.org, doi.org, pmc.ncbi.nlm.nih.gov, lshtm-eprints-repo-prod.lshtm-eprints.cdl.cosector.com, ideas.repec.org, voced.edu.au, assets.publishing.service.gov.uk, gov.uk, unesco.org, unesco.de, unicef.org, africacheck.org, unesco.at, gesci.org, right-to-education.org, journals.sagepub.com, briogroup.com.au, inclusion-international.org, european-agency.org, world-education-blog.org, ensureias.com) could not establish whether source [6] has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "UNESCO. Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris. 2020.",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S006 (first author 'unesco' and 9 title words (overlap 1.00), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

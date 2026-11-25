@@ -1687,6 +1687,177 @@
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null
+    },
+    "c0952ae39aeee1d4": {
+      "sentence": "No included study measured attendance, enrolment or completion outcomes; one study that aimed to improve them by equipping mainstream settings for children with disabilities reported improved teacher knowledge and attitudes about inclusive education [1].",
+      "sentence_sha": "c0952ae39aeee1d4",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@122892",
+      "span": "Among those studies which aimed to improve educational attainment, positive effects of interventions were seen for speech and communication; literacy; numeracy; handwriting; cognitive skills, including attention and memory; and school behaviour and adaptive functioning. Studies that were aimed at improving the accessibility of learning environments in education reported positive impacts of these interventions on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction. Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        122892,
+        123683
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "93fd1341d10cd6a8": {
+      "sentence": "For example, the pooled effect for numeracy was d = 4.60 (0.69 to 8.50) from two studies with high heterogeneity, and the effect for handwriting was d = 4.86 (0.25 to 9.48) in the review's results table (reported as 4.97 in its text), also from only two studies [1].",
+      "sentence_sha": "93fd1341d10cd6a8",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@116597",
+      "span": "Outcome Effect Summary Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias Skills for learning Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        116597,
+        117510
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S001",
+          "span": "Handwriting exhibits a significant and a large effect of 4.97 (CI: [4.21, 5.73]) with low heterogeneity ( I ² = 0.00%) but this is based on only two studies. The overview of the funnel plot (Figure 9 ) likewise shows that the former two categories are likely to suffer from publication bias, even though the Eggers Test is insignificant, due to a low sample size. The publication bias for numeracy and handwriting cannot be assessed, as the number of studies is only two. 5.4. Synthesis of results Figure 9 Potential bias in interventions concerned with skills for learning. 6. DISCUSSION 6.1. Summary of main results We identified, coded, analysed, and narratively summarised the findings from 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in LMICs.",
+          "offsets": [
+            119695,
+            120503
+          ]
+        }
+      ]
+    },
+    "3eaef99bdf5c3c89": {
+      "sentence": "Heterogeneity was high for most pooled outcomes, though low for school behaviour and handwriting (I² = 0%), and risk of publication bias varied but was frequently high [1].",
+      "sentence_sha": "3eaef99bdf5c3c89",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@7511",
+      "span": "Across studies, heterogeneity is high, and risk of publication bias varies but was frequently high.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        7511,
+        7610
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "fc991a08ca909a17": {
+      "sentence": "The authors conclude that 'there is no one ‘magic bullet’ intervention which can equalise health outcomes for this group' [1].",
+      "sentence_sha": "fc991a08ca909a17",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@8059",
+      "span": "There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        8059,
+        8153
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "2b3412677e6d2b8e": {
+      "sentence": "Pooled across all skills for learning, the overall effect was d = 2.10 (0.91 to 3.29; k = 22, n = 1313, I² = 99%), which the authors describe as a \"large effect based on a large number of studies with high heterogeneity and marginally significant publication bias\" (Egger's test p = 0.07) [1].",
+      "sentence_sha": "2b3412677e6d2b8e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@118247",
+      "span": "Overall d = 2.10 (0.91 to 3.29) k = 22 n = 1313 I ² = 99% Egger's test 5.24 ( t = 1.93, p = 0.07) Large effect based on a large number of studies with high heterogeneity and marginally significant publication bias",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        118247,
+        118460
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b469bbd2b9f1172b": {
+      "sentence": "The review also found that no studies reported on outcomes such as qualifications gained, transition to higher levels of education, or education-related quality of life [1].",
+      "sentence_sha": "b469bbd2b9f1172b",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@122749",
+      "span": "No studies reported on outcomes such as qualifications gained, transition to higher levels of education, or education‐related quality of life.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        122749,
+        122891
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

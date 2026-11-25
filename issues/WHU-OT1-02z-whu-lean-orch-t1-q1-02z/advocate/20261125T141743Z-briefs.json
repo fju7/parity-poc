@@ -1,0 +1,154 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Improving attendance, enrolment and completion was achieved in only one study, which improved teachers' knowledge and attitudes about inclusive education",
+        "objection": "The review also says no included study looked at attendance, enrolment or completion outcomes. What the Kenya study improved was teacher knowledge and attitudes, so the sentence can be read as a measured attendance result that the review does not report.",
+        "source_says": "No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.",
+        "locator": "Results summary paragraph on included studies' settings and outcomes (after 'Thirteen interventions were conducted in (inclusive) mainstream settings...')",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The review reports no attendance, enrolment or completion outcome from any study. The page's sentence overstates that gap by implying one study achieved those outcomes. The review itself is internally inconsistent here, so a correction should say the evidence on these outcomes is essentially absent.",
+        "source_says_first": "\"No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.\" and \"No studies reported on outcomes such as qualifications gained, transition to higher levels of education, or education-related quality of life.\" The review's plain-language summary uses the wording the page borrowed: attempts to improve attendance, enrolment and completion \"was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "No studies covered the accessibility of the built environment and learning materials, or inclusive education policies [1].",
+        "objection": "The page lists only two evidence gaps. It leaves out that the review found no studies reporting qualifications gained, transition to higher education, or education-related quality of life.",
+        "source_says": "No studies reported on outcomes such as qualifications gained, transition to higher levels of education, or education‐related quality of life.",
+        "locator": "Summary of findings paragraph on interventions conducted in mainstream/segregated settings (\"Thirteen interventions were conducted in (inclusive) mainstream settings...\")",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's claim that interventions \"work\" for educational outcomes rests on skills-for-learning measures. The review shows entire outcome domains with no evidence at all.",
+        "source_says_first": "\"No studies reported on outcomes such as qualifications gained, transition to higher levels of education, or education-related quality of life.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "and the effect for handwriting was 4.97, also from only two studies [1]",
+        "objection": "The review's results table gives a different handwriting figure from the one the page prints, and the figure comes with a confidence interval that nearly reaches zero.",
+        "source_says": "Handwriting d = 4.86 (0.25 to 9.48) k = 2 n = 101 I ² = 0% Egger's test Low sample size Large effect based on a low number of studies with low heterogeneity.",
+        "locator": "5.3. Effects of interventions, Table 14 Effects of interventions",
+        "could_not_find": "I could not find 4.97 in the sections I retrieved. A different version of the table may exist.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The figure is slightly off. More importantly, the interval (0.25 to 9.48) shows how imprecise the estimate is, which the page omits.",
+        "source_says_first": "\"Handwriting | d = 4.86 (0.25 to 9.48) k = 2 n = 101 I² = 0% ... Large effect based on a low number of studies with low heterogeneity. The publication bias cannot be assessed due to low sample size\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "For example, the pooled effect for numeracy was d = 4.60 from two studies with high heterogeneity",
+        "objection": "The page gives point estimates without the review's confidence intervals, which show how imprecise these two-study effects are.",
+        "source_says": "Numeracy d = 4.60 (0.69 to 8.50) k = 2 n = 110 I ² = 85% Egger's test Low sample size High effect based on a low number of studies with high heterogeneity.",
+        "locator": "Skills for learning effects table (Outcome / Effect / Summary), Numeracy row",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This supports the page's caution about the large effects. A fair reader should know the intervals are very wide and close to zero at the lower bound.",
+        "source_says_first": "\"Numeracy | d = 4.60 (0.69 to 8.50) k = 2 n = 110 I² = 85% ... High effect based on a low number of studies with high heterogeneity.\" Handwriting is d = 4.86 (0.25 to 9.48), k = 2.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Of the 18 studies analysed for effects on skills for learning, 12 interventions had a significant effect [1].",
+        "objection": "The page never gives the review's overall pooled effect for skills for learning, which is the headline quantitative result and carries its own caveats.",
+        "source_says": "Overall d = 2.10 (0.91 to 3.29) k = 22 n = 1313 I ² = 99% Egger's test 5.24 ( t = 1.93, p = 0.07) Large effect based on a large number of studies with high heterogeneity and marginally significant publication bias",
+        "locator": "Section 5.3 Effects of interventions, Table 14 (Effects of interventions), Overall row",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review reports a significant large pooled effect on skills for learning, alongside I² = 99% and marginal publication bias. The page presents only per-outcome effects and a count of significant studies. The table's k = 22 also differs from the abstract's 18 studies, which a careful page should note.",
+        "source_says_first": "\"Overall | d = 2.10 (0.91 to 3.29) k = 22 n = 1313 I² = 99% Egger's test 5.24 (t = 1.93, p = 0.07) | Large effect based on a large number of studies with high heterogeneity and marginally significant publication bias\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Across the studies, heterogeneity is high, and risk of publication bias varies but was frequently high [1].",
+        "objection": "The blanket statement is true of some pooled outcomes but not others. The review's table reports no heterogeneity for school behaviour and handwriting, and no publication bias for speech and school behaviour.",
+        "source_says": "School behaviour and adaptive functioning d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I ² = 0% Egger's test 0.11 ( t = 1.03, p = 0.38) Insignificant effect based on a low number of studies with low heterogeneity and no publication bias",
+        "locator": "Table 14 Effects of interventions, section 5.3 Effects of interventions",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This is the review's own abstract wording, so the objection is to over-generalising it. The outcome-level table qualifies it.",
+        "source_says_first": "School behaviour and adaptive functioning: \"I² = 0% ... Insignificant effect based on a low number of studies with low heterogeneity and no publication bias\". Handwriting: \"I² = 0% ... low heterogeneity\". Speech: \"I² = 90% ... no publication bias\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "For speech and communication, the pooled effect was insignificant (d = 0.70, from five studies with high heterogeneity) [1].",
+        "objection": "The page omits the confidence interval. The review labels the effect as insignificant because it rests on a low number of studies, so it should not be read as evidence of no effect.",
+        "source_says": "Speech and communication d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I ² = 90% Egger's test 0.25 ( t = 0.09, p = 0.93) Insignificant effect based on a low number of studies with high heterogeneity and no publication bias",
+        "locator": "Results, summary table of effects on 'Skills for learning' (section 5.3)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The intervals include large positive effects, so \"no significant effect\" reflects imprecision. This fits the narrative summary's positive findings, which the page does mention.",
+        "source_says_first": "\"Speech and communication | d = 0.70 (−1.70 to 3.09) k = 5 n = 245 I² = 90% ... Insignificant effect based on a low number of studies with high heterogeneity and no publication bias\"; School behaviour and adaptive functioning: \"d = 0.49 (−1.76 to 2.74) k = 5 n = 256 I² = 0%\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The studies concerned with speech and school behaviour show no significant effect of intervention [1].",
+        "objection": "The page states this flatly and does not say that the review's own narrative summary finds positive effects for exactly these outcomes. It also omits the review's explanation that the pooled estimates rest on few studies.",
+        "source_says": "\"Among those studies which aimed to improve educational attainment, positive effects of interventions were seen for speech and communication; literacy; numeracy; handwriting; cognitive skills, including attention and memory; and school behaviour and adaptive functioning.\"",
+        "locator": "Plain language summary / main findings; Results, narrative summary",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page does mention the narrative positives earlier. This later sentence repeats the \"no effect\" framing without that context, so it should be reconciled with the earlier one.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "On which kinds work best, the authors say that more research is needed to understand which types of interventions are most efficacious and how best to deliver them [1].",
+        "objection": "The page leaves out the authors' direct statement that there is no single best intervention. The review frames the evidence as supporting a twin-track combination rather than any one type.",
+        "source_says": "There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group. A twin‐track approach is needed, which both addresses the specific needs of children with disabilities but also ensures that they are included in mainstream activities (e.g., through improving the skills of teachers and accessibility of the classroom).",
+        "locator": "Authors' Conclusions (section 7)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This directly answers the page's question about which kinds work best. The page cites the twin-track point separately but not as the answer to this sentence.",
+        "source_says_first": "\"There is no one 'magic bullet' intervention which can equalise health outcomes for this group. A twin-track approach is needed...\" The authors also give examples of individual-plus-environment interventions: \"such as provision of speech-to-text software\" combined with \"teacher training programmes and curriculum modifications\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

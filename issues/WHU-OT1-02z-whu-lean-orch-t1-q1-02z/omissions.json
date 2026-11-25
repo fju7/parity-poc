@@ -1,0 +1,110 @@
+{
+ "omissions": [
+  {
+   "key": "S001@7412-7510",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    7412,
+    7510
+   ],
+   "quote_sha256": "78d17af0d40c5beafb7f4f71109dcbd49e825ca0b1555bbde72fc07c447f27d4",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding concerns the effectiveness of interventions on learning-related outcomes (speech, school behaviour) [S001@128932-128971], which is within the question. Step 2 fails: the draft already states the finding word for word ('[S001@7412-7509] [1]'). It also already gives the insignificant pooled effects for speech and communication and for school behaviour, so adding the finding would duplicate the page.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "cf449db6718ac9f7",
+   "origins": [
+    "S001-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-25T14:20:07+00:00"
+  },
+  {
+   "key": "S001@8059-8153",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    8059,
+    8153
+   ],
+   "quote_sha256": "1c076ae3121c7c8d69bd2d6d36ece31cb5d966f90937974d30f88603255cab1e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The sentence is part of the review's conclusions about why [S001@7900-7962]. It bears on 'which kinds work best'. It literally says 'health outcomes', so it is quoted verbatim rather than restated as education. Step 2: It narrows the answer to which kinds work best. No single intervention is presented as sufficient. That bears directly on a reader deciding whether to commit to one approach over another. The draft only says more research is needed on which types are most efficacious, and that interventions should target both individual and environment. It does not state the no-single-intervention conclusion.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9f60ba541657eba6",
+   "origins": [
+    "S001-09"
+   ],
+   "on_page": "fc991a08ca909a17",
+   "after": "3b6d77375f61ee3d",
+   "decided_at": "2026-11-25T14:20:16+00:00"
+  },
+  {
+   "key": "S001@118247-118460",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    118247,
+    118460
+   ],
+   "quote_sha256": "fa7fb25122b00568c66fa7fb6b5ff8b89087b4b81bfdd393fb05382647469ad3",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is a pooled effect on learning skills, which falls under the outcome 'learning or achievement' in a low- and middle-income-country intervention review, so it bears on whether the interventions work. Step 2: The draft gives only per-category effects and the count of significant studies, not the overall pooled effect. That headline magnitude, with its high heterogeneity and marginal publication-bias caveats, directly informs how strong the evidence is for funding individual-level skill interventions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7696e248c23134d3",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": "2b3412677e6d2b8e",
+   "after": "c9f670589c5e5e14",
+   "decided_at": "2026-11-25T14:20:22+00:00"
+  },
+  {
+   "key": "S001@119556-119694",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    119556,
+    119694
+   ],
+   "quote_sha256": "1e48c152e68f9895e64a20178c334242d83ceb452396f7aaae7691fe1f5871a5",
+   "outcome": "NOT_ADDED_NO_PLACE",
+   "element": "",
+   "reason": "no place for the ADD: the anchor is not on the page",
+   "by": "code (lean: no place on the page)",
+   "ruling": null,
+   "origins": [
+    "S001-04",
+    "S001-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-25T14:20:29+00:00"
+  },
+  {
+   "key": "S001@122749-122891",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    122749,
+    122891
+   ],
+   "quote_sha256": "1896d5286366a0fab8e58416d2cb9cbd48f0b759d90724e0acd661ffbd88cd7f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "In scope: the SCOPE lists 'progression' among the outcomes, [S001@132890-132934] and qualifications gained are progression outcomes in LMIC disability-education studies. Material: it marks a gap in the evidence on longer-term outcomes, which limits what a programme officer can conclude about whether interventions work. ALREADY notes gaps on the built environment and on policy, but not this outcome gap.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1a0ea22fa187897f",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "b469bbd2b9f1172b",
+   "after": "a1c6c8c5910dfb59",
+   "decided_at": "2026-11-25T14:20:34+00:00"
+  }
+ ]
+}
