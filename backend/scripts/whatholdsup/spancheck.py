@@ -99,7 +99,7 @@ def _text_of_file(f) -> str | None:
     return " ".join(txt.split())
 
 
-def _norm(s: str) -> str:
+def _norm(s: str, fold_dashes: bool = True) -> str:
     """Whitespace, dash and DECIMAL-SEPARATOR normalisation. Nothing that
     changes a number's value.
 
@@ -122,7 +122,8 @@ def _norm(s: str) -> str:
                         ("\ufb06","st")):
         s = s.replace(_lig, _pair)
     s = re.sub(r"(?<=\d)[·•](?=\d)", ".", s)
-    s = s.replace("–", "-").replace("—", "-").replace("−", "-")
+    if fold_dashes:           # fold_dashes=False: quotations.match_held keeps minus / en / em (ruling B on P117)
+        s = s.replace("–", "-").replace("—", "-").replace("−", "-")
     s = s.replace("’", "'").replace("“", '"').replace("”", '"')
     return " ".join(s.split())
 

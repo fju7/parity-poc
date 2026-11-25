@@ -77,13 +77,23 @@ _SMART = {u"‘": "'", u"’": "'", u"“": '"', u"”": '"',
           # advocate adjudication, answered by name -- from being found there.
           u"≥": ">=", u"≤": "<="}
 
+# HYPHENS (advisor's ruling B on P117, 2026-11-25). WHU-OT1-02zc's Q-01 quoted S001's "twin-track approach is
+# needed ..." with an ASCII hyphen; the held text prints U+2010 HYPHEN there, so the quotation was recorded found in
+# no held source and the page stopped. ASCII hyphen, U+2010 HYPHEN and U+2011 NON-BREAKING HYPHEN are one character
+# to a reader. Folded in every form, one character for one (offsets do not move).
+HYPHENS = {u"\u2010": "-", u"\u2011": "-"}
+# Kept DISTINCT by match_held (fold_dashes=False): U+2212 MINUS SIGN, U+2013 EN DASH, U+2014 EM DASH. A minus is a
+# value: a minus sign before 3 is not "3", and not an ASCII "-3". (The default norm() still folds the en and em dash, as
+# _SMART always has, for the other callers.)
+DASHES = (u"\u2013", u"\u2014")
+
 # The states source_ledger.py treats as "somebody opened this". Kept as a
 # literal rather than imported so this module has no load-order dependency on
 # the ledger; the ledger owns the definition and this list must track it.
 READ_STATES = ("full_text_held", "human_read")   # see source_ledger: machine_read is gone
 
 
-def norm(text: str, *, fold_accents: bool = True) -> str:
+def norm(text: str, *, fold_accents: bool = True, fold_dashes: bool = True) -> str:
     """Comparison form. Punctuation is not identity.
 
     fold_accents=False keeps combining marks, so a caller can tell whether a
@@ -93,7 +103,11 @@ def norm(text: str, *, fold_accents: bool = True) -> str:
     straight one in the source are the same character to a reader, and two of
     nine claims on issue three were once unmatchable for exactly that.
     """
+    for a, b in HYPHENS.items():
+        text = text.replace(a, b)
     for a, b in _SMART.items():
+        if not fold_dashes and a in DASHES:
+            continue
         text = text.replace(a, b)
     # QUOTE-MARK KIND. _SMART folds curly to straight; it does not fold single
     # against double. The page writes 'while' where S043 prints "while", and
@@ -784,6 +798,12 @@ if __name__ == "__main__":
 MATCHED_BY = "code (quotations.match_held: verbatim in held text)"
 
 
+def _hyphens(text: str) -> str:
+    for a, b in HYPHENS.items():
+        text = text.replace(a, b)
+    return text
+
+
 def _span_of(quote_norm: str, text: str) -> tuple[int, int] | None:
     """(start, end) in TEXT (reading-order) of QUOTE_NORM (norm()ed), via the segments between ellipses."""
     import passage_index as PX
@@ -807,15 +827,16 @@ def match_held(slug: str, page: Path) -> dict:
     texts = {}
     for sid in sorted(held):
         for f, t in _SC._texts(slug, sid):
-            texts.setdefault(sid, []).append((f, _SC._norm(t)))
+            # ruling B on P117: the held text keeps its minus signs and dashes (fold_dashes=False); hyphens fold
+            texts.setdefault(sid, []).append((f, _SC._norm(t, fold_dashes=False)))
     out, unmatched = [], []
     try:
         question = json.loads((case_dir(slug) / "issue.json").read_text(encoding="utf-8")).get("question") or ""
     except Exception:
         question = ""
     for n, q in enumerate(extract(page.read_text(encoding="utf-8")), 1):
-        qn = norm(q)
-        if question and qn == norm(question):
+        qn = norm(q, fold_dashes=False)
+        if question and norm(q) == norm(question):
             # THE PAGE'S OWN QUESTION, which lean_sentences.QUESTION_FRAME quotes from issue.json: not a quotation
             # from a source. Recorded as the page's own voice only on exact equality with the recorded question.
             out.append({"id": "Q-%02d" % n, "quote": q, "source_id": "", "verbatim": "", "kind": "rhetorical",
@@ -825,13 +846,13 @@ def match_held(slug: str, page: Path) -> dict:
         hit = None
         for sid, renditions in texts.items():
             for f, t in renditions:
-                if not quoted_in(qn, norm(t)):
+                if not quoted_in(qn, norm(t, fold_dashes=False)):
                     continue
-                sp = _span_of(qn, t)
+                sp = _span_of(qn, _hyphens(t))           # one character for one: offsets are T's
                 if sp is None:
                     continue
                 verbatim = t[sp[0]:sp[1]]
-                if quoted_in(qn, norm(verbatim)):
+                if quoted_in(qn, norm(verbatim, fold_dashes=False)):
                     hit = (sid, f, sp, verbatim)
                     break
             if hit:
