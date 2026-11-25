@@ -1,0 +1,61 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It states no result about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T14:12:45+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes how many included studies targeted children with disabilities. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T14:12:47+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies targeted family members versus service providers. It reports no effect or certainty about whether programmes work, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T14:12:49+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment groups interventions most often targeted (n=17). It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T14:12:51+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appeared most often in the studies. It reports no effect size or comparison of effectiveness, so it does not bear on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T14:12:54+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "out_of_scope",
+   "reason": "The finding describes that children with disabilities fall behind and why. It is background on the education gap, not evidence on whether any programme improves outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "How many children with disabilities in LMICs are out of school, and how large the education gap is",
+   "decided_at": "2026-11-25T14:13:11+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns health outcomes of interventions, not education outcomes, so it falls under the health/functional outcomes exclusion where no education outcome is measured.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or functional outcomes of rehabilitation and assistive devices where no education outcome is measured",
+   "decided_at": "2026-11-25T14:13:13+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic call for more evaluation of environment-level interventions. It reports no effect, size, or comparison, so it would not change the answer on whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T14:13:18+00:00"
+  }
+ }
+}

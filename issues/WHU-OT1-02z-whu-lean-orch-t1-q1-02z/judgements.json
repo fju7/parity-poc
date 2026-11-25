@@ -1,0 +1,106 @@
+{
+ "candidates": {
+  "S001@7611-7692": {
+   "source": "S001",
+   "at": [
+    7611,
+    7692
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "52303d29cdac048f98e3f4cf128ebdc5940ae2a055dc35bb7eaf416d7de24dbc",
+   "relevant": true,
+   "words": "do programmes meant to improve education for children and young people with disabilities work",
+   "reason": "The judgement says nearly all studies in the source had low confidence in their findings, which affects how far the evidence can show that these programmes work.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "c661e35b716baf96",
+   "to_person": false,
+   "decided_at": "2026-11-25T14:13:22+00:00"
+  },
+  "S001@7900-8058": {
+   "source": "S001",
+   "at": [
+    7900,
+    8058
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes why children with disabilities fall behind (the education gap and system unreadiness), which is the descriptive question the scope excludes, and it says nothing about whether any intervention improves outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "82a69508b0591823",
+   "to_person": false,
+   "decided_at": "2026-11-25T14:13:27+00:00"
+  },
+  "S001@8059-8153": {
+   "source": "S001",
+   "at": [
+    8059,
+    8153
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1c076ae3121c7c8d69bd2d6d36ece31cb5d966f90937974d30f88603255cab1e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns interventions to equalise health outcomes, whereas the question asks about education outcomes for children with disabilities, and the scope explicitly excludes health outcomes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "098a5901eda6f6ca",
+   "to_person": false,
+   "decided_at": "2026-11-25T14:13:30+00:00"
+  },
+  "S001@8154-8406": {
+   "source": "S001",
+   "at": [
+    8154,
+    8406
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "5d0f6ac542fa71f8f502445044b00c65a04949eb412cfb5470dbeb7d264f9364",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement recommends a twin-track approach that combines disability-specific support with mainstream inclusion (teacher skills, classroom accessibility), which bears directly on which types of programme work best.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "bf47fc16d89ef2b9",
+   "to_person": false,
+   "decided_at": "2026-11-25T14:13:31+00:00"
+  },
+  "S001@8407-8703": {
+   "source": "S001",
+   "at": [
+    8407,
+    8703
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "670f201f6cde47824d552b933cf707e4305f6d90e3fe7e6905e87649b2b0a1f2",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says most included interventions targeted individual children rather than school- or system-level change, which bears on which intervention types the evidence covers and how reliably it can show which work best.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "c5582dc81ddb56d8",
+   "to_person": false,
+   "decided_at": "2026-11-25T14:13:33+00:00"
+  },
+  "S001@8704-8859": {
+   "source": "S001",
+   "at": [
+    8704,
+    8859
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "b26bf5ba5ec5469f82e23231ff29c2d93272e410897769bbb77960c2932310c0",
+   "relevant": true,
+   "words": "which kinds work best",
+   "reason": "The judgement says evaluation should focus on interventions that target both the individual and their broader environment, which bears on which intervention types (child-level versus school, family or community-level) the evidence supports.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "f4b4aa08c6ea7b31",
+   "to_person": false,
+   "decided_at": "2026-11-25T14:13:34+00:00"
+  }
+ }
+}

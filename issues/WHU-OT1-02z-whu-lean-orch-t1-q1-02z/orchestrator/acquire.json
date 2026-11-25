@@ -1,0 +1,27 @@
+{
+ "slug": "whu-lean-orch-t1-q1-02z",
+ "complete": true,
+ "held": [
+  "S001",
+  "S003",
+  "S004"
+ ],
+ "not_held": [
+  {
+   "id": "S002",
+   "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+   "reason": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2"
+  },
+  {
+   "id": "S005",
+   "title": "Rapid evidence assessment (REA) of what works to improve educational outcomes for people with disabilities in low- and middle-income countries",
+   "reason": "identified (contains 12 of 12 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)"
+  },
+  {
+   "id": "S006",
+   "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+   "reason": "identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/)"
+  }
+ ],
+ "skipped": []
+}
