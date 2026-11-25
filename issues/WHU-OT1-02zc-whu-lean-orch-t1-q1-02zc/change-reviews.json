@@ -1,0 +1,30 @@
+{
+  "_what_this_is": "Reviews of what changed, bound to the page's content hash. See changecheck.py: between two gate runs every correction is text nobody has read, and 35% of recorded errors came in with one.",
+  "reviews": [
+    {
+      "sha": "2231ffb149dfca2d",
+      "against": "94496b3ed5e19761a2af2a75e4335761461e1721",
+      "changed": 5,
+      "changed_total": 5,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-11-25T22:03:53+00:00",
+      "findings": [
+        {
+          "sentence": "A newer edition exists of source [5]; this page uses the edition listed as source [5].",
+          "kind": "CONTRADICTION",
+          "why": "The page states 'We found source [5] but could not hold it, so nothing on this page draws on it,' which directly contradicts the claim that 'this page uses the edition listed as source [5].'",
+          "other": "We found source [5] but could not hold it, so nothing on this page draws on it."
+        }
+      ],
+      "read": [
+        "57b3ec0dfaf31e74",
+        "f925e76995e70ebf",
+        "01b6bd42a926e106",
+        "61ce4dc7d312bb35",
+        "3cd9e1fe15dfea13"
+      ],
+      "model_read": true
+    }
+  ]
+}
