@@ -520,7 +520,9 @@ def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple
             got = (search_pmcid or _pmcid_resolver())(pmc, p["title"], p.get("first_author"), p.get("year"))
         src = {"id": "S%03d" % (len(out) + 1), "type": p["type"], "title": p["title"], "year": p.get("year"),
                "container": p.get("container") or None, "authors": p.get("first_author"),
-               "used_for": p.get("why") or None, "proposed_by": "orchestrator discover step"}
+               "used_for": p.get("why") or None, "proposed_by": "orchestrator discover step",
+               # what was proposed, kept (the confirmed title replaces it; ruling after P091 found it was lost)
+               "proposed": {"title": p["title"], "first_author": p.get("first_author"), "year": p.get("year")}}
         ident = getattr(got, "identifier", None)
         rows = (getattr(got, "extra", None) or {}).get("answered") if ident is not None else \
             getattr(got, "answered", None)

@@ -3110,6 +3110,7 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - Resume rules (2026-11-24): each chain row records the step's code hash (orch/code_hash.py); a trial run resumes from the earliest changed step, a scored run never resumes across a code/document change.
 - After attempt 24 (2026-11-24): discovery is `discover` (proposals.json, sha256) + `confirm` (lookups; a resume after an outage repeats confirm only); registries.py gives orchestrated identity lookups PubMed and Crossref fallbacks and status a two-of-three-answering rule; covered outages (registry_http.covered) do not stop a run.
 - After the fallback build (P091): identity asks all three registries every time; status = two answering + one record, else "not checkable" (never clean); NCBI PMC full-text fallback (E-utilities efetch db=pmc, body + licence required); NCBI paced via ~/.cache/whu/ncbi_pace in every process.
+- P093: identity matching = verify/search.py's rule ported in whatholdsup/title_match.py (WHU may not import verify; the port is tested against verify's golden set); PMC fallback also when Europe PMC lacks a copy; sources keep `proposed`.
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

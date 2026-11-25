@@ -225,7 +225,8 @@ def epmc_not_served(url: str, lookup=None, misses: list | None = None) -> str | 
 
 
 def pmc_fallback(url: str, misses: list, fetcher=None) -> tuple[bytes | None, str, str, dict]:
-    """Europe PMC's full text at URL was unavailable after the retries (or its metadata was): NCBI PMC's copy through
+    """Europe PMC gave no full text at URL -- unavailable after the retries, a 4xx, or its metadata says not served
+    (ruling 3 after P091) -- so NCBI PMC's copy through
     E-utilities, under Europe PMC's copy rule (registries.pmc_fulltext: the open-access body, with its licence
     statement; ruling 2 after the fallback build). Returns (bytes or None, content type, final URL, record). A PMC
     answer -- a copy, or "not served" -- covers the Europe PMC outages in MISSES; a PMC outage covers nothing."""
@@ -345,36 +346,45 @@ def main(argv=None) -> int:
         via_pmc = None
         for target in targets:
             misses = []
+            epmc_ft = bool(EPMC_FULLTEXT.search(target)) and bool(os.environ.get("WHU_ORCH_STEP"))
+            lacked = None            # why Europe PMC gave no copy: an outage, a 4xx, or its metadata says not served
             nsv = epmc_not_served(target, misses=misses)
             if nsv:                  # the record's metadata says this endpoint serves no full text: not requested
                 why = nsv
-                tried.append({"url": target, "result": why, "unavailable": False}); continue
-            try:
-                data, ct, final = fetch_retrying(target)
-            except Exception as e:
-                why = ("HTTP %s at %s" % (e.code, target[:60]) if isinstance(e, urllib.error.HTTPError)
-                       else "%s at %s" % (type(e).__name__, target[:60]))
-                data = None
-                down = transient(e)
-                tried.append({"url": target, "result": why, "unavailable": down})
-                if down and EPMC_FULLTEXT.search(target) and os.environ.get("WHU_ORCH_STEP"):
-                    import registries as RG
-                    misses.append(RG.Answer(RG.EUROPE_PMC, False, why=why, url=target))
-                    data, ct, final, via_pmc = pmc_fallback(target, misses)
-                    tried.append({"url": via_pmc["url"], "result": via_pmc["why"],
-                                  "unavailable": not via_pmc["answered"]})
-                    if data is None:
-                        why = via_pmc["why"]
-                        unavailable = unavailable or not via_pmc["answered"]
-                        continue
-                else:
-                    unavailable = unavailable or down
+                tried.append({"url": target, "result": why, "unavailable": False})
+                if not epmc_ft:
                     continue
+                lacked = nsv
             else:
-                if misses:           # the metadata lookup failed but Europe PMC served the full text itself
-                    import registries as RG
-                    for miss in misses:
-                        RG.covered(miss, ["Europe PMC full text"])
+                try:
+                    data, ct, final = fetch_retrying(target)
+                except Exception as e:
+                    why = ("HTTP %s at %s" % (e.code, target[:60]) if isinstance(e, urllib.error.HTTPError)
+                           else "%s at %s" % (type(e).__name__, target[:60]))
+                    data = None
+                    down = transient(e)
+                    tried.append({"url": target, "result": why, "unavailable": down})
+                    if not epmc_ft:
+                        unavailable = unavailable or down
+                        continue
+                    if down:
+                        import registries as RG
+                        misses.append(RG.Answer(RG.EUROPE_PMC, False, why=why, url=target))
+                    lacked = why
+                else:
+                    if misses:       # the metadata lookup failed but Europe PMC served the full text itself
+                        import registries as RG
+                        for miss in misses:
+                            RG.covered(miss, ["Europe PMC full text"])
+            if lacked is not None:
+                # NCBI PMC, under the same licence rule (ruling 2 after the fallback build, extended by ruling 3 after
+                # P091 to a copy Europe PMC lacks: a 404, or its metadata says not served); neither serving it: not held
+                data, ct, final, via_pmc = pmc_fallback(target, misses)
+                tried.append({"url": via_pmc["url"], "result": via_pmc["why"], "unavailable": not via_pmc["answered"]})
+                if data is None:
+                    why = "Europe PMC: %s; NCBI PMC: %s" % (lacked[:160], via_pmc["why"][:200])
+                    unavailable = unavailable or not via_pmc["answered"]     # PMC down: not evidence of absence
+                    continue
             # Identity is not substance, for EVERY type (2026-10-22). Until
             # then only article types were asked whether the bytes are the
             # document; any other type that identified itself was recorded as

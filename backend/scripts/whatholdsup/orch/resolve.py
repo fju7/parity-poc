@@ -1,8 +1,8 @@
-"""Resolve a discover proposal through Europe PMC, with WHU's own lookup (find_access.epmc, titles_agree).
+"""Resolve a discover proposal through Europe PMC, PubMed and Crossref (registries.py), matched by title_match.py.
 WHU's modules do not import the shared verify package (backend/tests/verify/test_units.py, design doc §8).
 
-A proposal resolves only when Europe PMC returns a record whose title agrees (find_access.titles_agree), whose
-first author's surname matches the proposal's, and whose year is within one of the proposal's. The identifiers
+A proposal resolves only when a registry returns a record whose title agrees, whose first author agrees and whose
+year is within one of the proposal's -- verify/search.py's rules, ported in title_match.py (ruling after P091). The identifiers
 come from that record and nowhere else. Anything else is Unresolved, with the reason.
 
 Every registry, every time (advisor's ruling 3 after the fallback build, 2026-11-24; it replaces ruling 2 after
@@ -193,20 +193,12 @@ def _every(RG, asked: str, asks, title, first_author, year, pmcid=None, not_aske
 
 
 def _checked(rec: dict, title: str, first_author, year, pmcid: str | None = None, registry: str = "europepmc"):
-    import find_access as FA
-    ok, why = FA.titles_agree(title, rec.get("title") or "")
+    # advisor's ruling 1 after the P091 build: verify/search.py's rules, ported (title_match.py), replace
+    # find_access.titles_agree's shared-words test and the surname-anywhere-in-the-authors test
+    import title_match as TM
+    ok, why = TM.check(title, first_author, year, rec)
     if not ok:
-        return Unresolved("title does not agree: %s" % why)
-    sn = _surname(first_author)
-    authors = (rec.get("authorString") or "").lower()
-    if sn and sn not in authors:
-        return Unresolved("first author %r not in the record's authors" % first_author)
-    try:
-        ry = int(rec.get("pubYear") or 0)
-    except ValueError:
-        ry = 0
-    if year and ry and abs(ry - int(year)) > 1:
-        return Unresolved("year %s does not match the record's %s" % (year, ry))
+        return Unresolved(why)
     if rec.get("doi"):
         ident = Ident("doi", rec["doi"])
     elif rec.get("pmid"):

@@ -270,6 +270,7 @@ def notice_text(c: dict, lookup=None, fulltext=None, pubmed=None, pmc=None) -> t
     back to NCBI PMC's copy (registries.pmc_fulltext, the same copy rule); a fallback that answers covers the
     outage. Nothing answering raises RegistryUnavailable, as before."""
     kind = "PMID" if c.get("registry") in ("MED", "PMID") else "DOI"
+    injected = lookup is not None               # a test's lookup: no real registry is asked unless also injected
     if lookup is None and pubmed is not False:
         import registries as RG
         first = RG.epmc_id(kind, c["id"])
@@ -306,6 +307,7 @@ def notice_text(c: dict, lookup=None, fulltext=None, pubmed=None, pmc=None) -> t
     text = _plain(rec.get("abstractText") or "")
     pmcid = rec.get("pmcid")
     served = bool(pmcid) and E.epmc_full_text_served(rec)     # the record's own metadata, read first (ruling, attempt 13)
+    body, pmc_why = None, ""
     if served:
         body, how = (fulltext or _fulltext)(pmcid)
         if body is None and UNANSWERED.search(how or "") and not re.search(r"HTTP Error 4\d\d", how or ""):
@@ -321,11 +323,22 @@ def notice_text(c: dict, lookup=None, fulltext=None, pubmed=None, pmc=None) -> t
                 return body, "NCBI PMC full text %s (Europe PMC unavailable)" % pmcid
         elif body and len(body) > len(text):
             return body, "Europe PMC full text %s" % pmcid
+    if pmcid and fulltext is None and pmc is not False and (not injected or pmc) and (not served or body is None):
+        # Europe PMC lacks the copy (its metadata says not served, or a 4xx): NCBI PMC under the same rule (ruling 3
+        # after P091); an outage there stops the run
+        import registries as RG
+        got = (pmc or RG.pmc_fulltext)(pmcid)
+        if not got.answered:
+            raise RegistryUnavailable("NCBI PMC full text %s (correction notice): %s" % (pmcid, got.why))
+        pbody = _notice_body(got.record["xml"]) if got.record else None
+        if pbody and len(pbody) > len(text):
+            return pbody, "NCBI PMC full text %s (Europe PMC does not serve it)" % pmcid
+        pmc_why = "; NCBI PMC: %s" % got.why[:160]
     if len(text) >= MIN_NOTICE_CHARS and not text.startswith("[This corrects the article"):
         return text, "Europe PMC abstract of %s %s" % (kind, c["id"])
-    return None, "no text of the notice could be held (abstract %d characters%s)" % (
+    return None, "no text of the notice could be held (abstract %d characters%s%s)" % (
         len(text), "; full text not served (Europe PMC metadata: isOpenAccess %s)" % rec.get("isOpenAccess")
-        if pmcid and not served else "; full text not served" if pmcid else "; no full text")
+        if pmcid and not served else "; full text not served" if pmcid else "; no full text", pmc_why)
 
 
 def _fulltext_url(pmcid: str) -> str:

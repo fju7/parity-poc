@@ -478,6 +478,82 @@ def test_a_correction_notice_falls_back_to_pubmed_and_pmc(monkeypatch):
         CR.notice_text({"id": "999", "registry": "MED"}, pubmed=lambda k, v: down(RG.PUBMED))
 
 
+
+# ---------------------------------------------------------------- ruling 3 after P091: PMC when Europe PMC lacks the copy
+
+def _acquire_case(tmp_path, monkeypatch, epmc_fulltext_error, epmc_meta, pmc):
+    """acquire_sources.main on one PMC-hosted source, with Europe PMC's metadata and full text and NCBI PMC faked."""
+    import acquire_sources as AQ
+    import source_store as store
+    case = tmp_path / "issues" / "WHU-T-x"
+    case.mkdir(parents=True)
+    (case / "sources.json").write_text(json.dumps({"sources": [{
+        "id": "S001", "type": "review", "title": "T", "url": "https://europepmc.org/article/PMC/PMC1234567"}]}))   # 6-9 digits (acquisition_url)
+    monkeypatch.setattr(store, "case_dir", lambda slug: case)
+    monkeypatch.setattr(store, "library_held", lambda slug: {})
+    monkeypatch.setattr(store, "held_check", lambda slug, sid, s, data, ct: (True, {"state": "full_text_held",
+                                                                                     "why": "ok"}))
+    monkeypatch.setattr(store, "put", lambda slug, sid, data, **kw: {"file": "f", "sha256": "s", "bytes": len(data),
+                                                                     "kind": "xml", "kind_why": "x",
+                                                                     "retrieved": "2026-11-24"})
+    monkeypatch.setattr(RG, "epmc_id", lambda k, v: epmc_meta)
+    monkeypatch.setattr(RG, "pmc_fulltext", pmc)
+    monkeypatch.setattr(RG, "covered", lambda a, by: None)
+
+    def fetch(url):
+        raise epmc_fulltext_error
+    monkeypatch.setattr(AQ, "fetch_retrying", fetch)
+    monkeypatch.setenv("WHU_ORCH_STEP", "acquire")
+    AQ.main(["x", "--no-summaries"])
+    return json.loads((case / "sources.json").read_text())["sources"][0]["access"]
+
+
+SERVED = RG.Answer("PMC", True, {"xml": JATS.decode() if "JATS" in globals() else "<body/>",
+                                 "licence": {"url": "https://creativecommons.org/licenses/by/4.0/",
+                                             "statement": "open access"}}, url="u")
+
+
+def test_a_europe_pmc_404_falls_back_to_pmc(tmp_path, monkeypatch):
+    e404 = urllib.error.HTTPError("https://www.ebi.ac.uk/x", 404, "x", None, io.BytesIO(b""))
+    acc = _acquire_case(tmp_path, monkeypatch, e404, RG.Answer(RG.EUROPE_PMC, True, {"isOpenAccess": "Y"}),
+                        lambda p: SERVED)
+    assert acc["state"] == "full_text_held" and acc["held"]["route"].startswith("NCBI PMC")
+    assert acc["held"]["licence"]["url"].endswith("by/4.0/")
+
+
+def test_europe_pmc_metadata_not_served_falls_back_to_pmc(tmp_path, monkeypatch):
+    acc = _acquire_case(tmp_path, monkeypatch, AssertionError("Europe PMC's full text is never requested"),
+                        RG.Answer(RG.EUROPE_PMC, True, {"isOpenAccess": "N"}), lambda p: SERVED)
+    assert acc["state"] == "full_text_held" and acc["held"]["route"].startswith("NCBI PMC")
+
+
+def test_neither_serving_the_copy_is_not_held_and_not_an_outage(tmp_path, monkeypatch):
+    acc = _acquire_case(tmp_path, monkeypatch, AssertionError("not requested"),
+                        RG.Answer(RG.EUROPE_PMC, True, {"isOpenAccess": "N"}),
+                        lambda p: RG.Answer("PMC", True, why="not served: NCBI PMC The publisher of this article "
+                                                              "does not allow downloading", url="u"))
+    lf = acc["last_fetch"]
+    assert lf["result"] == "not fetched" and "Europe PMC: not served" in lf["why"] and "NCBI PMC: not served" in lf["why"]
+    assert not lf.get("registry_unavailable")
+
+
+def test_pmc_down_after_a_europe_pmc_404_is_an_outage_not_an_absence(tmp_path, monkeypatch):
+    e404 = urllib.error.HTTPError("https://www.ebi.ac.uk/x", 404, "x", None, io.BytesIO(b""))
+    acc = _acquire_case(tmp_path, monkeypatch, e404, RG.Answer(RG.EUROPE_PMC, True, {"isOpenAccess": "Y"}),
+                        lambda p: RG.Answer("PMC", False, why="HTTP 503", url="u"))
+    assert acc["last_fetch"]["registry_unavailable"] is True
+
+
+def test_a_notice_europe_pmc_does_not_serve_is_read_from_pmc(monkeypatch):
+    monkeypatch.setattr(RG, "epmc_id", lambda k, v: RG.Answer(RG.EUROPE_PMC, True, {
+        "abstractText": "short", "pmcid": "PMC5", "isOpenAccess": "N"}))
+    xml = "<article><body><p>" + "The second table is corrected in full; the conclusions stand. " * 3 + \
+          "</p></body></article>"
+    text, how = CR.notice_text({"id": "999", "registry": "MED"},
+                               pmc=lambda p: RG.Answer("PMC", True, {"xml": xml, "licence": {}}))
+    assert "corrected" in text and how.startswith("NCBI PMC full text PMC5")
+
+
 # ---------------------------------------------------------------- the discovery checkpoint
 
 def _ctx(tmp_path, reply):
