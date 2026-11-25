@@ -1,0 +1,13 @@
+{
+  "id": "WHU-OT1-02zb",
+  "slug": "whu-lean-orch-t1-q1-02zb",
+  "title": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "question": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "run_cap_usd": 13.3728,
+  "_round_note": "Orchestrator trial 1, attempt 25, fresh (advisor's ruling on P107 and Fred's +$10 relayed by the advisor, P108): after the S002 open-copy fix (P110, 1bdf536) with the full suite and the four rehearsals passing. Attempt 24 ended as cap spent (P109, attempt 1 of 3 toward the stopping rule); this is attempt 2 of 3, and if it does not reach Ready no further paid call is made. Folder letter 02zb follows 02za (03a would read as round 1's question 3). On round 1's question WHU-Q1-02, verbatim. Outputs are discarded by rule and never scored. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-02zb.",
+  "_run_cap_note": "run_cap_usd: $13.3728 = orchestrator trial 1's remaining $50 - $36.6272 (advisor's brief after P108: run cap $13.3728, per_issue and run cap both)."
+}
