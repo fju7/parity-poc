@@ -13,6 +13,9 @@ honest user agent.
   * THE COPY RULE, before any fetch: a repository copy that is free to read (rule a), or any other copy only with a
     Creative Commons licence (rule b). A copy on the host that already refused, or a doi.org landing (it leads back
     to the publisher), is skipped. Each candidate's licence and version are recorded as OpenAlex states them.
+  * VERSIONS (advisor's ruling 4 on P112, 2026-11-25): a copy whose version is submittedVersion (a preprint, before
+    peer review) is refused by the copy rule, before any fetch, until a labelled design exists for showing one.
+    Accepted and published versions are unchanged (a location with no version stated is treated as before).
   * ROBOTS AND TDM, before the document is fetched: the host's robots.txt must allow it (a 401/403/429 there, or an
     HTML page in its place, is a wall: the copy is refused); /.well-known/tdmrep.json must reserve nothing for the
     path; and the fetched page's own tdm-reservation header or meta tag refuses it after the fact (its bytes unused).
@@ -34,6 +37,7 @@ OPENALEX = "https://api.openalex.org/works/https://doi.org/%s"
 ROUTE = "open copy via OpenAlex"
 AGENT = "WHU-fetch"                      # the product token of tls.USER_AGENT, for robots.txt
 WALL_CODES = (401, 403, 429)
+REFUSED_VERSIONS = ("submittedVersion",)  # pre-peer-review: refused until a labelled design exists (ruling 4 on P112)
 
 
 class Unavailable(Exception):
@@ -81,6 +85,9 @@ def candidates(record: dict, refused_hosts: set) -> list[dict]:
             row.update(permitted=False, why="no URL")
         elif not row["is_oa"]:
             row.update(permitted=False, why="not free to read (OpenAlex is_oa false)")
+        elif row["version"] in REFUSED_VERSIONS:
+            row.update(permitted=False, why="a submitted version (preprint, before peer review): refused until a "
+                                            "labelled design exists")
         elif _host(url) == "doi.org" or _host(url) in refused_hosts:
             row.update(permitted=False, why="the copy that was already refused (%s)" % _host(url))
         elif src.get("type") == "repository":

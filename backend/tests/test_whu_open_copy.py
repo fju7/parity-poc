@@ -4,7 +4,9 @@ Found on orchestrator trial 1 attempt 24 (WHU-OT1-02za): S002 (Mendoza & Heymann
 answered HTTP 403 at tandfonline and the orchestrated acquire tried nothing else; OpenAlex lists a repository copy at
 eScholarship under CC BY-NC-ND. The OpenAlex records here are recorded metadata (fixtures/whu_open_copy/, fields only);
 every other response is faked. On 2026-11-25 eScholarship answered WHU's honest user agent with HTTP 403 (CloudFront)
-at robots.txt and at the item page: a wall, so the copy is found and recorded but never fetched.
+at robots.txt and at the item page: a wall. Since the advisor's ruling 4 on P112 the copy is refused before that, by
+the copy rule: its version is submittedVersion (pre-peer-review). The robots / TDM / fallback paths are exercised on
+S002_ACCEPTED, a CONSTRUCTED variant of the recorded record with that location's version set to acceptedVersion.
 """
 from __future__ import annotations
 
@@ -59,6 +61,15 @@ def _openalex(name):
     return (FIX / ("openalex_%s.json" % name)).read_bytes(), "application/json"
 
 
+def _s002_accepted():
+    """S002's recorded OpenAlex record with the eScholarship location's version set to acceptedVersion (constructed)."""
+    rec = json.loads((FIX / "openalex_s002.json").read_text())
+    locs = [l for l in rec["locations"] if (l.get("source") or {}).get("type") == "repository"]
+    assert len(locs) == 1 and locs[0]["version"] == "submittedVersion"
+    locs[0]["version"] = "acceptedVersion"
+    return json.dumps(rec).encode(), "application/json"
+
+
 def _held(ok=True):
     calls = []
 
@@ -72,26 +83,43 @@ AS_ON_2026_11_25 = {"https://api.openalex.org/": _openalex("s002"),
                     "https://escholarship.org/robots.txt": 403, "https://escholarship.org/": 403}
 
 
-def test_s002_eScholarship_copy_is_found_with_its_licence_and_refused_at_the_wall():
+def test_s002_eScholarship_copy_is_found_with_its_licence_and_refused_as_a_submitted_version():
+    """Advisor's ruling 4 on P112: S002's only open copy is a submittedVersion, refused by the copy rule before any
+    request to its host (not even robots.txt)."""
     net, (check, calls) = Net(AS_ON_2026_11_25), _held()
     res = OC.find(S002, S002["url"], net, check)
     rec = res["record"]
     assert res.get("data") is None and not res.get("unavailable") and calls == []
     by = {c["where"]: c for c in rec["found"]}
     esc = by["eScholarship (California Digital Library)"]
-    assert esc["permitted"] and esc["url"] == ITEM and esc["licence"] == "cc-by-nc-nd"
+    assert not esc["permitted"] and esc["url"] == ITEM and esc["licence"] == "cc-by-nc-nd"
     assert esc["licence_from"] == "OpenAlex location record" and esc["version"] == "submittedVersion"
+    assert esc["why"].startswith("a submitted version (preprint, before peer review)")
     pub = by["International Journal of Disability Development and Education"]
     assert not pub["permitted"] and "already refused" in pub["why"]          # doi.org leads back to tandfonline
-    assert rec["tried"] == [{"url": ITEM, "where": esc["where"],
-                             "robots": "robots.txt answered HTTP 403: a wall, not passed",
-                             "result": "not fetched: robots.txt answered HTTP 403: a wall, not passed"}]
-    assert ITEM not in net.log                                                 # never past the wall
-    assert rec["outcome"] == "1 permitted open copy listed, none could be held"
+    assert rec["tried"] == []
+    assert net.log == [OC.OPENALEX % S002["doi"]]                              # nothing asked of escholarship.org
+    assert rec["outcome"] == "no permitted open copy listed"
+
+
+def test_the_same_copy_as_an_accepted_or_published_version_is_unchanged():
+    for v in ("acceptedVersion", "publishedVersion", None):
+        rec = json.loads(_s002_accepted()[0])
+        loc = next(l for l in rec["locations"] if (l.get("source") or {}).get("type") == "repository")
+        loc["version"] = v
+        esc = next(c for c in OC.candidates(rec, {"www.tandfonline.com"}) if c["url"] == ITEM)
+        assert esc["permitted"] and esc["why"] == "a repository copy, free to read (copy rule a)", v
+
+
+def test_a_submitted_version_is_refused_under_copy_rule_b_too():
+    rec = {"locations": [{"source": {"type": "journal", "display_name": "J"}, "landing_page_url": "https://j.example/a",
+                          "is_oa": True, "license": "cc-by", "version": "submittedVersion"}]}
+    (c,) = OC.candidates(rec, set())
+    assert not c["permitted"] and "submitted version" in c["why"]
 
 
 def test_a_permitted_copy_is_held_only_after_robots_and_tdm_are_read():
-    net = Net({"https://api.openalex.org/": _openalex("s002"),
+    net = Net({"https://api.openalex.org/": _s002_accepted(),
                "https://escholarship.org/robots.txt": (b"User-agent: *\nAllow: /\n", "text/plain"),
                "https://escholarship.org/.well-known/tdmrep.json": 404,
                ITEM: (b"%PDF-1.7 the document", "application/pdf")})
@@ -104,7 +132,7 @@ def test_a_permitted_copy_is_held_only_after_robots_and_tdm_are_read():
 
 
 def test_a_tdm_reservation_refuses_the_copy_before_it_is_fetched():
-    net = Net({"https://api.openalex.org/": _openalex("s002"),
+    net = Net({"https://api.openalex.org/": _s002_accepted(),
                "https://escholarship.org/robots.txt": (b"User-agent: *\nAllow: /\n", "text/plain"),
                "https://escholarship.org/.well-known/tdmrep.json":
                    (json.dumps([{"location": "/uc/*", "tdm-reservation": 1}]).encode(), "application/json")})
@@ -114,7 +142,7 @@ def test_a_tdm_reservation_refuses_the_copy_before_it_is_fetched():
 
 
 def test_a_page_that_reserves_tdm_is_not_used():
-    net = Net({"https://api.openalex.org/": _openalex("s002"),
+    net = Net({"https://api.openalex.org/": _s002_accepted(),
                "https://escholarship.org/robots.txt": (b"User-agent: *\nAllow: /\n", "text/plain"),
                "https://escholarship.org/.well-known/tdmrep.json": 404,
                ITEM: (b'<html><head><meta name="tdm-reservation" content="1"></head></html>', "text/html")})
@@ -124,7 +152,7 @@ def test_a_page_that_reserves_tdm_is_not_used():
 
 
 def test_robots_disallowing_the_path_refuses_the_copy():
-    net = Net({"https://api.openalex.org/": _openalex("s002"),
+    net = Net({"https://api.openalex.org/": _s002_accepted(),
                "https://escholarship.org/robots.txt": (b"User-agent: *\nDisallow: /uc/\n", "text/plain")})
     res = OC.find(S002, S002["url"], net, _held()[0])
     assert res.get("data") is None and ITEM not in net.log
@@ -132,7 +160,7 @@ def test_robots_disallowing_the_path_refuses_the_copy():
 
 
 def test_a_challenge_page_in_place_of_robots_is_a_wall():
-    net = Net({"https://api.openalex.org/": _openalex("s002"),
+    net = Net({"https://api.openalex.org/": _s002_accepted(),
                "https://escholarship.org/robots.txt": (b"<!DOCTYPE html><html>Checking your browser</html>",
                                                        "text/html")})
     res = OC.find(S002, S002["url"], net, _held()[0])
@@ -197,7 +225,7 @@ def test_through_acquire_s002_as_on_2026_11_25_is_not_held_and_says_why(tmp_path
     rc, acc, out, net = _acquire(tmp_path, monkeypatch, AS_ON_2026_11_25)
     assert rc == 1 and "held" not in acc and ITEM not in net.log
     why = acc["last_fetch"]["why"]
-    assert why.startswith("HTTP 403 at https://www.tandfonline.com") and "none could be held" in why
+    assert why.startswith("HTTP 403 at https://www.tandfonline.com") and "no permitted open copy listed" in why
     assert acc["open_copies"]["found"][1]["licence"] == "cc-by-nc-nd" and not acc["last_fetch"].get(
         "registry_unavailable")
     assert out["not_held"][0]["id"] == "S002" and "open copy via OpenAlex" in out["not_held"][0]["reason"]
@@ -205,14 +233,14 @@ def test_through_acquire_s002_as_on_2026_11_25_is_not_held_and_says_why(tmp_path
 
 def test_through_acquire_a_walled_publisher_copy_falls_back_to_a_permitted_open_copy(tmp_path, monkeypatch):
     rc, acc, out, net = _acquire(tmp_path, monkeypatch, {
-        "https://api.openalex.org/": _openalex("s002"),
+        "https://api.openalex.org/": _s002_accepted(),
         "https://escholarship.org/robots.txt": (b"User-agent: *\nAllow: /\n", "text/plain"),
         "https://escholarship.org/.well-known/tdmrep.json": 404,
         ITEM: (b"%PDF-1.7 the document", "application/pdf")})
     assert rc == 0 and acc["state"] == "full_text_held"
     assert acc["held"]["route"].startswith("open copy via OpenAlex: eScholarship")
     assert acc["held"]["licence"] == {"name": "cc-by-nc-nd", "from": "OpenAlex location record", "url": ITEM}
-    assert acc["held"]["version"] == "submittedVersion" and out["held"] == ["S002"]
+    assert acc["held"]["version"] == "acceptedVersion" and out["held"] == ["S002"]
 
 
 def test_through_acquire_an_openalex_outage_stops_the_run_as_registry_unavailable(tmp_path, monkeypatch):
