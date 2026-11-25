@@ -799,6 +799,8 @@ def lean_editions_gate(slug: str, report: dict, doc: dict, rows: dict, held: dic
     case = store.case_dir(slug)
     sp = case / "sources.json"
     srcs = (json.loads(sp.read_text(encoding="utf-8")).get("sources") or []) if sp.exists() else []
+    import holdings as HO
+    srcs = LE.holdings_view(srcs, HO.held_ids(slug))      # held sources only (ruling A on P117)
     studies = (report.get("recency") or {}).get("studies") or []
     if write_rows is None:
         def write_rows(rs):

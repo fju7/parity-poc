@@ -3116,6 +3116,7 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - P110: the orchestrated acquire passes `--open-copies` (`open_copy.py`): a source whose own copy cannot be held falls back to a permitted open copy OpenAlex lists for its recorded DOI (repository free to read, or CC licence), robots.txt and tdmrep.json read before any fetch, never past a wall; found copies recorded in `access.open_copies` with licence and version. Do not use find_access.py in a run: its Unpaywall route sends an email address.
 - P114: the audit's stage-cap estimate (`stage_cap.per_unit("audit")`) is the highest per-unit cost among audit manifests whose `lean_config` equals the run's own (`stage_cap.audit_config()`, also what audit_stage.py writes) x 2 (`AUDIT_MARGIN`); lean orchestrated and lean runs are one pool. The per-call cap check stays the backstop.
 - P115: the open-copy copy rule refuses a submittedVersion (pre-peer-review) copy before any fetch, until a labelled design exists; accepted / published / unstated versions unchanged.
+- P118: lean rule 3b ties a gate recency study to HELD sources only (`lean_editions.holdings_view`); a study about an unheld source is UNTIED (counted, never named).
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

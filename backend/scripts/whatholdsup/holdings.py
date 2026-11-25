@@ -15,8 +15,9 @@ The record is derived, never kept by hand, from the two places that hold the fac
     otherwise NOT_HELD.
 source_store.held() -- the gate every text reader goes through -- returns HELD sources only, so no stage can load
 a blocked or unheld source's text. The preflight row "page cites held sources only" STOPs a page any of whose
-sentences cites a source that is not held; the code-generated record sentences (lean_sentences: "A newer edition
-exists of ...", "We found ... but could not hold it ...") name a source without drawing on it and are exempt.
+sentences cites a source that is not held; the code-generated record sentences (lean_sentences: "We found ... but
+could not hold it ...") name a source without drawing on it and are exempt. A recency line ("A newer edition exists
+of ...", "Our recency check ...") is generated for HELD sources only (lean_editions.holdings_view; ruling A on P117).
 """
 from __future__ import annotations
 

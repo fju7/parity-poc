@@ -66,6 +66,16 @@ HANDLED = (SUPERSEDED, UNKNOWN)
 COUNT_KEY = "untied recency questions (count)"
 
 
+def holdings_view(sources: list[dict], held_ids) -> list[dict]:
+    """The page sources a recency study may be tied to: HELD sources only (holdings.held_ids; advisor's ruling A
+    on P117, 2026-11-25). An unheld source is invisible to every stage, this one included: on WHU-OT1-02zc the
+    generator wrote 'A newer edition exists of source [5]; ...' about S005, which the page also says it could not
+    hold. A study about an unheld source matches nothing here and is decided UNTIED: recorded and counted on the
+    page, never named."""
+    keep = set(held_ids or ())
+    return [s for s in sources or [] if isinstance(s, dict) and s.get("id") in keep]
+
+
 def searched_of(study: dict) -> list[str]:
     """The registries the gate's recency record says it searched ([] when it lists none)."""
     got = study.get("searched") or study.get("registries_searched") or []
