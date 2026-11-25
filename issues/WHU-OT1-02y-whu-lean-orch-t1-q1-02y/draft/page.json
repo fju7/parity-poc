@@ -1,0 +1,379 @@
+{
+ "title": "Do education programmes for children and young people with disabilities in low- and middle-income countries work?",
+ "blocks": [
+  {
+   "tag": "h2",
+   "section": "question",
+   "text": "The question"
+  },
+  {
+   "tag": "html",
+   "section": "question",
+   "html": "  <p>The question is: “In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?”</p>"
+  },
+  {
+   "tag": "h2",
+   "section": "answer",
+   "text": "The short answer"
+  },
+  {
+   "tag": "p",
+   "section": "answer",
+   "sentences": [
+    "A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but there is little research on systemic or school-level change [1].",
+    "The review's authors describe this evidence as providing emerging support for the efficacy and effectiveness of these interventions [1].",
+    "The clearest effects were for skills-for-learning interventions, with significant effects on literacy, cognitive skills, handwriting and numeracy, although these large effects rest on a low number of studies [1].",
+    "Because the included interventions and outcome measures were all different, the review says direct comparison is difficult, so the passages do not settle which kind works best overall [1]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "findings",
+   "text": "What the evidence shows"
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Why the question matters"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "People with disabilities often fall behind their peers without disabilities in enrolment, retention and completion of education [1].",
+    "The gap in educational attainment between people with and without disabilities is largest in low- and middle-income countries [1].",
+    "Before this review, its authors noted that evidence on which interventions are actually effective had not been established [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Skills-for-learning interventions"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "Of the 18 studies analysed for effects on 'Skills for learning', 12 interventions had a significant effect [1].",
+    "Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each was based on a low number of studies [1].",
+    "Examples of included studies are a language and literacy intervention in South Africa, a randomised controlled trial with 65 participants, and a handwriting programme for children with Developmental Coordination Disorder in India, a controlled before-and-after study with 34 participants [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Learning environments and teachers"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "'Accessible learning environments' was the second most common category of intervention, including programmes to improve social skills or to reduce victimisation of children with disabilities in schools [1].",
+    "Studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect [1].",
+    "One study concerned with teacher knowledge showed a significant effect size [1].",
+    "Among the included studies was the Good School Toolkit in Uganda, a randomised controlled trial with 3,820 participants of a school-wide intervention to reduce violence from peers and staff toward students with and without disabilities [1].",
+    "Also included was a Kenyan inclusive education training programme for teachers, evaluated with an uncontrolled before-and-after design with 130 participants [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Gaps in the evidence"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "Most interventions tried to improve children's skills but did not focus on system-level or school-level changes [1].",
+    "No studies represented the categories of 'Accessibility of built environment and learning materials' or 'Inclusive education policies' [1].",
+    "Only one study each fell under 'Structural interventions' and 'Anti-bullying policies and programmes' [1].",
+    "None of the studies were undertaken in humanitarian settings, and few disaggregated their findings by gender [1].",
+    "The authors call for studies with larger samples, more rigorous designs and standardised measures [1].",
+    "The review set out to ask which interventions appear most effective for different types of disability, but the excerpts provided here do not report its answer to that question [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Programme examples from a UNESCO guide"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "A UNESCO guide offers examples of good practice drawn on international evidence and programme experience, rather than a systematic review of effects [6].",
+    "In Ethiopia, Handicap International piloted six inclusive 'cluster schools' that supported 30 satellite schools [6].",
+    "The guide reports that this pilot led to improved inclusive education practice, better physical accessibility, increased enrolment for children with disabilities and a better learning environment for all students [6].",
+    "In Cambodia, itinerant teachers supported children with disabilities, their teachers and parents [6].",
+    "The guide recounts one boy with Down's syndrome who was able to return to school after awareness-raising sessions increased solidarity among his peers [6].",
+    "The guide states there is strong evidence of the potential of approaches that encourage cooperation between students, including students with disabilities, while stressing that this needs skill to orchestrate [6].",
+    "It also warns that inclusion efforts relying on individualised practices imported from special education tend to foster new and more subtle forms of segregation within mainstream settings [6]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "verdict",
+   "text": "What holds up"
+  },
+  {
+   "tag": "p",
+   "section": "verdict",
+   "sentences": [
+    "What holds up best is that individual skills-focused interventions, especially for literacy, cognitive skills, handwriting and numeracy, show significant and large effects, though from few studies.",
+    "Interventions on conditions for inclusion and teacher knowledge also show significant effects, but on thinner evidence.",
+    "Claims about which kind works best are weak, because the interventions and outcomes were too varied to compare directly and whole categories such as built-environment accessibility and inclusive education policy were not studied at all.",
+    "The UNESCO examples from Ethiopia and Cambodia are reported successes of specific programmes, not tested comparisons.",
+    "The review's authors call for more systemic approaches and for interventions that address attendance, enrolment, completion and transition, not only individual skills [1]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "limits",
+   "text": "What we read and what we did not"
+  },
+  {
+   "tag": "html",
+   "section": "limits",
+   "html": "  <p>We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].</p>\n  <p>We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries but could not hold it, so nothing on this page draws on it.</p>\n  <p>We found Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map but it has a published correction we could not read, so nothing on this page draws on it.</p>\n  <p>We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.</p>\n  <p>We found source [5] but could not hold it, so nothing on this page draws on it.</p>\n  <p>We hold the full text of A Guide for ensuring inclusion and equity in education [6].</p>\n  <p>We searched the full text of A Guide for ensuring inclusion and equity in education [6] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability education interventions LMIC children young people effectiveness review; web search: evidence gap map disability education interventions LMIC Campbell White Saran Kuper; web search: UNESCO guidelines inclusive education disability developing countries policy; web search: teacher professional development disability inclusion LMIC Asia-Pacific evidence gap map Campbell; web search: Wapling systematic review education children disabilities low income countries 2016; web search: UNESCO 2020 GEM report \"Inclusion and Education\" full title year; registry: Europe PMC; registry: PubMed; registry: Crossref.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>"
+  },
+  {
+   "tag": "html",
+   "section": "readers",
+   "html": ""
+  },
+  {
+   "tag": "h2",
+   "section": "sources",
+   "text": "Sources"
+  },
+  {
+   "tag": "html",
+   "section": "sources",
+   "html": "<div class=\"sources\">\n<div class=\"src\"><span class=\"tag\">[1]</span> <a href=\"https://europepmc.org/article/PMC/PMC11799928\">Hunt X, Saran A, White H, et al. Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review. Campbell systematic reviews. 2025.</a></div>\n<div class=\"src\"><span class=\"tag\">[2]</span> <a href=\"https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359\">Mendoza M, Heymann J. Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries. International Journal of Disability, Development and Education. 2022.</a></div>\n<div class=\"src\"><span class=\"tag\">[3]</span> <a href=\"https://europepmc.org/article/PMC/PMC9700054\">Ahmed SK, Jeffries D, Chakraborty A, et al. Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map. Campbell systematic reviews. 2022.</a></div>\n<div class=\"src\"><span class=\"tag\">[4]</span> <a href=\"https://europepmc.org/article/PMC/PMC8356326\">Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries. Campbell systematic reviews. 2020.</a></div>\n<div class=\"src\"><span class=\"tag\">[5]</span> <a href=\"https://gem-report-2020.unesco.org/thematic/\">UNESCO. Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris. 2020.</a></div>\n<div class=\"src\"><span class=\"tag\">[6]</span> <a href=\"https://www.minedu.gov.gr/publications/docs2023/eidiki-agogi/A.%20UNESCO%20Guide%202017.pdf\">UNESCO. Assistant Director-General for Education, 2010-2018 (Qian Tang), UNESCO. A Guide for ensuring inclusion and equity in education. 2017.</a></div>\n</div>"
+  }
+ ],
+ "provenance": {
+  "A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but there is little research on systemic or school-level change [1].": [
+   {
+    "source": "S001",
+    "start": 8860,
+    "end": 9712
+   },
+   {
+    "source": "S001",
+    "start": 135674,
+    "end": 136463
+   }
+  ],
+  "The review's authors describe this evidence as providing emerging support for the efficacy and effectiveness of these interventions [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "The clearest effects were for skills-for-learning interventions, with significant effects on literacy, cognitive skills, handwriting and numeracy, although these large effects rest on a low number of studies [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "Because the included interventions and outcome measures were all different, the review says direct comparison is difficult, so the passages do not settle which kind works best overall [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "People with disabilities often fall behind their peers without disabilities in enrolment, retention and completion of education [1].": [
+   {
+    "source": "S001",
+    "start": 9713,
+    "end": 10598
+   }
+  ],
+  "The gap in educational attainment between people with and without disabilities is largest in low- and middle-income countries [1].": [
+   {
+    "source": "S001",
+    "start": 9713,
+    "end": 10598
+   }
+  ],
+  "Before this review, its authors noted that evidence on which interventions are actually effective had not been established [1].": [
+   {
+    "source": "S001",
+    "start": 25189,
+    "end": 26012
+   }
+  ],
+  "Of the 18 studies analysed for effects on 'Skills for learning', 12 interventions had a significant effect [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each was based on a low number of studies [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "Examples of included studies are a language and literacy intervention in South Africa, a randomised controlled trial with 65 participants, and a handwriting programme for children with Developmental Coordination Disorder in India, a controlled before-and-after study with 34 participants [1].": [
+   {
+    "source": "S001",
+    "start": 75793,
+    "end": 78183
+   }
+  ],
+  "'Accessible learning environments' was the second most common category of intervention, including programmes to improve social skills or to reduce victimisation of children with disabilities in schools [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   },
+   {
+    "source": "S001",
+    "start": 100269,
+    "end": 101113
+   }
+  ],
+  "Studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "One study concerned with teacher knowledge showed a significant effect size [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "Among the included studies was the Good School Toolkit in Uganda, a randomised controlled trial with 3,820 participants of a school-wide intervention to reduce violence from peers and staff toward students with and without disabilities [1].": [
+   {
+    "source": "S001",
+    "start": 75793,
+    "end": 78183
+   }
+  ],
+  "Also included was a Kenyan inclusive education training programme for teachers, evaluated with an uncontrolled before-and-after design with 130 participants [1].": [
+   {
+    "source": "S001",
+    "start": 75793,
+    "end": 78183
+   }
+  ],
+  "Most interventions tried to improve children's skills but did not focus on system-level or school-level changes [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "No studies represented the categories of 'Accessibility of built environment and learning materials' or 'Inclusive education policies' [1].": [
+   {
+    "source": "S001",
+    "start": 100269,
+    "end": 101113
+   }
+  ],
+  "Only one study each fell under 'Structural interventions' and 'Anti-bullying policies and programmes' [1].": [
+   {
+    "source": "S001",
+    "start": 100269,
+    "end": 101113
+   }
+  ],
+  "None of the studies were undertaken in humanitarian settings, and few disaggregated their findings by gender [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "The authors call for studies with larger samples, more rigorous designs and standardised measures [1].": [
+   {
+    "source": "S001",
+    "start": 133954,
+    "end": 134787
+   }
+  ],
+  "The review set out to ask which interventions appear most effective for different types of disability, but the excerpts provided here do not report its answer to that question [1].": [
+   {
+    "source": "S001",
+    "start": 2423,
+    "end": 3215
+   }
+  ],
+  "A UNESCO guide offers examples of good practice drawn on international evidence and programme experience, rather than a systematic review of effects [6].": [
+   {
+    "source": "S006",
+    "start": 0,
+    "end": 891
+   }
+  ],
+  "In Ethiopia, Handicap International piloted six inclusive 'cluster schools' that supported 30 satellite schools [6].": [
+   {
+    "source": "S006",
+    "start": 57315,
+    "end": 57972
+   }
+  ],
+  "The guide reports that this pilot led to improved inclusive education practice, better physical accessibility, increased enrolment for children with disabilities and a better learning environment for all students [6].": [
+   {
+    "source": "S006",
+    "start": 57973,
+    "end": 58814
+   }
+  ],
+  "In Cambodia, itinerant teachers supported children with disabilities, their teachers and parents [6].": [
+   {
+    "source": "S006",
+    "start": 63891,
+    "end": 64591
+   }
+  ],
+  "The guide recounts one boy with Down's syndrome who was able to return to school after awareness-raising sessions increased solidarity among his peers [6].": [
+   {
+    "source": "S006",
+    "start": 64592,
+    "end": 65334
+   }
+  ],
+  "The guide states there is strong evidence of the potential of approaches that encourage cooperation between students, including students with disabilities, while stressing that this needs skill to orchestrate [6].": [
+   {
+    "source": "S006",
+    "start": 67626,
+    "end": 68473
+   }
+  ],
+  "It also warns that inclusion efforts relying on individualised practices imported from special education tend to foster new and more subtle forms of segregation within mainstream settings [6].": [
+   {
+    "source": "S006",
+    "start": 66011,
+    "end": 66852
+   }
+  ],
+  "What holds up best is that individual skills-focused interventions, especially for literacy, cognitive skills, handwriting and numeracy, show significant and large effects, though from few studies.": [],
+  "Interventions on conditions for inclusion and teacher knowledge also show significant effects, but on thinner evidence.": [],
+  "Claims about which kind works best are weak, because the interventions and outcomes were too varied to compare directly and whole categories such as built-environment accessibility and inclusive education policy were not studied at all.": [],
+  "The UNESCO examples from Ethiopia and Cambodia are reported successes of specific programmes, not tested comparisons.": [],
+  "The review's authors call for more systemic approaches and for interventions that address attendance, enrolment, completion and transition, not only individual skills [1].": [
+   {
+    "source": "S001",
+    "start": 8860,
+    "end": 9712
+   },
+   {
+    "source": "S001",
+    "start": 132461,
+    "end": 133169
+   }
+  ]
+ }
+}

@@ -1,0 +1,277 @@
+{
+ "result": "Not Ready: draft: record changed outside the step that owns it: source-list entry: [6] more than one year (2010, 2018, 2017)",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-25T12:14:30+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (125 code files)"
+   },
+   "code_hash": "13e67dcbf09af1b168ffa06c5a21f59f49eb663eaa7d9b34ba939020e26e9b5f",
+   "end": "2026-11-25T12:14:30+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-25T12:14:30+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "13e67dcbf09af1b168ffa06c5a21f59f49eb663eaa7d9b34ba939020e26e9b5f",
+   "end": "2026-11-25T12:14:48+00:00",
+   "usd": 0.033424
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-25T12:14:48+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "8de0dfe472dec7f6e5acb5a1e22f7fb30f716c0ef0e1097d95865ad264450dab"
+   },
+   "code_hash": "13e67dcbf09af1b168ffa06c5a21f59f49eb663eaa7d9b34ba939020e26e9b5f",
+   "end": "2026-11-25T12:15:25+00:00",
+   "usd": 0.4562
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-25T12:15:25+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "6 source(s), 2 unresolved proposal(s)"
+   },
+   "code_hash": "bcfdb2b0e346d4d8f5c5cf829fc09f2154a8a8646ceb32b2a5fc1bc9468aec9a",
+   "end": "2026-11-25T12:18:15+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-25T12:18:15+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02y",
+      "--out",
+      "issues/WHU-OT1-02y-whu-lean-orch-t1-q1-02y/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "               395517 B  (contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text))\n  HELD     S003   3ebd2067369d                                     392279 B  (contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text))\n  HELD     S004   088ff6d71f68                                     379448 B  (contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text))\n  HELD     S006   4f209bd4b865                                    8919216 B  (contains 5 of 5 distinctive title words — form 'record' — 114206 characters held. The article test does not apply to this form; title present (5 of 5 title words in the visible text))\n\n  held now: 4   failed: 2   skipped: 0\n\n  NOT HELD S002   Implementation of Inclusive Education: A Systematic Review of \n           why: HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2\n  NOT HELD S005   Global Education Monitoring Report 2020: Inclusion and educati\n           why: identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/)\n\n",
+     "proof": "proved: issues/WHU-OT1-02y-whu-lean-orch-t1-q1-02y/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-02y",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            4 document(s) in the library, every hash matches\n  warn     sources we hold                  4 of 6 held — not held: S002, S005\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-02y"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-02y\n\n  S001   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   AMENDED      record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S004   AMENDED      record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S005   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S006   n/a          type 'guideline' is not a journal article; it has versions, not errata\n\n  ok     sources checked for corrections        all 6 source(s) have had their bibliographic record read for errata\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S005\n  BLOCKED corrections not yet read               2 source(s) have been formally corrected and we do not hold the correction: S003: Erratum in 36913230 || S004: Erratum in 37133285 || S004: correction 10.1002/cl2.1104 — until it is read we do not know whether it touches a figure on this page\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-02y",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-02y-whu-lean-orch-t1-q1-02y — what can be swept at all\n\n    S001   pmid  39917627                           url/field Effectiveness of interventions for i\n    S002   doi   10.1080/1034912x.2022.2095359      url/field Implementation of Inclusive Educatio\n    S003   pmid  36908831                           url/field Teacher professional development for\n    S004   pmid  37131970                           url/field Evidence and gap map of studies asse\n    S005   doi   10.54676/jjnk6989                  url/field Global Education Monitoring Report 2\n    S006   doi   10.54675/mhhz2237                  url/field A Guide for ensuring inclusion and e\n\n  6 of 6 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-02y"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-02y\n  NO_FIGURES  S006  no decimal figures to round-trip; the checks cannot be shown to read this document, only assumed to\n  ok      checks can read the documents      3 of 4 held document(s) round-trip their own figures; 1 carry no decimal figures to test with\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "2 held, 4 not held",
+    "not_held": [
+     "S002",
+     "S003",
+     "S004",
+     "S005"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S002": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2"
+     },
+     "S003": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "correction_unread: Erratum in 36913230: the notice's text does not name this source by title, DOI or PMID"
+     },
+     "S004": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "correction_not_held: Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served (Europe PMC metadata: isOpenAccess N); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.)"
+     },
+     "S005": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/)"
+     },
+     "S006": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S002": "could_not_hold",
+     "S003": "correction_unread",
+     "S004": "correction_not_held",
+     "S005": "could_not_hold"
+    }
+   },
+   "code_hash": "ebfa4f6241500526da1cb4235a8074a105927f5613fb149f6182f4b51d7a5b82",
+   "end": "2026-11-25T12:26:18+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-25T12:26:18+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "33 sentences drafted from 70 passages"
+   },
+   "failed": "RunStop: draft: record changed outside the step that owns it: source-list entry: [6] more than one year (2010, 2018, 2017)",
+   "end": "2026-11-25T12:26:49+00:00",
+   "replies": [
+    {
+     "role": "draft",
+     "max_tokens": 30000,
+     "text": "```json\n{\n  \"title\": \"Do education programmes for children and young people with disabilities in low- and middle-income countries work?\",\n  \"sections\": [\n    {\n      \"id\": \"answer\",\n      \"heading\": \"The short answer\",\n      \"blocks\": [\n        {\n          \"sentences\": [\n            {\n              \"text\": \"A 2025 Campbell systematic review concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries, but there is little research on systemic or school-level change.\",\n              \"passages\": [\"S001#11\", \"S001#153\"]\n            },\n            {\n              \"text\": \"The review's authors describe this evidence as providing emerging support for the efficacy and effectiveness of these interventions.\",\n              \"passages\": [\"S001#138\"]\n            },\n            {\n              \"text\": \"The clearest effects were for skills-for-learning interventions, with significant effects on literacy, cognitive skills, handwriting and numeracy, although these large effects rest on a low number of studies.\",\n              \"passages\": [\"S001#8\"]\n            },\n            {\n              \"text\": \"Because the included interventions and outcome measures were all different, the review says direct comparison is difficult, so the passages do not settle which kind works best overall.\",\n              \"passages\": [\"S001#138\"]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"findings\",\n      \"heading\": \"What the evidence shows\",\n      \"blocks\": [\n        {\"h3\": \"Why the question matters\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"People with disabilities often fall behind their peers without disabilities in enrolment, retention and completion of education.\",\n              \"passages\": [\"S001#12\"]\n            },\n            {\n              \"text\": \"The gap in educational attainment between people with and without disabilities is largest in low- and middle-income countries.\",\n              \"passages\": [\"S001#12\"]\n            },\n            {\n              \"text\": \"Before this review, its authors noted that evidence on which interventions are actually effective had not been established.\",\n              \"passages\": [\"S001#32\"]\n            }\n          ]\n        },\n        {\"h3\": \"Skills-for-learning interventions\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"Of the 18 studies analysed for effects on 'Skills for learning', 12 interventions had a significant effect.\",\n              \"passages\": [\"S001#8\"]\n            },\n            {\n              \"text\": \"Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each was based on a low number of studies.\",\n              \"passages\": [\"S001#8\"]\n            },\n            {\n              \"text\": \"Examples of included studies are a language and literacy intervention in South Africa, a randomised controlled trial with 65 participants, and a handwriting programme for children with Developmental Coordination Disorder in India, a controlled before-and-after study with 34 participants.\",\n              \"passages\": [\"S001#89\"]\n            }\n          ]\n        },\n        {\"h3\": \"Learning environments and teachers\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"'Accessible learning environments' was the second most common category of intervention, including programmes to improve social skills or to reduce victimisation of children with disabilities in schools.\",\n              \"passages\": [\"S001#8\", \"S001#110\"]\n            },\n            {\n              \"text\": \"Studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect.\",\n              \"passages\": [\"S001#8\"]\n            },\n            {\n              \"text\": \"One study concerned with teacher knowledge showed a significant effect size.\",\n              \"passages\": [\"S001#8\"]\n            },\n            {\n              \"text\": \"Among the included studies was the Good School Toolkit in Uganda, a randomised controlled trial with 3,820 participants of a school-wide intervention to reduce violence from peers and staff toward students with and without disabilities.\",\n              \"passages\": [\"S001#89\"]\n            },\n            {\n              \"text\": \"Also included was a Kenyan inclusive education training programme for teachers, evaluated with an uncontrolled before-and-after design with 130 participants.\",\n              \"passages\": [\"S001#89\"]\n            }\n          ]\n        },\n        {\"h3\": \"Gaps in the evidence\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"Most interventions tried to improve children's skills but did not focus on system-level or school-level changes.\",\n              \"passages\": [\"S001#138\"]\n            },\n            {\n              \"text\": \"No studies represented the categories of 'Accessibility of built environment and learning materials' or 'Inclusive education policies'.\",\n              \"passages\": [\"S001#110\"]\n            },\n            {\n              \"text\": \"Only one study each fell under 'Structural interventions' and 'Anti-bullying policies and programmes'.\",\n              \"passages\": [\"S001#110\"]\n            },\n            {\n              \"text\": \"None of the studies were undertaken in humanitarian settings, and few disaggregated their findings by gender.\",\n              \"passages\": [\"S001#138\"]\n            },\n            {\n              \"text\": \"The authors call for studies with larger samples, more rigorous designs and standardised measures.\",\n              \"passages\": [\"S001#151\"]\n            },\n            {\n              \"text\": \"The review set out to ask which interventions appear most effective for different types of disability, but the excerpts provided here do not report its answer to that question.\",\n              \"passages\": [\"S001#3\"]\n            }\n          ]\n        },\n        {\"h3\": \"Programme examples from a UNESCO guide\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"A UNESCO guide offers examples of good practice drawn on international evidence and programme experience, rather than a systematic review of effects.\",\n              \"passages\": [\"S006#0\"]\n            },\n            {\n              \"text\": \"In Ethiopia, Handicap International piloted six inclusive 'cluster schools' that supported 30 satellite schools.\",\n              \"passages\": [\"S006#74\"]\n            },\n            {\n              \"text\": \"The guide reports that this pilot led to improved inclusive education practice, better physical accessibility, increased enrolment for children with disabilities and a better learning environment for all students.\",\n              \"passages\": [\"S006#75\"]\n            },\n            {\n              \"text\": \"In Cambodia, itinerant teachers supported children with disabilities, their teachers and parents.\",\n              \"passages\": [\"S006#83\"]\n            },\n            {\n              \"text\": \"The guide recounts one boy with Down's syndrome who was able to return to school after awareness-raising sessions increased solidarity among his peers.\",\n              \"passages\": [\"S006#84\"]\n            },\n            {\n              \"text\": \"The guide states there is strong evidence of the potential of approaches that encourage cooperation between students, including students with disabilities, while stressing that this needs skill to orchestrate.\",\n              \"passages\": [\"S006#88\"]\n            },\n            {\n              \"text\": \"It also warns that inclusion efforts relying on individualised practices imported from special education tend to foster new and more subtle forms of segregation within mainstream settings.\",\n              \"passages\": [\"S006#86\"]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"verdict\",\n      \"heading\": \"What holds up\",\n      \"blocks\": [\n        {\n          \"sentences\": [\n            {\n              \"text\": \"What holds up best is that individual skills-focused interventions, especially for literacy, cognitive skills, handwriting and numeracy, show significant and large effects, though from few studies.\",\n              \"passages\": []\n            },\n            {\n              \"text\": \"Interventions on conditions for inclusion and teacher knowledge also show significant effects, but on thinner evidence.\",\n              \"passages\": []\n            },\n            {\n              \"text\": \"Claims about which kind works best are weak, because the interventions and outcomes were too varied to compare directly and whole categories such as built-environment accessibility and inclusive education policy were not studied at all.\",\n              \"passages\": []\n            },\n            {\n              \"text\": \"The UNESCO examples from Ethiopia and Cambodia are reported successes of specific programmes, not tested comparisons.\",\n              \"passages\": []\n            },\n            {\n              \"text\": \"The review's authors call for more systemic approaches and for interventions that address attendance, enrolment, completion and transition, not only individual skills.\",\n              \"passages\": [\"S001#11\", \"S001#149\"]\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n```"
+    }
+   ],
+   "usd": 0.14642
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [
+  {
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9968378/fullTextXML",
+   "error": "HTTPError: HTTP Error 503: Service Temporarily Unavailable",
+   "attempts": 4,
+   "at": "2026-11-25T12:25:18+00:00",
+   "covered_by": [
+    "PMC"
+   ]
+  }
+ ],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "sources": {
+  "found": 6,
+  "held": 2,
+  "not_held": 4,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2"
+   },
+   {
+    "id": "S003",
+    "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "correction_unread: Erratum in 36913230: the notice's text does not name this source by title, DOI or PMID"
+   },
+   {
+    "id": "S004",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "correction_not_held: Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served (Europe PMC metadata: isOpenAccess N); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.)"
+   },
+   {
+    "id": "S005",
+    "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/)"
+   },
+   {
+    "id": "S006",
+    "title": "A Guide for ensuring inclusion and equity in education",
+    "type": "guideline",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 2,
+  "unconfirmed": [
+   {
+    "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.500 on 5 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.500 on 5 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 5,
+  "copied": 5,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-02y"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-25T12:26:49+00:00"
+}
