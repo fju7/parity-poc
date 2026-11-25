@@ -42,7 +42,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         8860,
         9712
@@ -57,6 +57,11 @@
             120503
           ]
         }
+      ],
+      "off_page_by": "failsafe:overstatement:2f9242b7c779f927ea9d6b59bf0a03c7807a08938b116a030a73bbc79ab50e05:28859a88f838acf8",
+      "left_page": "2026-11-25",
+      "also_removed_by": [
+        "failsafe:overstatement:69d331d6d5b9b06515105630dcfe10c731ed9ed16ec11b85df4c95d9301ad710:28859a88f838acf8"
       ]
     },
     "f7ae5d9c8640569b": {
@@ -134,13 +139,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6557,
         7411
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "failsafe:overstatement:ec2e9403626f1c2507da38860e2f9bc7239689d6ce6b5ab1bea7122a44331da5:352b1fb2bf37f4a8",
+      "left_page": "2026-11-25"
     },
     "3acd31116b3eae78": {
       "sentence": "The authors say more research is needed to understand which types of interventions are most efficacious and how best to deliver them [1].",
@@ -390,7 +397,7 @@
       },
       "first_seen": "2026-11-25",
       "trigger": "source_claim",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         123684,
         124365
@@ -405,6 +412,11 @@
             11353
           ]
         }
+      ],
+      "off_page_by": "failsafe:overstatement:105cd11177c8e4c0f0099bdc0d92049cf4cfa1aee095dcd3ee5557c9003ec932:8d13d208c322a895",
+      "left_page": "2026-11-25",
+      "also_removed_by": [
+        "failsafe:overstatement:7439a588b25f8d44fae1eaee8e61432a1d4e7005e708eef553b17dd5d5e5d0d6:8d13d208c322a895"
       ]
     },
     "c40dad13082896e3": {
@@ -426,7 +438,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         22786,
         23679
@@ -441,7 +453,9 @@
             105699
           ]
         }
-      ]
+      ],
+      "off_page_by": "failsafe:overstatement:50dda30e583a3b2338bde80c89c19badbe36c39ae52572c882b26d22bd8f7377:c40dad13082896e3",
+      "left_page": "2026-11-25"
     },
     "696419df3b7ce361": {
       "sentence": "Of the 18 studies analysed for effects on 'Skills for learning', 12 interventions had a significant effect [1].",
@@ -625,7 +639,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         75793,
         78183
@@ -648,6 +662,12 @@
             82026
           ]
         }
+      ],
+      "off_page_by": "failsafe:overstatement:e46c25f9fed26ee316d6bf3f74c8ce6066fc3ae9e656911351874865d7559692:05ef0f4c7efdb2c0",
+      "left_page": "2026-11-25",
+      "also_removed_by": [
+        "failsafe:overstatement:1dd1c3b654407c8a2c532f4f9898a397c9c1697eb772199cdb2596c7a7b31f20:05ef0f4c7efdb2c0",
+        "failsafe:overstatement:496d64a29f8acbdd47c14597a7f1a60cbd05ee7329ead7d96eb30aab11db5dc7:05ef0f4c7efdb2c0"
       ]
     },
     "c10b514a0912a475": {
@@ -833,13 +853,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         122892,
         123683
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "failsafe:overstatement:3f3b9361d937e4fab03c88afb239f53224717adf5bd29e80afba7b5ec9b1cf91:4ab769b91ea54264",
+      "left_page": "2026-11-25"
     },
     "501b36b5eff60af6": {
       "sentence": "That study was a teacher training programme in Kenya, evaluated with an uncontrolled before-versus-after design [1].",
@@ -1052,7 +1074,7 @@
       },
       "first_seen": "2026-11-25",
       "trigger": "source_claim",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         123684,
         124365
@@ -1067,7 +1089,9 @@
             125175
           ]
         }
-      ]
+      ],
+      "off_page_by": "failsafe:overstatement:e923b04293a85158a6c99cd925e781692c3a55189984a38b3fb9abac0c2aa99e:0844ae3d219ebd76",
+      "left_page": "2026-11-25"
     },
     "3b9a2455f17426ae": {
       "sentence": "The largest effects appear for skill-building programmes in literacy, cognitive skills, handwriting and numeracy [1].",
@@ -1088,13 +1112,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6557,
         7411
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "failsafe:overstatement:a807a0ac61727f2c237f5bfb2f66f5574022a2050b268413dd1649c48ed50677:3b9a2455f17426ae",
+      "left_page": "2026-11-25"
     },
     "31082fa51b555b89": {
       "sentence": "Because these effects rest on few studies, they do not establish which kind of programme works best.",
@@ -1115,7 +1141,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261125T215304Z/rulings.jsonl:1",
+      "left_page": "2026-11-25"
     },
     "7385b4cf118307a7": {
       "sentence": "The review asked which interventions appear most effective for different types of disability, but its authors conclude that more research is needed to understand which types of interventions are most efficacious [1].",
@@ -1136,7 +1164,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         2423,
         3215
@@ -1151,6 +1179,11 @@
             125175
           ]
         }
+      ],
+      "off_page_by": "failsafe:overstatement:455e876601e76bd23df334e1653615e2d4c32c154224252846dbc3ddb5237b6f:7385b4cf118307a7",
+      "left_page": "2026-11-25",
+      "also_removed_by": [
+        "failsafe:overstatement:3778d18ed2b23a8a24532fc5ec226d04f570d9078dc4cf74a2ec20aa19654e53:7385b4cf118307a7"
       ]
     },
     "4b60c196fd7ce183": {
@@ -2398,6 +2431,33 @@
       "offsets": [
         8704,
         8859
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "57b3ec0dfaf31e74": {
+      "sentence": "For literacy, the pooled effect was d = 2.46 (0.01 to 4.90) from four studies (n = 389, I² = 93%), which the review describes as a 'large effect based on a low number of studies with high heterogeneity and potentially high publication bias' [1].",
+      "sentence_sha": "57b3ec0dfaf31e74",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "locator_type": "prose",
+      "locator": "passage S001@117574",
+      "span": "Literacy d = 2.46 (0.01 to 4.90) k = 4 n = 389 I ² = 93% Egger's test 3.61 ( t = 1.66, p = 0.24) Large effect based on a low number of studies with high heterogeneity and potentially high publication bias",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        117574,
+        117778
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null

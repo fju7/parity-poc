@@ -12,3 +12,13 @@
 | belief (orchestrator) | 2026-11-25T21:48:16+00:00 | 2026-11-25T21:48:44+00:00 | $0.5922 | 0 | 0 outlet(s) verified of 3 proposed |
 | premise_reading (orchestrator) | 2026-11-25T21:48:44+00:00 | 2026-11-25T21:48:55+00:00 | $0.0383 | 0 | sources show verified; direction narrows; kill condition survived |
 | corrections_3b (orchestrator) | 2026-11-25T21:48:55+00:00 | 2026-11-25T21:48:57+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-25T21:48:57+00:00 | 2026-11-25T21:50:59+00:00 | $0.0000 | 0 | committed 94496b3ed5e1 |
+| gate (orchestrator) | 2026-11-25T21:50:59+00:00 | 2026-11-25T21:51:52+00:00 | $0.2767 | 0 | done |
+| advocate (orchestrator) | 2026-11-25T21:51:53+00:00 | 2026-11-25T21:52:34+00:00 | $0.2142 | 0 | 0 record(s) applied |
+| omissions (orchestrator) | 2026-11-25T21:52:34+00:00 | 2026-11-25T21:52:56+00:00 | $0.0597 | 0 | 1 record(s) applied |
+| findings (orchestrator) | 2026-11-25T21:52:56+00:00 | 2026-11-25T21:53:01+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| conclusions (orchestrator) | 2026-11-25T21:53:01+00:00 | 2026-11-25T21:53:04+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| audit (orchestrator) | 2026-11-25T21:53:04+00:00 | 2026-11-25T21:54:58+00:00 | $0.4053 | 0 | 2 audit round(s) |
+| overstatement (orchestrator) | 2026-11-25T21:54:58+00:00 | 2026-11-25T22:01:32+00:00 | $0.0946 | 0 | 69 pair(s): 14 yes, 55 no |
+| corrections (orchestrator) | 2026-11-25T22:01:32+00:00 | 2026-11-25T22:01:34+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| final_gate (orchestrator) | 2026-11-25T22:01:34+00:00 | 2026-11-25T22:01:40+00:00 | $0.0000 | 0 | 0 record(s) applied |

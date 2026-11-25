@@ -1,0 +1,53 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "They also call for programmes that address attendance, enrolment, completion and transition to higher levels of education [1].",
+        "objection": "The only passage I could retrieve mentioning transition to higher education is a recommendation about which outcomes future studies should measure. It is not a call for programmes.",
+        "source_says": "\"Studies should focus on a broader range of outcomes, including qualifications gained, transition to higher levels of education, and education‐related quality of life, to provide a fuller understanding of the impact of interventions.\"",
+        "locator": "Authors' Conclusions, implications for research (PMC11799928)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page turns a recommendation about evaluation outcomes into a recommendation about programme content. The review did find only one attendance, enrolment and completion study, so the page's wider point still stands. I could not retrieve the full 'implications for practice' text, so I cannot rule out that a programme-level call appears elsewhere.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each was based on a low number of studies [1].",
+        "objection": "The page quotes the numeracy and handwriting figures but omits the literacy result. That result is the most fragile of the 'significant' skill effects: its confidence interval barely excludes zero, heterogeneity is very high, and publication bias is flagged as potentially high.",
+        "source_says": "Literacy d = 2.46 (0.01 to 4.90) k = 4 n = 389 I ² = 93% Egger's test 3.61 ( t = 1.66, p = 0.24) Large effect based on a low number of studies with high heterogeneity and potentially high publication bias",
+        "locator": "5.3. Effects of interventions, Table 14 Effects of interventions (Skills for learning, Literacy row)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's 'what holds up' section lists literacy first among the largest effects. The review's own table says this effect has a lower bound of 0.01, an I² of 93% and possible high publication bias. The page's general caveat about a low number of studies understates this.",
+        "source_says_first": "\"Skills for learning | Literacy | d = 2.46 (0.01 to 4.90) k = 4 n = 389 I ² = 93% Egger's test 3.61 (t = 1.66, p = 0.24) | Large effect based on a low number of studies with high heterogeneity and potentially high publication bias\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Before this review, the authors note, evidence on which interventions are actually effective had not been established [1].",
+        "objection": "I could not find this attribution in the review text I retrieved. The Background says only that the attainment gap is greatest in LMICs, and the review frames itself as answering 'What works to improve educational outcomes'.",
+        "source_says": "",
+        "locator": "Background / Objectives (abstract, PMC11799928)",
+        "could_not_find": "I searched the abstract and Background, the research questions, the plain language summary and the Authors' Conclusions. I found no sentence saying effectiveness evidence was previously 'not established'. I only reached these sections through search snippets, not the full text, so the sentence may exist in the Introduction.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page attributes a statement to the authors that I cannot locate in my own document. If it is not there, the attribution should be removed or paraphrased as the page's own framing."
+      }
+    ]
+  }
+]

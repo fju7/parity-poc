@@ -1,0 +1,25 @@
+{
+ "omissions": [
+  {
+   "key": "S001@117574-117778",
+   "source": "S001",
+   "held_sha256": "49a9070d96d82aae61e741291fdd906e8ee5a8a829aa4a495fc2806fb0977ee6",
+   "at": [
+    117574,
+    117778
+   ],
+   "quote_sha256": "a29af9b9e0fe04ec89db40b9690bed39b2514ef7b268bfdc6c6febc6b5b427fb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is a pooled estimate of a learning outcome (literacy) for skill-building interventions in LMICs. It bears directly on whether programmes work and which kinds work best. Step 2: The draft says only that the literacy effect was significant and large and rests on few studies. It gives the estimates for numeracy and handwriting but not for literacy. It omits that the confidence interval's lower bound is barely above zero (0.01), that heterogeneity is very high (93%), and that publication bias is potentially high. These details qualify how far funders can rely on the literacy effect, so the finding is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2084fbc3691251e6",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "57b3ec0dfaf31e74",
+   "after": "9ec56c4ba0e0ccd5",
+   "decided_at": "2026-11-25T21:52:48+00:00"
+  }
+ ]
+}
