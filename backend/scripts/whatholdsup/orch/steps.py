@@ -94,8 +94,10 @@ STEPS: tuple[Step, ...] = (
     Step("judgements", "mixed", models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
     # Fred's terms B3 / B4 after attempt 23: the premise rows filled after reading, by bounded model steps checked by
-    # code (orch/premise_reading.py). belief: one web-search call (+ one re-ask); premise_reading: one call (+ one).
-    Step("belief", "model", models=(GATE_MODEL,), max_calls=2, cap_usd=1.00, code="belief"),
+    # code (orch/premise_reading.py). belief: one web-search call (+ one re-ask), and once more for different outlets
+    # if none is confirmed (ruling D on P117); premise_reading: one call (+ one).
+    # ruling D on P117: one re-ask for different outlets when round 1 confirms none (round 2 + its re-ask: 4 calls)
+    Step("belief", "model", models=(GATE_MODEL,), max_calls=4, cap_usd=2.00, code="belief"),
     Step("premise_reading", "model", models=(CURRENT,), max_calls=2, cap_usd=0.40, code="premise_reading"),
     Step("corrections_3b", "code", models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling
     Step("commit_3b", "code", code="commit"),

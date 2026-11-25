@@ -58,6 +58,16 @@ BELIEF:
 {belief}
 """
 
+# ONE RE-ASK (advisor's ruling D on P117, 2026-11-25). On WHU-OT1-02zc the step proposed three outlets and code
+# confirmed none, and none was a wall: one URL redirected to another page, two pages carried too few of the belief's
+# key words. A different proposal could avoid those, so when round 1 confirms nothing the step asks once more for
+# DIFFERENT outlets, naming the refused ones; code also drops any round-2 candidate that repeats a refused URL or
+# outlet. verify_outlet is unchanged; both rounds are logged ("round": 1 | 2).
+REASK_TAIL = """
+These pages were proposed before and could not be confirmed; give DIFFERENT outlets and pages, none of these:
+{refused}
+"""
+
 READING_PROMPT = """You read the passages below from the sources a fact-check holds, and answer three things about the
 premise the fact-check set before reading them. Answer only from the passages; for each, quote the passage you rely on,
 copied character for character (at most 300 characters), with the id of the source it comes from.
@@ -223,15 +233,47 @@ def belief_outlets(case: Path, ask, model: str, get=fetch, save=None, n: int = 3
     belief = ((d.get("belief") or {}).get("statement") or "").strip()
     if not belief:
         return {"verified": 0, "why": "no belief stated"}
-    reply = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief), 1500, "belief-outlet")
-    cands = (reply or {}).get("outlets") if isinstance(reply, dict) else None
-    cands = [c for c in (cands or []) if isinstance(c, dict)][:n]
-    checked = [verify_outlet(belief, c, get, save) for c in cands]
-    for c, v in zip(cands, checked):
-        _log(case, {"check": "belief-outlet", "by": "model reading (%s, web search)" % model,
+    def _cands(reply):
+        cs = (reply or {}).get("outlets") if isinstance(reply, dict) else None
+        return [c for c in (cs or []) if isinstance(c, dict)][:n]
+
+    def _record(rnd, c, v):
+        _log(case, {"check": "belief-outlet", "round": rnd, "by": "model reading (%s, web search)" % model,
                     "proposed": {"outlet": c.get("outlet"), "url": c.get("url"), "sentence": c.get("sentence")},
                     "code": {k: v.get(k) for k in ("ok", "why", "sha256", "final_url", "key_words",
                                                    "key_words_found", "robots", "fetched_at")}})
+
+    reply = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief), 1500, "belief-outlet")
+    cands = _cands(reply)
+    checked = [verify_outlet(belief, c, get, save) for c in cands]
+    for c, v in zip(cands, checked):
+        _record(1, c, v)
+    rounds = [{"round": 1, "proposed": len(cands), "verified": sum(1 for v in checked if v["ok"])}]
+    if not any(v["ok"] for v in checked):
+        refused = [(c, v) for c, v in zip(cands, checked)]
+        seen_urls = {_url_key(c.get("url")) for c, _v in refused} - {""}
+        seen_outlets = {_outlet_key(c.get("outlet")) for c, _v in refused} - {""}
+        listing = "\n".join("- %s (%s): %s" % (c.get("outlet") or "?", c.get("url") or "?", v.get("why"))
+                            for c, v in refused) or "- (none proposed)"
+        r2 = {"round": 2, "proposed": 0, "verified": 0, "excluded": 0}
+        try:
+            reply2 = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief) + REASK_TAIL.format(refused=listing),
+                                1500, "belief-outlet-reask")
+        except M.Unusable as e:
+            reply2 = None
+            r2["unusable"] = str(e)[:200]
+        for c in _cands(reply2):
+            if _url_key(c.get("url")) in seen_urls or _outlet_key(c.get("outlet")) in seen_outlets:
+                _record(2, c, {"ok": False, "why": "excluded by code: refused in round 1, not checked again"})
+                r2["excluded"] += 1
+                continue
+            v = verify_outlet(belief, c, get, save)
+            _record(2, c, v)
+            cands.append(c)
+            checked.append(v)
+            r2["proposed"] += 1
+            r2["verified"] += 1 if v["ok"] else 0
+        rounds.append(r2)
     good = [v for v in checked if v["ok"]]
     if good:
         b = d.setdefault("belief", {})
@@ -247,8 +289,17 @@ def belief_outlets(case: Path, ask, model: str, get=fetch, save=None, n: int = 3
             "reading (web search), checked by code." % (g["outlet"], g["url"], g["fetched_at"][:10], g["sha256"][:16],
                                                         len(g["key_words_found"]), g["key_words"]))
         _save_premise(case, d)
-    return {"proposed": len(cands), "verified": len(good),
-            "refused": ["%s: %s" % (v["url"][:80], v["why"]) for v in checked if not v["ok"]]}
+    return {"proposed": len(cands), "verified": len(good), "rounds": rounds,
+            "refused": ["%s: %s" % ((v.get("url") or "")[:80], v["why"]) for v in checked if not v["ok"]]}
+
+
+def _url_key(u) -> str:
+    u = str(u or "").strip().lower().rstrip("/")
+    return re.sub(r"^https?://(www\.)?", "", u)
+
+
+def _outlet_key(o) -> str:
+    return " ".join(re.findall(r"[a-z0-9]+", str(o or "").lower()))
 
 
 # ------------------------------------------------------------------ B4: direction and kill condition, from held text
