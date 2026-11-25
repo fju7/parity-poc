@@ -159,6 +159,7 @@ def test_an_unpriced_row_makes_the_line_unsummable(ledger):
 def test_the_committed_lines_hold_todays_spend():
     real = json.loads((ROOT / "backend/data/spend/caps.json").read_text())["lines"]
     assert real["seeded-defect test"] == {"cap_usd": 89, "ledger_issue_prefix": "whu-validity-sd-"}
-    # moves between these two lines are by ruling (8 Nov, 23 Nov x3); together they stay $160 ($10 lean runs + $150 Fred)
-    assert real["orchestrator trial 1"]["cap_usd"] == 40 and real["new-questions test"]["cap_usd"] == 120
-    assert real["orchestrator trial 1"]["cap_usd"] + real["new-questions test"]["cap_usd"] == 160
+    # moves between these two lines are by ruling (8 Nov, 23 Nov x3); together they were $160 ($10 lean runs + $150 Fred),
+    # $170 since Fred approved +$10 on the trial line (2026-11-25, relayed by the advisor; deviations.md P108)
+    assert real["orchestrator trial 1"]["cap_usd"] == 50 and real["new-questions test"]["cap_usd"] == 120
+    assert real["orchestrator trial 1"]["cap_usd"] + real["new-questions test"]["cap_usd"] == 170
