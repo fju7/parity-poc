@@ -12,3 +12,10 @@
 | belief (orchestrator) | 2026-11-25T18:20:02+00:00 | 2026-11-25T18:20:35+00:00 | $0.4389 | 0 | 1 outlet(s) verified of 3 proposed |
 | premise_reading (orchestrator) | 2026-11-25T18:20:35+00:00 | 2026-11-25T18:20:46+00:00 | $0.0381 | 0 | sources show verified; direction narrows; kill condition survived |
 | corrections_3b (orchestrator) | 2026-11-25T18:20:46+00:00 | 2026-11-25T18:20:49+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-25T18:20:49+00:00 | 2026-11-25T18:22:49+00:00 | $0.0000 | 0 | committed 7b8839218cd4 |
+| gate (orchestrator) | 2026-11-25T18:22:49+00:00 | 2026-11-25T18:24:02+00:00 | $0.4850 | 0 | done |
+| advocate (orchestrator) | 2026-11-25T18:24:02+00:00 | 2026-11-25T18:26:19+00:00 | $0.9612 | 0 | 2 record(s) applied |
+| omissions (orchestrator) | 2026-11-25T18:26:19+00:00 | 2026-11-25T18:27:15+00:00 | $0.1783 | 0 | 3 record(s) applied |
+| findings (orchestrator) | 2026-11-25T18:27:15+00:00 | 2026-11-25T18:27:22+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| conclusions (orchestrator) | 2026-11-25T18:27:22+00:00 | 2026-11-25T18:27:26+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| audit (orchestrator) | 2026-11-25T18:27:26+00:00 | 2026-11-25T18:27:27+00:00 | $0.0000 | 0 | FAILED: RunStop: audit: backend/scripts/whatholdsup/audit_stage.py run exited 3 |

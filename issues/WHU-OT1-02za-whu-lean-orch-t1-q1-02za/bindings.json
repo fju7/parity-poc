@@ -391,13 +391,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         124726,
         125457
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:13",
+      "left_page": "2026-11-25",
+      "replaced_by": [
+        "469966f1d0e06152"
+      ]
     },
     "b216db70526f4d08": {
       "sentence": "Most interventions tried to improve children's skills but did not focus on system-level or school-level changes [1].",
@@ -1989,6 +1994,38 @@
         "warranted": null
       },
       "first_seen": "2026-11-25",
+      "on_page": false,
+      "offsets": [
+        9915,
+        10068
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:12",
+      "left_page": "2026-11-25",
+      "replaced_by": [
+        "560c66190687eba3"
+      ]
+    },
+    "560c66190687eba3": {
+      "sentence": "A 2025 Campbell systematic review found that a range of individual-level interventions improve educational outcomes for people with disabilities in low- and middle-income countries, with significant effects on literacy, cognitive skills, handwriting and numeracy, though all but one included study received an overall rating of low confidence in study findings [1].",
+      "sentence_sha": "560c66190687eba3",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "29b5be4f1daa0bf4fece1f9127a02617b6d1e5e34888dd1560b0f7e9882d63e0",
+      "locator_type": "prose",
+      "locator": "passage S001@9915",
+      "span": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review .",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
       "on_page": true,
       "offsets": [
         9915,
@@ -1996,6 +2033,198 @@
       ],
       "by": "code (orchestrator: the passage the draft named)",
       "also_rests_on": null
+    },
+    "469966f1d0e06152": {
+      "sentence": "One study that sought to improve attendance, enrolment and completion by equipping mainstream settings for children with disabilities improved teacher knowledge and attitudes about inclusive education, but no study measured attendance, enrolment or completion outcomes themselves [1].",
+      "sentence_sha": "469966f1d0e06152",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "29b5be4f1daa0bf4fece1f9127a02617b6d1e5e34888dd1560b0f7e9882d63e0",
+      "locator_type": "prose",
+      "locator": "passage S001@124726",
+      "span": "Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved. The interventions and outcome measures used by the included studies were all different, making direct comparison (e.g., across countries) difficult. Most interventions tried to improve children's skills but did not focus on system‐level or school‐level changes. None of the studies were undertaken in humanitarian settings, and while almost all were undertaken with both male and female participants, few disaggregated their findings by gender.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        124726,
+        125457
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c453e8cceee64922": {
+      "sentence": "For 'Conditions for inclusion of people with disabilities in education', the review reports a pooled effect of d = 0.35 (0.12 to 0.58) across four studies (n = 401, I² = 86%), which the authors describe as a 'Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias' [1].",
+      "sentence_sha": "c453e8cceee64922",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "29b5be4f1daa0bf4fece1f9127a02617b6d1e5e34888dd1560b0f7e9882d63e0",
+      "locator_type": "prose",
+      "locator": "passage S001@117765",
+      "span": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        117765,
+        118032
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "580a8bf17acf1557": {
+      "sentence": "The guide also lists among the key features of its framework for analysing inclusion and equity policy that 'there is a clear role for special provision, such as special schools and units, in promoting inclusion and equity in education', though it states this as a policy feature rather than as evidence from an evaluated programme [6].",
+      "sentence_sha": "580a8bf17acf1557",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S006",
+      "document_sha": "4f209bd4b86560db96cbfe26dd943de3fe54d1b917c157272c95a22cccd036a2",
+      "locator_type": "prose",
+      "locator": "passage S006@52932",
+      "span": "There is a clear role for special provision, such as special schools and units, in promoting inclusion and equity in education",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        52932,
+        53058
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "55f65cd4fb506947": {
+      "sentence": "The protocol also noted that an earlier evidence gap map (White et al., 2018) of impact evaluations and systematic reviews of interventions for people with disabilities in low- and middle-income countries \"included 46 studies related to education outcomes\" [7].",
+      "sentence_sha": "55f65cd4fb506947",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S007",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "passage S007@34714",
+      "span": "The EGM included 46 studies related to education outcomes.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "offsets": [
+        34714,
+        34772
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a34707ee56cdd49a": {
+      "sentence": "Judged not material to this question: “In particular, there is strong evidence of the potential of approaches that encourage cooperation between students for creating classroom conditions that can both maximize participation, …” (A Guide for ensuring inclusion and equity in education [6]).",
+      "sentence_sha": "a34707ee56cdd49a",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S006",
+      "document_sha": "4f209bd4b86560db96cbfe26dd943de3fe54d1b917c157272c95a22cccd036a2",
+      "locator_type": "prose",
+      "locator": "readers' list line (S006@67775-68369, not_material)",
+      "span": "In particular, there is strong evidence of the potential of approaches that encourage cooperation between students for creating classroom conditions that can both maximize participation,",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        67775,
+        67961
+      ],
+      "declaration_key": "S006@67775-68369"
+    },
+    "526d631b09b1fd3e": {
+      "sentence": "Outside this question: “Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC.” (PROTOCOL: Effectiveness of interventions for improving educational outcomes for [7]).",
+      "sentence_sha": "526d631b09b1fd3e",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S007",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "readers' list line (S007@3591-3709, out_of_scope)",
+      "span": "Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        3591,
+        3709
+      ],
+      "declaration_key": "S007@3591-3709"
+    },
+    "c6e562a8866319a1": {
+      "sentence": "Judged not material to this question: “Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review.” (PROTOCOL: Effectiveness of interventions for improving educational outcomes for [7]).",
+      "sentence_sha": "c6e562a8866319a1",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S007",
+      "document_sha": "b2156b3dbf5d8e7e911f3eab232f1087e546ab2f9bcc45708e6331dc1499f204",
+      "locator_type": "prose",
+      "locator": "readers' list line (S007@31232-31395, not_material)",
+      "span": "Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-25",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        31232,
+        31395
+      ],
+      "declaration_key": "S007@31232-31395"
     }
   }
 }

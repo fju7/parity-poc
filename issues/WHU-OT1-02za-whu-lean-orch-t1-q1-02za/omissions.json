@@ -1,0 +1,130 @@
+{
+ "omissions": [
+  {
+   "key": "S001@117765-118032",
+   "source": "S001",
+   "held_sha256": "c13df40dce8e0369c68e4bd331903a80950bdd38e0ade79989d5fe4fa4017f8c",
+   "at": [
+    117765,
+    118032
+   ],
+   "quote_sha256": "2f1ab9e74fee7a20b456d0c7cea279f4eec624d1e861d313fcf30d3ffb7052e2",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is a pooled effect of an intervention category on educational inclusion [S001@47672-47709], which bears directly on whether programmes work and which work best. No QUESTION or SCOPE wording excludes it. Step 2: The draft says only that these studies showed a 'moderately significant effect'. It gives no size, no study count, and none of this category's own caveats. The finding adds the effect size, that it rests on only four studies, the high heterogeneity and the potentially moderate publication bias. These figures materially qualify how much a funder should rely on inclusion-condition interventions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a705da7916c4c2f6",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": "c453e8cceee64922",
+   "after": "c10b514a0912a475",
+   "decided_at": "2026-11-25T18:26:37+00:00"
+  },
+  {
+   "key": "S006@52932-53058",
+   "source": "S006",
+   "held_sha256": "d0dd71e13539bae31eabe09d4e41c8c08b7c38e3ca057eb4a469ad4cbca0b958",
+   "at": [
+    52932,
+    53058
+   ],
+   "quote_sha256": "e85391413b89efaa3d14a895e199013c6461d7458f5172bc1c96bbbea1a42710",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question asks which kinds of programme work best, and the reader is weighing inclusive models against other options. The guide's position on whether [S006@96676-96708] role bears on that choice. No question or scope wording excludes it: it is not a rights or legal claim, not about high-income countries, and not clinical. Step 2: The draft currently cites only the guide's warning that importing special-education practices fosters segregation. A reader could take that to mean the guide rejects special provision. This framework feature qualifies that reading, and ALREADY does not state it. The added sentence presents it as a policy-framework feature, not as evidence of effect, so it is not overstated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a4adf9cbb4425ad6",
+   "origins": [
+    "S006-04"
+   ],
+   "on_page": "580a8bf17acf1557",
+   "after": "7df0418f4b76dbce",
+   "decided_at": "2026-11-25T18:26:45+00:00"
+  },
+  {
+   "key": "S006@67775-68369",
+   "source": "S006",
+   "held_sha256": "d0dd71e13539bae31eabe09d4e41c8c08b7c38e3ca057eb4a469ad4cbca0b958",
+   "at": [
+    67775,
+    68369
+   ],
+   "quote_sha256": "0b13f660db295a6a0ee23b5898d7c5fc3e68a38c8574f6d0898813dff6539aee",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about cooperative learning approaches that support learners with disabilities, which bears on 'which kinds work best'. Step 2 fails: ALREADY states that the guide cites strong evidence for approaches encouraging cooperation between students, [S006@68114-68164] learners with disabilities, and that orchestrating them requires skill. ALREADY also notes the evidence is not tied to LMICs. The finding's other details (maximizing participation and high standards for all, and other vulnerable groups) add no distinct outcome for disabled learners that would change the reader's decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5924ecee73b64577",
+   "origins": [
+    "S006-05"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-25T18:26:49+00:00"
+  },
+  {
+   "key": "S007@3591-3709",
+   "source": "S007",
+   "held_sha256": "21e2737834bd70fe7be31a3fce1e3907f2c7084a8f9389eb02ec7b147d94357c",
+   "at": [
+    3591,
+    3709
+   ],
+   "quote_sha256": "cf65e7177381adf30fe155e69254fce610375d116b852d5e0e4b8846f3dff543",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Prevalence of disability among children in LMICs and the size of the out-of-school gap",
+   "reason": "Step 1 fails: the finding says the disability gap in educational attainment is greatest in LMICs. That describes how large the education gap is, which the SCOPE excludes as descriptive background rather than evidence on whether interventions work. Step 2 is therefore not reached.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4c604a75d95b7b2f",
+   "origins": [
+    "S007-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-25T18:26:53+00:00"
+  },
+  {
+   "key": "S007@31232-31395",
+   "source": "S007",
+   "held_sha256": "21e2737834bd70fe7be31a3fce1e3907f2c7084a8f9389eb02ec7b147d94357c",
+   "at": [
+    31232,
+    31395
+   ],
+   "quote_sha256": "bbf28177408503fbb49fc6715d38dd4ed6d3a5079519c1e77c1c22e24ec4d588",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding describes the state of the evidence base on programmes for disabled learners, which bears on how strong the evidence is, and no QUESTION or SCOPE wording excludes it. Step 2 fails: it is the protocol's justification that no prior Cochrane or Campbell review covers this review's objectives. That restates what the draft already says from this source, that [S007@14376-14421] 'had not been established'. It does not answer, narrow or qualify which interventions work, so it gives a funding decision-maker nothing new to weigh.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "413331857360d4bc",
+   "origins": [
+    "S007-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-25T18:26:57+00:00"
+  },
+  {
+   "key": "S007@34714-34772",
+   "source": "S007",
+   "held_sha256": "21e2737834bd70fe7be31a3fce1e3907f2c7084a8f9389eb02ec7b147d94357c",
+   "at": [
+    34714,
+    34772
+   ],
+   "quote_sha256": "adbcabc7df3ad4e70374a58a2379bb1ba374976110a75d27494ec3f7ded384a3",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding gives the size of the evidence base of effectiveness studies on education [S007@197-237] LMICs. The SCOPE covers this directly: 'how strong that evidence is'. Step 2: A funder judging whether the evidence justifies prioritising interventions would weigh how many studies exist, because it qualifies how firm any answer can be. The draft's existing sentences from this source say evidence was not established and that comparative literature was scarce. They do not give this count, so the finding is not already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1f9a146ae78be9bd",
+   "origins": [
+    "S007-06"
+   ],
+   "on_page": "55f65cd4fb506947",
+   "after": "b12860c0a47cd192",
+   "decided_at": "2026-11-25T18:27:03+00:00"
+  }
+ ]
+}

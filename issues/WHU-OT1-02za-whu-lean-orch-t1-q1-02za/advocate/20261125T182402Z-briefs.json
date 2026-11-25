@@ -1,0 +1,157 @@
+[
+  {
+    "source": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The source, a systematic review titled \"Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review,\" is supplied here only as a title with no findings or certainty language, so no conclusion about effectiveness can be attributed to it [1].",
+        "objection": "The review is a full 28-study Campbell review with quantified findings and explicit certainty language, so the claim that nothing about effectiveness can be attributed to it is wrong, and it contradicts the page's own other sentences that cite it.",
+        "source_says": "Among the 18 studies included in the analysis of intervention effects on ‘Skills for learning’, 12 interventions had a significant effect.",
+        "locator": "Abstract, results summary (paragraph beginning 'The second most common category of intervention was ‘Accessible learning environments’')",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "CHANGES",
+        "why": "The sentence says no effectiveness conclusion can be drawn. The review states one, with graded certainty: emerging support, effects on several skill outcomes, and mostly low confidence. A reader would wrongly think the source is silent.",
+        "source_says_first": "Abstract: \"Twenty-eight studies were included in this review.\" \"Among the 18 studies included in the analysis of intervention effects on 'Skills for learning', 12 interventions had a significant effect.\" Authors' Conclusions: \"The evidence presented here provides emerging support for the efficacy and effectiveness of interventions to improve the education outcomes among people with disabilities in LMICs.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Only one study achieved the aim of improving attendance, enrolment and completion by equipping mainstream settings for children with disabilities, and it did so by improving teacher knowledge and attitudes about inclusive education [1].",
+        "objection": "The review says the one study improved teacher knowledge and attitudes. It also says no study looked at attendance, enrolment or completion outcomes, so the page overstates what was achieved.",
+        "source_says": "No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.",
+        "locator": "Summary/discussion section: first sentence of the paragraph beginning 'No study looked at outcomes related to attendance, enrolment, and completion'",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The measured result was a change in teacher knowledge and attitudes, an intermediate condition for inclusion. No attendance, enrolment or completion outcome was measured. The page presents an unmeasured end outcome as achieved.",
+        "source_says_first": "\"No study looked at outcomes related to attendance, enrolment, and completion of people with disabilities in education.\" And: \"attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Studies concerned with 'Conditions for inclusion of people with disabilities in education' showed a moderately significant effect [1].",
+        "objection": "The page omits the review's own caveats on this pooled effect: only four studies, very high heterogeneity, and possible publication bias.",
+        "source_says": "Conditions for inclusion of people with disabilities in education d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 ( t = 1.43, p = 0.29) Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias",
+        "locator": "Section 5.3 Effects of interventions, Table 14 Effects of interventions",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the only systemic-level pooled estimate in the review. The page states it without k = 4 or I² = 86%, so it reads as firmer than the authors present it. The page's generic 'heterogeneity is high' sentence is not tied to this result.",
+        "source_says_first": "Table in 5.3: \"d = 0.35 (0.12 to 0.58) k = 4 n = 401 I² = 86% Egger's test 2.01 (t = 1.43, p = 0.29)\" summarised as \"Moderate effect based on a low number of studies with high heterogeneity and potentially moderate publication bias.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S006",
+    "title": "A Guide for ensuring inclusion and equity in education",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of A Guide for ensuring inclusion and equity in education",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The guide also warns that inclusion efforts that depend on practices imported from special education tend to foster new and more subtle forms of segregation within mainstream settings [6].",
+        "objection": "The sentence is accurate, but without the guide's own statement that special schools and units have a clear role in promoting inclusion, it reads as a rejection of special provision.",
+        "source_says": "There is a clear role for special provision, such as special schools and units, in promoting inclusion and equity in education",
+        "locator": "Dimension 3, Key feature 3.4 (Structures and systems)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The guide's warning is aimed at importing special-education practices into mainstream classrooms. It does not oppose special provision as such, and it asks for links between special and mainstream provision. A reader of the page alone could conclude the guide opposes special-education resources. That would matter if the page assesses what the guide says about children with disabilities.",
+        "source_says_first": "\"There is a clear role for special provision, such as special schools and units, in promoting inclusion and equity in education\" (Section 3.4). The guide's review framework for that section adds: \"Planning has taken place to encourage ways of creating stronger links between special provision and mainstream education institutions.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The guide cites strong evidence of the potential of approaches that encourage cooperation between students, and says this evidence suggests such practices can be effective in supporting learners with disabilities, although orchestrating them requires skill [6].",
+        "objection": "The page presents the guide's cooperative-learning evidence as being about learners with disabilities. The guide frames it as evidence for all learners, with disability as one example among several vulnerable groups.",
+        "source_says": "In particular, there is strong evidence of the potential of approaches that encourage cooperation between students for creating classroom conditions that can both maximize participation, while at the same time achieving high standards of learning for all members of a class (Johnson and Johnson, 1989). Furthermore, this evidence suggests that such practices can be effective in supporting the involvement of all learners who are facing vulnerable situations; examples include those who are new to a class, learners from different cultural and language backgrounds, and those with disabilities.",
+        "locator": "Passage beginning 'Research indicates that encouraging student participation is the best use of available resources' (section on student participation / cooperative learning)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's sentence is not wrong, because disability is named. But it narrows a general claim about participation and learning for all learners into a disability-specific one. That affects how much weight the page can put on this evidence for disability in low-resource settings. The page's separate point that the guide does not tie the evidence to low- and middle-income countries is correct.",
+        "source_says_first": "The guide cites evidence of the potential of approaches that encourage cooperation between students \"for creating classroom conditions that can both maximize participation, while at the same time achieving high standards of learning for all\". It continues: \"this evidence suggests that such practices can be effective in supporting the involvement of all learners who are facing vulnerable situations; examples include those who are new to a class, learners from different cultural and language backgrounds, and those with disabilities.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S007",
+    "title": "PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of PROTOCOL: Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Before the review, its protocol noted that evidence on which interventions are effective in meeting international goals for disability and education had not been established [7].",
+        "objection": "The sentence reads as if little or no evidence existed. The protocol says an evidence and gap map had already found 46 education-outcome studies, and that the real gap was study quality, especially impact evaluation.",
+        "source_says": "The EGM included 46 studies related to education outcomes.",
+        "locator": "Background, 'Why it is important to do this review' (paragraph on the White et al., 2018 evidence gap map)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'Not established' is accurate. A reader could still take it to mean there was no evidence base. The protocol describes an existing but thin and low-quality base, and presents the review as the way to appraise and synthesise it.",
+        "source_says_first": "Background, 'Why it is important to do this review': \"The EGM included 46 studies related to education outcomes.\" The same section also reports \"a significant gap with respect to study quality, especially with respect to impact evaluation.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The protocol also noted that past evidence syntheses had found very little literature examining educational outcomes that compared disabled and nondisabled peers in these countries [7].",
+        "objection": "The sentence omits that the protocol treats the disability gap in education as already well documented, and as largest in LMICs. The scarcity concerns comparative literature on interventions, not the existence of the gap.",
+        "source_says": "Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC.",
+        "locator": "Background, section 1.1 (problem, condition or issue), paragraph on UNESCO's 2020 Global Education Monitoring Report",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Read alone, the sentence suggests comparative outcome evidence is missing across the board. The protocol says the gap is consistently shown by population-level reports. What is thin is intervention-evaluation literature with a non-disabled comparison, so the claim holds only in that narrower form.",
+        "source_says_first": "Background: \"Evidence suggests that the gap in educational attainment for people with and without disabilities is greatest in LMIC.\" The protocol also cites reports (UNESCO; World Bank) showing disabled people \"consistently falling behind\" non-disabled peers on enrolment, completion, years of schooling and literacy.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Before the review, its protocol noted that evidence on which interventions are effective in meeting international goals for disability and education had not been established [7].",
+        "objection": "The page omits the protocol's finding that earlier Cochrane and Campbell reviews existed but none addressed this review's objectives, because they were much narrower. The gap was in scope, not an absence of prior syntheses.",
+        "source_says": "Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review.",
+        "locator": "Why it is important to do this review (Section 1.2)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the protocol's stated justification for the review. Without it, 'not established' looks like a bare evidence vacuum, when the protocol describes fragmented, narrow-scope prior syntheses.",
+        "source_says_first": "\"Several relevant Cochrane and Campbell systematic reviews and protocols exist that are relevant to the topic, but none would address the objectives of this review.\" Also: \"In all cases, the scope of the reviews is far narrower than our proposed review.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "ff922a5af-rec-2",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Mendoza & Heymann 2022 — Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries (IJDDE 71(3):299–316) is UNKNOWN: the draft uses Draft lists this as source [2] but explicitly states it could not hold the full text; no findings from this source appear in the draft; the latest known is Published July 2022, ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: campbellcollaboration.org, onlinelibrary.wiley.com, researchonline.lshtm.ac.uk, inclusive-education-initiative.org, researchgate.net, campbellsouthasia.org, ideas.repec.org, escholarship.org, eenet.org.uk, internationalsped.com, reachjournal.ie, globalpartnership.org, ncbi.nlm.nih.gov, research.acer.edu.au, journals.sagepub.com, pubmed.ncbi.nlm.nih.gov, people.acer.org, doi.org, semanticscholar.org, eric.ed.gov, evidenceaid.org, methods.cochrane.org, unesco.org, unesco.at, reliefweb.int, right-to-education.org, un-ilibrary.org, childhub.org, gcedclearinghouse.org, policycommons.net, books.google.com, oei.int, unesdoc.unesco.org, ocm.iccrom.org, efareport.unesco.org, ibe.unesco.org, inclusive-education-in-action.org, stageweb.unesco.org, pmc.ncbi.nlm.nih.gov, unesco.de, digitallibrary.un.org, africacheck.org, unesco.org.uk, hapsc.org, en.wikipedia.org, libertify.com, cedilprogramme.org) could not establish whether Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "Mendoza & Heymann 2022 — Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries (IJDDE 71(3):299–316)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S002 (first author 'mendoza' and 8 title words (overlap 1.00), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "ff922a5af-rec-3",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ahmed, Jeffries, Chakraborty et al. 2022 — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map (Campbell SR 18, e1287) is UNKNOWN: the draft uses Draft lists this as source [3] but explicitly states it could not hold the full text due to a published correction; no findings from this source appear in the draft; the late",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: campbellcollaboration.org, onlinelibrary.wiley.com, researchonline.lshtm.ac.uk, inclusive-education-initiative.org, researchgate.net, campbellsouthasia.org, ideas.repec.org, escholarship.org, eenet.org.uk, internationalsped.com, reachjournal.ie, globalpartnership.org, ncbi.nlm.nih.gov, research.acer.edu.au, journals.sagepub.com, pubmed.ncbi.nlm.nih.gov, people.acer.org, doi.org, semanticscholar.org, eric.ed.gov, evidenceaid.org, methods.cochrane.org, unesco.org, unesco.at, reliefweb.int, right-to-education.org, un-ilibrary.org, childhub.org, gcedclearinghouse.org, policycommons.net, books.google.com, oei.int, unesdoc.unesco.org, ocm.iccrom.org, efareport.unesco.org, ibe.unesco.org, inclusive-education-in-action.org, stageweb.unesco.org, pmc.ncbi.nlm.nih.gov, unesco.de, digitallibrary.un.org, africacheck.org, unesco.org.uk, hapsc.org, en.wikipedia.org, libertify.com, cedilprogramme.org) could not establish whether Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "Ahmed, Jeffries, Chakraborty et al. 2022 — Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map (Campbell SR 18, e1287)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S003 (first author 'ahmed' and 12 title words (overlap 1.00), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "ff922a5af-rec-4",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Saran, White & Kuper 2020 — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in LMICs (Campbell SR 16, e1070) is UNKNOWN: the draft uses Draft lists this as source [4] but explicitly states it could not hold the full text due to a published correction; no findings from this source appear in the draft; the latest known is Original published 9",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: campbellcollaboration.org, onlinelibrary.wiley.com, researchonline.lshtm.ac.uk, inclusive-education-initiative.org, researchgate.net, campbellsouthasia.org, ideas.repec.org, escholarship.org, eenet.org.uk, internationalsped.com, reachjournal.ie, globalpartnership.org, ncbi.nlm.nih.gov, research.acer.edu.au, journals.sagepub.com, pubmed.ncbi.nlm.nih.gov, people.acer.org, doi.org, semanticscholar.org, eric.ed.gov, evidenceaid.org, methods.cochrane.org, unesco.org, unesco.at, reliefweb.int, right-to-education.org, un-ilibrary.org, childhub.org, gcedclearinghouse.org, policycommons.net, books.google.com, oei.int, unesdoc.unesco.org, ocm.iccrom.org, efareport.unesco.org, ibe.unesco.org, inclusive-education-in-action.org, stageweb.unesco.org, pmc.ncbi.nlm.nih.gov, unesco.de, digitallibrary.un.org, africacheck.org, unesco.org.uk, hapsc.org, en.wikipedia.org, libertify.com, cedilprogramme.org) could not establish whether Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "Saran, White & Kuper 2020 — Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in LMICs (Campbell SR 16, e1070)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S004 (first author 'saran' and 8 title words (overlap 0.73), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "ff922a5af-rec-6",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "UNESCO 2017 — A Guide for Ensuring Inclusion and Equity in Education is UNKNOWN: the draft uses Source [6]: examples from Ethiopia (Handicap International cluster-school model, 6 cluster schools, 700+ students, 30 satellite schools) and Cambodia (itinerant teacher system); evidence on cooperative learning; warning about special-education practices fostering subtle segregation; the latest known is ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: campbellcollaboration.org, onlinelibrary.wiley.com, researchonline.lshtm.ac.uk, inclusive-education-initiative.org, researchgate.net, campbellsouthasia.org, ideas.repec.org, escholarship.org, eenet.org.uk, internationalsped.com, reachjournal.ie, globalpartnership.org, ncbi.nlm.nih.gov, research.acer.edu.au, journals.sagepub.com, pubmed.ncbi.nlm.nih.gov, people.acer.org, doi.org, semanticscholar.org, eric.ed.gov, evidenceaid.org, methods.cochrane.org, unesco.org, unesco.at, reliefweb.int, right-to-education.org, un-ilibrary.org, childhub.org, gcedclearinghouse.org, policycommons.net, books.google.com, oei.int, unesdoc.unesco.org, ocm.iccrom.org, efareport.unesco.org, ibe.unesco.org, inclusive-education-in-action.org, stageweb.unesco.org, pmc.ncbi.nlm.nih.gov, unesco.de, digitallibrary.un.org, africacheck.org, unesco.org.uk, hapsc.org, en.wikipedia.org, libertify.com, cedilprogramme.org) could not establish whether A Guide for ensuring inclusion and equity in education has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-25",
+      "attached_to": {
+        "study": "UNESCO 2017 — A Guide for Ensuring Inclusion and Equity in Education",
+        "sources": [
+          "S006"
+        ],
+        "rows": [
+          "8d3217f1a801906f",
+          "7efef25e3bb520c4",
+          "cc2fc37a23ab4b61",
+          "238256c60fd1a01a",
+          "e5ac4579a2d8cbe2",
+          "0ee8d09d980c9ba4",
+          "7df0418f4b76dbce",
+          "580a8bf17acf1557",
+          "a34707ee56cdd49a"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}
