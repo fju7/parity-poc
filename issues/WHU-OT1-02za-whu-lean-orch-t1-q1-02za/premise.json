@@ -1,0 +1,147 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Inclusive education, where disabled children learn in ordinary schools with trained teachers and some extra support, works and is the best approach. Special schools are outdated. In poor countries the main barriers are money, stigma and inaccessible buildings, so funding teacher training, ramps and assistive devices gets disabled children into school and learning.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "Human Rights Watch",
+        "url": "https://www.hrw.org/news/2018/09/13/nepal-barriers-inclusive-education",
+        "final_url": "https://www.hrw.org/news/2018/09/13/nepal-barriers-inclusive-education",
+        "fetched_at": "2026-11-25T18:20:34+00:00",
+        "sha256": "c5f5ad270090a8e66c49df467f213ae57308e398567947879d648029d1c60195",
+        "key_words_found": [
+          "inclusive",
+          "education",
+          "disabled",
+          "children",
+          "learn",
+          "schools",
+          "trained",
+          "teachers",
+          "support",
+          "works",
+          "approach",
+          "special",
+          "countries",
+          "main",
+          "barriers",
+          "buildings",
+          "funding",
+          "teacher",
+          "training",
+          "assistive",
+          "devices",
+          "school",
+          "learning"
+        ],
+        "key_words": 33,
+        "by": "a model's reading (claude-sonnet-4-6, web search), verified by code: the page was fetched with the honest client and contains the belief's key words"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The held sources mainly list types of intervention (teacher training, ramps, assistive devices) as ways the goal 'can be achieved', with just one cited case reporting 'increased enrolment for children with disabilities'; they report no measured outcomes from a systematic review and no ranking of programme types.",
+    "sources": [
+      "S006"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-25T18:20:46+00:00",
+    "evidence": {
+      "source": "S006",
+      "offsets": [
+        57973,
+        58226
+      ],
+      "span_sha256": "cfa0b20390a3b509005519cb2fff3cfb36e4b087e99d3e13056894f158d33135"
+    }
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-25T18:20:46+00:00",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        40197,
+        40285
+      ],
+      "span_sha256": "8db2bf6d452a1d07dfe22544a0dcca285666c7db4538cb6eb835934f2bff5e35"
+    },
+    "why": "The sources treat specialist as well as inclusive settings as legitimate routes, and they urge approaches that 'do not necessarily demand extra funding', so the belief that special schools are outdated and that money is the main barrier is only partly supported, though one case does show enrolment g"
+  },
+  "reader_with_a_decision": "A ministry of education official, donor programme officer (e.g. at a bilateral aid agency or the Global Partnership for Education) or NGO lead deciding which disability-education interventions to fund or scale in a low- or middle-income country, and whether the evidence justifies prioritising inclusive models, teacher training, assistive technology, community-based rehabilitation or cash transfers.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Yes: Human Rights Watch (https://www.hrw.org/news/2018/09/13/nepal-barriers-inclusive-education), fetched 2026-11-25, sha256 c5f5ad270090a8e6; the page contains 23 of the belief's 33 key words. A model's reading (web search), checked by code.",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "Systematic reviews and the trials they draw on show consistent, well-measured gains in disabled children's enrolment, attendance and learning outcomes from inclusive-education programmes in low- and middle-income countries. They also clearly rank programme types in the order the belief assumes, with no major gaps between what is claimed and what has been measured.",
+  "kill_condition_tested": {
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "on": "2026-11-25",
+    "result": "survived",
+    "note": "The passages give intervention typologies and a single anecdotal case, not systematic-review evidence of consistent, well-measured gains or a ranking of programme types, so the kill condition is not met.",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        33291,
+        33403
+      ],
+      "span_sha256": "35a06e7eebaf382e4f8dc2085c4a2a26f8e52359f590fc31cfa76ab716762a28"
+    },
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Evaluated programmes and interventions in low- and middle-income countries aimed at improving educational access, participation or learning for children and young people (roughly school age through youth) with disabilities. It compares which intervention types have evidence of effect and how strong that evidence is.",
+    "out": [
+      {
+        "what": "Whether inclusive education is a human right or required under the UN Convention on the Rights of Persons with Disabilities (Article 24)",
+        "why": "That is a legal and normative question, not an empirical question about whether programmes work."
+      },
+      {
+        "what": "Effectiveness of disability-education programmes in high-income countries",
+        "why": "The question is restricted to low- and middle-income settings, where contexts, resources and evidence bases differ."
+      },
+      {
+        "what": "Clinical or medical treatment of specific impairments (e.g. surgery, therapy for autism) without an education outcome",
+        "why": "The page concerns educational outcomes, not health or rehabilitation outcomes in themselves."
+      },
+      {
+        "what": "Prevalence of disability among children in LMICs and the size of the out-of-school gap",
+        "why": "This is descriptive background, not a test of whether interventions work."
+      },
+      {
+        "what": "Cost-effectiveness rankings across all education interventions for all children",
+        "why": "This page judges programmes for disabled learners, not general education investment priorities."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-25T18:02:23+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Quantitative outcomes from randomised or quasi-experimental evaluations, and the meta-analyses of them, reported for children with disabilities in LMICs. These include enrolment, attendance, retention, completion, test scores or learning assessments, and validated measures of participation. Effect sizes, sample sizes and comparison groups count as measured evidence.",
+    "assessed": "Certainty or quality ratings given by systematic reviews or evidence panels, such as GRADE ratings in Campbell or Cochrane reviews, evidence-gap-map judgements, or a review's stated confidence that an intervention type is effective. It also covers judgements about risk of bias and how far findings generalise across countries and impairment types.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-25T18:02:23+00:00"
+  }
+}

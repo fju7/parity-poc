@@ -1,0 +1,24 @@
+{
+ "slug": "whu-lean-orch-t1-q1-02za",
+ "complete": true,
+ "held": [
+  "S001",
+  "S003",
+  "S004",
+  "S006",
+  "S007"
+ ],
+ "not_held": [
+  {
+   "id": "S002",
+   "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+   "reason": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2"
+  },
+  {
+   "id": "S005",
+   "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+   "reason": "nothing in these bytes identifies them as this document (0 of 7 title words, no DOI/PMID/NCT match) (2475 bytes at https://unesdoc.unesco.org/ark:/48223/pf0000373718)"
+  }
+ ],
+ "skipped": []
+}

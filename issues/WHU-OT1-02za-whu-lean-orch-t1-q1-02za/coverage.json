@@ -1,0 +1,54 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@6136-6186": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies a review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T18:18:37+00:00"
+  },
+  "S001@6187-6246": {
+   "state": "not_material",
+   "reason": "The finding only describes the target population of the included studies (25 targeted children with disabilities). It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T18:18:39+00:00"
+  },
+  "S001@6247-6351": {
+   "state": "not_material",
+   "reason": "It only describes who five studies targeted (family members vs service providers). It gives no effect, outcome or evidence-strength result, so it would not change the answer on whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T18:18:43+00:00"
+  },
+  "S001@6352-6481": {
+   "state": "not_material",
+   "reason": "The finding only describes which impairment groups interventions most often targeted (17 studies). It says nothing about whether programmes work or which types work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T18:18:44+00:00"
+  },
+  "S001@6482-6884": {
+   "state": "not_material",
+   "reason": "The finding only reports which intervention category appears most often in the studies, with a dyslexia example. It says nothing about effects or how strong the evidence is, so it does not change the answer on what works best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T18:18:47+00:00"
+  },
+  "S001@8228-8386": {
+   "state": "out_of_scope",
+   "reason": "The finding describes the educational gap and why it exists. It is descriptive background and does not test whether any programme works.",
+   "by": "claude-sonnet-5-5",
+   "element": "Prevalence of disability among children in LMICs and the size of the out-of-school gap",
+   "decided_at": "2026-11-25T18:19:02+00:00"
+  },
+  "S001@8387-8481": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns equalising health outcomes, not educational access, participation or learning, so it falls under health outcomes without an education outcome.",
+   "by": "claude-sonnet-5-5",
+   "element": "Clinical or medical treatment of specific impairments (e.g. surgery, therapy for autism) without an education outcome",
+   "decided_at": "2026-11-25T18:19:05+00:00"
+  }
+ }
+}
