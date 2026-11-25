@@ -39,11 +39,17 @@ def record_from_epmc(rec: dict) -> dict:
 def record_from_fallback(rec: dict, registry: str) -> dict:
     """The same fields from a PubMed or Crossref record (registries.py puts both in Europe PMC's field names), for a
     source confirmed through a fallback registry while Europe PMC was unavailable (ruling after attempt 24)."""
-    authors = [a.strip() for a in (rec.get("authorString") or "").rstrip(".").split(",") if a.strip()]
+    if isinstance(rec.get("authors"), list):     # structured names (ruling 1 after attempt 24's fresh run)
+        authors = [" ".join(a.split()) for a in rec["authors"] if isinstance(a, str) and a.strip()]
+    else:
+        authors = [a.strip() for a in (rec.get("authorString") or "").rstrip(".").split(",") if a.strip()]
     year = rec.get("pubYear")
-    return {"registry": registry, "authors": authors,
-            "year": int(year) if str(year or "").isdigit() else None,
-            "title": rec.get("title") or None, "container": rec.get("journalTitle") or None}
+    out = {"registry": registry, "authors": authors,
+           "year": int(year) if str(year or "").isdigit() else None,
+           "title": rec.get("title") or None, "container": rec.get("journalTitle") or None}
+    if rec.get("authors_registry") and rec["authors_registry"] != authors:
+        out["authors_registry"] = list(rec["authors_registry"])     # the registry's own strings, kept
+    return out
 
 
 def _clean(s: str | None) -> str:

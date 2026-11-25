@@ -227,8 +227,8 @@ def epmc_shaped_from_summary(r: dict) -> dict:
     ids = {a.get("idtype"): a.get("value") for a in r.get("articleids") or []}
     pmc = ids.get("pmc") or ""
     m = re.search(r"PMC\d+", pmc)
-    return {"title": (r.get("title") or "").rstrip(), "authorString": ", ".join(a.get("name") or ""
-                                                                                for a in r.get("authors") or []),
+    names = [" ".join((a.get("name") or "").split()) for a in r.get("authors") or [] if (a.get("name") or "").strip()]
+    return {"title": (r.get("title") or "").rstrip(), "authorString": ", ".join(names), "authors": names,
             "pubYear": (r.get("pubdate") or "")[:4], "doi": ids.get("doi"), "pmid": str(r.get("uid") or ""),
             "pmcid": m.group(0) if m else None, "journalTitle": r.get("fulljournalname") or r.get("source"),
             "registry": "pubmed"}
@@ -337,14 +337,38 @@ def pmc_fulltext(pmcid: str) -> Answer:
 
 # ---- Crossref ----------------------------------------------------------------------------------------------
 
-def epmc_shaped_from_crossref(it: dict) -> dict:
-    authors = []
+# A trailing tenure qualifier on an organisational author name, as library name authorities write it:
+# "UNESCO. Assistant Director-General for Education, 2010-2018 (Qian Tang)" (attempt 24's S006).
+TENURE = re.compile(r",\s*(?:19|20)\d{2}\s*[-\u2013]\s*(?:(?:19|20)\d{2})?\s*\([^()]*\)\s*$")
+
+
+def crossref_authors(it: dict) -> tuple[list[str], list[str]]:
+    """(shown, registry) author names from Crossref's structured fields (advisor's ruling 1 after attempt 24's fresh
+    run): a person is family + initials of given; an organisation is its `name`, with a trailing tenure qualifier
+    (", YYYY-YYYY (...)") dropped from the shown name only. `registry` keeps each name exactly as Crossref gives it.
+    Names are kept as list items -- never joined and split again, so a comma inside a name stays inside it."""
+    shown, full = [], []
     for a in it.get("author") or []:
-        fam = a.get("family") or a.get("name") or ""
-        ini = "".join(p[0] for p in re.split(r"[\s.\-]+", a.get("given") or "") if p)
-        authors.append(("%s %s" % (fam, ini)).strip())
+        if a.get("family"):
+            ini = "".join(p[0] for p in re.split(r"[\s.\-]+", a.get("given") or "") if p)
+            name = ("%s %s" % (a["family"].strip(), ini)).strip()
+            raw = ("%s, %s" % (a["family"].strip(), (a.get("given") or "").strip())).strip(", ")
+        elif a.get("name"):
+            raw = " ".join(a["name"].split())
+            name = TENURE.sub("", raw).strip()
+        else:
+            continue
+        if name:
+            shown.append(name)
+            full.append(raw)
+    return shown, full
+
+
+def epmc_shaped_from_crossref(it: dict) -> dict:
+    authors, registry_authors = crossref_authors(it)
     parts = ((it.get("issued") or {}).get("date-parts") or [[None]])[0]
     return {"title": (it.get("title") or [""])[0], "authorString": ", ".join(a for a in authors if a),
+            "authors": authors, "authors_registry": registry_authors,
             "pubYear": str(parts[0]) if parts and parts[0] else "", "doi": it.get("DOI"),
             "journalTitle": (it.get("container-title") or [None])[0], "registry": "crossref",
             "type": it.get("type")}

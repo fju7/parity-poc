@@ -1,0 +1,131 @@
+{
+ "status": "ok",
+ "message-type": "work",
+ "message": {
+  "indexed": {
+   "date-parts": [
+    [
+     2026,
+     10,
+     30
+    ]
+   ],
+   "date-time": "2026-10-30T09:27:23Z",
+   "timestamp": 1793352443072,
+   "version": "4.5.0"
+  },
+  "reference-count": 0,
+  "publisher": "UNESCO",
+  "isbn-type": [
+   {
+    "value": "9789231002229",
+    "type": "print"
+   }
+  ],
+  "content-domain": {
+   "domain": [],
+   "crossmark-restriction": false
+  },
+  "short-container-title": [],
+  "published-print": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "DOI": "10.54675/mhhz2237",
+  "type": "edited-book",
+  "created": {
+   "date-parts": [
+    [
+     2023,
+     4,
+     27
+    ]
+   ],
+   "date-time": "2023-04-27T05:42:10Z",
+   "timestamp": 1682574130000
+  },
+  "source": "Crossref",
+  "is-referenced-by-count": 73,
+  "title": [
+   "A Guide for ensuring inclusion and equity in education"
+  ],
+  "prefix": "10.54675",
+  "author": [
+   {
+    "name": "UNESCO. Assistant Director-General for Education, 2010-2018 (Qian Tang)",
+    "sequence": "first",
+    "affiliation": [],
+    "role": [
+     {
+      "vocabulary": "crossref",
+      "role": "author"
+     }
+    ]
+   },
+   {
+    "name": "UNESCO",
+    "sequence": "additional",
+    "affiliation": [],
+    "role": [
+     {
+      "vocabulary": "crossref",
+      "role": "author"
+     }
+    ]
+   }
+  ],
+  "member": "11647",
+  "published-online": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "container-title": [],
+  "original-title": [],
+  "deposited": {
+   "date-parts": [
+    [
+     2023,
+     4,
+     27
+    ]
+   ],
+   "date-time": "2023-04-27T05:42:12Z",
+   "timestamp": 1682574132000
+  },
+  "score": 1,
+  "resource": {
+   "primary": {
+    "URL": "https://unesdoc.unesco.org/ark:/48223/pf0000248254"
+   }
+  },
+  "subtitle": [],
+  "short-title": [],
+  "issued": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "ISBN": [
+   "9789231002229"
+  ],
+  "references-count": 0,
+  "URL": "https://doi.org/10.54675/mhhz2237",
+  "relation": {},
+  "subject": [],
+  "published": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  }
+ }
+}

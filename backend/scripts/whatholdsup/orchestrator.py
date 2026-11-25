@@ -232,16 +232,21 @@ def run_step(ctx: Ctx, step) -> dict:
         _log_failed(ctx, step, result, e)
         raise
     after = CH.snapshot(ctx.case, ctx.slug)
-    bad = CH.violations(CH.diff(before, after), ST.owns_for(step, ctx.slug)) + page_bad
-    bad += ["frozen field changed: %s" % b for b in CH.frozen_breaks(ctx.case, ctx.frozen)]
+    owners = CH.violations(CH.diff(before, after), ST.owns_for(step, ctx.slug))
+    owners += ["frozen field changed: %s" % b for b in CH.frozen_breaks(ctx.case, ctx.frozen)]
+    bad = owners + page_bad
     split = [b for b in bad if b.startswith(SPLIT_PREFIX)]
     if split:                    # the standing check (ruling after attempt 15): its own stop, before any paid audit
         e = RunStop("%s: %d page sentence(s) are not the audit's units, stopped at $0: %s"
                     % (step.name, len(split), "; ".join(split[:3])))
         _log_failed(ctx, step, result, e)
         raise e
-    if bad:
+    if owners:                   # a record written outside its owner, or a frozen field changed
         e = RunStop("%s: %s: %s" % (step.name, CH.STOP, "; ".join(bad[:6])))
+        _log_failed(ctx, step, result, e)
+        raise e
+    if page_bad:                 # ruling 3 after attempt 24's fresh run: a check finding is not an ownership breach
+        e = RunStop("%s: %s: %s" % (step.name, CHECK_STOP, "; ".join(page_bad[:6])))
         _log_failed(ctx, step, result, e)
         raise e
     for name, (fn, after_step, _why) in CH.FROZEN.items():
@@ -297,6 +302,9 @@ def _account_page(ctx: Ctx, step) -> list[str]:
 
 
 HOLDING_PREFIX = "cites a source not held: "
+# The stop for a standing check's findings on the page (page accounting, source-list entries, holdings), worded
+# apart from orch/chain.STOP, which is for a record written outside the step that owns it.
+CHECK_STOP = "the page failed a standing check"
 
 
 def holding_problems(ctx: Ctx, html: str) -> list[str]:
