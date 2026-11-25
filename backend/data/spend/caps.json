@@ -30,7 +30,8 @@
     "whu-lean-orch-t1-q1-02v": 10,
     "whu-lean-orch-t1-q1-02w": 10,
     "whu-lean-orch-t1-q1-02x": 10,
-    "whu-lean-orch-t1-q1-02y": 9.0272
+    "whu-lean-orch-t1-q1-02y": 9.0272,
+    "whu-lean-orch-t1-q1-02z": 8.3911
   },
   "study_per_issue": 50,
   "_why_the_study_cap": "ruled 2026-10-20, protocol rev 27. Each reliability-study issue (issue.json \"study\": true) has a $50 limit, set before the freeze. If an answer cannot finish within it, that is recorded as a result and the limit is not raised. The day cap below still applies, and a run picks up the next day.",
