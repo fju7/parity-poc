@@ -298,7 +298,8 @@ def _account_page(ctx: Ctx, step) -> list[str]:
     bad = AA.problems(ctx.case, page, generated, getattr(ctx, "page_prev", None))
     ctx.page_prev = AA.on_page(page)
     html = ctx.page.read_text(encoding="utf-8") if ctx.page.exists() else ""
-    return bad + splitter_mismatches(ctx.slug, page, html) + entry_problems(ctx, html) + holding_problems(ctx, html)
+    return (bad + splitter_mismatches(ctx.slug, page, html) + entry_problems(ctx, html) + holding_problems(ctx, html)
+            + binding_problems(ctx, page, html))
 
 
 HOLDING_PREFIX = "cites a source not held: "
@@ -845,8 +846,10 @@ def _generated_blocks(ctx: Ctx) -> tuple[str, str, str]:
     gen = LS.render(LS.generated(ctx.slug))
     lines = [l for l in str(gen).splitlines() if l.strip()]
     q = [l for l in lines if "The question is:" in l]
-    rest = [l for l in lines if l not in q and "Findings in our sources we judged" not in l
-            and not l.strip().startswith(("<p>Judged", "<p>Not added", "<p>Already stated"))]
+    # P103: every declaration line (each LEAD, "Outside this question:" included) is the readers' list's alone, so a
+    # declaration appears once on the page; before, out-of-scope lines leaked into the limits block too.
+    leads = tuple("<p>" + v for v in sorted(set(C.LEAD.values()))) + ("<p>Already stated",)
+    rest = [l for l in lines if l not in q and C.HEADING not in l and not l.strip().startswith(leads)]
     readers = C.render(C.declarations(ctx.slug, R.held_texts(ctx.slug)))
     return "\n".join(q), "\n".join(rest), readers
 
@@ -909,6 +912,59 @@ def _rerender(ctx: Ctx, page) -> None:
             pass
     page.save(ctx.page_json)
     ctx.page.write_text(page.render(), encoding="utf-8")
+    bind_readers_lines(ctx, page)
+
+
+def readers_lines(page, slug: str) -> list[str]:
+    """The readers' list's lines as the page splits them, its heading left out."""
+    import bindings as B
+    import coverage_check as C
+    from orch.page import norm
+    html = "".join(b.get("html") or "" for b in page.blocks() if b.get("section") == "readers")
+    if not html.strip():
+        return []
+    return [norm(x) for x in B.page_sentences(slug, html="<div>%s</div>" % html) if norm(x) and norm(x) != C.HEADING]
+
+
+def _bindings_doc(ctx: Ctx):
+    """The case's bindings document, or None for a case with no case folder under issues/ (a unit test's tmp case:
+    nothing is bound there, so there is nothing to bind, take off the page or check)."""
+    import bindings as B
+    try:
+        B.path(ctx.slug)
+    except SystemExit:
+        return None
+    return B.load(ctx.slug)
+
+
+def bind_readers_lines(ctx: Ctx, page) -> dict:
+    """P103: each readers'-list line is bound by code from its record (bindings.bind_declaration_lines: the
+    declaration's source, offsets and the quotation the line carries, located in the held text) every time the list
+    is written; a declaration binding whose line has left the list goes off the page. A line the binder cannot bind
+    is left unbound, and the standing check (binding_problems) stops the run on it."""
+    import bindings as B
+    import ruling as R
+    from datetime import date
+    doc = _bindings_doc(ctx)
+    if doc is None:
+        return {"bound": 0, "off": 0}
+    lines = readers_lines(page, ctx.slug)
+    rows = doc.setdefault("bindings", {})
+    decl = {k for k, v in rows.items() if isinstance(v, dict) and B.is_declaration_row(v)}
+    if not lines and not decl:
+        return {"bound": 0, "off": 0}
+    bound = B.bind_declaration_lines(ctx.slug, rows, sentences=lines, held=R.held_texts(ctx.slug))
+    here = {B.fingerprint(x) for x in lines}
+    off = 0
+    for k in decl:
+        r = rows[k]
+        if r.get("on_page") and k not in here:
+            r["on_page"] = False
+            r["off_page_by"] = "readers' list regenerated"
+            r["left_page"] = r.get("left_page") or date.today().isoformat()
+            off += 1
+    B.save(ctx.slug, doc)
+    return {"bound": len(bound), "off": off}
 
 
 def code_bind(ctx: Ctx, step, only: list[str] | None = None) -> dict:
@@ -923,10 +979,13 @@ def code_bind(ctx: Ctx, step, only: list[str] | None = None) -> dict:
     shas = {s.get("id"): ((s.get("access") or {}).get("held") or {}).get("sha256")
             for s in json.loads((ctx.case / "sources.json").read_text(encoding="utf-8")).get("sources") or []}
     bound = 0
+    # P101: provenance keeps the passages of a sentence a ruling replaced or removed; such a sentence is not on the
+    # page and is never bound (or marked on_page) again.
+    here = {norm(x) for x in page.sentences()}
     for sentence, provs in (page.doc.get("provenance") or {}).items():
         if only is not None and norm(sentence) not in {norm(x) for x in only}:
             continue
-        if not provs:
+        if not provs or norm(sentence) not in here:
             continue
         sha = B.fingerprint(sentence)
         row = rows.get(sha) or B.blank_row(sentence, "drafted from a passage (orchestrator)")
@@ -1051,6 +1110,100 @@ def code_judgements(ctx: Ctx, step) -> dict:
         "; %d declared, not one sentence after one re-ask" % declared_not_one if declared_not_one else "")}
 
 
+def bindings_off_page(ctx: Ctx, ops: list[dict]) -> int:
+    """Advisor's ruling 1 after the P100 build (P101): when a ruling replaces or removes a sentence, its bindings entry
+    is set on_page: false with the ruling's id (off_page_by; a repeated removal is added to also_removed_by), and the
+    replacement gets its own entry (code_bind, after this). Returns the number of entries taken off the page."""
+    import bindings as B
+    from datetime import date
+    from orch.page import Page, norm, split
+    doc = _bindings_doc(ctx) if ops else None
+    if doc is None:
+        return 0
+    rows = doc.setdefault("bindings", {})
+    here = {B.fingerprint(x) for x in Page.load(ctx.page_json).sentences()}
+    n = 0
+    for op in ops:
+        if op.get("op") not in ("replace", "delete") or not op.get("old"):
+            continue
+        sha = B.fingerprint(norm(op["old"]))
+        row = rows.get(sha)
+        if row is None or sha in here:
+            continue
+        if op.get("already_removed"):
+            row.setdefault("also_removed_by", [])
+            if op["key"] not in row["also_removed_by"]:
+                row["also_removed_by"].append(op["key"])
+        if row.get("on_page") or not row.get("off_page_by"):
+            row["on_page"] = False
+            row["off_page_by"] = op.get("removed_by") if op.get("already_removed") else op["key"]
+            row["left_page"] = row.get("left_page") or date.today().isoformat()
+            new = [B.fingerprint(x) for x in split(op.get("new") or "")]
+            if new:
+                row["replaced_by"] = new
+            n += 1
+    B.save(ctx.slug, doc)
+    return n
+
+
+BINDING_PREFIX = "bindings and page disagree: "
+
+
+def binding_problems(ctx: Ctx, page, html: str) -> list[str]:
+    """Standing check (advisor's ruling 2 after the P100 build, P101), after every step that changes the page, once
+    any binding exists: the on_page bindings and the page's sentences agree by text hash.
+      - every on_page entry is a sentence on the page (its prose, its code-written lines, its footer);
+      - every prose sentence on the page that rests on passages (page provenance) has an on_page entry.
+    Code-written lines (the question frame, readers' list, recency note, source list) are bound by their own
+    generators with their own sentence split, so they are held to the first direction only."""
+    import bindings as B
+    from orch.page import norm
+    rows = (_bindings_doc(ctx) or {}).get("bindings") or {}
+    if not rows:
+        return []
+    shown = {B.fingerprint(x) for x in page.sentences()}
+    if html:
+        shown |= {B.fingerprint(x) for x in B.page_sentences(ctx.slug, html=html)}
+    shown |= {B.fingerprint(x) for x in B.footer_sentences(ctx.slug)}
+    on = {k for k, v in rows.items() if isinstance(v, dict) and v.get("on_page")}
+    bad = ["on_page entry %s is not on the page: %r" % (k, (rows[k].get("sentence") or "")[:100])
+           for k in sorted(on - shown)]
+    prov = {norm(k) for k, v in (page.doc.get("provenance") or {}).items() if v}
+    for b in page.blocks():
+        if b.get("tag") != "p":
+            continue
+        for x in b.get("sentences") or []:
+            if norm(x) in prov and B.fingerprint(x) not in on:
+                bad.append("page sentence %s has no on_page entry: %r" % (B.fingerprint(x), norm(x)[:100]))
+    bad += readers_problems(ctx, page, rows, on)
+    return [BINDING_PREFIX + b for b in bad]
+
+
+def readers_problems(ctx: Ctx, page, rows: dict, on: set) -> list[str]:
+    """P103: a readers'-list line has a record (coverage_check.declarations: its source, offsets and quotation) and an
+    on_page declaration binding; every on_page declaration binding is a line of the readers' list. The list's heading
+    is held to the first direction only, like the page's other headings."""
+    import bindings as B
+    import coverage_check as C
+    import ruling as R
+    from orch.page import norm
+    lines = readers_lines(page, ctx.slug)
+    here = {B.fingerprint(x) for x in lines}
+    bad = []
+    if lines:
+        recs = {norm(d.get("sentence") or "") for d in C.declarations(ctx.slug, R.held_texts(ctx.slug))}
+        for x in lines:
+            f = B.fingerprint(x)
+            if x not in recs:
+                bad.append("readers'-list line %s has no record: %r" % (f, x[:100]))
+            if not (f in on and B.is_declaration_row(rows.get(f) or {})):
+                bad.append("readers'-list line %s has no on_page binding: %r" % (f, x[:100]))
+    for k in sorted(on):
+        if B.is_declaration_row(rows.get(k) or {}) and k not in here:
+            bad.append("declaration binding %s is not a readers'-list line: %r" % (k, (rows[k].get("sentence") or "")[:100]))
+    return bad
+
+
 def code_apply(ctx: Ctx, step) -> dict:
     from orch import apply as AP
     from orch.page import Page
@@ -1075,6 +1228,7 @@ def code_apply(ctx: Ctx, step) -> dict:
                     prov[s] = [{"source": op["source"], "start": op["at"][0], "end": op["at"][1]}]
         page.save(ctx.page_json)
         ctx.page.write_text(page.render(), encoding="utf-8")
+        bindings_off_page(ctx, ops)
         code_bind(ctx, step, only=AP.bind_changed(sorted(AP.produced(ops)), ops))
     res = AC.check(ctx.case, ctx.page.read_text(encoding="utf-8"))
     if res["mismatches"]:
@@ -1765,6 +1919,8 @@ def main(argv=None) -> int:
             print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]]}, indent=1))
             return 0
         lib = trial_library(a.slug)
+        from orch import run_env as RE
+        environment = RE.capture()        # P103: probes of this run read it back (orch/run_env.py)
         ctx = Ctx(a.slug, a.mode)
         record_name = "run_paid.json" if a.mode == "paid" else "run_rehearse.json"
         resumed = None
@@ -1782,6 +1938,7 @@ def main(argv=None) -> int:
                               "verified_files": len(resumed["hashes"]),
                               "code_changed_from": resumed.get("code_changed_from")}
         out["library_root"] = lib
+        out["environment"] = environment
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)
         out["models_reported"] = record_models_reported(ctx)   # the model id each response reported (advisor)
         out["provenance_manifest"] = write_run_manifest(a.slug)
@@ -1792,6 +1949,13 @@ def main(argv=None) -> int:
         print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]],
                           "sources": out["sources"]}, indent=1, ensure_ascii=False))
         return 0 if out["result"] == "Ready." else 1
+    if a.cmd in ("status", "replay", "estimate"):
+        from orch import run_env as RE          # P103: a probe sees what the run saw
+        try:
+            RE.use_for([a.slug] if a.cmd == "status" else a.slug)
+        except RE.RunsDisagree as e:
+            print("refusing: %s" % e)
+            return 2
     if a.cmd == "status":
         case = next((ROOT / "issues").glob("WHU-*-%s" % a.slug))
         bad = CH.check(case, a.slug)

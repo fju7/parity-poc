@@ -6,6 +6,8 @@ What is applied, oldest first by the log's time:
   - audit cuts (applied_check.load_cuts): the sentence leaves;
   - omission ADDs (omissions.json, outcome ADD): inserted directly after the sentence they name;
   - lean fail-safe removals (rulings/lean_removed.jsonl, outcome OUTCOME): the sentence leaves.
+    A removal of a sentence an earlier record of the same run already removed is recorded against that
+    removal, not an error (P100); a removal of a sentence never on the page is NotPlaced.
     A fail-safe STOP on a required line removes nothing (the line stays; the page is Not Ready).
 
 Each record is applied once: the applied ones are listed in orchestrator/applied.jsonl by a key of
@@ -82,10 +84,47 @@ def pending(case: Path) -> list[tuple[str, str, dict]]:
     return sorted((x for x in out if x[0] not in done), key=lambda x: x[1])
 
 
+def _removed_earlier(case: Path) -> dict:
+    """{whitespace-collapsed sentence: key of the record that removed it} over this run's applied log: deletes, and
+    replaces whose new text is empty (a removal). A record that only noted a repeat is not itself a removal."""
+    out = {}
+    p = case / APPLIED_LOG
+    if p.exists():
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            if r.get("already_removed") or not r.get("old"):
+                continue
+            if r.get("op") == "delete" or (r.get("op") == "replace" and not split(r.get("new") or "")):
+                out.setdefault(norm(r["old"]), r.get("key"))
+    return out
+
+
+def _on_page(page: Page, sentence: str) -> bool:
+    try:
+        page._find(sentence)
+        return True
+    except NotPlaced:
+        return False
+
+
 def apply_all(case: Path, page: Page) -> list[dict]:
-    """Apply every pending record to PAGE (not saved here). Returns the operations; raises NotPlaced."""
+    """Apply every pending record to PAGE (not saved here). Returns the operations; raises NotPlaced.
+
+    IDEMPOTENT REMOVALS (advisor's ruling 1 after attempt 24's second fresh run, P100): when several findings remove
+    the same sentence, it is removed once and every later finding is recorded against that removal
+    (already_removed, removed_by) -- not an error. A removal of a sentence that was never on the page, i.e. that no
+    earlier record of this run removed, is still NotPlaced."""
     made = []
+    removed = _removed_earlier(case)
     for key, _at, op in pending(case):
+        if op["op"] in ("replace", "delete") and not split(op.get("new") or "") \
+                and norm(op["old"]) in removed and not _on_page(page, op["old"]):
+            op = dict(op, already_removed=True, removed_by=removed[norm(op["old"])])
+            _mark(case, key, op)
+            made.append(dict(op, key=key))
+            continue
         if op["op"] == "replace":
             page.replace(op["old"], op["new"], op["why"])
         elif op["op"] == "delete":
@@ -94,6 +133,8 @@ def apply_all(case: Path, page: Page) -> list[dict]:
             page.insert_after(op["anchor"], op["new"], op["why"])
         _mark(case, key, op)
         made.append(dict(op, key=key))
+        if op["op"] in ("replace", "delete") and not split(op.get("new") or ""):
+            removed.setdefault(norm(op["old"]), key)
     return made
 
 
