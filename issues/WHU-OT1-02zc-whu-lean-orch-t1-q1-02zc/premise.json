@@ -1,0 +1,123 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Inclusive education works. Putting children with disabilities in mainstream schools, training teachers, making buildings accessible and providing assistive devices such as glasses, hearing aids and wheelchairs gets more disabled children into school and helps them learn. Inclusive approaches beat separate special schools. The main obstacle in poorer countries is money and political will, not knowing what works.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The held passages describe an 'ongoing and important debate' over inclusive versus segregated education, call inclusive education 'a thorny issue' with widely differing definitions, and say some children 'may benefit from separate instruction'; they report no effect sizes or certainty ratings for any programme.",
+    "sources": [
+      "S001"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-25T21:48:54+00:00",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        17264,
+        17475
+      ],
+      "span_sha256": "9a1302d5dfcb4bbadb865e089fa15894c80668ce60d72541bd176338bb7e938f"
+    }
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-25T21:48:54+00:00",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        20135,
+        20291
+      ],
+      "span_sha256": "1a7246e35fac07877c7fc0393dc5b541549d5f391c4713bcb83095a1138efed5"
+    },
+    "why": "The source accepts that the named programme types (teacher training, accessibility, assistive devices) aim to address real barriers, but it undercuts the claim that inclusion beats special schools for all children, pointing for example to difficulties for Deaf children in mainstream schools."
+  },
+  "reader_with_a_decision": "Education ministry planners and donor or multilateral funders (e.g. FCDO, USAID, World Bank, UNICEF, GPE) and implementing NGOs deciding which disability-inclusive education programmes to fund, scale or stop, such as teacher training, assistive technology, community-based rehabilitation, cash transfers, school accessibility or specialised provision. Also whether to fund more evaluation before scaling.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "Rigorous evaluations from low- and middle-income countries (randomised or credible quasi-experimental) consistently show that these programmes raise enrolment, attendance or learning for children and young people with disabilities. Systematic reviews rate that evidence moderate or high certainty, and the programme types it favours match those the common belief names. If so, the belief is simply confirmed and there is no story.",
+  "kill_condition_tested": {
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "on": "2026-11-25",
+    "result": "survived",
+    "note": "The passages show no rigorous LMIC evaluations consistently raising enrolment, attendance or learning, and no moderate- or high-certainty ratings; they instead show definitional ambiguity and an unresolved debate, so the kill condition was not met.",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        20754,
+        20905
+      ],
+      "span_sha256": "ea716a677f5c42115b1d5442bfcc0765f68df14e1618424afff75cee7b6538bb"
+    },
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Interventions intended to improve educational access, participation, retention or learning for children and young people (roughly school age through youth) with any type of disability in low- and middle-income countries. Covers whether such programmes have measurable effects and how effects compare across programme types and disability types.",
+    "out": [
+      {
+        "what": "Disability-inclusive education in high-income countries",
+        "why": "Different systems, resources and evidence base. The question is specifically about LMICs."
+      },
+      {
+        "what": "Whether inclusion is a human right or legal obligation (e.g. under the UN Convention on the Rights of Persons with Disabilities, Article 24)",
+        "why": "A normative and legal question, not an empirical one about programme effectiveness."
+      },
+      {
+        "what": "How many children with disabilities are out of school, and how disability is measured (e.g. the Washington Group questions)",
+        "why": "Prevalence and measurement describe the problem. They do not test whether programmes solve it."
+      },
+      {
+        "what": "Health or rehabilitation interventions judged only on clinical outcomes",
+        "why": "Only educational outcomes are in scope. Medical effects alone do not answer the question."
+      },
+      {
+        "what": "Adult education and employment programmes for people with disabilities",
+        "why": "The question is limited to children and young people's education."
+      },
+      {
+        "what": "Detailed cost-effectiveness comparisons",
+        "why": "Costing data are likely sparse. This page judges effectiveness, and costs are mentioned only where sources report them."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-25T21:42:35+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Effect sizes from randomised trials, quasi-experimental and controlled before-after studies in LMICs on outcomes for children and young people with disabilities: enrolment, attendance, dropout and retention, completion, learning or test scores, and classroom participation. Also counts of how many such studies exist per programme type and disability type, and their sample sizes.",
+    "assessed": "Certainty or confidence ratings given by systematic reviews, evidence gap maps or expert panels (e.g. GRADE ratings in Campbell or 3ie reviews, or WHO, UNICEF or World Bank evidence assessments) on whether each programme type improves educational outcomes. Includes reviewers' judgements on risk of bias and on how much of the evidence base is too weak to draw conclusions from.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-25T21:42:35+00:00"
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income",
+      "checked_on": "2026-11-25",
+      "identifier": "PMCID PMC11799928",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC11799928",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 39917627",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 39917627"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/cl2.70016",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/cl2.70016 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1177/sage-journals-update-policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and L",
+      "checked_on": "2026-11-25",
+      "identifier": "DOI 10.1080/1034912X.2022.2095359",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1080/1034912X.2022.2095359",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1080/1034912X.2022.2095359\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1080/1034912X.2022.2095359",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1080/1034912X.2022.2095359"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1080/1034912X.2022.2095359",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1080/1034912X.2022.2095359 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1080/tandf_crossmark_01",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and mid",
+      "checked_on": "2026-11-25",
+      "identifier": "PMCID PMC8356326",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC8356326",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 37131970",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 37131970"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/cl2.1070",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/cl2.1070 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "37133285",
+          "reference": "Campbell Syst Rev. 2020 Jul 12;16(3):e1104. doi: 10.1002/cl2.1104",
+          "type": "Erratum in",
+          "orderIn": 1
+        },
+        {
+          "type": "correction",
+          "id": "10.1002/cl2.1104",
+          "source": "Crossref updated-by",
+          "registry": "Crossref"
+        }
+      ],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1177/sage-journals-update-policy",
+      "state": "AMENDED",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence ",
+      "checked_on": "2026-11-25",
+      "identifier": "PMCID PMC9700054",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC9700054",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 36908831",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 36908831"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/cl2.1287",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/cl2.1287 at Crossref"
+        }
+      ],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "36950346",
+          "reference": "Campbell Syst Rev. 2021 Nov 09;17(4):e1201. doi: 10.1002/cl2.1201",
+          "type": "Comment in",
+          "orderIn": 2
+        }
+      ],
+      "amendments": [
+        {
+          "source": "MED",
+          "id": "36913230",
+          "reference": "Campbell Syst Rev. 2023 Feb 25;19(1):e1315. doi: 10.1002/cl2.1315",
+          "type": "Erratum in",
+          "orderIn": 1
+        }
+      ],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1177/sage-journals-update-policy",
+      "state": "AMENDED",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+      "checked_on": "2026-11-25",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and M",
+      "checked_on": "2026-11-25",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S007": {
+      "source": "S007",
+      "title": "Inclusive Education as Global Development Policy",
+      "checked_on": "2026-11-25",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

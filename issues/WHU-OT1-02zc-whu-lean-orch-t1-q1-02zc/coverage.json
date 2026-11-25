@@ -1,0 +1,54 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T21:47:17+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes who the studies targeted (a study-population count). It does not report whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T21:47:19+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "It only says how five studies split between targeting family members and service providers. It reports no effects or comparisons, so it does not change whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T21:47:22+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding only counts which disability groups interventions most often targeted. It does not say whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T21:47:24+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appeared most often across studies, a description of the evidence base. It reports no effect size or comparison of effectiveness, so it does not answer whether programmes work or which work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T21:47:25+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "not_material",
+   "reason": "It describes why children with disabilities fall behind, which is background on the problem. It reports no programme effects and compares no programme types, so it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-25T21:47:36+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns health outcomes, not educational outcomes. Health or rehabilitation interventions judged only on non-educational outcomes fall outside the question's scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health or rehabilitation interventions judged only on clinical outcomes",
+   "decided_at": "2026-11-25T21:47:38+00:00"
+  }
+ }
+}

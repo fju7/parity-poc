@@ -1,0 +1,1018 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "review",
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+      "year": 2025,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Hunt",
+      "used_for": "Most recent Campbell systematic review directly answering which education interventions work for disabled people in LMICs.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review",
+        "first_author": "Hunt",
+        "year": 2025
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "9 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/cl2.70016",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Hunt X",
+          "Saran A",
+          "White H",
+          "Kuper H"
+        ],
+        "year": 2025,
+        "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+        "container": "Campbell systematic reviews"
+      },
+      "pmid": "39917627",
+      "pmcid": "PMC11799928",
+      "url": "https://europepmc.org/article/PMC/PMC11799928",
+      "also_called": [
+        "Effectiveness of interventions for improving educational outcomes for people wit"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+          "sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+          "bytes": 395517,
+          "identified_by": "contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "165887 characters, reference list and discussion present"
+        },
+        "on": "2026-11-25"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC11799928",
+          "PubMed PMID 39917627",
+          "Crossref 10.1002/cl2.70016"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC11799928, PMID 39917627, DOI 10.1002/cl2.70016",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC11799928",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 39917627",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 39917627",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/cl2.70016",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/cl2.70016 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-25"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "review",
+      "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+      "year": 2022,
+      "container": "International Journal of Disability, Development and Education",
+      "authors": "Mendoza",
+      "used_for": "First systematic review of inclusive education interventions specifically in low- and lower-middle-income countries; 31 studies across 19 countries.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+        "first_author": "Mendoza",
+        "year": 2022
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1080/1034912x.2022.2095359",
+      "registry": "crossref",
+      "registry_record": {
+        "registry": "crossref",
+        "authors": [
+          "Mendoza M",
+          "Heymann J"
+        ],
+        "year": 2022,
+        "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+        "container": "International Journal of Disability, Development and Education",
+        "authors_registry": [
+          "Mendoza, Melissa",
+          "Heymann, Jody"
+        ]
+      },
+      "url": "https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359",
+      "also_called": [
+        "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusi"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": "10.1080/1034912x.2022.2095359",
+          "found": [
+            {
+              "where": "International Journal of Disability Development and Education",
+              "host_type": "journal",
+              "url": "https://doi.org/10.1080/1034912x.2022.2095359",
+              "version": "publishedVersion",
+              "is_oa": true,
+              "licence": "cc-by-nc-nd",
+              "licence_from": "OpenAlex location record",
+              "permitted": false,
+              "why": "the copy that was already refused (doi.org)"
+            },
+            {
+              "where": "eScholarship (California Digital Library)",
+              "host_type": "repository",
+              "url": "https://escholarship.org/uc/item/0bs2s446",
+              "version": "submittedVersion",
+              "is_oa": true,
+              "licence": "cc-by-nc-nd",
+              "licence_from": "OpenAlex location record",
+              "permitted": false,
+              "why": "a submitted version (preprint, before peer review): refused until a labelled design exists"
+            }
+          ],
+          "tried": [],
+          "outcome": "no permitted open copy listed",
+          "on": "2026-11-25"
+        },
+        "last_fetch": {
+          "on": "2026-11-25",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed",
+          "tried": [
+            {
+              "url": "https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359",
+              "result": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2",
+              "unavailable": false
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no permitted open copy listed",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed",
+        "on": "2026-11-25"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC DOI 10.1080/1034912x.2022.2095359: Europe PMC has no record (DOI:\"10.1080/1034912x.2022.2095359\")",
+          "Europe PMC DOI 10.1080/1034912X.2022.2095359: Europe PMC has no record (DOI:\"10.1080/1034912X.2022.2095359\")",
+          "PubMed DOI 10.1080/1034912x.2022.2095359: PubMed has no record for DOI 10.1080/1034912x.2022.2095359",
+          "Crossref 10.1080/1034912x.2022.2095359"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "DOI 10.1080/1034912x.2022.2095359, DOI 10.1080/1034912X.2022.2095359",
+            "answered": true,
+            "record": "none",
+            "why": "Europe PMC DOI 10.1080/1034912x.2022.2095359: Europe PMC has no record (DOI:\"10.1080/1034912x.2022.2095359\"); Europe PMC DOI 10.1080/1034912X.2022.2095359: Europe PMC has no record (DOI:\"10.1080/1034912X.2022.2095359\")",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "DOI 10.1080/1034912x.2022.2095359",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for DOI 10.1080/1034912x.2022.2095359",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1080/1034912x.2022.2095359",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1080/1034912x.2022.2095359 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-25"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "synthesis",
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+      "year": 2020,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Saran",
+      "used_for": "Comprehensive evidence and gap map covering education and other outcomes for disability interventions in LMICs; identifies evidence gaps.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low‐and middle‐income countries",
+        "first_author": "Saran",
+        "year": 2020
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "9 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/cl2.1070",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Saran A",
+          "White H",
+          "Kuper H"
+        ],
+        "year": 2020,
+        "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+        "container": "Campbell systematic reviews"
+      },
+      "pmid": "37131970",
+      "pmcid": "PMC8356326",
+      "url": "https://europepmc.org/article/PMC/PMC8356326",
+      "also_called": [
+        "Evidence and gap map of studies assessing the effectiveness of interventions for"
+      ],
+      "access": {
+        "state": "blocked",
+        "held": {
+          "file": "docs/08/088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3.xml",
+          "sha256": "088ff6d71f68551e1fcc99687d33cfc34716cf17a325401d43d5996ed56139a3",
+          "bytes": 379448,
+          "identified_by": "contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "157297 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-25",
+        "not_held": {
+          "line": "correction_not_held",
+          "why": "Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served (Europe PMC metadata: isOpenAccess N); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.)"
+        },
+        "blocked_by": "orchestrator acquire (correction_not_held): Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served (Europe PMC metadata: isOpenAccess N); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.)"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC8356326",
+          "PubMed PMID 37131970",
+          "Crossref 10.1002/cl2.1070"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC8356326, PMID 37131970, DOI 10.1002/cl2.1070",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC8356326",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 37131970",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 37131970",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/cl2.1070",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/cl2.1070 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [
+          {
+            "id": "37133285",
+            "registry": "MED",
+            "type": "Erratum in",
+            "found_by": [
+              "Europe PMC",
+              "PubMed"
+            ]
+          },
+          {
+            "id": "10.1002/cl2.1104",
+            "registry": "DOI",
+            "type": "correction",
+            "found_by": [
+              "Crossref"
+            ]
+          }
+        ],
+        "on": "2026-11-25"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "synthesis",
+      "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+      "year": 2022,
+      "container": "Campbell Systematic Reviews",
+      "authors": "Ahmed",
+      "used_for": "Evidence and gap map on teacher training interventions for disability-inclusive education in LMIC Asia-Pacific; 50 studies across 16 countries.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Teacher professional development for disability inclusion in low‐ and middle‐income Asia‐Pacific countries: An evidence and gap map",
+        "first_author": "Ahmed",
+        "year": 2022
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/cl2.1287",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Ahmed SK",
+          "Jeffries D",
+          "Chakraborty A",
+          "Carslake T",
+          "Lietz P",
+          "Rahayu B",
+          "Armstrong D",
+          "Kaushik A",
+          "Sundarsagar K"
+        ],
+        "year": 2022,
+        "title": "Teacher professional development for disability inclusion in low- and middle-income Asia-Pacific countries: An evidence and gap map.",
+        "container": "Campbell systematic reviews"
+      },
+      "pmid": "36908831",
+      "pmcid": "PMC9700054",
+      "url": "https://europepmc.org/article/PMC/PMC9700054",
+      "also_called": [
+        "Teacher professional development for disability inclusion in low- and middle-inc"
+      ],
+      "access": {
+        "state": "blocked",
+        "held": {
+          "file": "docs/3e/3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81.xml",
+          "sha256": "3ebd2067369d0b301adc51503c284b6f67621b1c1a1b9b0e02073cac01841b81",
+          "bytes": 392279,
+          "identified_by": "contains its identifier PMC9700054 — 184771 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "184771 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-25",
+        "not_held": {
+          "line": "correction_unread",
+          "why": "Erratum in 36913230: the notice's text does not name this source by title, DOI or PMID"
+        },
+        "blocked_by": "orchestrator acquire (correction_unread): Erratum in 36913230: the notice's text does not name this source by title, DOI or PMID"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC9700054",
+          "PubMed PMID 36908831",
+          "Crossref 10.1002/cl2.1287"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC9700054, PMID 36908831, DOI 10.1002/cl2.1287",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC9700054",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 36908831",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 36908831",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/cl2.1287",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/cl2.1287 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [
+          {
+            "id": "36913230",
+            "registry": "MED",
+            "type": "Erratum in",
+            "found_by": [
+              "Europe PMC",
+              "PubMed"
+            ]
+          }
+        ],
+        "on": "2026-11-25"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "assessment_summary",
+      "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+      "year": 2020,
+      "container": "UNESCO",
+      "authors": "UNESCO",
+      "used_for": "Major global assessment of inclusive education policies and implementation worldwide, including disability and LMIC contexts.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all",
+        "first_author": "UNESCO",
+        "year": 2020
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.54676/jjnk6989",
+      "registry": "crossref",
+      "registry_record": {
+        "registry": "crossref",
+        "authors": [
+          "UNESCO"
+        ],
+        "year": 2020,
+        "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+        "container": null
+      },
+      "url": "https://gem-report-2020.unesco.org/thematic/",
+      "also_called": [
+        "Global Education Monitoring Report 2020: Inclusion and education: All means all."
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": "10.54676/jjnk6989",
+          "found": [
+            {
+              "where": "UNESCO eBooks",
+              "host_type": "ebook platform",
+              "url": "https://doi.org/10.54676/jjnk6989",
+              "version": "publishedVersion",
+              "is_oa": false,
+              "licence": "none stated",
+              "licence_from": "OpenAlex location record",
+              "permitted": false,
+              "why": "not free to read (OpenAlex is_oa false)"
+            }
+          ],
+          "tried": [],
+          "outcome": "no permitted open copy listed",
+          "on": "2026-11-25"
+        },
+        "last_fetch": {
+          "on": "2026-11-25",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/); open copy via OpenAlex: no permitted open copy listed",
+          "tried": [
+            {
+              "url": "https://gem-report-2020.unesco.org/thematic/",
+              "result": "identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/)"
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no permitted open copy listed",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/); open copy via OpenAlex: no permitted open copy listed"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/); open copy via OpenAlex: no permitted ",
+        "on": "2026-11-25"
+      },
+      "form": "assessment summary",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC DOI 10.54676/jjnk6989: Europe PMC has no record (DOI:\"10.54676/jjnk6989\")",
+          "PubMed DOI 10.54676/jjnk6989: PubMed has no record for DOI 10.54676/jjnk6989",
+          "Crossref 10.54676/jjnk6989"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "DOI 10.54676/jjnk6989",
+            "answered": true,
+            "record": "none",
+            "why": "Europe PMC DOI 10.54676/jjnk6989: Europe PMC has no record (DOI:\"10.54676/jjnk6989\")",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "DOI 10.54676/jjnk6989",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for DOI 10.54676/jjnk6989",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.54676/jjnk6989",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.54676/jjnk6989 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-25"
+      }
+    },
+    {
+      "id": "S006",
+      "type": "review",
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+      "year": 2018,
+      "container": "International Centre for Evidence in Disability / Campbell Collaboration",
+      "authors": "Kuper",
+      "used_for": "DFID-commissioned rapid evidence assessment of effective educational interventions for disabled people in LMICs; foundational reference for the field.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+        "first_author": "Kuper",
+        "year": 2018
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "9 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works",
+      "registry": "none (an agency's own site: gov.uk)",
+      "also_called": [
+        "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes fo"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-25"
+        },
+        "last_fetch": {
+          "on": "2026-11-25",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works",
+              "result": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin)"
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded f",
+        "on": "2026-11-25"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-25"
+      }
+    },
+    {
+      "id": "S007",
+      "type": "review",
+      "title": "Inclusive Education as Global Development Policy",
+      "year": 2020,
+      "container": "UNESCO / Global Education Monitoring Report Team",
+      "authors": "Hunt",
+      "used_for": "Background paper synthesising evidence on inclusive education for children with disabilities prepared for the 2020 GEM Report.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Inclusive education: children with disabilities (Background paper for the 2020 Global Education Monitoring Report)",
+        "first_author": "Hunt",
+        "year": 2020
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.4135/9781526470430.n12",
+      "registry": "crossref",
+      "registry_record": {
+        "registry": "crossref",
+        "authors": [
+          "Hunt PF"
+        ],
+        "year": 2019,
+        "title": "Inclusive Education as Global Development Policy",
+        "container": "The Sage Handbook of Inclusion and Diversity in Education",
+        "authors_registry": [
+          "Hunt, Paula Frederica"
+        ]
+      },
+      "url": "https://unesdoc.unesco.org/ark:/48223/pf0000373662",
+      "also_called": [
+        "Inclusive Education as Global Development Policy"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": "10.4135/9781526470430.n12",
+          "found": [
+            {
+              "where": "SAGE Publications Ltd eBooks",
+              "host_type": "ebook platform",
+              "url": "https://doi.org/10.4135/9781526470430.n12",
+              "version": "publishedVersion",
+              "is_oa": false,
+              "licence": "none stated",
+              "licence_from": "OpenAlex location record",
+              "permitted": false,
+              "why": "not free to read (OpenAlex is_oa false)"
+            }
+          ],
+          "tried": [],
+          "outcome": "no permitted open copy listed",
+          "on": "2026-11-25"
+        },
+        "last_fetch": {
+          "on": "2026-11-25",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "nothing in these bytes identifies them as this document (0 of 5 title words, no DOI/PMID/NCT match) (2475 bytes at https://unesdoc.unesco.org/ark:/48223/pf0000373662); open copy via OpenAlex: no permitted open copy listed",
+          "tried": [
+            {
+              "url": "https://unesdoc.unesco.org/ark:/48223/pf0000373662",
+              "result": "nothing in these bytes identifies them as this document (0 of 5 title words, no DOI/PMID/NCT match) (2475 bytes at https://unesdoc.unesco.org/ark:/48223/pf0000373662)"
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no permitted open copy listed",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "nothing in these bytes identifies them as this document (0 of 5 title words, no DOI/PMID/NCT match) (2475 bytes at https://unesdoc.unesco.org/ark:/48223/pf0000373662); open copy via OpenAlex: no permitted open copy listed"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): nothing in these bytes identifies them as this document (0 of 5 title words, no DOI/PMID/NCT match) (2475 bytes at https://unesdoc.unesco.org/ark:/48223/pf0000373662); open copy via OpenAlex: no permitted open copy listed",
+        "on": "2026-11-25"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC DOI 10.4135/9781526470430.n12: Europe PMC has no record (DOI:\"10.4135/9781526470430.n12\")",
+          "PubMed DOI 10.4135/9781526470430.n12: PubMed has no record for DOI 10.4135/9781526470430.n12",
+          "Crossref 10.4135/9781526470430.n12"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "DOI 10.4135/9781526470430.n12",
+            "answered": true,
+            "record": "none",
+            "why": "Europe PMC DOI 10.4135/9781526470430.n12: Europe PMC has no record (DOI:\"10.4135/9781526470430.n12\")",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "DOI 10.4135/9781526470430.n12",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for DOI 10.4135/9781526470430.n12",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.4135/9781526470430.n12",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.4135/9781526470430.n12 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-25"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: systematic review inclusive education children disabilities low middle income countries",
+      "web search: disability education interventions LMIC children young people effectiveness review",
+      "web search: evidence gap map disability education interventions LMIC Saran White Kuper Campbell",
+      "web search: UNESCO global education monitoring report disability inclusion 2020 2023",
+      "web search: teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map Campbell",
+      "web search: Kuper rapid evidence assessment educational outcomes disabilities LMIC 2018",
+      "registry: Europe PMC",
+      "registry: PubMed",
+      "registry: Crossref"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [
+    {
+      "proposal": {
+        "title": "Effectiveness of interventions for children and adolescents with autism spectrum disorder in high-income vs. lower middle-income countries: An overview of systematic reviews and research papers from LMIC",
+        "first_author": "Höfer",
+        "year": 2022,
+        "container": "Frontiers in Psychiatry",
+        "type": "review",
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9386527/",
+        "why": "Meta-review comparing ASD intervention effectiveness between HICs and LMICs; finds very limited LMIC evidence and no evidence-based interventions."
+      },
+      "why": "no registry's record agrees (Europe PMC, PubMed answered): Europe PMC: first author 'Höfer' does not agree with the record's first author 'Pervin M'; PubMed: first author 'Höfer' does not agree with the record's first author 'Pervin M'",
+      "status": "NOT_FOUND",
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMC9386527",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMC9386527",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "PMC9386527",
+          "answered": null,
+          "record": null,
+          "matched": null,
+          "why": "not asked: Crossref has no PMCID lookup"
+        }
+      ]
+    }
+  ],
+  "not_of_a_type": []
+}

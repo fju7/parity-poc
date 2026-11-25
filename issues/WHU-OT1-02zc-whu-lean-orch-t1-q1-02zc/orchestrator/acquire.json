@@ -1,0 +1,32 @@
+{
+ "slug": "whu-lean-orch-t1-q1-02zc",
+ "complete": true,
+ "held": [
+  "S001",
+  "S003",
+  "S004"
+ ],
+ "not_held": [
+  {
+   "id": "S002",
+   "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+   "reason": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed"
+  },
+  {
+   "id": "S005",
+   "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all. Paris",
+   "reason": "identified (contains 6 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (128901 bytes at https://gem-report-2020.unesco.org/thematic/); open copy via OpenAlex: no permitted open copy listed"
+  },
+  {
+   "id": "S006",
+   "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+   "reason": "identified (contains 12 of 12 distinctive title words), but not the document: landing — 5917 characters and 1 section markers — this is a page ABOUT the document, not the document (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  },
+  {
+   "id": "S007",
+   "title": "Inclusive Education as Global Development Policy",
+   "reason": "nothing in these bytes identifies them as this document (0 of 5 title words, no DOI/PMID/NCT match) (2475 bytes at https://unesdoc.unesco.org/ark:/48223/pf0000373662); open copy via OpenAlex: no permitted open copy listed"
+  }
+ ],
+ "skipped": []
+}

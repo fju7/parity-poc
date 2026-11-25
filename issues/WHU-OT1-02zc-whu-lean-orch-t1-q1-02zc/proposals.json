@@ -1,0 +1,119 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low‐ and middle‐income countries: A systematic review",
+      "first_author": "Hunt",
+      "year": 2025,
+      "container": "Campbell Systematic Reviews",
+      "type": "review",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/cl2.70016",
+      "why": "Most recent Campbell systematic review directly answering which education interventions work for disabled people in LMICs."
+    },
+    {
+      "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+      "first_author": "Mendoza",
+      "year": 2022,
+      "container": "International Journal of Disability, Development and Education",
+      "type": "review",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359",
+      "why": "First systematic review of inclusive education interventions specifically in low- and lower-middle-income countries; 31 studies across 19 countries."
+    },
+    {
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low‐and middle‐income countries",
+      "first_author": "Saran",
+      "year": 2020,
+      "container": "Campbell Systematic Reviews",
+      "type": "synthesis",
+      "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cl2.1070",
+      "why": "Comprehensive evidence and gap map covering education and other outcomes for disability interventions in LMICs; identifies evidence gaps."
+    },
+    {
+      "title": "Teacher professional development for disability inclusion in low‐ and middle‐income Asia‐Pacific countries: An evidence and gap map",
+      "first_author": "Ahmed",
+      "year": 2022,
+      "container": "Campbell Systematic Reviews",
+      "type": "synthesis",
+      "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cl2.1287",
+      "why": "Evidence and gap map on teacher training interventions for disability-inclusive education in LMIC Asia-Pacific; 50 studies across 16 countries."
+    },
+    {
+      "title": "Global Education Monitoring Report 2020: Inclusion and education: All means all",
+      "first_author": "UNESCO",
+      "year": 2020,
+      "container": "UNESCO",
+      "type": "assessment_summary",
+      "url": "https://gem-report-2020.unesco.org/thematic/",
+      "why": "Major global assessment of inclusive education policies and implementation worldwide, including disability and LMIC contexts."
+    },
+    {
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+      "first_author": "Kuper",
+      "year": 2018,
+      "container": "International Centre for Evidence in Disability / Campbell Collaboration",
+      "type": "review",
+      "url": "https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works",
+      "why": "DFID-commissioned rapid evidence assessment of effective educational interventions for disabled people in LMICs; foundational reference for the field."
+    },
+    {
+      "title": "Effectiveness of interventions for children and adolescents with autism spectrum disorder in high-income vs. lower middle-income countries: An overview of systematic reviews and research papers from LMIC",
+      "first_author": "Höfer",
+      "year": 2022,
+      "container": "Frontiers in Psychiatry",
+      "type": "review",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9386527/",
+      "why": "Meta-review comparing ASD intervention effectiveness between HICs and LMICs; finds very limited LMIC evidence and no evidence-based interventions."
+    },
+    {
+      "title": "Inclusive education: children with disabilities (Background paper for the 2020 Global Education Monitoring Report)",
+      "first_author": "Hunt",
+      "year": 2020,
+      "container": "UNESCO / Global Education Monitoring Report Team",
+      "type": "review",
+      "url": "https://unesdoc.unesco.org/ark:/48223/pf0000373662",
+      "why": "Background paper synthesising evidence on inclusive education for children with disabilities prepared for the 2020 GEM Report."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "systematic review inclusive education children disabilities low middle income countries",
+      "disability education interventions LMIC children young people effectiveness review",
+      "evidence gap map disability education interventions LMIC Saran White Kuper Campbell",
+      "UNESCO global education monitoring report disability inclusion 2020 2023",
+      "teacher professional development disability inclusion Asia-Pacific LMIC evidence gap map Campbell",
+      "Kuper rapid evidence assessment educational outcomes disabilities LMIC 2018"
+    ],
+    "domains": [
+      "pmc.ncbi.nlm.nih.gov",
+      "escholarship.org",
+      "doi.org",
+      "tandfonline.com",
+      "researchgate.net",
+      "inclusive-education-in-action.org",
+      "eenet.org.uk",
+      "onlinelibrary.wiley.com",
+      "ncbi.nlm.nih.gov",
+      "unicef.org",
+      "campbellcollaboration.org",
+      "semanticscholar.org",
+      "eric.ed.gov",
+      "researchonline.lshtm.ac.uk",
+      "cedilprogramme.org",
+      "unesco.org",
+      "unesco.at",
+      "unesdoc.unesco.org",
+      "right-to-education.org",
+      "gesci.org",
+      "gem-report-2020.unesco.org",
+      "hapsc.org",
+      "academia.edu",
+      "research.acer.edu.au",
+      "journals.sagepub.com",
+      "pubmed.ncbi.nlm.nih.gov",
+      "cambridge.org",
+      "gov.uk",
+      "assets.publishing.service.gov.uk"
+    ]
+  },
+  "sha256": "346eb1277b56f44b6caa85c5e8373996d0078a2424e9d3d431b4fc59f3f3e0b7"
+}
