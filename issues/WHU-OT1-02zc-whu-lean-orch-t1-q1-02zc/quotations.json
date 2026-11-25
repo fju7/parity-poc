@@ -1,0 +1,180 @@
+{
+  "what_this_is": "What Holds Up: quotations on whu-lean-orch-t1-q1-02zc and what the sources actually say (written by code: every quoted passage searched verbatim in the held texts).",
+  "how_to_use_it": "One entry per quoted passage on the page. Two kinds, and the difference matters: a quotation FROM A SOURCE carries source_id and verbatim -- the source's own wording, copied, so the check can compare rather than trust -- while a passage in the page's own voice carries kind: rhetorical and a reason. An entry with neither blocks, and so does a quoted passage on the page with no entry at all.",
+  "quotations": [
+    {
+      "id": "Q-01",
+      "quote": "a twin-track approach is needed, which both addresses the specific needs of children with disabilities but also ensures that they are included in mainstream activities (e.g., through improving the skills of teachers and accessibility of the classroom)",
+      "kind": "",
+      "why": "found verbatim in no held source's text (code); the page stops on it",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "",
+      "verbatim": "",
+      "unmatched": true
+    },
+    {
+      "id": "Q-02",
+      "quote": "The category of interventions most represented across studies was ‘Educational attainment support’, for instance, a reading comprehension intervention that combined strategy instruction (graphic organisers, visual …",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "The category of interventions most represented across studies was ‘Educational attainment support', for instance, a reading comprehension intervention that combined strategy instruction (graphic organisers, visual",
+      "offsets": [
+        6154,
+        6367
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "215cf8a34188321e5dcfbf4a00f5d51aa665669f5907f6dac9822a6fdc99318b"
+    },
+    {
+      "id": "Q-03",
+      "quote": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "rhetorical",
+      "why": "the page's own question, equal to issue.json's question (code); not a quotation from a source",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)"
+    },
+    {
+      "id": "Q-04",
+      "quote": "Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.",
+      "offsets": [
+        7900,
+        8058
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "e7a3f057d1ab57c0c512c4674ddc5f874a702aeb09de08f591d19b4fa907e4a8"
+    },
+    {
+      "id": "Q-05",
+      "quote": "Individuals with intellectual or learning and developmental impairments were most frequently targeted by interventions ( n = 17).",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "Individuals with intellectual or learning and developmental impairments were most frequently targeted by interventions ( n = 17).",
+      "offsets": [
+        6024,
+        6153
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "1ff20142f7dc76dfa5802d27098a607824d0e07c678135a0287610bd31920194"
+    },
+    {
+      "id": "Q-06",
+      "quote": "Only two studies directly targeted family members, and the remaining three focused on service providers.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "Only two studies directly targeted family members, and the remaining three focused on service providers.",
+      "offsets": [
+        5919,
+        6023
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "72ab9d4300daa72202dbce799ea57e74974790f80dd40ca86ff557027fe1fdd8"
+    },
+    {
+      "id": "Q-07",
+      "quote": "There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "There is no one ‘magic bullet' intervention which can equalise health outcomes for this group.",
+      "offsets": [
+        8059,
+        8153
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "fbc6af2c70af3ba77b1dce89abf7fe2ea5ec7ae78a679261baaf5e653b521734"
+    },
+    {
+      "id": "Q-08",
+      "quote": "Most studies ( n = 25) targeted children with disabilities.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "Most studies ( n = 25) targeted children with disabilities.",
+      "offsets": [
+        5859,
+        5918
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "36deeb3c53e21af3092bbd54a3d00e9b884de193e55284f3bc20ca82690cadef"
+    },
+    {
+      "id": "Q-09",
+      "quote": "Twenty‐eight studies were included in this review.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "Twenty‐eight studies were included in this review.",
+      "offsets": [
+        5808,
+        5858
+      ],
+      "rendition": "docs/24/24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac.xml",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "24587d9f8f9b68d1f6bbff588b3ea5a314d5b7e2555682e63c18a296ce8ed0ac",
+      "span_sha256": "f5afa157e879878ca271521835b97f77cb0ea8bc11f7c8d3856c6d7b20fe8145"
+    }
+  ]
+}

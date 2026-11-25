@@ -25,6 +25,44 @@
         "3cd9e1fe15dfea13"
       ],
       "model_read": true
+    },
+    {
+      "sha": "a637fb9c4cac61a3",
+      "against": "94496b3ed5e19761a2af2a75e4335761461e1721",
+      "changed": 4,
+      "changed_total": 4,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-11-25T22:06:34+00:00",
+      "findings": [
+        {
+          "sentence": "For literacy, the pooled effect was d = 2.46 (0.01 to 4.90) from four studies (n = 389, I² = 93%), which the review describes as a 'large effect based on a low number of studies with high heterogeneity and potentially high publication bias' [1].",
+          "kind": "CONTRADICTION",
+          "why": "The page elsewhere states 'Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each was based on a low number of studies' without qualification, yet the changed sentence adds that the review itself flags potentially high publication bias for literacy, which sits in tension with the unqualified positive framing in the summary bullet above it; more directly, the 'Limits of the evidence' section states 'The studies concerned with speech and school behaviour show no significant effect of intervention' while the narrative summary section states speech and communication showed positive effects — but for literacy specifically, the changed sentence's characterisation of the effect as potentially driven by publication bias contradicts the unqualified claim that 'Effects on literacy … were significant and large'.",
+          "other": "Effects on literacy, cognitive skills, handwriting and numeracy were significant and large, but each was based on a low number of studies [1]."
+        }
+      ],
+      "read": [
+        "57b3ec0dfaf31e74",
+        "f925e76995e70ebf",
+        "01b6bd42a926e106",
+        "3cd9e1fe15dfea13"
+      ],
+      "model_read": true
+    }
+  ],
+  "dispositions": [
+    {
+      "key": "3bca4e61d80dea9b",
+      "kind": "CONTRADICTION",
+      "sentence": "For literacy, the pooled effect was d = 2.46 (0.01 to 4.90) from four studies (n = 389, I² = 93%), which the review describes as a 'large effect based on a low number of studies with high heterogeneity and potentially high publication bias' [1].",
+      "decision": "reject",
+      "by": "ruling model claude-opus-5-5",
+      "on": "2026-11-25",
+      "reason": "The source table row reads 'Literacy d = 2.46 (0.01 to 4.90) k = 4 n = 389 I² = 93% ... Large effect based on a low number of studies with high heterogeneity and potentially high publication bias', which matches the sentence exactly; the caveat adds to the page's 'significant and large' summary rather than contradicting it.",
+      "ruling": "reject",
+      "ruling_text": null,
+      "ruled": "ruling.py changecheck, prompt 388a27cee450"
     }
   ]
 }

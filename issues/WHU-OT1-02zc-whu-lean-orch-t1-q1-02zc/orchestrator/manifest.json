@@ -469,5 +469,50 @@
   "web_search_max_uses": 12
  },
  "mode": "paid",
- "slug": "whu-lean-orch-t1-q1-02zc"
+ "slug": "whu-lean-orch-t1-q1-02zc",
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 14
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 12,
+   "claude-opus-5-5": 2
+  },
+  "belief": {
+   "claude-sonnet-4-6": 1
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "gate": {
+   "claude-sonnet-4-6": 1
+  },
+  "advocate": {
+   "claude-sonnet-5-5": 2,
+   "claude-opus-5-5": 3
+  },
+  "omissions": {
+   "claude-opus-5-5": 2
+  },
+  "audit": {
+   "claude-sonnet-5-5": 5,
+   "claude-opus-5-5": 5
+  },
+  "overstatement": {
+   "gemini-4-argon": 70
+  },
+  "changecheck": {
+   "claude-sonnet-4-6": 3,
+   "claude-opus-5-5": 2
+  }
+ }
 }

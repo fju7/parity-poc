@@ -30,3 +30,8 @@
 | overstatement (orchestrator) | 2026-11-25T22:04:04+00:00 | 2026-11-25T22:04:06+00:00 | $0.0000 | 0 | 53 pair(s): 0 yes, 53 no |
 | corrections (orchestrator) | 2026-11-25T22:04:06+00:00 | 2026-11-25T22:04:08+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
 | final_gate (orchestrator) | 2026-11-25T22:04:08+00:00 | 2026-11-25T22:04:11+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| commit_8 (orchestrator) | 2026-11-25T22:04:11+00:00 | 2026-11-25T22:06:14+00:00 | $0.0000 | 0 | committed ab3942a639a1 |
+| changecheck (orchestrator) | 2026-11-25T22:06:14+00:00 | 2026-11-25T22:06:42+00:00 | $0.0647 | 0 | 0 record(s) applied |
+| quotations (orchestrator) | 2026-11-25T22:06:42+00:00 | 2026-11-25T22:06:43+00:00 | $0.0000 | 0 | 8 quotation(s) matched verbatim, 1 unmatched |
+| preflight (orchestrator) | 2026-11-25T22:06:43+00:00 | 2026-11-25T22:07:09+00:00 | $0.0000 | 0 | Not Ready |
+| archive (orchestrator) | 2026-11-25T22:07:09+00:00 | 2026-11-25T22:07:09+00:00 | $0.0000 | 0 | archive left to the paid run (no private archive in paid mode) |
