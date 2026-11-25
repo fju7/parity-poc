@@ -9,8 +9,9 @@ advisor's rulings of 5 November 2026 after Q1-04). Offline, $0.
                  show received in full.
   ROW_RESTS      "sentences rest on received text" (fix 5): every on-page bound
                  span on a full_text_held source lies, to FULL, inside the text
-                 some checking stage received (stages added together here). A
-                 sentence inside the visible source list is exempt.
+                 some checking stage received (stages added together here, with
+                 the coverage step's units: ruling C on P117). A sentence
+                 inside the visible source list is exempt.
   ROW_NOT_READ   "not-read records kept" (fix 4): an access.not_read entry in any
                  committed version of sources.json (git history) or the working
                  copy that is gone stops the page, unless access.covers_not_read
@@ -170,7 +171,9 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
     ps = page_sentences if page_sentences is not None else B.page_sentences(slug)
     held = R.held_texts(slug)
     m = LR.measure(slug, held=held, sources=current.get("sources") or [], case=case)
-    unions = {sid: LR.union(v["masks"]) for sid, v in m.items()}
+    # fix 5 adds the stages together, and here also the coverage step's units (ruling C on P117)
+    unions = {sid: LR.union(dict(v["masks"], coverage=LR._mask(len(held[sid]), LR.coverage_ranges(case, sid))))
+              for sid, v in m.items()}
     rows = (B.load(slug).get("bindings") or {})
     try:
         entries = B.page_markup(slug)[2]

@@ -3118,6 +3118,7 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - P115: the open-copy copy rule refuses a submittedVersion (pre-peer-review) copy before any fetch, until a labelled design exists; accepted / published / unstated versions unchanged.
 - P118: lean rule 3b ties a gate recency study to HELD sources only (`lean_editions.holdings_view`); a study about an unheld source is UNTIED (counted, never named).
 - P119: `quotations.HYPHENS` (U+2010/U+2011 = '-') in every norm(); `match_held` keeps U+2212/U+2013/U+2014 distinct (`fold_dashes=False` on `norm` and `spancheck._norm`). The default norm() still folds en/em dash.
+- P120: "sentences rest on received text" also counts the coverage step's units (`lean_received.coverage_ranges`: model-decided coverage.json declarations and in-scope units); never counted toward a section read in full.
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

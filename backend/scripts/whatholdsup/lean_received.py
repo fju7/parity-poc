@@ -135,6 +135,44 @@ def advocate_ranges(case: Path, sid: str) -> list[tuple[int, int]]:
     return out
 
 
+# THE COVERAGE STEP (advisor's ruling C on P117, 2026-11-25). orchestrator.code_coverage sends a model each open
+# headline unit's text, exactly the characters at its key's offsets ("S001@5808-5858"), and records the decision:
+# a declaration in coverage.json (by: the model) or, left in scope, a row in rulings/coverage_in_scope.jsonl. Since
+# P103 every readers'-list line is bound to its declaration's span, but the coverage step was never counted as a
+# stage that received text, so on WHU-OT1-02zc the line on S001@5808-5858 rested on "text no checking stage
+# received" (0%) and the page stopped; the other six lines passed only because other stages happened to receive
+# their spans. Counted for "rests on received text" (fix 5) only, never for a section read in full (STAGES).
+COVERAGE_BY_MODEL = ("claude-", "gemini-")
+
+
+def _unit_range(key: str, sid: str) -> tuple[int, int] | None:
+    import re as _re
+    m = _re.fullmatch(r"%s@(\d+)-(\d+)" % _re.escape(sid), str(key or ""))
+    return (int(m.group(1)), int(m.group(2))) if m else None
+
+
+def coverage_ranges(case: Path, sid: str) -> list[tuple[int, int]]:
+    """The ranges of SID's held text the coverage step SENT a model: model-decided declarations in coverage.json
+    and the units it left in scope (rulings/coverage_in_scope.jsonl). A declaration made by code or a person counts
+    as nothing received."""
+    out = []
+    p = case / "coverage.json"
+    try:
+        decl = (json.loads(p.read_text(encoding="utf-8")).get("declarations") or {}) if p.exists() else {}
+    except ValueError:
+        decl = {}
+    for key, d in decl.items():
+        if isinstance(d, dict) and str(d.get("by") or "").startswith(COVERAGE_BY_MODEL):
+            r = _unit_range(key, sid)
+            if r:
+                out.append(r)
+    for r in _jsonl(case / "rulings" / "coverage_in_scope.jsonl"):
+        x = _unit_range(r.get("unit"), sid)
+        if x:
+            out.append(x)
+    return out
+
+
 def masks(case: Path, sid: str, held: str, texts: list[str] | None = None) -> dict[str, bytearray]:
     """{stage: mask over HELD} for one source."""
     n = len(held)
