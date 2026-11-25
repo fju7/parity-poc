@@ -1203,11 +1203,8 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         "splits": [],
     }
     if LEAN:
-        import passage_index as PI
-        manifest["lean_config"] = {"models": {k: lean.model_for(k) for k in
-                                              ("audit_first", "audit_escalate", "audit_rule", "audit_second")},
-                                   "k": PI.K, "min_score": PI.MIN_SCORE, "min_terms": PI.MIN_TERMS,
-                                   "passage_chars": PI.PASSAGE_CHARS}
+        import stage_cap
+        manifest["lean_config"] = stage_cap.audit_config()   # the one definition the audit estimate pools by
         manifest["unit_list"] = [[u["id"], u["part"], u["sha"]] for u in us]
     if B is not None:
         page = B._page_html(slug)

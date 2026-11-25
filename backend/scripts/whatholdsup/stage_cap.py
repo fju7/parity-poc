@@ -33,15 +33,21 @@ computed when the check runs, from the records of what was spent:
                  requote calls for one source on one day) and the cost per
                  objection times the most objections per source of any run
                  (2026-10-22; _advocate_per_source).
-  audit          per sentence unit: total usd / total units over every audit
-                 manifest in issues/*/audit/.
+  audit          per sentence unit: the HIGHEST per-unit cost (usd / units) of
+                 any audit manifest in issues/*/audit/ whose lean_config equals
+                 this run's (audit_config(); None for a non-lean audit), times
+                 AUDIT_MARGIN (2). An upper bound from runs of the same kind,
+                 not a mean (advisor's ruling 3 on P112, 2026-11-25: the pooled
+                 mean over all 69 runs, $0.0243, was dominated by non-lean
+                 audits that read whole texts and refused 02za's lean audit).
   changecheck    per run: the mean changecheck call in the ledger (one call).
   rulings        per ruling: the mean usage.usd of every logged ruling in
                  issues/*/rulings/ and issues/*/audit/*/rulings.jsonl.
 
 A stage with no measurement yet falls back to FALLBACK, each figure with the
-record it came from. The estimate is a mean, so a run can still cost more than
-estimated; the per-call check remains, and stops it then.
+record it came from. Except the audit's, each estimate is a mean, so a run can
+still cost more than estimated; the per-call check remains the hard backstop for
+every stage, and stops a run then.
 
 NO OVERRIDE ON A STUDY ISSUE. A study issue's cap is set before the freeze and
 never raised for a run (caps.json). On a published issue, WHU_SPEND_OVERRIDE
@@ -91,6 +97,25 @@ FALLBACK = {
 FULL_GATE_ROLES = ("extract", "advocate", "inference", "coverage", "recency", "counterexample")
 
 
+AUDIT_MARGIN = 2.0          # the audit estimate: highest measured per-unit cost in its pool x this
+_CURRENT = object()          # per_unit's default config: this run's own (audit_config())
+
+
+def audit_config() -> dict | None:
+    """The audit's lean_config exactly as audit_stage.py writes it into its manifest (the one
+    definition both use), or None when lean is off (a non-lean audit's manifest has none)."""
+    if str(HERE) not in sys.path:
+        sys.path.insert(0, str(HERE))
+    import lean
+    if not lean.enabled():
+        return None
+    import passage_index as PI
+    return {"models": {k: lean.model_for(k) for k in
+                       ("audit_first", "audit_escalate", "audit_rule", "audit_second")},
+            "k": PI.K, "min_score": PI.MIN_SCORE, "min_terms": PI.MIN_TERMS,
+            "passage_chars": PI.PASSAGE_CHARS}
+
+
 class StageOverCap(Exception):
     """A stage whose estimate exceeds the cap remaining today or on the issue."""
 
@@ -114,8 +139,10 @@ def _gate_calls(es):
     return [e for e in es if e.get("script") == "factcheck_draft.py"]
 
 
-def per_unit(stage: str, entries: list[dict] | None = None, issues_dir: Path | None = None) -> tuple[float, str]:
-    """(dollars per unit, how it was measured)."""
+def per_unit(stage: str, entries: list[dict] | None = None, issues_dir: Path | None = None,
+             config=_CURRENT) -> tuple[float, str]:
+    """(dollars per unit, how it was measured). CONFIG (audit only): the lean_config whose runs
+    form the pool; by default this run's own (audit_config())."""
     es = S.entries() if entries is None else entries
     idir = issues_dir or (ROOT / "issues")
     fd = _gate_calls(es)
@@ -141,17 +168,20 @@ def per_unit(stage: str, entries: list[dict] | None = None, issues_dir: Path | N
     elif stage == "advocate":
         return _advocate_per_source(fd, idir)
     elif stage == "audit":
-        u = usd = 0.0
-        n = 0
-        for f in glob.glob(str(idir / "*" / "audit" / "*" / "manifest.json")):
+        want = audit_config() if config is _CURRENT else config
+        pool = []
+        for f in sorted(glob.glob(str(idir / "*" / "audit" / "*" / "manifest.json"))):
             try:
                 m = json.loads(Path(f).read_text(encoding="utf-8"))
             except Exception:
                 continue
-            if m.get("usd") and m.get("units"):
-                u, usd, n = u + m["units"], usd + m["usd"], n + 1
-        if u:
-            return usd / u, "$%.2f over %d sentence unit(s) in %d audit run(s)" % (usd, u, n)
+            if m.get("usd") and m.get("units") and m.get("lean_config") == want:
+                pool.append((m["usd"] / m["units"], Path(f).parent))
+        if pool:
+            top, where = max(pool, key=lambda r: r[0])
+            return top * AUDIT_MARGIN, ("the highest per-unit cost of %d audit run(s) with this run's lean_config "
+                                        "($%.4f, %s/%s) x %g" % (len(pool), top, where.parent.parent.name,
+                                                                 where.name, AUDIT_MARGIN))
     elif stage == "changecheck":
         vals = [e.get("usd") or 0 for e in fd if e.get("role") == "changecheck"]
         how = "mean of %d metered changecheck call(s)"

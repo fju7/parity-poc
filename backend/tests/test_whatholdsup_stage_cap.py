@@ -49,12 +49,13 @@ def test_per_unit_figures_are_measured(ledger):
     assert "nothing measured" in SC.per_unit("rulings")[1]                 # falls back, and says so
 
 
-def test_audit_per_unit_is_spend_over_units_across_manifests(ledger, tmp_path):
+def test_audit_per_unit_is_the_highest_per_unit_cost_times_two(ledger, tmp_path):
+    # advisor's ruling 3 on P112: highest per-unit cost in the pool x 2 (was the pooled mean, 0.06 here)
     for i, (usd, units) in enumerate([(4.0, 40), (2.0, 60)]):
         d = tmp_path / "issues" / "WHU-X" / "audit" / str(i)
         d.mkdir(parents=True)
         (d / "manifest.json").write_text(json.dumps({"usd": usd, "units": units}))
-    assert SC.per_unit("audit", issues_dir=tmp_path / "issues")[0] == pytest.approx(0.06)
+    assert SC.per_unit("audit", issues_dir=tmp_path / "issues", config=None)[0] == pytest.approx(0.20)
 
 
 def test_a_stage_that_does_not_fit_in_today_is_refused_with_both_numbers(ledger):
