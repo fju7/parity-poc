@@ -1,0 +1,13 @@
+{
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "id": "WHU-OT1-01b",
+  "slug": "whu-lean-orch-t1-q1-01b",
+  "title": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
+  "question": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
+  "run_cap_usd": 7.5,
+  "_round_note": "Orchestrator trial 1, development batch run 2, fresh (advisor's brief after P146-P149, 2026-11-26): Q1-01 again in a new case folder after run 2's checkpoint became unresumable (P146 moved the harness's code hashes; P150). A development run of the pipeline, not a reliability measurement; outputs discarded by rule and never scored. Question verbatim from issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/issue.json (itself WHU-Q1-01's). \"study\": true only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-01b.",
+  "_run_cap_note": "run_cap_usd: $7.50 = the needed cap $7.15 (the most of likely spend-so-far + the next call's bound over the run, from measured figures, P151) rounded up to the next $0.50; at most $10.00 by the brief and by the orchestrator's provenance limit."
+}
