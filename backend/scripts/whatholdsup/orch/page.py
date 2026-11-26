@@ -145,7 +145,9 @@ class Page:
         raise NotPlaced("no generated block %r" % section)
 
     # -- rendering
-    def render(self) -> str:
+    def render(self, notes: dict | None = None) -> str:
+        """NOTES: {normalised sentence: note text} -- a claim note rendered right after its sentence as
+        <span class="whu-claim-note">, furniture that source_ledger.plain drops (correction_notes.py)."""
         title = H.escape(self.doc.get("title") or "")
         out = ["<!doctype html>", '<html lang="en">', "<head>", '<meta charset="utf-8">',
                "<title>%s — What Holds Up</title>" % title, '<meta name="robots" content="noindex,nofollow">',
@@ -163,7 +165,14 @@ class Page:
                 out.append("<%s>%s</%s>" % (tag, H.escape(b.get("text") or ""), tag))
             elif tag == "p":
                 if b.get("sentences"):
-                    out.append("<p>%s</p>" % H.escape(" ".join(norm(s) for s in b["sentences"]), quote=False))
+                    parts = []
+                    for s in b["sentences"]:
+                        parts.append(H.escape(norm(s), quote=False))
+                        if notes and norm(s) in notes:
+                            import correction_notes as CN
+                            parts.append(CN.SPAN if notes[norm(s)] == CN.NOTE else
+                                         '<span class="whu-claim-note">%s</span>' % H.escape(notes[norm(s)], quote=False))
+                    out.append("<p>%s</p>" % " ".join(parts))
             elif tag == "html":
                 out.append(b.get("html") or "")
         if section is not None:

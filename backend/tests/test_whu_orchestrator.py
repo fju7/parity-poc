@@ -1218,19 +1218,20 @@ def test_errata_passes_a_correction_to_a_source_not_held_and_one_held_as_a_linke
     assert rows["corrections not yet read"][1] == "BLOCKED" and "S005" in rows["corrections not yet read"][2]
 
 
-def test_a_held_sources_notice_that_cannot_be_held_makes_it_not_held(tmp_path):
+def test_a_held_sources_notice_that_cannot_be_held_keeps_it_held_with_the_note(tmp_path):
+    # Ruling 5 on the design review (2026-11-26): an unreadable correction no longer blocks a held source.
     import orchestrator as O
     import lean_sentences as LS
     c = _case(tmp_path)
     held = dict(S003, access={"state": "full_text_held"})           # S003 as if held; its notice serves no text
     (c / "sources.json").write_text(json.dumps({"sources": [held]}))
     ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=lambda d: (None, "none"), fulltext=_fulltext)
-    with pytest.raises(O.InsufficientSources, match="Insufficient sources: 0 of 1 confirmed sources held"):
-        O.code_acquire(ctx, ST.BY_NAME["acquire"])
+    with pytest.raises(O.InsufficientSources, match="Insufficient sources: 1 of 1 confirmed sources held"):
+        O.code_acquire(ctx, ST.BY_NAME["acquire"])          # held, but one work and not a review: the minimum
     doc = json.loads((c / "sources.json").read_text())
-    assert doc["sources"][0]["access"]["not_held"]["line"] == "correction_not_held"
-    line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
-    assert line.endswith("but it has a published correction we could not hold, so nothing on this page draws on it.")
+    assert "not_held" not in doc["sources"][0]["access"]
+    assert doc["sources"][0]["correction_unreadable"]["line"] == "correction_not_held"
+    assert not [g for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"]
 
 
 NOTICE = ("Correction to: Smith et al. In the Results, the sentence 'the pooled effect on attendance was 0.45 "
@@ -1435,11 +1436,10 @@ def test_a_multi_article_notice_that_does_not_name_the_source_is_a_correction_we
                           fulltext=lambda pmcid: (CR._notice_body((FX / "epmc_fulltext_PMC9968378.xml").read_text()),
                                                   "recorded"))
     out = O.code_acquire(ctx, ST.BY_NAME["acquire"])
-    assert out["lines"] == {"S002": "correction_unread"}
+    assert out["lines"] == {}                                # ruling 5 on the design review: held, with the note
     doc = json.loads((c / "sources.json").read_text())
-    line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
-    assert line.endswith("but it has a published correction we could not read, so nothing on this page draws on it.")
-    assert "correction_notices" not in doc["sources"][1]
+    assert doc["sources"][1]["correction_unreadable"]["line"] == "correction_unread"
+    assert doc["sources"][1]["correction_notices"] == []
 
 
 # ---------------------------------------------------------------------------------------------------- after attempt 5

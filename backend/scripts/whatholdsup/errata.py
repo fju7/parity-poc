@@ -653,6 +653,15 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                     if (a.get("type") or "") not in ("Expression of concern in", "Update in", "Republished in")}
             if notes and want <= notes:
                 accounted.add(i)
+        # Ruling 5 on the design review: a held source whose correction we could not read is accounted for by the
+        # note on every claim bound to it; the row "unread corrections noted on the page" checks the notes.
+        noted = [i for i in amended if (by_id.get(i) or {}).get("correction_unreadable") and i not in unheld]
+        accounted |= set(noted)
+        if noted:
+            rows.append(("corrections we could not read", OK,
+                         "%d held source(s) have a correction we could not read; every claim bound to them carries "
+                         "the page note (checked by 'unread corrections noted on the page'): %s"
+                         % (len(noted), ", ".join(noted))))
         open_ = [i for i in amended if i not in accounted and i not in unheld]
         done = [i for i in amended if i in accounted and i not in unheld]
         if unheld:

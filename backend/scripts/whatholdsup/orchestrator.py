@@ -779,7 +779,12 @@ def code_acquire(ctx: Ctx, step) -> dict:
                 break
             held_notices.append(CR.hold_notice(ctx.case, c, text, how))
         if missing:
-            mark(s, *missing)
+            # Ruling 5 on the design review (2026-11-26): an unreadable CORRECTION no longer blocks a source whose own
+            # text is held. It stays held, the unread notice is recorded, and every claim bound to it carries the page
+            # note (correction_notes.NOTE, rendered by orch/page). A retraction or expression of concern is refused
+            # above, readable or not.
+            s["correction_unreadable"] = {"line": missing[0], "why": missing[1], "on": now()[:10]}
+            s["correction_notices"] = held_notices
         else:
             s["correction_notices"] = held_notices
     # Ruling (a): a source that could not be held is recorded "not held" and nothing on the page draws on it (the
@@ -926,8 +931,15 @@ def code_draft(ctx: Ctx, step) -> dict:
     page = Page({"title": d["title"], "blocks": blocks, "provenance": provenance})
     ctx.page.parent.mkdir(parents=True, exist_ok=True)
     page.save(ctx.page_json)
-    ctx.page.write_text(page.render(), encoding="utf-8")
+    ctx.page.write_text(_render(ctx, page), encoding="utf-8")
     return {"outcome": "%d sentences drafted from %d passages" % (len(provenance), len(passages))}
+
+
+def _render(ctx: Ctx, page) -> str:
+    """The page's HTML with the per-claim notes code owes it (correction_notes: a claim bound to a held source whose
+    correction we could not read carries the ruled note; ruling 5 on the design review)."""
+    import correction_notes as CN
+    return page.render(notes=CN.noted_sentences(ctx.case, page.doc))
 
 
 def _rerender(ctx: Ctx, page) -> None:
@@ -938,7 +950,7 @@ def _rerender(ctx: Ctx, page) -> None:
         except NotPlaced:
             pass
     page.save(ctx.page_json)
-    ctx.page.write_text(page.render(), encoding="utf-8")
+    ctx.page.write_text(_render(ctx, page), encoding="utf-8")
     bind_readers_lines(ctx, page)
 
 
@@ -1131,7 +1143,7 @@ def code_judgements(ctx: Ctx, step) -> dict:
         page.doc.setdefault("provenance", {})[s] = [{"source": c["source"], "start": a, "end": b}]
         stated += 1
     page.save(ctx.page_json)
-    ctx.page.write_text(page.render(), encoding="utf-8")
+    ctx.page.write_text(_render(ctx, page), encoding="utf-8")
     code_bind(ctx, step)
     return {"outcome": "%d judgement(s) stated" % stated + (
         "; %d declared, not one sentence after one re-ask" % declared_not_one if declared_not_one else "")}
@@ -1254,7 +1266,7 @@ def code_apply(ctx: Ctx, step) -> dict:
                 for s in split(op["new"]):
                     prov[s] = [{"source": op["source"], "start": op["at"][0], "end": op["at"][1]}]
         page.save(ctx.page_json)
-        ctx.page.write_text(page.render(), encoding="utf-8")
+        ctx.page.write_text(_render(ctx, page), encoding="utf-8")
         bindings_off_page(ctx, ops)
         code_bind(ctx, step, only=AP.bind_changed(sorted(AP.produced(ops)), ops))
     res = AC.check(ctx.case, ctx.page.read_text(encoding="utf-8"))

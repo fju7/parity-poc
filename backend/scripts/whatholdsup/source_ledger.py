@@ -246,6 +246,8 @@ BLOCK = re.compile(
     r"article|dt|dd|option|label)\s*>|<br\s*/?>", re.I)
 
 
+CLAIM_NOTE = re.compile(r'<span class="whu-claim-note"[^>]*>.*?</span>', re.S)
+
 def plain(html_text: str) -> str:
     """Tag-stripped, entity-decoded page text, WITH BLOCK BOUNDARIES KEPT.
 
@@ -282,6 +284,9 @@ def plain(html_text: str) -> str:
     # A newline inside a paragraph is typesetting. A block boundary is
     # structure. Only the second ends a sentence, so only the second gets a
     # mark, and it is a character that cannot occur in page text.
+    # A claim note (correction_notes.py, ruling 5 on the design review) is furniture beside a claim, never a claim:
+    # dropped before the text is read.
+    html_text = CLAIM_NOTE.sub(" ", html_text or "")
     t = _h.unescape(re.sub(r"<[^>]+>", " ", BLOCK.sub(BREAK, html_text)))
     return t.replace("\r", " ").replace("\n", " ")
 
