@@ -142,6 +142,10 @@ def test_a_removed_readers_list_line_is_not_required_and_the_heading_leaves_with
 
 @pytest.mark.skipif(not (Q2_CASE / "rulings" / "for_person.jsonl").exists(), reason="Q1-02's lean records absent")
 def test_q1_02_both_contradiction_lines_leave_the_page_and_no_finding_is_marked_resolved(tmp_path, lean_on, monkeypatch):
+    # Q1-02's records were generated before ruling 4 on P157 (a unit the page states is never declared): replayed
+    # under the rule as it stood then; the new rule's tests are in test_whu_declarations_p157.py.
+    import coverage_check as _C
+    monkeypatch.setattr(_C, "stated_on_page", lambda d, spans, said: None, raising=False)
     held = R.held_texts(Q2)
     # (1) the conversion takes LINE1 off the list
     hidden = []

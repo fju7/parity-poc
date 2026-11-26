@@ -39,6 +39,18 @@ RUNS = {"02z": ("whu-lean-orch-t1-q1-02z", ROOT / "issues" / "WHU-OT1-02z-whu-le
 pytestmark = pytest.mark.skipif(not store.LIB_TRIAL.exists(), reason="the trial library is local only (gitignored)")
 
 
+@pytest.fixture(autouse=True)
+def _lists_as_generated_before_p157(monkeypatch):
+    """These fixtures replay pages generated before the advisor's rulings 2 and 4 on P157 (2026-11-26): study
+    descriptors were headline units then, and a declaration of a unit the page states was still listed. The
+    replays run under those rules; the new rules have their own tests (test_whu_study_descriptors.py,
+    test_whu_declarations_p157.py)."""
+    import coverage_check as _C
+    import lean_coverage as _LC
+    monkeypatch.setattr(_LC, "study_descriptor", lambda text: False)
+    monkeypatch.setattr(_C, "stated_on_page", lambda d, spans, said: None, raising=False)
+
+
 @pytest.fixture
 def run_environment(monkeypatch):
     """The run's own environment (its run record), restored afterwards."""

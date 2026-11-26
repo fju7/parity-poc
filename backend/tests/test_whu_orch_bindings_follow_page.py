@@ -62,6 +62,17 @@ def _ruling_ops():
     return [dict(op) for op in _applied() if op["op"] in ("replace", "delete") and op["key"].startswith("ruling:")]
 
 
+@pytest.fixture(autouse=True)
+def _lists_as_generated_before_p157(monkeypatch):
+    """02z's page was generated before the advisor's rulings 2 and 4 on P157 (2026-11-26): study descriptors were
+    headline units then, and a declaration of a unit the page states was still listed. The replay runs under those
+    rules; the new rules have their own tests (test_whu_study_descriptors.py, test_whu_declarations_p157.py)."""
+    import coverage_check as _C
+    import lean_coverage as _LC
+    monkeypatch.setattr(_LC, "study_descriptor", lambda text: False)
+    monkeypatch.setattr(_C, "stated_on_page", lambda d, spans, said: None, raising=False)
+
+
 @pytest.fixture
 def run(tmp_path, monkeypatch):
     """A Ctx on a copy of 02z's page, with bindings.json held in memory (B.load / B.save patched)."""

@@ -83,8 +83,45 @@ def _strip(t: str) -> str:
     return " ".join(t.split())
 
 
+# STUDY DESCRIPTORS (advisor's ruling 2 on P157, 2026-11-26): a sentence that reports only the number, design,
+# population or location of the included studies is not a headline unit. Explicit rule: it matches one of
+# DESCRIPTOR's frames (included-studies vocabulary) AND states no effect, direction or certainty (STATES); any
+# sentence with a STATES word stays a unit.
+DESCRIPTOR = re.compile(
+    r"\b(?:we\s+)?(?:identified|included|found|analy[sz]ed|reviewed)\s+(?:\w+\s+){0,3}?"
+    r"(?:studies|trials|reviews|comparisons|participants|records|reports)\b"          # "We identified 18 eligible studies"
+    r"|\b(?:studies|trials)\b[^.;]{0,40}?\b(?:were\s+)?(?:conducted|carried\s+out|took\s+place|undertaken)\b"
+    r"|\b(?:met|meeting)\s+(?:our\s+|the\s+)?inclusion\s+criteria\b"
+    r"|^\W*(?:trial|study)\s+populations?\s+(?:were|was|included)\b"
+    r"|^\W*(?:\d+|[A-Z][a-z]+(?:[\s-][a-z]+)?)\s+(?:randomi[sz]ed\s+|non-randomi[sz]ed\s+|controlled\s+)*"
+    r"(?:studies|trials)\s+(?:across|in|from)\b"                                    # "Eight randomized trials across ..."
+    r"|\b(?:studies|trials)\s+(?:\([^)]*\)\s+)?(?:were\s+)?(?:included|eligible)\b",
+    re.I)
+STATES = re.compile(
+    r"\b(?:improv\w*|increas\w*|decreas\w*|reduc\w*|lower\w*|higher|fewer|more|less|effect\w*|differen\w*|"
+    r"associat\w*|benefit\w*|harm\w*|risks?|odds|ratios?|certainty|confidence|evidence|likely|probably|may|might|"
+    r"uncertain\w*|significan\w*|worse|better|none\s+of|"
+    r"no\s+(?:\w+\s+)?(?:studies|trials|reviews|data|evidence)|reported\s+(?:data|outcomes|effects|results|on))\b",
+    re.I)                                     # an absence of evidence ("No trials ... reported data") is a finding
+STATS = re.compile(r"\b(?:RR|OR|HR|MD|SMD|CI|IQR)\b")              # case-sensitive: "or" is not an odds ratio
+# a country income group ("lower middle-income", "low- and middle-income") names a population, not a direction
+INCOME = re.compile(r"\b(?:low|lower|upper|middle|high)(?:-|\s)+(?:(?:and|or)\s+)?(?:(?:low|lower|upper|middle|high)"
+                    r"(?:-|\s)+)*income\b", re.I)
+
+
+def study_descriptor(text: str) -> bool:
+    """Ruling 2 on P157: the sentence reports only the number, design, population or location of included studies."""
+    t = " ".join(unicodedata.normalize("NFKC", text or "").replace("\u2010", "-").replace("\u2011", "-").split())
+    if not DESCRIPTOR.search(t):
+        return False
+    t = INCOME.sub(" ", t)
+    return not STATES.search(t) and not STATS.search(t)
+
+
 def furniture(text: str) -> str | None:
     """Which kind of non-finding text TEXT is, or None for a finding."""
+    if study_descriptor(text):
+        return "study descriptor"
     t = _fold(text)
     lead = t.split(" ", 1)[0] if t else ""
     if lead and all(not c.isascii() and unicodedata.category(c)[0] in "LS" for c in lead) \
