@@ -26,9 +26,12 @@ UNVERIFIED = "We could not verify where this belief is published."
 # "most studies say", "the authors argue" report the evidence, which the audit reads against its source.
 _HOLDERS = (r"people|readers|parents|campaigners|advocates|activists|critics|commentators|policymakers|"
             r"politicians|governments|donors|ngos|charities|the public|the media|journalists|companies|polluters")
+# Advisor's ruling 2 on P152 (2026-11-26): only sentences saying that people, groups or the public HOLD the belief.
+# "Reported", "repeated" and "cited" describe what studies did ("the most commonly reported clinical endpoint", the
+# fresh Q1-01's findings sentence) and are no longer holder verbs; "argued" goes with them (authors argue).
 HOLDER = re.compile(
     r"\b(?:widely|commonly|often|generally|popularly|frequently|usually|broadly)\s+(?:believed|held|assumed|thought|"
-    r"said|claimed|argued|accepted|reported|repeated|cited)\b"
+    r"said|claimed|accepted)\b"
     r"|\b(?:it\s+is|it's)\s+(?:often|commonly|widely|generally|frequently|sometimes)?\s*(?:said|claimed|argued|"
     r"assumed|believed|thought)\b"
     r"|\b(?:common|popular|widespread|prevailing|received|conventional)\s+(?:belief|view|assumption|wisdom|"
