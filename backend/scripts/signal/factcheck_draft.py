@@ -257,6 +257,25 @@ def _load_reply_limits():
 _RL = _load_reply_limits()
 
 
+def _load_reply_store():
+    """whatholdsup/reply_store.py, by path (ruling 2 on the design review: raw replies kept privately)."""
+    try:
+        import importlib.util
+        m = sys.modules.get("reply_store")
+        if m is None:
+            p = Path(__file__).resolve().parents[1] / "whatholdsup" / "reply_store.py"
+            sp = importlib.util.spec_from_file_location("reply_store", p)
+            m = importlib.util.module_from_spec(sp)
+            sys.modules["reply_store"] = m
+            sp.loader.exec_module(m)
+        return m
+    except Exception:
+        return None
+
+
+_RS = _load_reply_store()
+
+
 def _load_jsonio():
     """whatholdsup/jsonio.py, by PATH for the reason _load_spend gives. Its
     strip_code_fence is the one fence stripper every model-reply parser uses."""
@@ -974,6 +993,17 @@ def call(system: str, user: str, *, search: bool,
                         response = _PR().call(lambda: client.messages.create(**params), "anthropic",
                                               label or "call")
                     _record_usage(label, response)
+                if _site and _RS is not None:
+                    try:
+                        _u = getattr(response, "usage", None)
+                        _RS.record(issue=_LEDGER_ISSUE, site=_site, role=label, model=getattr(response, "model", ""),
+                                   max_tokens=max_tokens, stop_reason=getattr(response, "stop_reason", None),
+                                   usage={"input": int(getattr(_u, "input_tokens", 0) or 0),
+                                          "output": int(getattr(_u, "output_tokens", 0) or 0)},
+                                   prompt=(system or "") + "\n\n" + (user_now or ""),
+                                   text=_response_text(response), final_text=_final_text(response)[0])
+                    except Exception:
+                        pass
                 # AFTER SPENDING: the response names the model that actually
                 # answered. If that is not in PRICES the line above was written
                 # with usd null (see _ledger_now) and this run stops here: the

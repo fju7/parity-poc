@@ -1863,6 +1863,17 @@ def _rehearse_in(a, base: Path, state: Path, tmp_base: Path) -> int:
             env["WHU_REHEARSE_PLAN"] = str(Path(a.plan).resolve())
         if a.offline:
             env["WHU_REHEARSE_OFFLINE"] = "1"
+        if getattr(a, "replay", False):
+            # the replay rehearsal (ruling 2 on the design review): the recorded run's documents at their own URLs,
+            # in a cache of its own that keeps what this replay records; recorded replies by step and order
+            from orch import replay_rehearsal as RR
+            rehearsal_module()
+            import whu_rehearsal as RM
+            http = RR.PRIVATE / "replay_http" / a.base_slug
+            seeded = RR.seed_http(a.base_slug, http, RM._key)
+            (state / "seeded.json").write_text(json.dumps(seeded, indent=1) + "\n", encoding="utf-8")
+            env.update({"WHU_REHEARSE_REPLAY": "1", "WHU_REHEARSE_BASE_SLUG": a.base_slug,
+                        "WHU_REHEARSE_HTTP": str(http), "WHU_REPLAY_ROOT": str(ROOT)})
         argv = [str(sb.root / "backend" / "venv" / "bin" / "python3"),
                 str(sb.root / "backend" / "scripts" / "whatholdsup" / "orchestrator.py"), "run", a.slug, "--mode",
                 REHEARSE]
@@ -1961,6 +1972,8 @@ def main(argv=None) -> int:
     h.add_argument("--offline", action="store_true", help="serve HTTP from the recorded cache only")
     h.add_argument("--out", help="write the summary (counts only) here")
     h.add_argument("--then-resume-plan", help="after the run, resume it in the same copy under this plan")
+    h.add_argument("--replay", action="store_true",
+                   help="replay the recorded run BASE_SLUG: its documents and recorded replies (orch/replay_rehearsal.py)")
     p = sub.add_parser("replay"); p.add_argument("slug", nargs="+"); p.add_argument("--out")
     s = sub.add_parser("status"); s.add_argument("slug")
     e = sub.add_parser("estimate"); e.add_argument("slug", nargs="+"); e.add_argument("--out")
@@ -1979,6 +1992,13 @@ def main(argv=None) -> int:
             print("refusing: no paid run until the advisor rules on one (set %s to the ruling's deviations row)"
                   % PAID_RULING_ENV)
             return 2
+        if a.mode == "paid":
+            # Ruling 2 on the design review (2026-11-26): the replay gate must pass on this code first.
+            from orch import replay_gate as RG
+            ok, why = RG.check()
+            if not ok:
+                print("refusing: %s" % why)
+                return 2
         if a.mode == "trial":
             from orch.sandbox import Sandbox
             with Sandbox(a.slug) as sb:

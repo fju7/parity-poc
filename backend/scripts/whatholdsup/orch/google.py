@@ -175,5 +175,12 @@ class Gateway:
             S.record(script=SCRIPT, role=role, issue=self.issue, usd=usd, input_tokens=prompt, model=mv or None,
                      output_tokens=cand + think, note="%s; cached=%d; thinking=%d; finish=%s" % (mv or MODEL, cached,
                                                                                              think, finish))
+        try:
+            import reply_store as _RS
+            _RS.record(issue=self.issue, site="overstatement", role=role, model=mv or MODEL, max_tokens=max_out,
+                       stop_reason=finish, usage={"input": prompt, "output": cand + think, "thinking": think},
+                       prompt=text, text=out)
+        except Exception:
+            pass
         return {"text": out, "model": mv or MODEL, "usd": round(usd, 6), "refused": refused, "finish": finish,
                 "tokens": {"input": prompt, "cached": cached, "output": cand, "thinking": think}, "cut_off": False}

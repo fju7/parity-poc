@@ -215,18 +215,59 @@ class _Stream:
         return self.msg
 
 
+def _replay():
+    """orch/replay_rehearsal.py, by path (the replay rehearsal, ruling 2 on the design review), or None."""
+    import importlib.util
+    import sys
+    m = sys.modules.get("whu_replay_rehearsal")
+    if m is None:
+        p = Path(__file__).with_name("replay_rehearsal.py")
+        spec = importlib.util.spec_from_file_location("whu_replay_rehearsal", str(p))
+        m = importlib.util.module_from_spec(spec)
+        sys.modules["whu_replay_rehearsal"] = m
+        spec.loader.exec_module(m)
+    return m if m.active() else None
+
+
+def generator_name(prompt: str, step: str, what: str, provider: str = "anthropic") -> str:
+    for name, match, _make in GENERATORS:
+        try:
+            if match(prompt, step, what, provider):
+                return name
+        except Exception:
+            continue
+    return "unknown"
+
+
 class _AnthropicMessages:
     def _reply(self, kw):
         step, what = _now_step(), _current_what()
         system = kw.get("system") or ""
         prompt = (system + "\n\n" if isinstance(system, str) else "") + _text_of(kw.get("messages"))
         search = bool(kw.get("tools"))
-        text = shaped(generate(step, what, prompt, search=search), step, what)
+        stop, out_tokens = "end_turn", None
+        RR = _replay()
+        if RR is not None:
+            name = generator_name(prompt, step, what)
+            rr = RR.reply(state_dir(), step, name, kw.get("max_tokens"))
+            text = shaped(rr["text"] if rr["text"] is not None else generate(step, what, prompt, search=search),
+                          step, what)
+            out_tokens = rr["output"]
+            stop = RR.stop_for(out_tokens, kw.get("max_tokens"))
+            if stop == "max_tokens":
+                text = text[: max(1, len(text) // 2)]          # cut off, as the recorded length would be today
+            RR.log_event(state_dir(), {"step": step, "generator": name, "source": rr["source"], "why": rr["why"],
+                                       "output": out_tokens, "max_tokens": kw.get("max_tokens"), "stop": stop})
+        else:
+            text = shaped(generate(step, what, prompt, search=search), step, what)
         blocks, n = _blocks(text, search, step, what)
         log("anthropic", {"step": step, "what": what, "model": kw.get("model"), "chars": len(text),
                           "prompt_sha": hashlib.sha256(prompt.encode()).hexdigest()[:12]})
-        return _Message(content=blocks, usage=_usage(prompt, text, n), model=kw.get("model"),
-                        stop_reason="end_turn", id="rehearsal", type="message", role="assistant")
+        usage = _usage(prompt, text, n)
+        if out_tokens:
+            usage.output_tokens = int(out_tokens)
+        return _Message(content=blocks, usage=usage, model=kw.get("model"),
+                        stop_reason=stop, id="rehearsal", type="message", role="assistant")
 
     def create(self, **kw):
         return self._reply(kw)
@@ -248,6 +289,10 @@ class _GoogleModels:
         step, what = _now_step(), _current_what()
         text = contents if isinstance(contents, str) else str(contents)
         out = shaped(generate(step, what or "google", text, search=False, provider="google"), step, what)
+        RR = _replay()
+        if RR is not None:
+            RR.log_event(state_dir(), {"step": step, "generator": generator_name(text, step, what or "google", "google"),
+                                       "source": "synthetic", "why": "no record holds a Google verdict's reply"})
         log("google", {"step": step, "what": what, "chars": len(out)})
         return SimpleNamespace(model_version=model, text=out, prompt_feedback=None,
                                candidates=[SimpleNamespace(finish_reason="STOP")],

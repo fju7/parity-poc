@@ -663,7 +663,7 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                          "the page note (checked by 'unread corrections noted on the page'): %s"
                          % (len(noted), ", ".join(noted))))
         open_ = [i for i in amended if i not in accounted and i not in unheld]
-        done = [i for i in amended if i in accounted and i not in unheld]
+        done = [i for i in amended if i in accounted and i not in unheld and i not in noted]   # noted: not read
         if unheld:
             rows.append(("corrections to sources not held", OK,
                          "%d source(s) with a correction or retraction are not held, so nothing on the page draws "

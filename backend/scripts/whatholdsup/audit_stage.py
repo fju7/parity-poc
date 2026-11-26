@@ -103,6 +103,7 @@ SUMMARY_PROMPT = HERE / "audit_prompts" / "summary.md"
 RULE_PROMPT = HERE / "audit_prompts" / "rule.md"
 MODEL = "claude-opus-5-5"
 import reply_limits as _RL  # noqa: E402  (the one limits table, advisor's ruling 1 on the design review)
+import reply_store as _RS  # noqa: E402  (raw replies, privately: ruling 2 on the design review)
 READ_MAX_OUT = _RL.limit("audit-read")
 RULE_MAX_OUT = _RL.limit("audit-rule")
 # A reply limit above this needs an explicit request timeout: the SDK refuses a non-streaming request whose
@@ -1079,6 +1080,8 @@ class Caller:
         if counts.get("cache_write") or counts.get("cache_read"):
             usage.update(cache_write=counts["cache_write"], cache_read=counts["cache_read"])
         self.calls.append({"role": role, **extra, **usage})
+        _RS.record(issue=self.issue, site=site, role=role, model=getattr(r, "model", self.model) or self.model,
+                   max_tokens=max_tokens, stop_reason=r.stop_reason, usage=usage, prompt=prompt, text=text)
         if r.stop_reason == "max_tokens":
             # Paid for, so counted above; the caller decides what a cut-off
             # reply means (ruling.py retries once, 2026-10-22).
