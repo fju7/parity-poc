@@ -528,6 +528,40 @@ def _label(sources: list[dict], sid: str) -> str:
     return t[:60]
 
 
+_CI_CLAUSE = re.compile(r"\([^()]*\b(?:IQR|CI|interquartile|confidence interval)\b[^()]*\)"
+                        r"|\b(?:95\s*%\s*)?(?:CI|IQR)\b[^;)]*", re.I)
+_FIG = re.compile(r"(?<![\w.])\d+(?:\.\d+)?(?![\w.])")
+FIGURES_MIN = 2
+
+
+def result_figures(text: str) -> list[str]:
+    """The numbers a finding reports, without those inside a confidence or interquartile interval."""
+    t = " ".join((text or "").replace("\u2010", "-").split())
+    return _FIG.findall(_CI_CLAUSE.sub(" ", t))
+
+
+def stated_by_figures(text: str, sentences: list[str]) -> str | None:
+    """Ruling 4 on P157: the one sentence (bound to the declaration's source) that states every result figure of
+    TEXT -- at least FIGURES_MIN of them -- else None."""
+    want = set(result_figures(text))
+    if len(want) < FIGURES_MIN:
+        return None
+    for s in sentences:
+        if want <= set(_FIG.findall(" ".join((s or "").split()))):
+            return s
+    return None
+
+
+def stated_on_page(d: dict, spans: dict, said: dict) -> str | None:
+    """Ruling 4 on P157: how the page states declaration D's unit, or None. SPANS: {source: on-page binding spans};
+    SAID: {source: on-page sentences bound to it}. A code line (CODE_LINES) is never dropped."""
+    if d.get("state") in CODE_LINES or not d.get("at"):
+        return None
+    if any(_overlaps(x, d["at"]) for x in spans.get(d["source"], [])):
+        return "an on-page binding of %s" % d["source"]
+    return stated_by_figures(d.get("text") or "", said.get(d["source"], []))
+
+
 def declarations(slug: str, held: dict[str, str], case: Path | None = None,
                  hidden: list | None = None) -> list[dict]:
     """Every declared finding the readers' list must show, oldest first:
@@ -545,7 +579,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
                                 "NOT_ADDED_ANCHOR_REMOVED") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
-                        "from": "omissions",
+                        "from": "omissions", "element": e.get("element") or "", "at": list(e["at"]),
                         "reason": e.get("reason") or "", "for_reader": reader_reason(e),
                         "by": e.get("by"), "signature": e.get("signature"),
                         "decided_at": e.get("decided_at") or ""})
@@ -553,6 +587,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
         sid, rng = k.split("@")
         a, b = (int(x) for x in rng.split("-"))
         out.append({"key": k, "state": d["state"], "source": sid, "text": (held.get(sid) or "")[a:b],
+                    "element": d.get("element") or "", "at": [a, b],
                     "reason": d.get("reason") or "", "for_reader": reader_reason(d),
                     "by": d.get("by"), "signature": d.get("signature"),
                     "decided_at": d.get("decided_at") or ""})
@@ -575,6 +610,25 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
                 got = LC.already_stated(d["text"], body)
                 if got:
                     d.update(state=LC.ALREADY, converted_from="not_material", stated_by=got)
+        # A UNIT STATED ON THE PAGE IS NEVER DECLARED (advisor's ruling 4 on P157): a declaration whose span lies
+        # under an on-page binding of its source, or whose result figures one on-page sentence bound to its source
+        # states (stated_by_figures), is dropped from the readers' list; the record keeps the model's ruling.
+        import bindings as _B
+        try:
+            _rows = _B.load(slug).get("bindings") or {}
+        except (Exception, SystemExit):                 # no case folder (a demo slug): nothing is bound
+            _rows = {}
+        _spans = bound_ranges(_rows, held)
+        _said: dict[str, list[str]] = {}
+        import audit_stage as _A
+        for r in _rows.values():
+            if r.get("on_page") and not _B.is_declaration_row(r) and r.get("sentence"):
+                for sid in _A.sources_of(r):
+                    _said.setdefault(sid, []).append(r["sentence"])
+        for d in out:
+            got = stated_on_page(d, _spans, _said)
+            if got:
+                d.update(state=LC.ALREADY, converted_from=d["state"], stated_by=got)
         # a "no place" Not added line is code's, and required: never dropped as furniture
         def _off(d):
             return d["state"] == LC.ALREADY or (d["state"] not in CODE_LINES and LC.furniture(d["text"]))
