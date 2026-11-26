@@ -181,10 +181,10 @@ def record(slug: str, by: str = "code (lean_coverage.py)") -> list[dict]:
     for sid in C.relied_on(slug, rows, PM.load(slug) or {}):
         if sid in held:
             units += split_units(C.units_of(srcs.get(sid) or {"id": sid}, held[sid], spans.get(sid)))[0]
-    cov = C.load(case)
+    cov = C.load(case, raw=True)                 # written back below: the computed REMOVED lines stay out of the file
     decl = cov.setdefault("declarations", {})
     done = []
-    for u in C.account(units, rows, held, O.load(case), decl):
+    for u in C.account(units, rows, held, O.load(case), dict(C.removed_units(case), **decl)):
         if u["state"] != "none":
             continue
         s = already_stated(u["text"], page)

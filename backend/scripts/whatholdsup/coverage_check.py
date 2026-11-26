@@ -88,7 +88,7 @@ HEADING = "Findings in our sources we judged outside this question"
 LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
         "not_added_cap": "Not added:", "not_added_no_place": "Not added:", "not_added_beyond": "Not added:",
         "not_added_over_budget": "Not added:", "not_added_not_one_sentence": "Not added:",
-        "not_added_anchor_removed": "Not added:"}
+        "not_added_anchor_removed": "Not added:", "not_stated_removed": "Not added:"}
 # Lean WHU (process doc §4.6.1, the ruling paths): code's own line for an ADD with no
 # place on the page; a required page element, and not counted against the budget.
 NO_PLACE = "not_added_no_place"
@@ -105,8 +105,13 @@ NOT_ONE_TAIL = "(it could not be written as one sentence)"
 # Advisor's ruling 1 on P152: an ADD removed with the sentence it followed (orch/apply.py, the anchor cascade).
 ANCHOR = "not_added_anchor_removed"
 ANCHOR_TAIL = "(found in our sources, not stated on this page: the sentence it followed was removed)"
+# Advisor's ruling 3 on P152: a headline unit coverage decided as USED whose every on-page statement a later record
+# removed (the fresh Q1-01's two S003 units, removed by the overstatement fail-safe) -- computed by load(), never
+# written to coverage.json; not counted against the declarations budget.
+REMOVED = "not_stated_removed"
+REMOVED_TAIL = "(found in our sources, not stated on this page: the sentence that stated it was removed)"
 CODE_LINES = {NO_PLACE: NO_PLACE_TAIL, BEYOND: BEYOND_TAIL, OVER_BUDGET: OVER_BUDGET_TAIL, NOT_ONE: NOT_ONE_TAIL,
-              ANCHOR: ANCHOR_TAIL}
+              ANCHOR: ANCHOR_TAIL, REMOVED: REMOVED_TAIL}
 CAP_REASON = "the page's limit for %s was reached"     # not_added_cap's reader-facing reason
 
 CALIBRATED = re.compile(r"\b(?:very\s+low|low|medium|high|very\s+high)\s+confidence"
@@ -304,9 +309,69 @@ def unit_key(u: dict) -> str:
     return "%s@%d-%d" % (u["source"], u["at"][0], u["at"][1])
 
 
-def load(case: Path) -> dict:
+def load(case: Path, raw: bool = False) -> dict:
+    """coverage.json; unless RAW, with every headline unit whose on-page statement a later record removed added as a
+    REMOVED declaration (removed_units; an existing decision for the unit is kept). Writers load RAW."""
     p = case / RECORD
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"units": [], "declarations": {}}
+    doc = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"units": [], "declarations": {}}
+    if not raw:
+        decl = doc.setdefault("declarations", {})
+        for k, v in removed_units(case).items():
+            decl.setdefault(k, v)
+    return doc
+
+
+def removed_units(case: Path) -> dict:
+    """{unit key: declaration} for each headline unit of a relied-on source that has NO on-page binding now and an
+    off-page one a record removed (off_page_by): the page stated it and a later step took the statement off. Code's
+    own line on the readers' list (REMOVED); computed from bindings.json each time, never written."""
+    case = Path(case)
+    bp = case / "bindings.json"
+    if not bp.exists():
+        return {}
+    try:
+        rows = json.loads(bp.read_text(encoding="utf-8")).get("bindings") or {}
+    except ValueError:
+        return {}
+    import bindings as B
+    gone = [r for r in rows.values() if not r.get("on_page") and r.get("off_page_by") and not B.is_declaration_row(r)]
+    if not gone:
+        return {}
+    try:
+        slug = json.loads((case / "issue.json").read_text(encoding="utf-8")).get("slug")
+    except (OSError, ValueError):
+        return {}
+    import premise as PM
+    import ruling as R
+    import audit_stage as A
+    held = R.held_texts(slug)
+    on = bound_ranges(rows, held)
+    off: dict[str, list] = {}
+    for r in gone:
+        for sid, q in R.quotations(r, held):
+            at = A.locate(q, held.get(sid) or "")
+            if at:
+                off.setdefault(sid, []).append((list(at), r.get("off_page_by")))
+    if not off:
+        return {}
+    import lean
+    srcs = {s["id"]: s for s in _sources(slug)}
+    out = {}
+    for sid in relied_on(slug, rows, PM.load(slug) or {}):
+        if sid not in off or sid not in held:
+            continue
+        units = units_of(srcs.get(sid) or {"id": sid}, held[sid], on.get(sid))
+        if lean.enabled():
+            import lean_coverage as LC
+            units = LC.split_units(units)[0]
+        for u in units:
+            if any(_overlaps(x, u["at"]) for x in on.get(sid, [])):
+                continue
+            by = sorted({b for at, b in off[sid] if _overlaps(at, u["at"]) and b})
+            if by:
+                out[unit_key(u)] = {"state": REMOVED, "reason": "the page sentence that stated it was removed",
+                                    "removed_by": by, "by": "code (ruling 3 on P152)", "decided_at": ""}
+    return out
 
 
 def _overlaps(a: list, b: list) -> bool:
@@ -617,7 +682,8 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
               if d["state"] == "out_of_scope" and not O.scope_element_ok(d.get("element") or "", scope)[0]]
     none = [u for u in acc if u["state"] == "none"]
     counts = {s: len([u for u in acc if u["state"] == s])
-              for s in ("used", "added") + DECLARED + (("already_stated", NO_PLACE, BEYOND, OVER_BUDGET, NOT_ONE) if LEAN else ())}
+              for s in ("used", "added") + DECLARED + (("already_stated", NO_PLACE, BEYOND, OVER_BUDGET, NOT_ONE, ANCHOR,
+                                                         REMOVED) if LEAN else ())}
     detail = "%d unit(s) in %d relied-on source(s): %s. %s" % (
         len(acc), len({u["source"] for u in acc}),
         ", ".join("%d %s" % (n, s) for s, n in counts.items() if n) or "none accounted", LIMIT)
@@ -698,7 +764,7 @@ def declare(slug: str, key: str, state: str, why: str, by: str, element: str = "
     if state == "out_of_scope" and not element.strip():
         raise SystemExit("out_of_scope needs --element: words of the question or a scope.out entry")
     case = case or store.case_dir(slug)
-    doc = load(case)
+    doc = load(case, raw=True)
     doc.setdefault("declarations", {})[key] = {
         "state": state, "reason": why, "by": by, "element": element,
         **({"reason_for_reader": for_reader} if for_reader.strip() else {}),
