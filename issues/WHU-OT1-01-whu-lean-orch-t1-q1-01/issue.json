@@ -7,7 +7,7 @@
   "slug": "whu-lean-orch-t1-q1-01",
   "title": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
   "question": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
-  "run_cap_usd": 3.0,
+  "run_cap_usd": 5.0,
   "_round_note": "Orchestrator trial 1, development batch run 2 of 3 (advisor's ruling 8 on the design review, 2026-11-26): a development run of the pipeline after P130-P138, not a reliability measurement. Question WHU-Q1-01 of quarterly round 1, verbatim from issues/WHU-Q1-01-whu-quarterly-r1-01/issue.json. Chosen by the ruled rule: the round-1 quarterly questions other than Q1-02 with the most held sources in their round-1 lean runs (Q1-04 5, Q1-01 2, Q1-03 1; round 1 has only these three besides Q1-02, so the rule picks all three, run in that order). Outputs are discarded by rule and never scored. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-01.",
-  "_run_cap_note": "run_cap_usd: $3.00 (advisor's ruling 8: run and per_issue caps $3.00 each, the batch <= $9.00 of the trial line's ~$9.13)."
+  "_run_cap_note": "run_cap_usd: $3.00 (advisor's ruling 8: run and per_issue caps $3.00 each, the batch <= $9.00 of the trial line's ~$9.13). Raised to $5.00 on 2026-11-26 at the operator's instruction in session, given while this run was going: \"if it needs another $1 or $2 complete the run.\" The run had spent $2.5755 when the gate's bound ($1.50) did not fit the $0.42 left; it resumes from its checkpoint."
 }
