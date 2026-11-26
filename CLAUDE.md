@@ -3120,6 +3120,7 @@ phase ends or 2026-11-30T23:59Z; test_whu_study_judging_cap.py fails while it st
 - P119: `quotations.HYPHENS` (U+2010/U+2011 = '-') in every norm(); `match_held` keeps U+2212/U+2013/U+2014 distinct (`fold_dashes=False` on `norm` and `spancheck._norm`). The default norm() still folds en/em dash.
 - P120: "sentences rest on received text" also counts the coverage step's units (`lean_received.coverage_ranges`: model-decided coverage.json declarations and in-scope units); never counted toward a section read in full.
 - P121: the belief step re-asks once for different outlets when round 1 confirms none (refused ones named and excluded by code; `verify_outlet` unchanged; both rounds logged); its limits 4 calls / $2.00.
+- P122: a title match exactly at the limits (ratio == MATCH_RATIO, shared == MATCH_MIN, not containment) is accepted by `title_match.check` only with an equal year or an equal container (the proposal's container is passed to resolve); WHU's port only, verify unchanged (divergence in the port's header).
 - Lead scan: `schedule/scan_skip.py` skips WHU-OT1-*, WHU-SD-* and locked folders; `sweep_sources.refused_values`
   honours `identifier_refused` (fixed 2026-11-23; the S06 line below describes the defect before the fix).
 - The weekly launchd lead scan (`~/Library/LaunchAgents/org.whatholdsup.leadscan.plist`, Mondays 09:00 local,

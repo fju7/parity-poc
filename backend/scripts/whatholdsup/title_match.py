@@ -18,6 +18,13 @@ strategies" through for "Inclusive Strategies for Children With Developmental Di
 in Africa: A systematic review" on "strategies", "systematic", "review". Under this rule those share one distinctive
 word ("systematic" and "review" are boilerplate): ratio 1/7, refused. backend/tests/test_whu_title_match.py holds the
 golden cases of tests/verify/golden_search.json and that one, and checks this port against verify itself.
+
+DIVERGENCE FROM VERIFY (advisor's ruling 1 on P118-P121, 2026-11-25): a title match that passes EXACTLY at the limits
+(ratio == MATCH_RATIO and shared words == MATCH_MIN, not by containment) is accepted by check() only if the year is
+equal or the container is equal; otherwise it is refused as a boundary match. Found on orchestrator trial 1 attempt 25
+(WHU-OT1-02zc): S007, Hunt 2020's GEM background paper, was matched to Hunt 2019, "Inclusive Education as Global
+Development Policy" (a Sage handbook chapter), at 3 of 5 = 0.6 on 3 shared words. title_matches() itself is unchanged
+and still equals verify's; verify/search.py and its golden set are not changed.
 """
 from __future__ import annotations
 
@@ -134,12 +141,49 @@ def first_author(author_string: str | None) -> str | None:
     return (author_string or "").split(",")[0].strip() or None
 
 
-def check(proposed_title: str, proposed_author: str | None, proposed_year, record: dict) -> tuple[bool, str]:
-    """(agrees, why) for a registry RECORD in Europe PMC's field names (title, authorString, pubYear)."""
+def at_boundary(ratio: float, shared: set) -> bool:
+    """A match that passes exactly at the limits, not by containment (ruling 1 on P118-P121)."""
+    return ratio != 1.0 and ratio == MATCH_RATIO and len(shared) == MATCH_MIN
+
+
+def _int_year(y):
+    try:
+        return int(str(y).strip()[:4]) if y not in (None, "") else None
+    except (TypeError, ValueError):
+        return None
+
+
+def record_container(record: dict) -> str | None:
+    """The record's container, in Europe PMC's fields (journalInfo.journal.title, else journalTitle)."""
+    return ((record.get("journalInfo") or {}).get("journal") or {}).get("title") or record.get("journalTitle") or None
+
+
+def boundary_ok(proposed_year, proposed_container, record: dict) -> tuple[bool, str]:
+    """At the boundary: accepted only if the year is equal OR the container is equal (both sides given)."""
+    py, ry = _int_year(proposed_year), _int_year(record.get("pubYear"))
+    if py is not None and ry is not None and py == ry:
+        return True, "year equal (%d)" % py
+    pc, rc = normalise(proposed_container), normalise(record_container(record))
+    if pc and rc and pc == rc:
+        return True, "container equal (%s)" % record_container(record)
+    return False, ("a boundary match (ratio %.1f on %d shared words) with neither the year (%s vs %s) nor the "
+                   "container (%r vs %r) equal: refused" % (MATCH_RATIO, MATCH_MIN, proposed_year,
+                                                           record.get("pubYear"), proposed_container,
+                                                           record_container(record)))
+
+
+def check(proposed_title: str, proposed_author: str | None, proposed_year, record: dict,
+          proposed_container: str | None = None) -> tuple[bool, str]:
+    """(agrees, why) for a registry RECORD in Europe PMC's field names (title, authorString, pubYear, journalTitle).
+    PROPOSED_CONTAINER is the proposal's container, for the boundary rule (WHU only, ruling 1 on P118-P121)."""
     ok, ratio, shared = title_matches(proposed_title, record.get("title") or "")
     if not ok:
         return False, "title does not agree: ratio %.3f on %d shared distinctive word(s) (needs containment, or " \
                       "%.1f on %d)" % (ratio, len(shared), MATCH_RATIO, MATCH_MIN)
+    if at_boundary(ratio, shared):
+        b_ok, b_why = boundary_ok(proposed_year, proposed_container, record)
+        if not b_ok:
+            return False, "title " + b_why
     fa = first_author(record.get("authorString"))
     if not author_ok(proposed_author, fa):
         return False, "first author %r does not agree with the record's first author %r" % (proposed_author, fa)

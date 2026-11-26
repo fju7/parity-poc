@@ -509,6 +509,17 @@ def _pmcid_resolver():
     return RV.search_pmcid
 
 
+def _with_container(fn, p: dict) -> dict:
+    """{"container": ...} if FN takes a container keyword (orch/resolve.py does; test stubs may not): the proposal's
+    container, for title_match's boundary rule (advisor's ruling 1 on P118-P121)."""
+    import inspect
+    try:
+        takes = "container" in inspect.signature(fn).parameters
+    except (TypeError, ValueError):
+        takes = False
+    return {"container": p.get("container")} if takes else {}
+
+
 def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple[list[dict], list[dict]]:
     """(sources, unresolved). A proposal is kept only if a registry resolves it, or it was found on an agency's
     own site (AGENCY_HOSTS). Never an identifier the registry did not give. Publisher terms (the study rule after
@@ -522,11 +533,12 @@ def resolve_proposals(proposals: list[dict], search, search_pmcid=None) -> tuple
         if p["type"] == NO_TYPE:
             continue                                        # recorded by code_discover (ruling (b))
         got = search(p["title"], p.get("first_author"), p.get("year"),
-                     "trial" if p["type"] == "registry" else "article")
+                     "trial" if p["type"] == "registry" else "article", **_with_container(search, p))
         pmc = pmcid_of(p.get("url") or "")
         if getattr(got, "identifier", None) is None and pmc:
             # ruling (c): an article hosted on PMC is confirmed through Europe PMC by its PMCID
-            got = (search_pmcid or _pmcid_resolver())(pmc, p["title"], p.get("first_author"), p.get("year"))
+            sp = search_pmcid or _pmcid_resolver()
+            got = sp(pmc, p["title"], p.get("first_author"), p.get("year"), **_with_container(sp, p))
         src = {"id": "S%03d" % (len(out) + 1), "type": p["type"], "title": p["title"], "year": p.get("year"),
                "container": p.get("container") or None, "authors": p.get("first_author"),
                "used_for": p.get("why") or None, "proposed_by": "orchestrator discover step",
@@ -652,11 +664,11 @@ def code_confirm(ctx: Ctx, step) -> dict:
     for p in proposals:
         if p["type"] != NO_TYPE:
             continue
-        got = search(p["title"], p.get("first_author"), p.get("year"), "article")
+        got = search(p["title"], p.get("first_author"), p.get("year"), "article", **_with_container(search, p))
         pmc = pmcid_of(p.get("url") or "")
         if getattr(got, "identifier", None) is None and pmc:
-            got = (getattr(ctx, "search_pmcid", None) or _pmcid_resolver())(pmc, p["title"], p.get("first_author"),
-                                                                            p.get("year"))
+            sp = getattr(ctx, "search_pmcid", None) or _pmcid_resolver()
+            got = sp(pmc, p["title"], p.get("first_author"), p.get("year"), **_with_container(sp, p))
         if getattr(got, "identifier", None) is None:
             unresolved.append({"proposal": p, "why": getattr(got, "reason", "not resolved"),
                                "status": getattr(got, "status", None)})

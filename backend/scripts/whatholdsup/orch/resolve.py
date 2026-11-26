@@ -49,7 +49,7 @@ def _surname(name: str | None) -> str:
 
 
 def search(title: str, first_author: str | None = None, year: int | None = None, kind: str | None = None,
-           lookup=None, registries=None):
+           lookup=None, registries=None, container: str | None = None):
     """LOOKUP (tests; find_access.epmc's shape, a record or None) keeps the Europe-PMC-only path. Otherwise
     REGISTRIES (default registries.py): Europe PMC, PubMed and Crossref are ALL asked (ruling 3 after the fallback
     build) and the proposal is confirmed if any registry's record passes the checks."""
@@ -57,15 +57,15 @@ def search(title: str, first_author: str | None = None, year: int | None = None,
         rec = lookup(title, "TITLE")
         if rec is None:
             return Unresolved("Europe PMC returned no record for the title (or did not answer)", "NOT_FOUND")
-        return _checked(rec, title, first_author, year)
+        return _checked(rec, title, first_author, year, container=container)
     RG = registries or _registries()
     return _every(RG, "title", [lambda: RG.epmc_title(title), lambda: RG.pubmed_title(title),
                                 lambda: RG.crossref_title(title, _surname_of(first_author))],
-                  title, first_author, year)
+                  title, first_author, year, container=container)
 
 
 def search_pmcid(pmcid: str, title: str, first_author: str | None = None, year: int | None = None, lookup=None,
-                 registries=None):
+                 registries=None, container: str | None = None):
     """An article hosted on PMC (ruling (c), 2026-11-07): confirmed as an article by its PMCID, then held to the
     same title, author and year checks as a title search. Europe PMC and PubMed are both asked by the PMCID; Crossref
     has no PMCID lookup, which is recorded."""
@@ -73,11 +73,11 @@ def search_pmcid(pmcid: str, title: str, first_author: str | None = None, year: 
         rec = lookup(pmcid, "PMCID")
         if rec is None:
             return Unresolved("Europe PMC returned no record for %s (or did not answer)" % pmcid, "NOT_FOUND")
-        got = _checked(rec, title, first_author, year, pmcid=pmcid)
+        got = _checked(rec, title, first_author, year, pmcid=pmcid, container=container)
     else:
         RG = registries or _registries()
         got = _every(RG, pmcid, [lambda: RG.epmc_id("PMCID", pmcid), lambda: RG.pubmed_pmcid(pmcid)],
-                     title, first_author, year, pmcid=pmcid,
+                     title, first_author, year, pmcid=pmcid, container=container,
                      not_asked=[{"registry": "Crossref", "asked": pmcid, "answered": None, "record": None,
                                  "matched": None, "why": "not asked: Crossref has no PMCID lookup"}])
     if isinstance(got, Found):
@@ -149,7 +149,7 @@ def _merge_identifiers(got, others: list) -> None:
         got.extra["identifiers_from"] = src
 
 
-def _every(RG, asked: str, asks, title, first_author, year, pmcid=None, not_asked=()):
+def _every(RG, asked: str, asks, title, first_author, year, pmcid=None, not_asked=(), container=None):
     """Every registry in ASKS is asked; each answer's records are held to the checks. The source is the first
     registry's passing record in Europe PMC, PubMed, Crossref order (its identifiers and source-list record); every
     registry asked is recorded with answered and matched. An outage is covered when any registry answered; with
@@ -163,7 +163,7 @@ def _every(RG, asked: str, asks, title, first_author, year, pmcid=None, not_aske
             for rec in _best_first(ans.records or ([ans.record] if ans.record else []), title):
                 reg = rec.get("registry") or {"Europe PMC": "europepmc", "PubMed": "pubmed",
                                               "Crossref": "crossref"}.get(ans.registry, ans.registry.lower())
-                got = _checked(rec, title, first_author, year, pmcid=pmcid, registry=reg)
+                got = _checked(rec, title, first_author, year, pmcid=pmcid, registry=reg, container=container)
                 if isinstance(got, Found):
                     hit = got
                     break
@@ -192,11 +192,12 @@ def _every(RG, asked: str, asks, title, first_author, year, pmcid=None, not_aske
         (": " + "; ".join(reasons[:4])) if reasons else ""), "NOT_FOUND", rows)
 
 
-def _checked(rec: dict, title: str, first_author, year, pmcid: str | None = None, registry: str = "europepmc"):
+def _checked(rec: dict, title: str, first_author, year, pmcid: str | None = None, registry: str = "europepmc",
+             container: str | None = None):
     # advisor's ruling 1 after the P091 build: verify/search.py's rules, ported (title_match.py), replace
     # find_access.titles_agree's shared-words test and the surname-anywhere-in-the-authors test
     import title_match as TM
-    ok, why = TM.check(title, first_author, year, rec)
+    ok, why = TM.check(title, first_author, year, rec, proposed_container=container)   # ruling 1 on P118-P121
     if not ok:
         return Unresolved(why)
     if rec.get("doi"):
