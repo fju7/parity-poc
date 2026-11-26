@@ -575,8 +575,10 @@ def quote_is_in_source(slug: str, sid: str, quote: str) -> tuple[bool, str]:
         return False, "%s is not in the library" % sid
     # every rendition the library holds of the source, primary first (S015's
     # Table 1 is a second rendition; the article HTML does not contain it)
+    # match_held's character equivalence (advisor's ruling 4 on the P122-P124 findings): hyphens one character,
+    # U+2212 / U+2013 / U+2014 distinct -- the default norm() folds the en and em dash
     for f, text in SC._texts(slug, sid):
-        if Q.norm(quote) in Q.norm(SC._norm(text)):
+        if Q.norm(quote, fold_dashes=False) in Q.norm(SC._norm(text, fold_dashes=False), fold_dashes=False):
             return True, "found in %s (%s)" % (sid, f[:12])
     defective, why = SC.defective_renditions(slug, sid)
     if defective:

@@ -1694,13 +1694,16 @@ def b22_wording_claim(row: dict, slug: str) -> list[dict]:
             held += texts
             if SC.defective_renditions(slug, sid)[0]:
                 defective.append(sid)
-    hay = [Q.norm(SC._norm(t)) for t in spans + held]
-    strict_hay = [Q.norm(SC._norm(t), fold_accents=False) for t in spans + held]
+    # match_held's character equivalence (advisor's ruling 4 on the P122-P124 findings): hyphens one character,
+    # U+2212 / U+2013 / U+2014 distinct -- the default norm() folds the en and em dash
+    fd = {"fold_dashes": False}
+    hay = [Q.norm(SC._norm(t, **fd), **fd) for t in spans + held]
+    strict_hay = [Q.norm(SC._norm(t, **fd), fold_accents=False, **fd) for t in spans + held]
     def found(p):
-        want = Q.norm(SC._norm(p))
+        want = Q.norm(SC._norm(p, **fd), **fd)
         if not want or not any(want in h for h in hay):
             return None
-        return any(Q.norm(SC._norm(p), fold_accents=False) in h for h in strict_hay)
+        return any(Q.norm(SC._norm(p, **fd), fold_accents=False, **fd) in h for h in strict_hay)
     if parts:
         # Every <q> in the sentence must be in the source; nothing outside them
         # is claimed as the source's words.
