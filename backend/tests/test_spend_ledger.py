@@ -160,6 +160,7 @@ def test_the_committed_lines_hold_todays_spend():
     real = json.loads((ROOT / "backend/data/spend/caps.json").read_text())["lines"]
     assert real["seeded-defect test"] == {"cap_usd": 89, "ledger_issue_prefix": "whu-validity-sd-"}
     # moves between these two lines are by ruling (8 Nov, 23 Nov x3); together they were $160 ($10 lean runs + $150 Fred),
-    # $170 since Fred approved +$10 on the trial line (2026-11-25, relayed by the advisor; deviations.md P108)
-    assert real["orchestrator trial 1"]["cap_usd"] == 50 and real["new-questions test"]["cap_usd"] == 120
-    assert real["orchestrator trial 1"]["cap_usd"] + real["new-questions test"]["cap_usd"] == 170
+    # $170 since Fred approved +$10 on the trial line (2026-11-25, relayed by the advisor; deviations.md P108),
+    # $180 since a further +$10 (2026-11-26, relayed by the advisor; deviations.md P148)
+    assert real["orchestrator trial 1"]["cap_usd"] == 60 and real["new-questions test"]["cap_usd"] == 120
+    assert real["orchestrator trial 1"]["cap_usd"] + real["new-questions test"]["cap_usd"] == 180

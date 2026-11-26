@@ -60,7 +60,7 @@
       "ledger_issue_prefix": "whu-cf-"
     },
     "orchestrator trial 1": {
-      "cap_usd": 50,
+      "cap_usd": 60,
       "ledger_issue_prefix": "whu-lean-orch-t1-"
     },
     "seeded-defect test": {
