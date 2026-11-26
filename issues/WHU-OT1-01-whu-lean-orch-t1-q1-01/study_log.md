@@ -12,3 +12,5 @@
 | premise_reading (orchestrator) | 2026-11-26T17:27:15+00:00 | 2026-11-26T17:27:23+00:00 | $0.0348 | 0 | sources show verified; direction narrows; kill condition survived |
 | coverage (orchestrator) | 2026-11-26T17:27:23+00:00 | 2026-11-26T17:32:17+00:00 | $0.5102 | 0 | 96 coverage decision(s), 0 left in scope |
 | corrections_3b (orchestrator) | 2026-11-26T17:32:17+00:00 | 2026-11-26T17:32:20+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-26T17:32:20+00:00 | 2026-11-26T17:34:28+00:00 | $0.0000 | 0 | committed c95a1ad31c62 |
+| gate (orchestrator) | 2026-11-26T17:37:44+00:00 | 2026-11-26T17:37:45+00:00 | $0.0000 | 0 | FAILED: RunStop: gate: backend/scripts/signal/factcheck_draft.py issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/draft/whu-lean-orch-t1-q1-01.html exited 3 |

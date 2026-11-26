@@ -1,6 +1,6 @@
 {
- "started_at": "2026-11-26T17:12:16+00:00",
- "commit": "cdb19fec24154d3e5897417cf96cb057acee64c6",
+ "started_at": "2026-11-26T17:37:44+00:00",
+ "commit": "f7d53b4aca169c89062e56b7b4c3157487827395",
  "documents": {
   "CLAUDE.md": "bb8a34bb24f372d532e9d99ecf1e9cb7bb849d669ad06403e0cc8a02f9e8748c",
   "docs/whatholdsup-process.md": "2bb3dfd1d31f1d13f3aa05a8c432301792b1d97e4df2bcfc12fcb48375db91fa",
@@ -478,5 +478,30 @@
   "web_search_max_uses": 12
  },
  "mode": "paid",
- "slug": "whu-lean-orch-t1-q1-01"
+ "slug": "whu-lean-orch-t1-q1-01",
+ "resumed_at": "gate",
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 45,
+   "claude-opus-5-5": 12
+  },
+  "belief": {
+   "claude-sonnet-4-6": 2
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 96
+  }
+ }
 }

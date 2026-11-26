@@ -1,0 +1,464 @@
+{
+ "result": "Not Ready: gate: backend/scripts/signal/factcheck_draft.py issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/draft/whu-lean-orch-t1-q1-01.html exited 3",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-26T17:12:16+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (136 code files)"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:12:16+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-26T17:12:17+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:12:31+00:00",
+   "usd": 0.029084
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-26T17:12:31+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "bbfbfefb5839cc67781be9b830dd77c61d852ce3ce4428579eb90c5565a76403"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:13:06+00:00",
+   "usd": 0.636
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-26T17:13:06+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 source(s), 0 unresolved proposal(s)"
+   },
+   "code_hash": "b687408f4305de802db9c1654c3b0f0cfefd8d4913b86885b43e471e60ced554",
+   "end": "2026-11-26T17:14:25+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-26T17:14:25+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-01",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "     909833 B  (contains its identifier PMC7098082 — 410446 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text))\n  HELD     S005   cc9d40273d55                                     623630 B  (contains 7 of 7 distinctive title words — form 'record' — 3000 characters held. The article test does not apply to this form; title present (7 of 7 title words in the visible text))\n  HELD     S008   b68a2f8a89b6                                     881897 B  (contains its identifier PMC6791116 — 397293 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text))\n\n  held now: 6   failed: 2   skipped: 0\n\n  NOT HELD S006   Computer-generated reminders delivered on paper to healthcare \n           why: Europe PMC: not served: Europe PMC metadata for PMC6483307 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 2 permitted open copies listed, none could be held\n  NOT HELD S007   Manually-generated reminders delivered on paper: effects on pr\n           why: Europe PMC: not served: Europe PMC metadata for PMC6923326 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 1 permitted open copy listed, none could be held\n\n",
+     "proof": "proved: issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-01",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            6 document(s) in the library, every hash matches\n  warn     sources we hold                  6 of 8 held — not held: S006, S007\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-01"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-01\n\n  S001   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S002   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S003   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S004   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S005   n/a          type 'guideline' is not a journal article; it has versions, not errata\n  S006   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S007   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S008   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n\n  ok     sources checked for corrections        all 8 source(s) have had their bibliographic record read for errata\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-01",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-01-whu-lean-orch-t1-q1-01 — what can be swept at all\n\n    S001   pmid  40193137                           url/field Digital tracking, provider decision \n    S002   pmid  34314020                           url/field Decision-support tools via mobile de\n    S003   pmid  32813276                           url/field Targeted client communication via mo\n    S004   pmid  32216074                           url/field Health workers' perceptions and expe\n    S005   pmid  31162915                           url/field WHO guideline Recommendations on Dig\n    S006   pmid  28681432                           url/field Computer-generated reminders deliver\n    S007   pmid  31858588                           url/field Manually-generated reminders deliver\n    S008   pmid  31608981                           url/field Clients' perceptions and experiences\n\n  8 of 8 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-01"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-01\n  ok      checks can read the documents      6 of 6 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "6 held, 2 not held",
+    "not_held": [
+     "S006",
+     "S007"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S006": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: Europe PMC: not served: Europe PMC metadata for PMC6483307 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 2 permitted open copies listed, none could be held"
+     },
+     "S007": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: Europe PMC: not served: Europe PMC metadata for PMC6923326 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 1 permitted open copy listed, none could be held"
+     },
+     "S008": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S006": "could_not_hold",
+     "S007": "could_not_hold"
+    }
+   },
+   "code_hash": "a81248f6d10b89cd9113f6610a0cee3d66b94d0585dbd48d01a693c913c53e0f",
+   "end": "2026-11-26T17:20:56+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-26T17:20:56+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "27 sentences drafted from 59 passages"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:21:29+00:00",
+   "usd": 0.151216
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-26T17:21:29+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-01",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  58 empirical sentence(s) on the page\n  -9 bound, 67 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "25 sentence(s) bound to their passages"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:21:31+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-26T17:21:31+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-01",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.82 (28 candidate(s) x $0.0291 per candidate (the highest of 258 same-config logged relevance ruling(s) ($0.0146) x 2)); $56.09 left today, $2.18 left on whu-lean-orch-t1-q1-01\n  23 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/rulings/rulings.jsonl\n  consistency: re-ran 7 of 35 ruling(s) (seed 99654994493373): 7 of 7 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.2403\n"
+    }
+   ],
+   "code": {
+    "outcome": "15 judgement(s) stated"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:23:44+00:00",
+   "usd": 0.276364
+  },
+  {
+   "step": "belief",
+   "start": "2026-11-26T17:23:44+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 outlet(s) verified of 6 proposed; the page says it could not verify where the belief is published",
+    "belief": {
+     "proposed": 6,
+     "verified": 0,
+     "rounds": [
+      {
+       "round": 1,
+       "proposed": 3,
+       "verified": 0
+      },
+      {
+       "round": 2,
+       "proposed": 3,
+       "verified": 0,
+       "excluded": 0
+      }
+     ],
+     "refused": [
+      "https://blogs.unicef.org/innovation/visualizing-the-future-of-mhealth/: the page has 4 of the belief's 29 key words (needs 18)",
+      "https://www.path.org/our-impact/articles/investing-in-community-health-with-digi: the page has 11 of the belief's 29 key words (needs 18)",
+      "https://innov.afro.who.int/page/85-community-health-toolkit: robots.txt could not be read (URLError)",
+      "https://techcrunch.com/?p=1301941: the page has 11 of the belief's 29 key words (needs 18)",
+      "https://commcare.dimagi.com/blog/fighting-tuberculosis-commcare/: the page has 14 of the belief's 29 key words (needs 18)",
+      "https://news.cornell.edu/node/269615: the page has 13 of the belief's 29 key words (needs 18)"
+     ]
+    }
+   },
+   "code_hash": "824f66a11bf42c3731beeab108866eed04944d0fc2ba4a8e64a0a8fcdf079a16",
+   "end": "2026-11-26T17:27:15+00:00",
+   "usd": 0.9378
+  },
+  {
+   "step": "premise_reading",
+   "start": "2026-11-26T17:27:15+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "sources show verified; direction narrows; kill condition survived",
+    "reading": {
+     "direction": "narrows",
+     "kill": "survived",
+     "sources_show": true
+    }
+   },
+   "code_hash": "824f66a11bf42c3731beeab108866eed04944d0fc2ba4a8e64a0a8fcdf079a16",
+   "end": "2026-11-26T17:27:23+00:00",
+   "usd": 0.034816
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-26T17:27:23+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "96 coverage decision(s), 0 left in scope"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:32:17+00:00",
+   "usd": 0.510186
+  },
+  {
+   "step": "corrections_3b",
+   "start": "2026-11-26T17:32:17+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 check(s): 0 removed, 0 re-bound",
+    "counts": {
+     "checked": 0,
+     "removed": 0,
+     "rebound": 0
+    },
+    "changed": false
+   },
+   "code_hash": "46274f9cb79201222387bf0cff573e35d0b8e1550bbb6d0a8dca23a7c7e926d2",
+   "end": "2026-11-26T17:32:20+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "commit_3b",
+   "start": "2026-11-26T17:32:20+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "committed c95a1ad31c62",
+    "head": "c95a1ad31c62d5dee01bdeeb498d55e49a815633"
+   },
+   "code_hash": "f94e838dfdfd735f3c6773010b6f74a309dac9da5d7db5ef2ab83d237afc866b",
+   "end": "2026-11-26T17:34:28+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "gate",
+   "start": "2026-11-26T17:34:28+00:00",
+   "failed": "RunStop: gate: backend/scripts/signal/factcheck_draft.py issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/draft/whu-lean-orch-t1-q1-01.html exited 3",
+   "end": "2026-11-26T17:34:29+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/draft/whu-lean-orch-t1-q1-01.html",
+      "--dry-run"
+     ],
+     "rc": 0,
+     "tail": "NARROW GATE — DRY RUN (no API call is made)\n  free checks considered 19 sentence(s) or quotation(s) carrying a figure or a quotation\n  claims the source role would receive: 0\n  calls that would be made: 1\n    recency                                        whole draft\n    (source: no UNDETERMINED claim, so no source call)\n  not run (--full only): extract, advocate, inference, coverage\n  estimated cost: 1 call(s) x $0.75 = $0.75 (the per-call figure the cap is checked with; Phase B's full run was $4.63)\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/draft/whu-lean-orch-t1-q1-01.html",
+      "--report",
+      "issues/WHU-OT1-01-whu-lean-orch-t1-q1-01/draft/whu-lean-orch-t1-q1-01.html.gate.json"
+     ],
+     "rc": 3,
+     "tail": "  Model 'claude-sonnet-4-6' is an alias — no dated snapshot is published for it.\n  Judgments can move without a code change; golden_set.py is what catches that.\n  Study issue: gate run 1 of 3 (ruling 2; no per-cycle cap).\n\nFact-checking whu-lean-orch-t1-q1-01.html (34,704 chars of prose) as of 2026-11-26\n\n[1/2] Narrow gate: selecting the figures and quotations the free checks cannot decide (no model call)...\n      0 undetermined claim(s) of 19 considered\n\n  NOT STARTED: the machine gate (narrow) is bounded at $1.50 (max(the dry-run estimate $0.7500, the highest of 12 same-config gate run(s) $0.6288 (whu-lean-orch-t1-q1-02n)) x 2).\n  whu-lean-orch-t1-q1-01 has spent $2.58 of a $3.00 cap and this run would add about $1.50.\n  Raise the cap in backend/data/spend/caps.json (committed, reviewable), or set\n  WHU_SPEND_OVERRIDE='reason' for one run, which is recorded in the ledger.\n\n"
+    }
+   ],
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 8,
+  "held": 6,
+  "not_held": 2,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Health workers' perceptions and experiences of using mHealth technologies to deliver primary healthcare services: a qualitative evidence synthesis.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+    "type": "guideline",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S006",
+    "title": "Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: Europe PMC: not served: Europe PMC metadata for PMC6483307 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 2 permitted open copies listed, none could be held"
+   },
+   {
+    "id": "S007",
+    "title": "Manually-generated reminders delivered on paper: effects on professional practice and patient outcomes.",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: Europe PMC: not served: Europe PMC metadata for PMC6923326 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 1 permitted open copy listed, none could be held"
+   },
+   {
+    "id": "S008",
+    "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 0,
+  "unconfirmed": []
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 45,
+   "claude-opus-5-5": 12
+  },
+  "belief": {
+   "claude-sonnet-4-6": 2
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 96
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 8,
+  "copied": 8,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-01"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-26T17:34:29+00:00"
+}
