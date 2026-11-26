@@ -288,10 +288,18 @@ def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[
                  str(b.get("statement"))[:90] if have_belief else
                  "no belief recorded. If you cannot write what the reader already believes, "
                  "there is nothing to correct — which is how the tobacco-analogy candidate died"))
-    rows.append(("belief shown to be held", OK if carried else lvl,
-                 "%d outlet(s): %s" % (len(carried), ", ".join(c["outlet"] for c in carried[:4]))
-                 if carried else
-                 "no outlet named. 'Widely assumed' is not evidence that anyone assumes it"))
+    unverified = b.get("outlet_unverified") if not carried else None
+    if unverified:
+        # Advisor's ruling 3b on P140: an orchestrated belief step that verified no outlet records it; the page
+        # then claims nothing about who holds the belief (belief_claims: "belief claims rest on a verified outlet").
+        rows.append(("belief shown to be held", WARN,
+                     "no outlet verified (%s proposed): the page says %r and claims nothing about who holds the "
+                     "belief" % (unverified.get("proposed"), unverified.get("sentence"))))
+    else:
+        rows.append(("belief shown to be held", OK if carried else lvl,
+                     "%d outlet(s): %s" % (len(carried), ", ".join(c["outlet"] for c in carried[:4]))
+                     if carried else
+                     "no outlet named. 'Widely assumed' is not evidence that anyone assumes it"))
 
     w = d.get("what_the_sources_show") or {}
     rows.append(("what the sources show", OK if _filled(w.get("statement")) else lvl,
@@ -318,12 +326,16 @@ def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[
                  "rather than useful, and interesting killed four candidates in one day"))
 
     pr = d.get("public_record_check") or {}
-    rows.append(("carried in general coverage?",
-                 OK if _filled(pr.get("carried_in_general_coverage")) else lvl,
-                 str(pr.get("carried_in_general_coverage"))[:90]
-                 if _filled(pr.get("carried_in_general_coverage")) else
-                 "not checked. The question is not whether anyone published it — somebody "
-                 "always has — but whether this reader would have met it"))
+    if unverified and not _filled(pr.get("carried_in_general_coverage")):
+        rows.append(("carried in general coverage?", WARN,
+                     "not established: no outlet verified, so the page does not say the belief is published"))
+    else:
+        rows.append(("carried in general coverage?",
+                     OK if _filled(pr.get("carried_in_general_coverage")) else lvl,
+                     str(pr.get("carried_in_general_coverage"))[:90]
+                     if _filled(pr.get("carried_in_general_coverage")) else
+                     "not checked. The question is not whether anyone published it — somebody "
+                     "always has — but whether this reader would have met it"))
     rows.append(("our contribution named", OK if _filled(pr.get("our_contribution")) else WARN,
                  str(pr.get("our_contribution"))[:90]
                  if _filled(pr.get("our_contribution")) else

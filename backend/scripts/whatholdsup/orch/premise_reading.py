@@ -289,6 +289,19 @@ def belief_outlets(case: Path, ask, model: str, get=fetch, save=None, n: int = 3
             "reading (web search), checked by code." % (g["outlet"], g["url"], g["fetched_at"][:10], g["sha256"][:16],
                                                         len(g["key_words_found"]), g["key_words"]))
         _save_premise(case, d)
+    else:
+        # Advisor's ruling 3b on P140: no outlet verified is recorded, not a STOP. The page then says
+        # belief_claims.UNVERIFIED (a generated sentence) and claims nothing about who holds the belief
+        # (the row "belief claims rest on a verified outlet").
+        import belief_claims as BC
+        b = d.setdefault("belief", {})
+        b.pop("carried_by", None)
+        b["outlet_unverified"] = {"sentence": BC.UNVERIFIED, "proposed": len(cands), "rounds": rounds,
+                                  "refused": ["%s (%s): %s" % (c.get("outlet") or "?", (c.get("url") or "")[:100],
+                                                               v.get("why")) for c, v in zip(cands, checked)],
+                                  "by": "code: no proposed outlet verified (a model's proposals, checked by code)",
+                                  "at": now()}
+        _save_premise(case, d)
     return {"proposed": len(cands), "verified": len(good), "rounds": rounds,
             "refused": ["%s: %s" % ((v.get("url") or "")[:80], v["why"]) for v in checked if not v["ok"]]}
 

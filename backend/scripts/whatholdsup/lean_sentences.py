@@ -85,7 +85,8 @@ SEARCHED_FULL_FRAME = ("We searched the full text of %s and checked the passages
 LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstract of ",
          "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
          "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists of ",
-         "We could not establish whether ", "Our recency check ", "We found ")
+         "We could not establish whether ", "Our recency check ", "We found ",
+         "We could not verify where this belief is published.")
 HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 
@@ -136,7 +137,8 @@ def found_label(sources: list[dict], title: str | None, sid: str | None = None) 
 
 def generate(issue: dict, sources: list[dict], search: dict | None = None,
              declared: list[dict] | None = None, measured: dict | None = None,
-             editions: list[dict] | None = None, not_of_a_type: list[dict] | None = None) -> list[dict]:
+             editions: list[dict] | None = None, not_of_a_type: list[dict] | None = None,
+             premise: dict | None = None) -> list[dict]:
     """[{kind, source, field, sentence}] in page order: the question, then each
     source's held state, sections read and not read, then what we searched and
     did not search (SEARCH), then the newer-edition lines (EDITIONS, rule 3b),
@@ -194,6 +196,12 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
     for e in editions or []:
         out.append({"kind": "reading", "source": None, "field": "lean_editions %s" % e["key"],
                     "sentence": e["sentence"]})
+    import belief_claims as BC
+    un = ((premise or {}).get("belief") or {}).get("outlet_unverified")
+    if un and not BC.verified_outlets(premise or {}):
+        # advisor's ruling 3b on P140: no outlet verified, so the page says so and claims nothing about who holds it
+        out.append({"kind": "reading", "source": None, "field": "premise.json belief.outlet_unverified",
+                    "sentence": BC.UNVERIFIED})
     if declared:
         import coverage_check as C
         out.append({"kind": "scope", "source": None, "field": "coverage_check.HEADING", "sentence": C.HEADING})
@@ -222,8 +230,13 @@ def load(slug: str) -> tuple:
     doc = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else {}
     srcs = doc.get("sources") or []
     import lean_editions as LE
+    pp = case / "premise.json"
+    try:
+        premise = json.loads(pp.read_text(encoding="utf-8")) if pp.exists() else {}
+    except ValueError:
+        premise = {}
     return (issue, srcs, doc.get("search") or {}, declared_of(slug), measured_of(slug, srcs),
-            LE.lines(case), doc.get("not_of_a_type") or [])
+            LE.lines(case), doc.get("not_of_a_type") or [], premise)
 
 
 def measured_of(slug: str, sources: list[dict]) -> dict:

@@ -1875,6 +1875,12 @@ def preflight(slug: str, *, for_email: bool,
             out.extend(_sibling("correction_notes").preflight_rows(slug, page, OK, BAD))
         except BaseException as exc:
             out.append(("unread corrections noted on the page", BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
+        # Ruling 3b on P140: a sentence asserting who holds the belief rests on a verified outlet; with none
+        # verified, the page says so. BLOCKED when it cannot run.
+        try:
+            out.extend(_sibling("belief_claims").preflight_rows(slug, page, OK, BAD))
+        except BaseException as exc:
+            out.append(("belief claims rest on a verified outlet", BAD, "did not run: %s: %s" % (type(exc).__name__, exc)))
         try:
             out.extend(_sibling("lean_reading").preflight_rows(slug))
         except BaseException as exc:

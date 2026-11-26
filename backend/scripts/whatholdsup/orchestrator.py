@@ -1546,7 +1546,13 @@ def code_belief(ctx: Ctx, step) -> dict:
         pages.mkdir(parents=True, exist_ok=True)
         (pages / ("%s.html" % sha)).write_bytes(body)
     got = PRD.belief_outlets(ctx.case, ask, ST.GATE_MODEL, save=save)
-    return {"outcome": "%d outlet(s) verified of %d proposed" % (got.get("verified", 0), got.get("proposed", 0)),
+    if not got.get("verified"):
+        # ruling 3b on P140: the generated sentence "We could not verify where this belief is published." goes on
+        # the page now (its limits block), from premise.json's belief.outlet_unverified
+        from orch.page import Page
+        _rerender(ctx, Page.load(ctx.page_json))
+    return {"outcome": "%d outlet(s) verified of %d proposed" % (got.get("verified", 0), got.get("proposed", 0))
+            + ("" if got.get("verified") else "; the page says it could not verify where the belief is published"),
             "belief": got}
 
 
