@@ -95,7 +95,6 @@ STEPS: tuple[Step, ...] = (
                (PY, W + "canary.py", "{slug}")), code="acquire"),
     Step("draft", "model", models=(DRAFT_MODEL,), max_calls=2, cap_usd=2.50, code="draft"),
     Step("bind", "code", cmds=((PY, W + "bindings.py", "{slug}", "scan"),), code="bind"),
-    Step("coverage", "model", models=(STEP_MODEL,), max_calls=240, cap_usd=1.20, code="coverage"),   # 60 units: an element retry, each try re-asked once if malformed (ruling 1)
     Step("judgements", "mixed", models=(SMALL, CURRENT, STEP_MODEL), max_calls=400, cap_usd=3.00,
          cmds=((PY, W + "ruling.py", "judgements", "{slug}", "--cap", "{cap}"),), code="judgements"),
     # Fred's terms B3 / B4 after attempt 23: the premise rows filled after reading, by bounded model steps checked by
@@ -104,6 +103,10 @@ STEPS: tuple[Step, ...] = (
     # ruling D on P117: one re-ask for different outlets when round 1 confirms none (round 2 + its re-ask: 4 calls)
     Step("belief", "model", models=(GATE_MODEL,), max_calls=4, cap_usd=2.00, code="belief"),
     Step("premise_reading", "model", models=(CURRENT,), max_calls=2, cap_usd=0.40, code="premise_reading"),
+    # Advisor's ruling 4 on P140: coverage runs AFTER premise_reading (and judgements), so every source those make
+    # relied on -- named in what_the_sources_show, or bound by judgement sentences -- has its headline units decided
+    # (02za's S003 and 02zc's S004 were named at premise_reading after coverage had run, and stayed undecided).
+    Step("coverage", "model", models=(STEP_MODEL,), max_calls=240, cap_usd=1.20, code="coverage"),   # 60 units: an element retry, each try re-asked once if malformed (ruling 1)
     Step("corrections_3b", "code", models=(CURRENT,), max_calls=20, cap_usd=0.50, code="corrections"),   # CURRENT: ruling.py dangling
     Step("commit_3b", "code", code="commit"),
     Step("gate", "stage", models=(GATE_MODEL,),
