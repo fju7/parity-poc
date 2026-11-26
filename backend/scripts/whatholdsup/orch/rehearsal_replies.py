@@ -34,11 +34,25 @@ def _first_sentence(text: str) -> str:
 JUNK = re.compile(r"Keywords|display-pdf|pmc-|Received |Accepted |Collection date|doi:|https?://|\bPMC\d|et al|colleagues|Table \d|Figure \d|\(\s*\d{4}\s*\)", re.I)
 
 
+# Furniture a model would never state as a finding, found on 02w's newly held gap maps (P136): JATS converter
+# metadata, author lists ("K. , Jeffries , D. ,"), and abbreviation lists (mostly capitalised short tokens).
+FURNITURE = re.compile(r"version-number|cover-date|[Cc]onverter|\s,\s|\b[A-Z]\.\s*,")
+
+
+def _prose(s: str) -> bool:
+    words = re.findall(r"[A-Za-z][A-Za-z\u2010-]*", s)
+    if len(words) < 8:
+        return False
+    caps = sum(1 for w in words if w.isupper() and len(w) > 1)
+    return caps / len(words) < 0.2 and sum(1 for w in words if w.islower()) / len(words) > 0.5
+
+
 def _clean_sentence(text: str) -> str:
     """The first sentence of TEXT that reads as prose (40-300 characters, no record furniture), else ""."""
     import source_ledger as L
     for s in L.sentences(" ".join((text or "").split())):
-        if 40 <= len(s) <= 300 and not JUNK.search(s) and s[0].isupper() and s.rstrip().endswith("."):
+        if 40 <= len(s) <= 300 and not JUNK.search(s) and not FURNITURE.search(s) and s[0].isupper() \
+                and s.rstrip().endswith(".") and _prose(s):
             return s
     return ""
 
@@ -125,7 +139,11 @@ def coverage(prompt, step, what):
 
 @R.generator("judgement", _has("must state the assessment below, from its source"))
 def judgement(prompt, step, what):
-    return json.dumps({"sentence": _first_sentence(_after(prompt, "ASSESSMENT (verbatim from the source):"))})
+    # the first sentence that reads as prose (P136: on 02w's newly held gap maps the first "sentence" of an assessment
+    # was an abbreviation list or a reference fragment, which no model would write and the page check refused)
+    a = _after(prompt, "ASSESSMENT (verbatim from the source):")
+    return json.dumps({"sentence": _clean_sentence(a) or
+                       "The review states its conclusion in its abstract, in its own words (rehearsal)."})
 
 
 # ------------------------------------------------------------------ ruling prompts (audit_prompts/*.md)
@@ -139,6 +157,11 @@ def _block(prompt: str, name: str) -> str:
 def rule_relevance(prompt, step, what):
     q = _block(prompt, "QUESTION")
     words = "low- and middle-income countries" if "low- and middle-income countries" in q else " ".join(q.split()[:3])
+    if not _clean_sentence(_block(prompt, "JUDGEMENT")):
+        # a "judgement" with no prose sentence in it (a gap map's abbreviation or author list, P136) is not one a
+        # model would rule relevant: no question words in it
+        return json.dumps({"relevant": False, "question_words": "",
+                           "reason": "The passage states no assessment (rehearsal)."})
     return json.dumps({"relevant": True, "question_words": words,
                        "reason": "It bears on whether the programmes work (rehearsal)."})
 
