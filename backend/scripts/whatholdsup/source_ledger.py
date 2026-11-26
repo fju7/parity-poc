@@ -711,6 +711,29 @@ def access_of(src: dict) -> dict:
 # the audit
 # ---------------------------------------------------------------------------
 
+def _title_key(s: str) -> str:
+    return re.sub(r"\s+", " ", (s or "").casefold()).strip().rstrip(".,;: ").strip()
+
+
+def title_fields(srcs: list[dict]) -> list[str]:
+    """Every source's own title fields, as the source list prints them: title, also_called, the proposed title and
+    the registry record's title (normalised for comparison)."""
+    out = []
+    for s in srcs:
+        vals = [s.get("title"), (s.get("proposed") or {}).get("title"), (s.get("registry_record") or {}).get("title")]
+        vals += list(s.get("also_called") or [])
+        out += [k for k in (_title_key(str(v)) for v in vals if v) if k]
+    return out
+
+
+def is_title_field(sent: str, titles: list[str]) -> bool:
+    """A sentence that is wholly part of a source's own title field: the source list's title, not a claim about what
+    the source says (advisor's ruling 3 on P118-P121; found on WHU-OT1-02zc, where S005's title "Global Education
+    Monitoring Report 2020: Inclusion and education: All means all." matched CHARACTERISING on "Report")."""
+    k = _title_key(sent)
+    return bool(k) and any(k in t for t in titles)
+
+
 def audit(slug: str, page_text: str,
           baseline_text: str | None = None) -> list[tuple[str, str, str]]:
     """Rows for the board: (label, status, detail).
@@ -813,6 +836,7 @@ def audit(slug: str, page_text: str,
     unread_chars: list[str] = []
     backlog: list[str] = []
     adverse_unanswered: list[str] = []
+    titles = title_fields(srcs)            # the source list's own title fields are skipped (ruling 3 on P118-P121)
 
     for s in srcs:
         state = access_of(s).get("state")
@@ -827,7 +851,7 @@ def audit(slug: str, page_text: str,
             if not any(i.lower() in sent.lower() for i in ids):
                 continue
             is_new = old_sents is None or sent not in old_sents
-            if state in (NOT_OPENED, BLOCKED) and CHARACTERISING.search(sent):
+            if state in (NOT_OPENED, BLOCKED) and CHARACTERISING.search(sent) and not is_title_field(sent, titles):
                 if supported:
                     continue
                 (unread_chars if is_new else backlog).append(
