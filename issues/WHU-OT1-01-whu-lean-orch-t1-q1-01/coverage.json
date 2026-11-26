@@ -1,0 +1,397 @@
+{
+ "units": [],
+ "declarations": {
+  "S004@4557-4638": {
+   "state": "not_material",
+   "reason": "The finding only describes where the included studies were conducted (mostly low- or middle-income countries). It does not change whether the intervention improves care or health, so the page's answer holds without it.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:27:35+00:00"
+  },
+  "S004@4818-4925": {
+   "state": "not_material",
+   "reason": "The finding is a vague descriptive remark about other uses of the interventions (in-person or text communication, recording client information). It states no effect, result, or certainty that would change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:27:38+00:00"
+  },
+  "S004@4926-5039": {
+   "state": "not_material",
+   "reason": "The finding only describes the distribution of included studies by topic (maternal, child, newborn health). It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:27:40+00:00"
+  },
+  "S004@5040-5291": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' perceptions and appreciation of being better connected to colleagues. That is qualitative acceptability and implementation evidence, not measured effects on care delivery or patient health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:27:44+00:00"
+  },
+  "S004@5292-5386": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' experiences of unresponsive or angry senior colleagues. That is a qualitative implementation and acceptability issue, not an effect on care delivery or patient health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:27:47+00:00"
+  },
+  "S004@5387-5442": {
+   "state": "out_of_scope",
+   "reason": "The finding reports some health workers' preference for face-to-face contact with colleagues, which is an acceptability matter, not an effect on care delivery or patient health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:27:50+00:00"
+  },
+  "S004@5443-5728": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' perceptions and acceptability of mHealth (reporting, surveillance feelings, flexibility), which falls under the excluded acceptability and implementation feasibility topic, not effects on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:27:52+00:00"
+  },
+  "S004@5729-5844": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' attitudes toward mHealth (appreciated when fast, improving workflow), which is health worker acceptability, excluded from scope as an implementation matter rather than effects on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:27:55+00:00"
+  },
+  "S004@5845-5956": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' views on decision support usefulness and skill threat, which is acceptability, explicitly excluded rather than a measured effect on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:27:58+00:00"
+  },
+  "S004@5957-6036": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' preferences for mHealth versus paper, which is acceptability, explicitly excluded from scope rather than an effect on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:01+00:00"
+  },
+  "S004@6037-6355": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' perceptions (extra workload, views on client contact), which is qualitative acceptability evidence, not measured effects on care delivery or patient health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:06+00:00"
+  },
+  "S004@6356-6472": {
+   "state": "out_of_scope",
+   "reason": "Health workers' awareness of confidentiality is an attitude or implementation matter, not an effect on care delivery, health outcomes, or a reported harm, so it falls under implementation feasibility and acceptability.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:10+00:00"
+  },
+  "S004@6473-6587": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' attitudes toward after-hours client contact, which is health worker acceptability, an excluded implementation topic, not an effect on care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:12+00:00"
+  },
+  "S004@6588-6709": {
+   "state": "out_of_scope",
+   "reason": "The finding is a qualitative report of community trust and scepticism toward health workers using mHealth. That is acceptability, an implementation matter, not an effect on care delivered or on health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:16+00:00"
+  },
+  "S004@6710-6789": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' perceived practical problems when clients must own phones. That is an implementation feasibility and acceptability concern, not an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:20+00:00"
+  },
+  "S004@6790-7057": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns factors shaping health workers' use and perceptions of mHealth, such as costs, network and electricity, which is implementation feasibility and acceptability rather than effects on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:22+00:00"
+  },
+  "S004@7058-7120": {
+   "state": "out_of_scope",
+   "reason": "The complaint about late phone credit is an implementation and feasibility issue (connectivity, device upkeep, worker acceptability), not evidence on care quality or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:24+00:00"
+  },
+  "S004@7121-7224": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns health worker attitudes toward mHealth, which is acceptability, not whether the intervention improves care delivery or patient health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:26+00:00"
+  },
+  "S004@7225-7353": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns health workers' feelings about using the tools (embarrassment, job security worries). That is health worker acceptability, which the scope excludes, and it says nothing about care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:29+00:00"
+  },
+  "S004@7354-7501": {
+   "state": "out_of_scope",
+   "reason": "The finding covers what health workers want for using the devices (training, support, usability, integration), which is implementation feasibility and acceptability, not whether care or health improves.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:30+00:00"
+  },
+  "S004@7502-7637": {
+   "state": "out_of_scope",
+   "reason": "The finding covers implementation barriers (network connectivity, electricity, phone recharging costs) experienced by health workers, which the scope excludes as feasibility matters separate from whether care and health improve.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:32+00:00"
+  },
+  "S004@7638-7677": {
+   "state": "out_of_scope",
+   "reason": "Damaged phones are a device-maintenance and feasibility problem, not an effect on care delivery or patient health, so they fall under the excluded implementation-feasibility entry.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:35+00:00"
+  },
+  "S004@7678-7815": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns factors shaping health workers' experience of mHealth (language, gender, poverty), which is qualitative acceptability and feasibility evidence, not effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:37+00:00"
+  },
+  "S004@7816-7908": {
+   "state": "out_of_scope",
+   "reason": "The finding reports health workers' coping and commitment, which falls under acceptability and implementation experience rather than effects on care delivery or patient health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:38+00:00"
+  },
+  "S004@7992-8155": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns how health workers perceive and experience mHealth, which is acceptability, a qualitative implementation matter, not whether care and health outcomes improve.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:40+00:00"
+  },
+  "S004@8156-8245": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns perceptions of the technology, which is a qualitative acceptability matter. The scope excludes implementation feasibility, including health worker acceptability, as separate from whether care and health improve.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:28:42+00:00"
+  },
+  "S001@4145-4303": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies were included and where they were conducted. It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:28:43+00:00"
+  },
+  "S001@4356-4477": {
+   "state": "not_material",
+   "reason": "The finding is only a note on study design and a key to certainty wording. It reports no result about care or health outcomes, so the page has nothing to add from it.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:28:47+00:00"
+  },
+  "S002@4605-4676": {
+   "state": "not_material",
+   "reason": "The finding is a truncated fragment (eight US randomized trials) with no stated intervention, outcome, or result, so there is nothing to state or to rule out of scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:29:11+00:00"
+  },
+  "S002@4677-4747": {
+   "state": "not_material",
+   "reason": "The finding only lists the countries where included studies took place. It reports no result on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:29:12+00:00"
+  },
+  "S002@4748-4864": {
+   "state": "not_material",
+   "reason": "The finding only describes who used digital decision support (facility, community, lay workers). It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:29:14+00:00"
+  },
+  "S002@4865-5021": {
+   "state": "not_material",
+   "reason": "The finding only describes which conditions the studied care addressed. It states no effect, direction or certainty, so it would not change the answer on whether the interventions improve care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:29:15+00:00"
+  },
+  "S003@3107-3345": {
+   "state": "not_material",
+   "reason": "The finding describes only how interventions were delivered (channel mix). It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:29:40+00:00"
+  },
+  "S003@4397-4560": {
+   "state": "out_of_scope",
+   "reason": "The finding compares targeted client communication via mobile devices with pamphlets, with no health-worker tracking. That is stand-alone client messaging, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether stand-alone SMS reminders to patients, without health-worker tracking, improve adherence or attendance",
+   "decided_at": "2026-11-26T17:30:01+00:00"
+  },
+  "S003@4889-5021": {
+   "state": "not_material",
+   "reason": "The finding only says no studies compared this against non-targeted digital communication. That is an evidence gap for a secondary comparator and does not change conclusions about usual-care comparisons.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:30:13+00:00"
+  },
+  "S003@6103-6203": {
+   "state": "out_of_scope",
+   "reason": "The finding compares mobile-device client communication with non-digital client communication, a stand-alone communication comparison without health-worker tracking. The question covers tracking combined with prompts or reminders.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether stand-alone SMS reminders to patients, without health-worker tracking, improve adherence or attendance",
+   "decided_at": "2026-11-26T17:30:38+00:00"
+  },
+  "S003@6401-6464": {
+   "state": "not_material",
+   "reason": "The finding is vague: it names no specific outcome and only says evidence is lacking for 'other outcomes'. It adds nothing a reader could use and does not change the page's conclusion.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:30:44+00:00"
+  },
+  "S008@3900-3973": {
+   "state": "not_material",
+   "reason": "The finding only reports the number of included studies and their geographic spread. It says nothing about whether the intervention improves care or health, so omitting it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:31:06+00:00"
+  },
+  "S008@3974-4077": {
+   "state": "not_material",
+   "reason": "The finding only counts how many included studies were in low-/middle-income versus high-income settings. It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:31:08+00:00"
+  },
+  "S008@4078-4285": {
+   "state": "out_of_scope",
+   "reason": "The finding describes studies of people's views and preferences about digital health interventions, which is acceptability evidence, not effects on care or health. This is excluded by the feasibility and acceptability entry.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:10+00:00"
+  },
+  "S008@4286-4517": {
+   "state": "not_material",
+   "reason": "The finding only describes the kinds of client communication in the included studies. It reports no effect or result, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:31:12+00:00"
+  },
+  "S008@4518-4605": {
+   "state": "not_material",
+   "reason": "The finding is vague, with no direction or size. It describes client experiences, not care delivery or health outcomes, so it would not change the answer on whether care and health improve.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:31:19+00:00"
+  },
+  "S008@4606-4802": {
+   "state": "not_material",
+   "reason": "The finding reports clients' feelings of support from receiving messages. It describes acceptability and experience, not care delivery or health outcomes, so it would not change the page's conclusions about improvement.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:31:23+00:00"
+  },
+  "S008@4803-4896": {
+   "state": "not_material",
+   "reason": "Clients sharing messages with friends and family is a minor qualitative detail on how messages are used. It does not change whether tracking plus prompts or reminders improves care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:31:27+00:00"
+  },
+  "S008@4968-5052": {
+   "state": "out_of_scope",
+   "reason": "The finding reports poor cell network and internet access, a connectivity barrier to implementation, which the scope excludes as feasibility rather than effects on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:35+00:00"
+  },
+  "S008@5053-5188": {
+   "state": "out_of_scope",
+   "reason": "The finding describes practical barriers to reaching patients by phone (no phone, broken phone, no airtime, changed number). That is implementation feasibility, not whether the intervention improves care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:40+00:00"
+  },
+  "S008@5308-5428": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns message cost and users' views that messages should be free, which is an implementation and acceptability issue, not an effect on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:47+00:00"
+  },
+  "S008@5429-5554": {
+   "state": "out_of_scope",
+   "reason": "The finding describes language and literacy or phone-skill barriers, which are implementation feasibility and acceptability issues, not effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:50+00:00"
+  },
+  "S008@5910-6009": {
+   "state": "out_of_scope",
+   "reason": "The finding is about client preferences for message timing and frequency, which is acceptability and implementation detail, not an effect on care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:53+00:00"
+  },
+  "S008@6010-6150": {
+   "state": "out_of_scope",
+   "reason": "The finding reports client preferences for delivery channels (SMS vs voice), which is acceptability and implementation evidence from qualitative work, not an effect on care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:31:58+00:00"
+  },
+  "S008@6151-6305": {
+   "state": "not_material",
+   "reason": "The finding describes what message content clients prefer. It says nothing about whether tracking plus prompts or reminders improves care or health, so it would not change the page's answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:32:01+00:00"
+  },
+  "S008@6306-6436": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns clients' views and acceptability of who sends digital messages, a qualitative implementation matter, not whether care or health outcomes improve.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:32:03+00:00"
+  },
+  "S008@6437-6561": {
+   "state": "not_material",
+   "reason": "The finding only points readers to 'Summary of qualitative findings' tables. It states no result, direction or certainty, so there is nothing to add to the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:32:04+00:00"
+  },
+  "S008@6758-6913": {
+   "state": "out_of_scope",
+   "reason": "The finding is about factors influencing implementation success, which the scope excludes as implementation feasibility, separate from whether the intervention improves care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+   "decided_at": "2026-11-26T17:32:09+00:00"
+  },
+  "S008@6975-7076": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation to planners with no specific result, direction, or effect on care or health outcomes, so it would not change the page's answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:32:11+00:00"
+  },
+  "S008@7077-7198": {
+   "state": "not_material",
+   "reason": "The finding is a recommendation to future trial authors about addressing unspecified factors and reporting. It says nothing about whether the intervention improves care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T17:32:14+00:00"
+  }
+ }
+}

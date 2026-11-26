@@ -1,0 +1,25 @@
+{
+ "slug": "whu-lean-orch-t1-q1-01",
+ "complete": true,
+ "held": [
+  "S001",
+  "S002",
+  "S003",
+  "S004",
+  "S005",
+  "S008"
+ ],
+ "not_held": [
+  {
+   "id": "S006",
+   "title": "Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes.",
+   "reason": "Europe PMC: not served: Europe PMC metadata for PMC6483307 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 2 permitted open copies listed, none could be held"
+  },
+  {
+   "id": "S007",
+   "title": "Manually-generated reminders delivered on paper: effects on professional practice and patient outcomes.",
+   "reason": "Europe PMC: not served: Europe PMC metadata for PMC6923326 says isOpenAccess N (not requested); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.; open copy via OpenAlex: 1 permitted open copy listed, none could be held"
+  }
+ ],
+ "skipped": []
+}

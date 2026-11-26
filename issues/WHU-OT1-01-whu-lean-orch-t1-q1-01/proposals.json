@@ -1,0 +1,128 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "first_author": "Agarwal",
+      "year": 2025,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD012925.pub2/full",
+      "why": "Most recent Cochrane review (18 studies) directly addressing digital tracking, CDSS, and targeted client communication in primary care."
+    },
+    {
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings",
+      "first_author": "Agarwal",
+      "year": 2021,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD012944.pub2/full",
+      "why": "Cochrane review of 8 trials on mobile CDSS for primary healthcare workers; mixed effects on health outcomes."
+    },
+    {
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health",
+      "first_author": "Palmer",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013679",
+      "why": "Cochrane review (35 studies) on SMS/mobile reminders to patients for maternal, neonatal, and child health outcomes."
+    },
+    {
+      "title": "Health workers' perceptions and experiences of using mHealth technologies to deliver primary healthcare services: a qualitative evidence synthesis",
+      "first_author": "Odendaal",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochrane.org/evidence/CD011942_health-workers-perceptions-and-experiences-using-mhealth-technologies-deliver-primary-healthcare",
+      "why": "Cochrane qualitative synthesis (43 studies) on health workers' experiences using mobile phones/tablets in primary care."
+    },
+    {
+      "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+      "first_author": "World Health Organization",
+      "year": 2019,
+      "container": "World Health Organization",
+      "type": "guideline",
+      "url": "https://iris.who.int/items/df396062-86b0-41c4-94c7-6e04e341bce2",
+      "why": "First WHO evidence-based guideline on digital health; recommends digital tracking combined with decision support in primary care."
+    },
+    {
+      "title": "Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes",
+      "first_author": "Arditi",
+      "year": 2017,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD001175.pub4",
+      "why": "Cochrane review on computer-generated provider reminders; moderate evidence of improved processes of care."
+    },
+    {
+      "title": "Manually-generated reminders delivered on paper: effects on professional practice and patient outcomes",
+      "first_author": "Pantoja",
+      "year": 2019,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31858588/",
+      "why": "Cochrane review on paper reminders to providers; contextual baseline for comparing digital vs. non-digital reminder effects."
+    },
+    {
+      "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis",
+      "first_author": "Ames",
+      "year": 2019,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6791116/",
+      "why": "Cochrane qualitative synthesis on patient perspectives of mobile reminder messages; informs acceptability and implementation."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "systematic review mobile phones tablets primary health care decision support reminders patient outcomes",
+      "mHealth clinical decision support reminders primary care systematic review Cochrane",
+      "Cochrane review digital tracking targeted client communication mobile devices primary health care Agarwal 2018",
+      "WHO guideline digital health interventions mHealth recommendations 2019",
+      "targeted client communication mobile devices primary health care Cochrane systematic review 2020 2021",
+      "mHealth worker perceptions experiences mobile primary healthcare qualitative evidence synthesis Cochrane 2020",
+      "Palmer \"targeted client communication via mobile devices\" maternal neonatal child health Cochrane 2020 CD013679",
+      "computerized reminders providers quality care Cochrane systematic review Pantoja 2019 2022",
+      "Arditi \"computer-generated reminders\" healthcare professionals Cochrane 2017 CD001175"
+    ],
+    "domains": [
+      "cochranelibrary.com",
+      "ncbi.nlm.nih.gov",
+      "fhi.brage.unit.no",
+      "epoc.cochrane.org",
+      "pure.johnshopkins.edu",
+      "rcastoragev2.blob.core.windows.net",
+      "pmc.ncbi.nlm.nih.gov",
+      "cdn.clinicaltrials.gov",
+      "api.unil.ch",
+      "annfammed.org",
+      "researchgate.net",
+      "arxiv.org",
+      "gapmaps.3ieimpact.org",
+      "pubmed.ncbi.nlm.nih.gov",
+      "iris.who.int",
+      "aidsdatahub.org",
+      "nature.com",
+      "pmnch.who.int",
+      "who.int",
+      "researchonline.lshtm.ac.uk",
+      "cochrane.org",
+      "pure.qub.ac.uk",
+      "eraonline.uct.ac.za",
+      "pureadmin.qub.ac.uk",
+      "evidenceaid.org",
+      "semanticscholar.org",
+      "wrap.warwick.ac.uk",
+      "ngdc.cncb.ac.cn",
+      "ouci.dntb.gov.ua",
+      "clinicaltrials.gov",
+      "scholar.google.com",
+      "link.springer.com",
+      "wikidata.org",
+      "cochraneprimarycare.org",
+      "nz.cochrane.org"
+    ]
+  },
+  "sha256": "bbfbfefb5839cc67781be9b830dd77c61d852ce3ce4428579eb90c5565a76403"
+}

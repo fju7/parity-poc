@@ -1,0 +1,138 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Giving community and clinic health workers phone or tablet apps that track each patient and prompt them on what to do next, and texting patients reminders, clearly makes care better and people healthier. It's cheap, it's everywhere, and it obviously works, especially in low-resource settings.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "outlet_unverified": {
+      "sentence": "We could not verify where this belief is published.",
+      "proposed": 6,
+      "rounds": [
+        {
+          "round": 1,
+          "proposed": 3,
+          "verified": 0
+        },
+        {
+          "round": 2,
+          "proposed": 3,
+          "verified": 0,
+          "excluded": 0
+        }
+      ],
+      "refused": [
+        "UNICEF Innovation Blog (https://blogs.unicef.org/innovation/visualizing-the-future-of-mhealth/): the page has 4 of the belief's 29 key words (needs 18)",
+        "PATH (https://www.path.org/our-impact/articles/investing-in-community-health-with-digital-tools/): the page has 11 of the belief's 29 key words (needs 18)",
+        "WHO Africa Regional Office – Innovation (https://innov.afro.who.int/page/85-community-health-toolkit): robots.txt could not be read (URLError)",
+        "TechCrunch (https://techcrunch.com/?p=1301941): the page has 11 of the belief's 29 key words (needs 18)",
+        "Dimagi / CommCare Blog (https://commcare.dimagi.com/blog/fighting-tuberculosis-commcare/): the page has 14 of the belief's 29 key words (needs 18)",
+        "Cornell University News (https://news.cornell.edu/node/269615): the page has 13 of the belief's 29 key words (needs 18)"
+      ],
+      "by": "code: no proposed outlet verified (a model's proposals, checked by code)",
+      "at": "2026-11-26T17:27:12+00:00"
+    }
+  },
+  "what_the_sources_show": {
+    "statement": "The held reviews say these digital tools have mixed results: there is some evidence of impacts on health outcomes, but the interventions may make little or no difference to the outcomes measured, and much of the evidence is low or very low certainty.",
+    "sources": [
+      "S004"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-26T17:27:23+00:00",
+    "evidence": {
+      "source": "S004",
+      "offsets": [
+        181778,
+        181974
+      ],
+      "span_sha256": "a5ed44bb311e5ba3b2923797d9d0c1fe6097f954838adab01a1ff385233b0d39"
+    }
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-26T17:27:23+00:00",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        10136,
+        10240
+      ],
+      "span_sha256": "0c44c9eba79adc700e31854759bfb8a5410c87713d7ded13dd2e6e63a1d7b54c"
+    },
+    "why": "The review finds benefits only in some situations and little or no difference in others, so the belief that the tools 'clearly' and 'obviously' work holds only in part."
+  },
+  "reader_with_a_decision": "A ministry of health or donor programme manager (for example a WHO digital-health or maternal and child health lead) deciding whether to fund and scale tablet-based client tracking with decision support and SMS reminders for primary health care workers, instead of spending the same money on staff, supplies or training.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "Randomised trials in primary care consistently show that digital tracking combined with decision-support prompts and/or patient reminders improves both the care delivered (for example adherence to guidelines, timely visits, vaccination or antenatal attendance) and patient health outcomes, and a systematic review rates that evidence as moderate or high certainty. The popular belief would then be confirmed and there would be no story.",
+  "kill_condition_tested": {
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "on": "2026-11-26",
+    "result": "survived",
+    "note": "The passages show the opposite of the kill condition: results are inconsistent rather than uniformly positive, and the certainty is mostly low or very low rather than moderate or high.",
+    "evidence": {
+      "source": "S003",
+      "offsets": [
+        200072,
+        200287
+      ],
+      "span_sha256": "75cee5d44f269be9bd5502f88143bbaf71ac953b9da813dcca6c7da55417f159"
+    },
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Primary health care settings where health workers use mobile devices (phones or tablets) to digitally track individual clients' health status and services received. This is combined with either on-screen decision support for health workers, targeted communication to clients (such as SMS reminders), or both. It covers effects on care delivery (adherence to recommended practice, service coverage and timeliness), on patient health outcomes, and any reported unintended consequences, compared with usual paper-based or non-digital care.",
+    "out": [
+      {
+        "what": "Whether stand-alone SMS reminders to patients, without health-worker tracking, improve adherence or attendance",
+        "why": "That is a different intervention, client communication alone, with its own separate body of evidence. The question is about tracking combined with prompts or reminders."
+      },
+      {
+        "what": "Effectiveness of telemedicine or remote consultations between patients and clinicians",
+        "why": "Telemedicine delivers care at a distance. It is not about tracking clients and prompting health workers during routine care."
+      },
+      {
+        "what": "Hospital electronic health records and inpatient clinical decision support systems",
+        "why": "The question is restricted to primary health care settings, and hospital systems differ in users, infrastructure and outcomes."
+      },
+      {
+        "what": "Cost-effectiveness and implementation feasibility (connectivity, device maintenance, health worker acceptability)",
+        "why": "These matter for scaling, but they are separate from whether the intervention improves care and health, and they need economic and qualitative evidence."
+      },
+      {
+        "what": "Consumer health apps used by patients on their own for self-management",
+        "why": "The question concerns tools used by health workers to track clients, not self-directed patient apps."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-26T17:12:31+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Effect estimates from randomised controlled trials (including cluster trials) comparing mobile digital tracking plus decision support and/or client reminders against usual care. Relevant outcomes include the proportion of clients receiving recommended services or timely care (such as immunisation completion, antenatal visits, HIV or TB treatment adherence), health worker adherence to guidelines, and patient health outcomes (morbidity, mortality, clinical markers). Results are reported as risk ratios or mean differences with confidence intervals.",
+    "assessed": "A systematic review's GRADE certainty rating (high, moderate, low or very low) for each outcome. It reflects judgements on risk of bias, inconsistency across trials, indirectness of settings, imprecision and publication bias. It also covers the review authors' conclusions about whether the interventions 'probably', 'may' or 'may make little or no' difference to care and health.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-26T17:12:31+00:00"
+  }
+}
