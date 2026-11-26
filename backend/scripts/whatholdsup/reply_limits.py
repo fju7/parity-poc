@@ -30,7 +30,7 @@ LIMITS = {
     # audit_stage.Caller call sites ------------------------------------------------------------------------
     "premise": 4000,              # measured 1,941 (02w)
     "draft": 30000,               # measured 4,389
-    "coverage": 1200,             # measured 566 (was 600: 1.06x)
+    "coverage": 1800,             # measured 873 (Q1-01 run 2, 2026-11-26; was 1200 against 566); 2x = 1,746
     "judgement-sentence": 1000,   # censored at its old limit 500 (pooled with relevance rulings, max 622)
     "premise-reading": 3000,      # 1,500 cut off on 02zd, censored at 1,500 (was a hard-coded 1,500)
     "audit-read": 12000,          # pooled audit-step max 5,813 (<= 12,000: the reader's own); 2x = 11,626
