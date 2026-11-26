@@ -149,9 +149,10 @@ def load_inserts(case: Path, rulings: list[dict]) -> list[dict]:
     p = case / "omissions.json"
     if not p.exists():
         return []
+    import omissions as _O                 # an ADD the anchor cascade removed is no longer an ADD (ruling 1 on P152)
     by_id = {r.get("id"): r for r in rulings if r.get("id")}
     out = []
-    for e in json.loads(p.read_text(encoding="utf-8")).get("omissions") or []:
+    for e in _O.load(case).get("omissions") or []:
         if e.get("outcome") != "ADD":
             continue
         r = by_id.get(e.get("ruling"))

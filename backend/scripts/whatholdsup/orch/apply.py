@@ -6,6 +6,10 @@ What is applied, oldest first by the log's time:
   - audit cuts (applied_check.load_cuts): the sentence leaves;
   - omission ADDs (omissions.json, outcome ADD): inserted directly after the sentence they name;
   - lean fail-safe removals (rulings/lean_removed.jsonl, outcome OUTCOME): the sentence leaves.
+  - THE ANCHOR CASCADE (advisor's ruling 1 on P152): when a record removes a sentence, every sentence an earlier
+    omission ADD inserted after it leaves in the same step (no re-anchoring); the applied log records it with
+    cascade_of and omission_key, and omissions.load reads that ADD as NOT_ADDED_ANCHOR_REMOVED, so its finding is
+    a "Not added" line on the readers' list, bound to its source passage as readers'-list lines are.
     A removal of a sentence an earlier record of the same run already removed is recorded against that
     removal, not an error (P100); a removal of a sentence never on the page is NotPlaced.
     A fail-safe STOP on a required line removes nothing (the line stays; the page is Not Ready).
@@ -75,7 +79,7 @@ def pending(case: Path) -> list[tuple[str, str, dict]]:
             # An omission's own "at" is its offsets in the source; the ADD's time is its ruling's.
             out.append(("add:%s:%s" % (e.get("key"), e.get("ruling")), at_of.get(e.get("ruling"), ""),
                         {"op": "insert", "anchor": e["after"], "new": e["text"], "why": "omission ADD",
-                         "source": e.get("source"), "at": e.get("at")}))
+                         "source": e.get("source"), "at": e.get("at"), "omission_key": e.get("key")}))
     for row in FS.load(case):
         if row.get("outcome") == FS.OUTCOME and row.get("sentence"):
             out.append(("failsafe:%s:%s:%s" % (row.get("path"), row.get("finding_key"), row.get("fingerprint")),
@@ -101,6 +105,45 @@ def _removed_earlier(case: Path) -> dict:
     return out
 
 
+def _inserted(case: Path) -> list[dict]:
+    """The omission ADDs this run's applied log put on the page, each with its omission key."""
+    out = []
+    p = case / APPLIED_LOG
+    if p.exists():
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                r = json.loads(line)
+                if r.get("op") == "insert" and r.get("anchor") and r.get("new"):
+                    # "add:<omission key>:<ruling id>"; an omission key ("S002@84643-84859") has no colon
+                    k = r.get("omission_key") or ((r.get("key") or "").split(":") + [None, None])[1]
+                    out.append(dict(r, omission_key=k))
+    return out
+
+
+def _cascade(case: Path, page: Page, removed_sentence: str, removed_by: str, inserted: list[dict],
+             done: set) -> list[dict]:
+    """Remove every ADD inserted after REMOVED_SENTENCE (and, in turn, any inserted after those)."""
+    made = []
+    todo = [fingerprint(removed_sentence)]       # an insert's anchor is the fingerprint of the sentence it follows
+    while todo:
+        anchor = todo.pop()
+        for ins in inserted:
+            key = "cascade:" + str(ins.get("key"))
+            if ins.get("anchor") != anchor or key in done:
+                continue
+            done.add(key)
+            for sent in split(ins["new"]):
+                if _on_page(page, sent):
+                    page.delete(sent, "anchor removed by " + removed_by)
+            op = {"op": "delete", "old": ins["new"], "why": "anchor cascade: the sentence it followed was removed",
+                  "cascade_of": ins.get("key"), "omission_key": ins.get("omission_key"), "anchor": ins["anchor"],
+                  "removed_by": removed_by, "source": ins.get("source"), "at": ins.get("at")}
+            _mark(case, key, op)
+            made.append(dict(op, key=key))
+            todo += [fingerprint(x) for x in split(ins["new"])]
+    return made
+
+
 def _on_page(page: Page, sentence: str) -> bool:
     try:
         page._find(sentence)
@@ -118,6 +161,8 @@ def apply_all(case: Path, page: Page) -> list[dict]:
     earlier record of this run removed, is still NotPlaced."""
     made = []
     removed = _removed_earlier(case)
+    inserted = _inserted(case)
+    done = _done(case)
     for key, _at, op in pending(case):
         if op["op"] in ("replace", "delete") and not split(op.get("new") or "") \
                 and norm(op["old"]) in removed and not _on_page(page, op["old"]):
@@ -133,8 +178,13 @@ def apply_all(case: Path, page: Page) -> list[dict]:
             page.insert_after(op["anchor"], op["new"], op["why"])
         _mark(case, key, op)
         made.append(dict(op, key=key))
+        if op["op"] == "insert":
+            inserted.append(dict(op, key=key))
         if op["op"] in ("replace", "delete") and not split(op.get("new") or ""):
             removed.setdefault(norm(op["old"]), key)
+            for c in _cascade(case, page, op["old"], key, inserted, done):
+                made.append(c)
+                removed.setdefault(norm(c["old"]), c["key"])
     return made
 
 

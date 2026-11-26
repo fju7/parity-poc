@@ -70,9 +70,15 @@ NOT_ADDED_OVER_BUDGET = "NOT_ADDED_OVER_BUDGET"
 # Advisor, 2026-11-23 (after attempt 15): a sentence that could not be written as one sentence (twice) becomes
 # code's own "Not added" line; for a relevant held judgement this is its declaration, never a drop.
 NOT_ADDED_NOT_ONE = "NOT_ADDED_NOT_ONE_SENTENCE"
-CODE_NOT_ADDED = (NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND, NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE)
+# Advisor's ruling 1 on P152 (2026-11-26): an ADD inserted after a sentence a later step removed is removed with it
+# (orch/apply.py, the anchor cascade) and becomes code's own "Not added" line -- found in our sources, not stated on
+# this page. Recorded in orchestrator/applied.jsonl (cascade_of), never written into omissions.json by the step that
+# removed the anchor; load() overlays it.
+NOT_ADDED_ANCHOR = "NOT_ADDED_ANCHOR_REMOVED"
+CODE_NOT_ADDED = (NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND, NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE, NOT_ADDED_ANCHOR)
 OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP, NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND,
-            NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE)
+            NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE, NOT_ADDED_ANCHOR)
+APPLIED_LOG = "orchestrator/applied.jsonl"
 CAPS = ("additions", "declarations")
 TO_PERSON = "TO_PERSON"
 RECORD = "omissions.json"
@@ -202,9 +208,31 @@ def private_path(case: Path) -> Path:
     return case / "rulings" / PRIVATE
 
 
-def load(case: Path) -> dict:
+def cascaded(case: Path) -> dict:
+    """{omission key: the cascade record} from the orchestrator's applied log (orch/apply.py)."""
+    p = Path(case) / APPLIED_LOG
+    out = {}
+    if p.exists():
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                r = json.loads(line)
+                if r.get("cascade_of") and r.get("omission_key"):
+                    out[r["omission_key"]] = r
+    return out
+
+
+def load(case: Path, raw: bool = False) -> dict:
+    """omissions.json; unless RAW, with every ADD the anchor cascade removed read as NOT_ADDED_ANCHOR_REMOVED."""
     p = record_path(case)
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"omissions": []}
+    doc = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"omissions": []}
+    if raw:
+        return doc
+    gone = cascaded(case)
+    if gone:
+        doc["omissions"] = [dict(e, outcome=NOT_ADDED_ANCHOR, cascade=gone[e["key"]].get("key"))
+                            if e.get("key") in gone and e.get("outcome") == ADD else e
+                            for e in doc.get("omissions") or []]
+    return doc
 
 
 PUBLIC_FIELDS = ("key", "source", "held_sha256", "at", "quote_sha256", "outcome", "element", "reason",
@@ -301,7 +329,7 @@ def record(case: Path, f: dict, *, outcome: str, reason: str, by: str, element: 
          **({"reason_for_reader": _public(reason_for_reader)} if (reason_for_reader or "").strip() else {}),
          "origins": f.get("origins") or [f.get("origin")], "on_page": on_page, "after": after,
          "decided_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-    doc = load(case)
+    doc = load(case, raw=True)
     doc["omissions"] = [x for x in doc.get("omissions") or [] if x.get("key") != e["key"]] + [e]
     record_path(case).write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     pp = private_path(case)
