@@ -58,6 +58,14 @@ class RunStop(RuntimeError):
     """The run ends here; the reason is its recorded result."""
 
 
+INSUFFICIENT = "Insufficient sources:"
+
+
+class InsufficientSources(RunStop):
+    """Fewer than the held-source minimum after acquire (thin_sources.py): the run ends there, not drafted."""
+
+
+
 def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -792,8 +800,13 @@ def code_acquire(ctx: Ctx, step) -> dict:
     if down:
         raise RunStop("acquire: registry unavailable; run again later (%s)" % "; ".join(
             "%s: %s" % (s["id"], (s["access"]["last_fetch"].get("why") or "")[:120]) for s in down))
-    if not held:
-        raise RunStop("acquire: no source is held (Not Ready)")
+    # Ruling 3 on the design review (2026-11-26): at least 2 distinct works held in full text, one a review or a
+    # synthesis, checked here, before the first model call that drafts; below it the run ends with the honest
+    # outcome "Insufficient sources: ..." (thin_sources.py), never Not Ready.
+    import thin_sources as TS
+    short = TS.shortfall(doc)
+    if short:
+        raise InsufficientSources(short)
     from orch import results as RS
     why = RS.stop_reason([s for s in doc.get("sources") or [] if s["id"] in held])
     if why:
@@ -1711,6 +1724,8 @@ def run(ctx: Ctx, resume: dict | None = None) -> dict:
                 if step.name == "preflight":
                     result = r["code"]["outcome"]
                 i += 1
+    except InsufficientSources as e:            # an honest outcome, not a defect (ruling 3 on the design review)
+        result = str(e)
     except (RunStop, StepFailed, Busy) as e:
         result = "Not Ready: %s" % e
     except Exception as e:                      # a refused paid call in trial mode lands here, recorded
@@ -1988,6 +2003,8 @@ def main(argv=None) -> int:
                                   ensure_ascii=False, default=str) + "\n", encoding="utf-8")
         print(json.dumps({"result": out["result"], "steps": [x["step"] for x in out["steps"]],
                           "sources": out["sources"]}, indent=1, ensure_ascii=False))
+        if str(out["result"]).startswith(INSUFFICIENT):
+            return 3                                  # Insufficient sources: an outcome, told apart from Not Ready
         return 0 if out["result"] == "Ready." else 1
     if a.cmd in ("status", "replay", "estimate"):
         from orch import run_env as RE          # P103: a probe sees what the run saw

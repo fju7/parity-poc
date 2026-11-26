@@ -992,24 +992,30 @@ def test_field_limits_are_twice_the_longest_stored_value():
 # ---------------------------------------------------------------------------------------------------- rulings (a)-(d)
 # Advisor's rulings after trial 1's attempt 3 (2026-11-07).
 
+# A second held review, so the held-source minimum (ruling 3 on the design review, thin_sources.py) is met where a
+# test is about something else.
+SECOND = {"id": "S009", "type": "review", "title": "A second held review", "used_for": "x",
+          "access": {"state": "full_text_held"}}
+
+
 def test_a_an_unheld_source_does_not_stop_the_run_and_is_recorded_not_held(tmp_path):
     import orchestrator as O
     c = _case(tmp_path)
     doc = {"sources": [
         {"id": "S001", "type": "review", "title": "Held review", "used_for": "x",
-         "access": {"state": "full_text_held", "held": {"file": "f"}}},
+         "access": {"state": "full_text_held", "held": {"file": "f"}}}, dict(SECOND),
         {"id": "S002", "type": "review", "title": "A map we could not hold", "used_for": "x",
          "access": {"last_fetch": {"on": "2026-11-07", "result": "not fetched", "why": "form check failed"}}}]}
     (c / "sources.json").write_text(json.dumps(doc))
     out = O.code_acquire(SimpleNamespace(case=c), ST.BY_NAME["acquire"])
-    assert out["not_held"] == ["S002"] and out["outcome"] == "1 held, 1 not held"
-    got = json.loads((c / "sources.json").read_text())["sources"][1]["access"]
+    assert out["not_held"] == ["S002"] and out["outcome"] == "2 held, 1 not held"
+    got = json.loads((c / "sources.json").read_text())["sources"][2]["access"]
     assert got["not_held"] == {"line": "could_not_hold", "why": "form check failed"}
     assert got["state"] == "blocked" and "form check failed" in got["blocked_by"]   # the ledger's own state
     for s in doc["sources"]:
         s["access"] = {"last_fetch": {"why": "nothing"}}
     (c / "sources.json").write_text(json.dumps(doc))
-    with pytest.raises(O.RunStop, match="no source is held"):
+    with pytest.raises(O.InsufficientSources, match="Insufficient sources: 0 of 3 confirmed sources held"):
         O.code_acquire(SimpleNamespace(case=c), ST.BY_NAME["acquire"])
 
 
@@ -1178,10 +1184,10 @@ def test_acquire_treats_a_retracted_source_as_not_held_and_the_page_says_so(tmp_
     c = _case(tmp_path)
     held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
             "access": {"state": "full_text_held"}}
-    (c / "sources.json").write_text(json.dumps({"sources": [held, S002, S003]}))
+    (c / "sources.json").write_text(json.dumps({"sources": [held, S002, S003, dict(SECOND)]}))
     ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=_crossref, fulltext=_fulltext)
     out = O.code_acquire(ctx, ST.BY_NAME["acquire"])
-    assert out["lines"] == {"S002": "retracted", "S003": "could_not_hold"} and out["outcome"] == "1 held, 2 not held"
+    assert out["lines"] == {"S002": "retracted", "S003": "could_not_hold"} and out["outcome"] == "2 held, 2 not held"
     doc = json.loads((c / "sources.json").read_text())
     s2, s3 = doc["sources"][1], doc["sources"][2]
     assert s2["access"]["state"] == "blocked" and s2["retraction_check"]["retracted"]
@@ -1219,7 +1225,7 @@ def test_a_held_sources_notice_that_cannot_be_held_makes_it_not_held(tmp_path):
     held = dict(S003, access={"state": "full_text_held"})           # S003 as if held; its notice serves no text
     (c / "sources.json").write_text(json.dumps({"sources": [held]}))
     ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=lambda d: (None, "none"), fulltext=_fulltext)
-    with pytest.raises(O.RunStop, match="no source is held"):
+    with pytest.raises(O.InsufficientSources, match="Insufficient sources: 0 of 1 confirmed sources held"):
         O.code_acquire(ctx, ST.BY_NAME["acquire"])
     doc = json.loads((c / "sources.json").read_text())
     assert doc["sources"][0]["access"]["not_held"]["line"] == "correction_not_held"
@@ -1304,12 +1310,12 @@ def test_acquire_treats_an_expression_of_concern_like_a_retraction(tmp_path):
            "access": {"state": "full_text_held"}}
     held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
             "access": {"state": "full_text_held"}}
-    (c / "sources.json").write_text(json.dumps({"sources": [held, eoc]}))
+    (c / "sources.json").write_text(json.dumps({"sources": [held, eoc, dict(SECOND)]}))
     msg = {"title": ["A review under concern"], "updated-by": [{"DOI": "10.1/n", "type": "expression_of_concern"}]}
     ctx = SimpleNamespace(case=c, lookup=lambda k, v: (None, "no"),
                           crossref=lambda d: (msg, "matched") if d == "10.1/eoc-src" else (None, "no"))
     out = O.code_acquire(ctx, ST.BY_NAME["acquire"])
-    assert out["lines"] == {"S002": "concern"} and out["outcome"] == "1 held, 1 not held"
+    assert out["lines"] == {"S002": "concern"} and out["outcome"] == "2 held, 1 not held"
     doc = json.loads((c / "sources.json").read_text())
     assert doc["sources"][1]["access"]["state"] == "blocked" and doc["sources"][1]["retraction_check"]["concern"]
     line = [g["sentence"] for g in LS.generate({}, doc["sources"]) if g["field"] == "access.not_held"][0]
@@ -1420,7 +1426,7 @@ def test_a_multi_article_notice_that_does_not_name_the_source_is_a_correction_we
     held = {"id": "S001", "type": "review", "title": "A held review", "used_for": "x",
             "access": {"state": "full_text_held"}}
     c = _case(tmp_path)
-    (c / "sources.json").write_text(json.dumps({"sources": [held, s002]}))
+    (c / "sources.json").write_text(json.dumps({"sources": [held, s002, dict(SECOND)]}))
 
     def lookup(kind, value):
         table = {("PMCID", "PMC9700054"): "epmc_PMC9700054.json", ("PMID", "36913230"): "epmc_MED_36913230.json"}
@@ -1919,7 +1925,8 @@ def test_acquire_stops_when_no_held_source_reports_results(tmp_path):
     c = _case(tmp_path)
     proto = {"id": "S001", "type": "methods", "used_for": "x", "title": "PROTOCOL: Effectiveness of interventions",
              "access": {"state": "full_text_held"}}
-    (c / "sources.json").write_text(json.dumps({"sources": [proto]}))
+    proto2 = dict(proto, id="S009", type="review", title="PROTOCOL: A second protocol")
+    (c / "sources.json").write_text(json.dumps({"sources": [proto, proto2]}))
     ctx = SimpleNamespace(case=c, lookup=_lookup, crossref=_crossref, fulltext=_fulltext)
     with pytest.raises(O.RunStop, match="no held source reports results"):
         O.code_acquire(ctx, ST.BY_NAME["acquire"])
