@@ -1,0 +1,156 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal)",
+      "checked_on": "2026-11-26",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "The carbon dioxide removal gap",
+      "checked_on": "2026-11-26",
+      "identifier": "DOI 10.1038/s41558-024-01984-6",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1038/s41558-024-01984-6",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1038/s41558-024-01984-6\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1038/s41558-024-01984-6",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1038/s41558-024-01984-6"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1038/s41558-024-01984-6",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1038/s41558-024-01984-6 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+      "checked_on": "2026-11-26",
+      "identifier": "DOI 10.1038/s43247-024-01527-z",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1038/s43247-024-01527-z",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1038/s43247-024-01527-z\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1038/s43247-024-01527-z",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1038/s43247-024-01527-z"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1038/s43247-024-01527-z",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1038/s43247-024-01527-z at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+      "checked_on": "2026-11-26",
+      "identifier": "DOI 10.3389/fclim.2024.1425971",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.3389/fclim.2024.1425971",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.3389/fclim.2024.1425971\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.3389/fclim.2024.1425971",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.3389/fclim.2024.1425971"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.3389/fclim.2024.1425971",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.3389/fclim.2024.1425971 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.3389/crossmark-policy",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "IPCC Expert Meeting on Carbon Dioxide Removal Technologies and Carbon Capture, Utilisation and Storage",
+      "checked_on": "2026-11-26",
+      "identifier": "DOI 10.1111/gcb.16943",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1111/gcb.16943",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1111/gcb.16943",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 37746862"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1111/gcb.16943",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1111/gcb.16943 at Crossref"
+        }
+      ],
+      "comments": [],
+      "state": "UNCHECKED",
+      "amendments": [],
+      "why": "no registry record; retraction status not checkable (Europe PMC, PubMed, Crossref answered; none holds this source's record)",
+      "identifier_from": "the held document"
+    }
+  }
+}

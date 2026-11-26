@@ -1,0 +1,1571 @@
+{
+  "_what_this_is": "One row per empirical sentence on the page: the source it rests on, the exact words in that source that support it, and who signed for each of the three questions. Spec: docs/whatholdsup-claim-bindings-spec.md.",
+  "_r1": "This file records the presence or absence of a span. It does not record that a sentence is true. A row with every verdict signed means the sentence is WARRANTED by named evidence and named signers -- which is not the same claim and must never be printed as though it were.",
+  "bindings": {
+    "d12fb64f6f69ca06": {
+      "sentence": "The question is: “Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?”",
+      "sentence_sha": "d12fb64f6f69ca06",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "a360ff3652e9d070": {
+      "sentence": "Rapid emissions reductions, including reductions in deforestation-based land emissions, are described as the dominant source of global climate mitigation potential in the coming decades, but carbon dioxide removal (CDR) 'will also have an important role to play' [2].",
+      "sentence_sha": "a360ff3652e9d070",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b1b36b96e1ad6f6926a6d7f9d113f705cc22349b3f3c0ff2d132b3f8a44c0901",
+      "locator_type": "prose",
+      "locator": "passage S002@1386",
+      "span": "Minx ORCID: orcid.org/0000-0002-2862-0178 1 , 2 Show authors Nature Climate Change volume 14 , pages 644–651 ( 2024 ) Cite this article Save article View saved research 12k Accesses 123 Citations 161 Altmetric Metrics details Abstract Rapid emissions reductions, including reductions in deforestation-based land emissions, are the dominant source of global climate mitigation potential in the coming decades. However, carbon dioxide removal (CDR) will also have an important role to play. Despite this, it remains unclear whether current national proposals for CDR align with temperature targets. Here we show the ‘CDR gap’, that is, CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5 °C.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        1386,
+        2144
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "9a4672f0ed28fad2": {
+      "sentence": "The IPCC Working Group III contribution to the Sixth Assessment Report states that deploying CDR to counterbalance hard-to-abate residual emissions is 'unavoidable' if net zero CO2 or GHG emissions are to be achieved [5].",
+      "sentence_sha": "9a4672f0ed28fad2",
+      "why_empirical": "the bare integer 5 is a quantity",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "802c6fb37301976e0f3c2caed48b6097150ab82c87081729475ff4cb72a67473",
+      "locator_type": "prose",
+      "locator": "passage S005@1252",
+      "span": "IPCC Task Force on National Greenhouse Gas Inventories (TFI) Technical Support Unit ℅ Institute for Global Environmental Strategies 2108 -11, Kamiyamaguchi Hayama, Kanagawa JAPAN, 240-0115 https://www.ipcc-nggip.iges.or.jp ISBN 978-4-88788-278-2 3 4 Preface The IPCC Working Group III (WGIII) contribution to the Sixth Assessment Report (AR6) states that “The deployment of carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable if net zero CO2 or GHG emissions are to be achieved” and provides a summary of the role for CDR technologies in future mitigation pathways (IPCC 2022 Table TS.7). The IPCC Guidelines already provide for inventory compilers to estimate and report on anthropogenic sinks from any process, activity or mechanism which removes a greenhouse gas from the atmosphere, in their national GHG inventories (NGHGI).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        1252,
+        2124
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "f34254bb58bca062": {
+      "sentence": "In the assessed mitigation pathways, reducing fossil fuel and deforestation emissions accounts for over 80% of net greenhouse gas reductions until global net zero CO2, independent of how stringent the climate objective is [3].",
+      "sentence_sha": "f34254bb58bca062",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@2227",
+      "span": "Novel carbon dioxide removal technologies such as direct air carbon capture and storage scale to multi-gigatonne levels by 2050 and beyond to balance residual emissions and draw down warming. We show that reducing fossil fuel and deforestation emissions (gross emissions) accounts for over 80% of net greenhouse gas reductions until global net zero carbon dioxide (CO 2 ) independent of climate objective stringency. We explore the regional distributions of gross emissions and total carbon dioxide removal in cost-effective mitigation pathways and highlight the importance of incorporating fairness and broader sustainability considerations in future assessments of mitigation pathways with carbon dioxide removal.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        2227,
+        2942
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "In panel b , d , e , the box represents the interquartile range (25–75th percentile) and the whiskers represent the range. Across all the categories of pathways, over 80% of the net GHG reductions between 2020 and global net zero CO 2 are achieved by cuts in gross CO 2 and non-CO 2 emissions (Fig. 1c ). This indicates that less stringent climate objectives do not imply a fundamental change in the scale of gross CO 2 reductions necessary, but merely shift this over time, raising questions of intergenerational fairness. In other words, overall mitigation effort is similar across different temperature categories, while climate impacts and related adaptation needs increase in line with additional warming. Delaying mitigation action impacts the volume and composition of CDR until global net zero CO 2 (Fig. 1 d, e).",
+          "offsets": [
+            9057,
+            9878
+          ]
+        }
+      ]
+    },
+    "555d23a113e2d342": {
+      "sentence": "In the near term, removals via afforestation and reforestation play a critical role, accounting for around 10% (median) of net greenhouse gas reductions between 2020 and 2030 in scenarios that limit warming to 1.5 °C with limited overshoot [3].",
+      "sentence_sha": "555d23a113e2d342",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@1379",
+      "span": "Gidden ORCID: orcid.org/0000-0003-0687-414X 2 , 3 Show authors Communications Earth & Environment volume 5 , Article number: 377 ( 2024 ) Cite this article Save article View saved research 19k Accesses 47 Citations 19 Altmetric Metrics details Abstract The 6th Assessment Report from the Intergovernmental Panel on Climate Change lacked sufficient land-sector scenario information to estimate total carbon dioxide removal deployment. Here, using a dataset of land-based carbon dioxide removal based on the scenarios assessed by the Intergovernmental Panel on Climate Change, we show that removals via afforestation and reforestation play a critical near-term role in mitigation, accounting for around 10% (median) of the net greenhouse gas emission reductions between 2020 and 2030 in scenarios that limit warming to 1.5 °C with limited overshoot.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        1379,
+        2226
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "46c8ac5da1e5d8e2": {
+      "sentence": "In the decades ahead, novel removal technologies such as direct air carbon capture and storage scale to multi-gigatonne levels by 2050 and beyond in these pathways, to balance residual emissions and draw down warming [3].",
+      "sentence_sha": "46c8ac5da1e5d8e2",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@2227",
+      "span": "Novel carbon dioxide removal technologies such as direct air carbon capture and storage scale to multi-gigatonne levels by 2050 and beyond to balance residual emissions and draw down warming. We show that reducing fossil fuel and deforestation emissions (gross emissions) accounts for over 80% of net greenhouse gas reductions until global net zero carbon dioxide (CO 2 ) independent of climate objective stringency. We explore the regional distributions of gross emissions and total carbon dioxide removal in cost-effective mitigation pathways and highlight the importance of incorporating fairness and broader sustainability considerations in future assessments of mitigation pathways with carbon dioxide removal.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        2227,
+        2942
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "551d3152a269dc96": {
+      "sentence": "In 1.5 °C pathways with limited overshoot (C1), most mitigation between 2020 and 2030 comes from reducing gross CO2 emissions (70%) and cutting non-CO2 emissions (20%), with halting deforestation and expanding conventional CDR on land accounting for 10% of net GHG reductions [3].",
+      "sentence_sha": "551d3152a269dc96",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@6539",
+      "span": "In 1.5 °C pathways with limited overshoot (C1), most of the mitigation between 2020 and 2030 (Fig. 1a ) is achieved by reducing gross CO 2 emissions (70% [64, 77 interquartile range]) and cutting non-CO 2 emissions (20% [16, 24]). This is accompanied by a smaller, yet important, contribution from pursuing sustainable land-use strategies through halting deforestation and expanding conventional CDR on land (accounting for 10% [5, 14] of net GHG reductions), nearly doubling the volume of CDR in this decade (Table 1 ). Across most C1 scenarios, novel CDR methods scale up by mid-century to support the achievement of net zero CO 2 , increasing to levels of around 4 Gt CO 2 [2, 6] by 2050. Between 2020 and global net zero CO 2 , gross CO 2 reductions account for 71% [66, 74] of the net GHG reductions in C1 pathways with CDR contributing a much smaller amount (15% [12, 21]).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6539,
+        7418
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "229c4c7f36cabbb1": {
+      "sentence": "Between 2020 and global net zero CO2 in C1 pathways, gross CO2 reductions account for 71% of net GHG reductions, with CDR contributing a much smaller amount (15%) [3].",
+      "sentence_sha": "229c4c7f36cabbb1",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@6539",
+      "span": "In 1.5 °C pathways with limited overshoot (C1), most of the mitigation between 2020 and 2030 (Fig. 1a ) is achieved by reducing gross CO 2 emissions (70% [64, 77 interquartile range]) and cutting non-CO 2 emissions (20% [16, 24]). This is accompanied by a smaller, yet important, contribution from pursuing sustainable land-use strategies through halting deforestation and expanding conventional CDR on land (accounting for 10% [5, 14] of net GHG reductions), nearly doubling the volume of CDR in this decade (Table 1 ). Across most C1 scenarios, novel CDR methods scale up by mid-century to support the achievement of net zero CO 2 , increasing to levels of around 4 Gt CO 2 [2, 6] by 2050. Between 2020 and global net zero CO 2 , gross CO 2 reductions account for 71% [66, 74] of the net GHG reductions in C1 pathways with CDR contributing a much smaller amount (15% [12, 21]).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6539,
+        7418
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "635d0175beaf3a5b": {
+      "sentence": "The authors interpret this as showing that less stringent climate objectives do not fundamentally change the scale of gross CO2 reductions needed but merely shift them over time, raising questions of intergenerational fairness [3].",
+      "sentence_sha": "635d0175beaf3a5b",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@9057",
+      "span": "In panel b , d , e , the box represents the interquartile range (25–75th percentile) and the whiskers represent the range. Across all the categories of pathways, over 80% of the net GHG reductions between 2020 and global net zero CO 2 are achieved by cuts in gross CO 2 and non-CO 2 emissions (Fig. 1c ). This indicates that less stringent climate objectives do not imply a fundamental change in the scale of gross CO 2 reductions necessary, but merely shift this over time, raising questions of intergenerational fairness. In other words, overall mitigation effort is similar across different temperature categories, while climate impacts and related adaptation needs increase in line with additional warming. Delaying mitigation action impacts the volume and composition of CDR until global net zero CO 2 (Fig. 1 d, e).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        9057,
+        9878
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8cf20e9ac119bd2a": {
+      "sentence": "Conventional CDR on land, which captures and stores carbon in the land biosphere, is currently estimated to contribute around 2 Gt CO2 of removals per year [3].",
+      "sentence_sha": "8cf20e9ac119bd2a",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@5715",
+      "span": "We further evaluate the components of total CDR across two categories - conventional CDR on land (methods that provide CDR at scale today, capturing and storing carbon in the land biosphere – currently estimated to contribute around 2 Gt CO 2 of removals per year 7 ) and novel CDR (proposed methods not used at scale today that store captured carbon in geological formations, the ocean, or products – the methods include bioenergy with carbon capture and storage, or BECCS, direct air carbon capture and storage, or DACCS, and enhanced weathering – currently estimated to contribute around 2 Mt CO 2 of removals per year 9 , 10 . Results and discussion Global mitigation assessment We assess the difference in GHG emission reduction rates over different time frames across the three IPCC categories of pathways (Table 1 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5715,
+        6538
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "cc1def8d4d859205": {
+      "sentence": "Novel CDR methods, including BECCS, DACCS and enhanced weathering, are not used at scale today and are currently estimated to contribute around 2 Mt CO2 of removals per year [3].",
+      "sentence_sha": "cc1def8d4d859205",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@5715",
+      "span": "We further evaluate the components of total CDR across two categories - conventional CDR on land (methods that provide CDR at scale today, capturing and storing carbon in the land biosphere – currently estimated to contribute around 2 Gt CO 2 of removals per year 7 ) and novel CDR (proposed methods not used at scale today that store captured carbon in geological formations, the ocean, or products – the methods include bioenergy with carbon capture and storage, or BECCS, direct air carbon capture and storage, or DACCS, and enhanced weathering – currently estimated to contribute around 2 Mt CO 2 of removals per year 9 , 10 . Results and discussion Global mitigation assessment We assess the difference in GHG emission reduction rates over different time frames across the three IPCC categories of pathways (Table 1 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5715,
+        6538
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "02e750d51d1609d5": {
+      "sentence": "Taken together, current CDR approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions [4].",
+      "sentence_sha": "02e750d51d1609d5",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@5747",
+      "span": "Taken all together, current CDR approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions (United Nations Environment Programme, 2023). With the new logic of national “net-zero” targets that integrate both reductions and removals, it is becoming increasingly urgent to develop appropriate governance systems for CDR (Schenuit et al., 2021; Schenuit et al., 2023a). Many have discussed, for example, the need to organise separate policy tracks for reduction and removals, to avoid any fungibility and the risk that longer-term ambitions for CDR dilute short-term efforts to reduce emissions (McLaren et al., 2019; Rogelj et al., 2021).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5747,
+        6413
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "9486097d5807bac1": {
+      "sentence": "Afforestation/reforestation, soil carbon sequestration and harvested wood products are relatively well integrated into national policy and planning, whereas emerging methods such as BECCS, DACCS, biochar, enhanced weathering and blue carbon have so far had little exposure to governance and policy regimes [4].",
+      "sentence_sha": "9486097d5807bac1",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@4861",
+      "span": "It is therefore important to set the policy conditions for preserving existing levels of CDR while sustainably scaling new methods (Nemet et al., 2023). CDR refers to a variety of technologies and methods, including those that are relatively well integrated into national policy and planning such as afforestation/reforestation, soil carbon sequestration and harvested wood products. These methods already entered the international climate negotiations discourse under the United Nations Framework Convention on Climate Change (UNFCCC) in the early 2000s (Carton et al., 2020). However, a range of further methods are now emerging that have so far had little exposure to national or international governance and policy regimes. These include bioenergy with carbon capture and storage (BECCS), direct air carbon capture and storage (DACCS), biochar, enhanced weathering and blue carbon.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        4861,
+        5746
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "d1b30598f2f0ef19": {
+      "sentence": "C1 pathways nearly double the volume of CDR this decade, and across most C1 scenarios novel CDR methods scale up by mid-century to support net zero CO2, reaching around 4 Gt CO2 (interquartile range 2 to 6) by 2050 [3].",
+      "sentence_sha": "d1b30598f2f0ef19",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@6539",
+      "span": "In 1.5 °C pathways with limited overshoot (C1), most of the mitigation between 2020 and 2030 (Fig. 1a ) is achieved by reducing gross CO 2 emissions (70% [64, 77 interquartile range]) and cutting non-CO 2 emissions (20% [16, 24]). This is accompanied by a smaller, yet important, contribution from pursuing sustainable land-use strategies through halting deforestation and expanding conventional CDR on land (accounting for 10% [5, 14] of net GHG reductions), nearly doubling the volume of CDR in this decade (Table 1 ). Across most C1 scenarios, novel CDR methods scale up by mid-century to support the achievement of net zero CO 2 , increasing to levels of around 4 Gt CO 2 [2, 6] by 2050. Between 2020 and global net zero CO 2 , gross CO 2 reductions account for 71% [66, 74] of the net GHG reductions in C1 pathways with CDR contributing a much smaller amount (15% [12, 21]).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6539,
+        7418
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "91dbb1e74ad5ed6a": {
+      "sentence": "At the year of global net zero CO2, the authors estimate a gross greenhouse gas emission level of 18 Gt CO2eq/yr across the scenarios, largely consistent with another estimate of a residual emission level of 16 Gt CO2eq/yr [3].",
+      "sentence_sha": "91dbb1e74ad5ed6a",
+      "why_empirical": "the bare integer 18 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@7419",
+      "span": "These patterns (dominant reductions in gross CO 2 emissions and alternating importance of non-CO 2 reductions and CDR) are similar in C2 and C3 pathways (Supplementary Fig. 1 and Supplementary Table 1 ) but with slower near-term net GHG reductions (Table 1 ). Across all the scenarios, at the year of global net zero CO 2 , we estimate a gross greenhouse gas emission level of 18 [16, 21] Gt CO 2 eq/yr (Fig. 1c ), which is largely consistent with an alternate estimation approach adopted by ref. 11 , who estimate a residual emission level of 16 [12, 26] Gt CO 2 eq/yr across these three categories of pathways. Table 1 Key global benchmarks in assessed mitigation pathways Full size table Fig. 1: Global characteristics of gross emission reductions and total carbon dioxide removal (CDR) in deep mitigation pathways.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        7419,
+        8237
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "96c59f296012627e": {
+      "sentence": "In the OECD and EU region, removals play a much larger role after 2050, accounting for a median of around 43%, 48% and 35% of net GHG reductions across the C1, C2 and C3 pathways respectively [3].",
+      "sentence_sha": "96c59f296012627e",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@17602",
+      "span": "For the Asia region, we note a dominant contribution (median of around 80%) from gross CO 2 emission reductions across all three time periods in the C1 pathways with the rest largely coming from non-CO 2 reductions followed by CDR. However, in C2 and C3 pathways where there is slower global near-term action, CDR plays a larger role beyond 2050, accounting for over 20% (median) of the regional net GHG reductions. For the OECD and EU region we find similar patterns between 2020 and 2030 and onwards to 2050; however, after this 2050 removals play a much larger role in net GHG reductions across each category of pathways accounting for a median of around 43%, 48%, 35% respectively across the C1, C2 and C3 pathways.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        17602,
+        18321
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "11e50306a14170ea": {
+      "sentence": "In the Asia region, CDR accounts for over 20% (median) of regional net GHG reductions beyond 2050 in C2 and C3 pathways, where global near-term action is slower [3].",
+      "sentence_sha": "11e50306a14170ea",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@17602",
+      "span": "For the Asia region, we note a dominant contribution (median of around 80%) from gross CO 2 emission reductions across all three time periods in the C1 pathways with the rest largely coming from non-CO 2 reductions followed by CDR. However, in C2 and C3 pathways where there is slower global near-term action, CDR plays a larger role beyond 2050, accounting for over 20% (median) of the regional net GHG reductions. For the OECD and EU region we find similar patterns between 2020 and 2030 and onwards to 2050; however, after this 2050 removals play a much larger role in net GHG reductions across each category of pathways accounting for a median of around 43%, 48%, 35% respectively across the C1, C2 and C3 pathways.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        17602,
+        18321
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "99e9b97200ad3737": {
+      "sentence": "Delaying net zero CO2 increases total CDR deployed up to that year: from 166 Gt CO2 for net zero by mid-century, to 251 Gt CO2 for net zero between 2050 and 2075, and to 445 Gt CO2 for net zero later than 2075 [3].",
+      "sentence_sha": "99e9b97200ad3737",
+      "why_empirical": "the bare integer 166 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@10547",
+      "span": "Delaying the time of net zero CO 2 results in an increase in the total CDR deployed till this year; for scenarios with a net zero timing by mid-century, the total volume of CDR deployed is 166 Gt CO 2 [149, 193], increasing to 251 Gt CO 2 [203, 320] and 445 Gt CO 2 [345, 524] respectively for scenarios with a net zero timings between 2050 and 2075, and later than 2075. Conventional CDR on land tends to increase faster in scenarios with net zero CO 2 timing between 2050 and 2075 (Fig. 1d ) while novel CDR increases faster in scenarios with net zero CO 2 timing between 2075 and 2100 (Fig. 1e ). This reflects the lead time necessary to scale up novel removals, which are still at a nascent stage of development 12 . These options are expected to require both time and investment to ramp up deployment and become a cost-effective part of a mitigation portfolio 13 .",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        10547,
+        11416
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "d1bde0d4d64f635f": {
+      "sentence": "The amount of conventional land-based CDR is largely consistent across different timings of delayed emission reductions [3].",
+      "sentence_sha": "d1bde0d4d64f635f",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@9879",
+      "span": "We conceptualise delay across two dimensions - the time to halve net CO 2 emissions and the number of years until global net zero CO 2 is achieved. We find that the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions, implying that scenarios utilise land-based CDR regardless of the delay of emissions reductions elsewhere. Conversely, we observe a strong signal both in the median and extreme values in the amount of novel CDR utilised in scenarios which have longer net emission halving times, showing scenarios’ dependence on future, unproven CDR technologies when net emissions reductions are delayed.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        9879,
+        10546
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "e0d4876ab2c67fcb": {
+      "sentence": "By contrast, the scenarios show a strong signal of more novel CDR where net emission halving takes longer, which the authors describe as dependence on future, unproven CDR technologies when net emission reductions are delayed [3].",
+      "sentence_sha": "e0d4876ab2c67fcb",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@9879",
+      "span": "We conceptualise delay across two dimensions - the time to halve net CO 2 emissions and the number of years until global net zero CO 2 is achieved. We find that the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions, implying that scenarios utilise land-based CDR regardless of the delay of emissions reductions elsewhere. Conversely, we observe a strong signal both in the median and extreme values in the amount of novel CDR utilised in scenarios which have longer net emission halving times, showing scenarios’ dependence on future, unproven CDR technologies when net emissions reductions are delayed.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        9879,
+        10546
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ed7f7d4b1222a4e1": {
+      "sentence": "Novel removals are described as still at a nascent stage of development, and are expected to require both time and investment to ramp up deployment and become cost-effective [3].",
+      "sentence_sha": "ed7f7d4b1222a4e1",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@10547",
+      "span": "Delaying the time of net zero CO 2 results in an increase in the total CDR deployed till this year; for scenarios with a net zero timing by mid-century, the total volume of CDR deployed is 166 Gt CO 2 [149, 193], increasing to 251 Gt CO 2 [203, 320] and 445 Gt CO 2 [345, 524] respectively for scenarios with a net zero timings between 2050 and 2075, and later than 2075. Conventional CDR on land tends to increase faster in scenarios with net zero CO 2 timing between 2050 and 2075 (Fig. 1d ) while novel CDR increases faster in scenarios with net zero CO 2 timing between 2075 and 2100 (Fig. 1e ). This reflects the lead time necessary to scale up novel removals, which are still at a nascent stage of development 12 . These options are expected to require both time and investment to ramp up deployment and become a cost-effective part of a mitigation portfolio 13 .",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        10547,
+        11416
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "67acedd7837ab0b9": {
+      "sentence": "One analysis identifies a 'CDR gap': CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5 °C [2].",
+      "sentence_sha": "67acedd7837ab0b9",
+      "why_empirical": "figure",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b1b36b96e1ad6f6926a6d7f9d113f705cc22349b3f3c0ff2d132b3f8a44c0901",
+      "locator_type": "prose",
+      "locator": "passage S002@1386",
+      "span": "Minx ORCID: orcid.org/0000-0002-2862-0178 1 , 2 Show authors Nature Climate Change volume 14 , pages 644–651 ( 2024 ) Cite this article Save article View saved research 12k Accesses 123 Citations 161 Altmetric Metrics details Abstract Rapid emissions reductions, including reductions in deforestation-based land emissions, are the dominant source of global climate mitigation potential in the coming decades. However, carbon dioxide removal (CDR) will also have an important role to play. Despite this, it remains unclear whether current national proposals for CDR align with temperature targets. Here we show the ‘CDR gap’, that is, CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5 °C.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        1386,
+        2144
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a1993c854fc835f9": {
+      "sentence": "The most ambitious national proposals are close to the CDR levels of a low-energy-demand scenario that has the most limited CDR scaling and aggressive near-term emission reductions [2].",
+      "sentence_sha": "a1993c854fc835f9",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b1b36b96e1ad6f6926a6d7f9d113f705cc22349b3f3c0ff2d132b3f8a44c0901",
+      "locator_type": "prose",
+      "locator": "passage S002@2145",
+      "span": "However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions. Further, we observe that many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as bioenergy carbon capture and storage, biochar or direct air carbon capture and storage. This is a preview of subscription content, access via your institution Access options Access through your institution Access Nature and 54 other Nature Portfolio journals Get Nature+, our best-value online-access subscription $39.99 / 30 days cancel any time Learn more Subscribe to this journal Receive 12 print issues and online access $259.00 per year only $21.58 per issue Learn more Buy this article Purchase on SpringerLink Instant access to the full article PDF.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        2145,
+        3027
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4c33294cc237d75c": {
+      "sentence": "Many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as BECCS, biochar or direct air carbon capture and storage [2].",
+      "sentence_sha": "4c33294cc237d75c",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b1b36b96e1ad6f6926a6d7f9d113f705cc22349b3f3c0ff2d132b3f8a44c0901",
+      "locator_type": "prose",
+      "locator": "passage S002@2145",
+      "span": "However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions. Further, we observe that many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as bioenergy carbon capture and storage, biochar or direct air carbon capture and storage. This is a preview of subscription content, access via your institution Access options Access through your institution Access Nature and 54 other Nature Portfolio journals Get Nature+, our best-value online-access subscription $39.99 / 30 days cancel any time Learn more Subscribe to this journal Receive 12 print issues and online access $259.00 per year only $21.58 per issue Learn more Buy this article Purchase on SpringerLink Instant access to the full article PDF.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        2145,
+        3027
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b7d5a065ce845f72": {
+      "sentence": "Scaling CDR will require advances in policymaking and governance, including strict monitoring to ensure durable, additional removals that do not compete with emission reduction efforts [4].",
+      "sentence_sha": "b7d5a065ce845f72",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@1663",
+      "span": "This will require advances in policymaking and governance to incentivise, coordinate and regulate CDR, including strict monitoring to ensure durable, additional removals that do not compete with emission reduction efforts. While it is critical to learn from the existing evidence on CDR policy and governance, there is no overview of this dispersed body of literature right now. IPCC and other science assessments have therefore treated the subject very selectively. This work addresses this lack of overview by systematically mapping the literature assessing policy and governance dimensions of CDR. Methods: Systematic mapping provides a comprehensive view of a research field by analysing the state of evidence, i.e. how much research is available at any point in time on which topics and geographies studied by whom, when and where.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        1663,
+        2499
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "e37bdf2aba5846de": {
+      "sentence": "Many have discussed the need for separate policy tracks for reductions and removals, to avoid the risk that longer-term ambitions for CDR dilute short-term efforts to reduce emissions [4].",
+      "sentence_sha": "e37bdf2aba5846de",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@5747",
+      "span": "Taken all together, current CDR approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions (United Nations Environment Programme, 2023). With the new logic of national “net-zero” targets that integrate both reductions and removals, it is becoming increasingly urgent to develop appropriate governance systems for CDR (Schenuit et al., 2021; Schenuit et al., 2023a). Many have discussed, for example, the need to organise separate policy tracks for reduction and removals, to avoid any fungibility and the risk that longer-term ambitions for CDR dilute short-term efforts to reduce emissions (McLaren et al., 2019; Rogelj et al., 2021).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5747,
+        6413
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "d8c165dd37e4df3d": {
+      "sentence": "Emerging compliance markets must deal with permanence and with liabilities for removals that expire after a certain period, such as afforestation/reforestation [4].",
+      "sentence_sha": "d8c165dd37e4df3d",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@6414",
+      "span": "Emerging compliance markets under national or regional carbon pricing schemes will need to address such issues, while dealing with the central issues of permanence and how to govern liabilities for removals that expire after a certain period of time (e.g., afforestation/reforestation) (Edenhofer et al., 2023). Alongside national policy making, corporate net-zero standards and voluntary carbon markets are emerging that could support businesses in decarbonising their operations, but could also offer new avenues for greenwashing. The European Commission’s Carbon Removal Certification Framework, which aims to regulate certification of removals in the voluntary market, is particularly concerned with ensuring that CDR is appropriately quantified, that removals are additional, that carbon is durably stored, and that projects meet sustainability criteria (European Commission, 2024).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6414,
+        7301
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "adbd989c5d9992cb": {
+      "sentence": "Voluntary carbon markets could support business decarbonisation but could also offer new avenues for greenwashing [4].",
+      "sentence_sha": "adbd989c5d9992cb",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@6414",
+      "span": "Emerging compliance markets under national or regional carbon pricing schemes will need to address such issues, while dealing with the central issues of permanence and how to govern liabilities for removals that expire after a certain period of time (e.g., afforestation/reforestation) (Edenhofer et al., 2023). Alongside national policy making, corporate net-zero standards and voluntary carbon markets are emerging that could support businesses in decarbonising their operations, but could also offer new avenues for greenwashing. The European Commission’s Carbon Removal Certification Framework, which aims to regulate certification of removals in the voluntary market, is particularly concerned with ensuring that CDR is appropriately quantified, that removals are additional, that carbon is durably stored, and that projects meet sustainability criteria (European Commission, 2024).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6414,
+        7301
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ec401acdc3353144": {
+      "sentence": "Without policy support, the authors judge that it seems unlikely that niche voluntary markets can sustain novel CDR in the long term [4].",
+      "sentence_sha": "ec401acdc3353144",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "cd44fb90c607d9d88479946156347cd7c5e4f9e3fb4766a3709f835f136476b0",
+      "locator_type": "prose",
+      "locator": "passage S004@37207",
+      "span": "Without this policy support, it seems unlikely that niche voluntary markets can sustain novel CDR in the long-term. It would be therefore important to fill a current gap in the literature on evaluations of on-going policy experiments to support early novel CDR deployment, such as the Frontiers in Climate UK-based CCS hubs or the DACCS credit scheme in the United States. A specific governance challenge in this context is whether DACCS plants should be required to connect to new, rather than existing, renewable energy production. This would on the one hand incentivise system-wide transitions to net zero, but could also raise barriers to scaling, mirroring challenges around the emerging governance of green hydrogen. Finally, it is important to note the low coverage of locationspecific literature on countries in the Global South.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "on_page": true,
+      "offsets": [
+        37207,
+        38044
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "5971f305bfe28896": {
+      "sentence": "For BECCS, the sustainability concerns noted include competition for land, impacts on food prices and impacts on biodiversity [3].",
+      "sentence_sha": "5971f305bfe28896",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@19097",
+      "span": "We provide an illustrative example using the case of the novel carbon removal option, bioenergy with carbon capture and storage (BECCS), where some of the sustainability concerns include competition for land, impact on food prices, and impacts on biodiversity, among others 12 . Scenarios with lower levels of global bioenergy demand at net zero CO 2 (see Methods) tend to show a slight increase in deployment of conventional CDR on land across all world regions, with a marked decrease in the deployment of novel CDR between 2020 and global net zero CO 2 (Fig. 2 c, d). However, there is a relatively weak correlation between the global bioenergy demand at net zero CO 2 and the cumulative total CDR deployed (Supplementary Fig. 2a ) especially for bioenergy demand beyond 100 EJ (which we use as a sustainable threshold – see methods), consistent with the wide range of regional outcomes in Fig.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        19097,
+        19994
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "43f6faf7feb91799": {
+      "sentence": "Direct air capture currently lacks explicitly specified IPCC inventory methodologies, and in January 2024 the IPCC tasked its inventory task force with developing a Methodology Report on CDR technologies [5].",
+      "sentence_sha": "43f6faf7feb91799",
+      "why_empirical": "the bare integer 5 is a quantity",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "802c6fb37301976e0f3c2caed48b6097150ab82c87081729475ff4cb72a67473",
+      "locator_type": "prose",
+      "locator": "passage S005@2125",
+      "span": "This includes direct air capture technologies, for example, which currently do not have explicit methodologies specified. Still, with the emergence of new carbon dioxide removal technologies and the generation of new empirical data on relevant sources and sinks, it may be valuable to consider new methods in the IPCC Guidelines. If adopted, these new methods will broaden the base of sinks and sources that inventory compilers should routinely monitor and facilitate their estimation and reporting in future national inventories. With this context in mind, the IPCC tasked the Task Force on National Greenhouse Gas Inventories (TFI), in January 2024, to develop a Methodology Report on Carbon Dioxide Removal Technologies, Carbon Capture Utilisation and Storage activities (Decision IPCC-LX- 9). An Expert Meeting on this topic was also mandated by the IPCC and held in Vienna on 1-3 July 2024.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        2125,
+        3020
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "6e55dfe485143add": {
+      "sentence": "The sources agree that deep cuts in gross emissions dominate the path to net zero, while removing CO2 plays a supporting but necessary role, chiefly to counterbalance residual emissions [2, 3, 5].",
+      "sentence_sha": "6e55dfe485143add",
+      "why_empirical": "the bare integer 5 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b1b36b96e1ad6f6926a6d7f9d113f705cc22349b3f3c0ff2d132b3f8a44c0901",
+      "locator_type": "prose",
+      "locator": "passage S002@1386",
+      "span": "Minx ORCID: orcid.org/0000-0002-2862-0178 1 , 2 Show authors Nature Climate Change volume 14 , pages 644–651 ( 2024 ) Cite this article Save article View saved research 12k Accesses 123 Citations 161 Altmetric Metrics details Abstract Rapid emissions reductions, including reductions in deforestation-based land emissions, are the dominant source of global climate mitigation potential in the coming decades. However, carbon dioxide removal (CDR) will also have an important role to play. Despite this, it remains unclear whether current national proposals for CDR align with temperature targets. Here we show the ‘CDR gap’, that is, CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5 °C.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        1386,
+        2144
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "Novel carbon dioxide removal technologies such as direct air carbon capture and storage scale to multi-gigatonne levels by 2050 and beyond to balance residual emissions and draw down warming. We show that reducing fossil fuel and deforestation emissions (gross emissions) accounts for over 80% of net greenhouse gas reductions until global net zero carbon dioxide (CO 2 ) independent of climate objective stringency. We explore the regional distributions of gross emissions and total carbon dioxide removal in cost-effective mitigation pathways and highlight the importance of incorporating fairness and broader sustainability considerations in future assessments of mitigation pathways with carbon dioxide removal.",
+          "offsets": [
+            2227,
+            2942
+          ]
+        },
+        {
+          "source_id": "S005",
+          "span": "IPCC Task Force on National Greenhouse Gas Inventories (TFI) Technical Support Unit ℅ Institute for Global Environmental Strategies 2108 -11, Kamiyamaguchi Hayama, Kanagawa JAPAN, 240-0115 https://www.ipcc-nggip.iges.or.jp ISBN 978-4-88788-278-2 3 4 Preface The IPCC Working Group III (WGIII) contribution to the Sixth Assessment Report (AR6) states that “The deployment of carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable if net zero CO2 or GHG emissions are to be achieved” and provides a summary of the role for CDR technologies in future mitigation pathways (IPCC 2022 Table TS.7). The IPCC Guidelines already provide for inventory compilers to estimate and report on anthropogenic sinks from any process, activity or mechanism which removes a greenhouse gas from the atmosphere, in their national GHG inventories (NGHGI).",
+          "offsets": [
+            1252,
+            2124
+          ]
+        }
+      ]
+    },
+    "d782d6a4d07e2cd3": {
+      "sentence": "For now, almost all removal comes from land-based methods such as forests, which deliver around 2 Gt CO2 per year against roughly 2 Mt CO2 per year from novel methods [3, 4].",
+      "sentence_sha": "d782d6a4d07e2cd3",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@5715",
+      "span": "We further evaluate the components of total CDR across two categories - conventional CDR on land (methods that provide CDR at scale today, capturing and storing carbon in the land biosphere – currently estimated to contribute around 2 Gt CO 2 of removals per year 7 ) and novel CDR (proposed methods not used at scale today that store captured carbon in geological formations, the ocean, or products – the methods include bioenergy with carbon capture and storage, or BECCS, direct air carbon capture and storage, or DACCS, and enhanced weathering – currently estimated to contribute around 2 Mt CO 2 of removals per year 9 , 10 . Results and discussion Global mitigation assessment We assess the difference in GHG emission reduction rates over different time frames across the three IPCC categories of pathways (Table 1 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5715,
+        6538
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "Taken all together, current CDR approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions (United Nations Environment Programme, 2023). With the new logic of national “net-zero” targets that integrate both reductions and removals, it is becoming increasingly urgent to develop appropriate governance systems for CDR (Schenuit et al., 2021; Schenuit et al., 2023a). Many have discussed, for example, the need to organise separate policy tracks for reduction and removals, to avoid any fungibility and the risk that longer-term ambitions for CDR dilute short-term efforts to reduce emissions (McLaren et al., 2019; Rogelj et al., 2021).",
+          "offsets": [
+            5747,
+            6413
+          ]
+        }
+      ]
+    },
+    "3a9ecd9e1da708c2": {
+      "sentence": "In the decades ahead, the modelled pathways rely on novel methods reaching gigatonne scale by mid-century, and that reliance grows as emission cuts are delayed [3].",
+      "sentence_sha": "3a9ecd9e1da708c2",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "6d49190090294dd604ecd8d6adec70c0b2d85a443c9066bd1a2e4d19a9e919f7",
+      "locator_type": "prose",
+      "locator": "passage S003@6539",
+      "span": "In 1.5 °C pathways with limited overshoot (C1), most of the mitigation between 2020 and 2030 (Fig. 1a ) is achieved by reducing gross CO 2 emissions (70% [64, 77 interquartile range]) and cutting non-CO 2 emissions (20% [16, 24]). This is accompanied by a smaller, yet important, contribution from pursuing sustainable land-use strategies through halting deforestation and expanding conventional CDR on land (accounting for 10% [5, 14] of net GHG reductions), nearly doubling the volume of CDR in this decade (Table 1 ). Across most C1 scenarios, novel CDR methods scale up by mid-century to support the achievement of net zero CO 2 , increasing to levels of around 4 Gt CO 2 [2, 6] by 2050. Between 2020 and global net zero CO 2 , gross CO 2 reductions account for 71% [66, 74] of the net GHG reductions in C1 pathways with CDR contributing a much smaller amount (15% [12, 21]).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6539,
+        7418
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "We conceptualise delay across two dimensions - the time to halve net CO 2 emissions and the number of years until global net zero CO 2 is achieved. We find that the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions, implying that scenarios utilise land-based CDR regardless of the delay of emissions reductions elsewhere. Conversely, we observe a strong signal both in the median and extreme values in the amount of novel CDR utilised in scenarios which have longer net emission halving times, showing scenarios’ dependence on future, unproven CDR technologies when net emissions reductions are delayed.",
+          "offsets": [
+            9879,
+            10546
+          ]
+        },
+        {
+          "source_id": "S003",
+          "span": "Delaying the time of net zero CO 2 results in an increase in the total CDR deployed till this year; for scenarios with a net zero timing by mid-century, the total volume of CDR deployed is 166 Gt CO 2 [149, 193], increasing to 251 Gt CO 2 [203, 320] and 445 Gt CO 2 [345, 524] respectively for scenarios with a net zero timings between 2050 and 2075, and later than 2075. Conventional CDR on land tends to increase faster in scenarios with net zero CO 2 timing between 2050 and 2075 (Fig. 1d ) while novel CDR increases faster in scenarios with net zero CO 2 timing between 2075 and 2100 (Fig. 1e ). This reflects the lead time necessary to scale up novel removals, which are still at a nascent stage of development 12 . These options are expected to require both time and investment to ramp up deployment and become a cost-effective part of a mitigation portfolio 13 .",
+          "offsets": [
+            10547,
+            11416
+          ]
+        }
+      ]
+    },
+    "137eff7dfc0d7e52": {
+      "sentence": "That future role is less certain: countries are not yet committing to scale novel methods, the technologies are nascent, and the governance needed to keep removals durable and separate from emission cuts is still being built [2, 3, 4].",
+      "sentence_sha": "137eff7dfc0d7e52",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "b1b36b96e1ad6f6926a6d7f9d113f705cc22349b3f3c0ff2d132b3f8a44c0901",
+      "locator_type": "prose",
+      "locator": "passage S002@2145",
+      "span": "However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions. Further, we observe that many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as bioenergy carbon capture and storage, biochar or direct air carbon capture and storage. This is a preview of subscription content, access via your institution Access options Access through your institution Access Nature and 54 other Nature Portfolio journals Get Nature+, our best-value online-access subscription $39.99 / 30 days cancel any time Learn more Subscribe to this journal Receive 12 print issues and online access $259.00 per year only $21.58 per issue Learn more Buy this article Purchase on SpringerLink Instant access to the full article PDF.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        2145,
+        3027
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S003",
+          "span": "Delaying the time of net zero CO 2 results in an increase in the total CDR deployed till this year; for scenarios with a net zero timing by mid-century, the total volume of CDR deployed is 166 Gt CO 2 [149, 193], increasing to 251 Gt CO 2 [203, 320] and 445 Gt CO 2 [345, 524] respectively for scenarios with a net zero timings between 2050 and 2075, and later than 2075. Conventional CDR on land tends to increase faster in scenarios with net zero CO 2 timing between 2050 and 2075 (Fig. 1d ) while novel CDR increases faster in scenarios with net zero CO 2 timing between 2075 and 2100 (Fig. 1e ). This reflects the lead time necessary to scale up novel removals, which are still at a nascent stage of development 12 . These options are expected to require both time and investment to ramp up deployment and become a cost-effective part of a mitigation portfolio 13 .",
+          "offsets": [
+            10547,
+            11416
+          ]
+        },
+        {
+          "source_id": "S004",
+          "span": "This will require advances in policymaking and governance to incentivise, coordinate and regulate CDR, including strict monitoring to ensure durable, additional removals that do not compete with emission reduction efforts. While it is critical to learn from the existing evidence on CDR policy and governance, there is no overview of this dispersed body of literature right now. IPCC and other science assessments have therefore treated the subject very selectively. This work addresses this lack of overview by systematically mapping the literature assessing policy and governance dimensions of CDR. Methods: Systematic mapping provides a comprehensive view of a research field by analysing the state of evidence, i.e. how much research is available at any point in time on which topics and geographies studied by whom, when and where.",
+          "offsets": [
+            1663,
+            2499
+          ]
+        },
+        {
+          "source_id": "S004",
+          "span": "Taken all together, current CDR approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions (United Nations Environment Programme, 2023). With the new logic of national “net-zero” targets that integrate both reductions and removals, it is becoming increasingly urgent to develop appropriate governance systems for CDR (Schenuit et al., 2021; Schenuit et al., 2023a). Many have discussed, for example, the need to organise separate policy tracks for reduction and removals, to avoid any fungibility and the risk that longer-term ambitions for CDR dilute short-term efforts to reduce emissions (McLaren et al., 2019; Rogelj et al., 2021).",
+          "offsets": [
+            5747,
+            6413
+          ]
+        }
+      ]
+    },
+    "4f40dad770ad15eb": {
+      "sentence": "We found Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal) but could not hold it, so nothing on this page draws on it.",
+      "sentence_sha": "4f40dad770ad15eb",
+      "why_empirical": "the bare integer 12 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "6fb81ab1a523fd01": {
+      "sentence": "We hold the full text of The carbon dioxide removal gap [2].",
+      "sentence_sha": "6fb81ab1a523fd01",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "aff0913e7670e0de": {
+      "sentence": "We searched the full text of The carbon dioxide removal gap [2] and checked the passages relevant to each sentence; we did not read it in full.",
+      "sentence_sha": "aff0913e7670e0de",
+      "why_empirical": "the bare integer 2 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "a241d9f79da53ca4": {
+      "sentence": "We hold the full text of Evaluating the near- and long-term role of carbon dioxide removal in meeting glo [3].",
+      "sentence_sha": "a241d9f79da53ca4",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "f28e798f4540815b": {
+      "sentence": "We searched the full text of Evaluating the near- and long-term role of carbon dioxide removal in meeting glo [3] and checked the passages relevant to each sentence; we did not read it in full.",
+      "sentence_sha": "f28e798f4540815b",
+      "why_empirical": "the bare integer 3 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "04dd853beceaec6b": {
+      "sentence": "We hold the full text of Governance of carbon dioxide removal: an AI-enhanced systematic map of the scien [4].",
+      "sentence_sha": "04dd853beceaec6b",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "65dd6d9dddf4755a": {
+      "sentence": "We searched the full text of Governance of carbon dioxide removal: an AI-enhanced systematic map of the scien [4] and checked the passages relevant to each sentence; we did not read it in full.",
+      "sentence_sha": "65dd6d9dddf4755a",
+      "why_empirical": "the bare integer 4 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "bb586864b548e9a1": {
+      "sentence": "We hold the full text of IPCC Expert Meeting on Carbon Dioxide Removal Technologies and Carbon Capture, U [5].",
+      "sentence_sha": "bb586864b548e9a1",
+      "why_empirical": "the bare integer 5 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "16abcea4e711d7e8": {
+      "sentence": "We searched the full text of IPCC Expert Meeting on Carbon Dioxide Removal Technologies and Carbon Capture, U [5] and checked the passages relevant to each sentence; we did not read it in full.",
+      "sentence_sha": "16abcea4e711d7e8",
+      "why_empirical": "the bare integer 5 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "aa00780d42bbef75": {
+      "sentence": "We searched: web search: carbon dioxide removal CDR net zero systematic review 2023 2024; web search: IPCC carbon dioxide removal net zero assessment report; web search: IPCC AR6 WGIII Chapter 12 carbon dioxide removal 2022; web search: \"State of Carbon Dioxide Removal\" 2nd edition 2024 Smith authors DOI; web search: Gasser 2024 \"near- and long-term role of carbon dioxide removal\" Communications Earth Environment DOI; web search: UNEP emissions gap report 2023 carbon dioxide removal net zero; web search: Lamb 2024 \"carbon dioxide removal gap\" Nature Climate Change DOI; web search: Royal Society Royal Academy Engineering \"greenhouse gas removal\" report 2018 2023; registry: Europe PMC; registry: PubMed; registry: Crossref.",
+      "sentence_sha": "aa00780d42bbef75",
+      "why_empirical": "quoted passage",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "process_claim",
+      "on_page": true
+    },
+    "14e77c10f5b71f9f": {
+      "sentence": "We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.",
+      "sentence_sha": "14e77c10f5b71f9f",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "4a0fbf7e299196e1": {
+      "sentence": "IPCC.",
+      "sentence_sha": "4a0fbf7e299196e1",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "7fd535326592cff3": {
+      "sentence": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal).",
+      "sentence_sha": "7fd535326592cff3",
+      "why_empirical": "the bare integer 12 is a quantity",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "8aae8f849a1f5e97": {
+      "sentence": "Cambridge University Press.",
+      "sentence_sha": "8aae8f849a1f5e97",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "c73c05bf136419f8": {
+      "sentence": "2022.",
+      "sentence_sha": "c73c05bf136419f8",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "ef948682d6d0e1c2": {
+      "sentence": "Lamb W, Gasser T, Grassi G, et al. The carbon dioxide removal gap.",
+      "sentence_sha": "ef948682d6d0e1c2",
+      "why_empirical": "names The carbon dioxide removal gap",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "store_subject_markup": [
+        "S002"
+      ],
+      "on_page": true
+    },
+    "89c7c7b9cd0434f0": {
+      "sentence": "2023.",
+      "sentence_sha": "89c7c7b9cd0434f0",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "679b1be828ec02dd": {
+      "sentence": "Ganti G, Gasser T, Bui M, et al. Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives.",
+      "sentence_sha": "679b1be828ec02dd",
+      "why_empirical": "source claim: 'et al.'",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "trigger": "source_claim",
+      "store_subject_markup": [
+        "S003"
+      ],
+      "on_page": true
+    },
+    "c8f53b97de7f78ad": {
+      "sentence": "Communications Earth &amp; Environment.",
+      "sentence_sha": "c8f53b97de7f78ad",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "63009ed7c5764c4d": {
+      "sentence": "2024.",
+      "sentence_sha": "63009ed7c5764c4d",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "8f547ae4ac472303": {
+      "sentence": "Lück S, Mohn A, Lamb WF.",
+      "sentence_sha": "8f547ae4ac472303",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "5d4d7521458b55ee": {
+      "sentence": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature.",
+      "sentence_sha": "5d4d7521458b55ee",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "d9605e7796eda633": {
+      "sentence": "Frontiers in Climate.",
+      "sentence_sha": "d9605e7796eda633",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "26bfc564a3480e67": {
+      "sentence": "IPCC Expert Meeting on Carbon Dioxide Removal Technologies and Carbon Capture, Utilisation and Storage.",
+      "sentence_sha": "26bfc564a3480e67",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    },
+    "b86a07ac8e1fee5e": {
+      "sentence": "2025.",
+      "sentence_sha": "b86a07ac8e1fee5e",
+      "why_empirical": "sentence",
+      "bucket": null,
+      "source_id": null,
+      "document_sha": null,
+      "locator_type": null,
+      "locator": null,
+      "span": null,
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true
+    }
+  }
+}

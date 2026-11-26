@@ -1,0 +1,138 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal)",
+      "first_author": "IPCC",
+      "year": 2022,
+      "container": "Cambridge University Press",
+      "type": "assessment_summary",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/",
+      "why": "IPCC AR6 WGIII authoritative assessment: CDR is a necessary element to achieve net-zero CO2 and GHG emissions globally."
+    },
+    {
+      "title": "The State of Carbon Dioxide Removal 2024 – 2nd Edition",
+      "first_author": "Smith",
+      "year": 2024,
+      "container": "stateofcdr.org (OSF)",
+      "type": "assessment_summary",
+      "url": "https://www.stateofcdr.org/asset/SoCDR-2nd-Edition-Full-Report.pdf",
+      "why": "Global independent scientific assessment of CDR status, gap to Paris goals, and novel vs. conventional CDR trends."
+    },
+    {
+      "title": "The carbon dioxide removal gap",
+      "first_author": "Lamb",
+      "year": 2024,
+      "container": "Nature Climate Change",
+      "type": "primary",
+      "url": "https://www.nature.com/articles/s41558-024-01984-6",
+      "why": "First quantification of the CDR gap: difference between national CDR plans and what 1.5 °C pathways require."
+    },
+    {
+      "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+      "first_author": "Ganti",
+      "year": 2024,
+      "container": "Communications Earth & Environment",
+      "type": "primary",
+      "url": "https://www.nature.com/articles/s43247-024-01527-z",
+      "why": "Shows gross emission cuts account for >80% of net GHG reductions to net-zero; CDR role grows in medium/long term."
+    },
+    {
+      "title": "Emissions Gap Report 2023: Broken Record – Temperatures hit new highs, yet world fails to cut emissions (again)",
+      "first_author": "UNEP",
+      "year": 2023,
+      "container": "United Nations Environment Programme",
+      "type": "assessment_summary",
+      "url": "https://www.unep.org/resources/emissions-gap-report-2023",
+      "why": "Annual UNEP assessment covering CDR potential, risks, and how delayed emission cuts increase future CDR reliance."
+    },
+    {
+      "title": "Greenhouse Gas Removal",
+      "first_author": "Royal Society and Royal Academy of Engineering",
+      "year": 2018,
+      "container": "Royal Society and Royal Academy of Engineering",
+      "type": "assessment_summary",
+      "url": "https://royalsociety.org/topics-policy/projects/greenhouse-gas-removal/",
+      "why": "Landmark joint academies report assessing GGR technologies and their role alongside emission cuts to reach net zero."
+    },
+    {
+      "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+      "first_author": "Lück",
+      "year": 2024,
+      "container": "Frontiers in Climate",
+      "type": "review",
+      "url": "https://www.frontiersin.org/journals/climate/articles/10.3389/fclim.2024.1425971/pdf",
+      "why": "AI-enhanced systematic map of CDR governance literature, covering policy, certification, and scaling challenges."
+    },
+    {
+      "title": "IPCC Expert Meeting on Carbon Dioxide Removal Technologies and Carbon Capture, Utilisation and Storage",
+      "first_author": "IPCC",
+      "year": 2025,
+      "container": "IPCC",
+      "type": "assessment_summary",
+      "url": "https://www.ipcc.ch/site/assets/uploads/2025/01/2407_CDR_CCUS_Report.pdf",
+      "why": "IPCC expert meeting report summarising CDR and CCUS technology roles in achieving net-zero CO2 or GHG emissions."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "carbon dioxide removal CDR net zero systematic review 2023 2024",
+      "IPCC carbon dioxide removal net zero assessment report",
+      "IPCC AR6 WGIII Chapter 12 carbon dioxide removal 2022",
+      "\"State of Carbon Dioxide Removal\" 2nd edition 2024 Smith authors DOI",
+      "Gasser 2024 \"near- and long-term role of carbon dioxide removal\" Communications Earth Environment DOI",
+      "UNEP emissions gap report 2023 carbon dioxide removal net zero",
+      "Lamb 2024 \"carbon dioxide removal gap\" Nature Climate Change DOI",
+      "Royal Society Royal Academy Engineering \"greenhouse gas removal\" report 2018 2023"
+    ],
+    "domains": [
+      "netzeroclimate.org",
+      "researchgate.net",
+      "pik-potsdam.de",
+      "agupubs.onlinelibrary.wiley.com",
+      "pure.iiasa.ac.at",
+      "qc.foundation",
+      "nature.com",
+      "frontiersin.org",
+      "en.wikipedia.org",
+      "ipcc.ch",
+      "carbon-direct.com",
+      "carbonbrief.org",
+      "arxiv.org",
+      "scientificamerican.com",
+      "scribd.com",
+      "stateofcdr.org",
+      "lse.ac.uk",
+      "osf.io",
+      "static1.squarespace.com",
+      "geocdr.com",
+      "swp-berlin.org",
+      "pnnl.gov",
+      "publications.pik-potsdam.de",
+      "d-nb.info",
+      "pmc.ncbi.nlm.nih.gov",
+      "rescue-climate.eu",
+      "reliefweb.int",
+      "newclimate.org",
+      "wedocs.unep.org",
+      "unep.org",
+      "resilientllp.com",
+      "unepccc.org",
+      "rural21.com",
+      "ncbi.nlm.nih.gov",
+      "phys.org",
+      "azocleantech.com",
+      "research-portal.uea.ac.uk",
+      "ora.ox.ac.uk",
+      "carbondioxide-removal.eu",
+      "eurekalert.org",
+      "american.edu",
+      "raeng.org.uk",
+      "ox.ac.uk",
+      "theccc.org.uk",
+      "ora.ouls.ox.ac.uk",
+      "royalsociety.org"
+    ]
+  },
+  "sha256": "dce28d2d07ba157a677d1a66c81b642194d8d01b513cc5da9ed507c9dacb4dee"
+}
