@@ -61,7 +61,9 @@ LIMITS = {
 # Call sites whose reply is never parsed: a cut-off is not a failure there, and is not re-asked.
 NO_REASK = {"google-preflight"}
 
-_SUFFIX = re.compile(r"-(retry|reask|one-sentence|repeat|summary|escalate|second|cutoff-reask)$")
+# "-requote" (after the fresh Q1-01, 2026-11-26): the audit reader's re-quote of a passage (audit_stage, role +
+# "-requote") belongs to its reader's site; "second-read-requote" had mapped to no site in the table.
+_SUFFIX = re.compile(r"-(retry|reask|one-sentence|repeat|summary|escalate|second|cutoff-reask|requote)$")
 
 
 def sha() -> str:

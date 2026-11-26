@@ -63,7 +63,10 @@ def _orchestrated_rows():
 def _sites_of(r):
     """[(site, censor)] for one orchestrated ledger row."""
     if r.get("call_site"):
-        return [(r["call_site"], None)]
+        # A row written before "-requote" was a site suffix (the fresh Q1-01's one "second-read-requote" row,
+        # 2026-11-26) carries the raw role; the ledger is never edited, so it is mapped here as the Caller now maps it.
+        site = r["call_site"]
+        return [(site if site in RL.LIMITS else RL.site_of_role(site), None)]
     script, role, step = r.get("script", ""), r.get("role", ""), r.get("step", "")
     if script == "audit_stage.py":
         if step in HISTORICAL_CALLER:
