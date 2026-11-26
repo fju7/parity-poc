@@ -1630,7 +1630,7 @@ def _checkpoint(ctx: Ctx) -> None:
         CP.save(ctx.case, ctx.slug, len(rows) - 1, rows[-1]["step"], rows[-1]["hashes"], ctx.root)
 
 
-def prepare_resume(ctx: Ctx, record_name: str) -> dict:
+def prepare_resume(ctx: Ctx, record_name: str, cap_approval: str | None = None) -> dict:
     """Verify the last checkpoint against the chain, restore the case from it, keep the previous run record and
     harness manifest beside the new ones, and return the plan run() resumes with (orch/checkpoint.py)."""
     from orch import checkpoint as CP
@@ -1661,7 +1661,17 @@ def prepare_resume(ctx: Ctx, record_name: str) -> dict:
     pl = CP.plan(ctx.case, ctx.slug, record, list(ST.NAMES), {s.name for s in ST.STEPS if s.repeat_group},
                  ST.MAX_REPEATS, keep=keep)
     pl["code_changed_from"] = done[keep]["step"] if keep < len(done) else None
+    # a run cap raised after the checkpoint (advisor's ruling 1 on Q1-01): decided BEFORE the restore
+    sp = pl["checkpoint"] / "case" / "issue.json"
+    saved_issue = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else {}
+    raise_ = None
+    if issue.get(CP.CAP_FIELD) != saved_issue.get(CP.CAP_FIELD):
+        caps = json.loads((ctx.root / "backend" / "data" / "spend" / "caps.json").read_text(encoding="utf-8"))
+        raise_ = CP.cap_raise(issue, saved_issue, CP.caps_ceiling(caps, ctx.slug, issue), cap_approval, now())
     CP.restore(ctx.case, ctx.slug, pl["checkpoint"], chain=pl["chain"])
+    if raise_:
+        CP.apply_cap_raise(ctx.case, raise_)
+    pl["cap_raise"] = raise_
     runs = ctx.case / "orchestrator" / "runs"
     runs.mkdir(parents=True, exist_ok=True)
     n = len(list(runs.glob("*.json"))) + 1
@@ -1977,6 +1987,8 @@ def main(argv=None) -> int:
                                                                        required=True)
     r.add_argument("--resume", action="store_true",
                    help="restart at the previous run's failed step from the verified checkpoint (orch/checkpoint.py)")
+    r.add_argument("--cap-approval", help="with --resume: the approval, as relayed, for a run_cap_usd raised after "
+                   "the checkpoint (orch/checkpoint.cap_raise; advisor's ruling 1 on Q1-01)")
     h = sub.add_parser("rehearse", help="the offline rehearsal: every step at $0 in a scratch copy")
     h.add_argument("base_slug", help="the issue whose issue.json the rehearsal copies (its question)")
     h.add_argument("--slug", default="whu-lean-orch-t1-rehearsal")
@@ -2027,7 +2039,7 @@ def main(argv=None) -> int:
         if getattr(a, "resume", False):
             from orch import checkpoint as CP
             try:
-                resumed = prepare_resume(ctx, record_name)
+                resumed = prepare_resume(ctx, record_name, getattr(a, "cap_approval", None))
             except CP.ResumeRefused as e:
                 print("refusing to resume: %s" % e)
                 return 2
@@ -2036,7 +2048,8 @@ def main(argv=None) -> int:
             out["resumed"] = {"at": resumed["resume_at"], "checkpoint": resumed["checkpoint"].name,
                               "previous_record": resumed["previous_record"], "prior_result": resumed["prior_result"],
                               "verified_files": len(resumed["hashes"]),
-                              "code_changed_from": resumed.get("code_changed_from")}
+                              "code_changed_from": resumed.get("code_changed_from"),
+                              "cap_raise": resumed.get("cap_raise")}
         out["library_root"] = lib
         out["environment"] = environment
         out["sources"] = source_table(ctx.case)          # found / held / not held, with reasons (advisor)

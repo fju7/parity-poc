@@ -21,6 +21,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shutil
 from pathlib import Path
 
@@ -195,3 +196,63 @@ def restore(case: Path, slug: str, d: Path, keep: tuple = (CHAIN,), chain: list 
         dst = _library_record(slug)
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(lib, dst)
+
+
+# ---- a run cap raised after the checkpoint (advisor's ruling 1 on Q1-01, 2026-11-26) ----------------------------
+# A resume restores issue.json from the checkpoint, so a run cap raised after the stop used to be put back. Now ONE
+# field may be carried over: run_cap_usd, only upward, only within caps.json's per-issue cap for the issue, and only
+# with an approval given on the command line (--cap-approval), recorded in the run record as a RELAY (who passed it
+# on), never as an attestation by the person who approved it. Every other checkpointed record keeps its tamper check
+# (verify() above, unchanged); any other difference in the live issue.json is overwritten by the restore, as before.
+
+CAP_FIELD = "run_cap_usd"
+
+
+def caps_ceiling(caps: dict, slug: str, issue: dict) -> float | None:
+    """caps.json's per-issue cap for SLUG, as spend_ledger.cap_for takes its base (per_issue, else the study cap
+    for a study issue, else the default)."""
+    per = caps.get("per_issue") or {}
+    if slug in per:
+        return float(per[slug])
+    if issue.get("study") is True and caps.get("study_per_issue"):
+        return float(caps["study_per_issue"])
+    v = caps.get("default_per_issue")
+    return float(v) if v else None
+
+
+def cap_raise(live: dict | None, saved: dict, ceiling: float | None, approval: str | None, at: str) -> dict | None:
+    """The run-cap change a resume may carry (None: nothing to carry). LIVE: issue.json in the case before the
+    restore; SAVED: the checkpoint's copy. ResumeRefused for a lowered cap, a raise with no approval, or one past
+    caps.json's CEILING -- before anything is restored."""
+    old, new = (saved or {}).get(CAP_FIELD), (live or {}).get(CAP_FIELD)
+    if live is None or new == old:
+        return None
+    if not isinstance(new, (int, float)) or not isinstance(old, (int, float)) or isinstance(new, bool):
+        raise ResumeRefused("issue.json's %s is %r against the checkpoint's %r: only a number may be carried"
+                            % (CAP_FIELD, new, old))
+    if new < old:
+        raise ResumeRefused("issue.json's %s was lowered after the checkpoint ($%.2f -> $%.2f): a resume carries "
+                            "a raise only" % (CAP_FIELD, old, new))
+    if not (approval or "").strip():
+        raise ResumeRefused("issue.json's %s was raised after the checkpoint ($%.2f -> $%.2f) with no approval "
+                            "(--cap-approval)" % (CAP_FIELD, old, new))
+    if ceiling is None or new > ceiling:
+        raise ResumeRefused("issue.json's %s raised to $%.2f is past caps.json's per-issue cap (%s)"
+                            % (CAP_FIELD, new, "none" if ceiling is None else "$%.2f" % ceiling))
+    return {"field": CAP_FIELD, "old": float(old), "new": float(new), "at": at, "approval_relayed": approval.strip(),
+            "relay": "recorded by the orchestrator as relayed on the command line; not an attestation by the "
+                     "approver"}
+
+
+def apply_cap_raise(case: Path, change: dict) -> None:
+    """Write the carried run cap into the restored issue.json (the one field; nothing else in the file moves)."""
+    p = case / "issue.json"
+    text = p.read_text(encoding="utf-8")
+    pat = re.compile(r'("%s"\s*:\s*)(-?[0-9.]+)' % CAP_FIELD)
+    if len(pat.findall(text)) != 1:
+        raise ResumeRefused("issue.json has not exactly one %s to carry the raise into" % CAP_FIELD)
+    out = pat.sub(lambda m: m.group(1) + repr(change["new"]), text)
+    before, after = json.loads(text), json.loads(out)
+    before.pop(CAP_FIELD), after.pop(CAP_FIELD)
+    assert before == after
+    p.write_text(out, encoding="utf-8")
