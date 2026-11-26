@@ -88,6 +88,7 @@ UA = tls.USER_AGENT                     # ruling A (2026-11-06): generic, no ema
 # whether an identifier resolves decides the rest.
 NOT_JOURNAL_ARTICLES = {"registry", "label", "guideline"}
 
+NO_NOTICE_NEEDED = {"Update in", "Republished in"}      # the 2026-11-07 rule's exclusions, less expressions of concern
 AMENDING = {"Erratum in", "Corrected and republished in", "Retraction in",
             "Expression of concern in", "Republished in", "Update in"}
 DISCUSSING = {"Comment in", "Comment on", "Erratum for", "Retraction of"}
@@ -644,6 +645,10 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
         # a linked record on it (correction_notices), whose effect the corrections step applies to the page.
         by_id = {s.get("id"): s for s in srcs}
         unheld = [i for i in amended if ((by_id.get(i) or {}).get("access") or {}).get("not_held")]
+        no_notice: list = []
+
+        def kinds_of(i):
+            return {str(a.get("type") or "") for a in (checked.get(i) or {}).get("amendments") or []}
         for i in amended:
             s = by_id.get(i) or {}
             if i in unheld:
@@ -653,6 +658,13 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                     if (a.get("type") or "") not in ("Expression of concern in", "Update in", "Republished in")}
             if notes and want <= notes:
                 accounted.add(i)
+            elif not want and kinds_of(i) <= NO_NOTICE_NEEDED:
+                # Advisor's ruling 1 on the replay gate (2026-11-26): the 2026-11-07 rule already leaves "Update in" and
+                # "Republished in" out of the notices a held source must hold; a held source whose ONLY amendments
+                # are those has nothing to read, and was blocked by the empty notice set alone (02za's S007, a
+                # protocol "Update in" its review). An expression of concern is never in NO_NOTICE_NEEDED.
+                accounted.add(i)
+                no_notice.append(i)
         # Ruling 5 on the design review: a held source whose correction we could not read is accounted for by the
         # note on every claim bound to it; the row "unread corrections noted on the page" checks the notes.
         noted = [i for i in amended if (by_id.get(i) or {}).get("correction_unreadable") and i not in unheld]
@@ -663,7 +675,14 @@ def preflight_rows(slug: str) -> list[tuple[str, str, str]]:
                          "the page note (checked by 'unread corrections noted on the page'): %s"
                          % (len(noted), ", ".join(noted))))
         open_ = [i for i in amended if i not in accounted and i not in unheld]
-        done = [i for i in amended if i in accounted and i not in unheld and i not in noted]   # noted: not read
+        done = [i for i in amended if i in accounted and i not in unheld and i not in noted and i not in no_notice]
+        if no_notice:
+            rows.append(("amendments with no correction to read", OK,
+                         "%d held source(s) are amended only by a later version or a republication, which is not a "
+                         "correction to read (a protocol's review, a republished copy): %s"
+                         % (len(no_notice), "; ".join("%s: %s" % (i, ", ".join(
+                             "%s %s" % (a.get("type"), a.get("id", "")) for a in checked[i].get("amendments") or []))
+                             for i in no_notice))))
         if unheld:
             rows.append(("corrections to sources not held", OK,
                          "%d source(s) with a correction or retraction are not held, so nothing on the page draws "

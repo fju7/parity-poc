@@ -621,8 +621,9 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     if none or bad_el:
         bits = []
         if none:
-            bits.append("%d with no state: use, add or declare each (e.g. %s, %s)"
-                        % (len(none), none[0]["key"], none[0]["section"]))
+            bits.append("%d with no state in %s: use, add or declare each (e.g. %s, %s)"
+                        % (len(none), ", ".join(sorted({u["source"] for u in none})), none[0]["key"],
+                           none[0]["section"]))       # every source named: the replay gate reads them (ruling 1)
         if bad_el:
             bits.append("%d out-of-scope declaration(s) name no words of the question or scope.out (e.g. %s)"
                         % (len(bad_el), bad_el[0]))
