@@ -1,0 +1,292 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@4145-4303": {
+   "state": "not_material",
+   "reason": "The finding only describes how many studies were included and where they were conducted. It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:10:22+00:00"
+  },
+  "S001@4356-4477": {
+   "state": "not_material",
+   "reason": "The text is only a legend explaining certainty wording for randomised-study results. It reports no outcome, effect, or population, so there is nothing to add to the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:10:26+00:00"
+  },
+  "S002@4605-4676": {
+   "state": "not_material",
+   "reason": "The finding is a truncated fragment (eight US randomized trials) with no intervention, outcome or result stated, so it cannot bear on the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:10:49+00:00"
+  },
+  "S002@4677-4747": {
+   "state": "not_material",
+   "reason": "The finding only lists the countries where included studies were conducted. It states no effect or result bearing on care or health outcomes, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:10:51+00:00"
+  },
+  "S002@4748-4864": {
+   "state": "not_material",
+   "reason": "The finding only describes who used digital decision-support tools (facility, community, lay workers). It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:10:52+00:00"
+  },
+  "S002@4865-5021": {
+   "state": "not_material",
+   "reason": "The finding only describes which conditions the included studies addressed. It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:10:54+00:00"
+  },
+  "S002@6106-6221": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns client acceptability and satisfaction with the tools, which the scope excludes as a separate question from effectiveness on care delivery and health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:11:08+00:00"
+  },
+  "S003@2788-3106": {
+   "state": "not_material",
+   "reason": "The finding only describes who was enrolled in the trials and where they were conducted. It makes no claim about effects on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:11:15+00:00"
+  },
+  "S003@3107-3345": {
+   "state": "not_material",
+   "reason": "The finding only describes the delivery channels used across the included interventions (mostly text messages). It reports no effect on care or health, so it does not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:11:16+00:00"
+  },
+  "S003@4889-5021": {
+   "state": "not_material",
+   "reason": "The finding only says no studies reported outcomes for one comparison (targeted vs non-targeted digital communication). It gives no effect evidence, so it would not change the answer's conclusions.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:11:43+00:00"
+  },
+  "S004@3900-3973": {
+   "state": "not_material",
+   "reason": "The finding only reports the number of included studies and their geographic spread. It says nothing about effects on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:12:37+00:00"
+  },
+  "S004@3974-4077": {
+   "state": "not_material",
+   "reason": "The finding only counts how many studies were done in low- and middle-income versus high-income settings. It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:12:39+00:00"
+  },
+  "S004@4078-4285": {
+   "state": "out_of_scope",
+   "reason": "The finding describes studies exploring people's views and preferences about digital health interventions, which is qualitative acceptability and lived-experience evidence, not effectiveness.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:12:41+00:00"
+  },
+  "S004@4286-4517": {
+   "state": "not_material",
+   "reason": "The finding only describes the range of client communication content in the included studies, with no effect result or certainty. It adds no conclusion that would change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:12:43+00:00"
+  },
+  "S004@4518-4605": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' experiences of the programmes, which is qualitative acceptability and lived-experience evidence, a separate question from effectiveness on care and health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:12:45+00:00"
+  },
+  "S004@4606-4802": {
+   "state": "out_of_scope",
+   "reason": "The finding describes clients' subjective feelings of support from receiving messages, which is lived experience of the tools, not effects on care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:12:48+00:00"
+  },
+  "S004@4803-4896": {
+   "state": "out_of_scope",
+   "reason": "The finding is a qualitative report of how clients used received messages (sharing them with friends and family). That is lived experience, not an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:12:51+00:00"
+  },
+  "S004@4897-4967": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' own accounts of problems with the programmes. That is lived experience and acceptability, a qualitative question separate from effectiveness on care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:12:53+00:00"
+  },
+  "S004@4968-5052": {
+   "state": "out_of_scope",
+   "reason": "The finding about poor cell network and internet access concerns connectivity, a technical feasibility issue that the scope excludes. It says nothing about whether the tools improve care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and the technical feasibility of implementation (connectivity, interoperability, data privacy law)",
+   "decided_at": "2026-11-26T21:12:55+00:00"
+  },
+  "S004@5308-5428": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns the cost of messages and views that they should be free, which is a cost and feasibility matter, not effectiveness on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and the technical feasibility of implementation (connectivity, interoperability, data privacy law)",
+   "decided_at": "2026-11-26T21:13:06+00:00"
+  },
+  "S004@5429-5554": {
+   "state": "out_of_scope",
+   "reason": "The finding describes language and literacy or phone-skill barriers to using the tools, which is an implementation and user-experience matter, not an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:10+00:00"
+  },
+  "S004@5555-5737": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' concerns about privacy and confidentiality, which is qualitative evidence on client experience and acceptability, not an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:13+00:00"
+  },
+  "S004@5738-5909": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' suggestions for message design drawn from qualitative accounts of their experience, which is an acceptability and lived-experience matter, not effectiveness on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:15+00:00"
+  },
+  "S004@5910-6009": {
+   "state": "out_of_scope",
+   "reason": "The finding reports client preferences for message timing and frequency, which is acceptability and lived-experience evidence, not effectiveness on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:17+00:00"
+  },
+  "S004@6010-6150": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' preferences for message delivery channels, which is acceptability and user experience rather than effects on care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:20+00:00"
+  },
+  "S004@6151-6305": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' preferences about message content, which is acceptability and lived experience (a qualitative question), not effectiveness on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:22+00:00"
+  },
+  "S004@6306-6436": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns clients' views and perceptions of the sender of digital communications, which is qualitative acceptability/experience evidence, not effectiveness on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "decided_at": "2026-11-26T21:13:24+00:00"
+  },
+  "S004@6437-6561": {
+   "state": "not_material",
+   "reason": "The finding only refers readers to 'Summary of qualitative findings' tables. It states no result about care or health outcomes, so it adds nothing the page could use.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:26+00:00"
+  },
+  "S004@6562-6736": {
+   "state": "not_material",
+   "reason": "The finding concerns whether trial designs addressed unspecified problems, possibly a reporting gap. It gives no effect on care or health outcomes, so it would not change the page's answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:30+00:00"
+  },
+  "S004@6758-6913": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns factors influencing successful implementation of the programmes, which is a feasibility and implementation question rather than whether the tools improve care and health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and the technical feasibility of implementation (connectivity, interoperability, data privacy law)",
+   "decided_at": "2026-11-26T21:13:32+00:00"
+  },
+  "S004@6975-7076": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation to planners with no stated result, population, or effect. It gives nothing that could change the answer on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:34+00:00"
+  },
+  "S004@7077-7198": {
+   "state": "not_material",
+   "reason": "The finding is a methodological recommendation for future trial authors on reporting. It makes no claim about whether the intervention improves care or health, so it would not change the page's answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:35+00:00"
+  },
+  "S006@5062-5182": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies were identified and analyzed. It states no effect, direction, or certainty, so it would not change the answer to whether the tools improve care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:37+00:00"
+  },
+  "S006@5183-5289": {
+   "state": "not_material",
+   "reason": "The finding only reports where the included studies took place, which describes the evidence base's geography and does not change the answer about whether the interventions improve care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:39+00:00"
+  },
+  "S006@5290-5343": {
+   "state": "not_material",
+   "reason": "The finding only describes the care setting of the included studies (mostly outpatient). It does not change or qualify the answer on effectiveness, and it fits within primary health care scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:41+00:00"
+  },
+  "S006@5344-5670": {
+   "state": "not_material",
+   "reason": "The finding only describes what the reminders targeted (half preventive, half disease management) in the included studies. It reports no effect on care or health, so it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:13:44+00:00"
+  },
+  "S006@5671-6022": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns computer-generated reminders delivered on paper to professionals, not on-screen prompts or tracking on mobile devices, so it falls outside the question's intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "mobile phones or tablets",
+   "decided_at": "2026-11-26T21:13:47+00:00"
+  },
+  "S006@6023-6301": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns computer-generated reminders printed on paper for professionals, not mobile phones or tablets used to track care, so it falls outside the question's mobile-device scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "mobile phones or tablets",
+   "decided_at": "2026-11-26T21:13:48+00:00"
+  },
+  "S006@6302-6662": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns computer-generated reminders delivered on paper to professionals, not delivered through mobile phones or tablets, so it falls outside the question's intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "mobile phones or tablets",
+   "decided_at": "2026-11-26T21:13:54+00:00"
+  },
+  "S006@6975-7237": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns computer-generated reminders delivered on paper to professionals, not reminders or prompts delivered through mobile phones or tablets, so it addresses a different intervention than the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "mobile phones or tablets",
+   "decided_at": "2026-11-26T21:14:05+00:00"
+  },
+  "S007@4677-4758": {
+   "state": "not_material",
+   "reason": "The finding only states how many studies and comparisons were included. It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T21:14:06+00:00"
+  }
+ }
+}

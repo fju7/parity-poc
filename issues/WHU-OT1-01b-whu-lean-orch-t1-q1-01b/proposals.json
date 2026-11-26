@@ -1,0 +1,122 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "first_author": "Agarwal",
+      "year": 2025,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD012925.pub2/full",
+      "why": "Most recent Cochrane review directly addressing digital tracking, provider decision support, and targeted client communication via mobile devices in primary health care."
+    },
+    {
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings",
+      "first_author": "Agarwal",
+      "year": 2021,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD012944.pub2/full",
+      "why": "Cochrane review assessing mobile-based clinical decision-support tools used by primary healthcare workers and their effects on quality of care and patient outcomes."
+    },
+    {
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health",
+      "first_author": "Palmer",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013679/full",
+      "why": "Cochrane review on effects of targeted reminder messages via mobile devices on maternal, neonatal, and child health outcomes."
+    },
+    {
+      "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis",
+      "first_author": "Ames",
+      "year": 2019,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013447/full",
+      "why": "Cochrane qualitative synthesis of patients' experiences receiving targeted health messages via mobile devices, informing implementation of reminder programmes."
+    },
+    {
+      "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+      "first_author": "World Health Organization",
+      "year": 2019,
+      "container": "World Health Organization",
+      "type": "guideline",
+      "url": "https://iris.who.int/items/df396062-86b0-41c4-94c7-6e04e341bce2",
+      "why": "First WHO evidence-based guideline recommending digital tracking combined with decision support and targeted client communication via mobile devices."
+    },
+    {
+      "title": "Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes",
+      "first_author": "Arditi",
+      "year": 2017,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD001175.pub4/full",
+      "why": "Cochrane review on computer-generated reminders to healthcare professionals and their effect on quality of care and patient outcomes."
+    },
+    {
+      "title": "The effects of on-screen, point of care computer reminders on processes and outcomes of care",
+      "first_author": "Shojania",
+      "year": 2009,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD001096.pub2/full",
+      "why": "Foundational Cochrane review on on-screen point-of-care computer reminders (prompts) and their effects on physician practice and patient health outcomes."
+    },
+    {
+      "title": "The implementation challenge of computerised clinical decision support systems for the detection of disease in primary care: systematic review and recommendations",
+      "first_author": "Derksen",
+      "year": 2025,
+      "container": "Implementation Science",
+      "type": "review",
+      "url": "https://link.springer.com/article/10.1186/s13012-025-01445-4",
+      "why": "Recent systematic review identifying barriers to implementing mobile/computerised decision support systems in primary care and providing implementation recommendations."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "systematic review mobile phones tablets primary health care decision support reminders patient outcomes",
+      "mHealth clinical decision support reminders primary care systematic review Cochrane",
+      "Cochrane review \"digital tracking\" \"targeted client communication\" mobile devices primary health care Agarwal 2018",
+      "WHO guideline digital health interventions mHealth recommendations 2019",
+      "Cochrane review targeted client communication mobile devices maternal neonatal child health Watterson 2023",
+      "systematic review SMS text message reminders patient health outcomes primary care 2022 2023 2024",
+      "Cochrane review computerized reminders physicians quality care outcomes 2017 Shojania",
+      "\"clients' perceptions\" \"targeted digital communication\" mobile devices RMNCAH qualitative Cochrane 2019 2020"
+    ],
+    "domains": [
+      "cochranelibrary.com",
+      "ncbi.nlm.nih.gov",
+      "fhi.brage.unit.no",
+      "epoc.cochrane.org",
+      "pure.johnshopkins.edu",
+      "rcastoragev2.blob.core.windows.net",
+      "pmc.ncbi.nlm.nih.gov",
+      "cdn.clinicaltrials.gov",
+      "api.unil.ch",
+      "annfammed.org",
+      "researchgate.net",
+      "arxiv.org",
+      "link.springer.com",
+      "pubmed.ncbi.nlm.nih.gov",
+      "gapmaps.3ieimpact.org",
+      "researchonline.lshtm.ac.uk",
+      "iris.who.int",
+      "aidsdatahub.org",
+      "nature.com",
+      "pmnch.who.int",
+      "who.int",
+      "clinicaltrials.gov",
+      "africaevidencenetwork.org",
+      "cccrg.cochrane.org",
+      "scholars.hkmu.edu.hk",
+      "europepmc.org",
+      "d-nb.info",
+      "sciencedirect.com",
+      "phw-evidence-maps.azurewebsites.net",
+      "cochrane.org"
+    ]
+  },
+  "sha256": "f59537aa6f973facc49d1c66ec86253f429f09b25e94c4e56760373ad239a5ac"
+}

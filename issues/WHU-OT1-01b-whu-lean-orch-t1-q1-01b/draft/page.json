@@ -1,0 +1,903 @@
+{
+ "title": "Mobile tracking, on-screen prompts and patient reminders in primary care: what the evidence shows",
+ "blocks": [
+  {
+   "tag": "h2",
+   "section": "question",
+   "text": "The question"
+  },
+  {
+   "tag": "html",
+   "section": "question",
+   "html": "  <p>The question is: “In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?”</p>"
+  },
+  {
+   "tag": "h2",
+   "section": "answer",
+   "text": "The short answer"
+  },
+  {
+   "tag": "p",
+   "section": "answer",
+   "sentences": [
+    "Using digital tools on mobile devices to help healthcare workers track patient information and make decisions has mixed results [1].",
+    "These approaches may lead to benefits in some situations but may make little or no difference in others [1].",
+    "The review authors say we often do not know the full impact, because there are not enough studies or the studies do not provide clear answers [1]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "findings",
+   "text": "What the studies found"
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "What the interventions are"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "Digital tracking systems help healthcare workers collect and store patient information over time, and mobile devices such as tablets and smartphones can make these systems easier to use in settings where health workers still rely on paper records [1].",
+    "Tracking systems are sometimes combined with decision support tools, which guide healthcare workers in analysing patient data and deciding on the best treatment [1].",
+    "They can also be combined with targeted client communication, which lets healthcare workers send patients messages such as appointment reminders, medication schedules or health advice [1].",
+    "According to the source, digital tracking may improve primary care workers' ability to follow recommended antenatal and chronic disease practices, quality of patient records, patient health outcomes and service use [1].",
+    "According to the source, these interventions led to small or no outcome differences in most studies [1].",
+    "According to the source, \"We are uncertain of the effect of this intervention on providers' adherence to recommended practice due to the very low certainty evidence (2 studies, 185 participants)\" [2].",
+    "According to the source, \"We are uncertain about the effectiveness of mobile phone‐based decision‐support tools on several outcomes, including adherence to recommended practice\" [2].",
+    "None of the studies had a quality of care framework and focused only on specific health areas [2].",
+    "The source states: \"We need well‐designed research that takes a systems lens to assess these issues\" [2].",
+    "According to the source, \"The effect of TCCMD for most outcomes is uncertain\" [3].",
+    "According to the source, there may be improvements for some outcomes using targeted communication, but these findings were of low certainty [3].",
+    "According to the source, \"High‐quality, adequately powered trials and cost‐effectiveness analyses are required to reliably ascertain the effects and relative benefits of TCCMD\" [3].",
+    "The source states that future studies should measure potential unintended consequences, such as partner violence or breaches of confidentiality [3].",
+    "According to the source, \"These include barriers to use that have equity implications\" [4].",
+    "According to the source, it is uncertain whether reminders improve patient outcomes because the certainty of the evidence is very low [6].",
+    "According to the source, \"The heterogeneity of the reminder interventions included in this review also suggests that reminders can probably improve quality of care in various settings under various conditions\" [6].",
+    "According to the source, point of care computer reminders generally achieve small to modest improvements in provider behaviour [7].",
+    "According to the source, a minority of interventions showed larger effects, but no specific reminder or contextual features were significantly associated with effect magnitude [7].",
+    "The source states: \"Further research must identify design features and contextual factors consistently associated with larger improvements in provider behaviour if computer reminders are to succeed on more than a trial and error basis\" [7]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Tracking combined with decision support, patient messages, or both"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "A Cochrane review of this question included 18 studies [1].",
+    "Seventeen of these studies were from low- and middle-income settings where electronic medical record systems are rare or just being rolled out [1].",
+    "Most studies focused on healthcare workers using mobile devices for maternal and child health or for managing chronic diseases [1].",
+    "Compared with usual care, the results of combining digital tracking with decision support, targeted client communication, or both were mixed, although these tools may have some benefits [1].",
+    "Patient or client acceptability and satisfaction with the intervention was assessed in one study with 3324 participants, and the evidence was of moderate certainty [1].",
+    "No study assessed resource use or unintended consequences [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Decision-support tools on mobile devices"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "A separate Cochrane review of eight studies examined decision-support tools on mobile devices used by primary healthcare workers [2].",
+    "It found that we do not know whether these tools make healthcare workers better at following recommended practice, because the evidence was of very low quality [2].",
+    "There was no clear pattern of a positive or negative effect on patients' or clients' behaviour or on their health [2].",
+    "The tools may slightly improve patients' satisfaction with medical information [2].",
+    "That review found no studies on healthcare worker satisfaction, resource use, or unintended consequences such as harms [2]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Targeted messages to patients"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "A Cochrane review of targeted client communication for pregnant women and parents found that some messages may improve some people's health and their use of health services, while others may make little or no difference [3].",
+    "The evidence in that review is mostly of low or very low certainty [3].",
+    "Compared with no messages, more parents may take their children to healthcare services such as vaccination appointments, but whether the messages improve children's health is unknown because the evidence is missing [3].",
+    "Pregnant women living with HIV who received targeted messages may attend slightly more antenatal care appointments than women who got no messages [3]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "How patients experience the messages"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "A qualitative synthesis of 35 studies found that many clients like receiving messages from health services by mobile phone [4].",
+    "Some clients have problems receiving messages because of a lack of network access, internet or phone, or because of language, reading or privacy issues [4].",
+    "Clients with stigmatised conditions such as HIV were concerned that taking part could lead to their status being disclosed [4]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "A related but different intervention"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "A separate review looked at computer-generated reminders delivered on paper rather than on a screen or by text message [6].",
+    "It found that such reminders probably slightly improve the quality of care, based on moderate-certainty evidence [6].",
+    "All the non-randomised studies included in the review had a high risk of bias [1].",
+    "Tracking combined with decision support may slightly increase postnatal home visits in the first week, complementary-feeding counselling, skin-to-skin care and early breastfeeding, while effects on several other newborn and maternal behaviours are uncertain [1].",
+    "Digital tracking with client messaging may reduce low birthweight babies (RR 0.53) and, in stroke patients, may reduce deaths (RR 0.52) and stroke hospitalisations (RR 0.45), may slightly lower blood pressure, and may increase care-seeking for infant pneumonia or fever, while effects on stillbirths, neonatal and infant deaths, and HIV-positive antenatal tests are uncertain [1].",
+    "Tracking combined with decision support and targeted client communication probably increases provider guideline adherence for antenatal anaemia screening and management, diabetes, and hypertension (single studies, ORs 1.45–1.88), but probably lowers adherence for abnormal foetal growth (OR 0.59) [1].",
+    "Tracking with decision support and client communication may reduce deaths in people with hypertension and diabetes (OR 0.61, CI 0.35 to 1.06) and new cardiovascular events in high-risk adults (OR 0.58, CI 0.42 to 0.80), but may make little or no difference to adverse pregnancy outcomes [1].",
+    "In adults with hypertension or diabetes (1 study, 3324 participants), tracking plus decision support plus targeted client communication may make little or no difference to HbA1c, total cholesterol, 10-year cardiovascular risk, tobacco use, alcohol use, or depression scores (PHQ-9) [1].",
+    "The effects on maternal or infant mortality, blood pressure control, body mass index, fasting glucose and quality of life are uncertain, and the tools may have little or no effect on missed early infant diagnosis visits (1 study, 1183 participants; OR 0.92 [0.63, 1.35]) [1].",
+    "Mobile digital tracking with decision support and/or reminders probably increases slightly the number of adults with hypertension or diabetes reporting a slightly or much better change in quality of care (one study, 3324 participants; RR 1.02, 95% CI 1.00 to 1.03), while effects on linkage to care are uncertain [1].",
+    "No studies evaluated time between presentation and appropriate management, timeliness of receiving or accessing care, provider acceptability or satisfaction, resource use, or unintended consequences [1].",
+    "The certainty of the evidence ranged from very low to moderate, with evidence often downgraded for risk of bias and imprecision [2].",
+    "The effect on patients' and clients' health behaviours such as smoking and treatment adherence is mixed, with substantial variation across outcomes for similar types of behaviour (2 studies, 2262 participants) [2].",
+    "The intervention probably makes little or no difference to smoking rates among people at risk of cardiovascular disease but probably increases other desired patient behaviours, such as adherence to treatment [2].",
+    "The effect of the intervention on patients' and clients' health status and well-being is mixed, based on 5 studies with 69,767 participants [2].",
+    "Digital tracking with decision support and/or reminders probably makes little or no difference to some types of health outcomes, but we are uncertain about others, including maternal and neonatal deaths, because the evidence is very low-certainty [2].",
+    "The review found no studies that reported time between presentation of illness and appropriate management, provider acceptability or satisfaction, resource use, or unintended consequences [2].",
+    "The review included 27 trials with 17,463 participants in total [3].",
+    "Mobile tracking with decision support and/or client messaging (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common (RR 1.30, 95% CI 1.06 to 1.59; low-certainty evidence), but has little or no effect where almost all women breastfeed (low-certainty evidence) [3].",
+    "Targeted client communication via mobile devices may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96), but this is low-certainty evidence and the confidence interval includes both benefit and harm [3].",
+    "The intervention may increase skilled attendants at birth in settings where they are often lacking (though this differed by urban/rural residence), but may make no difference where almost all women already have one (OR 1.00, 95% CI 0.34 to 2.94; low-certainty evidence) [3].",
+    "The effects on maternal and neonatal mortality and morbidity are uncertain because the certainty of the evidence was assessed as very low [3].",
+    "Targeted client communication via mobile devices may have little or no effect on exclusive breastfeeding compared with non-digital targeted client communication such as pamphlets (RR 0.92, 95% CI 0.79 to 1.07; low-certainty evidence) [3].",
+    "Targeted client communication via mobile devices may reduce any maternal health problem (RR 0.19, 95% CI 0.04 to 0.79) and any newborn health problem (RR 0.52, 95% CI 0.25 to 1.06) up to 10 days postpartum, based on low-certainty evidence, though the newborn interval includes both benefit and harm [3].",
+    "The effect of these mobile tracking and prompt or reminder tools on health service use is unknown because too few studies have looked at it [3].",
+    "For use of health services, the effect on skilled attendance at birth is uncertain (very low-certainty evidence), and the intervention may make little or no difference to antenatal influenza vaccination attendance (RR 1.05, 95% CI 0.71 to 1.58; low-certainty evidence, CI compatible with benefit and harm) [3].",
+    "For pregnant and postpartum women living with HIV, tracking combined with client communication via mobile devices may make little or no difference to maternal and infant adherence to antiretroviral therapy compared with standard care (low-certainty evidence) [3].",
+    "Targeted client communication reminders sent by mobile phone may slightly increase antenatal care use (mean difference 1.5, 95% CI –0.36 to 3.36), but this is low-certainty evidence and the interval includes no effect [3].",
+    "The effect of mobile-device tracking with decision support and/or client reminders on the proportion of births occurring in a health facility is uncertain, because the evidence is of very low certainty [3].",
+    "For health and well-being outcomes, the intervention's effect on neonatal death or stillbirth and on infant HIV was uncertain, because the evidence was of very low certainty [3].",
+    "No studies reported on maternal mortality or morbidity, so the effect of these digital tracking and prompt or reminder tools on those outcomes is unknown [3].",
+    "The effect of targeted client communication delivered via mobile devices compared with non-digital targeted client communication is unknown, because no studies reporting this comparison were found [3].",
+    "Targeted client communication via mobile devices may increase infant ARV/prevention of mother-to-child transmission treatment adherence compared with digital non-targeted communication (RR 1.26, 95% CI 1.07 to 1.48; low-certainty evidence) [3].",
+    "The effect on other outcomes is unknown because there are too few studies [3].",
+    "For parents of children under five years, no studies reported on correct treatment, nutritional, or health outcomes, so the effect of these tools on those outcomes is unknown [3].",
+    "Based on 10 trials, targeted client communication via mobile devices may modestly increase health service use such as vaccinations and HIV care compared with standard care (RR 1.21, 95% CI 1.08 to 1.34; low-certainty evidence), though estimates varied widely between studies [3].",
+    "Targeted client communication via mobile devices may increase attendance for vaccinations compared with non-digital targeted client communication (RR 1.13, 95% CI 1.00 to 1.28; low-certainty evidence), and may make little or no difference to oral hygiene practices (low-certainty evidence) [3].",
+    "Targeted client communication via mobile devices may reduce vaccination attendance compared with digital non-targeted communication, but the confidence interval includes both benefit and harm (RR 0.63, 95% CI 0.33 to 1.20; low-certainty evidence) [3].",
+    "No trials in any population reported data on unintended consequences, so possible harms of these tools remain unassessed [3].",
+    "Some clients could not be reached by reminder messages because they had no phone, had lost or broken it, could not afford airtime, or had changed their phone number (moderate confidence) [4].",
+    "Some clients, particularly women and teenagers, had their access to phones controlled by others, which may limit whether they receive reminder messages (moderate confidence) [4].",
+    "It is uncertain whether reminders, alone or added to other interventions, improve patient outcomes, because the certainty of the evidence is very low (6 studies, seven comparisons) [6].",
+    "None of the included studies reported outcomes related to harms or adverse effects of the intervention, so its safety is not established by this evidence [6].",
+    "Computer reminders for health professionals produced a median improvement in process adherence of 4.2% (IQR 0.8% to 18.8%) across all process outcomes, with similar modest medians for medication ordering (3.3%), vaccinations (3.8%) and test ordering (3.8%) [7].",
+    "In a sensitivity analysis that used the best outcome from each study, the median improvement was 5.6% (IQR 2.0% to 19.2%) across all process measures and 6.2% (IQR 3.0% to 28.0%) across medication ordering measures [7].",
+    "In eight comparisons that reported dichotomous clinical endpoints, intervention patients had a median absolute improvement of 2.5% (IQR 1.3% to 4.2%) [7].",
+    "Blood pressure was the most commonly reported clinical endpoint, and intervention patients had a median systolic reduction of only 1.0 mmHg, with an IQR running from a 2.3 mmHg reduction to a 2.0 mmHg increase [7]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "verdict",
+   "text": "What holds up"
+  },
+  {
+   "tag": "p",
+   "section": "verdict",
+   "sentences": [
+    "The most direct evidence shows mixed results when mobile tracking is combined with on-screen guidance, patient reminders, or both [1].",
+    "These tools may help in some situations and make little or no difference in others [1].",
+    "For decision-support tools alone, it is not known whether they improve health workers' practice, and there is no clear pattern of effects on patients' health [2].",
+    "For patient messages alone, some may improve service use, such as attendance at vaccination appointments, but the evidence is mostly of low or very low certainty [3].",
+    "No study in the main review assessed resource use or unintended consequences, so these remain unknown [1].",
+    "Overall, the reviews cannot yet say with confidence that these tools improve care or health, and they call for more and better studies."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "limits",
+   "text": "What we read and what we did not"
+  },
+  {
+   "tag": "html",
+   "section": "limits",
+   "html": "  <p>We hold the full text of Digital tracking, provider decision support systems, and targeted client communi [1].</p>\n  <p>We searched the full text of Digital tracking, provider decision support systems, and targeted client communi [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of Decision-support tools via mobile devices to improve quality of care in primary  [2].</p>\n  <p>We searched the full text of Decision-support tools via mobile devices to improve quality of care in primary  [2] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of Targeted client communication via mobile devices for improving maternal, neonata [3].</p>\n  <p>We searched the full text of Targeted client communication via mobile devices for improving maternal, neonata [3] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of Clients' perceptions and experiences of targeted digital communication accessibl [4].</p>\n  <p>We searched the full text of Clients' perceptions and experiences of targeted digital communication accessibl [4] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of WHO guideline Recommendations on Digital Interventions for Health System Strengt [5].</p>\n  <p>We searched the full text of WHO guideline Recommendations on Digital Interventions for Health System Strengt [5] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of Computer-generated reminders delivered on paper to healthcare professionals: eff [6].</p>\n  <p>We searched the full text of Computer-generated reminders delivered on paper to healthcare professionals: eff [6] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of The effects of on-screen, point of care computer reminders on processes and outc [7].</p>\n  <p>We searched the full text of The effects of on-screen, point of care computer reminders on processes and outc [7] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We hold the full text of The implementation challenge of computerised clinical decision support systems f [8].</p>\n  <p>We searched the full text of The implementation challenge of computerised clinical decision support systems f [8] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We searched: web search: systematic review mobile phones tablets primary health care decision support reminders patient outcomes; web search: mHealth clinical decision support reminders primary care systematic review Cochrane; web search: Cochrane review \"digital tracking\" \"targeted client communication\" mobile devices primary health care Agarwal 2018; web search: WHO guideline digital health interventions mHealth recommendations 2019; web search: Cochrane review targeted client communication mobile devices maternal neonatal child health Watterson 2023; web search: systematic review SMS text message reminders patient health outcomes primary care 2022 2023 2024; web search: Cochrane review computerized reminders physicians quality care outcomes 2017 Shojania; web search: \"clients' perceptions\" \"targeted digital communication\" mobile devices RMNCAH qualitative Cochrane 2019 2020; registry: Europe PMC; registry: PubMed; registry: Crossref.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>"
+  },
+  {
+   "tag": "html",
+   "section": "readers",
+   "html": "  <p><strong>Findings in our sources we judged outside this question</strong></p>\n  <p>Judged not material to this question: “We identiﬁed 18 eligible studies (11 randomised, seven non‐randomised) conducted in Bangladesh, China, Ethiopia, India, Kenya, Palestine, Uganda, and the USA.” (Digital tracking, provider decision support systems, and targeted client communi [1]).</p>\n  <p>Judged not material to this question: “These results are from randomised studies …” (Digital tracking, provider decision support systems, and targeted client communi [1]).</p>\n  <p>Judged not material to this question: “Eight randomized trials across varying healthcare contexts in the USA,.” (Decision-support tools via mobile devices to improve quality of care in primary  [2]).</p>\n  <p>Judged not material to this question: “India, China, Guatemala, Ghana, and Kenya, met our inclusion criteria.” (Decision-support tools via mobile devices to improve quality of care in primary  [2]).</p>\n  <p>Judged not material to this question: “A range of healthcare providers (facility and community‐based, formally trained, and lay workers) used digital CDSS.” (Decision-support tools via mobile devices to improve quality of care in primary  [2]).</p>\n  <p>Judged not material to this question: “Care was provided for the management of specific conditions such as cardiovascular disease, gastrointestinal risk assessment, and maternal and child health.” (Decision-support tools via mobile devices to improve quality of care in primary  [2]).</p>\n  <p>Outside this question: “The intervention may slightly improve patient or client acceptability and satisfaction (1 study, 187 participants).” (Decision-support tools via mobile devices to improve quality of care in primary  [2]).</p>\n  <p>Judged not material to this question: “Trial populations were: pregnant and postpartum women (11 trials conducted in low‐, middle‐ or high‐income countries (LMHIC); pregnant and postpartum women living with HIV (three …” (Targeted client communication via mobile devices for improving maternal, neonata [3]).</p>\n  <p>Judged not material to this question: “Most interventions (18) were delivered via text messages alone, one was delivered through voice calls only, and the rest were delivered through combinations of different …” (Targeted client communication via mobile devices for improving maternal, neonata [3]).</p>\n  <p>Judged not material to this question: “TCCMD versus digital non‐targeted communication No studies reported behavioural, health, or well‐being outcomes for this comparison.” (Targeted client communication via mobile devices for improving maternal, neonata [3]).</p>\n  <p>Judged not material to this question: “We included 35 studies, from a wide range of countries on six continents.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “Nineteen studies were conducted in low‐ and middle‐income settings and sixteen in high‐income settings.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Some of the studies explored the views of people who had experienced the interventions, whereas others were hypothetical in nature, asking what people felt they …” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “The studies covered a range of digital targeted client communication, for example medication or appointment reminders, prenatal health information, support for smoking cessation while pregnant, …” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Our synthesis showed that clients' experiences of these types of programmes were mixed.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Some felt that these programmes provided them with feelings of support and connectedness, as they felt that someone was taking the time to send them …” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “They also described sharing the messages with their friends and family (moderate confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “However, clients also pointed to problems when using these programmes.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Some clients had poor access to cell networks and to the internet (high confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “The cost of messages could also be a problem, and many thought that messages should be free of charge (high confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Language issues as well as skills in reading, writing, and using mobile phones could also be a problem (moderate confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Clients dealing with stigmatised or personal health conditions such as HIV, family planning, or abortion care were also concerned about privacy and confidentiality (high confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Some clients suggested strategies to deal with these issues, such as using neutral language and tailoring the content, timing, and frequency of messages (high confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Clients wanted messages at a time and frequency that was convenient for them (moderate confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “They had preferences for different delivery channels (e.g. short message service (SMS) or interactive voice response) (moderate confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “They also had preferences about message content, including new knowledge, reminders, solutions, and suggestions about health issues (moderate confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Clients' views about who sent the digital health communication could influence their views of the programme (moderate confidence).” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “For an overview of the findings and our confidence in the evidence, please see the 'Summary of qualitative findings' tables.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “Our matrix shows that many of the trials assessing these types of programmes did not try to address the problems we identified, although this may …” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Outside this question: “Our synthesis identified several factors that can influence the successful implementation of targeted client communication programmes using mobile devices.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “Programme planners should take these factors into account when designing and implementing programmes.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “Future trial authors also need to actively address these factors and to report their efforts in their trial publications.” (Clients' perceptions and experiences of targeted digital communication accessibl [4]).</p>\n  <p>Judged not material to this question: “We identified 35 studies (30 randomized trials and five non‐randomized trials) and analyzed 34 studies (40 comparisons).” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Judged not material to this question: “Twenty‐nine studies took place in the USA and six studies took place in Canada, France, Israel, and Kenya.” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Judged not material to this question: “All studies except two took place in outpatient care.” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Judged not material to this question: “Reminders were aimed at enhancing compliance with preventive guidelines (e.g. cancer screening tests, vaccination) in half the studies and at enhancing compliance with disease management …” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Outside this question: “Computer‐generated reminders delivered on paper to healthcare professionals, alone or in addition to co‐intervention(s), probably improves quality of care slightly compared with usual care or …” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Outside this question: “Computer‐generated reminders delivered on paper to healthcare professionals alone (single‐component intervention) probably improves quality of care compared with usual care (median improvement 11.0% (IQR 5.4% …” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Outside this question: “Adding computer‐generated reminders delivered on paper to healthcare professionals to one or more co‐interventions (multi‐component intervention) probably improves quality of care slightly compared with the …” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Outside this question: “There is moderate‐certainty evidence that computer‐generated reminders delivered on paper to healthcare professionals probably slightly improves quality of care, in terms of compliance with preventive …” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).</p>\n  <p>Judged not material to this question: “Twenty‐eight studies (reporting a total of thirty‐two comparisons) were included.” (The effects of on-screen, point of care computer reminders on processes and outc [7]).</p>\n"
+  },
+  {
+   "tag": "h2",
+   "section": "sources",
+   "text": "Sources"
+  },
+  {
+   "tag": "html",
+   "section": "sources",
+   "html": "<div class=\"sources\">\n<div class=\"src\"><span class=\"tag\">[1]</span> <a href=\"https://europepmc.org/article/PMC/PMC11975193\">Agarwal S, Chin WY, Vasudevan L, et al. Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care. The Cochrane database of systematic reviews. 2025.</a></div>\n<div class=\"src\"><span class=\"tag\">[2]</span> <a href=\"https://europepmc.org/article/PMC/PMC8406991\">Agarwal S, Glenton C, Tamrat T, et al. Decision-support tools via mobile devices to improve quality of care in primary healthcare settings. The Cochrane database of systematic reviews. 2021.</a></div>\n<div class=\"src\"><span class=\"tag\">[3]</span> <a href=\"https://europepmc.org/article/PMC/PMC8477611\">Palmer MJ, Henschke N, Bergman H, et al. Targeted client communication via mobile devices for improving maternal, neonatal, and child health. The Cochrane database of systematic reviews. 2020.</a></div>\n<div class=\"src\"><span class=\"tag\">[4]</span> <a href=\"https://europepmc.org/article/PMC/PMC6791116\">Ames HM, Glenton C, Lewin S, et al. Clients&#x27; perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis. The Cochrane database of systematic reviews. 2019.</a></div>\n<div class=\"src\"><span class=\"tag\">[5]</span> <a href=\"https://iris.who.int/items/df396062-86b0-41c4-94c7-6e04e341bce2\">WHO guideline Recommendations on Digital Interventions for Health System Strengthening. 2019.</a></div>\n<div class=\"src\"><span class=\"tag\">[6]</span> <a href=\"https://europepmc.org/article/PMC/PMC6483307\">Arditi C, Rège-Walther M, Durieux P, et al. Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes. The Cochrane database of systematic reviews. 2017.</a></div>\n<div class=\"src\"><span class=\"tag\">[7]</span> <a href=\"https://europepmc.org/article/PMC/PMC4171964\">Shojania KG, Jennings A, Mayhew A, et al. The effects of on-screen, point of care computer reminders on processes and outcomes of care. The Cochrane database of systematic reviews. 2009.</a></div>\n<div class=\"src\"><span class=\"tag\">[8]</span> <a href=\"https://europepmc.org/article/PMC/PMC12269258\">Derksen C, Walter FM, Akbar AB, et al. The implementation challenge of computerised clinical decision support systems for the detection of disease in primary care: systematic review and recommendations. Implementation science : IS. 2025.</a></div>\n</div>"
+  }
+ ],
+ "provenance": {
+  "Using digital tools on mobile devices to help healthcare workers track patient information and make decisions has mixed results [1].": [
+   {
+    "source": "S001",
+    "start": 9853,
+    "end": 10722
+   }
+  ],
+  "These approaches may lead to benefits in some situations but may make little or no difference in others [1].": [
+   {
+    "source": "S001",
+    "start": 9853,
+    "end": 10722
+   },
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "The review authors say we often do not know the full impact, because there are not enough studies or the studies do not provide clear answers [1].": [
+   {
+    "source": "S001",
+    "start": 9853,
+    "end": 10722
+   }
+  ],
+  "Digital tracking systems help healthcare workers collect and store patient information over time, and mobile devices such as tablets and smartphones can make these systems easier to use in settings where health workers still rely on paper records [1].": [
+   {
+    "source": "S001",
+    "start": 10723,
+    "end": 11556
+   }
+  ],
+  "Tracking systems are sometimes combined with decision support tools, which guide healthcare workers in analysing patient data and deciding on the best treatment [1].": [
+   {
+    "source": "S001",
+    "start": 10723,
+    "end": 11556
+   }
+  ],
+  "They can also be combined with targeted client communication, which lets healthcare workers send patients messages such as appointment reminders, medication schedules or health advice [1].": [
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "A Cochrane review of this question included 18 studies [1].": [
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "Seventeen of these studies were from low- and middle-income settings where electronic medical record systems are rare or just being rolled out [1].": [
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "Most studies focused on healthcare workers using mobile devices for maternal and child health or for managing chronic diseases [1].": [
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "Compared with usual care, the results of combining digital tracking with decision support, targeted client communication, or both were mixed, although these tools may have some benefits [1].": [
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "Patient or client acceptability and satisfaction with the intervention was assessed in one study with 3324 participants, and the evidence was of moderate certainty [1].": [
+   {
+    "source": "S001",
+    "start": 173263,
+    "end": 174118
+   }
+  ],
+  "No study assessed resource use or unintended consequences [1].": [
+   {
+    "source": "S001",
+    "start": 173263,
+    "end": 174118
+   }
+  ],
+  "A separate Cochrane review of eight studies examined decision-support tools on mobile devices used by primary healthcare workers [2].": [
+   {
+    "source": "S002",
+    "start": 6763,
+    "end": 7621
+   },
+   {
+    "source": "S002",
+    "start": 8362,
+    "end": 9072
+   }
+  ],
+  "It found that we do not know whether these tools make healthcare workers better at following recommended practice, because the evidence was of very low quality [2].": [
+   {
+    "source": "S002",
+    "start": 6763,
+    "end": 7621
+   },
+   {
+    "source": "S002",
+    "start": 9073,
+    "end": 9861
+   }
+  ],
+  "There was no clear pattern of a positive or negative effect on patients' or clients' behaviour or on their health [2].": [
+   {
+    "source": "S002",
+    "start": 9073,
+    "end": 9861
+   }
+  ],
+  "The tools may slightly improve patients' satisfaction with medical information [2].": [
+   {
+    "source": "S002",
+    "start": 9073,
+    "end": 9861
+   }
+  ],
+  "That review found no studies on healthcare worker satisfaction, resource use, or unintended consequences such as harms [2].": [
+   {
+    "source": "S002",
+    "start": 9073,
+    "end": 9861
+   }
+  ],
+  "A Cochrane review of targeted client communication for pregnant women and parents found that some messages may improve some people's health and their use of health services, while others may make little or no difference [3].": [
+   {
+    "source": "S003",
+    "start": 9052,
+    "end": 9937
+   }
+  ],
+  "The evidence in that review is mostly of low or very low certainty [3].": [
+   {
+    "source": "S003",
+    "start": 9052,
+    "end": 9937
+   }
+  ],
+  "Compared with no messages, more parents may take their children to healthcare services such as vaccination appointments, but whether the messages improve children's health is unknown because the evidence is missing [3].": [
+   {
+    "source": "S003",
+    "start": 11632,
+    "end": 12398
+   }
+  ],
+  "Pregnant women living with HIV who received targeted messages may attend slightly more antenatal care appointments than women who got no messages [3].": [
+   {
+    "source": "S003",
+    "start": 10787,
+    "end": 11631
+   }
+  ],
+  "A qualitative synthesis of 35 studies found that many clients like receiving messages from health services by mobile phone [4].": [
+   {
+    "source": "S004",
+    "start": 7538,
+    "end": 8355
+   }
+  ],
+  "Some clients have problems receiving messages because of a lack of network access, internet or phone, or because of language, reading or privacy issues [4].": [
+   {
+    "source": "S004",
+    "start": 7538,
+    "end": 8355
+   }
+  ],
+  "Clients with stigmatised conditions such as HIV were concerned that taking part could lead to their status being disclosed [4].": [
+   {
+    "source": "S004",
+    "start": 134723,
+    "end": 135565
+   }
+  ],
+  "A separate review looked at computer-generated reminders delivered on paper rather than on a screen or by text message [6].": [
+   {
+    "source": "S006",
+    "start": 31117,
+    "end": 31825
+   }
+  ],
+  "It found that such reminders probably slightly improve the quality of care, based on moderate-certainty evidence [6].": [
+   {
+    "source": "S006",
+    "start": 7707,
+    "end": 8464
+   },
+   {
+    "source": "S006",
+    "start": 67606,
+    "end": 68370
+   }
+  ],
+  "The most direct evidence shows mixed results when mobile tracking is combined with on-screen guidance, patient reminders, or both [1].": [
+   {
+    "source": "S001",
+    "start": 9853,
+    "end": 10722
+   },
+   {
+    "source": "S001",
+    "start": 11557,
+    "end": 12381
+   }
+  ],
+  "These tools may help in some situations and make little or no difference in others [1].": [
+   {
+    "source": "S001",
+    "start": 9853,
+    "end": 10722
+   }
+  ],
+  "For decision-support tools alone, it is not known whether they improve health workers' practice, and there is no clear pattern of effects on patients' health [2].": [
+   {
+    "source": "S002",
+    "start": 9073,
+    "end": 9861
+   }
+  ],
+  "For patient messages alone, some may improve service use, such as attendance at vaccination appointments, but the evidence is mostly of low or very low certainty [3].": [
+   {
+    "source": "S003",
+    "start": 9052,
+    "end": 9937
+   },
+   {
+    "source": "S003",
+    "start": 11632,
+    "end": 12398
+   }
+  ],
+  "No study in the main review assessed resource use or unintended consequences, so these remain unknown [1].": [
+   {
+    "source": "S001",
+    "start": 173263,
+    "end": 174118
+   }
+  ],
+  "Overall, the reviews cannot yet say with confidence that these tools improve care or health, and they call for more and better studies.": [],
+  "According to the source, digital tracking may improve primary care workers' ability to follow recommended antenatal and chronic disease practices, quality of patient records, patient health outcomes and service use [1].": [
+   {
+    "source": "S001",
+    "start": 9577,
+    "end": 9767
+   }
+  ],
+  "According to the source, these interventions led to small or no outcome differences in most studies [1].": [
+   {
+    "source": "S001",
+    "start": 9768,
+    "end": 9852
+   }
+  ],
+  "According to the source, \"We are uncertain of the effect of this intervention on providers' adherence to recommended practice due to the very low certainty evidence (2 studies, 185 participants)\" [2].": [
+   {
+    "source": "S002",
+    "start": 5149,
+    "end": 5318
+   }
+  ],
+  "According to the source, \"We are uncertain about the effectiveness of mobile phone‐based decision‐support tools on several outcomes, including adherence to recommended practice\" [2].": [
+   {
+    "source": "S002",
+    "start": 6435,
+    "end": 6586
+   }
+  ],
+  "None of the studies had a quality of care framework and focused only on specific health areas [2].": [
+   {
+    "source": "S002",
+    "start": 6587,
+    "end": 6681
+   }
+  ],
+  "The source states: \"We need well‐designed research that takes a systems lens to assess these issues\" [2].": [
+   {
+    "source": "S002",
+    "start": 6682,
+    "end": 6762
+   }
+  ],
+  "According to the source, \"The effect of TCCMD for most outcomes is uncertain\" [3].": [
+   {
+    "source": "S003",
+    "start": 7332,
+    "end": 7383
+   }
+  ],
+  "According to the source, there may be improvements for some outcomes using targeted communication, but these findings were of low certainty [3].": [
+   {
+    "source": "S003",
+    "start": 7384,
+    "end": 7498
+   }
+  ],
+  "According to the source, \"High‐quality, adequately powered trials and cost‐effectiveness analyses are required to reliably ascertain the effects and relative benefits of TCCMD\" [3].": [
+   {
+    "source": "S003",
+    "start": 7499,
+    "end": 7649
+   }
+  ],
+  "The source states that future studies should measure potential unintended consequences, such as partner violence or breaches of confidentiality [3].": [
+   {
+    "source": "S003",
+    "start": 7650,
+    "end": 7771
+   }
+  ],
+  "According to the source, \"These include barriers to use that have equity implications\" [4].": [
+   {
+    "source": "S004",
+    "start": 6914,
+    "end": 6974
+   }
+  ],
+  "According to the source, it is uncertain whether reminders improve patient outcomes because the certainty of the evidence is very low [6].": [
+   {
+    "source": "S006",
+    "start": 7238,
+    "end": 7347
+   }
+  ],
+  "According to the source, \"The heterogeneity of the reminder interventions included in this review also suggests that reminders can probably improve quality of care in various settings under various conditions\" [6].": [
+   {
+    "source": "S006",
+    "start": 7348,
+    "end": 7531
+   }
+  ],
+  "According to the source, point of care computer reminders generally achieve small to modest improvements in provider behaviour [7].": [
+   {
+    "source": "S007",
+    "start": 5680,
+    "end": 5782
+   }
+  ],
+  "According to the source, a minority of interventions showed larger effects, but no specific reminder or contextual features were significantly associated with effect magnitude [7].": [
+   {
+    "source": "S007",
+    "start": 5783,
+    "end": 5934
+   }
+  ],
+  "The source states: \"Further research must identify design features and contextual factors consistently associated with larger improvements in provider behaviour if computer reminders are to succeed on more than a trial and error basis\" [7].": [
+   {
+    "source": "S007",
+    "start": 5935,
+    "end": 6150
+   }
+  ],
+  "All the non-randomised studies included in the review had a high risk of bias [1].": [
+   {
+    "source": "S001",
+    "start": 4304,
+    "end": 4355
+   }
+  ],
+  "Tracking combined with decision support may slightly increase postnatal home visits in the first week, complementary-feeding counselling, skin-to-skin care and early breastfeeding, while effects on several other newborn and maternal behaviours are uncertain [1].": [
+   {
+    "source": "S001",
+    "start": 4478,
+    "end": 5448
+   }
+  ],
+  "Digital tracking with client messaging may reduce low birthweight babies (RR 0.53) and, in stroke patients, may reduce deaths (RR 0.52) and stroke hospitalisations (RR 0.45), may slightly lower blood pressure, and may increase care-seeking for infant pneumonia or fever, while effects on stillbirths, neonatal and infant deaths, and HIV-positive antenatal tests are uncertain [1].": [
+   {
+    "source": "S001",
+    "start": 5449,
+    "end": 6299
+   }
+  ],
+  "Tracking combined with decision support and targeted client communication probably increases provider guideline adherence for antenatal anaemia screening and management, diabetes, and hypertension (single studies, ORs 1.45–1.88), but probably lowers adherence for abnormal foetal growth (OR 0.59) [1].": [
+   {
+    "source": "S001",
+    "start": 6300,
+    "end": 6748
+   }
+  ],
+  "Tracking with decision support and client communication may reduce deaths in people with hypertension and diabetes (OR 0.61, CI 0.35 to 1.06) and new cardiovascular events in high-risk adults (OR 0.58, CI 0.42 to 0.80), but may make little or no difference to adverse pregnancy outcomes [1].": [
+   {
+    "source": "S001",
+    "start": 6749,
+    "end": 8307
+   }
+  ],
+  "In adults with hypertension or diabetes (1 study, 3324 participants), tracking plus decision support plus targeted client communication may make little or no difference to HbA1c, total cholesterol, 10-year cardiovascular risk, tobacco use, alcohol use, or depression scores (PHQ-9) [1].": [
+   {
+    "source": "S001",
+    "start": 8308,
+    "end": 8672
+   }
+  ],
+  "The effects on maternal or infant mortality, blood pressure control, body mass index, fasting glucose and quality of life are uncertain, and the tools may have little or no effect on missed early infant diagnosis visits (1 study, 1183 participants; OR 0.92 [0.63, 1.35]) [1].": [
+   {
+    "source": "S001",
+    "start": 8673,
+    "end": 9110
+   }
+  ],
+  "Mobile digital tracking with decision support and/or reminders probably increases slightly the number of adults with hypertension or diabetes reporting a slightly or much better change in quality of care (one study, 3324 participants; RR 1.02, 95% CI 1.00 to 1.03), while effects on linkage to care are uncertain [1].": [
+   {
+    "source": "S001",
+    "start": 9111,
+    "end": 9361
+   }
+  ],
+  "No studies evaluated time between presentation and appropriate management, timeliness of receiving or accessing care, provider acceptability or satisfaction, resource use, or unintended consequences [1].": [
+   {
+    "source": "S001",
+    "start": 9362,
+    "end": 9555
+   }
+  ],
+  "The certainty of the evidence ranged from very low to moderate, with evidence often downgraded for risk of bias and imprecision [2].": [
+   {
+    "source": "S002",
+    "start": 5022,
+    "end": 5148
+   }
+  ],
+  "The effect on patients' and clients' health behaviours such as smoking and treatment adherence is mixed, with substantial variation across outcomes for similar types of behaviour (2 studies, 2262 participants) [2].": [
+   {
+    "source": "S002",
+    "start": 5319,
+    "end": 5549
+   }
+  ],
+  "The intervention probably makes little or no difference to smoking rates among people at risk of cardiovascular disease but probably increases other desired patient behaviours, such as adherence to treatment [2].": [
+   {
+    "source": "S002",
+    "start": 5550,
+    "end": 5773
+   }
+  ],
+  "The effect of the intervention on patients' and clients' health status and well-being is mixed, based on 5 studies with 69,767 participants [2].": [
+   {
+    "source": "S002",
+    "start": 5774,
+    "end": 5903
+   }
+  ],
+  "Digital tracking with decision support and/or reminders probably makes little or no difference to some types of health outcomes, but we are uncertain about others, including maternal and neonatal deaths, because the evidence is very low-certainty [2].": [
+   {
+    "source": "S002",
+    "start": 5904,
+    "end": 6105
+   }
+  ],
+  "The review found no studies that reported time between presentation of illness and appropriate management, provider acceptability or satisfaction, resource use, or unintended consequences [2].": [
+   {
+    "source": "S002",
+    "start": 6222,
+    "end": 6413
+   }
+  ],
+  "The review included 27 trials with 17,463 participants in total [3].": [
+   {
+    "source": "S003",
+    "start": 2743,
+    "end": 2787
+   }
+  ],
+  "Mobile tracking with decision support and/or client messaging (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common (RR 1.30, 95% CI 1.06 to 1.59; low-certainty evidence), but has little or no effect where almost all women breastfeed (low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 3346,
+    "end": 3721
+   }
+  ],
+  "Targeted client communication via mobile devices may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96), but this is low-certainty evidence and the confidence interval includes both benefit and harm [3].": [
+   {
+    "source": "S003",
+    "start": 3722,
+    "end": 3921
+   }
+  ],
+  "The intervention may increase skilled attendants at birth in settings where they are often lacking (though this differed by urban/rural residence), but may make no difference where almost all women already have one (OR 1.00, 95% CI 0.34 to 2.94; low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 3922,
+    "end": 4254
+   }
+  ],
+  "The effects on maternal and neonatal mortality and morbidity are uncertain because the certainty of the evidence was assessed as very low [3].": [
+   {
+    "source": "S003",
+    "start": 4255,
+    "end": 4396
+   }
+  ],
+  "Targeted client communication via mobile devices may have little or no effect on exclusive breastfeeding compared with non-digital targeted client communication such as pamphlets (RR 0.92, 95% CI 0.79 to 1.07; low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 4397,
+    "end": 4560
+   }
+  ],
+  "Targeted client communication via mobile devices may reduce any maternal health problem (RR 0.19, 95% CI 0.04 to 0.79) and any newborn health problem (RR 0.52, 95% CI 0.25 to 1.06) up to 10 days postpartum, based on low-certainty evidence, though the newborn interval includes both benefit and harm [3].": [
+   {
+    "source": "S003",
+    "start": 4561,
+    "end": 4818
+   }
+  ],
+  "The effect of these mobile tracking and prompt or reminder tools on health service use is unknown because too few studies have looked at it [3].": [
+   {
+    "source": "S003",
+    "start": 4819,
+    "end": 4888
+   }
+  ],
+  "For use of health services, the effect on skilled attendance at birth is uncertain (very low-certainty evidence), and the intervention may make little or no difference to antenatal influenza vaccination attendance (RR 1.05, 95% CI 0.71 to 1.58; low-certainty evidence, CI compatible with benefit and harm) [3].": [
+   {
+    "source": "S003",
+    "start": 5022,
+    "end": 5372
+   }
+  ],
+  "For pregnant and postpartum women living with HIV, tracking combined with client communication via mobile devices may make little or no difference to maternal and infant adherence to antiretroviral therapy compared with standard care (low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 5373,
+    "end": 5591
+   }
+  ],
+  "Targeted client communication reminders sent by mobile phone may slightly increase antenatal care use (mean difference 1.5, 95% CI –0.36 to 3.36), but this is low-certainty evidence and the interval includes no effect [3].": [
+   {
+    "source": "S003",
+    "start": 5592,
+    "end": 5764
+   }
+  ],
+  "The effect of mobile-device tracking with decision support and/or client reminders on the proportion of births occurring in a health facility is uncertain, because the evidence is of very low certainty [3].": [
+   {
+    "source": "S003",
+    "start": 5765,
+    "end": 5883
+   }
+  ],
+  "For health and well-being outcomes, the intervention's effect on neonatal death or stillbirth and on infant HIV was uncertain, because the evidence was of very low certainty [3].": [
+   {
+    "source": "S003",
+    "start": 5884,
+    "end": 6046
+   }
+  ],
+  "No studies reported on maternal mortality or morbidity, so the effect of these digital tracking and prompt or reminder tools on those outcomes is unknown [3].": [
+   {
+    "source": "S003",
+    "start": 6047,
+    "end": 6102
+   }
+  ],
+  "The effect of targeted client communication delivered via mobile devices compared with non-digital targeted client communication is unknown, because no studies reporting this comparison were found [3].": [
+   {
+    "source": "S003",
+    "start": 6103,
+    "end": 6203
+   }
+  ],
+  "Targeted client communication via mobile devices may increase infant ARV/prevention of mother-to-child transmission treatment adherence compared with digital non-targeted communication (RR 1.26, 95% CI 1.07 to 1.48; low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 6204,
+    "end": 6400
+   }
+  ],
+  "The effect on other outcomes is unknown because there are too few studies [3].": [
+   {
+    "source": "S003",
+    "start": 6401,
+    "end": 6464
+   }
+  ],
+  "For parents of children under five years, no studies reported on correct treatment, nutritional, or health outcomes, so the effect of these tools on those outcomes is unknown [3].": [
+   {
+    "source": "S003",
+    "start": 6465,
+    "end": 6585
+   }
+  ],
+  "Based on 10 trials, targeted client communication via mobile devices may modestly increase health service use such as vaccinations and HIV care compared with standard care (RR 1.21, 95% CI 1.08 to 1.34; low-certainty evidence), though estimates varied widely between studies [3].": [
+   {
+    "source": "S003",
+    "start": 6586,
+    "end": 6824
+   }
+  ],
+  "Targeted client communication via mobile devices may increase attendance for vaccinations compared with non-digital targeted client communication (RR 1.13, 95% CI 1.00 to 1.28; low-certainty evidence), and may make little or no difference to oral hygiene practices (low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 6825,
+    "end": 7045
+   }
+  ],
+  "Targeted client communication via mobile devices may reduce vaccination attendance compared with digital non-targeted communication, but the confidence interval includes both benefit and harm (RR 0.63, 95% CI 0.33 to 1.20; low-certainty evidence) [3].": [
+   {
+    "source": "S003",
+    "start": 7046,
+    "end": 7240
+   }
+  ],
+  "No trials in any population reported data on unintended consequences, so possible harms of these tools remain unassessed [3].": [
+   {
+    "source": "S003",
+    "start": 7241,
+    "end": 7310
+   }
+  ],
+  "Some clients could not be reached by reminder messages because they had no phone, had lost or broken it, could not afford airtime, or had changed their phone number (moderate confidence) [4].": [
+   {
+    "source": "S004",
+    "start": 5053,
+    "end": 5188
+   }
+  ],
+  "Some clients, particularly women and teenagers, had their access to phones controlled by others, which may limit whether they receive reminder messages (moderate confidence) [4].": [
+   {
+    "source": "S004",
+    "start": 5189,
+    "end": 5307
+   }
+  ],
+  "It is uncertain whether reminders, alone or added to other interventions, improve patient outcomes, because the certainty of the evidence is very low (6 studies, seven comparisons) [6].": [
+   {
+    "source": "S006",
+    "start": 6663,
+    "end": 6849
+   }
+  ],
+  "None of the included studies reported outcomes related to harms or adverse effects of the intervention, so its safety is not established by this evidence [6].": [
+   {
+    "source": "S006",
+    "start": 6850,
+    "end": 6953
+   }
+  ],
+  "Computer reminders for health professionals produced a median improvement in process adherence of 4.2% (IQR 0.8% to 18.8%) across all process outcomes, with similar modest medians for medication ordering (3.3%), vaccinations (3.8%) and test ordering (3.8%) [7].": [
+   {
+    "source": "S007",
+    "start": 4759,
+    "end": 5060
+   }
+  ],
+  "In a sensitivity analysis that used the best outcome from each study, the median improvement was 5.6% (IQR 2.0% to 19.2%) across all process measures and 6.2% (IQR 3.0% to 28.0%) across medication ordering measures [7].": [
+   {
+    "source": "S007",
+    "start": 5061,
+    "end": 5277
+   }
+  ],
+  "In eight comparisons that reported dichotomous clinical endpoints, intervention patients had a median absolute improvement of 2.5% (IQR 1.3% to 4.2%) [7].": [
+   {
+    "source": "S007",
+    "start": 5278,
+    "end": 5441
+   }
+  ],
+  "Blood pressure was the most commonly reported clinical endpoint, and intervention patients had a median systolic reduction of only 1.0 mmHg, with an IQR running from a 2.3 mmHg reduction to a 2.0 mmHg increase [7].": [
+   {
+    "source": "S007",
+    "start": 5442,
+    "end": 5658
+   }
+  ]
+ }
+}

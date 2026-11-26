@@ -1,0 +1,274 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve pri",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC11975193",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC11975193",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 40193137",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 40193137"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd012925.pub2",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd012925.pub2 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC8406991",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC8406991",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 34314020",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 34314020"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd012944.pub2",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd012944.pub2 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC8477611",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC8477611",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 32813276",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 32813276"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd013679",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd013679 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, m",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC6791116",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC6791116",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 31608981",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 31608981"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd013447",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd013447 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+      "checked_on": "2026-11-26",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'guideline' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and health",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC6483307",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC6483307",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 28681432",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 28681432"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd001175.pub4",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd001175.pub4 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S007": {
+      "source": "S007",
+      "title": "The effects of on-screen, point of care computer reminders on processes and outcomes of care.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC4171964",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC4171964",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 19588323",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 19588323"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd001096.pub2",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd001096.pub2 at Crossref"
+        }
+      ],
+      "comments": [
+        {
+          "source": "MED",
+          "id": "20423433",
+          "reference": "J Adv Nurs. 2010 Jan;66(1):16-21. doi: 10.1111/j.1365-2648.2009.05187.x.",
+          "type": "Comment in",
+          "orderIn": 1
+        }
+      ],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "The implementation challenge of computerised clinical decision support systems for the detection of disease in primary c",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC12269258",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC12269258",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 40671071",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 40671071"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1186/s13012-025-01445-4",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1186/s13012-025-01445-4 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    }
+  }
+}

@@ -1,0 +1,463 @@
+{
+ "candidates": {
+  "S001@9577-9767": {
+   "source": "S001",
+   "at": [
+    9577,
+    9767
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "d93ccad66192381d45e84090fb471b10cb311a4caaa7cc6f6ba8e5fe25337e84",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says digital tracking may improve primary care workers' adherence to recommended practices, record quality, patient health outcomes and service use, which directly addresses whether the intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "1c9b8ec2238e49b8",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:08+00:00"
+  },
+  "S001@9768-9852": {
+   "source": "S001",
+   "at": [
+    9768,
+    9852
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "eae1e356dbee419ae148d057a923cd767749b8a128f71909a6f0dcb4e786a891",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says these interventions led to small or no outcome differences in most studies, which bears directly on whether they improve care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "01542ed5de53413c",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:09+00:00"
+  },
+  "S002@5149-5318": {
+   "source": "S002",
+   "at": [
+    5149,
+    5318
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "adb959008c656efe444aedd6b809018ad26cb6cb5cc91b8e4b40bded599571a3",
+   "relevant": true,
+   "words": "improve the care people receive",
+   "reason": "The judgement says the evidence on providers' adherence to recommended practice, a care-delivery outcome of this intervention, is very low certainty, so a reader needs it to weigh whether care improves.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "e3e8b17cdbb5a872",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:10+00:00"
+  },
+  "S002@6435-6586": {
+   "source": "S002",
+   "at": [
+    6435,
+    6586
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "40f6fe194eb8f019a03ae1c3d88ce194bd248367d965875f8641dab8bdecfbac",
+   "relevant": true,
+   "words": "on-screen prompts that guide health workers … improve the care people receive",
+   "reason": "The judgement addresses the effectiveness of mobile phone-based decision-support tools on outcomes such as adherence to recommended practice, which is part of the intervention and care-delivery outcomes the question asks about.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "46dd0770df72502f",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:12+00:00"
+  },
+  "S002@6587-6681": {
+   "source": "S002",
+   "at": [
+    6587,
+    6681
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6ea826b239c0252037734eb7efecd1bf3af2852e891e39b89bfe078a132bf711",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the studies lacked a quality of care framework and covered only specific health areas, which limits how far the evidence can show that these tools improve care and health, so a reader would need it to weigh the answer.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "b266292d5054b95d",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:14+00:00"
+  },
+  "S002@6682-6762": {
+   "source": "S002",
+   "at": [
+    6682,
+    6762
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "f68587257a5ee16313db5efe81a07e43fe43d7b551a8c37cd18a765ba6ac8b32",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement is a research-gap statement about the evidence on this same intervention's effects, so it affects how confidently the answer on care and health outcomes can be weighed.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "53bca4d8ac58a088",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:17+00:00"
+  },
+  "S003@7332-7383": {
+   "source": "S003",
+   "at": [
+    7332,
+    7383
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "00cdb74538a7434be3ac936392098fe11cb04e1ee12b568188a46688c12e0f9b",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement that the effect of TCCMD (tracking combined with communication on mobile devices) is uncertain for most outcomes speaks directly to whether the intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "cfc16d4859ac5401",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:19+00:00"
+  },
+  "S003@7384-7498": {
+   "source": "S003",
+   "at": [
+    7384,
+    7498
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1136435e201e423f4cadca50010acc5029b5210cc8d1cdc7bc014f2deb5413eb",
+   "relevant": true,
+   "words": "reminder messages sent to patients",
+   "reason": "The judgement says targeted communication may improve some outcomes but the evidence is of low certainty, which bears directly on whether the intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "f1e480a44566c045",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:20+00:00"
+  },
+  "S003@7499-7649": {
+   "source": "S003",
+   "at": [
+    7499,
+    7649
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "ddc02d5a2eedce76940990fbf4af259d24d1480cddb442bd5f7ad692a542912a",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says high-quality, adequately powered trials are still needed to establish the effects of tracking and communication via mobile devices (TCCMD), so it bears directly on how far the evidence shows improved care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "e15ae4fb0469f2d5",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:21+00:00"
+  },
+  "S003@7650-7771": {
+   "source": "S003",
+   "at": [
+    7650,
+    7771
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "75d0738edf0c6f8093615b4ff837d7ba6338f60afabde0e2fc2669a8b458dd66",
+   "relevant": true,
+   "words": "possible unintended consequences",
+   "reason": "The judgement says studies have not yet measured unintended harms such as partner violence or confidentiality breaches, so a reader needs it to weigh whether the evidence shows these tools improve care without causing harm.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "c48a3292852e26c7",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:23+00:00"
+  },
+  "S004@4968-5052": {
+   "source": "S004",
+   "at": [
+    4968,
+    5052
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "f075b080e414da54eca391282b41fc6c9f9c4f88ceec35aecf438913e4a83cf7",
+   "relevant": false,
+   "words": "",
+   "reason": "Clients' poor access to cell networks and the internet is a technical feasibility and connectivity issue, which the scope explicitly excludes; it does not show whether the tools improve care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bbe8f0a10921c1ff",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:29+00:00"
+  },
+  "S004@5308-5428": {
+   "source": "S004",
+   "at": [
+    5308,
+    5428
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "7b53d54ff9fce93c5cbdc1428c4e9436900e6c431df15af2dfef3a833baf20e4",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports clients' views on the cost of messages, an acceptability and cost concern that the scope explicitly excludes, not evidence on whether the intervention improves care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "39f4913e6ce9cfbf",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:32+00:00"
+  },
+  "S004@5555-5737": {
+   "source": "S004",
+   "at": [
+    5555,
+    5737
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "768535b8301f8e39396e25dc5d406fd3471c3fcd05d71a773b3cedfa14ac6c0f",
+   "relevant": false,
+   "words": "",
+   "reason": "This is a qualitative finding about clients' privacy concerns, which falls under clients' acceptability and lived experience of the tools, explicitly out of scope for this effectiveness question.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c5e167f08a52f5b3",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:37+00:00"
+  },
+  "S004@5738-5909": {
+   "source": "S004",
+   "at": [
+    5738,
+    5909
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "263374368b40b3ab114ff46af44b56cb77cb414c7257ae6350a5d3d8651468a6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports clients' suggestions for wording and timing messages, which is acceptability and lived-experience evidence that the scope explicitly excludes, not evidence on whether the tools improve care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ff7134c8e8803427",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:42+00:00"
+  },
+  "S004@6758-6913": {
+   "source": "S004",
+   "at": [
+    6758,
+    6913
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "9dbb7d59c4f47140de8483b01158156ffd0e5f49ca55bce2fc1082e13ac84691",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns factors affecting the implementation of client communication programmes, likely from a qualitative synthesis, rather than whether digital tracking combined with prompts or reminders improves care or health, which is what the question asks.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2c2671adb0b13379",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:47+00:00"
+  },
+  "S004@6914-6974": {
+   "source": "S004",
+   "at": [
+    6914,
+    6974
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "b16f610ff5d9d89276e8cdb3e7e9dfd89c74aa730a28ac7df3e5c9950a017b6b",
+   "relevant": true,
+   "words": "possible unintended consequences",
+   "reason": "Barriers to using the mobile tracking and reminder tools that carry equity implications bear on who benefits from the intervention and on its possible unintended consequences, which the scope covers.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "89e743228517d492",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:53+00:00"
+  },
+  "S004@6975-7076": {
+   "source": "S004",
+   "at": [
+    6975,
+    7076
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "2815db6fa22966352a04ef3a4103332ec330ebd38bfad6f0d2f17d83124ab380",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a generic instruction to programme planners about unspecified implementation factors, and says nothing about whether mobile tracking with prompts or reminders improves care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9ecc542bad721866",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:06:57+00:00"
+  },
+  "S004@7077-7198": {
+   "source": "S004",
+   "at": [
+    7077,
+    7198
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "d79ca90375967285a6e77189511a1335157dd0d38d89a382b3c1d601f7874039",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a vague recommendation about how future trial authors should address and report unspecified factors, so it says nothing about whether the intervention improves care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2757ee9d509a549c",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:03+00:00"
+  },
+  "S006@6975-7237": {
+   "source": "S006",
+   "at": [
+    6975,
+    7237
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "d537e5dad3965e77942cbdf8d191305742508a6f51e103939c9e229b96457e6b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns computer-generated reminders printed on paper for healthcare professionals, not mobile-device client tracking with on-screen prompts or client reminder messages, so it is about a different intervention.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "de80e083b02b79c6",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:09+00:00"
+  },
+  "S006@7238-7347": {
+   "source": "S006",
+   "at": [
+    7238,
+    7347
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "29c7f3508cad93bdcdcdb70d8019acfd7a98c112d209e8f2d4131a2e3ee035f5",
+   "relevant": true,
+   "words": "reminder messages sent to patients … improve the care people receive and their health",
+   "reason": "The judgement says the evidence on whether reminders improve patient outcomes is very low certainty, which bears directly on the question's reminder-message component and its health outcomes.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "036d9347d6c5b459",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:11+00:00"
+  },
+  "S006@7348-7531": {
+   "source": "S006",
+   "at": [
+    7348,
+    7531
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e7be4d206e2faa55d187ca1c86f02bcbf3cf0efdb048558c056207e441f64b5e",
+   "relevant": true,
+   "words": "reminder messages sent to patients … improve the care people receive",
+   "reason": "The judgement says heterogeneous reminder interventions suggest reminders can probably improve quality of care across settings, which bears on whether reminders improve care.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "ee90172464e9ca43",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:12+00:00"
+  },
+  "S007@5680-5782": {
+   "source": "S007",
+   "at": [
+    5680,
+    5782
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "eabbdb6f58c8f5ac238212463c40d9cbee3c692a60b4547dd0916881ee9cdabd",
+   "relevant": true,
+   "words": "on-screen prompts that guide health workers",
+   "reason": "The judgement says point-of-care computer reminders give small to modest improvements in provider behaviour, which is evidence on whether on-screen prompts for health workers improve the care delivered.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "6a2208e58c92d4a3",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:14+00:00"
+  },
+  "S007@5783-5934": {
+   "source": "S007",
+   "at": [
+    5783,
+    5934
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "a384816ff2c4b92d6a39bbd602e5b9ea59e3ff11afc7f2eefaf01e657dde3b3b",
+   "relevant": true,
+   "words": "on-screen prompts that guide health workers, reminder messages sent to patients",
+   "reason": "The judgement covers how large the effects of reminder interventions are and whether reminder features explain that size, which bears on whether the prompts and reminders improve care.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dae2d94dfab806d1",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:19+00:00"
+  },
+  "S007@5935-6150": {
+   "source": "S007",
+   "at": [
+    5935,
+    6150
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "61dc48938c6da787592575db158a725604690ea8437ba15f4c72c0fb96182e86",
+   "relevant": true,
+   "words": "on-screen prompts that guide health workers",
+   "reason": "The judgement says computer reminders to providers improve provider behaviour inconsistently and that the features behind larger effects are not yet known, which bears on whether on-screen worker prompts improve care.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f4a93efe9cda1c07",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:25+00:00"
+  },
+  "S008@4144-4275": {
+   "source": "S008",
+   "at": [
+    4144,
+    4275
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "dfcc06b5a9d479827a2b8446a5598aac19106cf826c9f10c23aa060e1a4e26df",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns barriers to implementing clinical decision support in primary care, not whether the tools improve care or health, and the scope explicitly excludes implementation feasibility.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "94d796f3df4d8c4f",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:30+00:00"
+  },
+  "S008@4276-4475": {
+   "source": "S008",
+   "at": [
+    4276,
+    4475
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "f909dce2815f768832d7b2019f491d845eaaa21bb54f41f7074fc9794c6b99e4",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the design-stage feasibility of decision-support systems in primary care, which the scope explicitly excludes ('technical feasibility of implementation'), rather than whether these tools improve care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "79ef0142eb2f6275",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:35+00:00"
+  },
+  "S008@4476-4737": {
+   "source": "S008",
+   "at": [
+    4476,
+    4737
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "5caba336d7433a12e87d9e1b9b951ee1c29a9de5e17b1a9d79a84b94e7889a2a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement only gives a review's PROSPERO registration number and a pointer to supplementary material, and says nothing about mobile-device tracking, decision support, client reminders, or their effects on care or health.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "acfcea80dd7c0951",
+   "to_person": false,
+   "decided_at": "2026-11-26T21:07:38+00:00"
+  }
+ }
+}
