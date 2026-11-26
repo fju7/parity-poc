@@ -58,7 +58,8 @@ MODULE_READS = {
     "conclusion_judge": ("published.json",),
     "audit_stage": ("human_reads.jsonl", "manifest.json", "read.md", "rule.md", "sources.json", "summary.md"),
     "consistency": ("rulings.jsonl",),
-    "coverage_check": ("sources.json", "bindings.json", "issue.json"),   # removed_units (ruling 3 on P152)
+    "coverage_check": ("sources.json", "bindings.json", "issue.json",    # removed_units (ruling 3 on P152)
+                       "chain.jsonl"),                                     # acquire_began (ruling 1 on P157)
     "quotations": (".gate.json", "inherited.json", "sources.json", "issue.json"),   # issue.json: match_held's question
     "applied_check": ("manifest.json", "omissions.json", "rulings.jsonl"),
     "omissions": (),

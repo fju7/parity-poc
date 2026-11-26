@@ -562,6 +562,49 @@ def stated_on_page(d: dict, spans: dict, said: dict) -> str | None:
     return stated_by_figures(d.get("text") or "", said.get(d["source"], []))
 
 
+def acquire_began(case: Path) -> str | None:
+    """When the run's acquire step began: the chain row of the step before it (acquire starts as that step ends);
+    None with no chain or no acquire row (then every declaration counts)."""
+    p = Path(case) / "orchestrator" / "chain.jsonl"
+    if not p.exists():
+        return None
+    rows = [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+    names = [r.get("step") for r in rows]
+    if "acquire" not in names or names.index("acquire") == 0:
+        return None
+    return rows[names.index("acquire") - 1].get("at")
+
+
+def budget_exempt(d: dict, scope: dict, case: Path, written_at: str | None = None) -> bool:
+    """Ruling 1 on P157: an out_of_scope declaration does not count against the budget when code confirms its
+    element names a specific scope.out element (scope_element_ok against scope.out only, not the question) AND the
+    scope was written before the run's acquire began. Not material, an element naming no scope.out entry, or a scope
+    written after acquire began: it counts."""
+    import omissions as O
+    if d.get("state") != "out_of_scope" or not (d.get("element") or "").strip():
+        return False
+    ok, _why = O.scope_element_ok(d["element"], dict(scope or {}, question=""))
+    began, written = acquire_began(case), written_at or (scope or {}).get("written_at") or ""
+    return bool(ok and began and written and written < began)
+
+
+def budget_count(decls: list[dict], scope: dict | None = None, case: Path | None = None,
+                 written_at: str | None = None) -> tuple[list, list, list]:
+    """(counted, exempt, counted once already) over the declarations the budget counts (COUNTED states), in order."""
+    counted, exempt, twice = [], [], []
+    for d in decls:
+        if d["state"] not in COUNTED:
+            continue
+        if case is not None and budget_exempt(d, scope or {}, case, written_at):
+            exempt.append(d)
+        elif any(c["source"] == d["source"] and c.get("at") and d.get("at") and _overlaps(c["at"], d["at"])
+                 for c in counted):
+            twice.append(d)
+        else:
+            counted.append(d)
+    return counted, exempt, twice
+
+
 def declarations(slug: str, held: dict[str, str], case: Path | None = None,
                  hidden: list | None = None) -> list[dict]:
     """Every declared finding the readers' list must show, oldest first:
@@ -773,7 +816,10 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     # agent's declarations (out_of_scope, not_material, relevance not
     # established). A not_added_cap line follows from a cap being reached, not
     # from anybody's choice, so it is shown but not counted (WHU-S01r).
-    counted = [d for d in decls if d["state"] in COUNTED]
+    # Ruling 1 on P157: a declaration naming a scope.out element, with the scope written before acquire, is exempt.
+    # Ruling 3 on P157: a unit is counted once, whether coverage.json or omissions.json declares it (same source,
+    # overlapping offsets).
+    counted, exempt, twice = budget_count(decls, scope, case, ((premise_doc or {}).get("scope") or {}).get("written_at"))
     over = []
     for d in counted[budget:]:
         ok = d.get("by") and not signers.is_agent(d["by"]) and \
@@ -793,11 +839,15 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
         if over:
             bits.append(("%d declaration(s) past the budget of %d (lean WHU: a STOP; use, add or cut them)"
                          if LEAN else "%d declaration(s) past the budget of %d with no person's sign-off")
-                        % (len(over), budget))
+                        % (len(over), budget) +
+                        ("; not counted: %d naming a scope.out element (scope fixed before acquire), %d counted "
+                         "once already" % (len(exempt), len(twice)) if (exempt or twice) else ""))
         out.append((ROW_LIST, BAD, "; ".join(bits)))
     else:
-        out.append((ROW_LIST, OK, "%d declared finding(s), each on the page; %d counted against the budget of %d%s"
+        out.append((ROW_LIST, OK, "%d declared finding(s), each on the page; %d counted against the budget of %d%s%s"
                     % (len(decls), len(counted), budget,
+                       ("; not counted: %d naming a scope.out element (scope fixed before acquire), %d counted once "
+                        "already" % (len(exempt), len(twice))) if (exempt or twice) else "",
                        ("; %d listed declaration(s) removed by the lean fail-safe (removed: unresolved "
                         "finding), their declarations kept in the records" % len(removed_lines))
                        if removed_lines else "")))
