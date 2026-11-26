@@ -456,6 +456,9 @@ def _rel(page: Path) -> str:
         return str(page)
 
 
+FD = {"fold_dashes": False}        # match_held's equivalence, for the "quotations match the source" row (ruling 4)
+
+
 def preflight_rows(slug: str, page_text: str,
                    page: Path | None = None) -> list[tuple[str, str, str]]:
     on_page = extract(page_text)
@@ -529,7 +532,9 @@ def preflight_rows(slug: str, page_text: str,
         if r.get("kind") == "rhetorical":
             rhetorical += 1
             continue
-        verbatim = norm(r.get("verbatim", ""))
+        # match_held's character equivalence (advisor's ruling 4 on P118-P121): hyphens one character, U+2212,
+        # U+2013 and U+2014 distinct, in every comparison this row makes (FD); record keys keep the default norm()
+        verbatim = norm(r.get("verbatim", ""), **FD)
         if not verbatim:
             a = already_recorded(q, on_file)
             if a:
@@ -542,7 +547,7 @@ def preflight_rows(slug: str, page_text: str,
                 unattested.append("%s: nothing recorded as the source's wording"
                                   % (r.get("id") or q[:40]))
             continue
-        if not quoted_in(norm(q), verbatim):
+        if not quoted_in(norm(q, **FD), verbatim):
             altered.append("%s: page has %r; source has %r"
                            % (r.get("id") or "?", q[:60], r.get("verbatim", "")[:60]))
             continue
@@ -568,14 +573,14 @@ def preflight_rows(slug: str, page_text: str,
             # ANY rendition carries it; "interrupted" is claimed only when no
             # rendition matches whole and one matches across an insertion.
             raw = _SC._texts(slug, sid_now)
-            bodies = [(f, norm(_SC._norm(t))) for f, t in raw]
+            bodies = [(f, norm(_SC._norm(t, **FD), **FD)) for f, t in raw]
             if not bodies:
                 bodies = [("", "")]
             # THE PAGE'S QUOTATION against the bytes. This is the claim a
             # reader is owed -- that the words inside the quotation marks are
             # the source's -- so it is tested directly, not through the
             # typed `verbatim` field.
-            qn = norm(q)
+            qn = norm(q, **FD)
             # A HYPHEN THE PDF TEXT DROPPED is not a different wording: S029's
             # "high-quality" extracts as "highquality". PDF layers only, and
             # said so (spancheck.find_dropping_hyphens).
@@ -586,7 +591,8 @@ def preflight_rows(slug: str, page_text: str,
                                                         dh[0][-16:]))
             # SSRN's watermark interleaved in a preprint's text (spancheck.strip_ssrn).
             sw = [] if (dh or any(quoted_in(qn, b) for _f, b in bodies)) else \
-                [f for f, t in raw if (lambda x: x and quoted_in(qn, norm(x)))(_SC.strip_ssrn(_SC._norm(t)))]
+                [f for f, t in raw if (lambda x: x and quoted_in(qn, norm(x, **FD)))(
+                    _SC.strip_ssrn(_SC._norm(t, **FD)))]
             if sw:
                 unwatermarked.append("%s: in %s (%s)" % (r.get("id") or "?", sid_now, sw[0][-16:]))
             if not dh and not sw and not any(quoted_in(qn, b) for _f, b in bodies):
@@ -609,8 +615,8 @@ def preflight_rows(slug: str, page_text: str,
             # S043's "Budzyń" as "Budzyn" (Q-05). A match that holds only with
             # the marks dropped is a match, and the record says so.
             if any(quoted_in(qn, b) for _f, b in bodies):
-                strict = norm(q, fold_accents=False)
-                if not any(quoted_in(strict, norm(_SC._norm(t), fold_accents=False))
+                strict = norm(q, fold_accents=False, **FD)
+                if not any(quoted_in(strict, norm(_SC._norm(t, **FD), fold_accents=False, **FD))
                            for _f, t in raw):
                     accented.append("%s: %s" % (
                         r.get("id") or "?", ", ".join(accent_folds(q))
@@ -621,11 +627,11 @@ def preflight_rows(slug: str, page_text: str,
             # interruption, the transcription dropped or changed something --
             # Q-21's omitted "(https://www.medcalc.org/)" -- which is a defect
             # in the record, not in the page, and is reported as that.
-            vn = norm(r.get("verbatim", ""))
+            vn = norm(r.get("verbatim", ""), **FD)
             if not any(vn in b or interrupted_by(vn, b) is not None
                        or (_SC.is_pdf_layer(_f) and _SC.find_dropping_hyphens(vn, b))
                        for _f, b in bodies) and not any(
-                    (lambda x: x and vn in norm(x))(_SC.strip_ssrn(_SC._norm(t))) for _f, t in raw):
+                    (lambda x: x and vn in norm(x, **FD))(_SC.strip_ssrn(_SC._norm(t, **FD))) for _f, t in raw):
                 transcription.append(
                     "%s: the page's quotation is in %s but the recorded verbatim "
                     "context is not, whole or across one interruption — something "
