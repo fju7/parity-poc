@@ -123,8 +123,8 @@ def test_the_stage_cap_prices_relevance_rulings(tmp_path):
     (d / "rulings.jsonl").write_text(json.dumps({"ruling_kind": "relevance", "usage": {"usd": 0.01}}) + "\n" +
                                      json.dumps({"ruling_kind": "omission", "usage": {"usd": 0.09}}) + "\n")
     each, how = SC.per_unit("judgements", entries=[], issues_dir=tmp_path)
-    assert each == pytest.approx(0.01) and "relevance" in how
-    assert SC.per_unit("judgements", entries=[], issues_dir=tmp_path / "none")[0] == 0.02
+    assert each == pytest.approx(0.02) and "relevance" in how                 # ruling 2 on P140: x 2
+    assert SC.per_unit("judgements", entries=[], issues_dir=tmp_path / "none")[0] == pytest.approx(0.04)
 
 
 def test_the_judgements_mode_is_capped_as_judgements(monkeypatch):

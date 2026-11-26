@@ -101,7 +101,8 @@ class Ctx:
         e.update({"WHU_LEAN": "1", "WHU_ORCH_MODE": self.mode, "WHU_ORCH_STEP": step.name,
                   "WHU_ORCH_TOKEN": self.lock.token if self.lock else "", "WHU_ORCH_ISSUE": self.slug,
                   "WHU_ORCH_ALLOW": json.dumps(ST.allow_for(step)), "WHU_ORCH_STEP_START": now(),
-                  "WHU_ORCH_STEP_CAP": str(step.cap_usd), "WHU_ORCH_STEP_CALLS": str(step.max_calls)})
+                  "WHU_ORCH_STEP_CAP": str(step.cap_usd), "WHU_ORCH_STEP_CALLS": str(step.max_calls),
+                  "WHU_ORCH_LIMITS_SHA": _limits_sha()})
         if self.lock:
             e["WHU_ORCH_LOCK"] = str(self.lock.path)
         if getattr(self, "malformed_log", None):
@@ -1063,6 +1064,12 @@ def _open_units(ctx: Ctx) -> list[dict]:
             units += got
     acc = C.account(units, rows, held, O.load(ctx.case), C.load(ctx.case).get("declarations") or {})
     return [u for u in acc if u["state"] == "none"]
+
+
+def _limits_sha() -> str:
+    """reply_limits.sha(): the reply-limits table this run's costs are measured under (stage_cap pools by it)."""
+    import reply_limits as RL
+    return RL.sha()
 
 
 def code_coverage(ctx: Ctx, step) -> dict:

@@ -2922,6 +2922,57 @@ def dry_run_plan(selection: dict, recency_carried: bool = False) -> tuple[list[s
     return lines, est
 
 
+_GATE_RUN: dict = {}
+
+
+def _gate_cost(mode: str) -> dict | None:
+    if _spend is None or "spent_at_start" not in _GATE_RUN:
+        return None
+    try:
+        now = _spend.spent(issue=_LEDGER_ISSUE)
+    except Exception:
+        return None
+    return {"lean_config": _GATE_RUN.get("lean_config") or gate_config(mode),
+            "usd": round(now - _GATE_RUN["spent_at_start"], 6), "bound": _GATE_RUN.get("bound"),
+            "bound_how": _GATE_RUN.get("how")}
+
+
+def gate_config(mode: str) -> dict:
+    """The gate run's configuration, recorded in its report (cost.lean_config) and matched by stage_cap.gate_bound:
+    script, mode, model, lean, orchestrated, and the reply limits its call sites run under."""
+    orch = bool(os.environ.get("WHU_ORCH_STEP") or os.environ.get("WHU_ORCH_MODE"))
+    limits = None
+    if orch and _RL is not None:
+        limits = {s: _RL.limit(s) for s in ("fc:recency", "fc:source")}
+    return {"script": "factcheck_draft.py", "mode": mode, "model": SIGNAL_MODEL,
+            "lean": os.environ.get("WHU_LEAN") == "1", "orchestrated": orch, "limits": limits}
+
+
+def gate_dry_estimate(mode: str, n_calls: int | None) -> float:
+    """The gate's own dry-run estimate: the narrow plan's EST_PER_CALL x its calls (dry_run_plan's figure); a full
+    run has no dry run, so Phase B's measured full run (stage_cap's gate-full fallback) stands for it."""
+    if mode == "narrow":
+        return EST_PER_CALL * int(n_calls or 0)
+    return 4.63
+
+
+def _gate_guard(mode: str, slug: str, n_calls: int | None) -> None:
+    """Before the gate's first paid call: its bound, max(dry-run estimate, the highest same-config gate run) x 2
+    (stage_cap.gate_bound), checked against the day, issue and line caps; exits 3 if it does not fit. The per-call
+    check in call() remains the hard backstop."""
+    if _spend is None:
+        return
+    import importlib.util as _ilu3
+    _sp = _ilu3.spec_from_file_location(
+        "stage_cap", Path(__file__).resolve().parents[1] / "whatholdsup" / "stage_cap.py")
+    _sc = _ilu3.module_from_spec(_sp)
+    _sp.loader.exec_module(_sc)
+    cfg = gate_config(mode)
+    amount, how = _sc.gate_bound(cfg, gate_dry_estimate(mode, n_calls))
+    _GATE_RUN.update({"lean_config": cfg, "bound": amount, "how": how})
+    _sc.guard_amount("the machine gate (%s)" % mode, slug, amount, how)
+
+
 def _stage_guard(stage: str, slug: str, units: int) -> None:
     """Before the gate's first paid call: refuse to start if the run's
     estimate, from measured gate costs, exceeds the cap left today or on the
@@ -3160,10 +3211,14 @@ def main():
         # Set BEFORE any API call, so every ledger line written during the run
         # is attributed to the right issue. _ledger_now reads this.
         enter_issue(_issue_slug)
+        _GATE_RUN["spent_at_start"] = _spend.spent(issue=_issue_slug)
         try:
-            _spend.check_cap(_issue_slug, about_to_spend=3.0)
+            # Already past a cap? The run's own bound is checked before its first paid call (_gate_guard, advisor's
+            # ruling 1 on P140): the fixed $3.00 that stood here refused every $3.00-capped run that had spent
+            # anything before the gate (02-batch run 1, Q1-04: $1.24 spent, dry run $0.75).
+            _spend.check_cap(_issue_slug, about_to_spend=0.0)
         except Exception as _exc:
-            if type(_exc).__name__ == "OverCap":
+            if isinstance(_exc, _spend.OverCap):     # OverIssueCap and OverLineCap too (was: the name OverCap only)
                 print("\n  STOPPED BEFORE SPENDING.\n")
                 for _line in str(_exc).splitlines():
                     print("  " + _line)
@@ -3187,7 +3242,7 @@ def main():
 
     narrow = None
     if mode == "full":
-        _stage_guard("gate-full", issue_slug_for(args.draft), 1)
+        _gate_guard("full", issue_slug_for(args.draft), None)
         claims = extract_claims(draft)
         if claims is None:
             print("\n[BLOCKED] Could not extract claims. Nothing was checked.")
@@ -3223,7 +3278,7 @@ def main():
               % (len(claims), narrow.get("considered", 0)))
         # one call per attributed source group, plus recency (counted even if
         # a --since report would carry it: the estimate errs high)
-        _stage_guard("gate-narrow", issue_slug_for(args.draft), len(source_groups(claims)) + 1)
+        _gate_guard("narrow", issue_slug_for(args.draft), len(source_groups(claims)) + 1)
 
     prior = load_prior(args.since)
     if prior and (prior.get("mode") or "full") != mode:
@@ -3382,6 +3437,8 @@ def main():
                          ["extract", "source", "recency", "advocate", "inference",
                           "coverage"],
             "roles_not_run": list(FULL_ONLY_ROLES) if mode == "narrow" else [],
+            # What this run cost, under which configuration (stage_cap.gate_bound pools by it).
+            "cost": _gate_cost(mode),
             "narrow": None if narrow is None else {
                 "selector": "backend/scripts/whatholdsup/narrow_gate.py",
                 "considered": narrow.get("considered", 0),

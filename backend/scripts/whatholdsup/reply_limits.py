@@ -64,6 +64,15 @@ NO_REASK = {"google-preflight"}
 _SUFFIX = re.compile(r"-(retry|reask|one-sentence|repeat|summary|escalate|second|cutoff-reask)$")
 
 
+def sha() -> str:
+    """A short hash of the table (LIMITS, PROVIDER_MAX, NO_REASK): the configuration a measured cost was spent under
+    (stage_cap.current_config; the orchestrator passes it to every step as WHU_ORCH_LIMITS_SHA)."""
+    import hashlib
+    import json
+    return hashlib.sha256(json.dumps({"limits": LIMITS, "max": PROVIDER_MAX, "no_reask": sorted(NO_REASK)},
+                                     sort_keys=True).encode()).hexdigest()[:16]
+
+
 def site_of_role(role: str) -> str:
     """The call site an audit_stage.Caller role belongs to. Roles are the strings the callers pass: model_steps
     ("premise", "coverage", "judgement_sentence", "premise-reading", "draft"), audit_stage ("read", "read-escalate",

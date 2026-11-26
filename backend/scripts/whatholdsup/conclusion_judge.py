@@ -358,7 +358,7 @@ def judge(slug: str, *, ask=None, today: str | None = None) -> dict:
     to_judge, keep = plan(review, rows)
     if to_judge and real:
         import stage_cap
-        stage_cap.guard("conclusions", slug, len(to_judge))     # before the first paid call
+        stage_cap.guard("conclusions", slug, len(to_judge), model=JUDGE_MODEL)     # before the first paid call
     if to_judge:
         states = access_states(slug)
         text = page_text(slug)

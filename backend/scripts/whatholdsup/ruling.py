@@ -87,6 +87,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -438,7 +439,8 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
     rec = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "by": by,
            "model": model, "ruling_kind": kind, "prompt": str(path.relative_to(HERE)),
            "prompt_sha256": prompt_sha(kind, grouped), "inputs": p, "inputs_sha256": sha(json.dumps(p)),
-           **ref, **got, "got": got, "usage": usage}
+           **ref, **got, "got": got, "usage": usage,
+           **({"limits_sha": os.environ["WHU_ORCH_LIMITS_SHA"]} if os.environ.get("WHU_ORCH_LIMITS_SHA") else {})}
     if cut:
         rec["after_cut_off"] = cut          # the attempt(s) cut off before this reply
     if reasked:

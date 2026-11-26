@@ -25,14 +25,15 @@ def test_the_omission_estimate_is_the_mean_of_omission_rulings_only(tmp_path):
                     {"ruling_kind": "omission", "usage": {"usd": 0.02}},
                     {"ruling_kind": "advocate", "usage": {"usd": 0.50}}])
     each, how = SC.per_unit("omissions", entries=[], issues_dir=tmp_path)
-    assert each == pytest.approx(0.03) and "2 logged omission ruling(s)" in how
+    # advisor's ruling 2 on P140: the highest same-config ruling x 2 (were the means 0.03 and 0.56 / 3)
+    assert each == pytest.approx(0.08) and "2 same-config logged omission ruling(s)" in how
     each_all, _ = SC.per_unit("rulings", entries=[], issues_dir=tmp_path)
-    assert each_all == pytest.approx(0.56 / 3)
+    assert each_all == pytest.approx(1.00)
 
 
 def test_with_nothing_measured_the_design_figure_is_used(tmp_path):
     each, how = SC.per_unit("omissions", entries=[], issues_dir=tmp_path)
-    assert each == 0.03 and "nothing measured yet" in how
+    assert each == pytest.approx(0.06) and "nothing measured yet" in how      # the design figure x 2
     assert "omissions" in SC.STAGES and SC.UNIT["omissions"] == "omission unit"
 
 

@@ -43,9 +43,10 @@ def test_per_unit_figures_are_measured(ledger):
                _e("advocate-requote:S1", 0.10, at="2026-10-01T02:00:00+00:00"),
                _e("advocate:S2", 0.50, at="2026-10-01T01:00:00+00:00"),
                _e("source:Paper", 0.30), _e("recency", 0.50), _e("changecheck", 0.04)]
-    assert SC.per_unit("advocate")[0] == pytest.approx(0.40)              # (0.30 + 0.50) / 2 sources
-    assert SC.per_unit("gate-narrow")[0] == pytest.approx(0.40)
-    assert SC.estimate("changecheck", 1)[0] == pytest.approx(0.04)
+    # advisor's ruling 2 on P140: the highest same-config figure x 2 (were the means 0.40, 0.40, 0.04)
+    assert SC.per_unit("advocate")[0] == pytest.approx(1.00)              # max(0.30, 0.50) x 2
+    assert SC.per_unit("gate-narrow")[0] == pytest.approx(1.00)           # max(0.30, 0.50) x 2
+    assert SC.estimate("changecheck", 1)[0] == pytest.approx(0.08)
     assert "nothing measured" in SC.per_unit("rulings")[1]                 # falls back, and says so
 
 
@@ -63,7 +64,7 @@ def test_a_stage_that_does_not_fit_in_today_is_refused_with_both_numbers(ledger)
     with pytest.raises(SC.StageOverCap) as e:
         SC.check("advocate", "demo", 5)
     msg = str(e.value)
-    assert "NOT STARTED" in msg and "$2.00" in msg                         # 5 x $0.40
+    assert "NOT STARTED" in msg and "$4.00" in msg                         # 5 x ($0.40 x 2)
     assert "Remaining today: $0.40 of the $25.00 day cap" in msg
     assert "Remaining on demo: $39.60 of its $40.00 cap" in msg
     assert "exceeds what is left today." in msg
@@ -80,7 +81,7 @@ def test_a_stage_that_does_not_fit_in_the_issue_is_refused(ledger):
 def test_a_stage_that_fits_starts(ledger):
     ledger += [_e("advocate:S1", 0.40, at="2026-10-01T01:00:00+00:00")]
     r = SC.check("advocate", "demo", 5)
-    assert r["over"] == [] and r["estimate"] == pytest.approx(2.0) and r["day_left"] == 25.0
+    assert r["over"] == [] and r["estimate"] == pytest.approx(4.0) and r["day_left"] == 25.0   # 5 x ($0.40 x 2)
 
 
 def test_no_override_on_a_study_issue(ledger, monkeypatch):
@@ -104,8 +105,9 @@ def test_every_paid_stage_is_guarded_before_its_first_call():
     src = {f: (WHU / f).read_text() for f in ("audit_stage.py", "conclusion_judge.py", "changecheck.py",
                                                   "source_advocate.py", "ruling.py")}
     gate = (WHU.parent / "signal" / "factcheck_draft.py").read_text()
-    assert '_stage_guard("gate-full"' in gate and '_stage_guard("gate-narrow"' in gate
-    assert gate.index('_stage_guard("gate-full"') < gate.index("claims = extract_claims(draft)")
+    # ruling 1 on P140: the gate's bound (_gate_guard) replaced the fixed $3.00 and the pooled-mean stage guard
+    assert '_gate_guard("full"' in gate and '_gate_guard("narrow"' in gate
+    assert gate.index('_gate_guard("full"') < gate.index("claims = extract_claims(draft)")
     assert 'stage_cap.guard("audit"' in src["audit_stage.py"]
     assert 'stage_cap.guard("conclusions"' in src["conclusion_judge.py"]
     assert 'stage_cap.guard("changecheck"' in src["changecheck.py"]
@@ -128,11 +130,13 @@ def test_the_advocate_estimate_is_the_higher_of_per_source_and_per_objection(led
                _e("advocate-requote:S1", 0.70, issue="many", at="2026-10-22T02:00:00+00:00"),
                _e("advocate:S9", 5.00, issue="published", at="2026-09-01T01:00:00+00:00")]
     each, how = SC.per_unit("advocate", issues_dir=issues)
-    # per source: (0.20 + 0.20 + 1.00) / 3 = 0.4667 (the published issue's run is not counted)
-    # per objection: 1.40 / 8 = 0.175, x 6 objections per source (WHU-S98) = 1.05
-    assert each == pytest.approx(1.05)
-    assert "the higher of" in how and "0.4667 mean over 3 measured source(s)" in how
+    # ruling 2 on P140, highest not mean, x 2:
+    # per source: max(0.20, 0.20, 1.00) = 1.00 (the published issue's run is not counted)
+    # per objection: the highest issue's rate, max(0.40 / 2, 1.00 / 6) = 0.20, x 6 objections per source = 1.20
+    assert each == pytest.approx(2.40)
+    assert "the higher of" in how and "1.0000 the highest of 3 measured source(s)" in how
     # with few objections per source, the per-source mean is the higher
     (issues / "WHU-S98-many" / "advocate" / "20261022T000000Z-briefs.json").write_text(
         json.dumps([{"source": "S1", "objections": [{}]}]))
-    assert SC.per_unit("advocate", issues_dir=issues)[0] == pytest.approx(1.40 / 3)
+    # per objection now max(0.20, 1.00 / 1) x 1 = 1.00, equal to the per-source 1.00: 1.00 x 2
+    assert SC.per_unit("advocate", issues_dir=issues)[0] == pytest.approx(2.00)

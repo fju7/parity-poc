@@ -119,6 +119,8 @@ def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 
         # Inside an orchestrator run every row names the step it was spent in (advisor's ruling 2026-11-07).
         if os.environ.get("WHU_ORCH_STEP"):
             row["step"] = os.environ["WHU_ORCH_STEP"]
+            if os.environ.get("WHU_ORCH_LIMITS_SHA"):      # the reply-limits table it ran under (stage_cap pools by it)
+                row["limits_sha"] = os.environ["WHU_ORCH_LIMITS_SHA"]
         if _CALL_SITE.get():
             row["call_site"] = _CALL_SITE.get()
         with LEDGER.open("a", encoding="utf-8") as fh:
