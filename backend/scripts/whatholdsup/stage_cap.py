@@ -402,9 +402,16 @@ def gate_bound(gate_config: dict, dry_estimate: float, issues_dir: Path | None =
     return round(base * MARGIN, 4), how
 
 
-def guard_amount(name: str, issue: str, amount: float, how: str) -> None:
+def guard_amount(name: str, issue: str, amount: float, how: str, next_bound: tuple | None = None) -> None:
     """guard() for a stage whose estimate is an amount already computed (the gate): the frozen-file check, then
-    spend_ledger.check_cap with AMOUNT (the day, issue and line caps); a refusal prints and exits 3."""
+    spend_ledger.check_cap with AMOUNT (the day, issue and line caps); a refusal prints and exits 3.
+    NEXT_BOUND (bound, how), in an orchestrated run: only that per-call bound is checked up front and every later
+    call is checked as it comes (reserve_next); AMOUNT is reported, not reserved."""
+    if next_bound is not None and orchestrated():
+        reserve_next(name, next_bound[0], next_bound[1], None)
+        how = "the next call's bound $%.4f (%s), checked before every call; the run's bound $%.2f (%s) not reserved" \
+              % (next_bound[0], next_bound[1], amount, how)
+        amount = next_bound[0]
     frozen = _frozen()
     if frozen.is_study(issue):
         try:
@@ -429,11 +436,33 @@ def estimate(stage: str, units: int, **kw) -> tuple[float, str]:
         units, UNIT[stage], each, UNIT[stage], how)
 
 
+def orchestrated() -> bool:
+    return bool(os.environ.get("WHU_ORCH_STEP"))
+
+
+def reserve_next(stage: str, bound: float, how: str, units) -> None:
+    """In an orchestrated run a multi-call stage reserves only its NEXT call (advisor's ruling 2 on P146): the
+    per-call BOUND (unchanged: the highest same-config measured x MARGIN) is checked against what is left before
+    every paid call (spend_ledger._reserve_next, inside orch_guard), never the summed bound up front."""
+    os.environ[S.NEXT_BOUND_ENV] = json.dumps({"stage": stage, "bound": round(float(bound), 6), "how": how,
+                                               "units": units})
+
+
 def check(stage: str, issue: str, units: int, **kw) -> dict:
     """Refuse to start STAGE on ISSUE if its estimate exceeds the cap remaining
-    today or on the issue. Returns what was checked; raises StageOverCap."""
+    today or on the issue. Returns what was checked; raises StageOverCap.
+    In an orchestrated run the estimate checked up front is ONE unit's bound (the next call); the whole is
+    reported, and every later call is checked as it comes (reserve_next)."""
     S.check_cap(issue, 0.0)                    # an unpriced ledger line stops everything first
-    est, how = estimate(stage, units, **kw)
+    if orchestrated() and units:
+        each, how1 = per_unit(stage, **kw)
+        total = round(units * each, 4)
+        reserve_next(stage, each, how1, units)
+        est, how = round(each, 4), ("the next %s's bound $%.4f (%s), checked before every call; %d %s(s) in all "
+                                    "x $%.4f = $%.2f, not reserved up front"
+                                    % (UNIT[stage], each, how1, units, UNIT[stage], each, total))
+    else:
+        est, how = estimate(stage, units, **kw)
     left = remaining(issue)
     over = []
     if left["day_left"] is not None and est > left["day_left"]:

@@ -58,6 +58,47 @@ class RunStop(RuntimeError):
     """The run ends here; the reason is its recorded result."""
 
 
+CAP_STOP = "orchestrator/cap_stop.json"
+# What a step's partial output may not leave on the page when it stops on its cap (advisor's ruling 2 on P146).
+PAGE_FILES = ("draft/{slug}.html", "draft/page.json", "bindings.json")
+
+
+def _page_bytes(ctx) -> dict:
+    out = {}
+    for t in PAGE_FILES:
+        p = ctx.case / t.format(slug=ctx.slug)
+        out[p] = p.read_bytes() if p.exists() else None
+    return out
+
+
+def _cap_stop(ctx, step, before: dict):
+    """The step's cap stop, if one was written: the page restored to what it was when the step started (a partial
+    step never leaves a page), the stop kept in the run record, and the RunStop to end the run with."""
+    p = ctx.case / CAP_STOP
+    if not p.exists():
+        return None
+    try:
+        rec = json.loads(p.read_text(encoding="utf-8"))
+    except ValueError:
+        rec = {"reason": "unreadable cap stop record"}
+    if rec.get("step") not in (None, step.name):
+        return None
+    restored = []
+    for f, data in before.items():
+        now_ = f.read_bytes() if f.exists() else None
+        if now_ != data:
+            if data is None:
+                f.unlink()
+            else:
+                f.write_bytes(data)
+            restored.append(f.relative_to(ctx.case).as_posix())
+    rec["page_restored"] = restored
+    ctx.cap_stop = rec
+    return RunStop("%s: cap stop: the next call's bound $%.4f did not fit; %s call(s) made, at most %s left; %s"
+                   % (step.name, float(rec.get("bound") or 0), rec.get("calls_made"),
+                      rec.get("calls_left_at_most"), rec.get("reason")))
+
+
 INSUFFICIENT = "Insufficient sources:"
 
 
@@ -114,6 +155,8 @@ class Ctx:
             e["PYTHONPATH"] = os.pathsep.join([str(SITE)] + ([e["PYTHONPATH"]] if e.get("PYTHONPATH") else []))
         if getattr(self, "model_log", None):                        # every model call retried, outages logged
             e[MODEL_LOG_ENV] = str(self.model_log)
+        if getattr(self, "case", None) is not None:                 # a mid-step cap stop (spend_ledger._reserve_next)
+            e["WHU_ORCH_CAP_STOP"] = str(self.case / CAP_STOP)
         return e
 
 
@@ -213,6 +256,11 @@ def exit_proof(ctx: Ctx, script: str, argv: list[str], rc: int, started: float) 
 
 
 def run_step(ctx: Ctx, step) -> dict:
+    try:
+        (ctx.case / CAP_STOP).unlink()
+    except OSError:
+        pass
+    page_before = _page_bytes(ctx)
     before = CH.snapshot(ctx.case, ctx.slug)
     if ctx.lock:
         ctx.lock.set_step(step.name)
@@ -229,6 +277,10 @@ def run_step(ctx: Ctx, step) -> dict:
         if step.code:
             result["code"] = STEP_CODE[step.code](ctx, step)
     except BaseException as e:
+        cs = _cap_stop(ctx, step, page_before)
+        if cs is not None:
+            _log_failed(ctx, step, result, cs)
+            raise cs from e
         _log_failed(ctx, step, result, e)
         raise
     finally:
@@ -237,6 +289,10 @@ def run_step(ctx: Ctx, step) -> dict:
                 os.environ.pop(k, None)
             else:
                 os.environ[k] = v
+    cs = _cap_stop(ctx, step, page_before)       # a stage that caught the stop and exited 0 still stops here
+    if cs is not None:
+        _log_failed(ctx, step, result, cs)
+        raise cs
     try:
         page_bad = _account_page(ctx, step)
     except BaseException as e:
@@ -1787,7 +1843,8 @@ def run(ctx: Ctx, resume: dict | None = None) -> dict:
             p.unlink()
         except OSError:
             pass
-    return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events),
+    return {"result": result, "steps": ctx.log, "cap_stop": getattr(ctx, "cap_stop", None),
+            "malformed_replies": malformed_summary(events),
             "cutoff_replies": cutoffs,
             "registry_outages": outages, "registry_outages_covered": covered, "model_outages": model_out}
 

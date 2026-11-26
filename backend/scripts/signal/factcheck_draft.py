@@ -2970,7 +2970,12 @@ def _gate_guard(mode: str, slug: str, n_calls: int | None) -> None:
     cfg = gate_config(mode)
     amount, how = _sc.gate_bound(cfg, gate_dry_estimate(mode, n_calls))
     _GATE_RUN.update({"lean_config": cfg, "bound": amount, "how": how})
-    _sc.guard_amount("the machine gate (%s)" % mode, slug, amount, how)
+    # per call (advisor's ruling 2 on P146): max(the dry-run estimate of one call, the highest same-config metered
+    # gate call) x MARGIN -- the same rule as the run's bound, for one call
+    each, how1 = _sc.per_unit("gate-narrow", model=cfg.get("model"))
+    nb = max(EST_PER_CALL * _sc.MARGIN, each)
+    _sc.guard_amount("the machine gate (%s)" % mode, slug, amount, how,
+                     next_bound=(nb, "max(one call's dry-run $%.2f x %g, %s)" % (EST_PER_CALL, _sc.MARGIN, how1)))
 
 
 def _stage_guard(stage: str, slug: str, units: int) -> None:

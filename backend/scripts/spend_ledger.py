@@ -591,6 +591,53 @@ def orch_guard(model: str, script: str = "", role: str = "", issue: str | None =
     if cap and used + about_to_spend > cap:
         raise OrchestratorRefused("step %r: $%.4f spent of its $%.2f cap; this call would add about $%.4f"
                                   % (step, used, cap, about_to_spend))
+    _reserve_next(run_issue, step, len(mine), max_calls)
+
+
+class ReservationStop(OverCap):
+    """A multi-call stage's next call does not fit what is left of the run's cap (advisor's ruling 2 on P146): the run
+    stops here as a cap stop, recorded with the calls made and the calls left."""
+
+
+NEXT_BOUND_ENV = "WHU_ORCH_NEXT_BOUND"      # set by stage_cap when an orchestrated stage starts (JSON)
+CAP_STOP_ENV = "WHU_ORCH_CAP_STOP"          # where the orchestrator reads a cap stop (orchestrator/cap_stop.json)
+
+
+def _reserve_next(issue: str, step: str, calls_made: int, max_calls: int) -> None:
+    """Before each paid call of an orchestrated stage that reserved per call (stage_cap.reserve_next): the stage's
+    per-call bound must fit what is left of the run's caps (issue, line, day: check_cap). Otherwise the stop is
+    written to CAP_STOP_ENV's file and ReservationStop raised; once written, every later call of the step is
+    refused too, so a stage that catches the error cannot go on and finish a partial step."""
+    raw = os.environ.get(NEXT_BOUND_ENV, "")
+    if not raw:
+        return
+    try:
+        nb = json.loads(raw)
+    except ValueError:
+        raise ReservationStop("unreadable %s: %r" % (NEXT_BOUND_ENV, raw[:80]))
+    stop = os.environ.get(CAP_STOP_ENV, "")
+    if stop and Path(stop).exists():
+        try:
+            prev = json.loads(Path(stop).read_text(encoding="utf-8"))
+        except ValueError:
+            prev = {}
+        if prev.get("step") == step:
+            raise ReservationStop("step %r already stopped on its cap: %s" % (step, prev.get("reason")))
+    bound = float(nb.get("bound") or 0)
+    try:
+        check_cap(issue, about_to_spend=bound)
+    except OverCap as e:
+        rec = {"step": step, "stage": nb.get("stage"), "bound": round(bound, 4), "how": nb.get("how"),
+               "units_planned": nb.get("units"), "calls_made": calls_made,
+               "calls_left_at_most": (max_calls - calls_made) if max_calls else None,
+               "spent_on_issue": round(spent(issue=issue), 4), "issue_cap": cap_for(issue),
+               "reason": str(e).splitlines()[0][:300],
+               "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+        if stop:
+            Path(stop).parent.mkdir(parents=True, exist_ok=True)
+            Path(stop).write_text(json.dumps(rec, indent=1) + "\n", encoding="utf-8")
+        raise ReservationStop("cap stop in step %r: the next call's bound $%.4f does not fit (%s); %d call(s) made"
+                              % (step, bound, rec["reason"], calls_made)) from e
 
 
 class _MeteredMessages:
