@@ -1,0 +1,402 @@
+[
+  {
+    "source": "S001",
+    "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "objections": []
+  },
+  {
+    "source": "S002",
+    "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The intervention probably makes little or no difference to smoking rates among people at risk of cardiovascular disease but probably increases other desired patient behaviours, such as adherence to treatment [2].",
+        "objection": "The review reports no 'probably increases adherence to treatment' finding for mobile decision-support tools; its adherence finding is a low-certainty null result, and the 'probably' wording looks borrowed from a different review.",
+        "source_says": "may make little or no difference to medication adherence among people with poorly controlled diabetes",
+        "locator": "Summary of findings 1, Patients' or clients' health behaviour row (also in Summary of findings 2, medication adherence at 3 months)",
+        "could_not_find": "I found no statement in the review's summary of findings or results that mobile decision-support tools 'probably increase' treatment adherence. I also did not find a 'probably makes little or no difference to smoking rates' statement in the passages I could retrieve.",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page gives a higher certainty ('probably') and a positive direction to an adherence effect that the review rates low-certainty and null. That distorts the behaviour picture.",
+        "source_says_first": "The Summary of findings says the tools \"may make little or no difference\" to medication adherence among people with poorly controlled diabetes (1 study, 185 participants). The Results section repeats this: \"may makelittle or no difference to medication adherence among people with poorly controlled diabetes at three months of follow‐up.\" The only positive behaviour finding I found is a \"may increase\" for aspirin prescribing among people at high cardiovascular risk (1 study, 2086 participants).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Digital tracking with decision support and/or reminders probably makes little or no difference to some types of health outcomes, but we are uncertain about others, including maternal and neonatal deaths, because the evidence is very low-certainty [2].",
+        "objection": "My review covers decision-support tools alone, not 'digital tracking with decision support and/or reminders'. The page labels the intervention as a combined package that belongs to a sister Cochrane review.",
+        "source_says": "we included studies comparing digital CDSS accessible via mobile devices with non‐digital CDSS or no intervention, in the context of primary care.",
+        "locator": "Selection criteria, Types of interventions",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The result is attributed to a broader intervention bundle than the one tested here. A reader would take the finding as covering tracking and reminders, which this review did not assess.",
+        "source_says_first": "The review's intervention is defined as: \"digital CDSS accessible via mobile devices with non‐digital CDSS or no intervention, in the context of primary care.\" The finding for this intervention reads: \"We are uncertain of the effect on maternal deaths and neonatal deaths, and a number of other maternal health outcomes (very low‐certainty evidence).\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effect of the intervention on patients' and clients' health status and well-being is mixed, based on 5 studies with 69,767 participants [2].",
+        "objection": "The review's health-status findings are single-study results with far smaller samples, and 'mixed' misdescribes a set of null results. The 69,767 figure does not match anything I could find in this review.",
+        "source_says": "Most of this evidence comes from single studies, some of which had few participants.",
+        "locator": "Discussion, Summary of main results, paragraph on patients'/clients' health status and well-being",
+        "could_not_find": "I found no pooled count of 5 studies or 69,767 participants for health status in the summary of findings or the comparison tables I could retrieve.",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The sample size looks like it comes from a different review. The review's actual health-status picture is consistent 'little or no difference' at low-to-moderate certainty, plus uncertainty on deaths. That is not 'mixed'.",
+        "source_says_first": "Summary of findings: tools \"probably makes little or no difference\" to systolic blood pressure (1 study, 2086 participants) or hospital birth (1 study, 799 participants). They \"May make little or no difference\" to HbA1c (1 study, 185 participants) or LDL-cholesterol goals (1 study, 875 participants). Maternal and neonatal deaths are uncertain (very low certainty).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "There was no clear pattern of a positive or negative effect on patients' or clients' behaviour or on their health [2].",
+        "objection": "The page omits the review's moderate-certainty finding that the tools probably make little or no difference to systolic blood pressure and hospital birth, which is a clear pattern for those outcomes.",
+        "source_says": "\"The use of mobile‐based clinical decision‐support tools probably makes little or no difference to systolic blood pressure level among people with high cardiovascular disease risk or to the number of women giving birth in a hospital (moderate‐certainty evidence).\"",
+        "locator": "Results, 'Mobile clinical decision‐support system compared to standard care'; Summary of findings, health status row",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page implies uniform uncertainty. The review actually has moderate-certainty evidence of no meaningful effect on some health outcomes, and uncertainty is confined to deaths, adherence and the like.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "For decision-support tools alone, it is not known whether they improve health workers' practice, and there is no clear pattern of effects on patients' health [2].",
+        "objection": "The page leaves out that the review found low-certainty and moderate-certainty 'little or no difference' results for several patient health outcomes, so effects on health are partly known to be small or absent.",
+        "source_says": "\"The intervention may make little or no difference to HbA1c levels among people with poorly controlled diabetes, or to the number of people with hyperlipidaemia reaching LDL‐cholesterol goals (low‐certainty evidence).\"",
+        "locator": "Results, health status; Summary of findings table",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'No clear pattern' hides a consistent null pattern across the health outcomes measured, with uncertainty mainly for rare outcomes such as maternal and neonatal deaths.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The effect on patients' and clients' health behaviours such as smoking and treatment adherence is mixed, with substantial variation across outcomes for similar types of behaviour (2 studies, 2262 participants) [2].",
+        "objection": "The page omits the one positive behaviour finding in the review: tools may increase aspirin prescribing for people at high cardiovascular risk.",
+        "source_says": "May increase the number of people with high cardiovascular disease risk‐taking prescribed aspirin (1 study, 2086 participants) c but may make little or no difference to medication adherence among people with poorly controlled diabetes (1 study, 185 participants) d",
+        "locator": "Summary of findings 1 table, Patients' or clients' health behaviour row",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page names neither the specific positive result (aspirin) nor the specific null one (diabetes medication adherence). The 'mixed' label is therefore unanchored, and the page then substitutes a different positive adherence claim.",
+        "source_says_first": "\"May increase the number of people with high cardiovascular disease risk-taking prescribed aspirin (1 study, 2086 participants)\" but \"may make little or no difference\" to medication adherence among people with poorly controlled diabetes (1 study, 185 participants).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S003",
+    "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Mobile tracking with decision support and/or client messaging (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common",
+        "objection": "TCCMD in this review means targeted client communication via mobile devices; the review does not evaluate tracking or decision-support tools, and the page imports that wording from a different review.",
+        "source_says": "Targeted client communication (TCC) via mobile devices (MD) (TCCMD) may be a useful strategy to improve MNCH.",
+        "locator": "Abstract, Background",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The label attaches this review's findings to a different intervention class (digital tracking and decision support). That could mislead readers about what the evidence covers.",
+        "source_says_first": "\"Targeted client communication (TCC) via mobile devices (MD) (TCCMD) may be a useful strategy to improve MNCH.\" Objectives: \"To assess the effects of TCC via MD on health behaviour, service use, health, and well-being for MNCH.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Mobile tracking with decision support and/or client messaging (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common (RR 1.30, 95% CI 1.06 to 1.59; low-certainty evidence)",
+        "objection": "The page does not say that the headline breastfeeding estimate rests on a single small trial, which is the main reason the evidence is rated low-certainty.",
+        "source_says": "Another study, conducted in Ecuador, which had comparatively lower breastfeeding rates in the standard care arm, suggests that the intervention may increase exclusive breastfeeding at three months postpartum (RR 1.30, 95% CI 1.06 to 1.59; n = 135; low‐certainty evidence – downgraded for risk of bias (unclear risk of bias on the allocation concealment domain and high rates of loss to follow‐up) and imprecision; Analysis 1.1 ) ( Maslowsky 2016 ).",
+        "locator": "Results text on exclusive breastfeeding (Maslowsky 2016, Ecuador); also the summary-of-findings row 'Moderate‐risk setting ... RR 1.30 (1.06 to 1.59) 135 (1 RCT)'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page gives the 27-trial total and a precise RR. A reader would assume the RR draws on a large evidence base, when it comes from one RCT with 135 women.",
+        "source_says_first": "\"Health behaviour change: breastfeeding – exclusive breastfeeding Follow‐up: up to 3 months · 667 per 1000 · 867 per 1000 (707 to 1000) · RR 1.30 (1.06 to 1.59) · 135 (1 RCT) · ⊕⊕⊝⊝ Low\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effect of these mobile tracking and prompt or reminder tools on health service use is unknown because too few studies have looked at it",
+        "objection": "The review's central service-use finding is a pooled estimate from 10 trials. Health service use is not an unstudied outcome.",
+        "source_says": "Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low‐certainty evidence); however, the effect estimates varied widely between studies.",
+        "locator": "Plain language/abstract summary: Parents of children aged less than five years, TCCMD versus standard care",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "CHANGES",
+        "why": "The sentence says service-use evidence is absent. The review has its best-supported low-certainty finding, a modest increase, in exactly that outcome. The page's own later sentence on 10 trials contradicts this one.",
+        "source_says_first": "\"Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low-certainty evidence); however, the effect estimates varied widely between studies.\" Table 6.1: Attendance for necessary healthcare, 10 studies, 5660 participants, RR 1.21 [1.08, 1.34].",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "No studies reported on maternal mortality or morbidity, so the effect of these digital tracking and prompt or reminder tools on those outcomes is unknown",
+        "objection": "The review did find trial data on maternal morbidity, and it reports a low-certainty estimate for 'any maternal health problem'.",
+        "source_says": "TCCMD may reduce 'any maternal health problem' (RR 0.19, 95% CI 0.04 to 0.79) and 'any newborn health problem' (RR 0.52, 95% CI 0.25 to 1.06) reported up to 10 days postpartum (low‐certainty evidence)",
+        "locator": "Main results, TCCMD versus non-digital TCC paragraph",
+        "could_not_find": "I found no explicit statement that maternal mortality alone was unreported. I searched the abstract and summary of findings only, not the full results text.",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "'No studies' is a different claim from 'very low-certainty evidence', and it conflicts with the page's own sentences on maternal health problems (RR 0.19) and on uncertain mortality and morbidity effects.",
+        "source_says_first": "\"TCCMD may reduce 'any maternal health problem' (RR 0.19, 95% CI 0.04 to 0.79) and 'any newborn health problem' (RR 0.52, 95% CI 0.25 to 1.06) reported up to 10 days postpartum (low-certainty evidence)\". Also: \"There were uncertain effects on maternal and neonatal mortality and morbidity because the certainty of the evidence was assessed as very low.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effect of mobile-device tracking with decision support and/or client reminders on the proportion of births occurring in a health facility is uncertain, because the evidence is of very low certainty",
+        "objection": "The wording describes the wrong intervention. The review covers targeted client communication, not tracking with decision support.",
+        "source_says": "To assess the effects of TCC via MD on health behaviour, service use, health, and well‐being for MNCH.",
+        "locator": "Abstract, Objectives",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The outcome conclusion (very low certainty) may stand. The intervention is mislabelled, which misleads readers about the scope of the review.",
+        "source_says_first": "\"Targeted client communication (TCC) via mobile devices (MD) (TCCMD)... To assess the effects of TCC via MD on health behaviour, service use, health, and well-being for MNCH.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effect of targeted client communication delivered via mobile devices compared with non-digital targeted client communication is unknown, because no studies reporting this comparison were found",
+        "objection": "The review does report comparisons against non-digital targeted communication, and the page itself cites two of them (RR 0.92 and RR 1.13).",
+        "source_says": "TCCMD versus non‐digital TCC (e.g. pamphlets) TCCMD may have little or no effect on exclusive breastfeeding (RR 0.92, 95% CI 0.79 to 1.07; low‐certainty evidence).",
+        "locator": "Summary for pregnant and postpartum women, TCCMD versus non‐digital TCC comparison",
+        "could_not_find": "I could not confirm which population the 'no studies' statement refers to. It may apply only to one subgroup, such as women living with HIV. I searched the abstract and summary-of-findings titles only.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Read as a general statement, the sentence is false. It should say which population had no such comparison.",
+        "source_says_first": "\"TCCMD versus non‐digital TCC (e.g. pamphlets) TCCMD may have little or no effect on exclusive breastfeeding (RR 0.92, 95% CI 0.79 to 1.07; low‐certainty evidence).\" And: \"TCCMD versus non‐digital TCC TCCMD may increase attendance for vaccinations (RR 1.13, 95% CI 1.00 to 1.28; low‐certainty evidence)\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S004",
+    "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "A qualitative synthesis of 35 studies found that many clients like receiving messages from health services by mobile phone [4].",
+        "objection": "The synthesis describes clients' experiences as mixed, with positive views alongside problems, and does not report that many clients like the messages.",
+        "source_says": "Our synthesis showed that clients' experiences of these types of programmes were mixed.",
+        "locator": "Main results summary (first paragraph, following the description of the studies covered)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page turns a mixed finding, in which only 'some' clients felt supported, into a majority-positive one. The page's own barrier sentences then read as exceptions, when the review presents them as a main finding.",
+        "source_says_first": "\"Our synthesis showed that clients' experiences of these types of programmes were mixed.\" The positive finding is narrower: \"Some felt that these programmes provided them with feelings of support and connectedness\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A qualitative synthesis of 35 studies found that many clients like receiving messages from health services by mobile phone [4].",
+        "objection": "The page does not say that some of the 35 studies were hypothetical, asking what people thought they would feel, rather than reporting lived experience of a programme.",
+        "source_says": "Some of the studies explored the views of people who had experienced the interventions, whereas others were hypothetical in nature, asking what people felt they would like from a digital health intervention.",
+        "locator": "Main results paragraph (summary)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "A reader should know that some of the 'liking' findings rest on anticipated reactions and not on experience.",
+        "source_says_first": "\"Some of the studies explored the views of people who had experienced the interventions, whereas others were hypothetical in nature, asking what people felt they …\" (the sentence is truncated in my excerpt).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, \"These include barriers to use that have equity implications\" [4].",
+        "objection": "The page presents the barriers without the review's high-confidence finding that clients proposed ways to deal with them.",
+        "source_says": "Some clients suggested strategies to deal with these issues, such as using neutral language and tailoring the content, timing, and frequency of messages (high confidence).",
+        "locator": "First paragraph of the held text (summary of barriers and strategies)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The barriers are presented as fixed. The review treats several of them, including privacy, language and timing, as addressable through programme design, and it calls on planners and trialists to address them.",
+        "source_says_first": "\"Some clients suggested strategies to deal with these issues, such as using neutral language and tailoring the content, timing, and frequency of messages (high confidence).\" Also: \"Clients wanted messages at a time and frequency that was convenient for them (moderate confidence).\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Some clients could not be reached by reminder messages because they had no phone, had lost or broken it, could not afford airtime, or had changed their phone number (moderate confidence) [4].",
+        "objection": "The page omits the high-confidence finding on the cost of messages, which is the best-supported access barrier in the synthesis.",
+        "source_says": "\"The cost of messages could also be a problem, and many thought that messages should be free of charge (high confidence).\"",
+        "locator": "Plain language summary, 'What did we find?'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page gives only moderate-confidence access barriers. It leaves out cost, which the review rates as high confidence and which bears directly on equity.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Clients with stigmatised conditions such as HIV were concerned that taking part could lead to their status being disclosed [4].",
+        "objection": "The page narrows a high-confidence finding about privacy and confidentiality to the risk of disclosing status, and names only HIV.",
+        "source_says": "\"Clients dealing with stigmatised or personal health conditions such as HIV, family planning, or abortion care were also concerned about privacy and confidentiality (high confidence).\"",
+        "locator": "Plain language summary, 'What did we find?'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The review's scope is wider than HIV. It covers reproductive health topics such as family planning and abortion, which are central to this review's focus.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      }
+    ]
+  },
+  {
+    "source": "S006",
+    "title": "Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It found that such reminders probably slightly improve the quality of care, based on moderate-certainty evidence [6].",
+        "objection": "The page gives only the pooled 'slightly' verdict and leaves out the review's split by design. Stand-alone reminders showed a larger effect, 11.0%, which the review words without 'slightly'.",
+        "source_says": "Computer‐generated reminders delivered on paper to healthcare professionals alone (single‐component intervention) probably improves quality of care compared with usual care (median improvement 11.0% (IQR 5.4% to 20.0%); 27 studies (27 comparisons); moderate‐certainty evidence)",
+        "locator": "Abstract, Main results (also repeated in Results and Discussion: Summary of main results)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'Slightly' is accurate for the pooled median of 6.8% across 40 comparisons. It understates the stand-alone result and hides that the pooled figure mixes reminders used alone with reminders added to other interventions. The page's conclusion survives only in a narrower form.",
+        "source_says_first": "\"Computer-generated reminders delivered on paper to healthcare professionals alone (single-component intervention) probably improve quality of care compared with usual care (median improvement 11.0% (IQR 5.4% to 20.0%); 27 studies (27 comparisons); moderate-certainty evidence)\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It found that such reminders probably slightly improve the quality of care, based on moderate-certainty evidence [6].",
+        "objection": "The page does not say that the small pooled effect is a blend of a larger stand-alone effect and a smaller add-on effect. Adding reminders to existing interventions gave only about 4.0%.",
+        "source_says": "adding reminders to one or more co‐interventions (multi‐component intervention) probably improve slightly quality of care by 4.0% compared with the co‐intervention(s) without the reminder component (in 11 studies (13 comparisons), moderate‐certainty evidence)",
+        "locator": "Plain language summary, 'The review shows that' list, third bullet",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review's headline is the overall 6.8%, which averages 11.0% for reminders alone and 4.0% for reminders added to other interventions. Whether reminders are worth adding depends on which comparison a reader has in mind, and the page's single 'slightly' hides that.",
+        "source_says_first": "\"adding reminders to one or more co-interventions (multi-component intervention) probably improve slightly quality of care by 4.0% compared with the co-intervention(s) without the reminder component (in 11 studies (13 comparisons), moderate-certainty evidence)\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It found that such reminders probably slightly improve the quality of care, based on moderate-certainty evidence [6].",
+        "objection": "The page does not say that 'quality of care' in this review means clinician practice (compliance with guidelines), not patient health. A reader could take 'quality of care' to mean better care outcomes for patients.",
+        "source_says": "\"quality of care (outcomes related to healthcare professionals' practice) and patient outcomes (outcomes related to patients' health condition)\"",
+        "locator": "Objectives; Authors' conclusions (compliance with preventive and disease management guidelines)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page does separate patient outcomes from quality of care. It never defines quality of care as a process measure, so the moderate-certainty finding reads as broader than it is. It is moderate-certainty evidence of better guideline compliance only.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      }
+    ]
+  },
+  {
+    "source": "S007",
+    "title": "The effects of on-screen, point of care computer reminders on processes and outcomes of care.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of The effects of on-screen, point of care computer reminders on processes and outcomes of care.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, a minority of interventions showed larger effects, but no specific reminder or contextual features were significantly associated with effect magnitude [7].",
+        "objection": "The page omits the one study-design contrast the review did report, which is reminder alone versus reminder plus co-interventions. The review called this an unexpected finding, and omitting it makes the null on features look more complete than it was.",
+        "source_says": "The finding that comparisons of computer reminders alone versus usual reported larger effect sizes than comparisons involving computer reminders and other co‐interventions represented an unexpected finding.",
+        "locator": "Discussion",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion that no features were consistently associated with larger effects stands as the review's own headline. A reader could still wrongly infer that the review found no signal at all about what moderates effect size. The review offers explanations for this contrast, such as co-interventions targeting harder behaviours or leaving less room for improvement. It does not treat the contrast as evidence that reminders work better when used alone.",
+        "source_says_first": "\"Comparisons involving no co-interventions (that is computer reminder alone versus usual care) showed a median improvement in process adherence of 5.7% (IQR: 2.0% to 24.0%), whereas studies of multifaceted interventions ... showed a median improvement in adherence of only 1.9%\" The Discussion adds: \"The finding that comparisons of computer reminders alone versus usual reported larger effect sizes than comparisons involving computer reminders and other co-interventions represented an unexpected finding.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, a minority of interventions showed larger effects, but no specific reminder or contextual features were significantly associated with effect magnitude [7].",
+        "objection": "The page does not say that the review tested baseline adherence as a possible explanation for the variation, including ceiling and floor effects, and found no effect. This is part of why the large-effect minority is unexplained.",
+        "source_says": "We analysed the potential impact of baseline adherence in several other ways (for example studies with baseline adherence in top quartile versus all others to look for a ‘ceiling effect’, and studies with baseline adherence in bottom quartile versus all others to look for a floor effect) but found no indication that baseline adherence significantly affected the magnitude of effect in the intervention group.",
+        "locator": "Features of studies / baseline adherence paragraph (after Figure 1 caption)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This supports the page's conclusion and does not weaken it. It shows the review checked the obvious explanations for the heterogeneity. The page's 'trial and error' quotation would read as better grounded with it.",
+        "source_says_first": "\"We analysed the potential impact of baseline adherence in several other ways (for example studies with baseline adherence in top quartile versus all others to look for a 'ceiling effect' ... ) but found no indication that baseline adherence significantly affected the magnitude of effect in the intervention group.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

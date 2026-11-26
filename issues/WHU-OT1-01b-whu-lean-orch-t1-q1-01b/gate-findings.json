@@ -1,0 +1,243 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f2f3edcd9-rec-2",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Agarwal, Glenton, Tamrat et al. — Decision-support tools via mobile devices to improve quality of care in primary healthcare settings (CD012944) is UNKNOWN: the draft uses 2021 publication (pub2, 27 July 2021, Cochrane Database of Systematic Reviews Issue 7, 8 studies); the latest known is pub2, 27 July 2021 — no later version found as of November 2026; the 2025 Agarwal review (source [1]) cites t",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: cochranelibrary.com, pubmed.ncbi.nlm.nih.gov, cochrane.org, pmc.ncbi.nlm.nih.gov, researchgate.net, gapmaps.3ieimpact.org, epoc.cochrane.org, thelancet.com, hvl.no, arxiv.org, s4be.cochrane.org, pure.johnshopkins.edu, cdn.clinicaltrials.gov, researchonline.lshtm.ac.uk, ouci.dntb.gov.ua, clinicaltrials.gov, onlinelibrary.wiley.com, altmetric.com, evidence.unboundmedicine.com, africaevidencenetwork.org, who.int, iris.who.int, primaryhealthcare4people.org, cdn.who.int, api.unil.ch, nz.cochrane.org, swiss.cochrane.org, link.springer.com, the-hospitalist.org, d-nb.info, psnet.ahrq.gov, bjgp.org) could not establish whether Decision-support tools via mobile devices to improve quality of care in primary healthcare settings has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-26",
+      "attached_to": {
+        "study": "Agarwal, Glenton, Tamrat et al. — Decision-support tools via mobile devices to improve quality of care in primary healthcare settings (CD012944)",
+        "sources": [
+          "S002"
+        ],
+        "rows": [
+          "3806b00ff42b61c1",
+          "668f5e69c87eba1d",
+          "76e035413879a40c",
+          "db23a75e9b88b4be",
+          "ecdc7a2b539285aa",
+          "ff66787f510ea43f",
+          "d9ecea435d9163c3",
+          "e470a629767eef46",
+          "881ba527ae0a394c",
+          "c9620c33a63697f4",
+          "5b961437ae7eba42",
+          "1721154906ae6f5a",
+          "5354b9fb63698bb5",
+          "1e04d4fcaa7dff34",
+          "f2633594200eb1c1",
+          "a14e9312cd16727f",
+          "551fb12c30f37c30",
+          "050208f198fdaa5e",
+          "9995479d775f0533",
+          "79bad6572fb96b5e",
+          "df0c40acb7391001",
+          "fd60922262c90d6e",
+          "24ea1a7371b4a213",
+          "95db7ee47d1012cb"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f2f3edcd9-rec-3",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Palmer, Henschke, Bergman et al. — Targeted client communication via mobile devices for improving maternal, neonatal, and child health (CD013679) is UNKNOWN: the draft uses 2020 publication (14 July 2020, Cochrane Database of Systematic Reviews Issue 8, 27 trials, 17,463 participants); the latest known is Issue 8, 2020 — no later version found as of November 2026; the 2025 Agarwal review cites it ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: cochranelibrary.com, pubmed.ncbi.nlm.nih.gov, cochrane.org, pmc.ncbi.nlm.nih.gov, researchgate.net, gapmaps.3ieimpact.org, epoc.cochrane.org, thelancet.com, hvl.no, arxiv.org, s4be.cochrane.org, pure.johnshopkins.edu, cdn.clinicaltrials.gov, researchonline.lshtm.ac.uk, ouci.dntb.gov.ua, clinicaltrials.gov, onlinelibrary.wiley.com, altmetric.com, evidence.unboundmedicine.com, africaevidencenetwork.org, who.int, iris.who.int, primaryhealthcare4people.org, cdn.who.int, api.unil.ch, nz.cochrane.org, swiss.cochrane.org, link.springer.com, the-hospitalist.org, d-nb.info, psnet.ahrq.gov, bjgp.org) could not establish whether Targeted client communication via mobile devices for improving maternal, neonatal, and child health has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-26",
+      "attached_to": {
+        "study": "Palmer, Henschke, Bergman et al. — Targeted client communication via mobile devices for improving maternal, neonatal, and child health (CD013679)",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "9e586c372b45fb76",
+          "e843a491d5b84113",
+          "9d43d4f301fc2b6a",
+          "2917c6cd79528f08",
+          "9b3d4f240c1ada34",
+          "258562f029b1891f",
+          "e833de9b90868fd5",
+          "e578acb1d5893536",
+          "4ea595f50b586861",
+          "48293c5e6410a47e",
+          "30d9dc3195f9b476",
+          "a6092014be466d5a",
+          "0ed8b73c0a3199b3",
+          "21a91a1338fedc81",
+          "17baf024ba4ee746",
+          "ec4ffd55f64f86bd",
+          "167aadf6efd16ec1",
+          "4785e15f83fe50ce",
+          "8815d9d8ed13a456",
+          "d34ef23c1a9b7d70",
+          "6c68adf4bdb7703b",
+          "a013cf88f6d3ab97",
+          "27098f5120a6bfd8",
+          "9d0db2051367c948",
+          "51a9e8867f1effce",
+          "cb7c37c54319c040",
+          "2d6e639ab18c93a0",
+          "581ff558a86af0ac",
+          "75e4206ea9617cea",
+          "f92ad8a762adf157",
+          "5c205be627ca22fa",
+          "331ac4d652b18a79",
+          "62bc2953680026f9",
+          "6bdce3738c62d6c5",
+          "afe1381a6c0ec267"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f2f3edcd9-rec-4",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Ames, Glenton, Lewin et al. — Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis (CD013447) is UNKNOWN: the draft uses 2019 publication (14 October 2019, Cochrane Database of Systematic Reviews Issue 10, 35 studies); the latest known is 14 October 20",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: cochranelibrary.com, pubmed.ncbi.nlm.nih.gov, cochrane.org, pmc.ncbi.nlm.nih.gov, researchgate.net, gapmaps.3ieimpact.org, epoc.cochrane.org, thelancet.com, hvl.no, arxiv.org, s4be.cochrane.org, pure.johnshopkins.edu, cdn.clinicaltrials.gov, researchonline.lshtm.ac.uk, ouci.dntb.gov.ua, clinicaltrials.gov, onlinelibrary.wiley.com, altmetric.com, evidence.unboundmedicine.com, africaevidencenetwork.org, who.int, iris.who.int, primaryhealthcare4people.org, cdn.who.int, api.unil.ch, nz.cochrane.org, swiss.cochrane.org, link.springer.com, the-hospitalist.org, d-nb.info, psnet.ahrq.gov, bjgp.org) could not establish whether Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-26",
+      "attached_to": {
+        "study": "Ames, Glenton, Lewin et al. — Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis (CD013447)",
+        "sources": [
+          "S004"
+        ],
+        "rows": [
+          "8455f3c8405ffe45",
+          "042116a99f843f67",
+          "48d9d8f979e23968",
+          "75d64afb55f4de7d",
+          "035a73930abb91e5",
+          "b139cf717913b751",
+          "b16bd67648c01b9c",
+          "dced5903c09b2987",
+          "161bfeb3966d3cdc",
+          "870f36cc4640c968",
+          "c8439f508d85e485",
+          "e9fff14f6693cdf0",
+          "ff1170b11bc5509c",
+          "93638fdb87a2a884",
+          "007e6c4010fcc8c7",
+          "6e91a0621638e707",
+          "ea5646a5b5b5e29a",
+          "69625f220b7fd3b5",
+          "4dcff6bccb4fbdd9",
+          "c20f8274808d9532",
+          "752e3d0cd6b9e84f",
+          "b2b95bbaf16bfaf9",
+          "231afc919b766943",
+          "b17de87a118eed09",
+          "0991ff7f2493e3ad",
+          "6c2e1278a3adb551",
+          "e562c3d8ce2c43cf",
+          "43321b0a5f26d6dd",
+          "a9449bcae5dd72e2"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f2f3edcd9-rec-5",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "WHO guideline — Recommendations on Digital Interventions for Health System Strengthening (WHO/RHR/19.8) is UNKNOWN: the draft uses 2019 edition (10 evidence-based recommendations on digital health interventions accessible via mobile devices); the latest known is 2019 edition confirmed as published; a WHO digital health products internal document (dated May 2024) references a '2nd ed' of a related ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: cochranelibrary.com, pubmed.ncbi.nlm.nih.gov, cochrane.org, pmc.ncbi.nlm.nih.gov, researchgate.net, gapmaps.3ieimpact.org, epoc.cochrane.org, thelancet.com, hvl.no, arxiv.org, s4be.cochrane.org, pure.johnshopkins.edu, cdn.clinicaltrials.gov, researchonline.lshtm.ac.uk, ouci.dntb.gov.ua, clinicaltrials.gov, onlinelibrary.wiley.com, altmetric.com, evidence.unboundmedicine.com, africaevidencenetwork.org, who.int, iris.who.int, primaryhealthcare4people.org, cdn.who.int, api.unil.ch, nz.cochrane.org, swiss.cochrane.org, link.springer.com, the-hospitalist.org, d-nb.info, psnet.ahrq.gov, bjgp.org) could not establish whether WHO guideline Recommendations on Digital Interventions for Health System Strengthening has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-26",
+      "attached_to": {
+        "study": "WHO guideline — Recommendations on Digital Interventions for Health System Strengthening (WHO/RHR/19.8)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "no source's first author and title both match the study name (surname a word of the name; >= 3 title words shared, overlap >= 0.6)"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f2f3edcd9-rec-6",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Arditi, Rège-Walther, Durieux et al. — Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes (CD001175) is UNKNOWN: the draft uses 2017 publication (pub4, Cochrane Database of Systematic Reviews Issue 7, 35 studies / 34 analysed, 40 comparisons; moderate-certainty evidence of slight improvement in quality of care); the",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: cochranelibrary.com, pubmed.ncbi.nlm.nih.gov, cochrane.org, pmc.ncbi.nlm.nih.gov, researchgate.net, gapmaps.3ieimpact.org, epoc.cochrane.org, thelancet.com, hvl.no, arxiv.org, s4be.cochrane.org, pure.johnshopkins.edu, cdn.clinicaltrials.gov, researchonline.lshtm.ac.uk, ouci.dntb.gov.ua, clinicaltrials.gov, onlinelibrary.wiley.com, altmetric.com, evidence.unboundmedicine.com, africaevidencenetwork.org, who.int, iris.who.int, primaryhealthcare4people.org, cdn.who.int, api.unil.ch, nz.cochrane.org, swiss.cochrane.org, link.springer.com, the-hospitalist.org, d-nb.info, psnet.ahrq.gov, bjgp.org) could not establish whether Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-26",
+      "attached_to": {
+        "study": "Arditi, Rège-Walther, Durieux et al. — Computer-generated reminders delivered on paper to healthcare professionals: effects on professional practice and healthcare outcomes (CD001175)",
+        "sources": [
+          "S006"
+        ],
+        "rows": [
+          "91420be6a5234f6a",
+          "e9de5c4f81448942",
+          "a7e163f417b1abd7",
+          "dc4f26b55e926e08",
+          "449ada219913c69a",
+          "bea97156d3446da1",
+          "1de5a3ef43b9884d",
+          "e3016f0720877535",
+          "a10c129d338b3e31",
+          "8e6c43766240cc52",
+          "286ded5a29bf8247",
+          "79f6c42f7d92e6dc",
+          "44cd927eb799d97d",
+          "b7fb815b0f6ce82d",
+          "3a9acdec5e1698d2"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f2f3edcd9-rec-7",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Shojania, Jennings, Mayhew et al. — The effects of on-screen, point of care computer reminders on processes and outcomes of care (CD001096) is UNKNOWN: the draft uses 2009 publication (pub2, Cochrane Database of Systematic Reviews Issue 3, 28 studies / 32 comparisons; median process-adherence improvement 4.2%, IQR 0.8%–18.8%; median systolic BP reduction 1.0 mmHg; median absolute clinical improvem",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: cochranelibrary.com, pubmed.ncbi.nlm.nih.gov, cochrane.org, pmc.ncbi.nlm.nih.gov, researchgate.net, gapmaps.3ieimpact.org, epoc.cochrane.org, thelancet.com, hvl.no, arxiv.org, s4be.cochrane.org, pure.johnshopkins.edu, cdn.clinicaltrials.gov, researchonline.lshtm.ac.uk, ouci.dntb.gov.ua, clinicaltrials.gov, onlinelibrary.wiley.com, altmetric.com, evidence.unboundmedicine.com, africaevidencenetwork.org, who.int, iris.who.int, primaryhealthcare4people.org, cdn.who.int, api.unil.ch, nz.cochrane.org, swiss.cochrane.org, link.springer.com, the-hospitalist.org, d-nb.info, psnet.ahrq.gov, bjgp.org) could not establish whether The effects of on-screen, point of care computer reminders on processes and outcomes of care has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-26",
+      "attached_to": {
+        "study": "Shojania, Jennings, Mayhew et al. — The effects of on-screen, point of care computer reminders on processes and outcomes of care (CD001096)",
+        "sources": [
+          "S007"
+        ],
+        "rows": [
+          "dac3f5048e7eae0b",
+          "50b332f1eab7b4f2",
+          "aa1859e545baf45f",
+          "6f2bc5aaedaa4dff",
+          "55a47391010d4a18",
+          "1e11b86e5d15f8b0",
+          "4143a8cc1240c4e7",
+          "de7f9ee9839355c2",
+          "c454f4f752e07395",
+          "2d90dc7fac1f2aaa"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

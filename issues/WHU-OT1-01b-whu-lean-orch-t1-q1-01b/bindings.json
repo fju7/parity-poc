@@ -412,7 +412,7 @@
       },
       "first_seen": "2026-11-26",
       "trigger": "source_claim",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6763,
         7621
@@ -427,7 +427,9 @@
             9861
           ]
         }
-      ]
+      ],
+      "off_page_by": "failsafe:overstatement:78bd98a6676af2d969b419016fdaed7b04dbd8827b02df0826e913dfb935541e:668f5e69c87eba1d",
+      "left_page": "2026-11-26"
     },
     "76e035413879a40c": {
       "sentence": "There was no clear pattern of a positive or negative effect on patients' or clients' behaviour or on their health [2].",
@@ -848,13 +850,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         9073,
         9861
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "failsafe:overstatement:bffb2de1e763f120cdadbd213a8918d496927d9d87a31d43b8078057e4b9691d:ff66787f510ea43f",
+      "left_page": "2026-11-26"
     },
     "9b3d4f240c1ada34": {
       "sentence": "For patient messages alone, some may improve service use, such as attendance at vaccination appointments, but the evidence is mostly of low or very low certainty [3].",
@@ -875,7 +879,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         9052,
         9937
@@ -890,7 +894,9 @@
             12398
           ]
         }
-      ]
+      ],
+      "off_page_by": "failsafe:overstatement:a395221ec561039161f94f3bd81b101ffcde6b9b61e17a834fce3e66cf8264e9:9b3d4f240c1ada34",
+      "left_page": "2026-11-26"
     },
     "14a9d078c94f54cd": {
       "sentence": "No study in the main review assessed resource use or unintended consequences, so these remain unknown [1].",
@@ -938,7 +944,12 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:5",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "96ea713e53a0c40a"
+      ]
     },
     "ceb3550f8def0db9": {
       "sentence": "We hold the full text of Digital tracking, provider decision support systems, and targeted client communi [1].",
@@ -2204,13 +2215,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5449,
         6299
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:1",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "704ae8add8e146d9"
+      ]
     },
     "c83e7c60249c0528": {
       "sentence": "Tracking combined with decision support and targeted client communication probably increases provider guideline adherence for antenatal anaemia screening and management, diabetes, and hypertension (single studies, ORs 1.45–1.88), but probably lowers adherence for abnormal foetal growth (OR 0.59) [1].",
@@ -2339,13 +2355,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         9111,
         9361
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:2",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "bdfcaeca96a2b8d9"
+      ]
     },
     "55e2482dccf25a5c": {
       "sentence": "No studies evaluated time between presentation and appropriate management, timeliness of receiving or accessing care, provider acceptability or satisfaction, resource use, or unintended consequences [1].",
@@ -2501,13 +2522,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5904,
         6105
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:43",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "df0c40acb7391001"
+      ]
     },
     "f2633594200eb1c1": {
       "sentence": "The review found no studies that reported time between presentation of illness and appropriate management, provider acceptability or satisfaction, resource use, or unintended consequences [2].",
@@ -2582,13 +2608,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         3346,
         3721
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:45",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "5c205be627ca22fa"
+      ]
     },
     "30d9dc3195f9b476": {
       "sentence": "Targeted client communication via mobile devices may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96), but this is low-certainty evidence and the confidence interval includes both benefit and harm [3].",
@@ -2744,13 +2775,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         4819,
         4888
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:46",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "331ac4d652b18a79"
+      ]
     },
     "ec4ffd55f64f86bd": {
       "sentence": "For use of health services, the effect on skilled attendance at birth is uncertain (very low-certainty evidence), and the intervention may make little or no difference to antenatal influenza vaccination attendance (RR 1.05, 95% CI 0.71 to 1.58; low-certainty evidence, CI compatible with benefit and harm) [3].",
@@ -2771,13 +2807,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5022,
         5372
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:6",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "52609ab9f2e06357"
+      ]
     },
     "167aadf6efd16ec1": {
       "sentence": "For pregnant and postpartum women living with HIV, tracking combined with client communication via mobile devices may make little or no difference to maternal and infant adherence to antiretroviral therapy compared with standard care (low-certainty evidence) [3].",
@@ -2798,13 +2839,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5373,
         5591
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:4",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "eb07cd98ffb64048"
+      ]
     },
     "4785e15f83fe50ce": {
       "sentence": "Targeted client communication reminders sent by mobile phone may slightly increase antenatal care use (mean difference 1.5, 95% CI –0.36 to 3.36), but this is low-certainty evidence and the interval includes no effect [3].",
@@ -2825,13 +2871,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5592,
         5764
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "failsafe:overstatement:c5f61ad24798aadf805bbcd5c6d3f9cea4fc46ef47615fa7c3a55a737f4c47f5:4785e15f83fe50ce",
+      "left_page": "2026-11-26"
     },
     "72f7852a1b2cac5b": {
       "sentence": "The effect of mobile-device tracking with decision support and/or client reminders on the proportion of births occurring in a health facility is uncertain, because the evidence is of very low certainty [3].",
@@ -2852,13 +2900,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5765,
         5883
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:48",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "62bc2953680026f9"
+      ]
     },
     "8815d9d8ed13a456": {
       "sentence": "For health and well-being outcomes, the intervention's effect on neonatal death or stillbirth and on infant HIV was uncertain, because the evidence was of very low certainty [3].",
@@ -2933,13 +2986,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6103,
         6203
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:49",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "6bdce3738c62d6c5"
+      ]
     },
     "6c68adf4bdb7703b": {
       "sentence": "Targeted client communication via mobile devices may increase infant ARV/prevention of mother-to-child transmission treatment adherence compared with digital non-targeted communication (RR 1.26, 95% CI 1.07 to 1.48; low-certainty evidence) [3].",
@@ -3068,13 +3126,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6825,
         7045
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "failsafe:overstatement:0907a204a2af998e021fd0816ea6a5ebab412c190c1be38b92ca7df0e92f7f2f:51a9e8867f1effce",
+      "left_page": "2026-11-26"
     },
     "cb7c37c54319c040": {
       "sentence": "Targeted client communication via mobile devices may reduce vaccination attendance compared with digital non-targeted communication, but the confidence interval includes both benefit and harm (RR 0.63, 95% CI 0.33 to 1.20; low-certainty evidence) [3].",
@@ -4390,7 +4450,7 @@
       "source_id": "S006",
       "document_sha": "a9a3b1081f2d10eeb9c16756a48c1e5126fb3803a6cdfa42201f81b66a77a517",
       "locator_type": "prose",
-      "locator": "readers' list line (S006@6023-6301, out_of_scope)",
+      "locator": "readers' list line (S006@6023-6300, out_of_scope)",
       "span": "Computer‐generated reminders delivered on paper to healthcare professionals alone (single‐component intervention) probably improves quality of care compared with usual care (median improvement 11.0% (IQR 5.4%",
       "envelope": null,
       "scope_words": [],
@@ -4408,7 +4468,7 @@
         6023,
         6231
       ],
-      "declaration_key": "S006@6023-6301"
+      "declaration_key": "S006@6023-6300"
     },
     "44cd927eb799d97d": {
       "sentence": "Outside this question: “Adding computer‐generated reminders delivered on paper to healthcare professionals to one or more co‐interventions (multi‐component intervention) probably improves quality of care slightly compared with the …” (Computer-generated reminders delivered on paper to healthcare professionals: eff [6]).",
@@ -4493,6 +4553,531 @@
         4758
       ],
       "declaration_key": "S007@4677-4758"
+    },
+    "df0c40acb7391001": {
+      "sentence": "Mobile phone-based clinical decision-support tools probably make little or no difference to some types of health outcomes, but we are uncertain about others, including maternal and neonatal deaths, because the evidence is very low-certainty [2].",
+      "sentence_sha": "df0c40acb7391001",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+      "locator_type": "prose",
+      "locator": "passage S002@5904",
+      "span": "It probably makes little or no difference to some types of health outcomes, but we are uncertain about other health outcomes, including maternal and neonatal deaths, due to very low‐certainty evidence.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5904,
+        6105
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "5c205be627ca22fa": {
+      "sentence": "Targeted client communication via mobile devices (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common (RR 1.30, 95% CI 1.06 to 1.59; low-certainty evidence), but has little or no effect where almost all women breastfeed (low-certainty evidence) [3].",
+      "sentence_sha": "5c205be627ca22fa",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@3346",
+      "span": "Pregnant and postpartum women TCCMD versus standard care For behaviours, TCCMD may increase exclusive breastfeeding in settings where rates of exclusive breastfeeding are less common (risk ratio (RR) 1.30, 95% confidence intervals (CI) 1.06 to 1.59; low‐certainty evidence), but have little or no effect in settings where almost all women breastfeed (low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": false,
+      "offsets": [
+        3346,
+        3721
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:7",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "33195aad9b98e6f1"
+      ]
+    },
+    "331ac4d652b18a79": {
+      "sentence": "For pregnant and postpartum women, the effect of these mobile tracking and prompt or reminder tools on health service use, compared with non-digital tools such as pamphlets, is unknown because too few studies have looked at it [3].",
+      "sentence_sha": "331ac4d652b18a79",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@4819",
+      "span": "The effect on health service use is unknown due to a lack of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": false,
+      "offsets": [
+        4819,
+        4888
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261126T212515Z/rulings.jsonl:3",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "35c20c8589cb10f0"
+      ]
+    },
+    "62bc2953680026f9": {
+      "sentence": "The effect of targeted client communication via mobile devices, compared with standard care, on the proportion of births occurring in a health facility among pregnant and postpartum women living with HIV is uncertain, because the evidence is of very low certainty [3].",
+      "sentence_sha": "62bc2953680026f9",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@5765",
+      "span": "The effect on the proportion of births occurring in a health facility is uncertain due to very low‐certainty evidence.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5765,
+        5883
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "6bdce3738c62d6c5": {
+      "sentence": "In the group whose outcomes included maternal and infant adherence to antiretroviral therapy, the effect of targeted client communication delivered via mobile devices compared with non-digital targeted client communication is unknown, because no studies reporting this comparison were found [3].",
+      "sentence_sha": "6bdce3738c62d6c5",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@6103",
+      "span": "TCCMD versus non‐digital TCC The effect is unknown due to lack of studies reporting this comparison.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6103,
+        6203
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "fd60922262c90d6e": {
+      "sentence": "The review also found, with low-certainty evidence, that the intervention \"may increase the number of people with high cardiovascular disease risk‐taking prescribed aspirin (1 study, 2086 participants)\" but \"may make little or no difference to medication adherence among people with poorly controlled diabetes (1 study, 185 participants)\" [2].",
+      "sentence_sha": "fd60922262c90d6e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+      "locator_type": "prose",
+      "locator": "passage S002@11676",
+      "span": "May increase the number of people with high cardiovascular disease risk‐taking prescribed aspirin (1 study, 2086 participants) c but may make little or no difference to medication adherence among people with poorly controlled diabetes (1 study, 185 participants) d",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        11676,
+        11940
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "24ea1a7371b4a213": {
+      "sentence": "The review concludes that the use of mobile-based clinical decision-support tools \"probably makes little or no difference to systolic blood pressure level among people with high cardiovascular disease risk or to the number of women giving birth in a hospital (moderate‐certainty evidence)\" [2].",
+      "sentence_sha": "24ea1a7371b4a213",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+      "locator_type": "prose",
+      "locator": "passage S002@84380",
+      "span": "The use of mobile‐based clinical decision‐support tools probably makes little or no difference to systolic blood pressure level among people with high cardiovascular disease risk or to the number of women giving birth in a hospital (moderate‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        84380,
+        84642
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "95db7ee47d1012cb": {
+      "sentence": "For decision-support tools alone, the review also found that the intervention \"may make little or no difference to HbA1c levels among people with poorly controlled diabetes, or to the number of people with hyperlipidaemia reaching LDL‐cholesterol goals (low‐certainty evidence)\" [2].",
+      "sentence_sha": "95db7ee47d1012cb",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+      "locator_type": "prose",
+      "locator": "passage S002@84643",
+      "span": "The intervention may make little or no difference to HbA1c levels among people with poorly controlled diabetes, or to the number of people with hyperlipidaemia reaching LDL‐cholesterol goals (low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        84643,
+        84859
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a9449bcae5dd72e2": {
+      "sentence": "The qualitative synthesis also finds, with high confidence, that \"the cost of messages could also be a problem\" for clients, which may limit whether they receive reminder messages [4].",
+      "sentence_sha": "a9449bcae5dd72e2",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "b68a2f8a89b6352036926f511c722a491cc9f2d6e83a300720f726eee2a90caa",
+      "locator_type": "prose",
+      "locator": "passage S004@5308",
+      "span": "The cost of messages could also be a problem, and many thought that messages should be free of charge (high confidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5308,
+        5428
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "3a9acdec5e1698d2": {
+      "sentence": "The same review found that adding reminders to one or more other interventions \"probably improve slightly quality of care by 4.0% compared with the co‐intervention(s) without the reminder component (in 11 studies (13 comparisons), moderate‐certainty evidence)\" [6].",
+      "sentence_sha": "3a9acdec5e1698d2",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S006",
+      "document_sha": "a9a3b1081f2d10eeb9c16756a48c1e5126fb3803a6cdfa42201f81b66a77a517",
+      "locator_type": "prose",
+      "locator": "passage S006@9773",
+      "span": "adding reminders to one or more co‐interventions (multi‐component intervention) probably improve slightly quality of care by 4.0% compared with the co‐intervention(s) without the reminder component (in 11 studies (13 comparisons), moderate‐certainty evidence)",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        9773,
+        10032
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c454f4f752e07395": {
+      "sentence": "The authors report that, in analyses looking for a 'ceiling effect' (studies with baseline adherence in the top quartile versus all others) and a floor effect (bottom quartile versus all others), they \"found no indication that baseline adherence significantly affected the magnitude of effect in the intervention group\" [7].",
+      "sentence_sha": "c454f4f752e07395",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S007",
+      "document_sha": "0abdef25269e8e3f09656eb97711557fd71543bcb3def8312d55244241b601fb",
+      "locator_type": "prose",
+      "locator": "passage S007@44375",
+      "span": "We analysed the potential impact of baseline adherence in several other ways (for example studies with baseline adherence in top quartile versus all others to look for a ‘ceiling effect’, and studies with baseline adherence in bottom quartile versus all others to look for a floor effect) but found no indication that baseline adherence significantly affected the magnitude of effect in the intervention group.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        44375,
+        44785
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "afe1381a6c0ec267": {
+      "sentence": "Not added: “Another study, conducted in Ecuador, which had comparatively lower breastfeeding rates in the standard care arm, suggests that the intervention may increase exclusive breastfeeding at …” (Targeted client communication via mobile devices for improving maternal, neonata [3]) (no place on the page).",
+      "sentence_sha": "afe1381a6c0ec267",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "readers' list line (S003@135531-135979, not_added_no_place)",
+      "span": "Another study, conducted in Ecuador, which had comparatively lower breastfeeding rates in the standard care arm, suggests that the intervention may increase exclusive breastfeeding at",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        135531,
+        135714
+      ],
+      "declaration_key": "S003@135531-135979"
+    },
+    "2d90dc7fac1f2aaa": {
+      "sentence": "Not added: “The finding that comparisons of computer reminders alone versus usual reported larger effect sizes than comparisons involving computer reminders and other co‐interventions represented an unexpected …” (The effects of on-screen, point of care computer reminders on processes and outc [7]) (the proposed sentence went beyond the finding).",
+      "sentence_sha": "2d90dc7fac1f2aaa",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S007",
+      "document_sha": "0abdef25269e8e3f09656eb97711557fd71543bcb3def8312d55244241b601fb",
+      "locator_type": "prose",
+      "locator": "readers' list line (S007@53520-53726, not_added_beyond)",
+      "span": "The finding that comparisons of computer reminders alone versus usual reported larger effect sizes than comparisons involving computer reminders and other co‐interventions represented an unexpected",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        53520,
+        53717
+      ],
+      "declaration_key": "S007@53520-53726"
+    },
+    "704ae8add8e146d9": {
+      "sentence": "Tracking combined with decision support may reduce low birthweight babies (RR 0.53) and may increase care-seeking for infant pneumonia or fever, while effects on stillbirths, neonatal and infant deaths, and HIV-positive antenatal tests are uncertain; separately, tracking combined with client messaging, in stroke patients, may reduce deaths (RR 0.52) and stroke hospitalisations (RR 0.45) and may slightly lower systolic blood pressure [1].",
+      "sentence_sha": "704ae8add8e146d9",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+      "locator_type": "prose",
+      "locator": "passage S001@5449",
+      "span": "Clients' health status May reduce low birthweight babies (1 study, 3023 participants; RR 0.53 [0.38, 0.73]) May increase infants with pneumonia or fever seeking care (1 study, 3470 participants; RR 1.13 [1.03, 1.24]) Uncertain effects on stillbirths, neonatal and infant deaths, or testing positive for HIV during antenatal testing Tracking + TCC Clients' health status In stroke patients over 12 months: May slightly increase blood pressure (BP) medication adherence (1 study, 1226 participants; RR 1.10 [1.00, 1.21]) May reduce deaths (1 study, 1226 participants; RR 0.52 [0.28, 0.96]) May slightly reduce systolic BP (1 study, 1226 participants; MD ‐2.80 mmHg [‐4.90, ‐0.70]) May slightly improve EQ‐5D scores (1 study, 1226 participants; MD 0.04 [0.02, 0.06]) May reduce stroke hospitalisations (1 study, 1226 participants; RR 0.45 [0.32, 0.64]).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5449,
+        6299
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "bdfcaeca96a2b8d9": {
+      "sentence": "Mobile digital tracking combined with both decision support and targeted client communication probably increases slightly the number of adults with hypertension or diabetes reporting a slightly or much better change in quality of care (one study, 3324 participants; RR 1.02, 95% CI 1.00 to 1.03), while effects on linkage to care are uncertain [1].",
+      "sentence_sha": "bdfcaeca96a2b8d9",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+      "locator_type": "prose",
+      "locator": "passage S001@9111",
+      "span": "Uncertain effects on linkage to care Client satisfaction Probably increases slightly the number of adults with hypertension or diabetes reporting \"slightly/much better\" change in the quality of care (1 study, 3324 participants; RR 1.02 [1.00, 1.03]).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        9111,
+        9361
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "35c20c8589cb10f0": {
+      "sentence": "For pregnant and postpartum women, the effect of targeted client communication via mobile devices on health service use, compared with non-digital targeted client communication such as pamphlets, is unknown due to a lack of studies [3].",
+      "sentence_sha": "35c20c8589cb10f0",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@4819",
+      "span": "The effect on health service use is unknown due to a lack of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        4819,
+        4888
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "eb07cd98ffb64048": {
+      "sentence": "For pregnant and postpartum women living with HIV, targeted client communication via mobile devices may make little or no difference to maternal and infant adherence to antiretroviral therapy compared with standard care (low-certainty evidence) [3].",
+      "sentence_sha": "eb07cd98ffb64048",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@5373",
+      "span": "Pregnant and postpartum women living with HIV TCCMD versus standard care For behaviours, TCCMD may make little or no difference to maternal and infant adherence to antiretroviral (ARV) therapy (low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5373,
+        5591
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "52609ab9f2e06357": {
+      "sentence": "Compared with digital non-targeted communication, the effect of targeted client communication via mobile devices on skilled attendance at birth is uncertain (very low-certainty evidence), and it may make little or no difference to antenatal influenza vaccination attendance (RR 1.05, 95% CI 0.71 to 1.58; low-certainty evidence, CI compatible with benefit and harm) [3].",
+      "sentence_sha": "52609ab9f2e06357",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@5022",
+      "span": "For use of health services, there are uncertain effects for the presence of a skilled attendant at birth due to very low‐certainty evidence, and the intervention may make little or no difference to attendance for antenatal influenza vaccination (RR 1.05, 95% CI 0.71 to 1.58), though the CI encompasses both benefit and harm (low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5022,
+        5372
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "33195aad9b98e6f1": {
+      "sentence": "Compared with standard care, targeted client communication via mobile devices (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common (RR 1.30, 95% CI 1.06 to 1.59; low-certainty evidence), but may have little or no effect where almost all women breastfeed (low-certainty evidence) [3].",
+      "sentence_sha": "33195aad9b98e6f1",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@3346",
+      "span": "Pregnant and postpartum women TCCMD versus standard care For behaviours, TCCMD may increase exclusive breastfeeding in settings where rates of exclusive breastfeeding are less common (risk ratio (RR) 1.30, 95% confidence intervals (CI) 1.06 to 1.59; low‐certainty evidence), but have little or no effect in settings where almost all women breastfeed (low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        3346,
+        3721
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

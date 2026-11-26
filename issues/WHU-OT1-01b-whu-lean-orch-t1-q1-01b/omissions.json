@@ -1,0 +1,256 @@
+{
+ "omissions": [
+  {
+   "key": "S002@11676-11940",
+   "source": "S002",
+   "held_sha256": "8ef2d8509f316feb3a44ef326e202f593c82edc0e17624b73961114017073855",
+   "at": [
+    11676,
+    11940
+   ],
+   "quote_sha256": "c2d0321815455a1e940396c44ac6bdd3705707a6f94217ad93218515d74d93ae",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. Patients' health behaviour (aspirin uptake and medication adherence) under mobile [S008@130432-130470] is an outcome the question asks about. Step 2: The finding is material. The draft says only that the intervention 'probably increases other desired patient behaviours, such as adherence to treatment', and that rests on the moderate-certainty antihypertensive result. This finding qualifies that claim in two ways: the aspirin gain is supported only by low-certainty evidence, and [S002@11856-11910] may not improve at all. Both matter to a funder judging how broad the behavioural benefit is.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4983d765a0748984",
+   "origins": [
+    "S002-06"
+   ],
+   "on_page": "fd60922262c90d6e",
+   "after": "1721154906ae6f5a",
+   "decided_at": "2026-11-26T21:22:58+00:00"
+  },
+  {
+   "key": "S002@84380-84642",
+   "source": "S002",
+   "held_sha256": "8ef2d8509f316feb3a44ef326e202f593c82edc0e17624b73961114017073855",
+   "at": [
+    84380,
+    84642
+   ],
+   "quote_sha256": "0d03d0399aa3c1534454dab32e5c0eb7c752db3e3f26c138e00326a628643cb0",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns health outcomes of mobile decision-support prompts for primary-care workers. That is a component of the question, and the draft already draws on this review for it; no scope exclusion applies. Step 2: the draft says only that the tools 'probably [S002@11813-11844] some types of health outcomes' without naming them. This finding names the specific outcomes, blood pressure and facility births, at moderate certainty. Facility birth is a key outcome for LMIC funders, so the finding narrows and qualifies the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c9d2d9c292b20d92",
+   "origins": [
+    "S002-04"
+   ],
+   "on_page": "24ea1a7371b4a213",
+   "after": "76e035413879a40c",
+   "decided_at": "2026-11-26T21:23:05+00:00"
+  },
+  {
+   "key": "S002@84643-84859",
+   "source": "S002",
+   "held_sha256": "8ef2d8509f316feb3a44ef326e202f593c82edc0e17624b73961114017073855",
+   "at": [
+    84643,
+    84859
+   ],
+   "quote_sha256": "ad9dcbb11ae74fb5e4601bb55312afb2111b1662f6049b230a770ea50e64dc29",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is a health outcome of mobile decision-support prompts for health workers in primary care. The draft already cites this review on that topic, and no SCOPE entry excludes it. Step 2: The draft says only that some health outcomes probably show little or no difference and that effects are mixed. It does not name diabetes control or lipid goals, and it does not give the low-certainty grading that goes with them. These are distinct chronic-disease outcomes that a funder weighing decision-support systems would consider.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9cd7b7626f7aa65b",
+   "origins": [
+    "S002-05"
+   ],
+   "on_page": "95db7ee47d1012cb",
+   "after": "ff66787f510ea43f",
+   "decided_at": "2026-11-26T21:23:12+00:00"
+  },
+  {
+   "key": "S003@135531-135979",
+   "source": "S003",
+   "held_sha256": "43c40125c901286aeb4954b9147a5448ff6479808ff11a4e5dba763f8f23e251",
+   "at": [
+    135531,
+    135979
+   ],
+   "quote_sha256": "6dd5904a7fac7eb5a34fb6b3aa1d176a44c9a6b119d88e61101def76b4e30e7c",
+   "outcome": "NOT_ADDED_NO_PLACE",
+   "element": "",
+   "reason": "no place for the ADD: the anchor is not on the page",
+   "by": "code (lean: no place on the page)",
+   "ruling": null,
+   "origins": [
+    "S003-08"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-26T21:23:21+00:00"
+  },
+  {
+   "key": "S004@4078-4285",
+   "source": "S004",
+   "held_sha256": "455d13eccddc89f12bec3fc0575e815b92026838f311bd218f0c5e6045ba7ba2",
+   "at": [
+    4078,
+    4285
+   ],
+   "quote_sha256": "adab7efff2c5b3b4d6298c85b4c472f279b7124291dd33add3f9e37fa45d561f",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "reason": "Step 1 fails. The finding only describes how the qualitative synthesis's studies were designed: some asked people who had used the interventions, others asked hypothetical questions. That is a note on the evidence about clients' views and experiences of the tools, which the SCOPE excludes as 'Health workers' and clients' acceptability and lived experience of the tools'. It says nothing about whether tracking plus prompts or reminders improves care or health. This matches the draft's earlier judgment of the same sentence as outside the question. Step 2 is not reached.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "99370832e4fe7732",
+   "origins": [
+    "S004-14"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-26T21:23:26+00:00"
+  },
+  {
+   "key": "S004@5308-5428",
+   "source": "S004",
+   "held_sha256": "455d13eccddc89f12bec3fc0575e815b92026838f311bd218f0c5e6045ba7ba2",
+   "at": [
+    5308,
+    5428
+   ],
+   "quote_sha256": "7b53d54ff9fce93c5cbdc1428c4e9436900e6c431df15af2dfef3a833baf20e4",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The question asks whether tracking combined with reminder messages to patients improves care. A high-confidence barrier to clients receiving those reminders bears on whether that component can work. The draft already treats the parallel barriers (affordability of airtime, phone access controlled by others) this way. The sentence uses only the barrier, not clients' opinion that messages should be free, so the acceptability exclusion does not apply. Step 2: The draft does not yet name the cost of messages as a barrier; its airtime point is about clients' general ability to pay for phone use. Who pays for messages is a design and equity factor that the reader, a funder deciding whether to scale these systems, would weigh. It also carries high confidence, stronger than the adjacent moderate-confidence items.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ef397103ea91730e",
+   "origins": [
+    "S004-16"
+   ],
+   "on_page": "a9449bcae5dd72e2",
+   "after": "035a73930abb91e5",
+   "decided_at": "2026-11-26T21:23:38+00:00"
+  },
+  {
+   "key": "S004@5738-5909",
+   "source": "S004",
+   "held_sha256": "455d13eccddc89f12bec3fc0575e815b92026838f311bd218f0c5e6045ba7ba2",
+   "at": [
+    5738,
+    5909
+   ],
+   "quote_sha256": "263374368b40b3ab114ff46af44b56cb77cb414c7257ae6350a5d3d8651468a6",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Health workers' and clients' acceptability and lived experience of the tools",
+   "reason": "Step 1 fails: the finding reports clients' own suggestions for how messages should be worded and timed. It comes from a qualitative synthesis of clients' perceptions and experiences, which SCOPE excludes as a qualitative acceptability and lived-experience question. It does not bear on whether the tools improve care or health. Step 2 is not reached.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ac011d5f553f9d68",
+   "origins": [
+    "S004-15"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-26T21:23:42+00:00"
+  },
+  {
+   "key": "S006@3763-3905",
+   "source": "S006",
+   "held_sha256": "5de4ef8dba0c01ac41fe2f35712e8bc1a23f6779ecd2bbf2c39a9784475d70ba",
+   "at": [
+    3763,
+    3905
+   ],
+   "quote_sha256": "24c5fc2f6bd40675f399e6e9dc828632dafffbb547badc86150d4f56289d2a3d",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The quotation defines the outcomes measured by review [6], which the draft already cites as adjacent evidence. Those outcomes, [S006@7638-7674], match the question's 'improve the care people receive and their health', so nothing in the question or scope excludes it. Step 2: The quotation only says how the review defined its two outcome categories in its objectives. It reports no effect and adds no new outcome. The draft already states the findings for both outcomes: a slight improvement in quality of care (moderate certainty) and an uncertain effect on patient outcomes (very low certainty). This definition would not change or qualify the reader's decision.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5c3f1cf906edca9d",
+   "origins": [
+    "S006-20"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-26T21:23:46+00:00"
+  },
+  {
+   "key": "S006@6023-6300",
+   "source": "S006",
+   "held_sha256": "5de4ef8dba0c01ac41fe2f35712e8bc1a23f6779ecd2bbf2c39a9784475d70ba",
+   "at": [
+    6023,
+    6300
+   ],
+   "quote_sha256": "c5c9e6cc1be42303494dadf26ee7e114566896bd53353821340b2b09654689ff",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "using mobile phones or tablets to keep track of the care each patient gets",
+   "reason": "Step 1 fails. The finding concerns computer-generated reminders printed on paper for health professionals, used on their own. The question is limited to using mobile phones or tablets to track each patient's care. Paper reminders without mobile client tracking fall outside those words. Step 2 was therefore not assessed. The draft also already gives the review's overall moderate-certainty conclusion for context.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "290fcf68aa5665f8",
+   "origins": [
+    "S006-18"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-26T21:23:52+00:00"
+  },
+  {
+   "key": "S006@9773-10032",
+   "source": "S006",
+   "held_sha256": "5de4ef8dba0c01ac41fe2f35712e8bc1a23f6779ecd2bbf2c39a9784475d70ba",
+   "at": [
+    9773,
+    10032
+   ],
+   "quote_sha256": "c526121580bdb6faf71d47c3cd8b17626064f0aec50952abd0f08b71f9d02f8f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The draft already uses this review [6] as indirect evidence on reminders and quality of care. The finding is about prompts layered onto other interventions, which mirrors the question's tracking-plus-prompts design. So it bears on the question's 'improve the care people receive', even though the reminders were paper-delivered. Step 2: The draft states only the overall slight improvement. The finding narrows that: the extra benefit of adding reminders on top of existing interventions is small (4.0%). That matters to funders deciding whether to add decision-support to existing systems, and ALREADY does not state it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "82922be1c941a293",
+   "origins": [
+    "S006-19"
+   ],
+   "on_page": "3a9acdec5e1698d2",
+   "after": "e9de5c4f81448942",
+   "decided_at": "2026-11-26T21:24:02+00:00"
+  },
+  {
+   "key": "S007@44375-44785",
+   "source": "S007",
+   "held_sha256": "d42dca66302424cea0906a800526aee34fce70bbb690d130652da822499ca27f",
+   "at": [
+    44375,
+    44785
+   ],
+   "quote_sha256": "c0c037b6890186babb6e55e8df38a1ee041e34ca67246ee6e81570b6bfee6af0",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "In scope: the finding concerns how much on-screen prompts guiding health workers improve care, which the question asks about, and no SCOPE exclusion covers it. Material: readers in LMICs, where baseline adherence is often low, might expect larger gains from decision-support prompts. This finding qualifies that expectation. The draft's general statement that no reminder or contextual features predicted effect size does not specifically address baseline performance.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8711051a76c4c489",
+   "origins": [
+    "S007-22"
+   ],
+   "on_page": "c454f4f752e07395",
+   "after": "50b332f1eab7b4f2",
+   "decided_at": "2026-11-26T21:24:11+00:00"
+  },
+  {
+   "key": "S007@53520-53726",
+   "source": "S007",
+   "held_sha256": "d42dca66302424cea0906a800526aee34fce70bbb690d130652da822499ca27f",
+   "at": [
+    53520,
+    53726
+   ],
+   "quote_sha256": "169ad1358802a7593d4c7183376e8d0acc7557c9c304eb9d0941c52b4de1c4c4",
+   "outcome": "NOT_ADDED_BEYOND",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (lean: the proposed sentence went beyond the finding)",
+   "ruling": null,
+   "origins": [
+    "S007-21"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-26T21:24:23+00:00"
+  }
+ ]
+}
