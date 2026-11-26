@@ -277,6 +277,11 @@ def main(argv=None) -> int:
     ap.add_argument("--use-routes", action="store_true",
                     help="try the free routes find_access.py recorded, in order, "
                          "before the source's own url")
+    ap.add_argument("--landing-pdfs", action="store_true",
+                    help="a fetched page that source_store classes a landing page: try its own PDF link "
+                         "(landing_route.py: citation_pdf_url or the one title-matching PDF link on the page's "
+                         "registrable domain; redirects recorded; robots.txt and tdmrep.json before the fetch; "
+                         "identity and licence checked)")
     ap.add_argument("--open-copies", action="store_true",
                     help="when a source's own copy cannot be held, try the permitted open copies OpenAlex lists for "
                          "its recorded DOI (open_copy.py: copy rule, robots.txt and TDM before any fetch, never past "
@@ -348,6 +353,7 @@ def main(argv=None) -> int:
         why, check, tried = "no route tried", {}, []
         unavailable = False
         via_pmc = None
+        landing = None           # (bytes, url) of a fetched page source_store classed a landing page
         for target in targets:
             misses = []
             epmc_ft = bool(EPMC_FULLTEXT.search(target)) and bool(os.environ.get("WHU_ORCH_STEP"))
@@ -400,8 +406,23 @@ def main(argv=None) -> int:
             why = check["why"]
             if ok:
                 break
+            if check.get("kind") == "landing" and landing is None:
+                landing = (data, final or target)
             why = "%s (%d bytes at %s)" % (why, len(data), target[:60]); data = None
             tried.append({"url": target, "result": why})
+        via_landing = None
+        if data is None and args.landing_pdfs and landing is not None and not unavailable:
+            # a page ABOUT the document: its own PDF link (landing_route.py, advisor's rulings on the S006 route)
+            import landing_route as LR
+            res = LR.find(landing[0], landing[1], s, lambda d, c, _sid=sid, _s=s: store.held_check(
+                args.slug, _sid, _s, d, c), fetch_retrying)
+            acc["landing_pdf"] = dict(res["record"], on=store.utc_today())
+            tried.append({"url": LR.ROUTE, "result": res["record"].get("outcome")})
+            if res.get("data") is not None:
+                data, ct, final, check, via_landing = res["data"], res["ct"], res["final"], res["check"], res
+                why = check["why"]
+            else:
+                why = "%s; %s: %s" % (why, LR.ROUTE, res["record"].get("outcome"))
         via_open = None
         if data is None and args.open_copies and not unavailable:
             # the source's own copy could not be held: its permitted open copies (open_copy.py, ruling on P107)
@@ -436,6 +457,12 @@ def main(argv=None) -> int:
         if via_pmc and via_pmc.get("licence"):   # held through the NCBI PMC fallback: its route and licence
             acc["held"]["route"] = via_pmc["route"]
             acc["held"]["licence"] = via_pmc["licence"]
+        if via_landing:                          # held through the landing page's own PDF link
+            lr = via_landing["record"]
+            acc["held"]["route"] = "%s: %s (%s)" % (LR.ROUTE, lr["chosen"], lr["chosen_by"])
+            acc["held"]["licence"] = dict(via_landing["licence"], page=landing[1])
+            acc["held"]["redirects"] = [h["url"] for h in lr["chain"]]
+            acc["held"]["final_url"] = lr["final_url"]
         if via_open:                             # held through an open copy: where, its version and its licence
             acc["held"]["route"] = "%s: %s (%s)" % (OC.ROUTE, via_open["where"], via_open["why"])
             acc["held"]["version"] = via_open["version"]
