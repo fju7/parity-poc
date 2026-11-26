@@ -364,20 +364,21 @@ def cached_urlopen(orig, req, *a, **kw):
     if rule:
         err = str(rule.get("error", "timed out"))
         if err.isdigit():                    # an HTTP status (ruling after attempt 24: Europe PMC answering 503)
-            raise urllib.error.HTTPError(url, int(err), "rehearsal registry fault", Message(), io.BytesIO(b""))
-        raise urllib.error.URLError("rehearsal registry fault: %s" % err)
+            raise _ours(urllib.error.HTTPError(url, int(err), "rehearsal registry fault", Message(), io.BytesIO(b"")))
+        raise _ours(urllib.error.URLError("rehearsal registry fault: %s" % err))
     k = _key(req)
     meta, body = http_dir() / (k + ".json"), http_dir() / (k + ".body")
     if meta.exists():
         m = json.loads(meta.read_text())
         log("http", {"url": url[:200], "from": "cache", "status": m["status"]})
         if m["status"] >= 400:
-            raise urllib.error.HTTPError(url, m["status"], m.get("reason") or "", Message(), io.BytesIO(
-                body.read_bytes() if body.exists() else b""))
+            raise _ours(urllib.error.HTTPError(url, m["status"], m.get("reason") or "", Message(), io.BytesIO(
+                body.read_bytes() if body.exists() else b"")))
         return _Resp(body.read_bytes(), m["status"], m.get("headers") or {}, m.get("url") or url)
     if os.environ.get("WHU_REHEARSE_OFFLINE") == "1":
         log("http", {"url": url[:200], "from": "offline-miss"})
-        raise urllib.error.URLError("rehearsal offline: %s was not recorded" % url[:120])
+        raise _ours(urllib.error.URLError("rehearsal offline: %s was not recorded" % url[:120]))
+    _pace_live(url)
     try:
         r = orig(req, *a, **kw)
         data = r.read()
@@ -390,10 +391,43 @@ def cached_urlopen(orig, req, *a, **kw):
         return _Resp(data, st, hdrs, getattr(r, "url", url))
     except urllib.error.HTTPError as e:
         data = e.read() if hasattr(e, "read") else b""
+        if e.code >= 500 or e.code == 429:
+            # A transient failure is not an answer: it is not recorded, so a later replay asks again instead of
+            # replaying the outage (advisor's ruling 2 on the replay gate). Entries recorded before stay as they are.
+            log("http", {"url": url[:200], "from": "live", "status": e.code, "recorded": False})
+            raise urllib.error.HTTPError(url, e.code, e.reason, e.headers, io.BytesIO(data or b""))
         meta.write_text(json.dumps({"url": url, "status": e.code, "reason": str(e.reason)}))
         body.write_bytes(data or b"")
         log("http", {"url": url[:200], "from": "live", "status": e.code})
         raise urllib.error.HTTPError(url, e.code, e.reason, e.headers, io.BytesIO(data or b""))
+
+
+def _ours(e):
+    """Mark a failure the rehearsal made itself (registry_http.rehearsal_made): a backoff after it is shortened."""
+    e._whu_rehearsal = True
+    return e
+
+
+def _pace_live(url: str) -> None:
+    """A request that goes to the network is paced as registries._get would pace it (registries.served_locally skips
+    the pacing for one answered from this cache)."""
+    import time
+    import urllib.parse
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    try:
+        import registries as RG
+    except ImportError:                      # whatholdsup not on the path: load it by path
+        import importlib.util
+        import sys
+        p = Path(__file__).resolve().parents[1] / "registries.py"
+        sp = importlib.util.spec_from_file_location("registries", p)
+        RG = importlib.util.module_from_spec(sp)
+        sys.modules["registries"] = RG
+        sp.loader.exec_module(RG)
+    if RG.is_ncbi(url):
+        RG.ncbi_pace()
+    elif host == "api.crossref.org":
+        time.sleep(RG.PAUSE.get("crossref", 0))
 
 
 def install_http() -> None:

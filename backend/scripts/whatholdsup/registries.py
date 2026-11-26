@@ -116,9 +116,23 @@ def is_ncbi(url: str) -> bool:
     return (urllib.parse.urlsplit(url).hostname or "").lower() in NCBI_HOSTS
 
 
+def served_locally(url: str) -> bool:
+    """In a rehearsal (WHU_ORCH_MODE=rehearse), whether URL is answered without the network: offline, or already in
+    the rehearsal's record-then-replay cache (orch/rehearsal._key of a GET). A request that is never sent needs no
+    pacing; a live one is paced by the rehearsal's cache before it goes out (advisor's ruling 2 on the replay gate)."""
+    import hashlib
+    import os
+    if os.environ.get("WHU_ORCH_MODE") != "rehearse":
+        return False
+    if os.environ.get("WHU_REHEARSE_OFFLINE") == "1":
+        return True
+    d = Path(os.environ.get("WHU_REHEARSE_HTTP") or (Path.home() / "Projects" / "whu-study-private" / "rehearsal_http"))
+    return (d / (hashlib.sha256((url + "\n").encode()).hexdigest() + ".json")).exists()
+
+
 def _get(url: str) -> tuple[bool, bytes | None, str]:
     """(answered, body or None, why). A 4xx other than 429 is an answer with no body (404: no such record)."""
-    if is_ncbi(url):
+    if is_ncbi(url) and not served_locally(url):
         ncbi_pace()
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
@@ -142,7 +156,9 @@ def _json(url: str) -> tuple[bool, dict | None, str]:
         return False, None, "unparseable JSON reply"
 
 
-def _pause(reg: str) -> None:
+def _pause(reg: str, url: str | None = None) -> None:
+    if url and served_locally(url):
+        return                                   # never sent (a rehearsal's cache or offline): nothing to restrain
     time.sleep(PAUSE.get(reg, 0))
 
 
@@ -381,7 +397,7 @@ def crossref_title(title: str, first_author: str | None = None) -> Answer:
         params["query.author"] = first_author
     url = CROSSREF + "?" + urllib.parse.urlencode(params)
     ok, d, why = _json(url)
-    _pause("crossref")
+    _pause("crossref", url)
     if not ok:
         return Answer(CROSSREF_NAME, False, why="Crossref did not answer (%s)" % why, url=url)
     items = [it for it in ((d or {}).get("message") or {}).get("items") or [] if it.get("type") not in NOT_A_WORK]
@@ -392,7 +408,7 @@ def crossref_title(title: str, first_author: str | None = None) -> Answer:
 def crossref_work(doi: str) -> Answer:
     url = CROSSREF + "/" + urllib.parse.quote(doi, safe="")
     ok, d, why = _json(url)
-    _pause("crossref")
+    _pause("crossref", url)
     if not ok:
         return Answer(CROSSREF_NAME, False, why="Crossref did not answer (%s)" % why, url=url)
     msg = (d or {}).get("message")

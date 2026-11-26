@@ -271,7 +271,8 @@ def fetch_retrying(url: str) -> tuple[bytes, str, str]:
         except Exception as e:
             if i + 1 >= tries or not transient(e):
                 raise
-            _sleep(BACKOFF[min(i, len(BACKOFF) - 1)])
+            from orch.registry_http import rehearsal_made
+            _sleep(BACKOFF[min(i, len(BACKOFF) - 1)] / (50.0 if rehearsal_made(e) else 1.0))
 
 
 def main(argv=None) -> int:

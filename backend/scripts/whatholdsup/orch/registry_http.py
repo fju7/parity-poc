@@ -64,7 +64,21 @@ def _wrapped(req, *a, **kw):
                                              "attempts": ATTEMPTS,
                                              "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}) + "\n")
                 raise
-            _sleep(BACKOFF[min(i, len(BACKOFF) - 1)])
+            _sleep(BACKOFF[min(i, len(BACKOFF) - 1)] / (50.0 if rehearsal_made(e) else 1.0))
+
+
+def rehearsal_made(e: BaseException | None) -> bool:
+    """Whether a failure was the rehearsal's own (a planned fault, an offline miss, or an error replayed from the
+    rehearsal's cache; orch/rehearsal.cached_urlopen marks them): no server is behind it, so a backoff waits 1/50 of
+    its time, as provider_retry's rehearsal waits do (advisor's ruling 2 on the replay gate). A live failure waits in
+    full."""
+    seen = 0
+    while e is not None and seen < 8:
+        if getattr(e, "_whu_rehearsal", False):
+            return True
+        e = e.__cause__ or e.__context__
+        seen += 1
+    return False
 
 
 def install(log) -> None:

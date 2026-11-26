@@ -218,6 +218,14 @@ def _seeded(state: Path) -> int:
         return 0
 
 
+def _timed(fn, slug, offline, out_dir) -> dict:
+    import time
+    t0 = time.monotonic()
+    row = fn(slug, offline, out_dir)
+    row["seconds"] = round(time.monotonic() - t0, 1)
+    return row
+
+
 def record_path(sha: str | None = None) -> Path:
     return GATE_DIR / ("%s.json" % (sha or RR.code_sha()))
 
@@ -226,7 +234,11 @@ def run(offline: bool = False) -> dict:
     sha = RR.code_sha()
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out_dir = GATE_DIR / "runs" / stamp
-    rows = [replay_one(s, offline, out_dir) for s in RUNS]
+    # The replays are independent (each its own Sandbox, state and HTTP cache), so they run at once (advisor's
+    # ruling 2 on the replay gate: the pre-run check in under 15 minutes); NCBI pacing is machine-wide regardless.
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=len(RUNS)) as ex:
+        rows = list(ex.map(lambda s: _timed(replay_one, s, offline, out_dir), RUNS))
     rec = {"code_sha": sha, "at": stamp, "offline": offline, "runs": rows,
            "passed": all(r["verdict"] == "PASS" for r in rows)}
     GATE_DIR.mkdir(parents=True, exist_ok=True)
@@ -263,7 +275,8 @@ def main(argv=None) -> int:
         return 0 if ok else 1
     rec = run(offline=a.offline)
     print(json.dumps({"passed": rec["passed"], "code_sha": rec["code_sha"][:12],
-                      "runs": [{k: r[k] for k in ("slug", "verdict", "why", "replies", "seeded", "new_stop_rows")}
+                      "runs": [{k: r.get(k) for k in ("slug", "verdict", "why", "replies", "seeded", "new_stop_rows",
+                                                       "seconds")}
                                for r in rec["runs"]]}, indent=1))
     return 0 if rec["passed"] else 1
 
