@@ -133,7 +133,9 @@ def check_one(gw, p: dict) -> dict:
     for _attempt in range(2):
         got = gw.call(text, "overstatement")
         replies.append({"text": got["text"], "model": got["model"], "usd": got["usd"],
-                        "refused": got["refused"], "finish": got["finish"]})
+                        "refused": got["refused"], "finish": got["finish"], "cut_off": bool(got.get("cut_off"))})
+        if got.get("cut_off"):
+            break                          # cut off again after the doubled re-ask: the fail-safe, no third call
         verdict = None if got["refused"] else parse(got["text"])
         if verdict:
             break

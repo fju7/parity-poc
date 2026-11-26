@@ -102,8 +102,9 @@ READ_PROMPT = HERE / "audit_prompts" / "read.md"
 SUMMARY_PROMPT = HERE / "audit_prompts" / "summary.md"
 RULE_PROMPT = HERE / "audit_prompts" / "rule.md"
 MODEL = "claude-opus-5-5"
-READ_MAX_OUT = 12000
-RULE_MAX_OUT = 1500
+import reply_limits as _RL  # noqa: E402  (the one limits table, advisor's ruling 1 on the design review)
+READ_MAX_OUT = _RL.limit("audit-read")
+RULE_MAX_OUT = _RL.limit("audit-rule")
 # A reply limit above this needs an explicit request timeout: the SDK refuses a non-streaming request whose
 # max_tokens implies more than ten minutes (about 21,333 tokens). The orchestrator's draft step asks for 30,000.
 LONG_REPLY_TOKENS = 16000
@@ -462,6 +463,7 @@ class ReplyCutOff(AuditFailure):
     call cost (`usage`), since it was paid for; `cut_off` lets a caller that
     loaded this module under another name recognise it (ruling.py)."""
     cut_off = True
+    reasked = False                        # True once the doubled re-ask was also cut off
 
     def __init__(self, msg: str, usage: dict | None = None, text: str = ""):
         super().__init__(msg)
@@ -1008,6 +1010,29 @@ class Caller:
         return sum(float(e.get("usd") or 0) for e in S.entries() if e.get("issue") == self.issue)
 
     def __call__(self, prompt: str, max_tokens: int, role: str, cache_prefix: str | None = None) -> tuple[str, dict]:
+        """One call. In an orchestrated run a cut-off reply is re-asked once with the limit doubled (inside the
+        caps: the re-ask is checked against them like any call); a second cut-off raises ReplyCutOff with
+        `reasked` set, and the step's own fail-safe applies (advisor's ruling 1 on the design review)."""
+        site = _RL.site_of_role(role)
+        try:
+            return self._once(prompt, max_tokens, role, cache_prefix, site)
+        except ReplyCutOff as e:
+            if not _RL.orchestrated() or site in _RL.NO_REASK:
+                raise
+            bigger = _RL.doubled(max_tokens)
+            _RL.cutoff_log(site, max_tokens, "cut_off", {"role": role})
+            if bigger <= max_tokens:
+                e.reasked = True
+                raise
+            _RL.cutoff_log(site, bigger, "reask", {"role": role})
+            try:
+                return self._once(prompt, bigger, role + "-cutoff-reask", cache_prefix, site)
+            except ReplyCutOff as e2:
+                _RL.cutoff_log(site, bigger, "cut_off_again", {"role": role})
+                e2.reasked = True
+                raise
+
+    def _once(self, prompt: str, max_tokens: int, role: str, cache_prefix: str | None, site: str) -> tuple[str, dict]:
         # CACHE_PREFIX (lean WHU only): the leading part of PROMPT to mark for
         # the prompt cache. The text sent is PROMPT either way.
         extra = {}
@@ -1041,9 +1066,10 @@ class Caller:
         S.check_cap(self.issue, worst)
         t0 = time.time()
         kw = {"timeout": LONG_REPLY_TIMEOUT_S} if max_tokens > LONG_REPLY_TOKENS else {}
-        r = _PR().call(lambda: self._client.messages.create(model=self.model, max_tokens=max_tokens,
-                                                            messages=[{"role": "user", "content": content}], **kw),
-                       "anthropic", role)
+        with S.call_site(site):
+            r = _PR().call(lambda: self._client.messages.create(model=self.model, max_tokens=max_tokens,
+                                                                messages=[{"role": "user", "content": content}], **kw),
+                           "anthropic", role)
         if r.stop_reason == "refusal":
             raise AuditFailure("the model refused (%s)" % role)
         text = "".join(getattr(b, "text", "") for b in r.content)

@@ -41,7 +41,8 @@ MODEL = "gemini-4-argon"
 SCRIPT = "orch/google.py"
 PREFLIGHT_TEXT = "Reply with the single word: ok"
 APPROX_CHARS_PER_TOKEN = 3.0
-MAX_OUT = 2800   # orch/steps.py REPLY_LIMITS["overstatement"]: thinking counts towards it
+import reply_limits as _RL  # noqa: E402
+MAX_OUT = _RL.limit("overstatement")   # the one limits table; thinking counts towards it
 
 
 class Stop(RuntimeError):
@@ -107,7 +108,7 @@ class Gateway:
         S.orch_guard(MODEL, SCRIPT, "google-preflight", self.issue, 0.001)
         try:
             r = _PR().call(lambda: self.client().models.generate_content(model=MODEL, contents=PREFLIGHT_TEXT,
-                                                                         config=_config(64)), "google", "preflight")
+                                                                         config=_config(_RL.limit("google-preflight"))), "google", "preflight")
         except _PR().ModelUnavailable:
             raise                          # the run stops "model unavailable; run again later" (ruling after attempt 22)
         except Exception as e:
@@ -117,22 +118,40 @@ class Gateway:
         tin, _c, tout, think = _usage(r)
         p = S.rates(MODEL, 0)
         usd = (tin * p["input"] + (tout + think) * p["output"]) / 1e6
-        S.record(script=SCRIPT, role="google-preflight", issue=self.issue, usd=usd, input_tokens=tin,
-                 model=getattr(r, "model_version", None) or None,
-                 output_tokens=tout + think, note="paid-tier preflight; %s" % (getattr(r, "model_version", "") or MODEL))
+        with S.call_site("google-preflight"):
+            S.record(script=SCRIPT, role="google-preflight", issue=self.issue, usd=usd, input_tokens=tin,
+                     model=getattr(r, "model_version", None) or None,
+                     output_tokens=tout + think,
+                     note="paid-tier preflight; %s" % (getattr(r, "model_version", "") or MODEL))
         self.preflight_record = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                  "usd": round(usd, 6), "model": getattr(r, "model_version", None)}
         return self.preflight_record
 
-    def call(self, text: str, role: str) -> dict:
-        """One generate call. {"text", "model", "usd", "refused", "finish", "tokens"}. Raises Stop on a transport
-        error (no reply: not a verdict) and on a reply from another model."""
+    def call(self, text: str, role: str, max_out: int | None = None) -> dict:
+        """One generate call. {"text", "model", "usd", "refused", "finish", "tokens", "cut_off"}. Raises Stop on a
+        transport error (no reply: not a verdict) and on a reply from another model. A reply cut off at its limit
+        (finish MAX_TOKENS) is re-asked once with the limit doubled (advisor's ruling 1 on the design review); if
+        that is cut off too the result carries cut_off=True and text "", and the caller's fail-safe applies."""
+        limit = max_out or MAX_OUT
+        got = self._once(text, role, limit)
+        if "MAX_TOKENS" in got["finish"].upper():
+            _RL.cutoff_log("overstatement", limit, "cut_off", {"role": role})
+            _RL.cutoff_log("overstatement", _RL.doubled(limit), "reask", {"role": role})
+            again = self._once(text, role + "-cutoff-reask", _RL.doubled(limit))
+            again["usd"] = round(again["usd"] + got["usd"], 6)
+            if "MAX_TOKENS" in again["finish"].upper():
+                _RL.cutoff_log("overstatement", _RL.doubled(limit), "cut_off_again", {"role": role})
+                again.update(text="", cut_off=True)
+            return again
+        return got
+
+    def _once(self, text: str, role: str, max_out: int) -> dict:
         self.preflight()
         n_in = approx_tokens(text)
-        S.orch_guard(MODEL, SCRIPT, role, self.issue, worst_usd(n_in))
+        S.orch_guard(MODEL, SCRIPT, role, self.issue, worst_usd(n_in, max_out))
         try:
             r = _PR().call(lambda: self.client().models.generate_content(model=MODEL, contents=text,
-                                                                         config=_config(MAX_OUT)), "google", role)
+                                                                         config=_config(max_out)), "google", role)
         except _PR().ModelUnavailable:
             raise                          # the run stops "model unavailable; run again later" (ruling after attempt 22)
         except Exception as e:
@@ -152,8 +171,9 @@ class Gateway:
             out = r.text or ""
         except Exception:
             out = ""
-        S.record(script=SCRIPT, role=role, issue=self.issue, usd=usd, input_tokens=prompt, model=mv or None,
-                 output_tokens=cand + think, note="%s; cached=%d; thinking=%d; finish=%s" % (mv or MODEL, cached,
-                                                                                         think, finish))
+        with S.call_site("overstatement"):
+            S.record(script=SCRIPT, role=role, issue=self.issue, usd=usd, input_tokens=prompt, model=mv or None,
+                     output_tokens=cand + think, note="%s; cached=%d; thinking=%d; finish=%s" % (mv or MODEL, cached,
+                                                                                             think, finish))
         return {"text": out, "model": mv or MODEL, "usd": round(usd, 6), "refused": refused, "finish": finish,
-                "tokens": {"input": prompt, "cached": cached, "output": cand, "thinking": think}}
+                "tokens": {"input": prompt, "cached": cached, "output": cand, "thinking": think}, "cut_off": False}

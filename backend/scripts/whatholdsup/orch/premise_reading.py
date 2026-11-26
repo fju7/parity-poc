@@ -243,7 +243,7 @@ def belief_outlets(case: Path, ask, model: str, get=fetch, save=None, n: int = 3
                     "code": {k: v.get(k) for k in ("ok", "why", "sha256", "final_url", "key_words",
                                                    "key_words_found", "robots", "fetched_at")}})
 
-    reply = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief), 1500, "belief-outlet")
+    reply = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief), M.LIMITS["belief"], "belief-outlet")
     cands = _cands(reply)
     checked = [verify_outlet(belief, c, get, save) for c in cands]
     for c, v in zip(cands, checked):
@@ -258,7 +258,7 @@ def belief_outlets(case: Path, ask, model: str, get=fetch, save=None, n: int = 3
         r2 = {"round": 2, "proposed": 0, "verified": 0, "excluded": 0}
         try:
             reply2 = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief) + REASK_TAIL.format(refused=listing),
-                                1500, "belief-outlet-reask")
+                                M.LIMITS["belief"], "belief-outlet-reask")
         except M.Unusable as e:
             reply2 = None
             r2["unusable"] = str(e)[:200]
@@ -352,7 +352,7 @@ def direction_and_kill(case: Path, slug: str, ask, model: str) -> dict:
     if not passages:
         return {"direction": None, "kill": None, "why": "no held passage"}
     body = "\n\n".join("[%s] %s" % (sid, t) for _pid, (sid, t) in passages.items())
-    reply = M.ask_json(ask, READING_PROMPT.format(belief=belief, kill=kill, passages=body), 1500, "premise-reading")
+    reply = M.ask_json(ask, READING_PROMPT.format(belief=belief, kill=kill, passages=body), M.LIMITS["premise_reading"], "premise-reading")
     out = {"direction": None, "kill": None, "sources_show": None}
     r = reply if isinstance(reply, dict) else {}
     show = " ".join(str(r.get("sources_show") or "").split())

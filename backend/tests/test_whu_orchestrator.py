@@ -134,7 +134,7 @@ def _calls_in(path: Path):
 
 
 # (file, function) whose call goes through spend_ledger's metered client, which runs the guard itself.
-METERED = {("audit_stage.py", "__call__")}
+METERED = {("audit_stage.py", "__call__"), ("audit_stage.py", "_once")}   # _once: since the doubled re-ask
 
 
 def test_every_paid_call_site_passes_the_guard():
@@ -876,9 +876,11 @@ def test_e7_e9_run_after_every_page_owning_step(tmp_path, monkeypatch):
 
 def test_reply_limits_cover_the_stored_records_with_a_margin():
     rec = json.loads((ROOT / "study/whu-reliability/next_phase/results/orchestrator/reply_limits.json").read_text())
-    assert set(rec["steps"]) == set(ST.REPLY_LIMITS)
+    # Since the design review of 2026-11-26 (advisor's ruling 1) the limits come from reply_limits.LIMITS, set at
+    # twice the measured maximum (tests/test_whu_reply_limits.py); the 2026-11-07 values are now a floor.
+    assert set(rec["steps"]) <= set(ST.REPLY_LIMITS)
     for k, v in rec["steps"].items():
-        assert ST.REPLY_LIMITS[k] == v["new_limit"] >= 1.5 * v["basis_tokens"], k
+        assert ST.REPLY_LIMITS[k] >= v["new_limit"] >= 1.5 * v["basis_tokens"], k
     assert ST.REPLY_LIMITS["premise"] == 4000
     from orch import google as G
     assert G.MAX_OUT == ST.REPLY_LIMITS["overstatement"]

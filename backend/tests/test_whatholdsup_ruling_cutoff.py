@@ -89,7 +89,9 @@ def _jsonl(p):
 
 
 def test_the_limit_is_4000_tokens():
-    assert R.MAX_OUT == 4000 and R.ATTEMPTS == 2
+    # 4,000 until the design review of 2026-11-26; now the one limits table's (reply_limits.LIMITS['ruling'])
+    import reply_limits as RL
+    assert R.MAX_OUT == RL.LIMITS['ruling'] >= 4000 and R.ATTEMPTS == 2
 
 
 def test_the_caller_raises_a_cut_off_that_carries_what_it_cost():
@@ -107,10 +109,10 @@ def test_a_cut_off_reply_is_retried_once_with_the_same_prompt_and_both_are_logge
     m = Model(cut=lambda p, n: n == 1)
     done = R.rule_changecheck("xq", _caller(m), P=P, rows=rows, held=HELD, page_html=page)
     assert len(done) == 1 and done[0]["decision"] == "reject"
-    assert len(m.prompts) == 2 and m.prompts[0] == m.prompts[1] and m.limits == [4000, 4000]
+    assert len(m.prompts) == 2 and m.prompts[0] == m.prompts[1] and m.limits == [R.MAX_OUT, R.MAX_OUT]
     cut = _jsonl(d / "rulings" / "attempts.jsonl")
     assert [c["type"] for c in cut] == ["cut_off"] and cut[0]["attempt"] == 1
-    assert cut[0]["inputs"]["sentence"].startswith("Sentence number 0") and cut[0]["max_tokens"] == 4000
+    assert cut[0]["inputs"]["sentence"].startswith("Sentence number 0") and cut[0]["max_tokens"] == R.MAX_OUT
     rec = _jsonl(d / "rulings" / "rulings.jsonl")
     assert len(rec) == 1 and rec[0]["after_cut_off"] == [cut[0]["id"]]
     assert rec[0]["inputs_sha256"] == cut[0]["inputs_sha256"]                 # the same payload
@@ -125,7 +127,7 @@ def test_cut_off_twice_is_ruling_failed_and_the_step_goes_on(study):
     done = R.rule_changecheck("xq", _caller(m), P=P, rows=rows, held=HELD, page_html=page, failed=failed)
     assert len(done) == 2                                                    # 0 and 2 ruled
     assert {x["sentence"][:17] for x in done} == {"Sentence number 0", "Sentence number 2"}
-    assert len(failed) == 1 and "cut off at 4000 tokens on all 2 attempts" in failed[0]["why"]
+    assert len(failed) == 1 and "cut off at %d tokens on all 2 attempts" % R.MAX_OUT in failed[0]["why"]
     att = _jsonl(d / "rulings" / "attempts.jsonl")
     assert [a["type"] for a in att] == ["cut_off", "cut_off", "RULING_FAILED"]
     assert att[2]["status"] == "RULING_FAILED" and att[2]["attempts"] == [att[0]["id"], att[1]["id"]]

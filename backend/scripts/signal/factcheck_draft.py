@@ -83,6 +83,7 @@ from __future__ import annotations
 import argparse
 import html
 import hashlib
+import contextlib
 import json
 import os
 import re
@@ -233,6 +234,27 @@ def _final_message(stream_manager):
 
 
 _spend = _load_spend()
+
+
+def _load_reply_limits():
+    """whatholdsup/reply_limits.py, by path: the one table of output limits for every model call site of an
+    orchestrated run (advisor's ruling 1 on the design review of 2026-11-26). None if it cannot load; an
+    orchestrated call then fails closed in call()."""
+    try:
+        import importlib.util
+        m = sys.modules.get("reply_limits")
+        if m is None:
+            p = Path(__file__).resolve().parents[1] / "whatholdsup" / "reply_limits.py"
+            sp = importlib.util.spec_from_file_location("reply_limits", p)
+            m = importlib.util.module_from_spec(sp)
+            sys.modules["reply_limits"] = m
+            sp.loader.exec_module(m)
+        return m
+    except Exception:
+        return None
+
+
+_RL = _load_reply_limits()
 
 
 def _load_jsonio():
@@ -842,7 +864,7 @@ def _note_malformed(label: str, event: str, text: str) -> None:
 
 
 def call(system: str, user: str, *, search: bool,
-         max_tokens: int = MAX_OUTPUT_TOKENS, label: str = "", raw: bool = False):
+         max_tokens: int = MAX_OUTPUT_TOKENS, label: str = "", raw: bool = False, _doubled: bool = False):
     """One model call, optionally with web search. Returns parsed JSON or None.
 
     raw=True returns the reply's text unparsed (None if cut off at max_tokens), with no JSON retry and no
@@ -895,6 +917,17 @@ def call(system: str, user: str, *, search: bool,
     if _spend is None and any(os.environ.get(k) for k in ("WHU_ORCH_STEP", "WHU_ORCH_MODE")):
         raise SystemExit("refusing to spend: the spend ledger did not load, so the orchestrator's guard "
                          "cannot run (fails closed)")
+    # THE ONE LIMITS TABLE (advisor's ruling 1 on the design review of 2026-11-26): in an orchestrated run every
+    # call site takes its output limit from reply_limits.LIMITS, never from its caller; a cut-off reply is re-asked
+    # once with the limit doubled (below), inside the caps.
+    _site = ""
+    if any(os.environ.get(k) for k in ("WHU_ORCH_STEP", "WHU_ORCH_MODE")):
+        if _RL is None:
+            raise SystemExit("refusing to spend: reply_limits did not load, so this call has no measured limit "
+                             "(fails closed)")
+        _site = _RL.site_of_label(label)
+        if not _doubled:
+            max_tokens = _RL.limit(_site)
     if _spend is not None:
         # THE ORCHESTRATOR'S GUARD (docs/whu-orchestrator.md §2.3), before any spend.
         _spend.orch_guard(SIGNAL_MODEL, "factcheck_draft.py", label, _LEDGER_ISSUE or None, 0.75)
@@ -932,12 +965,15 @@ def call(system: str, user: str, *, search: bool,
                 )
                 if SIGNAL_MODEL in FIXED_SAMPLING:
                     params.pop("temperature")
-                if max_tokens > STREAM_ABOVE:
-                    response = _PR().call(lambda: _final_message(client.messages.stream(**params)),
-                                          "anthropic", label or "call")
-                else:
-                    response = _PR().call(lambda: client.messages.create(**params), "anthropic", label or "call")
-                _record_usage(label, response)
+                _cs = _spend.call_site(_site) if (_spend is not None and _site) else contextlib.nullcontext()
+                with _cs:
+                    if max_tokens > STREAM_ABOVE:
+                        response = _PR().call(lambda: _final_message(client.messages.stream(**params)),
+                                              "anthropic", label or "call")
+                    else:
+                        response = _PR().call(lambda: client.messages.create(**params), "anthropic",
+                                              label or "call")
+                    _record_usage(label, response)
                 # AFTER SPENDING: the response names the model that actually
                 # answered. If that is not in PRICES the line above was written
                 # with usd null (see _ledger_now) and this run stops here: the
@@ -979,6 +1015,21 @@ def call(system: str, user: str, *, search: bool,
         except Exception:
             LAST_SEARCH.update({"queries": [], "domains": []})
         text = _response_text(response)
+        if truncated and _site and not _doubled and _RL is not None and _site not in _RL.NO_REASK:
+            # Cut off: re-asked once with the limit doubled, inside the caps (the re-ask's worst case is checked
+            # first); a second cut-off falls through to the step's existing handling below.
+            bigger = _RL.doubled(max_tokens)
+            _RL.cutoff_log(_site, max_tokens, "cut_off", {"label": label})
+            if bigger > max_tokens:
+                if _spend is not None:
+                    worst = bigger * PRICES[SIGNAL_MODEL]["output"] / 1e6
+                    _spend.check_cap(_LEDGER_ISSUE, about_to_spend=max(0.75, worst))
+                _RL.cutoff_log(_site, bigger, "reask", {"label": label})
+                got = call(system, user_now, search=search, max_tokens=bigger, label=label, raw=raw,
+                           _doubled=True)
+                if got is None:
+                    _RL.cutoff_log(_site, bigger, "cut_off_again_or_failed", {"label": label})
+                return got
         if raw:
             if truncated:
                 where = _dump_truncated(label, text, response)

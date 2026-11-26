@@ -98,6 +98,8 @@ class Ctx:
             e["WHU_ORCH_LOCK"] = str(self.lock.path)
         if getattr(self, "malformed_log", None):
             e["WHU_ORCH_MALFORMED_LOG"] = str(self.malformed_log)   # fc.call counts malformed replies here
+        if getattr(self, "cutoff_log", None):                       # cut-off replies and their doubled re-asks
+            e["WHU_ORCH_CUTOFF_LOG"] = str(self.cutoff_log)
         if getattr(self, "unavailable_log", None):                  # every registry lookup retried, outages logged
             e["WHU_ORCH_UNAVAILABLE_LOG"] = str(self.unavailable_log)
             e["PYTHONPATH"] = os.pathsep.join([str(SITE)] + ([e["PYTHONPATH"]] if e.get("PYTHONPATH") else []))
@@ -1650,6 +1652,11 @@ def run(ctx: Ctx, resume: dict | None = None) -> dict:
     fd, log = tempfile.mkstemp(prefix="whu-orch-malformed-", suffix=".jsonl")
     os.close(fd)
     ctx.malformed_log = Path(log)          # outside the case folder: a run record input, not a case file
+    fd, clog = tempfile.mkstemp(prefix="whu-orch-cutoff-", suffix=".jsonl")
+    os.close(fd)
+    ctx.cutoff_log = Path(clog)            # reply_limits.cutoff_log: every cut-off and doubled re-ask (ruling 1)
+    _prev_clog = os.environ.get("WHU_ORCH_CUTOFF_LOG")
+    os.environ["WHU_ORCH_CUTOFF_LOG"] = str(ctx.cutoff_log)
     from orch import registry_http as RH
     fd, ulog = tempfile.mkstemp(prefix="whu-orch-unavailable-", suffix=".jsonl")
     os.close(fd)
@@ -1717,19 +1724,40 @@ def run(ctx: Ctx, resume: dict | None = None) -> dict:
         else:
             os.environ[MODEL_LOG_ENV] = _prev_mlog
     events = list(getattr(ctx, "malformed", None) or []) + _stage_malformed(ctx.malformed_log)
+    cutoffs = cutoff_summary(ctx.cutoff_log)
+    if _prev_clog is None:
+        os.environ.pop("WHU_ORCH_CUTOFF_LOG", None)
+    else:
+        os.environ["WHU_ORCH_CUTOFF_LOG"] = _prev_clog
     outages = RH.outages(ctx.unavailable_log)
     covered = RH.covered_outages(ctx.unavailable_log)     # an outage another registry answered for (after a24)
     model_out = PR().outages(ctx.model_log)
-    for p in (ctx.unavailable_log, ctx.model_log):
+    for p in (ctx.unavailable_log, ctx.model_log, ctx.cutoff_log):
         try:
             p.unlink()
         except OSError:
             pass
     return {"result": result, "steps": ctx.log, "malformed_replies": malformed_summary(events),
+            "cutoff_replies": cutoffs,
             "registry_outages": outages, "registry_outages_covered": covered, "model_outages": model_out}
 
 
 SITE = Path(__file__).resolve().parent / "orch" / "site"
+
+
+def cutoff_summary(path) -> dict:
+    """The run record's `cutoff_replies`: every cut-off reply, its doubled re-ask and any second cut-off, from
+    reply_limits.cutoff_log (advisor's ruling 1 on the design review)."""
+    events = []
+    try:
+        for line in Path(path).read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                events.append(json.loads(line))
+    except (OSError, ValueError):
+        pass
+    count = lambda ev: sum(1 for e in events if e.get("event") == ev)  # noqa: E731
+    return {"cut_off": count("cut_off"), "reasks": count("reask"),
+            "cut_off_again": count("cut_off_again") + count("cut_off_again_or_failed"), "events": events}
 
 
 MODEL_LOG_ENV = "WHU_ORCH_MODEL_LOG"

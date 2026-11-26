@@ -349,7 +349,8 @@ def judge(slug: str, *, ask=None, today: str | None = None) -> dict:
         fc.enter_issue(slug)
 
         def ask(system, user):
-            return fc.call(system, user, search=False, max_tokens=600,
+            import reply_limits as _RL
+            return fc.call(system, user, search=False, max_tokens=_RL.limit("fc:conclusion_judge"),
                            label="%s/%s" % (ROLE, JUDGE_MODEL))
     today = today or date.today().isoformat()
     review = load_review(slug)

@@ -38,13 +38,18 @@ PAGE = ("draft/{slug}.html", "draft/page.json")
 # each at least the largest matching output in the stored lean records (Q1-01c/02b/03b/04c) plus 50%, and here about
 # twice it, since the first real premise reply (orchestrator trial 1) passed 1,500 against a 1,012-token basis.
 # Basis: study/whu-reliability/next_phase/results/orchestrator/reply_limits.json (3 characters per token).
+# Since the design review of 2026-11-26 (advisor's ruling 1) these come from the one table, reply_limits.LIMITS,
+# with its measured basis; the keys below are kept for the steps that read them.
+import reply_limits as _RL  # noqa: E402
 REPLY_LIMITS = {
-    "premise": 4000,             # basis 1,012 (Q1-01c premise.json's fixed rows in the reply schema); ruled ~4,000
-    "discover": 4000,            # basis 1,792 (Q1-02b's 3 sources = 672, scaled to the prompt's maximum of 8)
-    "draft": 30000,              # basis 14,824 (Q1-03b: 143 prose sentences, two passage ids each)
-    "coverage": 600,             # basis 281 (Q1-04c: longest recorded reason plus the longest page sentence)
-    "judgement_sentence": 500,   # basis 165 (Q1-04c: the longest prose sentence)
-    "overstatement": 2800,       # basis 1,375 (largest gemini-4-argon judging output in the ledger, 1,286 thinking)
+    "premise": _RL.limit("premise"),
+    "discover": _RL.limit("fc:discover"),
+    "draft": _RL.limit("draft"),
+    "coverage": _RL.limit("coverage"),
+    "judgement_sentence": _RL.limit("judgement-sentence"),
+    "overstatement": _RL.limit("overstatement"),
+    "belief": _RL.limit("fc:belief-outlet"),
+    "premise_reading": _RL.limit("premise-reading"),
 }
 
 # Field length limits (characters, whitespace collapsed) of the same steps' replies: each the larger of the first build's

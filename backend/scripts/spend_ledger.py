@@ -72,6 +72,24 @@ class UnpricedModel(RuntimeError):
     """
 
 
+import contextvars as _cv
+from contextlib import contextmanager as _cm
+
+# The call site of the model call being made (reply_limits.py; advisor's ruling 1 on the design review of
+# 2026-11-26): set around the API call by audit_stage.Caller, factcheck_draft.call and orch/google.Gateway, and
+# written into every ledger row as `call_site`, so reply lengths are measured per call site, never pooled.
+_CALL_SITE = _cv.ContextVar("whu_call_site", default="")
+
+
+@_cm
+def call_site(site: str):
+    tok = _CALL_SITE.set(site or "")
+    try:
+        yield
+    finally:
+        _CALL_SITE.reset(tok)
+
+
 def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 0.0,
            input_tokens: int = 0, output_tokens: int = 0, web_searches: int = 0,
            note: str = "", at: str | None = None, model: str | None = None) -> None:
@@ -101,6 +119,8 @@ def record(*, script: str, role: str = "", issue: str = "", usd: float | None = 
         # Inside an orchestrator run every row names the step it was spent in (advisor's ruling 2026-11-07).
         if os.environ.get("WHU_ORCH_STEP"):
             row["step"] = os.environ["WHU_ORCH_STEP"]
+        if _CALL_SITE.get():
+            row["call_site"] = _CALL_SITE.get()
         with LEDGER.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row) + "\n")
     except Exception:

@@ -103,7 +103,8 @@ RULE_FIELDS = ("sentence", "kind", "reason", "proposed_text", "quoted_source_tex
 QUOTE_AROUND = 600
 # The ruling's output limit. 1,500 until 2026-10-22, when a WHU-S01 ruling
 # reply ran past it, the caller raised, and the step stopped mid-way.
-MAX_OUT = 4000
+import reply_limits as _RL  # noqa: E402
+MAX_OUT = _RL.limit("ruling")   # the one limits table (advisor's ruling 1 on the design review)
 # A reply cut off at MAX_OUT is asked once more with the same prompt; both
 # attempts are logged (attempts_log). Cut off again: RULING_FAILED.
 ATTEMPTS = 2
@@ -399,7 +400,18 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
             cut.append(_append(attempts_log(log), {
                 "type": "cut_off", "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 **base, "inputs": p, **ref, "attempt": n, "of": ATTEMPTS, "max_tokens": MAX_OUT,
-                "error": str(e), "usage": getattr(e, "usage", {}) or {}})["id"])
+                "error": str(e), "usage": getattr(e, "usage", {}) or {},
+                "doubled_reask": bool(getattr(e, "reasked", False))})["id"])
+            if getattr(e, "reasked", False):
+                # the Caller already re-asked once with the limit doubled (orchestrated runs): no further retry
+                failed = _append(attempts_log(log), {
+                    "type": RULING_FAILED, "status": RULING_FAILED,
+                    "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), **base, **ref,
+                    "attempts": cut, "why": "the reply was cut off at %d tokens and again at %d after one re-ask "
+                                            "with the limit doubled; the finding(s) stay open"
+                                            % (MAX_OUT, _RL.doubled(MAX_OUT))})
+                raise RulingFailed("%s: cut off at %d tokens and again after a doubled re-ask (record %s)"
+                                   % (kind, MAX_OUT, failed["id"]))
     else:
         failed = _append(attempts_log(log), {
             "type": RULING_FAILED, "status": RULING_FAILED,

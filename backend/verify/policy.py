@@ -630,7 +630,7 @@ POLICY: dict[str, SurfacePolicy] = {
     "scripts.signal.factcheck_draft::advocate": SurfacePolicy(_MAPPING, "whu", note="WHU checker role; out of scope"),
     "scripts.signal.factcheck_draft::inference": SurfacePolicy(_MAPPING, "whu", note="WHU checker role; out of scope"),
     "scripts.signal.factcheck_draft::coverage": SurfacePolicy(_MAPPING, "whu", note="WHU checker role; out of scope"),
-    "scripts.whatholdsup.audit_stage::Caller.__call__": SurfacePolicy(_MAPPING, "whu", note=(
+    "scripts.whatholdsup.audit_stage::Caller._once": SurfacePolicy(_MAPPING, "whu", note=(  # was __call__ (P130)
         "WHU checker role; out of scope (2026-10-20). The audit stage's wording reaches a page only as a changed "
         "sentence, which publish.py's preflight blocks until changecheck has read it and the narrow gate has run; "
         "a card or meta-description wording is applied only if it is a whole page-body sentence word for word. "
