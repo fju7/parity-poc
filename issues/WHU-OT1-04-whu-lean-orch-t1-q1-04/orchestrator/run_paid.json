@@ -1,0 +1,441 @@
+{
+ "result": "Not Ready: gate: backend/scripts/signal/factcheck_draft.py issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html exited 1 without proof it completed (issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html.gate.json was not written)",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-26T15:48:42+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (135 code files)"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:48:42+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-26T15:48:42+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:49:00+00:00",
+   "usd": 0.03208
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-26T15:49:00+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "dce28d2d07ba157a677d1a66c81b642194d8d01b513cc5da9ed507c9dacb4dee"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:49:37+00:00",
+   "usd": 0.5223
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-26T15:49:37+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "5 source(s), 3 unresolved proposal(s)"
+   },
+   "code_hash": "11ccf0c34af0a2709f3631b12a11d6dd9b3b4a4df7f33f5b4929481196fd1576",
+   "end": "2026-11-26T15:52:59+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-26T15:53:00+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-04",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S002   b1b36b96e1ad                                     377638 B  (contains 3 of 3 distinctive title words — 23161 characters, reference list and discussion present; title present (3 of 3 title words in the visible text))\n  HELD     S003   6d4919009029                                     361970 B  (contains 11 of 11 distinctive title words — 43690 characters, reference list and discussion/introduction present; title present (11 of 11 title words in the visible text))\n  HELD     S004   cd44fb90c607                                    1886049 B  (contains 8 of 8 distinctive title words — 56184 characters, reference list and discussion/introduction present; title present (8 of 8 title words in the visible text))\n  HELD     S005   802c6fb37301                                    1503352 B  (contains 10 of 10 distinctive title words — form 'assessment summary' -- 57625 characters held, and it names the report it summarises; title present (11 of 11 title words in the visible text))\n\n  held now: 4   failed: 1   skipped: 0\n\n  NOT HELD S001   Climate Change 2022: Mitigation of Climate Change – Chapter 12\n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n\n",
+     "proof": "proved: issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-04",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            4 document(s) in the library, every hash matches\n  warn     sources we hold                  4 of 5 held — not held: S001\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-04"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-04\n\n  S001   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S004   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S005   UNCHECKED    no registry record; retraction status not checkable (Europe PMC, PubMe\n\n  ok     sources checked for corrections        all 5 source(s) have had their bibliographic record read for errata\n  warn   correction lookups that failed         1 source(s) could not be looked up and are NOT known to be clean: S005\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S001\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-04",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-04-whu-lean-orch-t1-q1-04 — what can be swept at all\n\n    S002   doi   10.21203/rs.3.rs-3255532/v1        url/field The carbon dioxide removal gap\n    S003   doi   10.1038/s43247-024-01527-z         url/field Evaluating the near- and long-term r\n    S004   doi   10.3389/fclim.2024.1425971         url/field Governance of carbon dioxide removal\n\n  3 of 5 sweepable as held.\n\n  2 carry nothing that implies an identifier:\n\n    S001   assessmen Climate Change 2022: Mitigation of Climate Change – Chap\n    S005   assessmen IPCC Expert Meeting on Carbon Dioxide Removal Technologi\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-04"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-04\n  ok      checks can read the documents      4 of 4 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "4 held, 1 not held",
+    "not_held": [
+     "S001"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S001": "could_not_hold"
+    }
+   },
+   "code_hash": "84e3c39af6d9433e583009cbc7e4cc9c5651dbb64fbe276e13b10c142d2a52e1",
+   "end": "2026-11-26T15:55:41+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-26T15:55:41+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "34 sentences drafted from 62 passages"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:56:21+00:00",
+   "usd": 0.184688
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-26T15:56:21+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-04",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  60 empirical sentence(s) on the page\n  -3 bound, 63 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "34 sentence(s) bound to their passages"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:56:23+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-26T15:56:23+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 coverage decision(s), 0 left in scope"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:56:27+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-26T15:56:27+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-04",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.00 (0 candidate(s) x $0.0068 per candidate (mean of 1512 logged relevance ruling(s))); $57.41 left today, $2.26 left on whu-lean-orch-t1-q1-04\n  0 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/rulings/rulings.jsonl\n  usd this run: 0.0000\n"
+    }
+   ],
+   "code": {
+    "outcome": "0 judgement(s) stated"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:56:30+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "belief",
+   "start": "2026-11-26T15:56:30+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 outlet(s) verified of 6 proposed",
+    "belief": {
+     "proposed": 6,
+     "verified": 0,
+     "rounds": [
+      {
+       "round": 1,
+       "proposed": 3,
+       "verified": 0
+      },
+      {
+       "round": 2,
+       "proposed": 3,
+       "verified": 0,
+       "excluded": 0
+      }
+     ],
+     "refused": [
+      "https://drawdown.org/insights/stop-giving-big-oil-a-carbon-fig-leaf: the page has 13 of the belief's 30 key words (needs 18)",
+      "https://sciencestimes.ca/direct-air-capture-carbon-removal-scaling-cost-2026/: the page has 8 of the belief's 30 key words (needs 18)",
+      "https://news.mongabay.com/2024/12/direct-air-capture-climate-solution-faces-hars: the page has 17 of the belief's 30 key words (needs 18)",
+      "https://www.greenpeace.org.uk/news/the-biggest-problem-with-carbon-offsetting-is: the page has 12 of the belief's 30 key words (needs 18)",
+      "https://cleantechnica.com/2025/05/15/climeworks-dac-fiscal-collapse-the-brutal-r: the page has 13 of the belief's 30 key words (needs 18)",
+      "https://grist.org/technology/should-we-pull-carbon-out-of-the-air-with-trees-or-: the page has 14 of the belief's 30 key words (needs 18)"
+     ]
+    }
+   },
+   "code_hash": "27b50abb8c574a9dd1b111024cdbc1c85172bbe8a323dd62796f58a93b4277e6",
+   "end": "2026-11-26T15:57:18+00:00",
+   "usd": 0.4625
+  },
+  {
+   "step": "premise_reading",
+   "start": "2026-11-26T15:57:18+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "sources show verified; direction narrows; kill condition survived",
+    "reading": {
+     "direction": "narrows",
+     "kill": "survived",
+     "sources_show": true
+    }
+   },
+   "code_hash": "27b50abb8c574a9dd1b111024cdbc1c85172bbe8a323dd62796f58a93b4277e6",
+   "end": "2026-11-26T15:57:29+00:00",
+   "usd": 0.041348
+  },
+  {
+   "step": "corrections_3b",
+   "start": "2026-11-26T15:57:29+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 check(s): 0 removed, 0 re-bound",
+    "counts": {
+     "checked": 0,
+     "removed": 0,
+     "rebound": 0
+    },
+    "changed": false
+   },
+   "code_hash": "607199bc1d04e65a14b1376bcae40528b5d52d7f351b112a75f215f9d4a5e66d",
+   "end": "2026-11-26T15:57:31+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "commit_3b",
+   "start": "2026-11-26T15:57:31+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "committed fedc9e2139dd",
+    "head": "fedc9e2139ddea8a289ba96efdb4c6f2af68145f"
+   },
+   "code_hash": "1ca568bedba25aadcfccd3d6dce1ab5516b6e00210eef87ac91cdf191814fae5",
+   "end": "2026-11-26T15:59:31+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "gate",
+   "start": "2026-11-26T15:59:31+00:00",
+   "failed": "RunStop: gate: backend/scripts/signal/factcheck_draft.py issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html exited 1 without proof it completed (issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html.gate.json was not written)",
+   "end": "2026-11-26T15:59:31+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html",
+      "--dry-run"
+     ],
+     "rc": 0,
+     "tail": "NARROW GATE — DRY RUN (no API call is made)\n  free checks considered 4 sentence(s) or quotation(s) carrying a figure or a quotation\n  claims the source role would receive: 0\n  calls that would be made: 1\n    recency                                        whole draft\n    (source: no UNDETERMINED claim, so no source call)\n  not run (--full only): extract, advocate, inference, coverage\n  estimated cost: 1 call(s) x $0.75 = $0.75 (the per-call figure the cap is checked with; Phase B's full run was $4.63)\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html",
+      "--report",
+      "issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html.gate.json"
+     ],
+     "rc": 1,
+     "tail": "Traceback (most recent call last):\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/signal/factcheck_draft.py\", line 3450, in <module>\n    main()\n    ~~~~^^\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/signal/factcheck_draft.py\", line 3164, in main\n    _spend.check_cap(_issue_slug, about_to_spend=3.0)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/fredugast/Projects/parity-poc-repo/backend/scripts/spend_ledger.py\", line 360, in check_cap\n    raise OverIssueCap(\n    ...<3 lines>...\n        % (issue, already, float(limit), about_to_spend))\nspend_ledger.OverIssueCap: whu-lean-orch-t1-q1-04 has spent $1.24 of a $3.00 cap and this run would add about $3.00.\nRaise the cap in backend/data/spend/caps.json (committed, reviewable), or set\nWHU_SPEND_OVERRIDE='reason' for one run, which is recorded in the ledger.\n",
+     "proof": null
+    }
+   ],
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [
+  {
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE%3A%22IPCC%20Expert%20Meeting%20on%20Carbon%20Dioxide%20Removal%20Technologies%20and%20Carbon%20Capture%2C%20Utilisation%20and%20Storage%22&resultType=core&format=json",
+   "error": "TimeoutError: The read operation timed out",
+   "attempts": 4,
+   "at": "2026-11-26T15:52:58+00:00",
+   "covered_by": [
+    "PubMed",
+    "Crossref"
+   ]
+  }
+ ],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 5,
+  "held": 4,
+  "not_held": 1,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal)",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S002",
+    "title": "The carbon dioxide removal gap",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "IPCC Expert Meeting on Carbon Dioxide Removal Technologies and Carbon Capture, Utilisation and Storage",
+    "type": "assessment_summary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 3,
+  "unconfirmed": [
+   {
+    "title": "The State of Carbon Dioxide Removal 2024 – 2nd Edition",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Emissions Gap Report 2023: Broken Record – Temperatures hit new highs, yet world fails to cut emissions (again)",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: 0 candidate(s)"
+   },
+   {
+    "title": "Greenhouse Gas Removal",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Jeewani P'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Jeewani PH'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Morris C'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Asibor JO'"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "belief": {
+   "claude-sonnet-4-6": 2
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 6,
+  "copied": 6,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-26T15:59:31+00:00"
+}

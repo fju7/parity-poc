@@ -12,3 +12,5 @@
 | belief (orchestrator) | 2026-11-26T15:56:30+00:00 | 2026-11-26T15:57:18+00:00 | $0.4625 | 0 | 0 outlet(s) verified of 6 proposed |
 | premise_reading (orchestrator) | 2026-11-26T15:57:18+00:00 | 2026-11-26T15:57:29+00:00 | $0.0413 | 0 | sources show verified; direction narrows; kill condition survived |
 | corrections_3b (orchestrator) | 2026-11-26T15:57:29+00:00 | 2026-11-26T15:57:31+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-26T15:57:31+00:00 | 2026-11-26T15:59:31+00:00 | $0.0000 | 0 | committed fedc9e2139dd |
+| gate (orchestrator) | 2026-11-26T15:59:31+00:00 | 2026-11-26T15:59:31+00:00 | $0.0000 | 0 | FAILED: RunStop: gate: backend/scripts/signal/factcheck_draft.py issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html exited 1 without proof it completed (issues/WHU-OT1-04-whu-lean-orch-t1-q1-04/draft/whu-lean-orch-t1-q1-04.html.gate.json was not written) |
