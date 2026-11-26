@@ -1,0 +1,13 @@
+{
+  "id": "WHU-OT1-02zd",
+  "slug": "whu-lean-orch-t1-q1-02zd",
+  "title": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "question": "In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?",
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "run_cap_usd": 10.0,
+  "_round_note": "Orchestrator trial 1, attempt 26, fresh (advisor's rulings on P118-P121, on the S006 landing-page route and on the P122-P124 findings): after P122 (title boundary), P123 (unread-sources title fields), P124 and P126 (quotation checks agree) and P125 (landing-page PDF route), with the full suite and the offline rehearsals passing. This is attempt 3 of 3 toward the stopping rule; if it does not reach Ready, the stopping rule calls for a design review and no further paid call is made. Folder letter 02zd follows 02zc. On round 1's question WHU-Q1-02, verbatim. Outputs are discarded by rule and never scored. \"study\": true is set only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-02zd.",
+  "_run_cap_note": "run_cap_usd: $10.00 (advisor's ruling 7 on the S006 route: the trial line has $10.98 left; the orchestrator's $10 limit unchanged)."
+}
