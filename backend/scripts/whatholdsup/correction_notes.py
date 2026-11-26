@@ -60,6 +60,11 @@ def noted_sentences(case: Path, page_doc: dict | None = None) -> dict:
     except (OSError, ValueError):
         rows = {}
     for row in rows.values():
+        # A readers'-list line (origin declaration_line) says the page does NOT rely on the finding it quotes, so it
+        # is not a claim bound to the source and carries no note (and the note could not be placed in that list;
+        # found by the replay gate after P143, 02za).
+        if row.get("origin") == "declaration_line":
+            continue
         if row.get("on_page", True) and _bound_sources(row) & bad and norm(row.get("sentence")):
             out[norm(row["sentence"])] = NOTE
     for sentence, passages in ((page_doc or {}).get("provenance") or {}).items():

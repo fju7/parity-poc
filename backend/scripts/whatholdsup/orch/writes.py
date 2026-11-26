@@ -111,7 +111,7 @@ CODE_WRITES = {
     "audit": _APPLY,
     "overstatement": _APPLY + ("rulings/overstatement.jsonl",),
     "corrections": _APPLY + ("bindings.json", "rulings/corrections.jsonl"),
-    "belief": ("premise.json", "rulings/premise_checks.jsonl"),
+    "belief": PAGE + ("premise.json", "rulings/premise_checks.jsonl", "bindings.json"),   # P142: re-render when none verified
     "premise_reading": ("premise.json", "rulings/premise_checks.jsonl"),
     "quotations": ("quotations.json",),
     "preflight": (),

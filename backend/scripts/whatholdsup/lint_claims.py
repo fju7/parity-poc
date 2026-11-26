@@ -370,8 +370,15 @@ def unknowability(text: str) -> list[str]:
     point is to make the absence visible, not to adjudicate the search.
     """
     return [f"{s[:170]}" for s in sentences(text)
-            if UNKNOWABILITY.search(s)
+            if UNKNOWABILITY.search(s) and s.strip() not in RULED_SENTENCES
             and not REGISTRY.search(s) and not NAMED_PLACE.search(s) and not SEARCHED_LIST.search(s)]
+
+
+# Sentences whose exact words a ruling fixed and code writes from a record of where it looked: the belief step's
+# "We could not verify where this belief is published." (advisor's ruling 3b on P140; belief_claims.UNVERIFIED),
+# written only when premise.json's belief.outlet_unverified lists every outlet proposed and why code refused it.
+# Exact match only: any other sentence of the form still has to name its place.
+RULED_SENTENCES = frozenset({"We could not verify where this belief is published."})
 
 
 # THE CORRECTION HISTORY RECOUNTS WHAT WE BELIEVED; IT IS NOT THE PAGE

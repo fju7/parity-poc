@@ -87,7 +87,15 @@ def rests_row(rows: dict, held: dict[str, str], unions: dict[str, bytearray],
             if not sid or not sp or sid not in unions:
                 continue
             n += 1
-            at = A.locate(sp, held.get(sid) or "")
+            text = held.get(sid) or ""
+            # The binding's own offsets when the held text there is its span (found by the replay gate after P143:
+            # a one-letter span, "K", re-located by search landed on the document's first "K"); else search.
+            o = x.get("offsets")
+            at = None
+            if isinstance(o, (list, tuple)) and len(o) == 2 and all(isinstance(v, int) for v in o) \
+                    and 0 <= o[0] < o[1] <= len(text) and A.locate(sp, text[o[0]:o[1]]):
+                at = (o[0], o[1])
+            at = at or A.locate(sp, text)
             if not at:
                 bad.append("%s: span not found in %s's held text" % (k, sid))
                 continue

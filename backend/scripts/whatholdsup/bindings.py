@@ -509,7 +509,13 @@ def bind_declaration_lines(slug: str, rows: dict, sentences: list[str] | None = 
         q = (m.group(1) if m else "").strip()
         q = q[:-1].rstrip() if q.endswith("…") else q
         text = held.get(d["source"]) or ""
-        at = A.locate(q, text) if q else None
+        # Inside the declaration's own unit only (found by the replay gate after P143, 02za: the line quoting the
+        # unit S003@6097-6230 as "K …" was bound to the first "K" of the document, at 433). Not there: unbound,
+        # and the standing check stops the run on it -- never bound to a match elsewhere.
+        m2 = re.match(r"^[^@]+@(\d+)-(\d+)$", str(d.get("key") or ""))
+        lo, hi = (int(m2.group(1)), int(m2.group(2))) if m2 else (0, len(text))
+        at = A.locate(q, text[lo:hi]) if q else None
+        at = (at[0] + lo, at[1] + lo) if at else None
         if not at:
             continue
         sha = fingerprint(sent)
