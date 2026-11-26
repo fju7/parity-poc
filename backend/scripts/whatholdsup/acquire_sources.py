@@ -252,6 +252,16 @@ def transient(e: Exception) -> bool:
     return isinstance(e, (TimeoutError, ConnectionError, urllib.error.URLError, OSError))
 
 
+# Kinds of a fetched page that identified the work but is not its document: a refusal about this one retrieval, so
+# the landing route may start from it (ruling 4 on the design review).
+RESCUE_KINDS = ("landing", "undetermined", "shell", "stub")
+
+
+def _looks_html(data: bytes) -> bool:
+    head = (data or b"")[:400].lstrip().lower()
+    return head.startswith(b"<!doctype") or head.startswith(b"<html") or b"<html" in head
+
+
 def fetch_retrying(url: str) -> tuple[bytes, str, str]:
     """fetch(), retried on a transient failure in an orchestrated run (WHU_ORCH_STEP set); once otherwise."""
     tries = FETCH_ATTEMPTS if os.environ.get("WHU_ORCH_STEP") and not os.environ.get("WHU_ORCH_UNAVAILABLE_LOG") else 1
@@ -353,7 +363,13 @@ def main(argv=None) -> int:
         why, check, tried = "no route tried", {}, []
         unavailable = False
         via_pmc = None
-        landing = None           # (bytes, url) of a fetched page source_store classed a landing page
+        landing = None           # (bytes, url) of a fetched page about the document (a rescue's starting page)
+        # Ruling 4 on the design review (2026-11-26): a refusal about ONE RETRIEVAL (a wall, the form rule, a
+        # landing or summary page, a held abstract) is tried against the rescue routes first; a refusal about the
+        # WORK (the bytes do not identify it: refused_first) is not. Every rescue not tried is recorded.
+        identified_any = identity_failed = False
+        abstract_hold = None     # a held abstract no longer ends the full-text search (ruling 4)
+        rescue = {}
         for target in targets:
             misses = []
             epmc_ft = bool(EPMC_FULLTEXT.search(target)) and bool(os.environ.get("WHU_ORCH_STEP"))
@@ -404,14 +420,36 @@ def main(argv=None) -> int:
             # in the visible text.
             ok, check = store.held_check(args.slug, sid, s, data, ct)
             why = check["why"]
+            if ok and check.get("state") == "abstract_held" and (args.landing_pdfs or args.open_copies):
+                identified_any = True
+                if abstract_hold is None:
+                    abstract_hold = (data, ct, final, check, why)
+                if landing is None and _looks_html(data):
+                    landing = (data, final or target)      # an abstract page may link the full text
+                tried.append({"url": target, "result": "abstract held; the full-text search goes on (%s)" % why[:160]})
+                data = None
+                continue
             if ok:
                 break
-            if check.get("kind") == "landing" and landing is None:
+            if check.get("kind") is None:
+                identity_failed = True
+            else:
+                identified_any = True
+            if check.get("kind") in RESCUE_KINDS and landing is None:
                 landing = (data, final or target)
             why = "%s (%d bytes at %s)" % (why, len(data), target[:60]); data = None
             tried.append({"url": target, "result": why})
+        refused_first = identity_failed and not identified_any
+        if data is None:
+            lost = ("not tried: the bytes fetched are not this work (identity failed), a refusal about the work, "
+                    "refused first (ruling 4)" if refused_first else
+                    "not tried: a route was unavailable (the run stops 'registry unavailable')" if unavailable else None)
+            rescue["landing"] = (lost or ("not tried: --landing-pdfs is off" if not args.landing_pdfs else
+                                          "not tried: no page about the document was fetched" if landing is None
+                                          else "tried"))
+            rescue["open_copy"] = lost or ("not tried: --open-copies is off" if not args.open_copies else "tried")
         via_landing = None
-        if data is None and args.landing_pdfs and landing is not None and not unavailable:
+        if data is None and args.landing_pdfs and landing is not None and not unavailable and not refused_first:
             # a page ABOUT the document: its own PDF link (landing_route.py, advisor's rulings on the S006 route)
             import landing_route as LR
             res = LR.find(landing[0], landing[1], s, lambda d, c, _sid=sid, _s=s: store.held_check(
@@ -424,10 +462,12 @@ def main(argv=None) -> int:
             else:
                 why = "%s; %s: %s" % (why, LR.ROUTE, res["record"].get("outcome"))
         via_open = None
-        if data is None and args.open_copies and not unavailable:
-            # the source's own copy could not be held: its permitted open copies (open_copy.py, ruling on P107)
+        if data is None and args.open_copies and not unavailable and not refused_first:
+            # the source's own copy could not be held: its permitted open copies (open_copy.py, ruling on P107);
+            # only the URLs already refused are excluded, never their host (ruling 4 on the design review)
             import open_copy as OC
-            res = OC.find(s, url, fetch_retrying,
+            refused_urls = {url} | {t["url"] for t in tried if str(t.get("url") or "").startswith("http")}
+            res = OC.find(s, refused_urls, fetch_retrying,
                           lambda d, c, _sid=sid, _s=s: store.held_check(args.slug, _sid, _s, d, c))
             acc["open_copies"] = dict(res["record"], on=store.utc_today())
             tried.append({"url": OC.ROUTE, "result": res["record"].get("outcome"),
@@ -440,6 +480,12 @@ def main(argv=None) -> int:
                 why = check["why"]
             else:
                 why = "%s; %s: %s" % (why, OC.ROUTE, res["record"].get("outcome"))
+        if data is None and abstract_hold is not None:
+            # no full text by any route: the abstract found on the way is kept, and the search is recorded
+            data, ct, final, check, why = abstract_hold
+            tried.append({"url": "full-text search", "result": "no full text by any route; the abstract is kept"})
+        if rescue:
+            acc["rescue"] = dict(rescue, on=store.utc_today())
         if data is None:
             # NOT FETCHED, and the ledger says why. The state is left as it was:
             # nothing was stored, so nothing is claimed.

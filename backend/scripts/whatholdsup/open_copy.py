@@ -70,8 +70,16 @@ def lookup(doi: str, fetch) -> dict | None:
         raise Unavailable("OpenAlex answered with no JSON for %s" % doi)
 
 
-def candidates(record: dict, refused_hosts: set) -> list[dict]:
-    """Every location OpenAlex lists, each with whether the copy rule permits it and why (none fetched yet)."""
+def _same_url(a: str, b: str) -> bool:
+    n = lambda u: re.sub(r"^https?://(www\.)?", "", str(u or "").strip()).rstrip("/").lower()  # noqa: E731
+    return bool(a) and n(a) == n(b)
+
+
+def candidates(record: dict, refused_urls) -> list[dict]:
+    """Every location OpenAlex lists, each with whether the copy rule permits it and why (none fetched yet).
+    REFUSED_URLS: the copies already refused for this source. Only those URLs are excluded, never their whole host
+    (advisor's ruling 4 on the design review, 2026-11-26); a doi.org link is the source's own copy."""
+    refused = {refused_urls} if isinstance(refused_urls, str) else set(refused_urls or ())
     out = []
     for loc in (record or {}).get("locations") or []:
         src = loc.get("source") or {}
@@ -88,8 +96,8 @@ def candidates(record: dict, refused_hosts: set) -> list[dict]:
         elif row["version"] in REFUSED_VERSIONS:
             row.update(permitted=False, why="a submitted version (preprint, before peer review): refused until a "
                                             "labelled design exists")
-        elif _host(url) == "doi.org" or _host(url) in refused_hosts:
-            row.update(permitted=False, why="the copy that was already refused (%s)" % _host(url))
+        elif _host(url) == "doi.org" or any(_same_url(url, r) for r in refused):
+            row.update(permitted=False, why="the copy that was already refused (%s)" % url[:120])
         elif src.get("type") == "repository":
             row.update(permitted=True, why="a repository copy, free to read (copy rule a)")
         elif str(lic or "").lower().startswith("cc"):
@@ -163,7 +171,7 @@ def tdm_page(data: bytes) -> bool:
     return bool(META_TDM.search((data or b"")[:60000].decode("utf-8", "replace")))
 
 
-def find(src: dict, refused_url: str, fetch, held_check) -> dict:
+def find(src: dict, refused_url, fetch, held_check) -> dict:
     """Try the permitted open copies of SRC in OpenAlex's order. FETCH(url) -> (bytes, content type, final url),
     raising urllib errors (the caller's honest, retrying client). HELD_CHECK(bytes, content type) -> (ok, check).
     Returns {"record": what was looked up, found and tried, for sources.json; "data", "ct", "final", "check",
@@ -181,7 +189,8 @@ def find(src: dict, refused_url: str, fetch, held_check) -> dict:
     if work is None:
         rec["outcome"] = "OpenAlex has no record of %s" % doi
         return {"record": rec}
-    rec["found"] = candidates(work, {_host(refused_url)} if refused_url else set())
+    rec["found"] = candidates(work, ({refused_url} if isinstance(refused_url, str) else set(refused_url or ()))
+                              - {""})
     for c in rec["found"]:
         if not c["permitted"]:
             continue
