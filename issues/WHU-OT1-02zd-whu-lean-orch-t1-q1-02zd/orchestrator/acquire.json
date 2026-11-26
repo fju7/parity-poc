@@ -1,0 +1,21 @@
+{
+ "slug": "whu-lean-orch-t1-q1-02zd",
+ "complete": true,
+ "held": [
+  "S001",
+  "S003"
+ ],
+ "not_held": [
+  {
+   "id": "S002",
+   "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+   "reason": "HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed"
+  },
+  {
+   "id": "S004",
+   "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+   "reason": "identified (contains 12 of 12 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  }
+ ],
+ "skipped": []
+}

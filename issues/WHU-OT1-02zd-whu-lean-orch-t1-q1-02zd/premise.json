@@ -1,0 +1,120 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Inclusive education programmes in poorer countries probably help children with disabilities get into school and learn. Teacher training, assistive devices and making schools accessible are the obvious things that should work. But there probably isn't much hard evidence, and most of what exists is small NGO projects rather than rigorous trials.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "UK House of Commons International Development Committee",
+        "url": "https://publications.parliament.uk/pa/cm201719/cmselect/cmintdev/1880/188007.htm",
+        "final_url": "https://publications.parliament.uk/pa/cm201719/cmselect/cmintdev/1880/188007.htm",
+        "fetched_at": "2026-11-26T11:17:21+00:00",
+        "sha256": "9899ad851b1cd19bd4c702bdee35486652202f5f69f678ede640501cec1d26b4",
+        "key_words_found": [
+          "inclusive",
+          "education",
+          "programmes",
+          "countries",
+          "help",
+          "children",
+          "disabilities",
+          "school",
+          "learn",
+          "teacher",
+          "training",
+          "assistive",
+          "devices",
+          "making",
+          "schools",
+          "accessible",
+          "obvious",
+          "things",
+          "should",
+          "work",
+          "hard",
+          "evidence",
+          "small",
+          "projects",
+          "rather"
+        ],
+        "key_words": 31,
+        "by": "a model's reading (claude-sonnet-4-6, web search), verified by code: the page was fetched with the honest client and contains the belief's key words"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A programme officer at a donor, education ministry or disability-focused NGO in an LMIC. They are deciding which interventions to fund or scale for learners with disabilities, such as teacher training, assistive technology, community-based rehabilitation, cash transfers, accessible infrastructure or special versus inclusive schooling, and whether the evidence justifies the spend.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Yes: UK House of Commons International Development Committee (https://publications.parliament.uk/pa/cm201719/cmselect/cmintdev/1880/188007.htm), fetched 2026-11-26, sha256 9899ad851b1cd19b; the page contains 25 of the belief's 31 key words. A model's reading (web search), checked by code.",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The primary studies and systematic reviews already say clearly, and with high certainty, which intervention types improve enrolment, attendance and learning for children and young people with disabilities in LMICs, and this matches the common belief. Or the evidence base turns out to be so thin (a handful of uncontrolled studies) that no comparative statement about what works can be made at all.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Evaluated interventions in low- and middle-income countries that aim to improve educational access, participation, attendance, transition or learning outcomes for children and young people with disabilities. This includes school-based, community-based, family-focused, technology and policy or financing approaches, and how they compare with each other.",
+    "out": [
+      {
+        "what": "Prevalence of disability among school-age children and the size of the enrolment gap",
+        "why": "Descriptive burden data, not evidence on whether interventions work"
+      },
+      {
+        "what": "Effectiveness of disability-inclusive education in high-income countries",
+        "why": "Different systems and resources. The question is restricted to LMICs."
+      },
+      {
+        "what": "Clinical or medical treatments for specific impairments (e.g., surgery, hearing restoration) judged on health outcomes",
+        "why": "Out of scope unless educational outcomes are measured"
+      },
+      {
+        "what": "The rights-based or ethical case for inclusive versus segregated schooling",
+        "why": "A normative question, not an empirical effectiveness question"
+      },
+      {
+        "what": "Cost-effectiveness modelling and budget allocation",
+        "why": "Needs separate cost data. This page weighs effects only, noting costs only where studies report them."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-26T11:06:52+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Outcomes reported in primary evaluations, preferably randomised or quasi-experimental with comparison groups. These include enrolment, attendance, dropout, grade progression, learning or test scores, and participation measures for children and young people with disabilities in LMICs, with effect sizes, sample sizes and follow-up periods.",
+    "assessed": "Certainty ratings from systematic reviews or evidence-gap maps (e.g., GRADE ratings in Campbell or Cochrane reviews, or 3ie/UNICEF/World Bank evidence syntheses) on how confident one can be that each intervention type works, including judgements about risk of bias, consistency and how well results generalise across countries and impairment types.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-26T11:06:52+00:00"
+  }
+}

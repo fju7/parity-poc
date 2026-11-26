@@ -1,0 +1,372 @@
+{
+ "result": "Not Ready: ReplyCutOff: reply cut off at 1500 tokens (premise-reading)",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-26T11:06:40+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (128 code files)"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:06:40+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-26T11:06:40+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:06:53+00:00",
+   "usd": 0.022384
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-26T11:06:53+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "e590c2b94db428783f980ccf304d9118233f1f9d6d0189bb59ba70d3c46c2fa9"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:07:30+00:00",
+   "usd": 0.6268
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-26T11:07:30+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "4 source(s), 4 unresolved proposal(s)"
+   },
+   "code_hash": "2982839beff71ec70ec999bfab50ab2e0f3a8c609eb42c41af0d7bf4454b71b7",
+   "end": "2026-11-26T11:08:49+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-26T11:08:49+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-02zd",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-02zd-whu-lean-orch-t1-q1-02zd/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S001   24587d9f8f9b                                     395517 B  (contains its identifier PMC11799928 — 165887 characters, reference list and discussion present; title present (10 of 12 title words in the visible text))\n  HELD     S003   088ff6d71f68                                     379448 B  (contains its identifier PMC8356326 — 157297 characters, reference list and discussion/introduction present; title present (8 of 10 title words in the visible text))\n\n  held now: 2   failed: 2   skipped: 0\n\n  NOT HELD S002   Implementation of Inclusive Education: A Systematic Review of \n           why: HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed\n  NOT HELD S004   Rapid Evidence Assessment (REA) of What Works to Improve Educa\n           why: identified (contains 12 of 12 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n\n",
+     "proof": "proved: issues/WHU-OT1-02zd-whu-lean-orch-t1-q1-02zd/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-02zd",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            2 document(s) in the library, every hash matches\n  warn     sources we hold                  2 of 4 held — not held: S002, S004\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-02zd"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-02zd\n\n  S001   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   AMENDED      record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S004   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n\n  ok     sources checked for corrections        all 4 source(s) have had their bibliographic record read for errata\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S004\n  BLOCKED corrections not yet read               1 source(s) have been formally corrected and we do not hold the correction: S003: Erratum in 37133285 || S003: correction 10.1002/cl2.1104 — until it is read we do not know whether it touches a figure on this page\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-02zd",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-02zd-whu-lean-orch-t1-q1-02zd — what can be swept at all\n\n    S001   pmid  39917627                           url/field Effectiveness of interventions for i\n    S002   doi   10.1080/1034912x.2022.2095359      url/field Implementation of Inclusive Educatio\n    S003   pmid  37131970                           url/field Evidence and gap map of studies asse\n\n  3 of 4 sweepable as held.\n\n  1 carry nothing that implies an identifier:\n\n    S004   assessmen Rapid Evidence Assessment (REA) of What Works to Improve\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-02zd"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-02zd\n  ok      checks can read the documents      2 of 2 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "1 held, 3 not held",
+    "not_held": [
+     "S002",
+     "S003",
+     "S004"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S002": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed"
+     },
+     "S003": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "correction_not_held: Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served (Europe PMC metadata: isOpenAccess N); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.)"
+     },
+     "S004": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: identified (contains 12 of 12 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+     }
+    },
+    "lines": {
+     "S002": "could_not_hold",
+     "S003": "correction_not_held",
+     "S004": "could_not_hold"
+    }
+   },
+   "code_hash": "9fbeca380f2e8cd35639fafa7211cd83f75bd59852c11d771be7ff6a3fec4d2b",
+   "end": "2026-11-26T11:14:22+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-26T11:14:22+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "36 sentences drafted from 65 passages"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:14:50+00:00",
+   "usd": 0.146532
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-26T11:14:50+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-02zd",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  56 empirical sentence(s) on the page\n  -1 bound, 57 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02zd-whu-lean-orch-t1-q1-02zd/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "34 sentence(s) bound to their passages"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:14:52+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-26T11:14:52+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "14 coverage decision(s), 0 left in scope"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:15:30+00:00",
+   "usd": 0.050282
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-26T11:15:30+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-02zd",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.05 (8 candidate(s) x $0.0068 per candidate (mean of 1504 logged relevance ruling(s))); $59.15 left today, $9.15 left on whu-lean-orch-t1-q1-02zd\n  6 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-02zd-whu-lean-orch-t1-q1-02zd/rulings/rulings.jsonl\n  consistency: re-ran 2 of 8 ruling(s) (seed 212792940603037): 2 of 2 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.0368\n"
+    }
+   ],
+   "code": {
+    "outcome": "4 judgement(s) stated"
+   },
+   "code_hash": "794f90da49ded834fe9bc2cfb0a2202b717080942739d0491d21299fb428baeb",
+   "end": "2026-11-26T11:16:00+00:00",
+   "usd": 0.045638
+  },
+  {
+   "step": "belief",
+   "start": "2026-11-26T11:16:00+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "1 outlet(s) verified of 6 proposed",
+    "belief": {
+     "proposed": 6,
+     "verified": 1,
+     "rounds": [
+      {
+       "round": 1,
+       "proposed": 3,
+       "verified": 0
+      },
+      {
+       "round": 2,
+       "proposed": 3,
+       "verified": 1,
+       "excluded": 0
+      }
+     ],
+     "refused": [
+      "https://www.devex.com/news/opinion-we-must-commit-to-inclusive-education-for-chi: a wall (HTTP 403): not worked around",
+      "https://www.globalpartnership.org/blog/keeping-promise-inclusive-education: a wall (HTTP 403): not worked around",
+      "https://world-education-blog.org/2026/06/08/from-statistical-invisibility-to-evi: a wall (HTTP 403): not worked around",
+      "https://portal.qader.org/cached_uploads/download/2019/01/08/inclusive-education-: the page has 0 of the belief's 31 key words (needs 19)",
+      "https://www.inclusive-education-initiative.org/blog/how-can-we-best-support-educ: the page has 17 of the belief's 31 key words (needs 19)"
+     ]
+    }
+   },
+   "code_hash": "eddd550d0d4bce0aa1ea58b051e48f568978661b91d0be4892403db7fba9d532",
+   "end": "2026-11-26T11:17:22+00:00",
+   "usd": 0.9098
+  },
+  {
+   "step": "premise_reading",
+   "start": "2026-11-26T11:17:22+00:00",
+   "cmds": [],
+   "failed": "ReplyCutOff: reply cut off at 1500 tokens (premise-reading)",
+   "end": "2026-11-26T11:17:35+00:00",
+   "replies": [
+    {
+     "role": "premise-reading",
+     "max_tokens": 1500,
+     "cut_off": true,
+     "text": "{\"sources_show\": \"The one held systematic review finds only \\\"emerging support\\\" that interventions improve education outcomes for people with disabilities in LMICs, with large effects on learning skills based on a low number of studies and very little evidence on enrolment or attendance.\",\n\"sources_show_quote\": {\"source\": \"S001\", \"quote\": \"The evidence presented here provides emerging support for the efficacy and effectiveness of interventions to improve the education outcomes among people with disabilities in LMICs.\"},\n\"direction\": \"narrows\",\n\"direction_quote\": {\"source\": \"S001\", \"quote\": \"Finally, attempts to improve attendance, enrolment, and completion among people with disabilities by equipping mainstream settings for the attendance of children with disabilities, was achieved in one study, where teacher knowledge and attitudes about inclusive education were improved.\"},\n\"direction_why\": \"The review supports the idea that interventions help with learning skills such as literacy and numeracy, but it finds almost no evidence that they get children into school, and most studied interventions target child skills rather than the teacher training or accessibility changes the belief expected.\",\n\"kill_result\": \"survived\",\n\"kill_quote\": {\"source\": \"S001\", \"quote\": \"When considering the effect of interventions on different outcomes, we see that the effect on literacy, cognitive skills,",
+     "usage": {
+      "input": 3840,
+      "output": 1500,
+      "usd": 0.04536,
+      "seconds": 13.0
+     }
+    }
+   ],
+   "usd": 0.04536
+  }
+ ],
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 4,
+  "held": 1,
+  "not_held": 3,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2; open copy via OpenAlex: no permitted open copy listed"
+   },
+   {
+    "id": "S003",
+    "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries.",
+    "type": "synthesis",
+    "held": false,
+    "state": "blocked",
+    "reason": "correction_not_held: Erratum in 37133285: no text of the notice could be held (abstract 51 characters; full text not served (Europe PMC metadata: isOpenAccess N); NCBI PMC: not served: NCBI PMC The publisher of this article does not allow downloading of the full text in XML form.)"
+   },
+   {
+    "id": "S004",
+    "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: identified (contains 12 of 12 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (71842 bytes at https://www.gov.uk/research-for-development-outputs/improvin); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   }
+  ],
+  "proposals_not_confirmed": 4,
+  "unconfirmed": [
+   {
+    "title": "Inclusion Matters: Inclusive Interventions for Children with Disabilities – An evidence and gap map from low- and middle-income countries",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: year 2024 does not match the record's 2016; Crossref: title does not agree: ratio 0.125 on 1 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.500 on 5 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive education schools in Low and Middle-Income Countries (LMICs)",
+    "reason": "no registry's record agrees (Europe PMC, PubMed answered): Europe PMC: first author 'Mafa' does not agree with the record's first author 'Adjei ES'; PubMed: first author 'Mafa' does not agree with the record's first author 'Adjei ES'"
+   },
+   {
+    "title": "Policy Guidelines on Inclusion in Education",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.500 on 2 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.250 on 1 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 14
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 12,
+   "claude-opus-5-5": 2
+  },
+  "belief": {
+   "claude-sonnet-4-6": 2
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 4,
+  "copied": 4,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-02zd"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-26T11:17:35+00:00"
+}

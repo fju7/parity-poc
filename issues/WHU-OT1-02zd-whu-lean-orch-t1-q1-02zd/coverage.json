@@ -1,0 +1,61 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@5808-5858": {
+   "state": "not_material",
+   "reason": "The finding only reports how many studies the review included. It does not say whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:14:57+00:00"
+  },
+  "S001@5859-5918": {
+   "state": "not_material",
+   "reason": "The finding only describes the study population (25 studies targeted children with disabilities). It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:14:58+00:00"
+  },
+  "S001@5919-6023": {
+   "state": "not_material",
+   "reason": "Describes which groups studies targeted (two family, three providers), not whether programmes work or which work best; it does not change the answer's conclusions.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:15:02+00:00"
+  },
+  "S001@6024-6153": {
+   "state": "not_material",
+   "reason": "The finding describes which impairment groups interventions most often targeted. It is a descriptive count of the evidence base and says nothing about whether programmes work or which kinds work best.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:15:03+00:00"
+  },
+  "S001@6154-6556": {
+   "state": "not_material",
+   "reason": "The finding only says which intervention category appears most often in the studies. It says nothing about whether programmes work or which kinds work best, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:15:06+00:00"
+  },
+  "S001@7900-8058": {
+   "state": "not_material",
+   "reason": "The finding is a general descriptive statement about the problem (children with disabilities falling behind). It does not report whether any intervention works or compare intervention types, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:15:16+00:00"
+  },
+  "S001@8059-8153": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns interventions judged on equalising health outcomes, not educational access, participation or learning outcomes, which is what the question asks about.",
+   "by": "claude-sonnet-5-5",
+   "element": "Clinical or medical treatments for specific impairments (e.g., surgery, hearing restoration) judged on health outcomes",
+   "decided_at": "2026-11-26T11:15:21+00:00"
+  },
+  "S001@8704-8859": {
+   "state": "not_material",
+   "reason": "The finding is a generic call for more evaluation of interventions that target the environment as well as the individual. It reports no effect or comparison, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-26T11:15:28+00:00"
+  }
+ }
+}

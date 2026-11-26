@@ -1,0 +1,510 @@
+{
+ "title": "Do education programmes for people with disabilities in low- and middle-income countries work?",
+ "blocks": [
+  {
+   "tag": "h2",
+   "section": "question",
+   "text": "The question"
+  },
+  {
+   "tag": "html",
+   "section": "question",
+   "html": "  <p>The question is: “In low- and middle-income countries, do programmes meant to improve education for children and young people with disabilities work, and which kinds work best?”</p>"
+  },
+  {
+   "tag": "h2",
+   "section": "answer",
+   "text": "The short answer"
+  },
+  {
+   "tag": "p",
+   "section": "answer",
+   "sentences": [
+    "A 2025 Campbell systematic review of 28 studies concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries (LMICs), but there is little research on systemic or school-level change [1].",
+    "The review describes its evidence as providing 'emerging support' for these interventions, and it rates the quality of the included studies as largely low [1].",
+    "The authors state that more research is needed to understand which types of interventions are most efficacious and how best to deliver them [1]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "findings",
+   "text": "What the review found"
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "What evidence exists"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The review analysed 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in LMICs, and it searched for studies up to March 2022 [1].",
+    "Most of the included studies were aimed at children with disabilities, and a few targeted family members or service providers [1].",
+    "People with intellectual, learning, or developmental impairments were the groups that interventions targeted most often [1].",
+    "Eight studies came from India, four from Iran, and two each from China, South Africa, and Egypt, while ten other countries contributed one study each [1].",
+    "Few studies reported whether their setting was urban or rural, and none took place in humanitarian settings [1].",
+    "No included study evaluated the accessibility of the built environment and learning materials, or inclusive education policies [1].",
+    "Only one study each represented structural interventions and anti-bullying programmes [1].",
+    "All but one study received an overall rating of low confidence in study findings [1].",
+    "The source states that a twin-track approach is needed, one that both addresses the specific needs of children with disabilities and ensures they are included in mainstream activities (e.g., through improving the skills of teachers and the accessibility of the classroom) [1].",
+    "However, currently most interventions included in this systematic review targeted individual children with disabilities in an attempt to improve their functioning, skills, and competencies, but did not focus on mainstreaming these children into the school by system‐level or school‐level changes [1].",
+    "The source states: \"Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed\" [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Building pupils' skills for learning"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "Of the 18 studies included in the analysis of effects on 'Skills for learning', 12 interventions had a significant effect [1].",
+    "The effects on literacy, cognitive skills, handwriting, and numeracy were significant, and the review calls these effects large but based on a low number of studies [1].",
+    "For example, the pooled effect for numeracy was d = 4.60, but it came from only two studies with high heterogeneity [1].",
+    "The pooled effect for handwriting was 4.97, also based on only two studies [1].",
+    "Publication bias could not be assessed for numeracy or handwriting because each rested on only two studies [1].",
+    "The pooled effects for speech and communication (d = 0.70) and for school behaviour and adaptive functioning (d = 0.49) were reported as insignificant [1].",
+    "However, the review's narrative summary reports positive effects of studies in these areas [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Making schools and classrooms more inclusive"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "Studies of 'Conditions for inclusion of people with disabilities in education' showed a moderate effect (d = 0.35, 95% CI 0.12 to 0.58) [1].",
+    "This estimate was based on four studies, with high heterogeneity and potentially moderate publication bias [1].",
+    "Studies aimed at making learning environments more accessible reported positive impacts on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction [1].",
+    "One of these studies was the Good School Toolkit, a randomised trial with 3,820 participants in Ugandan primary schools that aimed to reduce physical violence from peers and staff [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Attendance, enrolment and completion"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "Only one study improved attendance, enrolment, and completion by preparing mainstream settings to take children with disabilities, and it did so by improving teachers' knowledge and attitudes about inclusive education [1].",
+    "That study was an uncontrolled before-and-after evaluation of a teacher training programme in Kenya with 130 participants [1]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Different types of disability"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "One of the review's stated questions was which interventions appear most effective for different types of disability [1].",
+    "The passages provided here do not report an answer to that question.",
+    "The studies concerned with speech and school behaviour show no significant effect of intervention [1].",
+    "Across the studies, heterogeneity is high, and the risk of publication bias varies but was frequently high [1].",
+    "All but one of the included studies were rated as having low confidence in their findings overall [1].",
+    "Low confidence across the studies was largely due to low-rigour study designs, and did not always reflect multiple points of weakness within a given study [1].",
+    "A twin-track approach is needed, one that both addresses children with disabilities' specific needs and ensures their inclusion in mainstream activities, for example by improving teacher skills and classroom accessibility [1].",
+    "Most interventions in this systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them into school through system-level or school-level changes [1]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "verdict",
+   "text": "What holds up"
+  },
+  {
+   "tag": "p",
+   "section": "verdict",
+   "sentences": [
+    "The review's own reading is that a range of interventions work, but that they are mostly targeted at individuals with disabilities [1].",
+    "It adds that more systemic approaches are needed to improve access to education and the likelihood of successful engagement in it [1].",
+    "The evidence that interventions build individual skills, such as literacy and numeracy, is the most extensive, yet the largest effects rest on very few studies [1].",
+    "The interventions and outcome measures in the included studies were all different, which makes direct comparison difficult [1].",
+    "Most study designs could not account for many potential confounders, and masking, baseline balance, and attribution were poorly reported [1].",
+    "The review may also be biased by its lack of grey literature and of non-English studies [1].",
+    "Few studies disaggregated their findings by gender [1].",
+    "The authors call for interventions that target both the individual and their environment, such as teacher training and curriculum changes [1].",
+    "They also call for a focus on attendance, enrolment, completion, and transition to higher levels of education [1].",
+    "They ask for more research in under-represented regions and settings, such as Latin America and the Caribbean, rural areas, and humanitarian contexts [1].",
+    "Taken together, these points mean the evidence supports individual-level programmes cautiously, but it cannot yet say which kinds of programmes work best overall or for which disabilities."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "limits",
+   "text": "What we read and what we did not"
+  },
+  {
+   "tag": "html",
+   "section": "limits",
+   "html": "  <p>We hold the full text of Effectiveness of interventions for improving educational outcomes for people wit [1].</p>\n  <p>We searched the full text of Effectiveness of interventions for improving educational outcomes for people wit [1] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries but could not hold it, so nothing on this page draws on it.</p>\n  <p>We found Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries but it has a published correction we could not hold, so nothing on this page draws on it.</p>\n  <p>We found Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries but could not hold it, so nothing on this page draws on it.</p>\n  <p>We searched: web search: systematic review inclusive education children disabilities low middle income countries; web search: disability education interventions LMIC children systematic review effectiveness; web search: evidence gap map disability education interventions LMIC White Campbell 2018; web search: Wapling systematic review education children disabilities developing countries 2016; web search: Kuper rapid evidence assessment educational outcomes disabilities LMIC 2018 DFID; web search: UNESCO guidelines inclusive education disability developing countries policy; web search: UNICEF \"effectiveness of inclusive interventions for children with disabilities\" 2022 report; web search: UNICEF Innocenti \"Inclusion Matters\" inclusive interventions children disabilities EGM 2022 2024; registry: Europe PMC; registry: PubMed; registry: Crossref.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>"
+  },
+  {
+   "tag": "html",
+   "section": "readers",
+   "html": "  <p><strong>Findings in our sources we judged outside this question</strong></p>\n  <p>Judged not material to this question: “Twenty‐eight studies were included in this review.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Most studies ( n = 25) targeted children with disabilities.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Only two studies directly targeted family members, and the remaining three focused on service providers.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Individuals with intellectual or learning and developmental impairments were most frequently targeted by interventions ( n = 17).” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “The category of interventions most represented across studies was ‘Educational attainment support’, for instance, a reading comprehension intervention that combined strategy instruction (graphic organisers, visual …” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Children with disabilities fall behind in educational outcomes as the current school systems are not set up to teach children with different impairment types.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Outside this question: “There is no one ‘magic bullet’ intervention which can equalise health outcomes for this group.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n  <p>Judged not material to this question: “Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed.” (Effectiveness of interventions for improving educational outcomes for people wit [1]).</p>\n"
+  },
+  {
+   "tag": "h2",
+   "section": "sources",
+   "text": "Sources"
+  },
+  {
+   "tag": "html",
+   "section": "sources",
+   "html": "<div class=\"sources\">\n<div class=\"src\"><span class=\"tag\">[1]</span> <a href=\"https://europepmc.org/article/PMC/PMC11799928\">Hunt X, Saran A, White H, et al. Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review. Campbell systematic reviews. 2025.</a></div>\n<div class=\"src\"><span class=\"tag\">[2]</span> <a href=\"https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359\">Mendoza M, Heymann J. Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries. International Journal of Disability, Development and Education. 2022.</a></div>\n<div class=\"src\"><span class=\"tag\">[3]</span> <a href=\"https://europepmc.org/article/PMC/PMC8356326\">Saran A, White H, Kuper H. Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries. Campbell systematic reviews. 2020.</a></div>\n<div class=\"src\"><span class=\"tag\">[4]</span> <a href=\"https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works\">Kuper. Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries. Campbell Collaboration and International Centre for Evidence in Disability. 2018.</a></div>\n</div>"
+  }
+ ],
+ "provenance": {
+  "A 2025 Campbell systematic review of 28 studies concludes that a range of individual-level interventions work to improve educational outcomes among people with disabilities in low- and middle-income countries (LMICs), but there is little research on systemic or school-level change [1].": [
+   {
+    "source": "S001",
+    "start": 8860,
+    "end": 9712
+   },
+   {
+    "source": "S001",
+    "start": 119695,
+    "end": 120503
+   }
+  ],
+  "The review describes its evidence as providing 'emerging support' for these interventions, and it rates the quality of the included studies as largely low [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   },
+   {
+    "source": "S001",
+    "start": 124366,
+    "end": 125175
+   }
+  ],
+  "The authors state that more research is needed to understand which types of interventions are most efficacious and how best to deliver them [1].": [
+   {
+    "source": "S001",
+    "start": 124366,
+    "end": 125175
+   }
+  ],
+  "The review analysed 28 studies that evaluated interventions to improve the educational outcomes of people with disabilities in LMICs, and it searched for studies up to March 2022 [1].": [
+   {
+    "source": "S001",
+    "start": 119695,
+    "end": 120503
+   },
+   {
+    "source": "S001",
+    "start": 13655,
+    "end": 14381
+   }
+  ],
+  "Most of the included studies were aimed at children with disabilities, and a few targeted family members or service providers [1].": [
+   {
+    "source": "S001",
+    "start": 10599,
+    "end": 11353
+   }
+  ],
+  "People with intellectual, learning, or developmental impairments were the groups that interventions targeted most often [1].": [
+   {
+    "source": "S001",
+    "start": 10599,
+    "end": 11353
+   }
+  ],
+  "Eight studies came from India, four from Iran, and two each from China, South Africa, and Egypt, while ten other countries contributed one study each [1].": [
+   {
+    "source": "S001",
+    "start": 10599,
+    "end": 11353
+   }
+  ],
+  "Few studies reported whether their setting was urban or rural, and none took place in humanitarian settings [1].": [
+   {
+    "source": "S001",
+    "start": 10599,
+    "end": 11353
+   },
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "No included study evaluated the accessibility of the built environment and learning materials, or inclusive education policies [1].": [
+   {
+    "source": "S001",
+    "start": 100269,
+    "end": 101113
+   }
+  ],
+  "Only one study each represented structural interventions and anti-bullying programmes [1].": [
+   {
+    "source": "S001",
+    "start": 100269,
+    "end": 101113
+   }
+  ],
+  "Of the 18 studies included in the analysis of effects on 'Skills for learning', 12 interventions had a significant effect [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "The effects on literacy, cognitive skills, handwriting, and numeracy were significant, and the review calls these effects large but based on a low number of studies [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "For example, the pooled effect for numeracy was d = 4.60, but it came from only two studies with high heterogeneity [1].": [
+   {
+    "source": "S001",
+    "start": 116597,
+    "end": 117510
+   }
+  ],
+  "The pooled effect for handwriting was 4.97, also based on only two studies [1].": [
+   {
+    "source": "S001",
+    "start": 119695,
+    "end": 120503
+   }
+  ],
+  "Publication bias could not be assessed for numeracy or handwriting because each rested on only two studies [1].": [
+   {
+    "source": "S001",
+    "start": 119695,
+    "end": 120503
+   }
+  ],
+  "The pooled effects for speech and communication (d = 0.70) and for school behaviour and adaptive functioning (d = 0.49) were reported as insignificant [1].": [
+   {
+    "source": "S001",
+    "start": 116597,
+    "end": 117510
+   }
+  ],
+  "However, the review's narrative summary reports positive effects of studies in these areas [1].": [
+   {
+    "source": "S001",
+    "start": 122892,
+    "end": 123683
+   }
+  ],
+  "Studies of 'Conditions for inclusion of people with disabilities in education' showed a moderate effect (d = 0.35, 95% CI 0.12 to 0.58) [1].": [
+   {
+    "source": "S001",
+    "start": 116597,
+    "end": 117510
+   },
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   }
+  ],
+  "This estimate was based on four studies, with high heterogeneity and potentially moderate publication bias [1].": [
+   {
+    "source": "S001",
+    "start": 116597,
+    "end": 117510
+   }
+  ],
+  "Studies aimed at making learning environments more accessible reported positive impacts on teacher knowledge and attitudes, parent knowledge and attitudes, and violence reduction [1].": [
+   {
+    "source": "S001",
+    "start": 122892,
+    "end": 123683
+   }
+  ],
+  "One of these studies was the Good School Toolkit, a randomised trial with 3,820 participants in Ugandan primary schools that aimed to reduce physical violence from peers and staff [1].": [
+   {
+    "source": "S001",
+    "start": 75793,
+    "end": 78183
+   }
+  ],
+  "Only one study improved attendance, enrolment, and completion by preparing mainstream settings to take children with disabilities, and it did so by improving teachers' knowledge and attitudes about inclusive education [1].": [
+   {
+    "source": "S001",
+    "start": 122892,
+    "end": 123683
+   }
+  ],
+  "That study was an uncontrolled before-and-after evaluation of a teacher training programme in Kenya with 130 participants [1].": [
+   {
+    "source": "S001",
+    "start": 75793,
+    "end": 78183
+   }
+  ],
+  "One of the review's stated questions was which interventions appear most effective for different types of disability [1].": [
+   {
+    "source": "S001",
+    "start": 2423,
+    "end": 3215
+   }
+  ],
+  "The passages provided here do not report an answer to that question.": [],
+  "The review's own reading is that a range of interventions work, but that they are mostly targeted at individuals with disabilities [1].": [
+   {
+    "source": "S001",
+    "start": 8860,
+    "end": 9712
+   }
+  ],
+  "It adds that more systemic approaches are needed to improve access to education and the likelihood of successful engagement in it [1].": [
+   {
+    "source": "S001",
+    "start": 8860,
+    "end": 9712
+   }
+  ],
+  "The evidence that interventions build individual skills, such as literacy and numeracy, is the most extensive, yet the largest effects rest on very few studies [1].": [
+   {
+    "source": "S001",
+    "start": 6557,
+    "end": 7411
+   },
+   {
+    "source": "S001",
+    "start": 119695,
+    "end": 120503
+   }
+  ],
+  "The interventions and outcome measures in the included studies were all different, which makes direct comparison difficult [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "Most study designs could not account for many potential confounders, and masking, baseline balance, and attribution were poorly reported [1].": [
+   {
+    "source": "S001",
+    "start": 124366,
+    "end": 125175
+   }
+  ],
+  "The review may also be biased by its lack of grey literature and of non-English studies [1].": [
+   {
+    "source": "S001",
+    "start": 124366,
+    "end": 125175
+   }
+  ],
+  "Few studies disaggregated their findings by gender [1].": [
+   {
+    "source": "S001",
+    "start": 123684,
+    "end": 124365
+   }
+  ],
+  "The authors call for interventions that target both the individual and their environment, such as teacher training and curriculum changes [1].": [
+   {
+    "source": "S001",
+    "start": 131666,
+    "end": 132460
+   }
+  ],
+  "They also call for a focus on attendance, enrolment, completion, and transition to higher levels of education [1].": [
+   {
+    "source": "S001",
+    "start": 132461,
+    "end": 133169
+   }
+  ],
+  "They ask for more research in under-represented regions and settings, such as Latin America and the Caribbean, rural areas, and humanitarian contexts [1].": [
+   {
+    "source": "S001",
+    "start": 132461,
+    "end": 133169
+   }
+  ],
+  "Taken together, these points mean the evidence supports individual-level programmes cautiously, but it cannot yet say which kinds of programmes work best overall or for which disabilities.": [],
+  "The studies concerned with speech and school behaviour show no significant effect of intervention [1].": [
+   {
+    "source": "S001",
+    "start": 7412,
+    "end": 7510
+   }
+  ],
+  "Across the studies, heterogeneity is high, and the risk of publication bias varies but was frequently high [1].": [
+   {
+    "source": "S001",
+    "start": 7511,
+    "end": 7610
+   }
+  ],
+  "All but one of the included studies were rated as having low confidence in their findings overall [1].": [
+   {
+    "source": "S001",
+    "start": 7611,
+    "end": 7692
+   }
+  ],
+  "Low confidence across the studies was largely due to low-rigour study designs, and did not always reflect multiple points of weakness within a given study [1].": [
+   {
+    "source": "S001",
+    "start": 7693,
+    "end": 7878
+   }
+  ],
+  "A twin-track approach is needed, one that both addresses children with disabilities' specific needs and ensures their inclusion in mainstream activities, for example by improving teacher skills and classroom accessibility [1].": [
+   {
+    "source": "S001",
+    "start": 8154,
+    "end": 8406
+   }
+  ],
+  "Most interventions in this systematic review targeted individual children with disabilities to improve their functioning, skills and competencies, rather than mainstreaming them into school through system-level or school-level changes [1].": [
+   {
+    "source": "S001",
+    "start": 8407,
+    "end": 8703
+   }
+  ],
+  "All but one study received an overall rating of low confidence in study findings [1].": [
+   {
+    "source": "S001",
+    "start": 7611,
+    "end": 7692
+   }
+  ],
+  "The source states that a twin-track approach is needed, one that both addresses the specific needs of children with disabilities and ensures they are included in mainstream activities (e.g., through improving the skills of teachers and the accessibility of the classroom) [1].": [
+   {
+    "source": "S001",
+    "start": 8154,
+    "end": 8406
+   }
+  ],
+  "However, currently most interventions included in this systematic review targeted individual children with disabilities in an attempt to improve their functioning, skills, and competencies, but did not focus on mainstreaming these children into the school by system‐level or school‐level changes [1].": [
+   {
+    "source": "S001",
+    "start": 8407,
+    "end": 8703
+   }
+  ],
+  "The source states: \"Consequently, a focus on evaluation of interventions which target not just the individual with a disability but also their broader environment, are needed\" [1].": [
+   {
+    "source": "S001",
+    "start": 8704,
+    "end": 8859
+   }
+  ]
+ }
+}

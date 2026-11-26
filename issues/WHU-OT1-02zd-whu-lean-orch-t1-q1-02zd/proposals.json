@@ -1,0 +1,128 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Effectiveness of interventions for improving educational outcomes for people with disabilities in low- and middle-income countries: A systematic review",
+      "first_author": "Hunt",
+      "year": 2025,
+      "container": "Campbell Systematic Reviews",
+      "type": "review",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/cl2.70016",
+      "why": "Most recent Campbell systematic review of 28 studies on what works to improve educational outcomes for people with disabilities in LMICs."
+    },
+    {
+      "title": "Implementation of Inclusive Education: A Systematic Review of Studies of Inclusive Education Interventions in Low- and Lower-Middle-Income Countries",
+      "first_author": "Mendoza",
+      "year": 2022,
+      "container": "International Journal of Disability, Development and Education",
+      "type": "review",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/1034912X.2022.2095359",
+      "why": "First systematic review of interventions to improve inclusive education for students with disabilities in low- and lower-middle-income countries; 31 studies across 19 countries."
+    },
+    {
+      "title": "Inclusion Matters: Inclusive Interventions for Children with Disabilities – An evidence and gap map from low- and middle-income countries",
+      "first_author": "UNICEF Innocenti",
+      "year": 2024,
+      "container": "UNICEF Office of Research – Innocenti",
+      "type": "synthesis",
+      "url": "https://www.unicef.org/innocenti/reports/inclusion-matters-inclusive-interventions-children-disabilities",
+      "why": "Updated 2024 UNICEF evidence and gap map on inclusive interventions for children with disabilities in LMICs, covering health, education, and social services."
+    },
+    {
+      "title": "Evidence and gap map of studies assessing the effectiveness of interventions for people with disabilities in low-and middle-income countries",
+      "first_author": "Saran",
+      "year": 2020,
+      "container": "Campbell Systematic Reviews",
+      "type": "synthesis",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/cl2.1070",
+      "why": "Campbell evidence and gap map covering 59 systematic reviews and 50 impact evaluations on disability interventions in LMICs, including education outcomes."
+    },
+    {
+      "title": "Rapid Evidence Assessment (REA) of What Works to Improve Educational Outcomes for People with Disabilities in Low- and Middle-Income Countries",
+      "first_author": "Kuper",
+      "year": 2018,
+      "container": "Campbell Collaboration and International Centre for Evidence in Disability",
+      "type": "assessment_summary",
+      "url": "https://www.gov.uk/research-for-development-outputs/improving-educational-outcomes-for-people-with-disabilities-in-low-and-middle-income-countries-why-does-it-matter-and-what-works",
+      "why": "DFID-commissioned rapid evidence assessment of 24 studies on effective interventions for educational outcomes for people with disabilities in LMICs."
+    },
+    {
+      "title": "Inclusive Education and Children with Disabilities: Quality Education for All in Low and Middle Income Countries",
+      "first_author": "Wapling",
+      "year": 2016,
+      "container": "CBM (Christoffel Blinden Mission)",
+      "type": "review",
+      "url": "https://www.inclusive-education-in-action.org/resources/inclusive-education-and-children-disabilities-quality-education-all-low-and-middle-income",
+      "why": "Systematic literature review of 131 articles on strategies and quality education outcomes for children with disabilities in LMICs, commissioned by CBM."
+    },
+    {
+      "title": "A systematic review of academic performance of Children with Disabilities (CWDs) in inclusive education schools in Low and Middle-Income Countries (LMICs)",
+      "first_author": "Mafa",
+      "year": 2021,
+      "container": "Campbell Systematic Reviews",
+      "type": "review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10844053/",
+      "why": "Systematic review evaluating school access, enrolment, attendance, and academic results of children with disabilities in inclusive schools in LMICs."
+    },
+    {
+      "title": "Policy Guidelines on Inclusion in Education",
+      "first_author": "UNESCO",
+      "year": 2009,
+      "container": "UNESCO",
+      "type": "guideline",
+      "url": "https://www.eenet.org.uk/resources/docs/177849e.pdf",
+      "why": "UNESCO policy guidelines providing frameworks and recommendations for inclusive education systems, including for children with disabilities in developing countries."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "systematic review inclusive education children disabilities low middle income countries",
+      "disability education interventions LMIC children systematic review effectiveness",
+      "evidence gap map disability education interventions LMIC White Campbell 2018",
+      "Wapling systematic review education children disabilities developing countries 2016",
+      "Kuper rapid evidence assessment educational outcomes disabilities LMIC 2018 DFID",
+      "UNESCO guidelines inclusive education disability developing countries policy",
+      "UNICEF \"effectiveness of inclusive interventions for children with disabilities\" 2022 report",
+      "UNICEF Innocenti \"Inclusion Matters\" inclusive interventions children disabilities EGM 2022 2024"
+    ],
+    "domains": [
+      "pmc.ncbi.nlm.nih.gov",
+      "escholarship.org",
+      "doi.org",
+      "tandfonline.com",
+      "onlinelibrary.wiley.com",
+      "researchgate.net",
+      "inclusive-education-in-action.org",
+      "eenet.org.uk",
+      "ncbi.nlm.nih.gov",
+      "researchonline.lshtm.ac.uk",
+      "unicef.org",
+      "eric.ed.gov",
+      "campbellcollaboration.org",
+      "semanticscholar.org",
+      "academia.edu",
+      "cedilprogramme.org",
+      "evidenceaid.org",
+      "medbox.org",
+      "dfat.gov.au",
+      "link.springer.com",
+      "assets.publishing.service.gov.uk",
+      "portal.qader.org",
+      "voced.edu.au",
+      "gov.uk",
+      "ocm.iccrom.org",
+      "files.eric.ed.gov",
+      "unesco.org",
+      "minedu.gov.gr",
+      "right-to-education.org",
+      "studylib.net",
+      "unicef-irc.org",
+      "disabilitydebrief.org",
+      "mdpi.com",
+      "doaj.org",
+      "transmonee.org",
+      "inclusive-education-initiative.org"
+    ]
+  },
+  "sha256": "e590c2b94db428783f980ccf304d9118233f1f9d6d0189bb59ba70d3c46c2fa9"
+}
