@@ -1,0 +1,13 @@
+{
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "id": "WHU-OT1-01e",
+  "slug": "whu-lean-orch-t1-q1-01e",
+  "title": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
+  "question": "In primary health care, does using mobile phones or tablets to keep track of the care each patient gets, together with on-screen prompts that guide health workers, reminder messages sent to patients, or both, improve the care people receive and their health?",
+  "run_cap_usd": 8.0,
+  "_round_note": "Orchestrator trial 1, development run under the development budget (Fred's +$30, 2026-11-27, relayed by the advisor; P177): a fresh Q1-01 after P171-P182. A development run, not a reliability measurement; outputs discarded by rule and never scored. Question verbatim from WHU-OT1-01d (itself WHU-Q1-01's). \"study\": true only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-01e.",
+  "_run_cap_note": "run_cap_usd: $8.00 = the needed cap $7.89 (standing rule 3: the most, over the run, of likely spend so far + the next call's bound; likely from 01d's measured steps through omissions, $4.7494, then 01b's audit $1.4418, overstatement $0.1964 and changecheck $0.0529; the largest is the final gate, $6.39 + its $1.50 bound) rounded up to the next $0.50; within the trial line's $36.78 left and $10.00."
+}
