@@ -1,0 +1,272 @@
+{
+ "result": "Not Ready: acquire: record changed outside the step that owns it: frozen field changed: source_list (the source list is fixed by `confirm` (no new source, edition or type afterwards))",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T15:09:25+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (140 code files)"
+   },
+   "code_hash": "b172030c51ed738fd98167a8226ec4509c4f4ff5dd30ebfb601f020416adb35e",
+   "end": "2026-11-27T15:09:25+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T15:09:25+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "b172030c51ed738fd98167a8226ec4509c4f4ff5dd30ebfb601f020416adb35e",
+   "end": "2026-11-27T15:09:43+00:00",
+   "usd": 0.03184
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T15:09:43+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "a28528eabe92724a6cf11b1bc7c80ef4f79ffd7edc599bb66fbcaf6758c6ae78"
+   },
+   "code_hash": "b172030c51ed738fd98167a8226ec4509c4f4ff5dd30ebfb601f020416adb35e",
+   "end": "2026-11-27T15:10:16+00:00",
+   "usd": 0.5323
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T15:10:16+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "7 source(s), 1 unresolved proposal(s)"
+   },
+   "code_hash": "2d6a9e644e41ea46ecada13f629a70682c924d79ce2898365874ea323687c9ef",
+   "end": "2026-11-27T15:11:14+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T15:11:14+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-04b",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-04b-whu-lean-orch-t1-q1-04b/orchestrator/acquire.json"
+     ],
+     "rc": 0,
+     "tail": "   139fe2d7a583                                     377734 B  (contains 3 of 3 distinctive title words — 23165 characters, reference list and discussion present; title present (3 of 3 title words in the visible text))\n  HELD     S004   3439003c54d3                                     361967 B  (contains 11 of 11 distinctive title words — 43692 characters, reference list and discussion/introduction present; title present (11 of 11 title words in the visible text))\n  HELD     S005   11e88821d49d                                     800816 B  (contains its identifier 10.3389/fclim.2024.1425971/full — 62288 characters, reference list and discussion/introduction present; title present (8 of 8 title words in the visible text))\n  HELD     S006   2f9cba0e121c                                    3667242 B  (contains 6 of 6 distinctive title words — 136371 characters, reference list and discussion/introduction present; title present (6 of 6 title words in the visible text))\n  HELD     S007   654389e17fc7                                    6901518 B  (contains 7 of 7 distinctive title words — 249738 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text))\n  HELD     S008   0a3b9f671d71                                    2159848 B  (contains 7 of 7 distinctive title words — 225501 characters, reference list and introduction present; title present (9 of 9 title words in the visible text))\n\n  held now: 8   failed: 0   skipped: 0\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-04b",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            8 document(s) in the library, every hash matches\n  ok       sources we hold                  all 8 source documents are in the library\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-04b"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-04b\n\n  S001   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S002   UNCHECKED    no registry record; retraction status not checkable (Europe PMC, PubMe\n  S003   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S004   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S005   UNCHECKED    no registry record; retraction status not checkable (Europe PMC, PubMe\n  S006   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S007   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S008   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n\n  ok     sources checked for corrections        all 8 source(s) have had their bibliographic record read for errata\n  warn   correction lookups that failed         2 source(s) could not be looked up and are NOT known to be clean: S002, S005\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-04b",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-04b-whu-lean-orch-t1-q1-04b — what can be swept at all\n\n    S003   doi   10.21203/rs.3.rs-3255532/v1        url/field The carbon dioxide removal gap\n    S004   doi   10.1038/s43247-024-01527-z         url/field Evaluating the near- and long-term r\n    S005   doi   10.3389/fclim.2024.1425971         url/field Governance of carbon dioxide removal\n    S006   doi   10.1088/1748-9326/aabf9b           url/field Negative emissions—Part 1: Research \n    S007   doi   10.1088/1748-9326/aabf9f           url/field Negative emissions—Part 2: Costs, po\n\n  5 of 8 sweepable as held.\n\n  3 carry nothing that implies an identifier:\n\n    S001   assessmen Climate Change 2023: Synthesis Report — Contribution of \n    S002   assessmen Climate Change 2022: Mitigation of Climate Change — Chap\n    S008   synthesis IPCC 2022. Summary for Policymakers. In: Climate Change \n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-04b"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-04b\n  ok      checks can read the documents      8 of 8 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "8 held, 0 not held",
+    "not_held": [],
+    "holdings": {
+     "S001": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S006": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S007": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S008": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {}
+   },
+   "failed": "RunStop: acquire: record changed outside the step that owns it: frozen field changed: source_list (the source list is fixed by `confirm` (no new source, edition or type afterwards))",
+   "end": "2026-11-27T15:14:19+00:00",
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 8,
+  "held": 8,
+  "not_held": 0,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Climate Change 2023: Synthesis Report — Contribution of Working Groups I, II and III to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change",
+    "type": "assessment_summary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Climate Change 2022: Mitigation of Climate Change — Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal)",
+    "type": "assessment_summary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "The carbon dioxide removal gap",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S006",
+    "title": "Negative emissions—Part 1: Research landscape and synthesis",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S007",
+    "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S008",
+    "title": "IPCC 2022. Summary for Policymakers. In: Climate Change 2022: Mitigation of Climate Change (AR6 WGIII)",
+    "type": "synthesis",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 1,
+  "unconfirmed": [
+   {
+    "title": "The State of Carbon Dioxide Removal 2024 — 2nd Edition",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 9,
+  "copied": 9,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04b"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T15:14:19+00:00"
+}
