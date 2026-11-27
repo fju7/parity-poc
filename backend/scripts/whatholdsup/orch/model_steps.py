@@ -85,8 +85,13 @@ def _str(d: dict, k: str, limit: int, required: bool = True) -> str:
         raise StepFailed("field %r missing or not text" % k)
     v = " ".join(v.split())
     if len(v) > limit:
-        raise StepFailed("field %r is over %d characters" % (k, limit))
+        raise FieldTooLong("field %r is over %d characters" % (k, limit))
     return v
+
+
+class FieldTooLong(StepFailed):
+    """A reply field past its length limit. Elsewhere it stops the step as before; one_sentence reads it as a reply
+    that is not one sentence (P199, after WHU-OT1-04d)."""
 
 
 # ---- 1. premise (before any source exists) ----------------------------------------------------------------
@@ -296,9 +301,13 @@ def coverage_decision(question: str, scope: str, unit: str, ask, outs: list[str]
             raise StepFailed("decision must be out_of_scope, not_material or state")
         out = {"decision": d["decision"], "why": _str(d, "why", F["coverage.why"])}
         if d["decision"] == "state":
-            out["sentence"] = _str(d, "sentence", F["coverage.sentence"])
             import one_sentence as OS
-            if not OS.is_one(out["sentence"]):          # ruling after attempt 15: one re-ask, then in scope
+            try:
+                out["sentence"] = _str(d, "sentence", F["coverage.sentence"])
+                too_long = False
+            except FieldTooLong:                        # P199: past the limit is not one sentence; same path
+                out["sentence"], too_long = " ".join(str(d.get("sentence") or "").split()), True
+            if too_long or not OS.is_one(out["sentence"]):  # ruling after attempt 15: one re-ask, then in scope
                 note = getattr(ask, "note_malformed", None) or (lambda *a: None)
                 note("coverage", "multi_sentence", out["sentence"])
                 note("coverage", "reask", "")
@@ -308,7 +317,8 @@ def coverage_decision(question: str, scope: str, unit: str, ask, outs: list[str]
                     return {"decision": "in_scope", "why": "the re-asked reply was unusable", "element": "",
                             "unusable": str(e)[:300]}
                 s2 = d2.get("sentence") if isinstance(d2, dict) and d2.get("decision") == "state" else None
-                if not (isinstance(s2, str) and s2.strip() and OS.is_one(s2)):
+                if not (isinstance(s2, str) and s2.strip() and OS.is_one(s2)
+                        and len(" ".join(s2.split())) <= F["coverage.sentence"]):
                     note("coverage", "multi_sentence", s2 if isinstance(s2, str) else json.dumps(d2)[:600])
                     return {"decision": "in_scope", "why": "the sentence to state was not one sentence, after one re-ask",
                             "element": ""}
@@ -343,15 +353,25 @@ def one_sentence(ask, prompt: str, limit: int, role: str, field: str, flimit: in
     then NotOneSentence. Counted through ask.note_malformed as "multi_sentence"."""
     import one_sentence as OS
     note = getattr(ask, "note_malformed", None) or (lambda *a: None)
+    def read(d: dict) -> tuple[str, bool]:
+        # P199 (after WHU-OT1-04d): a 'sentence' past the field's length limit is not one sentence; it takes the
+        # same re-ask and then the same declaration, never a run stop.
+        try:
+            s = _str(d, field, flimit)
+        except FieldTooLong:
+            v = " ".join(str(d.get(field) or "").split())
+            return v, False
+        return s, OS.is_one(s)
+
     d = ask_json(ask, prompt, limit, role)
-    s = _str(d, field, flimit)
-    if OS.is_one(s):
+    s, ok = read(d)
+    if ok:
         return s
     note(role, "multi_sentence", s)
     note(role, "reask", "")
     d = ask_json(ask, prompt + OS.REASK, limit, role)
-    s2 = _str(d, field, flimit)
-    if OS.is_one(s2):
+    s2, ok2 = read(d)
+    if ok2:
         return s2
     note(role, "multi_sentence", s2)
     raise NotOneSentence("%s: more than one sentence, again after one re-ask: %r" % (role, s2[:200]))
