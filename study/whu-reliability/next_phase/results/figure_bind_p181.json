@@ -1,0 +1,106 @@
+{
+ "_what_this_is": "figure_bind.py over every case folder (advisor's ruling 3 on P171-P176, 2026-11-27): for each sentence rule 1 stops on a figure in no bound span, the one contiguous passage of a cited source holding all its figures, if any. Offsets only; no source text (held texts stay private).",
+ "cases_swept": 55,
+ "errors": 0,
+ "rule1_rows": 4,
+ "bound": 3,
+ "rows": [
+  {
+   "slug": "whu-lean-orch-t1-q1-01d",
+   "row": "1ff00044",
+   "figures": [
+    "0.04",
+    "0.19",
+    "0.79",
+    "0.92",
+    "1.07"
+   ],
+   "missing": [
+    "0.04",
+    "0.19",
+    "0.79",
+    "0.92",
+    "1.07"
+   ],
+   "bound": true,
+   "passage": {
+    "source_id": "S003",
+    "kind": "adjacent sentence pair",
+    "offsets": [
+     4397,
+     4818
+    ]
+   },
+   "rule1_after": []
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-01d",
+   "row": "0ed7804d",
+   "figures": [
+    "0.28",
+    "0.61",
+    "1.33",
+    "200"
+   ],
+   "missing": [
+    "200"
+   ],
+   "bound": true,
+   "passage": {
+    "source_id": "S004",
+    "kind": "sentence",
+    "offsets": [
+     139940,
+     140365
+    ]
+   },
+   "rule1_after": []
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-01d",
+   "row": "21e91962",
+   "figures": [
+    "0.92",
+    "1.12",
+    "1.35"
+   ],
+   "missing": [
+    "0.92",
+    "1.12",
+    "1.35"
+   ],
+   "bound": true,
+   "passage": {
+    "source_id": "S004",
+    "kind": "sentence",
+    "offsets": [
+     6515,
+     6688
+    ]
+   },
+   "rule1_after": []
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02z",
+   "row": "93fd1341",
+   "figures": [
+    "0.25",
+    "0.69",
+    "4.60",
+    "4.86",
+    "4.97",
+    "8.50",
+    "9.48"
+   ],
+   "missing": [
+    "4.86",
+    "9.48"
+   ],
+   "bound": false,
+   "passage": null,
+   "rule1_after": [
+    "93fd1341: 4.86, 9.48 in no span it is bound to"
+   ]
+  }
+ ]
+}

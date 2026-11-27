@@ -1074,7 +1074,8 @@ def code_bind(ctx: Ctx, step, only: list[str] | None = None) -> dict:
     rows = doc.setdefault("bindings", {})
     shas = {s.get("id"): ((s.get("access") or {}).get("held") or {}).get("sha256")
             for s in json.loads((ctx.case / "sources.json").read_text(encoding="utf-8")).get("sources") or []}
-    bound = 0
+    import figure_bind as FB
+    bound, figure_bound = 0, 0
     # P101: provenance keeps the passages of a sentence a ruling replaced or removed; such a sentence is not on the
     # page and is never bound (or marked on_page) again.
     here = {norm(x) for x in page.sentences()}
@@ -1093,11 +1094,16 @@ def code_bind(ctx: Ctx, step, only: list[str] | None = None) -> dict:
                     "by": "code (orchestrator: the passage the draft named)"})
         row["also_rests_on"] = [{"source_id": p["source"], "span": (held.get(p["source"]) or "")[p["start"]:p["end"]],
                                  "offsets": [p["start"], p["end"]]} for p in provs[1:]] or None
+        # Ruling 3 on P171-P176: a figure no named passage holds -> the one contiguous passage of a cited source that
+        # holds every figure of the sentence, if there is one (figure_bind.py); never figures from separate places.
+        if FB.attach(row, held):
+            figure_bound += 1
         rows[sha] = row
         bound += 1
     B.save(ctx.slug, doc) if hasattr(B, "save") else (ctx.case / "bindings.json").write_text(
         json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    return {"outcome": "%d sentence(s) bound to their passages" % bound}
+    return {"outcome": "%d sentence(s) bound to their passages" % bound
+            + ("; %d also to the one passage holding all their figures" % figure_bound if figure_bound else "")}
 
 
 def _open_units(ctx: Ctx) -> list[dict]:
