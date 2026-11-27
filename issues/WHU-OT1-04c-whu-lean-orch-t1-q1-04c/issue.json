@@ -1,0 +1,13 @@
+{
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "id": "WHU-OT1-04c",
+  "slug": "whu-lean-orch-t1-q1-04c",
+  "title": "Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?",
+  "question": "Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?",
+  "run_cap_usd": 9.0,
+  "_round_note": "Orchestrator trial 1, development run under the development budget (P177), chosen by the advisor's ruling 1 on the P187 fork, run again fresh after P193 fixed WHU-OT1-04b's stop at acquire: Q1-04 held 4 of 5 confirmed sources in WHU-OT1-04 and needs no rule change. A development run, not a reliability measurement; outputs discarded by rule and never scored. Q1-02 stays retired. Question verbatim from WHU-Q1-04. \"study\": true only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-04c.",
+  "_run_cap_note": "run_cap_usd: $9.00 = the needed cap $8.71 (standing rule 3; likely $7.26: WHU-OT1-04's measured steps through premise_reading $1.243, 01e's coverage $0.401, judgements $0.315, gate $0.514 and omissions $0.625, Q1-04's highest lean advocate $1.249 and audit $2.665 (WHU-L1-04c), overstatement $0.196, changecheck $0.053; the largest is the final gate, $7.21 + its $1.50 bound) rounded up to the next $0.50; within the trial line's $30.50 left and $10.00."
+}
