@@ -1,0 +1,18 @@
+{
+ "slug": "whu-lean-orch-t1-q1-04g",
+ "complete": true,
+ "held": [
+  "S001",
+  "S002",
+  "S003",
+  "S005"
+ ],
+ "not_held": [
+  {
+   "id": "S004",
+   "title": "Negative Emissions Technologies and Reliable Sequestration: A Research Agenda",
+   "reason": "identified (contains 7 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to (477046 bytes at https://www.nationalacademies.org/projects/DELS-BASCPR-16-01); landing page PDF link: refused: not the document: identified (contains 7 of 7 distinctive title words), but not the document: undetermined — form 'assessment summary', but its first 3000 characters name no assessment report or summary it belongs to; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  }
+ ],
+ "skipped": []
+}

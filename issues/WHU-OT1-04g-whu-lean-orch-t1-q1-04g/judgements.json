@@ -1,0 +1,1551 @@
+{
+ "candidates": {
+  "S002@36342-36909": {
+   "source": "S002",
+   "at": [
+    36342,
+    36909
+   ],
+   "section": "SPM A.1",
+   "kind": "assessment",
+   "text_sha256": "27ce2e12016ab40674afcb8787e284d0c95f93598ca7f43725d359895c89ef5c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers human-caused warming and rising emissions in general, and says nothing about carbon dioxide removal, its methods, its scale or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b6bf680f78db4d63",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:10:47+00:00"
+  },
+  "S002@36909-37405": {
+   "source": "S002",
+   "at": [
+    36909,
+    37405
+   ],
+   "section": "SPM A.1.1",
+   "kind": "assessment",
+   "text_sha256": "1d97bfece11a74f76f2fc2d0d8591cadc96bb3a624f2a19728f05a5e268bc777",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement reports observed global warming to date, not the role, scale, methods or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "cf9611c6e62e3f15",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:10:50+00:00"
+  },
+  "S002@37937-38637": {
+   "source": "S002",
+   "at": [
+    37937,
+    38637
+   ],
+   "section": "SPM A.1.3",
+   "kind": "assessment",
+   "text_sha256": "48cfae1bb27ac014bfd4054bec460c8901949f3d8dfb672c4dc51976967b05a6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers historical cumulative CO2 emissions and current greenhouse gas concentrations; it says nothing about carbon dioxide removal, its methods, its scale, or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "38d5c78142bd6921",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:10:55+00:00"
+  },
+  "S002@38637-41643": {
+   "source": "S002",
+   "at": [
+    38637,
+    41643
+   ],
+   "section": "SPM A.1.4",
+   "kind": "assessment",
+   "text_sha256": "f09827fef8623dad5f23f13c9451efb378ac2b62bb4c27577f404badb08298ca",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers historical global greenhouse gas emission levels, growth and sectoral shares up to 2019, but says nothing about carbon dioxide removal, its methods, current or required scale, or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "db7681cd31fc8a4e",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:01+00:00"
+  },
+  "S002@41643-42606": {
+   "source": "S002",
+   "at": [
+    41643,
+    42606
+   ],
+   "section": "SPM A.1.5",
+   "kind": "assessment",
+   "text_sha256": "24cde4ed545ebbeaf4a2006d7439e1412e97a2830cc8b2f23a0ecdca0bbc0bff",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers regional and per-capita distribution of historical emissions, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "19ba3aea9078df1d",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:04+00:00"
+  },
+  "S002@42606-43136": {
+   "source": "S002",
+   "at": [
+    42606,
+    43136
+   ],
+   "section": "SPM A.2",
+   "kind": "assessment",
+   "text_sha256": "22382899637acfd4910250dd48cce488ef01a4d5262a184917aa1a7451c7c714",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers observed climate change impacts and their unequal distribution, not carbon dioxide removal, its role in net zero, its current scale or the constraints on scaling it up.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ca059003058c10fb",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:07+00:00"
+  },
+  "S002@43136-44084": {
+   "source": "S002",
+   "at": [
+    43136,
+    44084
+   ],
+   "section": "SPM A.2.1",
+   "kind": "assessment",
+   "text_sha256": "2586db43b52dc6c8b93387f9ef30b3d70ec190993d324c94e58eb53afd9ee485",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers attribution of observed warming, sea level rise and extremes to human influence, and says nothing about carbon dioxide removal methods, their current scale, their modelled role or the constraints on scaling them up toward net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7a127d071ec0abdf",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:10+00:00"
+  },
+  "S002@44084-44953": {
+   "source": "S002",
+   "at": [
+    44084,
+    44953
+   ],
+   "section": "SPM A.2.2",
+   "kind": "assessment",
+   "text_sha256": "3b5eef4c3eb39528c314cc10b66ee4ae104aac4b806feff0b9d3634f2ef1e7a6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about population vulnerability to climate impacts and disaster mortality, not about carbon dioxide removal's role, scale, methods or constraints in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "443c34a7ee99e9d4",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:13+00:00"
+  },
+  "S002@44953-46126": {
+   "source": "S002",
+   "at": [
+    44953,
+    46126
+   ],
+   "section": "SPM A.2.3",
+   "kind": "assessment",
+   "text_sha256": "8932c9b91f7b1f9e48a84ba5305e61421ee7666d73f6d0c45b10ac6a4afc4196",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes observed climate-change damages to ecosystems and species, not the role, scale, methods or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7cfaf3355cfe249c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:16+00:00"
+  },
+  "S002@46126-46977": {
+   "source": "S002",
+   "at": [
+    46126,
+    46977
+   ],
+   "section": "SPM A.2.4",
+   "kind": "assessment",
+   "text_sha256": "45b2862b38d2f8ce1a7d467afcc7dc4e06a8af0aaf850a334650e1947e87c0c2",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns observed climate impacts on food and water security, not the role, scale, methods or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "33a637481c4302b9",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:19+00:00"
+  },
+  "S002@46977-47848": {
+   "source": "S002",
+   "at": [
+    46977,
+    47848
+   ],
+   "section": "SPM A.2.5",
+   "kind": "assessment",
+   "text_sha256": "2e896518931d7e0e611d36939b49624c8f17a700dd9633e455debb0136dba40c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes observed health and displacement impacts of climate change, which says nothing about the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "99015f55b1d665eb",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:22+00:00"
+  },
+  "S002@47848-48435": {
+   "source": "S002",
+   "at": [
+    47848,
+    48435
+   ],
+   "section": "SPM A.2.6",
+   "kind": "assessment",
+   "text_sha256": "f22cc72fa8eebecf724cc2167e2e49accd25f3b3c225cc9d844e1f3586ca410b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement describes observed climate-change damages and losses, not the role, scale, methods or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fa5e9095b2a12535",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:25+00:00"
+  },
+  "S002@48435-51742": {
+   "source": "S002",
+   "at": [
+    48435,
+    51742
+   ],
+   "section": "SPM A.2.7",
+   "kind": "assessment",
+   "text_sha256": "cba8ea6ee0ce4769b48a600dcf099077e79afa04edd0dbefd5a17ab678ee82ae",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers observed climate-change harms in cities and to infrastructure and health. It says nothing about removing carbon dioxide from the air or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0b546d927df4b2b2",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:29+00:00"
+  },
+  "S002@53732-54329": {
+   "source": "S002",
+   "at": [
+    53732,
+    54329
+   ],
+   "section": "SPM A.3",
+   "kind": "assessment",
+   "text_sha256": "b1c4a296bc31f3cf2ec0838feb175c5a83bed10281e50c98148080db5b4ea98b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate adaptation progress, gaps, limits and finance. It says nothing about carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8e7803349ef063ee",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:32+00:00"
+  },
+  "S002@54329-54709": {
+   "source": "S002",
+   "at": [
+    54329,
+    54709
+   ],
+   "section": "SPM A.3.1",
+   "kind": "assessment",
+   "text_sha256": "1293306dbc273f688fe7160bcfbb9007d8f65c0eedf814f9d8e5e3a3b0316a82",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns progress in climate adaptation planning, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "26972e05a0a3c632",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:36+00:00"
+  },
+  "S002@54709-55826": {
+   "source": "S002",
+   "at": [
+    54709,
+    55826
+   ],
+   "section": "SPM A.3.2",
+   "kind": "assessment",
+   "text_sha256": "958773518af748f3b8fca96c7bedc2f17481e2561e7ffa5707c797e6e533d2a9",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns how effective adaptation options are at reducing climate risks, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5a10421312cf062c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:38+00:00"
+  },
+  "S002@55826-56176": {
+   "source": "S002",
+   "at": [
+    55826,
+    56176
+   ],
+   "section": "SPM A.3.3",
+   "kind": "assessment",
+   "text_sha256": "26ad7245a94bb4cbecaf1fe1f351fb7e10855a0d7b0cd6896c7eb0dde18878a0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns gaps in climate adaptation responses, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d6d820a0188151e6",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:41+00:00"
+  },
+  "S002@56176-56364": {
+   "source": "S002",
+   "at": [
+    56176,
+    56364
+   ],
+   "section": "SPM A.3.4",
+   "kind": "assessment",
+   "text_sha256": "a5edd5ab1f24e8a21ecb17e976b184f28154777c17555f7d4378884491c7fe42",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns maladaptation in climate adaptation efforts and its effects on vulnerable groups, which is not about carbon dioxide removal, its methods, scale or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f1702db2c3ed8a4b",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:44+00:00"
+  },
+  "S002@56364-57494": {
+   "source": "S002",
+   "at": [
+    56364,
+    57494
+   ],
+   "section": "SPM A.3.5",
+   "kind": "assessment",
+   "text_sha256": "6f7531eac27f66567816923a561d7ead8bb54db4ef485ed493cb82a8d60e2644",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns limits to climate adaptation and losses and damages, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "fc8f5de0a0ba0a97",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:47+00:00"
+  },
+  "S002@57494-64143": {
+   "source": "S002",
+   "at": [
+    57494,
+    64143
+   ],
+   "section": "SPM A.3.6",
+   "kind": "assessment",
+   "text_sha256": "c328adee6d68efe56ef82042b738eef6ad4eec74e2c4e227b428ff4c3e13fa7e",
+   "relevant": true,
+   "words": "delivering net-negative emissions afterwards … what modelled pathways call for over the coming decades",
+   "reason": "Although most of the passage is about adaptation finance, it states that the very low and low emissions scenarios reach net zero CO2 around 2050 and 2070 and are followed by net negative CO2 emissions, which bears on removal's role in modelled pathways.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f478711a51aeb1c2",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:53+00:00"
+  },
+  "S002@64696-65791": {
+   "source": "S002",
+   "at": [
+    64696,
+    65791
+   ],
+   "section": "SPM A.4.1",
+   "kind": "assessment",
+   "text_sha256": "bfea260b282f995e47045a953438bb9bf181b8053f947299ddff67e87226fba9",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns how climate agreements and mitigation policies have avoided or reduced emissions, not the role, scale or constraints of deliberate CO2 removal, which is what the question asks about.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "97c8d342d4b08c06",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:11:57+00:00"
+  },
+  "S002@65791-67438": {
+   "source": "S002",
+   "at": [
+    65791,
+    67438
+   ],
+   "section": "SPM A.4.2",
+   "kind": "assessment",
+   "text_sha256": "4a0231eabd806dae614c6acb178f6f0fd46de25b277b9189a41f3eae8abb3051",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about cost declines, deployment and policy-driven emission cuts from abatement options such as solar, wind, batteries and efficiency, not about deliberately removing CO2 from the air or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "794d0d267c57989b",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:02+00:00"
+  },
+  "S002@67438-68671": {
+   "source": "S002",
+   "at": [
+    67438,
+    68671
+   ],
+   "section": "SPM A.4.3",
+   "kind": "assessment",
+   "text_sha256": "2748bf8f12b241f59802212e924ab34db121e8f632c8c1372b1a06d001d3e7a0",
+   "relevant": true,
+   "words": "cutting emissions … reaching net zero",
+   "reason": "It reports a large 2030 emissions gap, likely overshoot of 1.5°C and weakly backed mid-century net-zero pledges, which is context for how much removal may need to do alongside emission cuts to reach net zero and reverse overshoot.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a758a0986e414537",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:08+00:00"
+  },
+  "S002@68671-69102": {
+   "source": "S002",
+   "at": [
+    68671,
+    69102
+   ],
+   "section": "SPM A.4.4",
+   "kind": "assessment",
+   "text_sha256": "1718ccaa3b5572aca7273281586a66ceb684affe73a4ad30a85ae1a7f4b10455",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the gap between implemented emission-cutting policies and pledges, and the warming projected as a result; it says nothing about carbon dioxide removal, its methods, its scale, or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f7795b5fe0baa2d7",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:12+00:00"
+  },
+  "S002@69102-70762": {
+   "source": "S002",
+   "at": [
+    69102,
+    70762
+   ],
+   "section": "SPM A.4.5",
+   "kind": "assessment",
+   "text_sha256": "fc325702765a4c24f1fee3c8203b5bd7557f92b14e1c61a538f88bf773c76b94",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers climate finance flows, low-emission technology uptake in developing countries and projected 2030 NDC emissions, and says nothing about carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3b11fc15ab127229",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:16+00:00"
+  },
+  "S002@70869-71492": {
+   "source": "S002",
+   "at": [
+    70869,
+    71492
+   ],
+   "section": "SPM B.1",
+   "kind": "assessment",
+   "text_sha256": "c4feb09f5bc6db905fdf237f3df2b3e82cbb012a7d09217145cdb232c139e3e8",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns warming projections and the effect of deep emission reductions, and says nothing about carbon dioxide removal, its role in reaching net zero, or its methods and limits.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "254848d1837a3725",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:20+00:00"
+  },
+  "S002@72629-73454": {
+   "source": "S002",
+   "at": [
+    72629,
+    73454
+   ],
+   "section": "SPM B.1.2",
+   "kind": "assessment",
+   "text_sha256": "fa40ebc11959316193c5ce42f5fa826ff4f5b5ee7aca103985aaea04cdc3f79b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns when temperature, GHG-concentration and air-quality differences emerge between emissions scenarios and the role of air pollutant controls, not the role of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "820d547f4143bab9",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:24+00:00"
+  },
+  "S002@73454-77376": {
+   "source": "S002",
+   "at": [
+    73454,
+    77376
+   ],
+   "section": "SPM B.1.3",
+   "kind": "assessment",
+   "text_sha256": "de9da036f9efcf07fdff19e1775b4295ac8f1f462ad4b67eb380e280114c79d0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers projected climate impacts and when 1.5°C will be reached under continued emissions; it says nothing about the role, scale, methods or constraints of deliberate carbon dioxide removal.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b901e8f9fe6f4d9e",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:28+00:00"
+  },
+  "S002@77376-79647": {
+   "source": "S002",
+   "at": [
+    77376,
+    79647
+   ],
+   "section": "SPM B.1.5",
+   "kind": "assessment",
+   "text_sha256": "8630147c5055725b21c8cd286bbe25127ac0694f1c978e73809f91a132be752b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns natural variability, volcanic eruptions and regional climate changes with warming, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a25de221f0107378",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:31+00:00"
+  },
+  "S002@82726-83586": {
+   "source": "S002",
+   "at": [
+    82726,
+    83586
+   ],
+   "section": "SPM B.2.2",
+   "kind": "assessment",
+   "text_sha256": "cc5290617951e591b83f40827ae544673246f4d70e4b0e383c5f7cf61a703c74",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns escalating climate risks and impacts with warming levels, not the role, scale, methods or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "151761c28f694092",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:34+00:00"
+  },
+  "S002@83586-84157": {
+   "source": "S002",
+   "at": [
+    83586,
+    84157
+   ],
+   "section": "SPM B.2.3",
+   "kind": "assessment",
+   "text_sha256": "3e6b433b0ea6c107bf67202d636746eab9e34822d8a7079abdd200995f38f6c0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns compounding climate risks and food insecurity under further warming, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3e275f9c3275a161",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:38+00:00"
+  },
+  "S002@84157-89692": {
+   "source": "S002",
+   "at": [
+    84157,
+    89692
+   ],
+   "section": "SPM B.2.4",
+   "kind": "assessment",
+   "text_sha256": "649a5ffff3a30ea04eb1d57c14703a19a4060145b0b6284a6e726ae08b559715",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate risk, vulnerability and exposure, and projected impacts on species, health, crops and fisheries, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "43c3bb733f1f2e8c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:42+00:00"
+  },
+  "S002@99210-99639": {
+   "source": "S002",
+   "at": [
+    99210,
+    99639
+   ],
+   "section": "SPM B.3",
+   "kind": "assessment",
+   "text_sha256": "09912586d14c4d40e149c8bce3e278772f994025100f160e5d60f567d83d9b52",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about how the risk of irreversible and abrupt climate impacts rises with warming and can be limited by emissions cuts; it says nothing about the role, scale or limits of carbon dioxide removal.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3ee70fdf290c0ada",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:46+00:00"
+  },
+  "S002@99639-100623": {
+   "source": "S002",
+   "at": [
+    99639,
+    100623
+   ],
+   "section": "SPM B.3.1",
+   "kind": "assessment",
+   "text_sha256": "f1a1432ba49362876c2b31f6839fb41f1dbdc0487c2950189a9f6b90e4587146",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns committed sea level rise under different emissions scenarios and does not address carbon dioxide removal, its methods, scale, or role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "baeab9d24079441e",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:50+00:00"
+  },
+  "S002@100623-101418": {
+   "source": "S002",
+   "at": [
+    100623,
+    101418
+   ],
+   "section": "SPM B.3.2",
+   "kind": "assessment",
+   "text_sha256": "51cc255e9ac84d06cd054aab4fe4040b5a44e538526d34884ddf8e1e8f3d8296",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers how tipping-point and irreversible-impact risks rise with warming, and says nothing about carbon dioxide removal, its methods, scale or role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "842df78af5554c28",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:55+00:00"
+  },
+  "S002@101418-102683": {
+   "source": "S002",
+   "at": [
+    101418,
+    102683
+   ],
+   "section": "SPM B.3.3",
+   "kind": "assessment",
+   "text_sha256": "c54956c059afc97baf98b61dc98cb8e2b6231b70d9d42b22a5aed96ccc820819",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers low-likelihood high-impact outcomes such as sea level rise and AMOC collapse, plus adaptation limits, and says nothing about carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "332f5d5a315ae63b",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:12:58+00:00"
+  },
+  "S002@102683-103170": {
+   "source": "S002",
+   "at": [
+    102683,
+    103170
+   ],
+   "section": "SPM B.4.1",
+   "kind": "assessment",
+   "text_sha256": "a59b8614f1e3b2e3149e02dee7c3f1226cb0aacddc4a45405f0884195b22fa1f",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the effectiveness and planning of climate adaptation options, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "34c8d0c416b80a52",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:01+00:00"
+  },
+  "S002@103170-103876": {
+   "source": "S002",
+   "at": [
+    103170,
+    103876
+   ],
+   "section": "SPM B.4.2",
+   "kind": "assessment",
+   "text_sha256": "76515e8b785434cbab310f1c41fb6270dad253a3a2c89dd56ca1d56942d3c9c4",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns limits to adaptation and losses and damages above 1.5°C, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dcf1b777ea6d2a78",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:04+00:00"
+  },
+  "S002@103876-104722": {
+   "source": "S002",
+   "at": [
+    103876,
+    104722
+   ],
+   "section": "SPM B.4.3",
+   "kind": "assessment",
+   "text_sha256": "376385b209b3e3398f07f4c05109ea2093cfe0dc302f291372b99022912a73a0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns maladaptation in climate adaptation actions such as seawalls, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "be9cdd9cd19cf7e8",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:07+00:00"
+  },
+  "S002@104764-105261": {
+   "source": "S002",
+   "at": [
+    104764,
+    105261
+   ],
+   "section": "SPM B.5",
+   "kind": "assessment",
+   "text_sha256": "760ff1bb120f4817b29f7a7698dce2ada1b5a3c17f8dbb9e300ed03f23a4fb13",
+   "relevant": true,
+   "words": "reaching net zero",
+   "reason": "The judgement says limiting warming requires net zero CO2 and that cumulative emissions up to net zero plus near-term cuts determine the outcome, which frames how much removal is needed alongside emission reductions.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "c48c33fc10667013",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:09+00:00"
+  },
+  "S002@105261-105974": {
+   "source": "S002",
+   "at": [
+    105261,
+    105974
+   ],
+   "section": "SPM B.5.1",
+   "kind": "assessment",
+   "text_sha256": "9818be5f089ab15471d2e817a9f7a5b805b148179128a1720af5b993c4929e21",
+   "relevant": true,
+   "words": "removing carbon dioxide from the air play in reaching net zero",
+   "reason": "The judgement says CDR is necessary to achieve net negative CO2 emissions, which implies a role for removal beyond cutting emissions in reaching and sustaining net zero GHG.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "aa51ef6dd92efcab",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:11+00:00"
+  },
+  "S002@107337-108170": {
+   "source": "S002",
+   "at": [
+    107337,
+    108170
+   ],
+   "section": "SPM B.5.3",
+   "kind": "assessment",
+   "text_sha256": "b5023b84c6ed315a5fdcbe7fd367bc6c1aa9b0beff0d04876511daca96d9f953",
+   "relevant": true,
+   "words": "reaching net zero, now and in the decades ahead",
+   "reason": "The judgement says the remaining carbon budgets for 1.5°C and 2°C are nearly exhausted by current and committed fossil emissions, which sets how much counterbalancing or net-negative CO2 removal may be needed in the coming decades.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b02e24c2e44a8ddf",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:18+00:00"
+  },
+  "S002@108609-109077": {
+   "source": "S002",
+   "at": [
+    108609,
+    109077
+   ],
+   "section": "SPM B.6",
+   "kind": "assessment",
+   "text_sha256": "269e52d5735bf1d4eeaf26873eb1ff2385c384af60035e374b25a999ca3f5a4e",
+   "relevant": true,
+   "words": "reaching net zero",
+   "reason": "The judgement says when global net zero CO2 is reached in 1.5°C and 2°C pathways (early 2050s, early 2070s) and that deep emissions cuts come first, which is the context a reader needs to weigh the role of CO2 removal alongside cutting emissions.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "1994f6171a4d46c5",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:20+00:00"
+  },
+  "S002@109077-110619": {
+   "source": "S002",
+   "at": [
+    109077,
+    110619
+   ],
+   "section": "SPM B.6.1",
+   "kind": "assessment",
+   "text_sha256": "1f1c2ffe3c8393e4725d0162b505354a2d2c9910e2ce9083a0dd6cfbccdd7850",
+   "relevant": true,
+   "words": "reaching net zero",
+   "reason": "The judgement says 1.5°C pathways reach net zero CO2 in the early 2050s and then go net negative, which bears on the timing and role of CO2 removal at and after net zero.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "9a7bc3c341d33c1a",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:22+00:00"
+  },
+  "S002@111873-112516": {
+   "source": "S002",
+   "at": [
+    111873,
+    112516
+   ],
+   "section": "SPM B.6.3",
+   "kind": "assessment",
+   "text_sha256": "fb8c5019434e4f918be52dc3099c896699a1dadfa38a987ac2d1ec4e2dc8435c",
+   "relevant": true,
+   "words": "removing carbon dioxide from the air play in reaching net zero",
+   "reason": "The judgement states that CDR is one component of modelled net-zero pathways alongside fossil-fuel transition, demand-side measures, efficiency and non-CO2 cuts, and that land-use and forestry reach net zero CO2 earlier than other sectors, which bears on CDR's role alongside emissions cuts.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "a8e28ecfe4ca0f61",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:24+00:00"
+  },
+  "S002@112516-114814": {
+   "source": "S002",
+   "at": [
+    112516,
+    114814
+   ],
+   "section": "SPM B.6.4",
+   "kind": "assessment",
+   "text_sha256": "198591a1e30d784d241dc7f38b284a683d2ad497f34b4ff7e0879f02c05f2f69",
+   "relevant": true,
+   "words": "removing carbon dioxide from the air",
+   "reason": "The judgement covers biological CDR methods, BECCS and DACCS, including land-related trade-offs, geological storage capacity and the gap between current deployment and modelled pathways, all of which bear on the role and constraints of CO2 removal.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "8efd78c6cd8ad6c8",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:26+00:00"
+  },
+  "S002@118995-119539": {
+   "source": "S002",
+   "at": [
+    118995,
+    119539
+   ],
+   "section": "SPM B.7",
+   "kind": "assessment",
+   "text_sha256": "9049368de3dde075c93e060281277587c010fa4545494ea2fd0e34f03453a6c6",
+   "relevant": true,
+   "words": "removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead",
+   "reason": "The judgement says net-negative CO2 emissions via carbon dioxide removal could reduce warming after overshoot, but this needs extra deployment with feasibility and sustainability concerns, which bears directly on the role of removal beyond net zero.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "56ed8058c8f3188c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:28+00:00"
+  },
+  "S002@119539-120277": {
+   "source": "S002",
+   "at": [
+    119539,
+    120277
+   ],
+   "section": "SPM B.7.1",
+   "kind": "assessment",
+   "text_sha256": "4eb252e76c41ea9e22bb84ac4416418be4e3532343d5ad7999d47babea07a1c6",
+   "relevant": true,
+   "words": "delivering net-negative emissions afterwards",
+   "reason": "The judgement says net negative CO2 emissions, with CDR exceeding residual emissions, would gradually reduce warming after overshoot, which is the net-negative role of removal that the question and scope ask about.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "8f030c2925a833be",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:30+00:00"
+  },
+  "S002@120277-120954": {
+   "source": "S002",
+   "at": [
+    120277,
+    120954
+   ],
+   "section": "SPM B.7.2",
+   "kind": "assessment",
+   "text_sha256": "2ab87587c29d8963d407a674249c55b17a534289b53f747f7b1ae9ae30b5d2da",
+   "relevant": true,
+   "words": "delivering net-negative emissions afterwards",
+   "reason": "Net-negative emissions from CO2 removal are what would bring temperatures back down after an overshoot, and this judgement says overshooting 1.5°C causes irreversible impacts and higher risks, which limits what relying on later removal can achieve.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4bf499a04bc2d4aa",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:36+00:00"
+  },
+  "S002@120954-121565": {
+   "source": "S002",
+   "at": [
+    120954,
+    121565
+   ],
+   "section": "SPM B.7.3",
+   "kind": "assessment",
+   "text_sha256": "3f532dba871446447ef61b2244176bce919dba3580f45eaa286199c496c66465",
+   "relevant": true,
+   "words": "removing carbon dioxide from the air play in reaching net zero",
+   "reason": "The judgement says larger overshoots need more net-negative CO2 and that faster cuts reduce the need for large-scale CDR and its feasibility and sustainability risks, which bears directly on CDR's role alongside emission cuts.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "42d53a14a1255acd",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:38+00:00"
+  },
+  "S002@121670-122471": {
+   "source": "S002",
+   "at": [
+    121670,
+    122471
+   ],
+   "section": "SPM C.1",
+   "kind": "assessment",
+   "text_sha256": "f57e122fd006a2d3732e0e517a4cc5a95bbbb62b74880ab5437e50604ec79993",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement makes general statements about climate threat, closing windows and climate resilient development, and says nothing about carbon dioxide removal, its methods, scale or role in net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ec126f7acf6ef53a",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:41+00:00"
+  },
+  "S002@122471-123093": {
+   "source": "S002",
+   "at": [
+    122471,
+    123093
+   ],
+   "section": "SPM C.1.1",
+   "kind": "assessment",
+   "text_sha256": "7cddef3a4e15caf3f7819bee118d1fbf840426286cd6a131cc91e11d3832adf6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the urgency of climate resilient development and adaptation constraints from warming, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3311ca3425b82100",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:44+00:00"
+  },
+  "S002@123093-124241": {
+   "source": "S002",
+   "at": [
+    123093,
+    124241
+   ],
+   "section": "SPM C.1.2",
+   "kind": "assessment",
+   "text_sha256": "ff7b1d511687cc22933840067483936dea62710bf97d41bed84d55c7b501f8f6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers general enabling conditions for climate resilient development and the role of government action in it, and says nothing about carbon dioxide removal, its methods, its scale or its constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c8ed39f66178e62d",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:48+00:00"
+  },
+  "S002@124241-126589": {
+   "source": "S002",
+   "at": [
+    124241,
+    126589
+   ],
+   "section": "SPM C.1.3",
+   "kind": "assessment",
+   "text_sha256": "a8efc4e36770be40138b065da4373173c21411c004ad2a684f542cd33892b18b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the impacts of continued emissions and the general need for urgent mitigation and adaptation within climate-resilient development, and says nothing about carbon dioxide removal, its methods, scale or role in net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "461416c70b964aef",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:52+00:00"
+  },
+  "S002@128383-129111": {
+   "source": "S002",
+   "at": [
+    128383,
+    129111
+   ],
+   "section": "SPM C.2",
+   "kind": "assessment",
+   "text_sha256": "cfb6fd5583982c99a48a80398a171762068ec8925ba71d0b444bf12d68facb7d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the benefits of rapid near-term mitigation and adaptation and the costs of delay in general, and says nothing about removing CO2 from the air or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f097c1d9259afeb9",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:13:57+00:00"
+  },
+  "S002@129111-129769": {
+   "source": "S002",
+   "at": [
+    129111,
+    129769
+   ],
+   "section": "SPM C.2.1",
+   "kind": "assessment",
+   "text_sha256": "8d95cb7213b4c6402ba1692d69b3be3bb9926b58fce4de2e363b4948509bce0d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the general benefits of deep near-term mitigation and of faster adaptation, and the synergies between the two, but says nothing about removing carbon dioxide from the air or what part it plays in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d3ba207ecf3e4753",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:00+00:00"
+  },
+  "S002@129769-130561": {
+   "source": "S002",
+   "at": [
+    129769,
+    130561
+   ],
+   "section": "SPM C.2.2",
+   "kind": "assessment",
+   "text_sha256": "7a6dccabb561ee75dfb16196d2c04a16f84d5f59e46f2440038fd84db791e0af",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the consequences of delayed mitigation and adaptation (losses, damages, lock-in, cost escalation) and says nothing about carbon dioxide removal, its role in reaching net zero, or its methods and constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "aaae0c57359c1362",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:05+00:00"
+  },
+  "S002@130561-131245": {
+   "source": "S002",
+   "at": [
+    130561,
+    131245
+   ],
+   "section": "SPM C.2.3",
+   "kind": "assessment",
+   "text_sha256": "8205009ef01c40ebbf7617ebec0e9ca990ee62866229b7fdf94831e7552e7c45",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers co-benefits of mitigation and adaptation, such as health, methane cuts and air quality, and says nothing about removing CO2 from the air or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "497782224b5a5809",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:08+00:00"
+  },
+  "S002@131245-132044": {
+   "source": "S002",
+   "at": [
+    131245,
+    132044
+   ],
+   "section": "SPM C.2.4",
+   "kind": "assessment",
+   "text_sha256": "51c3085cb9fde7020891b305731bb2cf9ee24bd18dac61eff3a8b49d84f11ec7",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers the overall cost-benefit and co-benefits of climate mitigation and the timing of emissions peaking; it says nothing about carbon dioxide removal, what role it plays, or what limits its scale-up.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3e41f19a8e89c261",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:12+00:00"
+  },
+  "S002@132044-133267": {
+   "source": "S002",
+   "at": [
+    132044,
+    133267
+   ],
+   "section": "SPM C.2.5",
+   "kind": "assessment",
+   "text_sha256": "c7b0110d0245674d76a2d60e1867fcbba38c4f0ddf2e1a911b13b45e16f3e80c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns the economic disruption and distributional consequences of ambitious mitigation pathways and the policy reforms that can soften them, not carbon dioxide removal, its methods, current versus projected scale, or the constraints on scaling it up.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "1df393d47c9d216c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:17+00:00"
+  },
+  "S002@140821-141314": {
+   "source": "S002",
+   "at": [
+    140821,
+    141314
+   ],
+   "section": "SPM C.3",
+   "kind": "assessment",
+   "text_sha256": "e3829ebce3d7f211d572c6037c3f5a41d17e8851bfcd0f7b39ff815f9540c81e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns broad system transitions and the availability of mitigation and adaptation options for cutting emissions; it says nothing specific about carbon dioxide removal, its scale, methods or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8b4a8685b40dff62",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:22+00:00"
+  },
+  "S002@141314-144080": {
+   "source": "S002",
+   "at": [
+    141314,
+    144080
+   ],
+   "section": "SPM C.3.1",
+   "kind": "assessment",
+   "text_sha256": "80cb1d7345c2133578fdca230e60e6583268d04e2094b22de43f83ee72c8820c",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers energy-system transitions and emissions-reduction options, including CCS on remaining fossil fuel systems, which the scope excludes as abatement; it says nothing about removing CO2 from the air.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6b2dca96c3f39160",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:27+00:00"
+  },
+  "S002@144080-145509": {
+   "source": "S002",
+   "at": [
+    144080,
+    145509
+   ],
+   "section": "SPM C.3.3",
+   "kind": "assessment",
+   "text_sha256": "d98788810f99969677c64c176d46b7ab4e67eb4e1b28a44596c7afd0fb5c6c0d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers emission-reduction options in industry and transport (biofuels, hydrogen, electric vehicles, batteries) and says nothing about removing CO2 from the air, so it bears only on the cutting-emissions side the question sets aside.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9eb99a21c1331d4b",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:32+00:00"
+  },
+  "S002@145509-146931": {
+   "source": "S002",
+   "at": [
+    145509,
+    146931
+   ],
+   "section": "SPM C.3.4",
+   "kind": "assessment",
+   "text_sha256": "06276771320ab36418ae98766866dcd012ce3300bfa0ea5c67b48669203bc619",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about urban systems delivering emission reductions and adaptation, and mentions carbon uptake by green infrastructure only in passing, so it does not inform the role or scale of deliberate CO2 removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8bbc79c4f0e23324",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:37+00:00"
+  },
+  "S002@146931-148558": {
+   "source": "S002",
+   "at": [
+    146931,
+    148558
+   ],
+   "section": "SPM C.3.5",
+   "kind": "assessment",
+   "text_sha256": "3145077baa098e1a9a405e96b3ab2d2e78487f263e1df867bbc4f78f1ba7573b",
+   "relevant": true,
+   "words": "afforestation and reforestation",
+   "reason": "The judgement addresses reforestation, afforestation and ecosystem restoration as land-based options, covering land-use trade-offs and the decades they take to deliver measurable results, which bears on their role and scale-up constraints in CO2 removal.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "80e2235c8de339cc",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:40+00:00"
+  },
+  "S002@148558-150790": {
+   "source": "S002",
+   "at": [
+    148558,
+    150790
+   ],
+   "section": "SPM C.3.6",
+   "kind": "assessment",
+   "text_sha256": "d8818542508df1529242f229bb1db04180b2d6ff2a01f2d08fcbdeffdc1c0a56",
+   "relevant": true,
+   "words": "afforestation and reforestation … storage permanence",
+   "reason": "The judgement finds, with medium confidence, that ecosystem conservation and restoration could increase carbon uptake and storage only if warming is limited, and that land restoration contributes to mitigation, which bears on nature-based removal methods and their permanence.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0cf05a0d31f6893f",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:45+00:00"
+  },
+  "S002@150790-151803": {
+   "source": "S002",
+   "at": [
+    150790,
+    151803
+   ],
+   "section": "SPM C.3.7",
+   "kind": "assessment",
+   "text_sha256": "796aa3a2cd659bab403c8df33f2282afa370a44459ead0eb642fe8ec36c7077a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns health benefits of adaptation and integrated mitigation-adaptation options, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3527f82a0ac71dd4",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:47+00:00"
+  },
+  "S002@151803-152565": {
+   "source": "S002",
+   "at": [
+    151803,
+    152565
+   ],
+   "section": "SPM C.3.8",
+   "kind": "assessment",
+   "text_sha256": "3b1d5b28bc4f67eb6928446703d0f0bd7098059173e6403d7d8f7010bfd5d22e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns adaptation measures such as insurance, social protection, early warning systems and climate literacy for reducing vulnerability, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5411913dcaa10987",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:51+00:00"
+  },
+  "S002@152565-152934": {
+   "source": "S002",
+   "at": [
+    152565,
+    152934
+   ],
+   "section": "SPM C.4",
+   "kind": "assessment",
+   "text_sha256": "af41e8bef6885453e212b8159d6d6368cc04a07c25596d90c905b4dcabeaf704",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general statement about mitigation and adaptation having more synergies than trade-offs with sustainable development, and says nothing specific about carbon dioxide removal, its scale, or its constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "497b108bac46e4a6",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:54+00:00"
+  },
+  "S002@152934-154111": {
+   "source": "S002",
+   "at": [
+    152934,
+    154111
+   ],
+   "section": "SPM C.4.1",
+   "kind": "assessment",
+   "text_sha256": "23bceac6fd0803f5c8a417044ec62e71b86f2ee8f6ea826f25b2265a0a037f88",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns embedding mitigation in development contexts, just transitions and poverty eradication without emissions growth, and says nothing about carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d727ebf75893fbbb",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:14:58+00:00"
+  },
+  "S002@154111-154913": {
+   "source": "S002",
+   "at": [
+    154111,
+    154913
+   ],
+   "section": "SPM C.4.2",
+   "kind": "assessment",
+   "text_sha256": "dc4221f457a18ed4de48fa140d3e8417795d0eff51ab91aad2218ca78e65bdf3",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns general synergies and trade-offs between mitigation/adaptation actions and the Sustainable Development Goals, without addressing carbon dioxide removal, its scale, or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "787fcfe8def66545",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:03+00:00"
+  },
+  "S002@154913-156068": {
+   "source": "S002",
+   "at": [
+    154913,
+    156068
+   ],
+   "section": "SPM C.4.3",
+   "kind": "assessment",
+   "text_sha256": "8ae8590f664e662d7099bd89c7594397b458c39c7a70d59b73ec0869a006063a",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers co-benefits of mitigation and adaptation for health, equity and consumption change, and says nothing about carbon dioxide removal, its methods, scale or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2399f8b697ea1519",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:06+00:00"
+  },
+  "S002@156068-156600": {
+   "source": "S002",
+   "at": [
+    156068,
+    156600
+   ],
+   "section": "SPM C.5.1",
+   "kind": "assessment",
+   "text_sha256": "d9d5a02fce1aee1cb8b3cb0a79a20d06881af02a2db652a1c2b491ca663a57bd",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equity and the distributional consequences of mitigation transitions in general. It says nothing about carbon dioxide removal, its methods, scale or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "15527185ac491fbb",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:10+00:00"
+  },
+  "S002@156600-157415": {
+   "source": "S002",
+   "at": [
+    156600,
+    157415
+   ],
+   "section": "SPM C.5.2",
+   "kind": "assessment",
+   "text_sha256": "fb3e5c11f55bd649003022520d80294ceed23ef9794bcd5781115eac5181f591",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equity, just transitions and participation in adaptation and mitigation generally, not the role, scale, methods or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "36e4c02b433b2f3d",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:14+00:00"
+  },
+  "S002@157415-158528": {
+   "source": "S002",
+   "at": [
+    157415,
+    158528
+   ],
+   "section": "SPM C.5.3",
+   "kind": "assessment",
+   "text_sha256": "8924dc254beb556d5cd45c01f22037b8a358ce61c4c79c983f6aefed9df6d8e9",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns adaptation, vulnerability and equity for marginalised populations, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a1ff18ec36bc7737",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:16+00:00"
+  },
+  "S002@158528-159753": {
+   "source": "S002",
+   "at": [
+    158528,
+    159753
+   ],
+   "section": "SPM C.5.4",
+   "kind": "assessment",
+   "text_sha256": "2e2d4a0155800bf424bff44ed9a998aac5934199a6a3ddd3136cd39132e94110",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns equity, consumption-based emission reductions, lifestyle change and energy access in developing countries, not carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3a6e00cb2ecc286b",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:20+00:00"
+  },
+  "S002@159753-160330": {
+   "source": "S002",
+   "at": [
+    159753,
+    160330
+   ],
+   "section": "SPM C.6",
+   "kind": "assessment",
+   "text_sha256": "cc75f40a82a1115f42e1c00c48e9d9e8e044d686dc43c65ca9b48a54434b1088",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers general enablers of climate action, such as governance, policy, finance and inclusive processes, and does not address carbon dioxide removal, its role in net zero, its methods, its scale or its constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "63fdd5df320962f8",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:23+00:00"
+  },
+  "S002@160330-160849": {
+   "source": "S002",
+   "at": [
+    160330,
+    160849
+   ],
+   "section": "SPM C.6.1",
+   "kind": "assessment",
+   "text_sha256": "72c21d3199f0aa3ccaaed60715b29c4a6e7865031c323bb2b7d46caa948d7a56",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is a general statement that climate governance enables mitigation and adaptation, and says nothing specific about carbon dioxide removal's role, scale, methods or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "92921f1734a67f03",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:26+00:00"
+  },
+  "S002@160849-161358": {
+   "source": "S002",
+   "at": [
+    160849,
+    161358
+   ],
+   "section": "SPM C.6.2",
+   "kind": "assessment",
+   "text_sha256": "7f4b2b58e91a076130fd815894f7d5a0a3c276d6b5eb47b767b937988fa3b5f3",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns institutional capacity and civil-society influence on climate policy generally, not the role, scale or constraints of carbon dioxide removal in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "350b5d59dc2098fc",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:29+00:00"
+  },
+  "S002@161358-161979": {
+   "source": "S002",
+   "at": [
+    161358,
+    161979
+   ],
+   "section": "SPM C.6.3",
+   "kind": "assessment",
+   "text_sha256": "4080366eecca944cd0341692fd5be7e170102d1142bee181fca7a5f0b175b849",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns general multilevel governance, equity and inclusive decision processes for mitigation and adaptation, and says nothing about carbon dioxide removal, its role in net zero, or its methods, scale or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "98a0fed01ccd4cd1",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:33+00:00"
+  },
+  "S002@161979-163586": {
+   "source": "S002",
+   "at": [
+    161979,
+    163586
+   ],
+   "section": "SPM C.6.4",
+   "kind": "assessment",
+   "text_sha256": "b922b8f1c4bd5b423851f7e4583aeefb2d9f08e907da22bec72091c8a7a3671d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns regulatory instruments, carbon pricing and fossil fuel subsidy removal as drivers of emissions reductions, and says nothing about carbon dioxide removal methods, their scale or their constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "87451cf4e8a0d14d",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:36+00:00"
+  },
+  "S002@163586-164769": {
+   "source": "S002",
+   "at": [
+    163586,
+    164769
+   ],
+   "section": "SPM C.6.5",
+   "kind": "assessment",
+   "text_sha256": "00c0f2a8e7ceed92020b47318f5d1e6ab8db1f09cdf37b0368307dfe4944f2a0",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers inclusive knowledge for resilience, emission cuts from removing fossil fuel subsidies, and general climate finance and technology, but says nothing about removing CO2 from the air or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f0b1f6188ad0909c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:40+00:00"
+  },
+  "S002@164769-165374": {
+   "source": "S002",
+   "at": [
+    164769,
+    165374
+   ],
+   "section": "SPM C.7.1",
+   "kind": "assessment",
+   "text_sha256": "e8bcb72fbd1650cef9a6c0ae04624f338c32ea42dc46cdcccc1d32714a762a7e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate finance for adaptation and mitigation in general, not carbon dioxide removal's role, scale, methods or constraints in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "45e236091bd9aad8",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:43+00:00"
+  },
+  "S002@165374-166223": {
+   "source": "S002",
+   "at": [
+    165374,
+    166223
+   ],
+   "section": "SPM C.7.2",
+   "kind": "assessment",
+   "text_sha256": "21b3f68ac21f2bb8439d4c5ca77cbfc7c9808d6109d9a7c0cdfb26ac27a9785e",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers general finance needs for adaptation and overall mitigation investment, not carbon dioxide removal, its scale or its costs specifically.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dfdefb1fc77aa01a",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:47+00:00"
+  },
+  "S002@166223-167203": {
+   "source": "S002",
+   "at": [
+    166223,
+    167203
+   ],
+   "section": "SPM C.7.3",
+   "kind": "assessment",
+   "text_sha256": "4bab96c63cc536433bf5fd694636539977bf98550ff0ef17bc0d696046f1c89d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns global climate finance flows and barriers to redirecting capital in general, not carbon dioxide removal, its role in net zero, or its specific scale-up constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f29b7e6cc9c8a33d",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:50+00:00"
+  },
+  "S002@167203-168677": {
+   "source": "S002",
+   "at": [
+    167203,
+    168677
+   ],
+   "section": "SPM C.7.4",
+   "kind": "assessment",
+   "text_sha256": "4e75e264e48551647da62e27cc2d657f82e72fe40c9c46c8864ec12237125eaa",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns climate finance gaps and financial flows to developing countries for mitigation and adaptation generally, not carbon dioxide removal's role, scale, methods or constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9bbc3758eee92aec",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:53+00:00"
+  },
+  "S002@168677-170173": {
+   "source": "S002",
+   "at": [
+    168677,
+    170173
+   ],
+   "section": "SPM C.7.5",
+   "kind": "assessment",
+   "text_sha256": "0f37d39d90609474296271f7ed141de81f75a902745a0827dd8def973b571da6",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about innovation policy for low-emission technologies in general, including R&D support, trade-offs and lags in developing countries, and says nothing specific about carbon dioxide removal, its role in net zero, or the constraints on scaling it up.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d12217b9f09e2e1f",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:15:57+00:00"
+  },
+  "S002@170173-180034": {
+   "source": "S002",
+   "at": [
+    170173,
+    180034
+   ],
+   "section": "SPM C.7.6",
+   "kind": "assessment",
+   "text_sha256": "02da1540893d6396895046e14129f69f4e97477d981e46d47d0ae044ca8f52cb",
+   "relevant": false,
+   "words": "",
+   "reason": "The passage covers international cooperation and finance, the Synthesis Report's introduction and structure, calibrated confidence language, and observed warming, but says nothing about carbon dioxide removal or its role in reaching net zero.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8c3241c6b5c16ed4",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:16:01+00:00"
+  },
+  "S002@252855-258590": {
+   "source": "S002",
+   "at": [
+    252855,
+    258590
+   ],
+   "section": "SPM C.89",
+   "kind": "assessment",
+   "text_sha256": "febc66b3d473a7ca2daf97763fed8c4a0bc3405efc20e3a34b7c1da375ec8b72",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement covers adaptation gaps, the gap between pledges and implemented emissions policy, and stranded fossil assets; it says nothing about carbon dioxide removal, its methods, its current or projected scale, or its constraints.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "dcbd10a664deef4c",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:16:06+00:00"
+  },
+  "S002@388364-396329": {
+   "source": "S002",
+   "at": [
+    388364,
+    396329
+   ],
+   "section": "SPM C.12.3",
+   "kind": "assessment",
+   "text_sha256": "984009d26aed1a8f36756649c2179a1526d2c79813adf377d0467b19a7f07561",
+   "relevant": true,
+   "words": "removing carbon dioxide from the air",
+   "reason": "The passage includes an IPCC statement that CDR deployment impacts, risks and co-benefits for ecosystems, biodiversity and people vary highly by method, site and scale, which bears on the constraints and role of CO2 removal.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "1d7b91f4dea63a04",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:16:07+00:00"
+  },
+  "S002@396329-399335": {
+   "source": "S002",
+   "at": [
+    396329,
+    399335
+   ],
+   "section": "SPM D.1.1",
+   "kind": "assessment",
+   "text_sha256": "b97bd39ad6ad736e443f352e47bb90cfbd9083e507f52fdb877b1715ef7b0ec2",
+   "relevant": true,
+   "words": "reaching net zero … delivering net-negative emissions afterwards",
+   "reason": "relevance refused by code: 'reaching net zero … delivering net-negative emissions afterwards' is in neither the question nor a scope.out entry; under lean treated as relevant (the page must state or declare it)",
+   "by": "code (lean: relevance not verified, treated as relevant)",
+   "ruling": "c68e93aee62704e2",
+   "to_person": false,
+   "decided_at": "2026-11-27T19:16:17+00:00"
+  }
+ }
+}

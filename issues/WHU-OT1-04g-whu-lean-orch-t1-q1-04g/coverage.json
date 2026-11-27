@@ -1,0 +1,19 @@
+{
+ "units": [],
+ "declarations": {
+  "S002@106346-106638": {
+   "state": "not_material",
+   "reason": "The finding concerns how non-CO2 emission cuts affect temperature and carbon budgets. It says nothing about CO2 removal's role, methods, scale or constraints, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T19:21:01+00:00"
+  },
+  "S002@106976-107336": {
+   "state": "not_material",
+   "reason": "The finding only gives remaining 1.5°C carbon budget figures under different non-CO2 and inventory assumptions. It says nothing about CO2 removal methods, scale, or constraints, so it does not change the answer on removal's role.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T19:21:08+00:00"
+  }
+ }
+}

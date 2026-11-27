@@ -1,0 +1,163 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Pulling CO2 out of the air, with trees or machines like direct air capture, will be needed a bit to mop up emissions we can't eliminate, but today it is tiny, expensive and unproven at scale. It can't replace cutting emissions, and leaning on it is mostly an excuse for polluters to delay.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "CNN",
+        "url": "https://www.cnn.com/2023/05/11/world/carbon-capture-removal-pollution-climate-intl",
+        "final_url": "https://www.cnn.com/2023/05/11/world/carbon-capture-removal-pollution-climate-intl",
+        "fetched_at": "2026-11-27T19:19:27+00:00",
+        "sha256": "f3ead6b4a45e7774f7ae1a294407fe10386f8b309b838af6ff05f195d970e0b5",
+        "key_words_found": [
+          "trees",
+          "machines",
+          "like",
+          "direct",
+          "capture",
+          "needed",
+          "emissions",
+          "tiny",
+          "expensive",
+          "unproven",
+          "scale",
+          "excuse",
+          "polluters",
+          "delay"
+        ],
+        "key_words": 22,
+        "by": "a model's reading (claude-sonnet-4-6, web search), verified by code: the page was fetched with the honest client and contains the belief's key words"
+      },
+      {
+        "outlet": "Mongabay",
+        "url": "https://news.mongabay.com/2024/12/direct-air-capture-climate-solution-faces-harsh-criticism-steep-challenges/",
+        "final_url": "https://news.mongabay.com/2024/12/direct-air-capture-climate-solution-faces-harsh-criticism-steep-challenges/",
+        "fetched_at": "2026-11-27T19:19:28+00:00",
+        "sha256": "8e3fc6f56fbd45ccb07cc63dcf6c534d2967f0674ec2ffc448b01bb4c994fb4d",
+        "key_words_found": [
+          "pulling",
+          "trees",
+          "machines",
+          "like",
+          "direct",
+          "capture",
+          "needed",
+          "emissions",
+          "today",
+          "tiny",
+          "expensive",
+          "scale",
+          "replace",
+          "delay"
+        ],
+        "key_words": 22,
+        "by": "a model's reading (claude-sonnet-4-6, web search), verified by code: the page was fetched with the honest client and contains the belief's key words"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The held sources state with high confidence that CDR would be needed to counterbalance hard-to-abate residual emissions for net zero, but they also describe a net-negative and overshoot role, and IAM scenario volumes that are large compared to today's small deployment base.",
+    "sources": [
+      "S002"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-27T19:20:36+00:00",
+    "evidence": {
+      "source": "S002",
+      "offsets": [
+        111476,
+        111735
+      ],
+      "span_sha256": "e92d21664281fa0ad6372272725067e2aabf5a452fd93c635508a12ee96e7ec7"
+    }
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-27T19:20:36+00:00",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        88987,
+        89232
+      ],
+      "span_sha256": "20c6ca279d0735f12fee74f05675da51e81cc6888deee19b09beb3cb84413f24"
+    },
+    "why": "The sources support the belief that removal is needed and is small today, and that higher-maturity methods such as reforestation contrast with costly DACCS, but they show modelled pathways assume large-scale removal rather than only 'a bit' of residual mop-up, and they do not address the 'excuse for"
+  },
+  "reader_with_a_decision": "A national or corporate climate planner setting a net-zero strategy. They must decide how much of the target to meet by cutting emissions versus buying or building carbon removal, and whether to set a separate removal target rather than folding removal into a single net figure.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Yes: CNN (https://www.cnn.com/2023/05/11/world/carbon-capture-removal-pollution-climate-intl), fetched 2026-11-27, sha256 f3ead6b4a45e7774; the page contains 14 of the belief's 22 key words. A model's reading (web search), checked by code.",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The primary assessments and inventories already say exactly what the belief says, with no material gap. That would mean: modelled net-zero pathways give removal only a small, residual-balancing role. Current removal is overwhelmingly conventional land-based (forests, soils), and engineered or novel methods are negligible. The scale-up those pathways assume is neither large nor contested. Alternatively, the sources show removal plays no necessary role at all in reaching net zero.",
+  "kill_condition_tested": {
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "on": "2026-11-27",
+    "result": "survived",
+    "note": "The passages show the opposite of the kill condition: the assumed scale-up is large and hard to achieve, and removal is a necessary element of net-zero pathways rather than playing no role.",
+    "evidence": {
+      "source": "S005",
+      "offsets": [
+        55760,
+        56027
+      ],
+      "span_sha256": "0b8d8cb59e22540d803f8e7cd1b706f5a05957b9352ddf9d4c5eb2b7a0b612f1"
+    },
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Two roles for deliberate CO2 removal: counterbalancing residual hard-to-abate emissions at net zero, and delivering net-negative emissions afterwards. It covers the main families of methods: afforestation and reforestation, soil carbon, biochar, bioenergy with carbon capture and storage, direct air capture with storage, enhanced weathering, and ocean-based approaches. For each, it covers how much removal happens now versus what modelled pathways call for over the coming decades. It also covers the constraints on scale-up: cost, energy, land, storage permanence and measurement/verification.",
+    "out": [
+      {
+        "what": "Solar radiation management and other geoengineering that reflects sunlight rather than removing CO2",
+        "why": "It does not remove carbon and is a different question with different risks and governance."
+      },
+      {
+        "what": "Carbon capture and storage on fossil-fuel power plants or industrial point sources",
+        "why": "This reduces new emissions rather than removing CO2 already in the air, so it is an abatement question."
+      },
+      {
+        "what": "The integrity of the voluntary carbon offset market, including avoided-deforestation credits",
+        "why": "Most offsets are avoidance rather than removal, and market quality is a separate investigation."
+      },
+      {
+        "what": "Whether any specific company's removal claims or purchases are credible",
+        "why": "This page assesses the role of removal in aggregate, not individual corporate claims."
+      },
+      {
+        "what": "Which single removal technology is the best investment",
+        "why": "That is a commercial and technology-selection judgement beyond the system-level role asked about."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T19:05:45+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Observed and inventoried quantities of CO2 currently removed per year, split by method (land-based versus novel or engineered). Measured costs per tonne at operating facilities. Operating and contracted capacity of projects that are deployed or under construction. Storage volumes monitored and verified. Measured energy and land requirements of existing deployments.",
+    "assessed": "Major assessment bodies' judgements of the removal volumes required in modelled pathways consistent with given warming limits, and their stated confidence or agreement levels. Assessed feasibility, sustainability limits and permanence risks for each removal method. Expert-panel confidence ratings on scale-up potential and costs in future decades.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T19:05:45+00:00"
+  }
+}
