@@ -1,0 +1,190 @@
+{
+ "ruling": "advisor's ruling 4 on P169 (2026-11-27)",
+ "tool": "backend/scripts/whatholdsup/figure_sweep.py",
+ "cases_swept": 55,
+ "errors": 0,
+ "cases_with_figures_in_no_bound_span": [
+  "whu-lean-orch-t1-q1-01d",
+  "whu-lean-orch-t1-q1-02z"
+ ],
+ "figures": 11,
+ "by_class": {
+  "in_cited_source": 11,
+  "in_other_source_only": 0,
+  "in_no_held_source": 0
+ },
+ "rows": [
+  {
+   "row": "1ff00044",
+   "figure": "0.04",
+   "class": "in_cited_source",
+   "cited": [
+    "S003"
+   ],
+   "in": [
+    "S003"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "1ff00044",
+   "figure": "0.19",
+   "class": "in_cited_source",
+   "cited": [
+    "S003"
+   ],
+   "in": [
+    "S003"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "1ff00044",
+   "figure": "0.79",
+   "class": "in_cited_source",
+   "cited": [
+    "S003"
+   ],
+   "in": [
+    "S003"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "1ff00044",
+   "figure": "0.92",
+   "class": "in_cited_source",
+   "cited": [
+    "S003"
+   ],
+   "in": [
+    "S003"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "1ff00044",
+   "figure": "1.07",
+   "class": "in_cited_source",
+   "cited": [
+    "S003"
+   ],
+   "in": [
+    "S003"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "0ed7804d",
+   "figure": "200",
+   "class": "in_cited_source",
+   "cited": [
+    "S004"
+   ],
+   "in": [
+    "S004"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "21e91962",
+   "figure": "0.92",
+   "class": "in_cited_source",
+   "cited": [
+    "S004"
+   ],
+   "in": [
+    "S004"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "21e91962",
+   "figure": "1.12",
+   "class": "in_cited_source",
+   "cited": [
+    "S004"
+   ],
+   "in": [
+    "S004"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "21e91962",
+   "figure": "1.35",
+   "class": "in_cited_source",
+   "cited": [
+    "S004"
+   ],
+   "in": [
+    "S004"
+   ],
+   "slug": "whu-lean-orch-t1-q1-01d"
+  },
+  {
+   "row": "93fd1341",
+   "figure": "4.86",
+   "class": "in_cited_source",
+   "cited": [
+    "S001"
+   ],
+   "in": [
+    "S001"
+   ],
+   "slug": "whu-lean-orch-t1-q1-02z"
+  },
+  {
+   "row": "93fd1341",
+   "figure": "9.48",
+   "class": "in_cited_source",
+   "cited": [
+    "S001"
+   ],
+   "in": [
+    "S001"
+   ],
+   "slug": "whu-lean-orch-t1-q1-02z"
+  }
+ ],
+ "trace_01d": [
+  {
+   "row": "1ff00044",
+   "source": "S003",
+   "figures": [
+    "0.92",
+    "0.79",
+    "1.07",
+    "0.19",
+    "0.04"
+   ],
+   "where": "S003's abstract, the paragraph for the comparison with non-digital targeted client communication (held text offset 4481); the same comparison as the sentence",
+   "bound_span_at": 6103,
+   "bound_span_is": "a later passage of the same source saying the effect for this comparison is unknown for lack of studies (it matches only the sentence's last clause)",
+   "verdict": "in the cited source; the binding chose a span that holds none of the figures"
+  },
+  {
+   "row": "0ed7804d",
+   "source": "S004",
+   "figures": [
+    "200"
+   ],
+   "where": "S004's Summary of findings table 3 (digital targeted against digital non-targeted communication, adolescents): 200 participants, 1 RCT (offset 111490); 'pilot study and therefore underpowered' at 140462 and a single study; the UK pilot trial at 143485",
+   "bound_span_at": "the abstract's RR 0.61 sentence (holds 0.61, 0.28, 1.33)",
+   "verdict": "in the cited source, in three passages the binding does not include; the page says 'Britain' for the source's 'UK'"
+  },
+  {
+   "row": "21e91962",
+   "source": "S004",
+   "figures": [
+    "1.12",
+    "0.92",
+    "1.35"
+   ],
+   "where": "S004's abstract, the sentence directly after the bound span, same comparison (offset 6546)",
+   "bound_span_at": 6387,
+   "verdict": "in the cited source; the binding stops one sentence short"
+  }
+ ],
+ "finding": "No figure is unsupported, computed by the model, or taken from another source. Every figure rule 1 reports in no bound span is in the held text of the source the sentence cites, in the same comparison; the binding's span is too narrow (it takes one passage where the sentence draws on two or more). Rule 1 is unchanged and correctly STOPs these sentences."
+}
