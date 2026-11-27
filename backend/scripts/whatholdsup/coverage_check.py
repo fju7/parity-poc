@@ -483,6 +483,42 @@ def reader_reason(d: dict) -> str:
     return (d.get("reason_for_reader") or "").strip() or d.get("reason") or ""
 
 
+_CITE_NUMBER = re.compile(r"\s*(\[\d+\])\s*$")
+_END_STOP = re.compile(r"[\s.?!\u2026]+$")
+
+
+def safe_label(state: str, label: str, reason: str | None = None) -> str:
+    """The label as it may stand in a readers'-list line (advisor's ruling 1 on P162, the text-assembly sweep): one
+    that keeps the line one sentence whatever the span. A title's own end punctuation (".", "?", "!", "...") is dropped
+    before its citation number (01c's S005, "... appointments. [5]"); if the label still splits the line, the line
+    names the source by its number alone ("source [5]"), as lean_sentences.cite does."""
+    import source_ledger as ledger
+
+    def probe(lab: str) -> bool:
+        return len(ledger.sentences(declaration_frame(state, "x", lab, reason))) == 1
+
+    if probe(label or ""):
+        return label or ""                  # a label that keeps the line one sentence is used exactly as given
+    lab = " ".join((label or "").split())
+    if probe(lab):
+        return lab
+    m = _CITE_NUMBER.search(lab)
+    num, title = (m.group(1), lab[:m.start()]) if m else ("", lab)
+    stripped = (_END_STOP.sub("", title) + (" " + num if num else "")).strip()
+    if stripped and probe(stripped):
+        return stripped
+    return "source %s" % num if num else "source"
+
+
+def declaration_frame(state: str, quoted: str, label: str, reason: str | None) -> str:
+    """The readers'-list line for a quotation, a label and (non-lean) a reason, with nothing shortened."""
+    if state in CODE_LINES:
+        return "%s “%s” (%s) %s." % (LEAD[state], quoted, label, CODE_LINES[state])
+    if reason is None:
+        return "%s “%s” (%s)." % (LEAD[state], quoted, label)
+    return "%s “%s” (%s); %s." % (LEAD[state], quoted, label, one_line(reason))
+
+
 def declaration_sentence(state: str, span: str, label: str, reason: str | None) -> str:
     """One sentence, as the page is split (source_ledger.sentences): a span the
     splitter would break ("e.g. ...") is shortened, with an ellipsis, until the
@@ -491,6 +527,7 @@ def declaration_sentence(state: str, span: str, label: str, reason: str | None) 
     import source_ledger as ledger
     cut = span.endswith(" …")
     words = span[:-2].split() if cut else span.split()
+    label = safe_label(state, label, reason)
 
     def line(ws: list[str], c: bool) -> str:
         if state in CODE_LINES:
