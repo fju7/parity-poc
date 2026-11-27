@@ -83,12 +83,12 @@ ABSTRACT_CHARS = 8000
 SECTION_MAX = 2500
 SPAN_WORDS = 25
 DECLARED = ("out_of_scope", "not_material", "not_added_cap")
-COUNTED = ("out_of_scope", "not_material")    # what the declarations budget counts
+COUNTED = ("out_of_scope", "not_material", "declared_unruled")    # what the declarations budget counts
 HEADING = "Findings in our sources we judged outside this question"
 LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
         "not_added_cap": "Not added:", "not_added_no_place": "Not added:", "not_added_beyond": "Not added:",
         "not_added_over_budget": "Not added:", "not_added_not_one_sentence": "Not added:",
-        "not_added_anchor_removed": "Not added:", "not_stated_removed": "Not added:"}
+        "not_added_anchor_removed": "Not added:", "not_stated_removed": "Not added:", "declared_unruled": "Not added:"}
 # Lean WHU (process doc §4.6.1, the ruling paths): code's own line for an ADD with no
 # place on the page; a required page element, and not counted against the budget.
 NO_PLACE = "not_added_no_place"
@@ -110,8 +110,12 @@ ANCHOR_TAIL = "(found in our sources, not stated on this page: the sentence it f
 # written to coverage.json; not counted against the declarations budget.
 REMOVED = "not_stated_removed"
 REMOVED_TAIL = "(found in our sources, not stated on this page: the sentence that stated it was removed)"
+# Lean, advisor's ruling 4 on P171-P176: an omission whose ruling reply was not usable is declared, as code's line,
+# and counted against the declarations budget (COUNTED).
+UNRULED = "declared_unruled"
+UNRULED_TAIL = "(our ruling on it could not be completed)"
 CODE_LINES = {NO_PLACE: NO_PLACE_TAIL, BEYOND: BEYOND_TAIL, OVER_BUDGET: OVER_BUDGET_TAIL, NOT_ONE: NOT_ONE_TAIL,
-              ANCHOR: ANCHOR_TAIL, REMOVED: REMOVED_TAIL}
+              ANCHOR: ANCHOR_TAIL, REMOVED: REMOVED_TAIL, UNRULED: UNRULED_TAIL}
 CAP_REASON = "the page's limit for %s was reached"     # not_added_cap's reader-facing reason
 
 CALIBRATED = re.compile(r"\b(?:very\s+low|low|medium|high|very\s+high)\s+confidence"
@@ -411,7 +415,7 @@ def account(units: list[dict], rows: dict, held: dict[str, str], omissions_doc: 
             dec = [e for e in hits if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP",
                                                            "NOT_ADDED_NO_PLACE", "NOT_ADDED_BEYOND",
                                                            "NOT_ADDED_OVER_BUDGET", "NOT_ADDED_NOT_ONE_SENTENCE",
-                                                           "NOT_ADDED_ANCHOR_REMOVED")]
+                                                           "NOT_ADDED_ANCHOR_REMOVED", "DECLARED_UNRULED")]
             if add:
                 state, how = "added", add[0].get("key")
             elif k in declarations:
@@ -656,7 +660,7 @@ def declarations(slug: str, held: dict[str, str], case: Path | None = None,
     for e in O.load(case).get("omissions") or []:
         if e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP", "NOT_ADDED_NO_PLACE",
                                 "NOT_ADDED_BEYOND", "NOT_ADDED_OVER_BUDGET", "NOT_ADDED_NOT_ONE_SENTENCE",
-                                "NOT_ADDED_ANCHOR_REMOVED") and e.get("at"):
+                                "NOT_ADDED_ANCHOR_REMOVED", "DECLARED_UNRULED") and e.get("at"):
             text = (held.get(e["source"]) or "")[e["at"][0]:e["at"][1]]
             out.append({"key": e["key"], "state": e["outcome"].lower(), "source": e["source"], "text": text,
                         "from": "omissions", "element": e.get("element") or "", "at": list(e["at"]),

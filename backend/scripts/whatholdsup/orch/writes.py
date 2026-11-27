@@ -82,7 +82,7 @@ COMMAND_MODULES = {
     "source_advocate.py": ("source_advocate",),
     "findings.py": ("findings",),
     "conclusion_judge.py": ("conclusion_judge",),
-    "audit_stage.py": ("audit_stage", "bindings"),
+    "audit_stage.py": ("audit_stage", "bindings", "lean_failsafe"),    # P182: lean withholds a sentence (fail-safe)
     "consistency.py": ("consistency",),
     "changecheck.py": ("changecheck",),
     "changecheck_coverage.py": ("changecheck_coverage",),

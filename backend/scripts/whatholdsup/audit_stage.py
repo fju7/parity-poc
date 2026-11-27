@@ -1188,6 +1188,9 @@ def _ask_for(ask, model: str):
     return (lambda p, m: ask(p, m, model)) if n >= 3 else ask
 
 
+WITHHELD = "audit: withheld (licence-barred source or failed read)"
+
+
 def _snap(u: dict, **extra) -> dict:
     return {**{k: u[k] for k in UNIT_KEYS if k in u}, **extra}
 
@@ -1282,6 +1285,19 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
     def live(s: dict) -> dict:
         return {**by_id[s["id"]], **s}
 
+    def withhold(u: dict, reason: str, **extra) -> None:
+        """Lean, ruling 4 on P171-P176: the sentence leaves the page (lean fail-safe record; the orchestrator's
+        apply removes it). No person reads it and nothing rules on it."""
+        import lean_failsafe as LF
+        import source_store as _store
+        state[u["sha"]] = "must_leave_page"
+        prog["done"][u["id"]] = _snap(u, status="must_leave_page")
+        log("verdicts", {"unit": u["id"], "part": u["part"], "sha": u["sha"], "round": 0,
+                         "sentence": u["sentence"], "verdict": "must_leave_page", "withheld": True,
+                         "reason": reason, **extra})
+        LF.record("audit", {"protected": WITHHELD, "sentence": u["sentence"], "kind": "audit",
+                            "ref": {"unit": u["id"], "why": reason}}, _store.case_dir(slug))
+
     # sentence sha -> settled status or "must_leave_page"
     state: dict[str, str] = dict(prior["state"]) if prior else {}
     # done: unit id -> its final wording and status. queue: this round's units
@@ -1352,6 +1368,12 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
                                                "ruled, corrected or cut by the audit" % kind})
                     continue
                 srcs = sources_of(u["row"])
+                if srcs and all(x in lic for x in srcs) and LEAN and u["part"] == "page":
+                    # Lean, ruling 4 on P171-P176: no person. A sentence bound only to a licence-barred source
+                    # (refused) is withheld: the lean fail-safe removes it from the page.
+                    withhold(u, "bound only to source(s) whose licence forbids machine reading: refused; "
+                                "the sentence is withheld", licensed_sources=srcs)
+                    continue
                 if srcs and all(x in lic for x in srcs):
                     # Bound only to a source no model may read: a person reads it.
                     state[u["sha"]] = HUMAN_READ_REQUIRED
@@ -1536,6 +1558,11 @@ def run(slug: str, *, out_dir: Path, limit: int | None = None, cap: float = 40.0
         failed = sorted(h for h, st in state.items() if st == FAILED_READ)
         for h in failed:
             state[h] = HUMAN_READ_REQUIRED
+            if LEAN:
+                # Lean, ruling 4 on P171-P176: a failed audit read withholds the sentence; no person.
+                for u in us:
+                    if u["sha"] == h and u["part"] == "page":
+                        withhold(u, "the audit read failed (FAILED_READ): the sentence is withheld")
         manifest["failed_read"] = [{"unit": u["id"], "sha": u["sha"]} for u in us if u["sha"] in failed]
         manifest["status"] = "complete"
     except AuditFailure as e:

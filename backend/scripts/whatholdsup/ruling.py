@@ -1281,6 +1281,41 @@ BEYOND_BY = "code (lean: the proposed sentence went beyond the finding)"
 OVER_BUDGET_WHY = "over the ADD budget"
 OVER_BUDGET_BY = "code (lean: over the additions budget)"
 NOT_ONE_BY = "code (not one sentence after one re-ask)"
+# Lean, advisor's ruling 4 on P171-P176: the omission paths that went to a person end in code (omissions.py).
+UNRULED_BY = "code (lean: ruling reply not usable; declared)"
+OVER_DECLARATIONS_BY = "code (lean: past the declarations budget; Not Ready)"
+WITHDRAWN_BY = "code (lean: NOT_MATERIAL refused on a SERIOUS objection that CHANGES the conclusion)"
+REFUSED_LICENCE_BY = "code (lean: licence forbids machine reading; refused)"
+SCOPE_REFUSED_BY = "code (lean: OUT_OF_SCOPE element refused; declared and counted)"
+WITHDRAW_PROTECTED = "omission: conclusion withdrawn"
+
+
+DECL_BUDGET_WHY = "over the declarations budget"
+UNUSABLE_WHY = "the ruling reply was not usable"
+SERIOUS_WHY = "NOT_MATERIAL on a SERIOUS objection that CHANGES the conclusion"
+
+
+def lean_withdraw(case: Path, f: dict, held: dict, why: str, page_sentences: list[str], body: set,
+                  rows: dict, log: Path) -> dict:
+    """Lean, ruling 4 on P171-P176: NOT_MATERIAL is not accepted from the machine on a SERIOUS objection that
+    CHANGES the conclusion. The body sentence the objection is about (its anchor) is withdrawn by the lean
+    fail-safe; if that is no body sentence (code-written, protected, a required line, or not on the page), nothing
+    can be withdrawn in its place and the page is Not Ready (OVER_DECLARATIONS is not used: the record says why)."""
+    import bindings as B
+    import lean_failsafe as LF
+    import omissions as O
+    i = _anchor_index(f.get("anchor") or "", page_sentences)
+    s = page_sentences[i] if i is not None else None
+    ok = bool(s) and s in body and not B.protected_kind(s, rows.get(B.fingerprint(s))) \
+        and not LF.is_required_line(s)
+    if not ok:
+        e = lean_no_place(case, f, held, "%s; its conclusion sentence cannot be withdrawn (%s): Not Ready"
+                          % (why, "not on the page" if not s else "not a body sentence"), O.OVER_DECLARATIONS)
+        return dict(e, withdrawn=None)
+    LF.record("omissions", {"protected": WITHDRAW_PROTECTED, "sentence": s, "kind": "omission",
+                            "ref": {"origins": f.get("origins")}}, case)
+    e = lean_no_place(case, f, held, "%s: the conclusion sentence it is about is withdrawn" % why, O.WITHDRAWN)
+    return dict(e, withdrawn=s)
 
 
 def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None = None) -> dict:
@@ -1294,12 +1329,14 @@ def lean_no_place(case: Path, f: dict, held: dict, why: str, outcome: str | None
     # replaces an entry by key, so the origins are merged here first.
     key = O.entry_key(f)
     had = [h for e in O.load(case).get("omissions") or []
-           if e.get("key") == key and e.get("outcome") in O.CODE_NOT_ADDED for h in e.get("origins") or []]
+           if e.get("key") == key and e.get("outcome") in O.LEAN_SETTLED for h in e.get("origins") or []]
     origins = list(dict.fromkeys(had + list(f.get("origins") or [f.get("origin")])))
     f = dict(f, origins=origins)
     outcome = outcome or O.NOT_ADDED_NO_PLACE
     by = {O.NOT_ADDED_BEYOND: BEYOND_BY, O.NOT_ADDED_OVER_BUDGET: OVER_BUDGET_BY,
-          O.NOT_ADDED_NOT_ONE: NOT_ONE_BY}.get(outcome, NO_PLACE_BY)
+          O.NOT_ADDED_NOT_ONE: NOT_ONE_BY, O.DECLARED_UNRULED: UNRULED_BY,
+          O.OVER_DECLARATIONS: OVER_DECLARATIONS_BY, O.WITHDRAWN: WITHDRAWN_BY,
+          O.REFUSED_LICENCE: REFUSED_LICENCE_BY}.get(outcome, NO_PLACE_BY)
     O.record(case, f, held_text=held, outcome=outcome, reason=why, by=by)
     print("  lean: %s (%s) -- listed for readers as Not added" % (why[:60], ", ".join(f.get("origins") or [])))
     return {"outcome": outcome, "origins": f.get("origins"), "why": why}
@@ -1348,7 +1385,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
     LEAN = lean.enabled()
     # Lean WHU: an ADD with no place on the page is recorded NOT_ADDED_NO_PLACE and
     # listed for readers; its advocate item is not closed, and is never ruled again.
-    no_place = {h for e in (O.load(case).get("omissions") or []) if e.get("outcome") in O.CODE_NOT_ADDED
+    no_place = {h for e in (O.load(case).get("omissions") or []) if e.get("outcome") in O.LEAN_SETTLED
                 for h in (e.get("origins") or [])} if LEAN else set()
     items, found = {}, []
     target = SA.protected_check(slug)
@@ -1358,6 +1395,11 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             continue
         items[it["head"]] = it
         if sid in lic:
+            if LEAN:
+                # ruling 4 on P171-P176: refused and recorded; no person. No source text is recorded.
+                lean_no_place(case, {"source": sid, "origin": it["head"], "at": None}, {},
+                              "the source's licence forbids machine reading: refused, not ruled", O.REFUSED_LICENCE)
+                continue
             route_to_person("omissions", [{"protected": "licensed source", "sentence": o.get("claim_quoted"),
                                            "kind": "omission", "ref": {"advocate_item": it["head"]}}], log)
             continue
@@ -1404,6 +1446,22 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             # after Q1-04b: code's "Not added ... (over the additions budget)"; no person
             done.append(lean_no_place(case, f, held, why, O.NOT_ADDED_OVER_BUDGET))
             return
+        if LEAN and why.startswith(DECL_BUDGET_WHY):
+            # ruling 4 on P171-P176: past the declarations budget the page is Not Ready (an honest stop)
+            done.append(lean_no_place(case, f, held, why, O.OVER_DECLARATIONS))
+            return
+        if LEAN and why.startswith(UNUSABLE_WHY):
+            # ruling 4 on P171-P176: the finding goes onto the readers' list as declared, counted
+            if counts["DECLARED"] >= O.declaration_budget(n_body):
+                done.append(lean_no_place(case, f, held, "%s (%d); %s" % (DECL_BUDGET_WHY,
+                                          O.declaration_budget(n_body), why), O.OVER_DECLARATIONS))
+                return
+            counts["DECLARED"] += 1
+            done.append(lean_no_place(case, f, held, why, O.DECLARED_UNRULED))
+            return
+        if LEAN and why.startswith(SERIOUS_WHY):
+            done.append(lean_withdraw(case, f, held, why, page_sentences, body, rows, log))
+            return
         O.record(case, f, held_text=held, outcome=O.TO_PERSON, reason=why,
                  by="code (ruling.py omissions)")
         route_to_person("omissions", [{"protected": "omission: " + why, "sentence": f.get("anchor") or "",
@@ -1434,17 +1492,29 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                 failed.append({"kind": "omission", "refs": heads, "why": str(e)})
             continue
         except RulingError as e:
-            to_person(f, "the ruling reply was not usable (%s)" % e)
+            to_person(f, "%s (%s)" % (UNUSABLE_WHY, e))
             continue
         outcome, rid = got["outcome"], None
         rid = _last_id(log)
         if outcome == "OUT_OF_SCOPE":
             ok, why = O.scope_element_ok(got["scope_element"], scope)
+            if not ok and LEAN:
+                # ruling 4 on P171-P176: the declaration stands with no element and counts against the budget
+                if counts["DECLARED"] >= O.declaration_budget(n_body):
+                    to_person(f, "%s (%d)" % (DECL_BUDGET_WHY, O.declaration_budget(n_body)))
+                    continue
+                counts["DECLARED"] += 1
+                O.record(case, f, held_text=held, outcome=O.OUT_OF_SCOPE, by=SCOPE_REFUSED_BY, ruling=rid,
+                         reason="OUT_OF_SCOPE element refused by code (%s); declared and counted against the "
+                                "declarations budget" % why, element="")
+                done.append({"outcome": O.OUT_OF_SCOPE, "origins": f.get("origins"), "why": why,
+                             "element_refused": got["scope_element"]})
+                continue
             if not ok:
                 to_person(f, "OUT_OF_SCOPE refused by code: %s" % why)
                 continue
             if counts["DECLARED"] >= O.declaration_budget(n_body):
-                to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
+                to_person(f, "%s (%d)" % (DECL_BUDGET_WHY, O.declaration_budget(n_body)))
                 continue
             counts["DECLARED"] += 1
             O.record(case, f, held_text=held, outcome=O.OUT_OF_SCOPE, reason=got["reason"], by=BY,
@@ -1456,10 +1526,10 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             sev = [items[h]["objection"] for h in heads]
             if any((o.get("severity") or "").upper() == "SERIOUS"
                    and (o.get("changes_conclusion") or "").upper() == "CHANGES" for o in sev):
-                to_person(f, "NOT_MATERIAL on a SERIOUS objection that CHANGES the conclusion")
+                to_person(f, SERIOUS_WHY)
                 continue
             if counts["DECLARED"] >= O.declaration_budget(n_body):
-                to_person(f, "over the declarations budget (%d)" % O.declaration_budget(n_body))
+                to_person(f, "%s (%d)" % (DECL_BUDGET_WHY, O.declaration_budget(n_body)))
                 continue
             counts["DECLARED"] += 1
             O.record(case, f, held_text=held, outcome=O.NOT_MATERIAL, reason=got["reason"],

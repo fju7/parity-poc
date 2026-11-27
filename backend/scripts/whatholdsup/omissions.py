@@ -76,8 +76,22 @@ NOT_ADDED_NOT_ONE = "NOT_ADDED_NOT_ONE_SENTENCE"
 # removed the anchor; load() overlays it.
 NOT_ADDED_ANCHOR = "NOT_ADDED_ANCHOR_REMOVED"
 CODE_NOT_ADDED = (NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND, NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE, NOT_ADDED_ANCHOR)
+# Lean WHU, advisor's ruling 4 on P171-P176 (2026-11-27): the omission paths that went to a person end in code.
+#   DECLARED_UNRULED   the ruling reply was not usable: the finding goes onto the readers' list as declared
+#                      ("Not added: ... (our ruling on it could not be completed)"), counted against the budget.
+#   OVER_DECLARATIONS  a declaration past the declarations budget: the page is Not Ready (an honest stop).
+#   WITHDRAWN          NOT_MATERIAL on a SERIOUS objection that CHANGES the conclusion is not accepted from the
+#                      machine: the conclusion sentence it is about is withdrawn (the lean fail-safe removes it).
+#   REFUSED_LICENCE    an objection on a source whose licence forbids machine reading: refused and recorded.
+# (A refused OUT_OF_SCOPE element is recorded OUT_OF_SCOPE with no element: it counts against the budget.)
+DECLARED_UNRULED = "DECLARED_UNRULED"
+OVER_DECLARATIONS = "OVER_DECLARATIONS_BUDGET"
+WITHDRAWN = "CONCLUSION_WITHDRAWN"
+REFUSED_LICENCE = "REFUSED_LICENCE"
+LEAN_SETTLED = CODE_NOT_ADDED + (DECLARED_UNRULED, OVER_DECLARATIONS, WITHDRAWN, REFUSED_LICENCE)
 OUTCOMES = (ADD, OUT_OF_SCOPE, NOT_MATERIAL, NOT_IN_SOURCE, NOT_ADDED_CAP, NOT_ADDED_NO_PLACE, NOT_ADDED_BEYOND,
-            NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE, NOT_ADDED_ANCHOR)
+            NOT_ADDED_OVER_BUDGET, NOT_ADDED_NOT_ONE, NOT_ADDED_ANCHOR, DECLARED_UNRULED, OVER_DECLARATIONS,
+            WITHDRAWN, REFUSED_LICENCE)
 APPLIED_LOG = "orchestrator/applied.jsonl"
 CAPS = ("additions", "declarations")
 TO_PERSON = "TO_PERSON"
@@ -377,15 +391,19 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, case: Pa
     # INFO row, not closed -- and not open here either (advisor's ruling after
     # Q1-01b; by item id).
     import lean
-    code = ({h for e in done if e.get("outcome") in CODE_NOT_ADDED for h in e.get("origins") or []}
+    code = ({h for e in done if e.get("outcome") in LEAN_SETTLED for h in e.get("origins") or []}
             if lean.enabled() else set())
     open_ = [it["head"] for it in R._leaves_out(slug, case) if it["head"] not in code]
     leaks = leaks_source_text(case, held)
+    over = [e for e in done if e.get("outcome") == OVER_DECLARATIONS] if lean.enabled() else []
     counts = {}
     for e in done:
         counts[e.get("outcome")] = counts.get(e.get("outcome"), 0) + 1
-    if open_ or leaks:
+    if open_ or leaks or over:
         bits = []
+        if over:
+            bits.append("Not Ready: %d finding(s) past the declarations budget (an honest stop; ruling 4 on "
+                        "P171-P176): %s" % (len(over), ", ".join(e.get("key") or "?" for e in over[:3])))
         if open_:
             bits.append("%d LEAVES_OUT objection(s) open (e.g. %s): run ruling.py omissions %s, or a person "
                         "closes each with OMISSION/DID" % (len(open_), ", ".join(open_[:3]), slug))

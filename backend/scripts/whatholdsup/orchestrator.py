@@ -1318,6 +1318,14 @@ def code_apply(ctx: Ctx, step) -> dict:
     import applied_check as AC
     from orch.page import norm, split
     page = Page.load(ctx.page_json)
+    if step.name == "omissions":
+        # Lean, ruling 4 on P171-P176: a declaration past the declarations budget is an honest stop, here, before
+        # any later step spends toward it.
+        import omissions as O
+        over = [e for e in (O.load(ctx.case).get("omissions") or []) if e.get("outcome") == O.OVER_DECLARATIONS]
+        if over:
+            raise RunStop("%s: %d omission finding(s) end the page, an honest stop (ruling 4 on P171-P176): %s"
+                          % (step.name, len(over), "; ".join((e.get("reason") or "")[:120] for e in over[:2])))
     try:
         ops = AP.apply_all(ctx.case, page)
     except NotPlaced as e:

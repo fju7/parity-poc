@@ -341,6 +341,13 @@ def main(argv=None) -> int:
             continue
         if acc.get(store.__dict__.get("_LICENCE", "licence_forbids_machine_reading")) \
                 or s.get("licence_forbids_machine_reading"):
+            import lean
+            if lean.enabled():
+                # Lean, ruling 4 on P171-P176: refused and recorded; no person reads it.
+                acc["refused"] = {"why": "licence forbids machine reading", "on": store.utc_today(),
+                                  "by": "code (lean: licence-barred source refused)"}
+                skipped.append((sid, "licence forbids machine reading — refused (lean)"))
+                continue
             skipped.append((sid, "licence forbids machine reading — a person must read it"))
             continue
         if sid in have and not args.refetch:
