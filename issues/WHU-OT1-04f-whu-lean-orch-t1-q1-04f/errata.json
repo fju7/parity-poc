@@ -1,0 +1,163 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Climate Change 2022: Mitigation of Climate Change — Working Group III Contribution to the Sixth Assessment Report of the",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.1017/9781009157926.005",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1017/9781009157926.005",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1017/9781009157926.005\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1017/9781009157926.005",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1017/9781009157926.005"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1017/9781009157926.005",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1017/9781009157926.005 at Crossref"
+        }
+      ],
+      "comments": [],
+      "state": "UNCHECKED",
+      "amendments": [],
+      "why": "no registry record; retraction status not checkable (Europe PMC, PubMed, Crossref answered; none holds this source's record)",
+      "identifier_from": "the held document"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Climate Change 2023: Synthesis Report — Summary for Policymakers",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S003": {
+      "source": "S003",
+      "title": "The carbon dioxide removal gap",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.1038/s41558-024-01984-6",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1038/s41558-024-01984-6",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1038/s41558-024-01984-6\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1038/s41558-024-01984-6",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1038/s41558-024-01984-6"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1038/s41558-024-01984-6",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1038/s41558-024-01984-6 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1007/springer_crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.3389/fclim.2024.1425971/full",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.3389/fclim.2024.1425971/full",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.3389/fclim.2024.1425971/full\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.3389/fclim.2024.1425971/full",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.3389/fclim.2024.1425971/full"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.3389/fclim.2024.1425971/full",
+          "answered": true,
+          "record": "none",
+          "why": "Crossref has no record for DOI 10.3389/fclim.2024.1425971/full (HTTP 404)"
+        }
+      ],
+      "comments": [],
+      "state": "UNCHECKED",
+      "amendments": [],
+      "why": "no registry record; retraction status not checkable (Europe PMC, PubMed, Crossref answered; none holds this source's record)",
+      "identifier_from": "the held document"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Negative Emissions Technologies and Reliable Sequestration: A Research Agenda",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.1088/1748-9326/aabf9f",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1088/1748-9326/aabf9f",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1088/1748-9326/aabf9f\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1088/1748-9326/aabf9f",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1088/1748-9326/aabf9f"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1088/1748-9326/aabf9f",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1088/1748-9326/aabf9f at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1088/crossmark-policy",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    }
+  }
+}

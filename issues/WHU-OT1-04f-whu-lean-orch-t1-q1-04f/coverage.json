@@ -1,0 +1,40 @@
+{
+ "units": [],
+ "declarations": {
+  "S004@3825-4023": {
+   "state": "not_material",
+   "reason": "The finding is only page-navigation boilerplate (figure and reference links, article header) with no substantive claim about carbon dioxide removal, so there is nothing to state or scope out.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T18:18:14+00:00"
+  },
+  "S004@4024-4054": {
+   "state": "not_material",
+   "reason": "The finding is only a journal citation fragment (date and section) with no claim, figure, or result about carbon dioxide removal, so there is nothing to state.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T18:18:17+00:00"
+  },
+  "S004@4055-4285": {
+   "state": "not_material",
+   "reason": "The finding is only a bibliographic title and author line for a systematic map of CDR governance literature. It states no result about removal's role, scale, timing or constraints.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T18:18:18+00:00"
+  },
+  "S004@4298-4388": {
+   "state": "not_material",
+   "reason": "The finding is only an institutional affiliation line (MCC Berlin, 'Germany 2.'). It makes no claim about carbon dioxide removal, so there is nothing to state or scope out.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T18:18:19+00:00"
+  },
+  "S004@4389-4507": {
+   "state": "not_material",
+   "reason": "The finding contains only an institutional affiliation and article-metrics boilerplate, with no substantive claim about carbon dioxide removal's role, so there is nothing to state or to rule out of scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T18:18:21+00:00"
+  }
+ }
+}

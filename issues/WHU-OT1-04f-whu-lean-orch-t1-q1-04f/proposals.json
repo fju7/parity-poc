@@ -1,0 +1,133 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Climate Change 2022: Mitigation of Climate Change — Working Group III Contribution to the Sixth Assessment Report of the IPCC (Chapter 12: Cross-sectoral Perspectives)",
+      "first_author": "IPCC",
+      "year": 2022,
+      "container": "Cambridge University Press",
+      "type": "assessment_summary",
+      "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/",
+      "why": "Authoritative IPCC AR6 chapter establishing CDR as a necessary element to achieve net-zero CO2 and GHG emissions globally."
+    },
+    {
+      "title": "Climate Change 2023: Synthesis Report — Summary for Policymakers",
+      "first_author": "IPCC",
+      "year": 2023,
+      "container": "IPCC",
+      "type": "assessment_summary",
+      "url": "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/",
+      "why": "IPCC AR6 synthesis confirming CDR is unavoidable for net-negative CO2 and net-zero GHG emissions."
+    },
+    {
+      "title": "The State of Carbon Dioxide Removal — 2nd Edition",
+      "first_author": "Smith",
+      "year": 2024,
+      "container": "University of Oxford / stateofcdr.org",
+      "type": "assessment_summary",
+      "url": "https://www.lse.ac.uk/granthaminstitute/publication/the-state-of-carbon-dioxide-removal-edition-2/",
+      "why": "Global independent scientific assessment of CDR progress, gaps, and key indicators relative to Paris Agreement targets."
+    },
+    {
+      "title": "The carbon dioxide removal gap",
+      "first_author": "Lamb",
+      "year": 2024,
+      "container": "Nature Climate Change",
+      "type": "primary",
+      "url": "https://www.nature.com/articles/s41558-024-01984-6",
+      "why": "Quantifies the gap between countries' CDR plans and what 1.5 °C scenarios require, showing current proposals fall short."
+    },
+    {
+      "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+      "first_author": "Lück",
+      "year": 2024,
+      "container": "Frontiers in Climate",
+      "type": "review",
+      "url": "https://www.frontiersin.org/journals/climate/articles/10.3389/fclim.2024.1425971/full",
+      "why": "Systematic map of 876 CDR governance and policy documents, tracking the growing CDR literature."
+    },
+    {
+      "title": "Greenhouse Gas Removal",
+      "first_author": "Royal Society and Royal Academy of Engineering",
+      "year": 2018,
+      "container": "Royal Society and Royal Academy of Engineering",
+      "type": "assessment_summary",
+      "url": "https://www.raeng.org.uk/publications/reports/greenhouse-gas-removal",
+      "why": "Landmark UK government-commissioned assessment of GGR methods, potentials, and deployment scenarios to reach net zero."
+    },
+    {
+      "title": "Negative Emissions Technologies and Reliable Sequestration: A Research Agenda",
+      "first_author": "National Academies of Sciences, Engineering, and Medicine",
+      "year": 2019,
+      "container": "National Academies Press",
+      "type": "assessment_summary",
+      "url": "https://www.nationalacademies.org/projects/DELS-BASCPR-16-01/publication/25259",
+      "why": "US National Academies consensus report assessing benefits, risks, and scale potential of negative emissions technologies."
+    },
+    {
+      "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+      "first_author": "Fuss",
+      "year": 2018,
+      "container": "Environmental Research Letters",
+      "type": "review",
+      "url": "https://iopscience.iop.org/article/10.1088/1748-9326/aabf9f",
+      "why": "Foundational systematic review of costs, potentials, and side effects of the full range of negative emissions technologies."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "carbon dioxide removal CDR net zero systematic review 2023 2024",
+      "IPCC carbon dioxide removal net zero assessment report",
+      "IPCC AR6 WGIII \"Climate Change 2022 Mitigation\" chapter carbon dioxide removal",
+      "Royal Society Royal Academy Engineering \"greenhouse gas removal\" report 2018 2023",
+      "Smith \"carbon dioxide removal gap\" Nature Climate Change 2024",
+      "\"State of Carbon Dioxide Removal\" 2nd edition 2024 Smith authors",
+      "National Academies \"negative emissions technologies\" report 2019",
+      "Fuss Canadell \"negative emissions\" review Nature Climate Change 2018"
+    ],
+    "domains": [
+      "netzeroclimate.org",
+      "pik-potsdam.de",
+      "researchgate.net",
+      "agupubs.onlinelibrary.wiley.com",
+      "pure.iiasa.ac.at",
+      "frontiersin.org",
+      "qc.foundation",
+      "graphsearch.epfl.ch",
+      "ipcc.ch",
+      "carbon-direct.com",
+      "carbonbrief.org",
+      "scientificamerican.com",
+      "evetamme.com",
+      "arxiv.org",
+      "publications.ieaghg.org",
+      "en.wikipedia.org",
+      "american.edu",
+      "raeng.org.uk",
+      "royalsociety.org",
+      "ora.ouls.ox.ac.uk",
+      "ox.ac.uk",
+      "ora.ox.ac.uk",
+      "phys.org",
+      "nature.com",
+      "sciencedaily.com",
+      "research-portal.uea.ac.uk",
+      "carbondioxide-removal.eu",
+      "scitechdaily.com",
+      "scribd.com",
+      "lse.ac.uk",
+      "osf.io",
+      "publications.pik-potsdam.de",
+      "static1.squarespace.com",
+      "geocdr.com",
+      "nationalacademies.org",
+      "nap.nationalacademies.org",
+      "image-ppubs.uspto.gov",
+      "iopscience.iop.org",
+      "eprints.whiterose.ac.uk",
+      "api-depositonce.tu-berlin.de",
+      "scopus.com"
+    ]
+  },
+  "sha256": "fcb2d031f6712598aadcff93db880948a8061d1a3a9e29896bf043b1c498b2f8"
+}
