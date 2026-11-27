@@ -703,10 +703,15 @@ def check(slug: str, report: dict) -> list[tuple[str, str, str]]:
                    % (len(blocked), len(opens), "; ".join(_bits)))
     rows = [("gate findings settled", OK if not blocked else BAD, _detail)]
     if unmatched:
+        # Lean (advisor's ruling 3 on P169): a recency finding with no body sentence to rule on needs no person.
+        # ruling.py gate settles it by code (lean_editions, rule 3b: a newer-edition or recency line on the page,
+        # or, tied to no held source, counted and recorded); this row STOPs only until that has run.
+        import lean
+        how = ("not yet settled by code (ruling.py gate, lean rule 3b: lean_editions decides each one)"
+               if lean.enabled() else "until a person attaches it")
         rows.append(("recency findings attached", BAD,
                      "%d recency finding(s) %s: no body sentence to rule on, so none is ruled "
-                     "until a person attaches it: %s" % (len(unmatched), RECENCY_UNMATCHED,
-                                                         " || ".join(unmatched[:4]))))
+                     "%s: %s" % (len(unmatched), RECENCY_UNMATCHED, how, " || ".join(unmatched[:4]))))
     rows.append(("findings settled by a document", OK if not unsettled else BAD,
                  "every accepted or rejected finding names a source and a "
                  "quotation" if not unsettled else
