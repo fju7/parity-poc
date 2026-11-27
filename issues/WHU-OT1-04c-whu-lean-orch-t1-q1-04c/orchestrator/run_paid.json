@@ -1,0 +1,266 @@
+{
+ "result": "Not Ready: draft: 9 page sentence(s) are not the audit's units, stopped at $0: page sentence is not one unit of the audit's splitter: 'reductions in gross emissions. It also states that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable [2].'; page sentence is not one unit of the audit's splitter: 'd the IPCC says CDR will be necessary to achieve these. Such pathways are projected to bring a gradual decline in surface temperature after an earlier peak [2].'; page sentence is not one unit of the audit's splitter: ' hard-to-abate residual emissions. It says with high confidence that these would need to be counterbalanced by CDR to achieve net zero CO2 or GHG emissions [2].'",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T15:36:11+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (140 code files)"
+   },
+   "code_hash": "bcee76faf0a68c615c1d1990d1c1d9924946136eae925224f2c8b5cb7cf8d3af",
+   "end": "2026-11-27T15:36:12+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T15:36:12+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "bcee76faf0a68c615c1d1990d1c1d9924946136eae925224f2c8b5cb7cf8d3af",
+   "end": "2026-11-27T15:36:33+00:00",
+   "usd": 0.0395
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T15:36:33+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "6d0c356c4db6fb45a08fc77a07d76f07caa06e7ecdc9782985c3689d3ad84d78"
+   },
+   "code_hash": "bcee76faf0a68c615c1d1990d1c1d9924946136eae925224f2c8b5cb7cf8d3af",
+   "end": "2026-11-27T15:37:06+00:00",
+   "usd": 0.6876
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T15:37:06+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "5 source(s), 3 unresolved proposal(s)"
+   },
+   "code_hash": "77dd451e42024343599bdf3f670b3e6ff381ef7f199b6a27f7e5ce6ba828b9b0",
+   "end": "2026-11-27T15:38:36+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T15:38:36+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-04c",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-04c-whu-lean-orch-t1-q1-04c/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S002   f5258cf9434f                                    4913496 B  (contains 6 of 6 distinctive title words — form 'assessment summary' -- 648756 characters held, and it names the report it summarises; title present (7 of 7 title words in the visible text))\n  HELD     S003   c5ea403fbe67                                     377738 B  (contains 3 of 3 distinctive title words — 23165 characters, reference list and discussion present; title present (3 of 3 title words in the visible text))\n  HELD     S004   1e6ed81d9494                                     430355 B  (contains its identifier 10.1088/1748-9326/aabf9b — 111532 characters, reference list and discussion/introduction present; title present (6 of 6 title words in the visible text))\n  HELD     S005   426484d749b0                                     652361 B  (contains its identifier 10.1088/1748-9326/aabf9f — 187427 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text))\n\n  held now: 4   failed: 1   skipped: 0\n\n  NOT HELD S001   Climate Change 2022: Mitigation of Climate Change – Working Gr\n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n\n",
+     "proof": "proved: issues/WHU-OT1-04c-whu-lean-orch-t1-q1-04c/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-04c",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            4 document(s) in the library, every hash matches\n  warn     sources we hold                  4 of 5 held — not held: S001\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-04c"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-04c\n\n  S001   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S004   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S005   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n\n  ok     sources checked for corrections        all 5 source(s) have had their bibliographic record read for errata\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S001\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-04c",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-04c-whu-lean-orch-t1-q1-04c — what can be swept at all\n\n    S003   doi   10.21203/rs.3.rs-3255532/v1        url/field The carbon dioxide removal gap\n    S004   doi   10.1088/1748-9326/aabf9b           url/field Negative emissions—Part 1: Research \n    S005   doi   10.1088/1748-9326/aabf9f           url/field Negative emissions—Part 2: Costs, po\n\n  3 of 5 sweepable as held.\n\n  2 carry nothing that implies an identifier:\n\n    S001   assessmen Climate Change 2022: Mitigation of Climate Change – Work\n    S002   assessmen Climate Change 2023: Synthesis Report – Sixth Assessment\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-04c"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-04c\n  ok      checks can read the documents      4 of 4 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "4 held, 1 not held",
+    "not_held": [
+     "S001"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S001": "could_not_hold"
+    }
+   },
+   "code_hash": "c79a1b222f239616d525d618fc77a45f29eeb054660a099cd74f3e0540e654bc",
+   "end": "2026-11-27T15:39:41+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-27T15:39:41+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "41 sentences drafted from 67 passages"
+   },
+   "failed": "RunStop: draft: 9 page sentence(s) are not the audit's units, stopped at $0: page sentence is not one unit of the audit's splitter: 'reductions in gross emissions. It also states that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable [2].'; page sentence is not one unit of the audit's splitter: 'd the IPCC says CDR will be necessary to achieve these. Such pathways are projected to bring a gradual decline in surface temperature after an earlier peak [2].'; page sentence is not one unit of the audit's splitter: ' hard-to-abate residual emissions. It says with high confidence that these would need to be counterbalanced by CDR to achieve net zero CO2 or GHG emissions [2].'",
+   "end": "2026-11-27T15:40:48+00:00",
+   "replies": [
+    {
+     "role": "draft",
+     "max_tokens": 30000,
+     "text": "```json\n{\n  \"title\": \"Carbon dioxide removal and net zero: what the evidence supports\",\n  \"sections\": [\n    {\n      \"id\": \"answer\",\n      \"heading\": \"The short answer\",\n      \"blocks\": [\n        {\n          \"sentences\": [\n            {\n              \"text\": \"The IPCC states with high confidence that reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions. It also states that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable.\",\n              \"passages\": [\"S002#465\"]\n            },\n            {\n              \"text\": \"A 2024 analysis calls rapid emissions reductions the dominant source of global climate mitigation potential in the coming decades, but says CDR will also have an important role to play.\",\n              \"passages\": [\"S003#2\"]\n            },\n            {\n              \"text\": \"Pathways that reach and sustain net zero GHG emissions imply net negative CO2 emissions, and the IPCC says CDR will be necessary to achieve these. Such pathways are projected to bring a gradual decline in surface temperature after an earlier peak.\",\n              \"passages\": [\"S002#464\", \"S002#465\", \"S002#133\"]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"findings\",\n      \"heading\": \"What the sources report\",\n      \"blocks\": [\n        {\"h3\": \"Emission cuts do most of the work\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"According to the IPCC, reaching net zero GHG emissions primarily requires deep reductions in CO2, methane, and other GHG emissions.\",\n              \"passages\": [\"S002#132\", \"S002#464\"]\n            },\n            {\n              \"text\": \"The IPCC also states with high confidence that two things largely determine whether warming can be limited to 1.5°C or 2°C: cumulative carbon emissions until net zero CO2, and the level of reductions this decade.\",\n              \"passages\": [\"S002#132\"]\n            },\n            {\n              \"text\": \"A 2018 review of negative emissions technologies (NETs) concludes that climate policy needs to focus on limiting the dependence on NETs through aggressive mitigation.\",\n              \"passages\": [\"S004#123\"]\n            },\n            {\n              \"text\": \"A companion review recommends aiming to limit warming to below 2°C with the least possible assumed dependence on NETs.\",\n              \"passages\": [\"S005#209\"]\n            },\n            {\n              \"text\": \"It adds that until NETs are demonstrably available at the global scale, there should be no delay in a global peak and decline of CO2 emissions.\",\n              \"passages\": [\"S005#209\"]\n            }\n          ]\n        },\n        {\"h3\": \"What removal is for\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"The IPCC names some emissions from agriculture, aviation, shipping, and industrial processes as hard-to-abate residual emissions. It says with high confidence that these would need to be counterbalanced by CDR to achieve net zero CO2 or GHG emissions.\",\n              \"passages\": [\"S002#140\"]\n            },\n            {\n              \"text\": \"As a result, the IPCC finds with high confidence that net zero CO2 is reached earlier than net zero GHGs.\",\n              \"passages\": [\"S002#140\"]\n            },\n            {\n              \"text\": \"The IPCC defines CDR as human activities that remove CO2 from the atmosphere and durably store it in geological, terrestrial, or ocean reservoirs, or in products.\",\n              \"passages\": [\"S002#665\"]\n            },\n            {\n              \"text\": \"The IPCC states with high confidence that stabilising CO2-induced warming requires global net zero CO2 emissions, with remaining anthropogenic emissions balanced by durably stored CO2 from anthropogenic removal.\",\n              \"passages\": [\"S002#464\"]\n            },\n            {\n              \"text\": \"From the scenario literature, a 2018 review identifies two purposes for negative emissions. The first is paying back a temporary exceedance of the carbon budget towards the end of the century. The second is offsetting residual emissions that are difficult to mitigate, such as those from aircraft, industry, and non-CO2 gases from agriculture.\",\n              \"passages\": [\"S005#27\", \"S005#28\"]\n            },\n            {\n              \"text\": \"The same review notes that such compensation can come with a penalty, because cooling from net negative emissions may only offset part of the warming from earlier positive emissions.\",\n              \"passages\": [\"S005#28\"]\n            },\n            {\n              \"text\": \"Another 2018 review reports that adding NETs to cost-optimizing mitigation scenarios reduces long-term mitigation costs but impedes early emissions reductions.\",\n              \"passages\": [\"S004#73\"]\n            }\n          ]\n        },\n        {\"h3\": \"Timing and scale in modelled pathways\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"In IPCC global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, net zero CO2 emissions are reached around 2050, and total GHGs reach net zero later.\",\n              \"passages\": [\"S002#468\"]\n            },\n            {\n              \"text\": \"A 2018 review reports that 1.5°C pathways reach net zero CO2 emissions globally between 2046 and 2056 (15th to 85th percentiles).\",\n              \"passages\": [\"S005#38\"]\n            },\n            {\n              \"text\": \"These pathways are followed by sustained annual net negative emissions of 1.3–29 GtCO2 per year in the second half of the century.\",\n              \"passages\": [\"S005#38\"]\n            },\n            {\n              \"text\": \"In those scenarios, NETs deployment by 2050 is already between 5 and 15 GtCO2 per year in most cases.\",\n              \"passages\": [\"S005#38\"]\n            },\n            {\n              \"text\": \"This scale-up between 2030 and 2050 happens much more swiftly than in most 2°C scenarios.\",\n              \"passages\": [\"S005#38\"]\n            },\n            {\n              \"text\": \"Another review states that keeping warming below 1.5°C requires the large-scale deployment of NETs, but that this dependency can still be kept to a minimum for the 2°C limit.\",\n              \"passages\": [\"S004#11\"]\n            },\n            {\n              \"text\": \"The IPCC notes with high confidence that if and when a sector or region reaches net zero depends on several factors. These include the potential to reduce emissions and undertake CDR, the associated costs, and policy mechanisms to balance emissions and removals.\",\n              \"passages\": [\"S002#333\"]\n            }\n          ]\n        },\n        {\"h3\": \"Limits and risks of removal methods\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"A 2018 review gives best estimates for sustainable global potentials in 2050. These are 0.5–3.6 GtCO2 per year for afforestation and reforestation, 0.5–5 for BECCS, 0.5–2 for biochar, 2–4 for enhanced weathering, 0.5–5 for DACCS, and up to 5 for soil carbon sequestration.\",\n              \"passages\": [\"S005#11\"]\n            },\n            {\n              \"text\": \"The same review finds that costs vary widely across these technologies, as do their permanency and cumulative potentials beyond 2050.\",\n              \"passages\": [\"S005#11\"]\n            },\n            {\n              \"text\": \"It reports that soil carbon sinks saturate after 10–100 years and are reversible.\",\n              \"passages\": [\"S005#170\"]\n            },\n            {\n              \"text\": \"Assuming a 20-year saturation time, soil carbon sequestration implemented in 2020 would no longer be effective as a NET after 2040.\",\n              \"passages\": [\"S005#170\"]\n            },\n            {\n              \"text\": \"Another review judges that any single NET is unlikely to sustainably achieve the large deployment seen in many 1.5°C and 2°C scenarios.\",\n              \"passages\": [\"S004#11\"]\n            },\n            {\n              \"text\": \"It adds that portfolios of multiple NETs, each deployed at modest scales, could be invaluable for reaching the climate goals.\",\n              \"passages\": [\"S004#11\"]\n            },\n            {\n              \"text\": \"It notes that available scenarios achieve large-scale removal almost exclusively with BECCS.\",\n              \"passages\": [\"S004#83\"]\n            },\n            {\n              \"text\": \"It also says that technologies still at relatively early stages of development, such as BECCS and DACCS, would require stable and structured incentives across the innovation cycle.\",\n              \"passages\": [\"S004#83\"]\n            },\n            {\n              \"text\": \"It highlights side-effects expected from large-scale deployment, including the albedo-dampening effects of temperate and boreal afforestation and changes in biodiversity from land-use shifts and bioenergy production.\",\n              \"passages\": [\"S004#107\"]\n            }\n          ]\n        },\n        {\"h3\": \"The gap between national plans and modelled needs\"},\n        {\n          \"sentences\": [\n            {\n              \"text\": \"The 2018 review identified a substantial gap between the rapid upscaling and diffusion of NETs implied in scenarios and progress in actual innovation and deployment.\",\n              \"passages\": [\"S004#11\"]\n            },\n            {\n              \"text\": \"The 2024 analysis describes a 'CDR gap': CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5°C.\",\n              \"passages\": [\"S003#2\"]\n            },\n            {\n              \"text\": \"It reports that the most ambitious national proposals come close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions.\",\n              \"passages\": [\"S003#3\"]\n            },\n            {\n              \"text\": \"It also observes that many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as BECCS, biochar, or DACCS.\",\n              \"passages\": [\"S003#3\"]\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": \"verdict\",\n      \"heading\": \"What holds up\",\n      \"blocks\": [\n        {\n          \"sentences\": [\n            {\n              \"text\": \"The firmest point, stated with high confidence by the IPCC, is that deep emission reductions are the primary requirement for net zero. The IPCC also states that CDR is unavoidable for counterbalancing hard-to-abate residual emissions.\",\n              \"passages\": [\"S002#132\", \"S002#465\"]\n            },\n            {\n              \"text\": \"Removal also has a later role. The IPCC says CDR will be necessary for net negative CO2 emissions, which sustained net zero GHG pathways imply and which scenarios use to pay back carbon budget overshoot.\",\n              \"passages\": [\"S002#133\", \"S002#465\", \"S005#27\"]\n            },\n            {\n              \"text\": \"How much removal is needed depends on the temperature goal. One review finds that 1.5°C requires large-scale deployment, while dependency can be kept to a minimum for 2°C.\",\n              \"passages\": [\"S004#11\"]\n            },\n            {\n              \"text\": \"Another review says that whether 1.5°C can be met will depend on the pace of technological learning and would require positive surprises compared to the then-current state of knowledge.\",\n              \"passages\": [\"S005#209\"]\n            },\n            {\n              \"text\": \"According to the 2024 analysis, current national CDR proposals fall short of 1.5°C scenario levels, and no country yet commits to substantively scaling novel removal methods.\",\n              \"passages\": [\"S003#2\", \"S003#3\"]\n            },\n            {\n              \"text\": \"Taken together, the findings above support treating removal as a complement to rapid emission cuts rather than a substitute for them.\",\n              \"passages\": []\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}\n```"
+    }
+   ],
+   "usd": 0.246664
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 5,
+  "held": 4,
+  "not_held": 1,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Climate Change 2022: Mitigation of Climate Change – Working Group III Contribution to the Sixth Assessment Report",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S002",
+    "title": "Climate Change 2023: Synthesis Report – Sixth Assessment Report",
+    "type": "assessment_summary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "The carbon dioxide removal gap",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Negative emissions—Part 1: Research landscape and synthesis",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 3,
+  "unconfirmed": [
+   {
+    "title": "The State of Carbon Dioxide Removal 2024 – 2nd Edition",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Emissions Gap Report 2023: Broken Record – Temperatures hit new highs, yet world fails to cut emissions (again)",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: 0 candidate(s)"
+   },
+   {
+    "title": "Greenhouse Gas Removal",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Jeewani P'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Jeewani PH'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Morris C'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Asibor JO'"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 5,
+  "copied": 5,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04c"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T15:40:48+00:00"
+}

@@ -1,0 +1,18 @@
+{
+ "slug": "whu-lean-orch-t1-q1-04c",
+ "complete": true,
+ "held": [
+  "S002",
+  "S003",
+  "S004",
+  "S005"
+ ],
+ "not_held": [
+  {
+   "id": "S001",
+   "title": "Climate Change 2022: Mitigation of Climate Change – Working Group III Contribution to the Sixth Assessment Report",
+   "reason": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  }
+ ],
+ "skipped": []
+}

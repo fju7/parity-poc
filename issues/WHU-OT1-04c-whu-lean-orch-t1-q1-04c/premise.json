@@ -1,0 +1,90 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Pulling CO2 out of the air, mostly by planting trees and with new machines like direct air capture, will be needed to cancel out leftover emissions from hard-to-clean sectors such as aviation and farming. Today it is tiny and expensive, though, and leaning on it risks giving polluters an excuse to delay real cuts.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "A policymaker, corporate sustainability lead or climate-minded investor deciding how much to rely on, fund or procure carbon removal versus putting money and effort into direct emission cuts. This includes whether a net-zero target that counts on future removals is credible.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "There would be no story if the primary sources (the IPCC AR6 assessments and authoritative measured inventories of removal deployment) showed all of the following: carbon removal's assessed role is only a small residual-balancing one; current deployment is already on track for what net-zero pathways require; and no meaningful gap exists between that role and what a well-informed reader already assumes.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "The role carbon dioxide removal plays in reaching net-zero CO2 and net-zero greenhouse gas emissions, both today and in modelled pathways out to mid-century and beyond. It covers: - what removal is needed for: counterbalancing residual emissions, and achieving net-negative emissions to reverse temperature overshoot - the main methods: land-based methods such as afforestation, reforestation and soil carbon, and novel methods such as direct air capture with storage, BECCS, enhanced weathering and biochar - how much is removed now compared with how much pathways require - cost, permanence, scalability and side-effect constraints - whether reliance on removal substitutes for, or delays, emission cuts",
+    "out": [
+      {
+        "what": "Solar radiation modification and other sunlight-reflecting geoengineering",
+        "why": "It does not remove CO2. It is a separate intervention with different evidence and risks."
+      },
+      {
+        "what": "Whether specific companies' carbon offset purchases or credits are genuine",
+        "why": "This is a question of market integrity and verification for individual projects, not of carbon removal's systemic role in net zero."
+      },
+      {
+        "what": "Point-source carbon capture on fossil power plants or industry that captures emissions before release",
+        "why": "This reduces emissions rather than removing CO2 already in the air, so it is a neighbouring technology. It is mentioned only where it shares infrastructure, such as storage."
+      },
+      {
+        "what": "Detailed national policy or subsidy design for carbon removal",
+        "why": "This is jurisdiction-specific and would need separate sourcing. This page addresses the global role, not policy instruments."
+      },
+      {
+        "what": "Whether net zero by 2050 is achievable overall",
+        "why": "This is a broader question involving all mitigation levers. Here carbon removal is one component within it."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T15:36:33+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Observed and inventoried quantities, including: - current annual CO2 removal by method, for example total removal of roughly a couple of gigatonnes per year, dominated by forestry and land management, versus the far smaller amount from novel methods such as direct air capture - installed and announced direct air capture and BECCS capacity - observed costs per tonne - measured storage permanence and reversal rates, for example forest losses to fire - land and energy requirements reported from operating projects",
+    "assessed": "Expert-panel judgements carrying explicit confidence or likelihood language. The main examples are statements in IPCC AR6 Working Group III and the Synthesis Report, such as that carbon removal deployment is unavoidable for net zero (with stated confidence levels), and the modelled ranges of cumulative and annual removal in pathways limiting warming to 1.5°C or 2°C. Also included are assessed risks to feasibility, sustainability, land competition and mitigation deterrence, along with systematic reviews that rate the maturity or readiness of each removal method.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T15:36:33+00:00"
+  }
+}

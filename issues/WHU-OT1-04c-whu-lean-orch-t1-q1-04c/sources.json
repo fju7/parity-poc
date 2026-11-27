@@ -1,0 +1,745 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "assessment_summary",
+      "title": "Climate Change 2022: Mitigation of Climate Change – Working Group III Contribution to the Sixth Assessment Report",
+      "year": 2022,
+      "container": "Cambridge University Press",
+      "authors": "IPCC",
+      "used_for": "Definitive IPCC AR6 assessment: CDR is unavoidable to counterbalance residual emissions and reach net-zero CO2 and GHG targets.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Climate Change 2022: Mitigation of Climate Change – Working Group III Contribution to the Sixth Assessment Report",
+        "first_author": "IPCC",
+        "year": 2022
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "4 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Climate Change 2022: Mitigation of Climate Change – Working Group III Contributi"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "not tried: no page about the document was fetched",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "last_fetch": {
+          "on": "2026-11-27",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/",
+              "result": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/",
+              "unavailable": false
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+        "on": "2026-11-27"
+      },
+      "form": "assessment summary",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "assessment_summary",
+      "title": "Climate Change 2023: Synthesis Report – Sixth Assessment Report",
+      "year": 2023,
+      "container": "IPCC",
+      "authors": "IPCC",
+      "used_for": "AR6 Synthesis Report: CDR necessary for net-negative CO2; maps near-, mid- and long-term roles alongside deep emission cuts.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Climate Change 2023: Synthesis Report – Sixth Assessment Report",
+        "first_author": "IPCC",
+        "year": 2023
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "4 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_FullVolume.pdf",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Climate Change 2023: Synthesis Report – Sixth Assessment Report"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/f5/f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6.pdf",
+          "sha256": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+          "bytes": 4913496,
+          "identified_by": "contains 6 of 6 distinctive title words — form 'assessment summary' -- 648756 characters held, and it names the report it summarises; title present (7 of 7 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'assessment summary' -- 648756 characters held, and it names the report it summarises"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "assessment summary",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "primary",
+      "title": "The carbon dioxide removal gap",
+      "year": 2024,
+      "container": "Nature Climate Change",
+      "authors": "Lamb",
+      "used_for": "Quantifies the gap between countries' CDR plans and what 1.5 °C scenarios require; shows novel CDR methods are not yet committed to.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "The carbon dioxide removal gap",
+        "first_author": "Lamb",
+        "year": 2024
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.21203/rs.3.rs-3255532/v1",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Lamb W",
+          "Gasser T",
+          "Grassi G",
+          "Gidden M",
+          "Powis C",
+          "Geden O",
+          "Nemet G",
+          "Pratama Y",
+          "Riahi K",
+          "Smith SM",
+          "Steinhauser J",
+          "Vaughan NE",
+          "Minx JC"
+        ],
+        "year": 2023,
+        "title": "The carbon dioxide removal gap",
+        "container": null
+      },
+      "url": "https://www.nature.com/articles/s41558-024-01984-6",
+      "also_called": [
+        "The carbon dioxide removal gap"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/c5/c5ea403fbe67f49d1933fae819a15090a54b7a7aac3a382049daa2b5ebcec380.html",
+          "sha256": "c5ea403fbe67f49d1933fae819a15090a54b7a7aac3a382049daa2b5ebcec380",
+          "bytes": 377738,
+          "identified_by": "contains 3 of 3 distinctive title words — 23165 characters, reference list and discussion present; title present (3 of 3 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "23165 characters, reference list and discussion present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC DOI 10.21203/rs.3.rs-3255532/v1",
+          "PubMed DOI 10.21203/rs.3.rs-3255532/v1: PubMed has no record for DOI 10.21203/rs.3.rs-3255532/v1",
+          "Crossref 10.21203/rs.3.rs-3255532/v1"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "DOI 10.21203/rs.3.rs-3255532/v1",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC DOI 10.21203/rs.3.rs-3255532/v1",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "DOI 10.21203/rs.3.rs-3255532/v1",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for DOI 10.21203/rs.3.rs-3255532/v1",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.21203/rs.3.rs-3255532/v1",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.21203/rs.3.rs-3255532/v1 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "review",
+      "title": "Negative emissions—Part 1: Research landscape and synthesis",
+      "year": 2018,
+      "container": "Environmental Research Letters",
+      "authors": "Minx",
+      "used_for": "Foundational systematic review synthesising the full landscape of negative emissions technologies and their role in 1.5–2 °C scenarios.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Negative emissions—Part 1: Research landscape and synthesis",
+        "first_author": "Minx",
+        "year": 2018
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1088/1748-9326/aabf9b",
+      "registry": "crossref",
+      "registry_record": {
+        "registry": "crossref",
+        "authors": [
+          "Minx JC",
+          "Lamb WF",
+          "Callaghan MW",
+          "Fuss S",
+          "Hilaire J",
+          "Creutzig F",
+          "Amann T",
+          "Beringer T",
+          "de Oliveira Garcia W",
+          "Hartmann J",
+          "Khanna T",
+          "Lenzi D",
+          "Luderer G",
+          "Nemet GF",
+          "Rogelj J",
+          "Smith P",
+          "Vicente Vicente JL",
+          "Wilcox J",
+          "del Mar Zamora Dominguez M"
+        ],
+        "year": 2018,
+        "title": "Negative emissions—Part 1: Research landscape and synthesis",
+        "container": "Environmental Research Letters",
+        "authors_registry": [
+          "Minx, Jan C",
+          "Lamb, William F",
+          "Callaghan, Max W",
+          "Fuss, Sabine",
+          "Hilaire, Jérôme",
+          "Creutzig, Felix",
+          "Amann, Thorben",
+          "Beringer, Tim",
+          "de Oliveira Garcia, Wagner",
+          "Hartmann, Jens",
+          "Khanna, Tarun",
+          "Lenzi, Dominic",
+          "Luderer, Gunnar",
+          "Nemet, Gregory F",
+          "Rogelj, Joeri",
+          "Smith, Pete",
+          "Vicente Vicente, Jose Luis",
+          "Wilcox, Jennifer",
+          "del Mar Zamora Dominguez, Maria"
+        ]
+      },
+      "url": "https://iopscience.iop.org/article/10.1088/1748-9326/aabf9b",
+      "also_called": [
+        "Negative emissions—Part 1: Research landscape and synthesis"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/1e/1e6ed81d9494a0335d391fbf8828bc94e74aa37d7ee075212966377e001a3b72.html",
+          "sha256": "1e6ed81d9494a0335d391fbf8828bc94e74aa37d7ee075212966377e001a3b72",
+          "bytes": 430355,
+          "identified_by": "contains its identifier 10.1088/1748-9326/aabf9b — 111532 characters, reference list and discussion/introduction present; title present (6 of 6 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "111532 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC DOI 10.1088/1748-9326/aabf9b: Europe PMC has no record (DOI:\"10.1088/1748-9326/aabf9b\")",
+          "PubMed DOI 10.1088/1748-9326/aabf9b: PubMed has no record for DOI 10.1088/1748-9326/aabf9b",
+          "Crossref 10.1088/1748-9326/aabf9b"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "DOI 10.1088/1748-9326/aabf9b",
+            "answered": true,
+            "record": "none",
+            "why": "Europe PMC DOI 10.1088/1748-9326/aabf9b: Europe PMC has no record (DOI:\"10.1088/1748-9326/aabf9b\")",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "DOI 10.1088/1748-9326/aabf9b",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for DOI 10.1088/1748-9326/aabf9b",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1088/1748-9326/aabf9b",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1088/1748-9326/aabf9b at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "review",
+      "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+      "year": 2018,
+      "container": "Environmental Research Letters",
+      "authors": "Fuss",
+      "used_for": "Companion systematic review assessing costs, deployment potentials, and side-effects of each CDR/NET option across climate scenarios.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+        "first_author": "Fuss",
+        "year": 2018
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1088/1748-9326/aabf9f",
+      "registry": "crossref",
+      "registry_record": {
+        "registry": "crossref",
+        "authors": [
+          "Fuss S",
+          "Lamb WF",
+          "Callaghan MW",
+          "Hilaire J",
+          "Creutzig F",
+          "Amann T",
+          "Beringer T",
+          "de Oliveira Garcia W",
+          "Hartmann J",
+          "Khanna T",
+          "Luderer G",
+          "Nemet GF",
+          "Rogelj J",
+          "Smith P",
+          "Vicente JLV",
+          "Wilcox J",
+          "del Mar Zamora Dominguez M",
+          "Minx JC"
+        ],
+        "year": 2018,
+        "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+        "container": "Environmental Research Letters",
+        "authors_registry": [
+          "Fuss, Sabine",
+          "Lamb, William F",
+          "Callaghan, Max W",
+          "Hilaire, Jérôme",
+          "Creutzig, Felix",
+          "Amann, Thorben",
+          "Beringer, Tim",
+          "de Oliveira Garcia, Wagner",
+          "Hartmann, Jens",
+          "Khanna, Tarun",
+          "Luderer, Gunnar",
+          "Nemet, Gregory F",
+          "Rogelj, Joeri",
+          "Smith, Pete",
+          "Vicente, José Luis Vicente",
+          "Wilcox, Jennifer",
+          "del Mar Zamora Dominguez, Maria",
+          "Minx, Jan C"
+        ]
+      },
+      "url": "https://iopscience.iop.org/article/10.1088/1748-9326/aabf9f",
+      "also_called": [
+        "Negative emissions—Part 2: Costs, potentials and side effects"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/42/426484d749b082829b514b8d676388e1b2d4941068c6e7e65b00cb74851c8fb8.html",
+          "sha256": "426484d749b082829b514b8d676388e1b2d4941068c6e7e65b00cb74851c8fb8",
+          "bytes": 652361,
+          "identified_by": "contains its identifier 10.1088/1748-9326/aabf9f — 187427 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "187427 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC DOI 10.1088/1748-9326/aabf9f: Europe PMC has no record (DOI:\"10.1088/1748-9326/aabf9f\")",
+          "PubMed DOI 10.1088/1748-9326/aabf9f: PubMed has no record for DOI 10.1088/1748-9326/aabf9f",
+          "Crossref 10.1088/1748-9326/aabf9f"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "DOI 10.1088/1748-9326/aabf9f",
+            "answered": true,
+            "record": "none",
+            "why": "Europe PMC DOI 10.1088/1748-9326/aabf9f: Europe PMC has no record (DOI:\"10.1088/1748-9326/aabf9f\")",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "DOI 10.1088/1748-9326/aabf9f",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for DOI 10.1088/1748-9326/aabf9f",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1088/1748-9326/aabf9f",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1088/1748-9326/aabf9f at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: carbon dioxide removal CDR net zero systematic review 2023 2024",
+      "web search: IPCC carbon dioxide removal net zero assessment report",
+      "web search: IPCC AR6 WGIII \"Climate Change 2022 Mitigation\" chapter carbon dioxide removal",
+      "web search: Royal Society Royal Academy Engineering \"greenhouse gas removal\" report 2018 2023",
+      "web search: Smith \"State of Carbon Dioxide Removal\" 2nd edition 2024 DOI",
+      "web search: \"carbon dioxide removal gap\" Nature Climate Change 2024 Lamb Minx",
+      "web search: Fuss Canadell \"negative emissions\" review Nature Climate Change 2018",
+      "web search: UNEP emissions gap report 2023 carbon dioxide removal net zero",
+      "web search: Minx \"negative emissions\" Part 1 research landscape synthesis Environmental Research Letters 2018",
+      "registry: Europe PMC",
+      "registry: PubMed",
+      "registry: Crossref"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [
+    {
+      "proposal": {
+        "title": "The State of Carbon Dioxide Removal 2024 – 2nd Edition",
+        "first_author": "Smith",
+        "year": 2024,
+        "container": "University of Oxford / stateofcdr.org",
+        "type": "assessment_summary",
+        "url": "https://www.researchgate.net/publication/383025929_The_State_of_Carbon_Dioxide_Removal_2024_-_2nd_Edition",
+        "why": "Global independent scientific assessment of current CDR levels, the CDR gap, and progress needed to meet Paris Agreement goals."
+      },
+      "why": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)",
+      "status": "NOT_FOUND",
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "title": "Emissions Gap Report 2023: Broken Record – Temperatures hit new highs, yet world fails to cut emissions (again)",
+        "first_author": "UNEP",
+        "year": 2023,
+        "container": "United Nations Environment Programme",
+        "type": "assessment_summary",
+        "url": "https://www.unep.org/resources/emissions-gap-report-2023",
+        "why": "Annual UNEP assessment covering CDR potential and risks; finds delaying emission cuts increases future CDR reliance."
+      },
+      "why": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: 0 candidate(s)",
+      "status": "NOT_FOUND",
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "0 candidate(s)",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "title": "Greenhouse Gas Removal",
+        "first_author": "Royal Society and Royal Academy of Engineering",
+        "year": 2018,
+        "container": "Royal Society / Royal Academy of Engineering",
+        "type": "assessment_summary",
+        "url": "https://royalsociety.org/topics-policy/projects/greenhouse-gas-removal/",
+        "why": "Landmark UK government-commissioned assessment of GGR methods, potentials, and deployment scenarios for reaching net zero by 2050."
+      },
+      "why": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Jeewani P'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Jeewani PH'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Morris C'; Europe PMC: first author 'Royal Society and Royal Academy of Engineering' does not agree with the record's first author 'Asibor JO'",
+      "status": "NOT_FOUND",
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ]
+    }
+  ],
+  "not_of_a_type": []
+}
