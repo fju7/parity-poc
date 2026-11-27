@@ -1239,19 +1239,20 @@ def _anchor_index(anchor: str, sents: list[str]) -> int | None:
     return None
 
 
-def _placement(anchor: str, sents: list[str], rows: dict) -> tuple[str | None, str]:
+def _placement(anchor: str, sents: list[str], rows: dict, body: set | None = None,
+               source: str | None = None) -> tuple[str | None, str]:
     """(the page sentence an ADD goes after, how). After the anchor; if the
     anchor is protected (fix 1), after the nearest unprotected sentence before
-    it, never inside or in place of a protected one. None: a person places it."""
-    import bindings as B
+    it, never inside or in place of a protected one. None: a person places it.
+    BODY (advisor's ruling 2 on P169): the page's model-written prose; an ADD
+    goes only after a body sentence, and an anchor that is a code-written
+    sentence places the ADD after the last body sentence bound to SOURCE
+    (placement.place). None: every sentence counts as body (the old rule)."""
+    import placement as PL
     i = _anchor_index(anchor, sents)
-    if i is None:
-        return None, "the anchor is not on the page"
-    for j in range(i, -1, -1):
-        s = sents[j]
-        if B.protected_kind(s, rows.get(B.fingerprint(s))) is None:
-            return s, "after the anchor" if j == i else "after the nearest unprotected sentence before a protected anchor"
-    return None, "no unprotected sentence at or before the anchor"
+    if body is None:
+        body = {" ".join(s.split()) for s in sents}
+    return PL.place(i, sents, rows, body, source)
 
 
 def omission_payload(question: str, scope: dict, reader: str, finding: str, context: str,
@@ -1382,6 +1383,8 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
         elif e.get("outcome") in (O.OUT_OF_SCOPE, O.NOT_MATERIAL):
             counts["DECLARED"] += 1
     n_body = len(page_sentences)
+    import placement as PL
+    body = PL.body_set(case, page_sentences)
 
     def close(f: dict, outcome: str, did: str, **extra) -> None:
         for h in f.get("origins") or [f.get("origin")]:
@@ -1466,7 +1469,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             if O.locate(got["span"], f["held_quote"]) is None:
                 to_person(f, BEYOND_WHY)
                 continue
-            after, how = _placement(anchor, page_sentences, rows)
+            after, how = _placement(anchor, page_sentences, rows, body, f["source"])
             if after is None:
                 to_person(f, "%s: %s" % (NO_PLACE_WHY, how))
                 continue
