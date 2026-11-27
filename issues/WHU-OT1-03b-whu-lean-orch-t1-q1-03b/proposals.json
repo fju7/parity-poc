@@ -1,0 +1,119 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Climate Change 2021: The Physical Science Basis — Summary for Policymakers",
+      "first_author": "IPCC",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "type": "assessment_summary",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/",
+      "why": "AR6 WG1 top-level synthesis: water cycle intensification, extremes, ice loss, sea level projections under continued emissions."
+    },
+    {
+      "title": "Water Cycle Changes (Chapter 8, Climate Change 2021: The Physical Science Basis)",
+      "first_author": "Douville",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "type": "review",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-8/",
+      "why": "Comprehensive AR6 chapter on projected global and regional water cycle changes, rainfall variability, and monsoons."
+    },
+    {
+      "title": "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Change 2021: The Physical Science Basis)",
+      "first_author": "Seneviratne",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "type": "review",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+      "why": "AR6 chapter assessing future changes in heavy precipitation, droughts, floods, and compound extremes at different warming levels."
+    },
+    {
+      "title": "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Physical Science Basis)",
+      "first_author": "Fox-Kemper",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "type": "review",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+      "why": "AR6 chapter on projected ocean warming, ice sheet and glacier loss, and global and regional sea level rise."
+    },
+    {
+      "title": "Climate Change 2023: Synthesis Report",
+      "first_author": "IPCC",
+      "year": 2023,
+      "container": "Intergovernmental Panel on Climate Change",
+      "type": "synthesis",
+      "url": "https://www.ipcc.ch/report/ar6/syr/",
+      "why": "Integrates all AR6 findings on water cycle, extremes, cryosphere, and sea level under continued GHG emissions."
+    },
+    {
+      "title": "Special Report on the Ocean and Cryosphere in a Changing Climate",
+      "first_author": "IPCC",
+      "year": 2019,
+      "container": "Intergovernmental Panel on Climate Change",
+      "type": "review",
+      "url": "https://www.ipcc.ch/report/srocc/",
+      "why": "Dedicated IPCC special report on future ocean change, sea level rise, glacier and ice sheet loss, and cryosphere impacts."
+    },
+    {
+      "title": "A systematic review of regional and global climate extremes in CMIP6 models under shared socio-economic pathways",
+      "first_author": "Akinsanola",
+      "year": 2024,
+      "container": "Theoretical and Applied Climatology",
+      "type": "review",
+      "url": "https://link.springer.com/article/10.1007/s00704-024-04872-3",
+      "why": "Systematic review of CMIP6 projections of precipitation extremes, droughts, floods, and heatwaves across regions and scenarios."
+    },
+    {
+      "title": "State of the Global Climate 2024",
+      "first_author": "WMO",
+      "year": 2025,
+      "container": "World Meteorological Organization",
+      "type": "assessment_summary",
+      "url": "https://wmo.int/sites/default/files/2025-03/WMO-1368-2024_en.pdf",
+      "why": "Most recent annual WMO report tracking observed sea level, sea ice, glaciers, precipitation, and ocean heat content trends."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "IPCC AR6 WG1 climate change water cycle rainfall extremes ice sea level systematic review 2021",
+      "systematic review future warming precipitation extremes drought flood ice sea level 2022 2023 2024",
+      "IPCC AR6 WG1 Chapter 8 water cycle title authors 2021",
+      "Intergovernmental Panel Climate Change AR6 SYR Synthesis Report 2023 full title",
+      "IPCC Special Report Ocean Cryosphere Changing Climate SROCC 2019 full title",
+      "WMO State of Global Climate 2024 report full title authors",
+      "Seneviratne 2021 \"Weather and Climate Extreme Events in a Changing Climate\" IPCC AR6 chapter 11",
+      "Fox-Kemper 2021 \"Ocean, Cryosphere and Sea Level Change\" IPCC AR6 WG1 chapter 9"
+    ],
+    "domains": [
+      "ipcc.ch",
+      "arxiv.org",
+      "en.wikipedia.org",
+      "frontiersin.org",
+      "link.springer.com",
+      "hess.copernicus.org",
+      "researchgate.net",
+      "wmo.int",
+      "lib.icimod.org",
+      "catalogue.ceda.ac.uk",
+      "met.reading.ac.uk",
+      "digitallibrary.un.org",
+      "cgspace.cgiar.org",
+      "cakex.org",
+      "unep.org",
+      "weather.metoffice.gov.uk",
+      "muni.cz",
+      "climatechangebh.org.uk",
+      "unfccc.int",
+      "public.wmo.int",
+      "repository.library.noaa.gov",
+      "pure.iiasa.ac.at",
+      "media.ellinikahoaxes.gr",
+      "centaur.reading.ac.uk",
+      "vliz.be",
+      "cambridge.org",
+      "scholar.google.com"
+    ]
+  },
+  "sha256": "2f8f5e73e297327c9fb8f4e6c1a3affc19afc5c93b1025a8025c31071bfa3d72"
+}

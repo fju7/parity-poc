@@ -1,0 +1,743 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "assessment_summary",
+      "title": "Climate Change 2021: The Physical Science Basis — Summary for Policymakers",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "authors": "IPCC",
+      "used_for": "AR6 WG1 top-level synthesis: water cycle intensification, extremes, ice loss, sea level projections under continued emissions.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Climate Change 2021: The Physical Science Basis — Summary for Policymakers",
+        "first_author": "IPCC",
+        "year": 2021
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "4 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Climate Change 2021: The Physical Science Basis — Summary for Policymakers"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "not tried: no page about the document was fetched",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "last_fetch": {
+          "on": "2026-11-27",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/",
+              "result": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic",
+              "unavailable": false
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+        "on": "2026-11-27"
+      },
+      "form": "assessment summary",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "review",
+      "title": "Water Cycle Changes (Chapter 8, Climate Change 2021: The Physical Science Basis)",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "authors": "Douville",
+      "used_for": "Comprehensive AR6 chapter on projected global and regional water cycle changes, rainfall variability, and monsoons.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Water Cycle Changes (Chapter 8, Climate Change 2021: The Physical Science Basis)",
+        "first_author": "Douville",
+        "year": 2021
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-8/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Water Cycle Changes (Chapter 8, Climate Change 2021: The Physical Science Basis)"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/ac/acda8e1f34b2d42ddaaceb1a4e327e440808893b498a24b08cd9c338cbee829f.html",
+          "sha256": "acda8e1f34b2d42ddaaceb1a4e327e440808893b498a24b08cd9c338cbee829f",
+          "bytes": 2271326,
+          "identified_by": "contains 9 of 9 distinctive title words — 944250 characters, reference list and discussion/introduction present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "944250 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "review",
+      "title": "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Change 2021: The Physical Science Basis)",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "authors": "Seneviratne",
+      "used_for": "AR6 chapter assessing future changes in heavy precipitation, droughts, floods, and compound extremes at different warming levels.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Change 2021: The Physical Science Basis)",
+        "first_author": "Seneviratne",
+        "year": 2021
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Ch"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "not tried: no page about the document was fetched",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "last_fetch": {
+          "on": "2026-11-27",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+              "result": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+              "unavailable": false
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "review",
+      "title": "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Physical Science Basis)",
+      "year": 2021,
+      "container": "Cambridge University Press",
+      "authors": "Fox-Kemper",
+      "used_for": "AR6 chapter on projected ocean warming, ice sheet and glacier loss, and global and regional sea level rise.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Physical Science Basis)",
+        "first_author": "Fox-Kemper",
+        "year": 2021
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Phys"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "not tried: no page about the document was fetched",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "last_fetch": {
+          "on": "2026-11-27",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+              "result": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+              "unavailable": false
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "synthesis",
+      "title": "Climate Change 2023: Synthesis Report",
+      "year": 2023,
+      "container": "Intergovernmental Panel on Climate Change",
+      "authors": "IPCC",
+      "used_for": "Integrates all AR6 findings on water cycle, extremes, cryosphere, and sea level under continued GHG emissions.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Climate Change 2023: Synthesis Report",
+        "first_author": "IPCC",
+        "year": 2023
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "4 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/ar6/syr/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Climate Change 2023: Synthesis Report"
+      ],
+      "access": {
+        "landing_pdf": {
+          "page": "https://www.ipcc.ch/report/ar6/syr/",
+          "page_domain": "ipcc.ch",
+          "psl_version": "2026-11-25_10-02-46_UTC",
+          "candidates": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_SPM.pdf",
+              "host": "www.ipcc.ch",
+              "text": "Summary forPolicymakers ▼",
+              "same_domain": true,
+              "text_ratio": 0.0,
+              "filename_ratio": 0.0,
+              "passes": false
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_LongerReport.pdf",
+              "host": "www.ipcc.ch",
+              "text": "Longer Report ▼",
+              "same_domain": true,
+              "text_ratio": 0.5,
+              "filename_ratio": 0.0,
+              "passes": false
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_FullVolume.pdf",
+              "host": "www.ipcc.ch",
+              "text": "SYR (Full volume)▼",
+              "same_domain": true,
+              "text_ratio": 0.0,
+              "filename_ratio": 0.0,
+              "passes": false
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_AnnexesIndex.pdf",
+              "host": "www.ipcc.ch",
+              "text": "Annexesand Index ▼",
+              "same_domain": true,
+              "text_ratio": 0.0,
+              "filename_ratio": 0.0,
+              "passes": false
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/syr/downloads/press/IPCC_AR6_SYR_SlideDeck.pdf",
+              "host": "www.ipcc.ch",
+              "text": "Presentation ▼",
+              "same_domain": true,
+              "text_ratio": 0.0,
+              "filename_ratio": 0.0,
+              "passes": false
+            }
+          ],
+          "from": "PDF links passing the title rule",
+          "outcome": "refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch)",
+          "route": "landing page PDF link",
+          "on": "2026-11-27"
+        },
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "tried",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "last_fetch": {
+          "on": "2026-11-27",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/); landing page PDF link: refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/syr/",
+              "result": "identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/)"
+            },
+            {
+              "url": "landing page PDF link",
+              "result": "refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch)"
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/); landing page PDF link: refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/); landing page PDF link: refused: no PDF link passing the title rule o",
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S006",
+      "type": "review",
+      "title": "Special Report on the Ocean and Cryosphere in a Changing Climate",
+      "year": 2019,
+      "container": "Intergovernmental Panel on Climate Change",
+      "authors": "IPCC",
+      "used_for": "Dedicated IPCC special report on future ocean change, sea level rise, glacier and ice sheet loss, and cryosphere impacts.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Special Report on the Ocean and Cryosphere in a Changing Climate",
+        "first_author": "IPCC",
+        "year": 2019
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "4 candidate(s)",
+          "matched": false
+        }
+      ],
+      "url": "https://www.ipcc.ch/report/srocc/",
+      "registry": "none (an agency's own site: ipcc.ch)",
+      "also_called": [
+        "Special Report on the Ocean and Cryosphere in a Changing Climate"
+      ],
+      "access": {
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": null,
+          "found": [],
+          "tried": [],
+          "outcome": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "not tried: no page about the document was fetched",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "last_fetch": {
+          "on": "2026-11-27",
+          "by": "acquire_sources.py",
+          "result": "not fetched",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/srocc/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+          "tried": [
+            {
+              "url": "https://www.ipcc.ch/report/srocc/",
+              "result": "HTTP 403 at https://www.ipcc.ch/report/srocc/",
+              "unavailable": false
+            },
+            {
+              "url": "open copy via OpenAlex",
+              "result": "no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+              "unavailable": false
+            }
+          ]
+        },
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "HTTP 403 at https://www.ipcc.ch/report/srocc/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+        },
+        "state": "blocked",
+        "blocked_by": "orchestrator acquire (could_not_hold): HTTP 403 at https://www.ipcc.ch/report/srocc/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)",
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": null,
+        "concern": false,
+        "why": [
+          "no DOI, PMID or PMCID to ask any registry by"
+        ],
+        "answered": [],
+        "registries": [],
+        "state": "no registry record; retraction status not checkable",
+        "checkable": false,
+        "status_from": [],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: IPCC AR6 WG1 climate change water cycle rainfall extremes ice sea level systematic review 2021",
+      "web search: systematic review future warming precipitation extremes drought flood ice sea level 2022 2023 2024",
+      "web search: IPCC AR6 WG1 Chapter 8 water cycle title authors 2021",
+      "web search: Intergovernmental Panel Climate Change AR6 SYR Synthesis Report 2023 full title",
+      "web search: IPCC Special Report Ocean Cryosphere Changing Climate SROCC 2019 full title",
+      "web search: WMO State of Global Climate 2024 report full title authors",
+      "web search: Seneviratne 2021 \"Weather and Climate Extreme Events in a Changing Climate\" IPCC AR6 chapter 11",
+      "web search: Fox-Kemper 2021 \"Ocean, Cryosphere and Sea Level Change\" IPCC AR6 WG1 chapter 9",
+      "registry: Europe PMC",
+      "registry: PubMed",
+      "registry: Crossref"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [
+    {
+      "proposal": {
+        "title": "A systematic review of regional and global climate extremes in CMIP6 models under shared socio-economic pathways",
+        "first_author": "Akinsanola",
+        "year": 2024,
+        "container": "Theoretical and Applied Climatology",
+        "type": "review",
+        "url": "https://link.springer.com/article/10.1007/s00704-024-04872-3",
+        "why": "Systematic review of CMIP6 projections of precipitation extremes, droughts, floods, and heatwaves across regions and scenarios."
+      },
+      "why": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.375 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.250 on 2 shared distinctive word(s) (needs containment, or 0.6 on 3)",
+      "status": "NOT_FOUND",
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "proposal": {
+        "title": "State of the Global Climate 2024",
+        "first_author": "WMO",
+        "year": 2025,
+        "container": "World Meteorological Organization",
+        "type": "assessment_summary",
+        "url": "https://wmo.int/sites/default/files/2025-03/WMO-1368-2024_en.pdf",
+        "why": "Most recent annual WMO report tracking observed sea level, sea ice, glaciers, precipitation, and ocean heat content trends."
+      },
+      "why": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.333 on 1 shared distinctive word(s) (needs containment, or 0.6 on 3)",
+      "status": "NOT_FOUND",
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for the title",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ]
+    }
+  ],
+  "not_of_a_type": []
+}

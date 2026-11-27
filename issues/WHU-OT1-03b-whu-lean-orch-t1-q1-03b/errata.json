@@ -1,0 +1,86 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Climate Change 2021: The Physical Science Basis — Summary for Policymakers",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Water Cycle Changes (Chapter 8, Climate Change 2021: The Physical Science Basis)",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.1017/9781009157896.010",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1017/9781009157896.010",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1017/9781009157896.010\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1017/9781009157896.010",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1017/9781009157896.010"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1017/9781009157896.010",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1017/9781009157896.010 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": null,
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Change 2021: The Physical Science Basis)",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Physical Science Basis)",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Climate Change 2023: Synthesis Report",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S006": {
+      "source": "S006",
+      "title": "Special Report on the Ocean and Cryosphere in a Changing Climate",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    }
+  }
+}

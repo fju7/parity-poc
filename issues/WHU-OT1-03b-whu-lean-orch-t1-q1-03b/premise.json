@@ -1,0 +1,90 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "If emissions keep rising, the world keeps warming, and that warming intensifies everything. Wet places get wetter and dry places drier. Downpours and floods get heavier, and droughts get longer and worse. Glaciers, Arctic sea ice and the Greenland and Antarctic ice sheets keep melting. Sea level keeps rising and could rise a lot by 2100. The oceans get hotter and more acidic. The more we emit, the worse it gets, but if we stopped emitting the changes would mostly stop too.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "",
+        "url": "",
+        "date": "",
+        "what_it_said": ""
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "_note": "What the primary sources actually support, and which sources.",
+    "statement": "",
+    "sources": []
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ]
+  },
+  "reader_with_a_decision": "Planners deciding how much warming to design for and which emissions pathway to plan against. This includes water-resource managers sizing reservoirs and drought reserves, flood and stormwater engineers setting design rainfall, coastal authorities setting sea-level allowances for defences and land use, and national policymakers weighing emission targets against avoided physical change.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The primary assessments (e.g., IPCC AR6 WG1 projections and the observational and modelling studies behind them) find either of two things. First, that further warming produces no consistent, scaling change in precipitation, wet and dry extremes, ice extent or mass, sea level, or ocean heat and acidity, with projected changes indistinguishable from natural variability or of uncertain sign. Or second, that the common belief is confirmed point for point, including that these changes stop or reverse once emissions stop. Either result would leave nothing new or corrective to report.",
+  "kill_condition_tested": {
+    "_note": "Filled in AFTER going to look, by whoever looked.",
+    "by": "",
+    "on": "",
+    "result": "",
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ],
+    "note": ""
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Projected physical changes in the climate system under continued emissions and further global warming, and how those changes scale with each additional increment of warming. Covered: global and regional precipitation and the water cycle, including evaporation, the 'wet gets wetter' pattern, monsoons and variability. Covered: heavy-precipitation and drought extremes. Covered: glaciers, sea ice, permafrost, snow and the Greenland and Antarctic ice sheets. Covered: global and regional sea-level rise, including long-term commitment and low-likelihood, high-impact outcomes. Covered: ocean warming, acidification, deoxygenation and circulation such as the AMOC. Also covered: which changes are irreversible on human timescales once emissions stop.",
+    "out": [
+      {
+        "what": "Heatwaves, temperature extremes and the rate of global surface warming itself",
+        "why": "The question asks what further warming does to water, ice and oceans, not how much warming occurs or what happens to temperature extremes."
+      },
+      {
+        "what": "Impacts on people, economies, agriculture, health and ecosystems",
+        "why": "These are consequences of the physical changes and depend on exposure and vulnerability. They belong to a separate impacts and adaptation assessment."
+      },
+      {
+        "what": "Whether specific past floods, droughts or storms were caused by climate change",
+        "why": "Event attribution concerns observed events, not projections of further warming."
+      },
+      {
+        "what": "Which emissions pathway is likely, or the cost and feasibility of cutting emissions",
+        "why": "The question takes continued emissions as given. Mitigation policy and economics are a different question."
+      },
+      {
+        "what": "Local, site-specific forecasts for a particular city or river basin",
+        "why": "The page addresses global and broad regional projections. Local downscaling needs its own data and uncertainty treatment."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T14:10:48+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Instrumental and satellite observations of precipitation, humidity, river flow, soil moisture and drought indices. Records of glacier mass, sea-ice extent and ice-sheet mass balance from GRACE and altimetry. Tide-gauge and satellite-altimetry sea-level records. Ocean heat content (Argo), pH and oxygen measurements, and AMOC monitoring arrays. Paleoclimate reconstructions of past sea level and ice. Quantified model-ensemble projections (e.g., CMIP6) showing change per degree of warming under stated scenarios.",
+    "assessed": "Calibrated confidence and likelihood statements from formal assessments, chiefly IPCC AR6 WG1, the SROCC and the AR6 Synthesis Report. Examples: 'virtually certain' that sea level will continue to rise for centuries; 'high confidence' that heavy precipitation intensifies about 7% per °C; 'medium confidence' on regional drought changes; 'low confidence' on ice-sheet instability processes; 'very likely' AMOC weakening. Also panel judgements on irreversibility and on low-likelihood, high-impact outcomes.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T14:10:48+00:00"
+  }
+}

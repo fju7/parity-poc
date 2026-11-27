@@ -1,0 +1,214 @@
+{
+ "result": "Insufficient sources: 1 of 6 confirmed sources held (minimum 2); not drafted",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T14:10:26+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (140 code files)"
+   },
+   "code_hash": "085585d1773a593855f711e6278180182d902b3b6163005db30ca26a90a7e205",
+   "end": "2026-11-27T14:10:26+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T14:10:26+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "085585d1773a593855f711e6278180182d902b3b6163005db30ca26a90a7e205",
+   "end": "2026-11-27T14:10:48+00:00",
+   "usd": 0.041852
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T14:10:48+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "2f8f5e73e297327c9fb8f4e6c1a3affc19afc5c93b1025a8025c31071bfa3d72"
+   },
+   "code_hash": "085585d1773a593855f711e6278180182d902b3b6163005db30ca26a90a7e205",
+   "end": "2026-11-27T14:11:21+00:00",
+   "usd": 0.5267
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T14:11:21+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "6 source(s), 2 unresolved proposal(s)"
+   },
+   "code_hash": "9bf06cfacb648aaab003a763098d8d74061954b19acfd8f19b3110c581f357c3",
+   "end": "2026-11-27T14:12:34+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T14:12:34+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-03b",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-03b-whu-lean-orch-t1-q1-03b/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": " — Summary for \n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n  NOT HELD S003   Weather and Climate Extreme Events in a Changing Climate (Chap\n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n  NOT HELD S004   Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Cha\n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n  NOT HELD S005   Climate Change 2023: Synthesis Report\n           why: identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/); landing page PDF link: refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n  NOT HELD S006   Special Report on the Ocean and Cryosphere in a Changing Clima\n           why: HTTP 403 at https://www.ipcc.ch/report/srocc/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n\n",
+     "proof": "proved: issues/WHU-OT1-03b-whu-lean-orch-t1-q1-03b/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-03b",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            1 document(s) in the library, every hash matches\n  warn     sources we hold                  1 of 6 held — not held: S001, S003, S004, S005, S006\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-03b"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-03b\n\n  S001   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S004   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S005   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S006   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n\n  ok     sources checked for corrections        all 6 source(s) have had their bibliographic record read for errata\n  warn   sources with no resolvable identifier  5 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S001, S003, S004, S005, S006\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-03b",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-03b-whu-lean-orch-t1-q1-03b — what can be swept at all\n\n\n  0 of 6 sweepable as held.\n\n  6 carry nothing that implies an identifier:\n\n    S001   assessmen Climate Change 2021: The Physical Science Basis — Summar\n    S002   review    Water Cycle Changes (Chapter 8, Climate Change 2021: The\n    S003   review    Weather and Climate Extreme Events in a Changing Climate\n    S004   review    Ocean, Cryosphere and Sea Level Change (Chapter 9, Clima\n    S005   synthesis Climate Change 2023: Synthesis Report\n    S006   review    Special Report on the Ocean and Cryosphere in a Changing\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-03b"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-03b\n  ok      checks can read the documents      1 of 1 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "failed": "InsufficientSources: Insufficient sources: 1 of 6 confirmed sources held (minimum 2); not drafted",
+   "end": "2026-11-27T14:12:41+00:00",
+   "replies": [],
+   "usd": 0.0
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 6,
+  "held": 1,
+  "not_held": 5,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Climate Change 2021: The Physical Science Basis — Summary for Policymakers",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S002",
+    "title": "Water Cycle Changes (Chapter 8, Climate Change 2021: The Physical Science Basis)",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Change 2021: The Physical Science Basis)",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S004",
+    "title": "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Physical Science Basis)",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S005",
+    "title": "Climate Change 2023: Synthesis Report",
+    "type": "synthesis",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/); landing page PDF link: refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S006",
+    "title": "Special Report on the Ocean and Cryosphere in a Changing Climate",
+    "type": "review",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/srocc/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   }
+  ],
+  "proposals_not_confirmed": 2,
+  "unconfirmed": [
+   {
+    "title": "A systematic review of regional and global climate extremes in CMIP6 models under shared socio-economic pathways",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.375 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.250 on 2 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "State of the Global Climate 2024",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.333 on 1 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 2,
+  "copied": 2,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-03b"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T14:12:41+00:00"
+}

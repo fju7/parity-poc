@@ -1,0 +1,35 @@
+{
+ "slug": "whu-lean-orch-t1-q1-03b",
+ "complete": true,
+ "held": [
+  "S002"
+ ],
+ "not_held": [
+  {
+   "id": "S001",
+   "title": "Climate Change 2021: The Physical Science Basis — Summary for Policymakers",
+   "reason": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-polic; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  },
+  {
+   "id": "S003",
+   "title": "Weather and Climate Extreme Events in a Changing Climate (Chapter 11, Climate Change 2021: The Physical Science Basis)",
+   "reason": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  },
+  {
+   "id": "S004",
+   "title": "Ocean, Cryosphere and Sea Level Change (Chapter 9, Climate Change 2021: The Physical Science Basis)",
+   "reason": "HTTP 403 at https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  },
+  {
+   "id": "S005",
+   "title": "Climate Change 2023: Synthesis Report",
+   "reason": "identified (contains 4 of 4 distinctive title words), but not the document: landing — 427 characters and 0 section markers — this is a page ABOUT the document, not the document (280662 bytes at https://www.ipcc.ch/report/ar6/syr/); landing page PDF link: refused: no PDF link passing the title rule on the page's registrable domain (ipcc.ch); open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  },
+  {
+   "id": "S006",
+   "title": "Special Report on the Ocean and Cryosphere in a Changing Climate",
+   "reason": "HTTP 403 at https://www.ipcc.ch/report/srocc/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+  }
+ ],
+ "skipped": []
+}
