@@ -17,6 +17,12 @@ code settles it (advisor's rulings after Q1-04 and after Q1-01b):
   DISCLOSED  SUPERSEDED, matched, newer edition not used: the code line
                  A newer edition exists of <title>; this page uses <edition>.
              (both from sources.json; never the gate's prose or figures).
+             Only when a registry record shows the newer edition (errata.json:
+             Europe PMC / PubMed "Update in", Crossref "is-replaced-by" or an
+             updated-by of type new_edition / new_version) or the newer work is
+             held (advisor's ruling 2 on P171-P176, 2026-11-27). A gate web-search
+             result alone never supports the line: such a study gets the UNKNOWN
+             wording below, recorded with downgraded_from SUPERSEDED.
   UNKNOWN    UNKNOWN, matched: We could not establish whether <title> has a newer edition.
   UNTIED     not matched: recorded, and counted on the page in one code line,
                  N recency questions not tied to any source on this page were
@@ -63,6 +69,9 @@ BY = "code (lean rule 3b: newer edition)"
 USED, DISCLOSED, UNKNOWN_LINE, UNTIED = "used", "disclosed", "unknown", "untied"
 SUPERSEDED, UNKNOWN = "SUPERSEDED", "UNKNOWN"
 HANDLED = (SUPERSEDED, UNKNOWN)
+# Registry records that show a newer edition of a work (advisor's ruling 2 on P171-P176). Not corrections: an
+# erratum or corrigendum amends a work and is no newer edition of it.
+NEWER_TYPES = ("Update in", "is-replaced-by", "new_edition", "new-edition", "new_version", "new-version")
 COUNT_KEY = "untied recency questions (count)"
 
 
@@ -257,6 +266,37 @@ def _spans_on(row: dict, sid: str) -> list[tuple[str, str]]:
     return out
 
 
+def registry_newer(case: Path, sid: str | None) -> list[dict]:
+    """Registry records (errata.json, as the errata step read them) showing a newer edition of SID."""
+    if not sid:
+        return []
+    try:
+        rec = (json.loads((Path(case) / "errata.json").read_text(encoding="utf-8")).get("checked") or {}).get(sid) or {}
+    except (OSError, ValueError):
+        return []
+    return [{"type": a.get("type"), "id": a.get("id"), "source": a.get("source")}
+            for a in (rec.get("amendments") or []) if (a.get("type") or "") in NEWER_TYPES]
+
+
+def newer_evidence(case: Path, sid: str | None, sources: list[dict], held) -> dict | None:
+    """What shows SID has a newer edition: the newer work held, or a registry record. None: nothing but the gate."""
+    newer = [s.get("id") for s in sources if sid and s.get("newer_edition_of") == sid and s.get("id") in held]
+    if newer:
+        return {"kind": "newer work held", "source": newer[0]}
+    reg = registry_newer(case, sid)
+    if reg:
+        return {"kind": "registry record", "records": reg}
+    return None
+
+
+def _unknown_line(sources: list[dict], sid: str, searched: list[str]) -> str:
+    title = title_of(sources, sid)
+    line = UNKNOWN_FRAME_SEARCHED % (_clean(", ".join(searched)), title) if searched else UNKNOWN_FRAME % title
+    if searched and not _one_sentence(line):
+        line = UNKNOWN_FRAME_SEARCHED % ("%d registries" % len(searched), title)
+    return line
+
+
 def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources: list[dict],
            rows: dict, held: dict[str, str], write_rows=None, matched_by: str = "") -> dict:
     """Settle one SUPERSEDED study. Returns the decision record (also logged).
@@ -274,11 +314,17 @@ def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources:
         return _append(case, rec)
     if study.get("status") != SUPERSEDED:
         searched = searched_of(study)
-        title = title_of(sources, matched_sid)
-        line = UNKNOWN_FRAME_SEARCHED % (_clean(", ".join(searched)), title) if searched else UNKNOWN_FRAME % title
-        if searched and not _one_sentence(line):
-            line = UNKNOWN_FRAME_SEARCHED % ("%d registries" % len(searched), title)
-        rec.update({"outcome": UNKNOWN_LINE, "sentence": line, "searched": searched, "new_source": None})
+        rec.update({"outcome": UNKNOWN_LINE, "sentence": _unknown_line(sources, matched_sid, searched),
+                    "searched": searched, "new_source": None})
+        return _append(case, rec)
+    evidence = newer_evidence(case, matched_sid, sources, held)
+    if evidence is None:
+        # The gate's web search alone never supports "A newer edition exists" (advisor's ruling 2 on P171-P176).
+        searched = searched_of(study)
+        rec.update({"outcome": UNKNOWN_LINE, "sentence": _unknown_line(sources, matched_sid, searched),
+                    "searched": searched, "new_source": None, "downgraded_from": SUPERSEDED,
+                    "why": "no registry record shows a newer edition and no newer work is held; the gate's "
+                           "web search alone does not support 'A newer edition exists'"})
         return _append(case, rec)
     newer = [s.get("id") for s in sources if s.get("newer_edition_of") == matched_sid and s.get("id") in held]
     if newer:
@@ -306,7 +352,8 @@ def decide(slug: str, case: Path, study: dict, matched_sid: str | None, sources:
         rec["not_used_because"] = ("no on-page sentence rests on the old source" if not on else
                                    "%d bound span(s) not in the newer edition (e.g. %s: %r)"
                                    % (len(missing), missing[0][0], missing[0][1]))
-    rec.update({"outcome": DISCLOSED, "sentence": line_for(sources, matched_sid), "new_source": None})
+    rec.update({"outcome": DISCLOSED, "sentence": line_for(sources, matched_sid), "new_source": None,
+                "evidence": evidence})
     return _append(case, rec)
 
 
@@ -353,7 +400,16 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
             absent.append(ln["sentence"])
     # missing provenance (after Q1-04c): an UNKNOWN line whose recency record lists no registry searched
     blind = [d for d in ds.values() if d.get("outcome") == UNKNOWN_LINE and not d.get("searched")]
-    if open_ or absent or blind:
+    # A "newer edition exists" line resting on the gate's web search alone (ruling 2 on P171-P176): re-checked here
+    # against the records as they stand, never trusted from the decision.
+    try:
+        srcs = json.loads((case / "sources.json").read_text(encoding="utf-8")).get("sources") or []
+    except (OSError, ValueError):
+        srcs = []
+    held_ids = set(store.held(slug))
+    bare = [d for d in ds.values() if d.get("outcome") == DISCLOSED
+            and newer_evidence(case, d.get("old_source"), srcs, held_ids) is None]
+    if open_ or absent or blind or bare:
         bits = []
         if open_:
             bits.append("%d SUPERSEDED or UNKNOWN stud(ies) not yet decided (run ruling.py gate): %s"
@@ -365,6 +421,10 @@ def preflight_rows(slug: str, page_sentences: list[str] | None = None) -> list[t
             bits.append("%d UNKNOWN recency stud(ies) rest on a gate record that lists no registry searched, "
                         "so nothing shows where the check looked (missing provenance stops the page): %s"
                         % (len(blind), "; ".join((d.get("study") or "?")[:80] for d in blind[:3])))
+        if bare:
+            bits.append("%d 'A newer edition exists' line(s) rest on the gate's web search alone: no registry "
+                        "record shows the newer edition and no newer work is held: %s"
+                        % (len(bare), "; ".join((d.get("study") or "?")[:80] for d in bare[:3])))
         return [(ROW, BAD, "; ".join(bits))]
     by = {}
     for s in studies:

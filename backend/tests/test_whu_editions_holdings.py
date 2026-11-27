@@ -75,13 +75,22 @@ def test_every_02zc_recency_study_about_an_unheld_source_writes_no_line(tmp_path
 
 
 def test_a_held_source_with_a_newer_edition_still_gets_its_line(tmp_path):
+    """A held source the gate calls SUPERSEDED gets a line. Since ruling 2 on P171-P176 the gate's web search alone
+    gives the 'could not establish' wording; a registry record of the newer edition gives 'A newer edition exists'."""
     study = _study("UNESCO Global Education Monitoring Report 2020")
     view = LE.holdings_view(_sources(), _held() | {"S005"})            # as if S005 were held
     sid, how = LE.match(SLUG, study, view, {})
     assert sid == "S005"
     d = LE.decide(SLUG, tmp_path, study, sid, view, {}, {}, matched_by=how)
+    assert d["outcome"] == LE.UNKNOWN_LINE and d["downgraded_from"] == LE.SUPERSEDED
+    assert "could not establish whether" in d["sentence"]
+    reg = tmp_path / "reg"
+    reg.mkdir()
+    (reg / "errata.json").write_text(json.dumps({"checked": {"S005": {"amendments": [
+        {"type": "Update in", "id": "99999999", "source": "MED"}]}}}))
+    d = LE.decide(SLUG, reg, study, sid, view, {}, {}, matched_by=how)
     assert d["outcome"] == LE.DISCLOSED and d["sentence"] == LE.line_for(view, "S005")
-    assert d["sentence"].startswith("A newer edition exists of ")
+    assert d["sentence"].startswith("A newer edition exists of ") and d["evidence"]["kind"] == "registry record"
 
 
 def test_the_gate_reads_only_the_holdings_view():
