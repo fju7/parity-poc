@@ -1,0 +1,767 @@
+{
+ "result": "Not Ready: coverage: the page failed a standing check: bindings and page disagree: readers'-list line d43135fb456050e8 has no record: 'Judged not material to this question: “…” (Mobile phone messaging reminders for attendance at health'; bindings and page disagree: readers'-list line d43135fb456050e8 has no on_page binding: 'Judged not material to this question: “…” (Mobile phone messaging reminders for attendance at health'; bindings and page disagree: readers'-list line a277dda91697edf8 has no record: '[5]).'; bindings and page disagree: readers'-list line a277dda91697edf8 has no on_page binding: '[5]).'; bindings and page disagree: readers'-list line 6718db221438bc94 has no record: 'Outside this question: “…” (Mobile phone messaging reminders for attendance at healthcare appointmen'; bindings and page disagree: readers'-list line 6718db221438bc94 has no on_page binding: 'Outside this question: “…” (Mobile phone messaging reminders for attendance at healthcare appointmen'",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T00:04:26+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (136 code files)"
+   },
+   "code_hash": "5d8165a73f2c443d3eb88fc1c9ab1325127587d5ffc61fda61eaf8a909bd2fb2",
+   "end": "2026-11-27T00:04:26+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T00:04:26+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "5d8165a73f2c443d3eb88fc1c9ab1325127587d5ffc61fda61eaf8a909bd2fb2",
+   "end": "2026-11-27T00:04:41+00:00",
+   "usd": 0.027804
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T00:04:41+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "2d72baba17c6b55af3cf6f6534f5a7833730ada312e618243641ec61bf678da8"
+   },
+   "code_hash": "5d8165a73f2c443d3eb88fc1c9ab1325127587d5ffc61fda61eaf8a909bd2fb2",
+   "end": "2026-11-27T00:05:12+00:00",
+   "usd": 0.497
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T00:05:12+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 source(s), 0 unresolved proposal(s)"
+   },
+   "code_hash": "9c605da7a276e793d816780d6d535ff3fc36f1bd866d58910a3b441db443f59e",
+   "end": "2026-11-27T00:06:09+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T00:06:09+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-01c",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-01c-whu-lean-orch-t1-q1-01c/orchestrator/acquire.json"
+     ],
+     "rc": 0,
+     "tail": "sible text))\n  HELD     S003   ef3c17fa534f                                     995833 B  (contains its identifier PMC8477611 — 486512 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text))\n  HELD     S004   4f0b799f2abe                                    1005713 B  (contains its identifier PMC8409381 — 492242 characters, reference list and discussion present; title present (9 of 9 title words in the visible text))\n  HELD     S005   d7bf8591a57f                                     408484 B  (contains its identifier PMC6485985 — 132674 characters, reference list and discussion present; title present (7 of 7 title words in the visible text))\n  HELD     S006   549170123981                                     618304 B  (contains 7 of 7 distinctive title words — form 'record' — 3000 characters held. The article test does not apply to this form; title present (7 of 7 title words in the visible text))\n  HELD     S007   7a0aee8ef485                                     203566 B  (contains its identifier PMC5792697 — 57015 characters, reference list and discussion/introduction present; title present (7 of 7 title words in the visible text))\n  HELD     S008   0e40063cc260                                      63813 B  (contains its identifier PMC13242270 — 35281 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text))\n\n  held now: 8   failed: 0   skipped: 0\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-01c",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            8 document(s) in the library, every hash matches\n  ok       sources we hold                  all 8 source documents are in the library\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-01c"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-01c\n\n  S001   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S002   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S003   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S004   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S005   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S006   n/a          type 'guideline' is not a journal article; it has versions, not errata\n  S007   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S008   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n\n  ok     sources checked for corrections        all 8 source(s) have had their bibliographic record read for errata\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-01c",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-01c-whu-lean-orch-t1-q1-01c — what can be swept at all\n\n    S001   pmid  40193137                           url/field Digital tracking, provider decision \n    S002   pmid  34314020                           url/field Decision-support tools via mobile de\n    S003   pmid  32813276                           url/field Targeted client communication via mo\n    S004   pmid  32779730                           url/field Targeted client communication via mo\n    S005   pmid  24310741                           url/field Mobile phone messaging reminders for\n    S006   pmid  31162915                           url/field WHO guideline Recommendations on Dig\n    S007   pmid  29343463                           url/field The Impact of mHealth Interventions:\n    S008   pmid  42255855                           url/field Effectiveness of Single-Component Cl\n\n  8 of 8 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-01c"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-01c\n  ok      checks can read the documents      8 of 8 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "8 held, 0 not held",
+    "not_held": [],
+    "holdings": {
+     "S001": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S006": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S007": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S008": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {}
+   },
+   "code_hash": "e5df750b104f94acf38bddad537be8b1306200643cb54a5c5f3e2a81f044a32c",
+   "end": "2026-11-27T00:10:40+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-27T00:10:40+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "27 sentences drafted from 60 passages"
+   },
+   "code_hash": "5d8165a73f2c443d3eb88fc1c9ab1325127587d5ffc61fda61eaf8a909bd2fb2",
+   "end": "2026-11-27T00:11:10+00:00",
+   "usd": 0.136688
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-27T00:11:10+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-01c",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  64 empirical sentence(s) on the page\n  -5 bound, 69 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01c-whu-lean-orch-t1-q1-01c/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "23 sentence(s) bound to their passages"
+   },
+   "code_hash": "5d8165a73f2c443d3eb88fc1c9ab1325127587d5ffc61fda61eaf8a909bd2fb2",
+   "end": "2026-11-27T00:11:27+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-27T00:11:27+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-01c",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.04 (the next candidate's bound $0.0360 (the highest of 334 same-config logged relevance ruling(s) ($0.0180) x 2), checked before every call; 41 candidate(s) in all x $0.0360 = $1.48, not reserved up front); $59.34 left today, $7.34 left on whu-lean-orch-t1-q1-01c\n  34 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01c-whu-lean-orch-t1-q1-01c/rulings/rulings.jsonl\n  consistency: re-ran 9 of 44 ruling(s) (seed 40634386592168): 7 of 9 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.2810\n"
+    }
+   ],
+   "code": {
+    "outcome": "29 judgement(s) stated"
+   },
+   "code_hash": "5d8165a73f2c443d3eb88fc1c9ab1325127587d5ffc61fda61eaf8a909bd2fb2",
+   "end": "2026-11-27T00:15:28+00:00",
+   "usd": 0.351028
+  },
+  {
+   "step": "belief",
+   "start": "2026-11-27T00:15:28+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 outlet(s) verified of 6 proposed; the page says it could not verify where the belief is published",
+    "belief": {
+     "proposed": 6,
+     "verified": 0,
+     "rounds": [
+      {
+       "round": 1,
+       "proposed": 3,
+       "verified": 0
+      },
+      {
+       "round": 2,
+       "proposed": 3,
+       "verified": 0,
+       "excluded": 0
+      }
+     ],
+     "refused": [
+      "https://www.weforum.org/stories/2025/03/digital-tools-reduce-health-inequity-low: a wall (HTTP 403): not worked around",
+      "https://www.path.org/our-impact/articles/universal-health-coverage-depends-digit: the page has 12 of the belief's 35 key words (needs 21)",
+      "https://www.devdiscourse.com/article/health/3747459-how-digital-health-is-transf: the page has 15 of the belief's 35 key words (needs 21)",
+      "https://intrahealth.org/vital/msakhi-changing-everything-community-health-worker: the page has 18 of the belief's 35 key words (needs 21)",
+      "https://mobilehealthglobal.com/improving-healthcare-with-mhealth-in-lmics/: the page has 20 of the belief's 35 key words (needs 21)",
+      "https://www.kit.nl/institute/news/new-world-health-organisation-who-guideline-on: the page has 16 of the belief's 35 key words (needs 21)"
+     ]
+    }
+   },
+   "code_hash": "48a6b025a584df0ba53977fd39cbddd2dfe5d3fe35481ef27930890588cee2f6",
+   "end": "2026-11-27T00:17:32+00:00",
+   "usd": 1.3106
+  },
+  {
+   "step": "premise_reading",
+   "start": "2026-11-27T00:17:32+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "sources show verified; direction narrows; kill condition survived",
+    "reading": {
+     "direction": "narrows",
+     "kill": "survived",
+     "sources_show": true
+    }
+   },
+   "code_hash": "48a6b025a584df0ba53977fd39cbddd2dfe5d3fe35481ef27930890588cee2f6",
+   "end": "2026-11-27T00:17:40+00:00",
+   "usd": 0.02642
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-27T00:17:40+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "73 coverage decision(s), 0 left in scope"
+   },
+   "failed": "RunStop: coverage: the page failed a standing check: bindings and page disagree: readers'-list line d43135fb456050e8 has no record: 'Judged not material to this question: “…” (Mobile phone messaging reminders for attendance at health'; bindings and page disagree: readers'-list line d43135fb456050e8 has no on_page binding: 'Judged not material to this question: “…” (Mobile phone messaging reminders for attendance at health'; bindings and page disagree: readers'-list line a277dda91697edf8 has no record: '[5]).'; bindings and page disagree: readers'-list line a277dda91697edf8 has no on_page binding: '[5]).'; bindings and page disagree: readers'-list line 6718db221438bc94 has no record: 'Outside this question: “…” (Mobile phone messaging reminders for attendance at healthcare appointmen'; bindings and page disagree: readers'-list line 6718db221438bc94 has no on_page binding: 'Outside this question: “…” (Mobile phone messaging reminders for attendance at healthcare appointmen'",
+   "end": "2026-11-27T00:23:58+00:00",
+   "replies": [
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding concerns the risk of bias in the non-randomised studies behind the answer. This bears on how far the evidence can be trusted, and it is within scope.\", \"element\": \"\", \"sentence\": \"All of the non-randomised studies included in the review were judged to have a high risk of bias.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding is only a generic note on certainty wording: randomised studies, with \"probably/may/uncertain\" mapped to moderate, low or very low certainty. It reports no result about the intervention, so it adds nothing the page could state about the question.\n\nIt is not out of scope, because it does not concern any excluded topic. It is better judged not material, since it carries no finding about effects on care or health.\n\n```json\n{\"decision\": \"not_material\", \"why\": \"The finding is only a generic note on study design and certainty-wording conventions. It reports no result about the intervention's effects, so it adds no substantive claim the page could use.\", \"element\": \"\", \"sentence\": \"\"}\n```"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports effects of tracking plus decision support on antenatal/postnatal care adherence and client behaviours, which are in-scope outcomes the page does not use.\", \"element\": \"\", \"sentence\": \"For tracking combined with clinical decision support in antenatal and postnatal care, mobile tools may slightly increase home visits in the week after delivery, counselling on complementary feeding, skin-to-skin care and early breastfeeding, while effects on several other behaviours, such as exclusive breastfeeding and Kangaroo Mother Care, are uncertain.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports patient health outcomes from tracking combined with decision support or client communication in primary care, which is the question's core outcome and is not excluded by scope.\",\"element\":\"\",\"sentence\":\"Digital tracking with decision support or client communication may reduce low birthweight babies (RR 0.53) and, in stroke patients, may reduce deaths (RR 0.52), though it may increase care-seeking for infant pneumonia or fever (RR 1.13) and its effects on stillbirths and neonatal and infant deaths are uncertain.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding falls within the scope. It covers tracking combined with decision support (CDSS) and targeted client communication (TCC), and it reports provider adherence to guidelines, which the scope lists as an outcome. The setting is antenatal care and chronic disease management in primary care, so no out-of-scope entry applies.\n\nWhether it is material depends on what the page already says. The page does not use this finding. It is a specific outcome, and it includes a result in the opposite direction: lower adherence for abnormal foetal growth. That matters for a question about whether care improves, because it shows the effect is not uniform. The finding should be stated.\n\n```json\n{\"decision\":\"state\",\"why\":\"In scope: tracking plus decision support plus client messaging, measuring guideline adherence. It gives specific effect sizes and one contrary result, which bears directly on whether care improves.\",\"element\":\"\",\"sentence\":\"Tracking combined with decision support and targeted client communication probably increases provider guideline adherence for antenatal anaemia screening and management (OR 1.88), diabetes (OR 1.45) and hypertension (OR 1.62), but probably lowers adherence for abnormal foetal growth (OR 0.59), each from a single study.\"}\n```"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports health outcomes and data quality for tracking plus decision support and/or reminders in primary care. These bear directly on the question's outcomes and the page does not use them.\", \"element\": \"\", \"sentence\": \"Tracking with decision support and communication may reduce deaths in hypertension and diabetes (OR 0.61, 0.35–1.06) and new cardiovascular events in high-risk adults (OR 0.58, 0.42–0.80), but may make little or no difference to adverse pregnancy outcomes or to HIV mothers' ART and breastfeeding.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports patient health outcomes (HbA1c, cholesterol, cardiovascular risk) for tracking plus decision support plus communication in primary care adults. It is in scope and bears on the question's health-outcome part.\", \"element\": \"\", \"sentence\": \"In one study of 3324 adults with hypertension or diabetes, tracking combined with decision support and targeted client communication may make little or no difference to HbA1c, total cholesterol, 10-year cardiovascular risk, tobacco use, alcohol use, or depression scores (PHQ-9).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports outcomes the question covers: patient health outcomes and timely care use. It shows uncertain or little-to-no effects, which tempers any claim of improvement.\",\"element\":\"\",\"sentence\":\"The evidence is uncertain on effects on maternal or infant mortality, blood pressure control, BMI, fasting glucose and quality of life in adults with hypertension or diabetes, and digital tracking may have little or no effect on missed early infant diagnosis visits (1 study, 1183 participants; OR 0.92 [0.63, 1.35]).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding reports client satisfaction, specifically self-reported change in quality of care among adults with hypertension or diabetes. The question asks whether the intervention improves care received and health. Client satisfaction is close to acceptability, which the scope excludes (\"health-worker or patient acceptability\"). However, the outcome here is perceived quality of care change, which could be seen as a care-quality outcome rather than acceptability. The label is \"Client satisfaction\", though, and satisfaction is a form of patient acceptability.\n\nIs it material? The effect is tiny (RR 1.02, CI 1.00 to 1.03), and the outcome is a subjective perception. Scope \"covers\" whether care follows recommended practice and health outcomes, not satisfaction. Satisfaction/acceptability is explicitly out. I lean toward out_of_scope, using the entry \"Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability\".\n\nThe counterargument is that \"improve the care people receive\" might include perceived quality. But the scope defines care outcomes as following recommended practice and timeliness. Perceived satisfaction is not among them. Out of scope it is.\n\n```json\n{\"decision\": \"out_of_scope\", \"why\": \"The finding measures client satisfaction (self-reported better quality of care), which is a patient acceptability outcome, not care following recommended practice or health outcomes.\", \"element\": \"Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability\", \"sentence\": \"\"}\n```"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding says that no studies evaluated several outcomes. These include timeliness of care, which is within scope, and unintended consequences, which the scope explicitly covers. It also lists provider acceptability and resource use, which are out of scope. The finding is therefore partly in scope. The gap in evidence on unintended consequences and timeliness bears on whether the page's answer is complete, because the question concerns improvement in care and health, and the scope explicitly includes unintended consequences and on-time care. A reader would want to know that the evidence has this gap, since an absence of reported harms is not evidence of safety. So it is material, and it should be stated.\n\n{\"decision\": \"state\", \"why\": \"The absence of evidence on timeliness of care and unintended consequences, both within scope, limits what the page's conclusion can claim, so readers need to know about it.\", \"element\": \"\", \"sentence\": \"No studies evaluated time between presentation and appropriate management, timeliness of receiving or accessing care, provider acceptability or satisfaction, resource use, or unintended consequences.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes who used the digital decision-support systems (provider types), not whether care or health outcomes improved; it does not affect the answer to the question.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes which conditions were managed in the included studies. It states no effect on care or health outcomes, so it would not change the answer to the question.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding gives the certainty of the evidence on the question's outcomes, which bears on how far the page's conclusions can be trusted. It is not tied to any excluded topic.\", \"element\": \"\", \"sentence\": \"The certainty of the evidence ranged from very low to moderate, and it was often downgraded for risk of bias and imprecision.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding addresses treatment adherence and health behaviours, which fall within the scope's outcomes (treatment adherence). It is not excluded by any out-of-scope entry, and its mixed result bears on the question.\", \"element\": \"\", \"sentence\": \"The effect of the intervention on patients' and clients' health behaviours, such as smoking and treatment adherence, is mixed, with substantial variation across outcomes for similar behaviours (2 studies, 2262 participants).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding concerns patient outcomes (smoking rates, adherence to treatment) for the intervention in the question. It is within the scope's \"covers\" (treatment adherence, health behaviours). It is not excluded by any out-of-scope entry. It is material because it speaks directly to whether the intervention improves care and health, with a mixed result: little or no effect on smoking, probable increase in adherence. The page does not use it, so it should be stated.\n\n{\"decision\":\"state\",\"why\":\"Finding reports effects on smoking and treatment adherence from the intervention itself; within scope (adherence, health outcomes) and directly relevant to the question, so the page should state it.\",\"element\":\"\",\"sentence\":\"The intervention probably makes little or no difference to smoking rates among people at risk of cardiovascular disease, but probably increases other desired patient behaviours, such as adherence to treatment.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding addresses health outcomes of the intervention, which is squarely within scope and a core part of the question; the page does not use it, so it should be stated.\", \"element\": \"\", \"sentence\": \"The effect of the intervention on patients' or clients' health status and well-being is also mixed, based on 5 studies with 69,767 participants.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding concerns health outcomes of digital tracking with decision support and/or reminders in primary care. This is directly within the question and scope (health outcomes for patients). The page does not use it, so the question is whether it is material. It is a headline-type finding about health outcomes, which is half of what the question asks. It tempers any claim of improved health. It should be stated.\n\n{\"decision\": \"state\", \"why\": \"The finding addresses patient health outcomes, a core part of the question, and indicates little or no difference or uncertainty, which tempers any claim of health improvement.\", \"element\": \"\", \"sentence\": \"It probably makes little or no difference to some types of health outcomes, but we are uncertain about other health outcomes, including maternal and neonatal deaths, due to very low-certainty evidence.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"out_of_scope\", \"why\": \"The finding concerns patient acceptability and satisfaction, which the scope explicitly excludes as separate from whether the intervention improves care and health.\", \"element\": \"Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding reports an absence of evidence on several outcomes, including unintended consequences and time to appropriate management. The question and scope explicitly cover care reaching people on time and unintended consequences. Provider acceptability and resource use are out of scope, but the finding's other parts are in scope. It matters because it shows evidence gaps on outcomes the question asks about. The page does not use it, so the decision is probably to state it.\n\nThe finding is a statement of evidence gaps, which is relevant to how complete the answer is: the lack of data on unintended consequences and timeliness limits what can be concluded.\n\n{\"decision\": \"state\", \"why\": \"The finding reports no evidence on timeliness of management and unintended consequences, both within scope. This is an evidence gap that limits the conclusions the page can draw.\", \"element\": \"\", \"sentence\": \"The review found no studies reporting the time between illness presentation and appropriate management, provider acceptability or satisfaction, resource use, or unintended consequences.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes which delivery channels (text messages, voice calls) the included interventions used. It reports no effect on care or health, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding concerns tailored client communication messages sent by mobile device versus standard care, with no digital tracking of patient care. That makes it a standalone messaging intervention.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding reports on antenatal appointment attendance with TCCMD, which appears to be tracking combined with communication/decision support on mobile devices. This matches the scope's covered outcomes, since antenatal visits are named explicitly. It is not excluded by any out-of-scope entry.\n\nWhether it is material: the page does not use it. It is a direct outcome of the question (care reaching people on time), reported with low-certainty evidence and a wide CI. It is a relevant finding and should be stated, with its hedged wording.\n\n\n<invoke name=\"json\">\n</invoke>\n```json\n{\"decision\": \"state\", \"why\": \"Directly addresses antenatal attendance, a named in-scope outcome of mobile tracking with communication; the page omits it, and the uncertainty is important to report.\", \"element\": \"\", \"sentence\": \"Tracking with communication on mobile devices (TCCMD) may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96), but this is low-certainty evidence and the confidence interval includes both benefit and harm.\"}\n```"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports an effect on skilled birth attendance, a care-delivery outcome the question and scope cover, and it varies by baseline coverage, so it is material to the answer.\", \"element\": \"\", \"sentence\": \"The intervention may increase skilled attendants at birth where lack of skilled attendants is common (differing by urban/rural residence), but may make no difference where nearly all women already have one (OR 1.00, 95% CI 0.34 to 2.94; low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding concerns maternal and neonatal mortality and morbidity, which are health outcomes within scope. It shows the evidence is too uncertain to answer the question's health-outcome part, so it is material.\",\"element\":\"\",\"sentence\":\"The effects on maternal and neonatal mortality and morbidity are uncertain because the certainty of the evidence was assessed as very low.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports an outcome (exclusive breastfeeding) of mobile-device client messaging, which the question covers. It does not say the messaging was used without tracking, so it cannot be ruled out of scope.\",\"element\":\"\",\"sentence\":\"Targeted client communication via mobile devices may have little or no effect on exclusive breastfeeding compared with non-digital communication such as pamphlets (RR 0.92, 95% CI 0.79 to 1.07; low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports health outcomes (maternal and newborn problems) for mobile tracking with client communication in primary care. This is within scope and bears directly on the question's health-outcome part.\",\"element\":\"\",\"sentence\":\"Low-certainty evidence suggests mobile-based tracking with targeted client communication may reduce any maternal health problem (RR 0.19, 95% CI 0.04 to 0.79) and any newborn health problem (RR 0.52, 95% CI 0.25 to 1.06) up to 10 days postpartum, though the newborn CI includes both benefit and harm.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding says the effect on health service use is unknown because there are no studies. This falls within the question's scope: the scope covers whether care reaches people on time, such as visits and immunisation completion, and \"health service use\" overlaps with that. It is not excluded by any out-of-scope entry.\n\nThe next issue is whether it is material. A page answering whether the intervention improves care and health would be expected to say where the evidence is missing. The finding reports a gap on an outcome the question covers, and a reader could otherwise assume that outcome had been studied, so I treat it as material and state it.\n\n{\"decision\":\"state\",\"why\":\"Within scope, since service use relates to care reaching people on time. It reports an evidence gap on a covered outcome, which helps readers avoid assuming that effect is known.\",\"element\":\"\",\"sentence\":\"The effect of these mobile tracking-and-prompt interventions on health service use is unknown because there are no studies.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"not_material\",\"why\":\"The finding only says no studies exist for a comparison against non-targeted digital communication. That is not the usual-care comparison the question asks about, so it does not change the answer.\",\"element\":\"\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports on-topic outcomes (skilled birth attendance, antenatal vaccination uptake) for the intervention. The null-leaning results bear on whether care improves, so they are material and in scope.\", \"element\": \"\", \"sentence\": \"For use of health services, effects on skilled attendance at birth are uncertain (very low-certainty evidence), and the intervention may make little or no difference to antenatal influenza vaccination attendance (RR 1.05, 95% CI 0.71 to 1.58), though the CI includes both benefit and harm (low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports an in-scope outcome (ARV treatment adherence) for the mobile tracking-plus-prompts intervention versus standard care in primary care, and it points toward little or no benefit.\",\"element\":\"\",\"sentence\":\"For pregnant and postpartum women living with HIV, tracking care with mobile devices may make little or no difference to maternal and infant adherence to antiretroviral therapy compared with standard care (low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding covers an in-scope outcome, antenatal care use, for mobile reminders. The source review evidently studies tracking combined with reminders, and the finding gives a low-certainty, imprecise effect the page omits.\",\"element\":\"\",\"sentence\":\"Targeted client communication reminders by mobile phone may slightly increase use of antenatal care (mean difference 1.5, 95% CI –0.36 to 3.36), but the evidence is low-certainty and the interval includes no effect.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"Facility birth is a care-reaching-people outcome (timely, recommended care) within scope; the finding is about the intervention's effect, and the page does not use it.\", \"element\": \"\", \"sentence\": \"The effect of the intervention on the proportion of births occurring in a health facility is uncertain because the evidence is of very low certainty.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports health outcomes (neonatal death, stillbirth, infant HIV) for the intervention, which is within scope and relevant to the question's health-impact part; the page omits it.\", \"element\": \"\", \"sentence\": \"For health outcomes, the effect of the intervention on neonatal death or stillbirth and on infant HIV is uncertain because the evidence is of very low certainty.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"Health outcomes for patients are in scope. The absence of any maternal mortality or morbidity data limits what the page can conclude about whether the intervention improves health.\",\"element\":\"\",\"sentence\":\"No studies reported on maternal mortality or morbidity, so the evidence cannot show whether these tools improve those health outcomes.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports an evidence gap for a comparison of digital tracking with communication or decision support against non-digital care, which is the question's core. Saying the effect is unknown is relevant to the answer.\",\"element\":\"\",\"sentence\":\"The effect of TCCMD compared with non-digital TCC is unknown, because no studies were found that report this comparison.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"Infant ARV/PMTCT treatment adherence is an in-scope outcome, and the finding compares tracking plus targeted communication with a digital comparator. It is not excluded by any scope entry.\",\"element\":\"\",\"sentence\":\"Tracking care with targeted client communication via mobile devices may increase infant ARV/prevention of mother-to-child transmission treatment adherence compared with digital non-targeted communication (RR 1.26, 95% CI 1.07 to 1.48; low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding is vague: it names no specific outcome and only says evidence is lacking. Stating it would add nothing the page could use, and it matches no out-of-scope entry.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports an evidence gap on in-scope outcomes (correct treatment, nutritional and health outcomes) for children under five, which bears on whether care and health improve; it is not excluded by scope.\", \"element\": \"\", \"sentence\": \"For parents of children under five years, no studies reported on correct treatment, nutritional, or health outcomes.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"Within the review's tracking-plus-communication comparison, this is a core effect on service uptake (vaccination, HIV care), which falls within the question's covered outcomes. The page omits it.\",\"element\":\"\",\"sentence\":\"Based on 10 trials, targeted client communication via mobile devices, compared with standard care, may modestly increase health service use such as vaccinations and HIV care (RR 1.21, 95% CI 1.08 to 1.34), but this is low-certainty evidence and results varied widely between studies.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding compares mobile-device client communication (reminders) with non-digital reminders, with no digital tracking of patient care. That is a standalone reminder intervention, which the scope excludes.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"Vaccination attendance is a covered outcome, and this finding is a direct comparison that points toward possible harm from targeted messaging. That could temper a uniformly positive answer.\",\"element\":\"\",\"sentence\":\"Targeted client communication via mobile devices may reduce vaccination attendance compared with digital non-targeted communication, but the confidence interval includes both benefit and harm (RR 0.63, 95% CI 0.33 to 1.20; low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The scope explicitly covers unintended consequences, so this is not out of scope. The finding says no trials reported data on them. That is a gap in the evidence, and a reader weighing the intervention's effects would want to know about it, since a lack of safety data limits how far the benefits can be trusted. So the page should state it.\n\n{\"decision\": \"state\", \"why\": \"Unintended consequences are explicitly in scope; the finding that no trials reported them is a material evidence gap affecting how confidently benefits can be judged.\", \"element\": \"\", \"sentence\": \"No trials, in any population, reported data on unintended consequences of mobile tracking with decision support or reminders, so possible harms remain unassessed.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding describes adolescent interventions delivered by text messages or voice calls alone, with no digital tracking of care or decision support, so it falls under standalone reminder/communication interventions.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes the delivery channels used in included adult interventions. It reports no effect on care or health, so it would not change the answer to the question.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding concerns targeted client communication messages to adolescents versus standard care, with no digital tracking of care. It measures sexual health knowledge, not care delivery or health outcomes.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding reports an effect of the question's intervention on a care outcome, contraception use, which falls within scope and bears directly on whether care improves.\",\"element\":\"\",\"sentence\":\"Mobile-device tracking of patient care combined with decision support or communication may modestly increase contraception use (RR 1.19, 95% CI 1.05 to 1.35; low-certainty evidence).\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"ART adherence and health service use fall within the covered outcomes (treatment adherence, timely care). The finding adds that evidence on these outcomes is very uncertain, which bears on the page's conclusion.\",\"element\":\"\",\"sentence\":\"The effects on condom use, ART adherence, and health service use are uncertain because the evidence is of very low certainty.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding addresses health outcomes (abortion and STI rates) within the scope of patient health outcomes. It reports an evidence gap that qualifies the page's claim of improved health, so it is material.\", \"element\": \"\", \"sentence\": \"The effects of mobile tracking with decision support or reminders on abortion and sexually transmitted infection rates are unknown because no studies have measured them.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding concerns targeted client communication via mobile devices compared with non-digital communication such as pamphlets. That is reminder messaging on its own, with no digital tracking of care, and it reports no evidence.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"The finding covers in-scope outcomes (sexual health knowledge, condom and contraceptive use) for a tracking-plus-communication intervention. It shows the evidence is too weak to conclude, which the page should convey.\",\"element\":\"\",\"sentence\":\"For targeted client communication via mobile devices compared with digital non-targeted communication, effects on sexual health knowledge, condom use and contraceptive use are uncertain because the evidence is very low certainty.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports a possible increase in health service use (STI/HIV testing attendance), which falls under whether care reaches people on time. It is within scope and could affect the answer.\", \"element\": \"\", \"sentence\": \"Interventions may increase health service use, such as attendance for STI/HIV testing (RR 1.61, 95% CI 1.08 to 2.40), though the evidence is low-certainty.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding concerns STI rates as a health outcome of the intervention (digital tracking plus decision support or reminders in primary care). Health outcomes for patients fall within the scope, so the finding is not out of scope. It is a patient health outcome, and the page does not use it. It is likely material because it is an effect estimate on a health outcome, albeit with low certainty and a wide confidence interval. Stating it with its uncertainty is appropriate.\n\n{\"decision\": \"state\", \"why\": \"STI rates are a patient health outcome within scope; the page omits this effect estimate, which is low-certainty and compatible with both benefit and harm.\", \"element\": \"\", \"sentence\": \"The intervention may reduce sexually transmitted infection rates (RR 0.61, 95% CI 0.28 to 1.33), but the evidence is low-certainty and the confidence interval includes both benefit and harm.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"ART adherence is a treatment-adherence outcome the scope covers, and abortion rates are a patient health outcome. The evidence gap tells readers these effects cannot be assumed.\",\"element\":\"\",\"sentence\":\"The effects of these digital tracking interventions on abortion rates and on ART adherence are unknown because there are too few studies.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"Unintended consequences are explicitly within scope, and a reader would want to know that evidence on possible harms is lacking, so the page should say so.\",\"element\":\"\",\"sentence\":\"We are uncertain whether tracking care on mobile devices (TCCMD) results in unintended consequences, because there is a lack of evidence.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding concerns targeted client communication via mobile devices (messaging) versus standard care, with no digital tracking of patient care, so it falls under standalone reminder or communication interventions.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"Condom use is a patient health behaviour and care outcome within the question's scope of care quality and health outcomes; the finding is a stated uncertainty, which the page omits.\", \"element\": \"\", \"sentence\": \"The effect of digital tracking with decision support or patient reminders on condom use is uncertain.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The question covers health outcomes for patients and care outcomes. A finding that no study measured STI rates is an evidence gap about one specific health outcome. It does not fall under any out-of-scope entry. STI rates would be a health outcome within scope, since the scope covers health outcomes for patients in general.\n\nIs it material? It is a statement of absence of evidence for a specific outcome. The page presumably addresses health outcomes more broadly. A gap on STI rates is narrow, but it could matter to readers wondering about sexual health. The finding says nothing about effects, only that the outcome was not measured. It is a limited but legitimate note on evidence coverage, and it might be classed as not material because STI is one of many possible outcomes and the question doesn't single it out. However, the review likely listed STI as a pre-specified outcome, so the gap is informative about the limits of the evidence on health outcomes. I lean toward stating it, with caution.\n\n{\"decision\": \"state\", \"why\": \"STI rates are a patient health outcome within scope; the finding flags an evidence gap on a specific outcome, which informs how far the health-outcome conclusions extend.\", \"element\": \"\", \"sentence\": \"No study measured the impact of this intervention on STI rates, so its effect on sexually transmitted infection rates is unknown.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"state\",\"why\":\"Treatment adherence is an in-scope outcome, and this finding on ART adherence comes from the tracking-plus-communication intervention the question asks about. The page omits it, and it adds a low-certainty result.\",\"element\":\"\",\"sentence\":\"Tracking combined with targeted client communication via mobile devices (TCCMD) may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32; SMD 0.44, 95% CI -0.14 to 1.02), but the evidence is low-certainty.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding concerns targeted client communication via mobile devices (messages to patients) for sexual and reproductive health services. It describes no digital tracking of care, so it is a standalone reminder-type intervention.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"The finding reports health outcomes (CD4 count, virological failure) for the intervention, which falls within the scope's health-outcomes coverage and is not excluded by any out-of-scope entry.\", \"element\": \"\", \"sentence\": \"For health outcomes, there may be little or no effect on CD4 count and a slight reduction in virological failure (RR 0.86, 95% CI 0.73 to 1.01), both based on low-certainty evidence.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"not_material\",\"why\":\"The finding only says no studies reported certain outcomes for one comparison. It reports no effect and does not change the page's answer on whether the intervention improves care and health.\",\"element\":\"\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"not_material\",\"why\":\"The finding only says no studies reported certain outcomes for a side comparison (targeted vs non-targeted digital messages). It gives no effect, so it would not change the page's answer on usual-care comparisons.\",\"element\":\"\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The scope explicitly covers unintended consequences (\"It also covers unintended consequences\"), so the finding is not out of scope. The question is whether it is material. A statement that few studies reported unintended consequences speaks to a gap in the evidence base on a topic the scope names. That is relevant to the reader, because absence of reported harms should not be read as evidence of safety. It is a limitation on what the answer can say about harms, so it should be stated.\n\n{\"decision\": \"state\", \"why\": \"Unintended consequences are explicitly within scope; the thin reporting limits what the page can say about harms, so readers should not treat missing harms as evidence of safety.\", \"element\": \"\", \"sentence\": \"Few studies reported on unintended consequences, so the evidence on possible harms of these mobile tracking approaches is limited.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding is an unintended consequence: a participant withdrew because they felt the intervention compromised their undisclosed HIV status. The scope explicitly covers unintended consequences. It does touch on privacy, but it is reported as a harm to a participant, not as a study of data privacy and security of the systems. So it is not out of scope.\n\nWhether it is material: it is a single-participant report, but it is a rare, serious unintended harm (disclosure risk, withdrawal from care) that bears directly on the question, which includes unintended consequences. A page that omitted all harms would mislead. I would state it with appropriate hedging.\n\n{\"decision\": \"state\", \"why\": \"Unintended consequences are in scope; a participant's withdrawal over fear of HIV status disclosure is a reported harm of the intervention, not a study of data security, so the page should mention it.\", \"element\": \"\", \"sentence\": \"One study reported that a single participant withdrew from the intervention because they felt it compromised their undisclosed HIV status, indicating a potential unintended harm.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only reports that four studies were newly identified in the update. It states nothing about effects on care or health, so it would not change the answer.\", \"element\": \"\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\":\"out_of_scope\",\"why\":\"The finding compares text-message reminders with phone-call reminders. It mentions no digital tracking of patient care, so it appears to concern standalone reminders, which the scope excludes.\",\"element\":\"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\",\"sentence\":\"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"out_of_scope\", \"why\": \"The finding concerns text message reminders added to postal reminders, with no digital tracking of patient care or decision support. This is a standalone reminder intervention, which the scope excludes.\", \"element\": \"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding is about reminders for appointment attendance (mobile messaging vs phone calls vs none). The question concerns tracking of care via mobile devices combined with decision support and/or reminders. The finding describes reminders alone, with no digital tracking of care. That matches the out-of-scope entry about reminder messages used on their own, without digital tracking.\n\nThe finding does not mention tracking, so it appears to be a standalone reminder intervention. It is likely from a different review on reminders. Because the scope entry applies directly, the decision is out_of_scope.\n\n```json\n{\"decision\": \"out_of_scope\", \"why\": \"The finding reports appointment attendance with standalone reminders (SMS or phone calls) versus none, with no digital tracking of patient care, so it falls in the standalone-reminder exclusion.\", \"element\": \"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\", \"sentence\": \"\"}\n```"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"state\", \"why\": \"Scope explicitly covers unintended consequences; the finding reports that adverse effects were barely reported, which bears on the safety part of the question and the page's certainty.\", \"element\": \"\", \"sentence\": \"Only one study reported generally that there were no adverse effects during the study period, and none of the studies reported in detail on specific adverse events such as loss of privacy, data misinterpretation, or message delivery failure.\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"out_of_scope\", \"why\": \"The finding compares the cost of text message reminders with phone call reminders, which is a cost-effectiveness matter that the scope excludes from the effectiveness question.\", \"element\": \"Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"out_of_scope\", \"why\": \"The finding compares text message reminders with telephone reminders as standalone interventions, with no digital tracking of patient care, and mainly reports cost, so it falls outside the scope.\", \"element\": \"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "The finding is a call for more randomised trials of mobile phone messaging reminders, measuring attendance and cost-effectiveness. It concerns reminder messages on their own, and the scope excludes standalone reminders without digital tracking of the patient's care. It also mentions cost-effectiveness, which is excluded too. The most specific entry is the first one, about reminders used on their own.\n\nThe finding does not say the reminders were combined with tracking. It describes \"mobile phone messaging reminders\" as a standalone intervention, so it fits the standalone-reminder exclusion.\n\n{\"decision\": \"out_of_scope\", \"why\": \"The finding concerns mobile phone messaging reminders as a standalone intervention, plus a call for cost-effectiveness research; the scope excludes standalone reminders without digital tracking of the patient's care.\", \"element\": \"Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care\", \"sentence\": \"\"}"
+    },
+    {
+     "role": "coverage",
+     "max_tokens": 1800,
+     "text": "{\"decision\": \"not_material\", \"why\": \"The finding only describes the quality ratings of the included reviews (AMSTAR scores). It does not report any effect on care or health, so it would not change the answer to the question.\", \"element\": \"\", \"sentence\": \"\"}"
+    }
+   ],
+   "usd": 0.412692
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 8,
+  "held": 8,
+  "not_held": 0,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Targeted client communication via mobile devices for improving sexual and reproductive health.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "Mobile phone messaging reminders for attendance at healthcare appointments.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S006",
+    "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+    "type": "guideline",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S007",
+    "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S008",
+    "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 0,
+  "unconfirmed": []
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 72,
+   "claude-opus-5-5": 10
+  },
+  "belief": {
+   "claude-sonnet-4-6": 2
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 73
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 10,
+  "copied": 10,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-01c"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T00:23:58+00:00"
+}

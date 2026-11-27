@@ -1,0 +1,187 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@4356-4477": {
+   "state": "not_material",
+   "reason": "The finding is only a generic note on study design and certainty-wording conventions. It reports no result about the intervention's effects, so it adds no substantive claim the page could use.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:17:55+00:00"
+  },
+  "S001@9111-9361": {
+   "state": "out_of_scope",
+   "reason": "The finding measures client satisfaction (self-reported better quality of care), which is a patient acceptability outcome, not care following recommended practice or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability",
+   "decided_at": "2026-11-27T00:18:18+00:00"
+  },
+  "S002@4748-4864": {
+   "state": "not_material",
+   "reason": "The finding only describes who used the digital decision-support systems (provider types), not whether care or health outcomes improved; it does not affect the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:18:23+00:00"
+  },
+  "S002@4865-5021": {
+   "state": "not_material",
+   "reason": "The finding only describes which conditions were managed in the included studies. It states no effect on care or health outcomes, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:18:24+00:00"
+  },
+  "S002@6106-6221": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns patient acceptability and satisfaction, which the scope explicitly excludes as separate from whether the intervention improves care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability",
+   "decided_at": "2026-11-27T00:18:38+00:00"
+  },
+  "S003@3107-3345": {
+   "state": "not_material",
+   "reason": "The finding only describes which delivery channels (text messages, voice calls) the included interventions used. It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:18:43+00:00"
+  },
+  "S003@3346-3721": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns tailored client communication messages sent by mobile device versus standard care, with no digital tracking of patient care. That makes it a standalone messaging intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:18:49+00:00"
+  },
+  "S003@4889-5021": {
+   "state": "not_material",
+   "reason": "The finding only says no studies exist for a comparison against non-targeted digital communication. That is not the usual-care comparison the question asks about, so it does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:19:17+00:00"
+  },
+  "S003@6401-6464": {
+   "state": "not_material",
+   "reason": "The finding is vague: it names no specific outcome and only says evidence is lacking. Stating it would add nothing the page could use, and it matches no out-of-scope entry.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:19:50+00:00"
+  },
+  "S003@6825-7045": {
+   "state": "out_of_scope",
+   "reason": "The finding compares mobile-device client communication (reminders) with non-digital reminders, with no digital tracking of patient care. That is a standalone reminder intervention, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:20:04+00:00"
+  },
+  "S004@3191-3463": {
+   "state": "out_of_scope",
+   "reason": "The finding describes adolescent interventions delivered by text messages or voice calls alone, with no digital tracking of care or decision support, so it falls under standalone reminder/communication interventions.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:20:13+00:00"
+  },
+  "S004@3464-3746": {
+   "state": "not_material",
+   "reason": "The finding only describes the delivery channels used in included adult interventions. It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:20:15+00:00"
+  },
+  "S004@3747-3930": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication messages to adolescents versus standard care, with no digital tracking of care. It measures sexual health knowledge, not care delivery or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:20:20+00:00"
+  },
+  "S004@4247-4489": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication via mobile devices compared with non-digital communication such as pamphlets. That is reminder messaging on its own, with no digital tracking of care, and it reports no evidence.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:20:37+00:00"
+  },
+  "S004@5146-5451": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication via mobile devices (messaging) versus standard care, with no digital tracking of patient care, so it falls under standalone reminder or communication interventions.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:00+00:00"
+  },
+  "S004@5738-6102": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication via mobile devices (messages to patients) for sexual and reproductive health services. It describes no digital tracking of care, so it is a standalone reminder-type intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:17+00:00"
+  },
+  "S004@6358-6514": {
+   "state": "not_material",
+   "reason": "The finding only says no studies reported certain outcomes for one comparison. It reports no effect and does not change the page's answer on whether the intervention improves care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:21:25+00:00"
+  },
+  "S004@6689-6864": {
+   "state": "not_material",
+   "reason": "The finding only says no studies reported certain outcomes for a side comparison (targeted vs non-targeted digital messages). It gives no effect, so it would not change the page's answer on usual-care comparisons.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:21:29+00:00"
+  },
+  "S005@5813-5876": {
+   "state": "not_material",
+   "reason": "The finding only reports that four studies were newly identified in the update. It states nothing about effects on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:21:37+00:00"
+  },
+  "S005@6138-6329": {
+   "state": "out_of_scope",
+   "reason": "The finding compares text-message reminders with phone-call reminders. It mentions no digital tracking of patient care, so it appears to concern standalone reminders, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:42+00:00"
+  },
+  "S005@6330-6586": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns text message reminders added to postal reminders, with no digital tracking of patient care or decision support. This is a standalone reminder intervention, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:44+00:00"
+  },
+  "S005@6587-6769": {
+   "state": "out_of_scope",
+   "reason": "The finding reports appointment attendance with standalone reminders (SMS or phone calls) versus none, with no digital tracking of patient care, so it falls in the standalone-reminder exclusion.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:47+00:00"
+  },
+  "S005@7003-7142": {
+   "state": "out_of_scope",
+   "reason": "The finding compares the cost of text message reminders with phone call reminders, which is a cost-effectiveness matter that the scope excludes from the effectiveness question.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness, implementation feasibility, and health-worker or patient acceptability",
+   "decided_at": "2026-11-27T00:21:51+00:00"
+  },
+  "S005@7515-7661": {
+   "state": "out_of_scope",
+   "reason": "The finding compares text message reminders with telephone reminders as standalone interventions, with no digital tracking of patient care, and mainly reports cost, so it falls outside the scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:53+00:00"
+  },
+  "S005@8031-8238": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns mobile phone messaging reminders as a standalone intervention, plus a call for cost-effectiveness research; the scope excludes standalone reminders without digital tracking of the patient's care.",
+   "by": "claude-sonnet-5-5",
+   "element": "Effects of patient reminder messages or decision-support tools used on their own, without digital tracking of the patient's care",
+   "decided_at": "2026-11-27T00:21:56+00:00"
+  },
+  "S007@4961-5137": {
+   "state": "not_material",
+   "reason": "The finding only describes the quality ratings of the included reviews (AMSTAR scores). It does not report any effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T00:21:57+00:00"
+  }
+ }
+}

@@ -1,0 +1,266 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve pri",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC11975193",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC11975193",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 40193137",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 40193137"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd012925.pub2",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd012925.pub2 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC8406991",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC8406991",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 34314020",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 34314020"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd012944.pub2",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd012944.pub2 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC8477611",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC8477611",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 32813276",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 32813276"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd013679",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd013679 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Targeted client communication via mobile devices for improving sexual and reproductive health.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC8409381",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC8409381",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 32779730",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 32779730"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd013680",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd013680 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Mobile phone messaging reminders for attendance at healthcare appointments.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC6485985",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC6485985",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 24310741",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 24310741"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1002/14651858.cd007458.pub3",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1002/14651858.cd007458.pub3 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": "https://doi.org/10.1002/crossmark_policy",
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S006": {
+      "source": "S006",
+      "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+      "checked_on": "2026-11-26",
+      "state": "NOT_APPLICABLE",
+      "why": "type 'guideline' is not a journal article; it has versions, not errata, and B11 covers those",
+      "amendments": [],
+      "comments": []
+    },
+    "S007": {
+      "source": "S007",
+      "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC5792697",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC5792697",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 29343463",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 29343463"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.2196/mhealth.8873",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.2196/mhealth.8873 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": null,
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    },
+    "S008": {
+      "source": "S008",
+      "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A ",
+      "checked_on": "2026-11-26",
+      "identifier": "PMCID PMC13242270",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "PMCID PMC13242270",
+          "answered": true,
+          "record": "found",
+          "why": "matched"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "PMID 42255855",
+          "answered": true,
+          "record": "found",
+          "why": "matched on PMID 42255855"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.7759/cureus.108442",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.7759/cureus.108442 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Europe PMC + PubMed + Crossref",
+      "update_policy": null,
+      "state": "CLEAN",
+      "why": "record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the source URL"
+    }
+  }
+}
