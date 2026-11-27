@@ -1,0 +1,131 @@
+{
+ "omissions": [
+  {
+   "key": "S003@-",
+   "source": "S003",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S003",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S003-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T18:29:14+00:00"
+  },
+  {
+   "key": "S001@82785-82960",
+   "source": "S001",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    82785,
+    82960
+   ],
+   "quote_sha256": "c795efcd0645be604492fd3c3e957b09603943b007b4de26c50fba03b03ec5f6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding speaks directly to the question's 'Alongside cutting emissions, what part can removing carbon dioxide from the air play'. No SCOPE exclusion applies. Step 2: the draft already lists CDR's three roles from [1]. But it credits the claim that CDR complements rather than replaces emissions cuts only to [3] and [4], and it notes that [4] takes that framing secondhand. The IPCC's own statement that [S001@82854-82916]' is therefore not yet on the page. A reader weighing how much to rely on removal versus cuts would give it heavy weight, because it limits how far removal can stand in for reductions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "d325b5b092a4bceb",
+   "origins": [
+    "S001-01",
+    "S001-03",
+    "S001-04",
+    "S001-02"
+   ],
+   "on_page": "ffe59d702c6cc6c8",
+   "after": "997e10e9ad1d7349",
+   "decided_at": "2026-11-27T18:29:22+00:00"
+  },
+  {
+   "key": "S006@10356-10460",
+   "source": "S006",
+   "held_sha256": "77eb9107ab282e2dc255cb42782f11e693b2ad6cce81214d8e91a1b3409aabb4",
+   "at": [
+    10356,
+    10460
+   ],
+   "quote_sha256": "7ecd3c0baca59728bafb0082b51fcb54c401176715465aa75485af869a0df0c8",
+   "outcome": "NOT_ADDED_NO_PLACE",
+   "element": "",
+   "reason": "no place for the ADD: the anchor is not on the page",
+   "by": "code (lean: no place on the page)",
+   "ruling": null,
+   "origins": [
+    "S006-17"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T18:29:27+00:00"
+  },
+  {
+   "key": "S006@10461-10639",
+   "source": "S006",
+   "held_sha256": "77eb9107ab282e2dc255cb42782f11e693b2ad6cce81214d8e91a1b3409aabb4",
+   "at": [
+    10461,
+    10639
+   ],
+   "quote_sha256": "37c43d56dd5bda6e6d28dfa71d8ae59f4433f3338dac004af050ae83df5903d7",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears on how much removal net-zero pathways require and on the constraints on scaling it, both of which the SCOPE covers. It does not fall under any out-of-scope entry. Step 2: The draft gives the pathway requirement (5–15 GtCO2/yr) and the per-technology potentials, but it never states the source's own conclusion that no single NET is likely to meet those rates sustainably. That conclusion matters to a reader deciding how much to rely on, or fund, any one removal method, because it points toward needing a portfolio of methods. It is not already in ALREADY.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6654b66b148b8e95",
+   "origins": [
+    "S006-15",
+    "S006-16"
+   ],
+   "on_page": "10bd26987fde2c28",
+   "after": "3b3917364d8ba344",
+   "decided_at": "2026-11-27T18:29:33+00:00"
+  },
+  {
+   "key": "S006@138684-138919",
+   "source": "S006",
+   "held_sha256": "77eb9107ab282e2dc255cb42782f11e693b2ad6cce81214d8e91a1b3409aabb4",
+   "at": [
+    138684,
+    138919
+   ],
+   "quote_sha256": "381e98865caba11429a887b019ca3454fe88da8928e887a8191f39804e6931ae",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding gives the cost and side effects of soil carbon sequestration, a land-based removal method. SCOPE explicitly covers soil carbon and the constraints on scaling it, including cost. Step 2: The draft already states saturation and reversibility, but not SCS's low cost (US$0–100/tCO2) or its comparatively smaller side effects. These bear directly on how much a policymaker or buyer would rely on or pay for this option relative to other removal methods, so the finding qualifies the answer. The sentence keeps the hedges 'estimated' and 'likely' and the drawbacks the source attaches.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "54e48f780028cd71",
+   "origins": [
+    "S006-18"
+   ],
+   "on_page": "2876b5bf763c5757",
+   "after": "b866265d9f629dcd",
+   "decided_at": "2026-11-27T18:29:40+00:00"
+  },
+  {
+   "key": "S006@167989-168382",
+   "source": "S006",
+   "held_sha256": "77eb9107ab282e2dc255cb42782f11e693b2ad6cce81214d8e91a1b3409aabb4",
+   "at": [
+    167989,
+    168382
+   ],
+   "quote_sha256": "bf2393b502107908290c3399c75adff10530ecd8ba74cf7fd2c50323512c5266",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. It concerns how much net-zero strategies should rely on removal (NETs) alongside emission cuts, which is exactly what THE QUESTION asks. Step 2: It is not material. The draft already states this conclusion from source [6], nearly word for word: strategies should aim to limit warming [S006@168145-168195], and [S006@168310-168366] CO2 emissions until NETs are demonstrably available at scale. The only parts left out are the 'below 2 °C' framing and the brief note that NETs 'should be further researched'. Neither changes or qualifies the answer the reader already gets.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c99d534804d9659b",
+   "origins": [
+    "S006-19"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T18:29:54+00:00"
+  }
+ ]
+}

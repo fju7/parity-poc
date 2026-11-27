@@ -1,0 +1,324 @@
+[
+  {
+    "source": "S001",
+    "title": "Climate Change 2022: Mitigation of Climate Change — Working Group III Contribution to the Sixth Assessment Report of the IPCC (Chapter 12: Cross-sectoral Perspectives)",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Climate Change 2022: Mitigation of Climate Change — Working Group III Contribution to the Sixth Assessment Report of the IPCC (Chapter 12: Cross-sectoral Perspectives)",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Well supported: CDR is a necessary element for reaching net zero CO2 and GHG emissions, chiefly to counterbalance residual emissions from hard-to-transition sectors, and it is a key element in scenarios limiting warming to 2°C or lower (robust evidence, high agreement) [1].",
+        "objection": "The page gives the chapter's headline as 'CDR is necessary' and leaves out the chapter's paired finding in the same passage, that CDR is not a substitute for deep emissions cuts. Without it, a reader can take 'necessary' to mean 'a substitute for cuts'.",
+        "source_says": "Within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+        "locator": "Cross-Chapter Box 8, 'Roles of CDR in mitigation strategies'",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's 'Well supported' verdict survives only in a narrower form. CDR is necessary for residual emissions, but the chapter says it is complementary to deep cuts and cannot replace them. The page's own question, how much weight CDR carries, is answered by this sentence.",
+        "source_says_first": "<cite index=\"1-1\">\"CDR cannot serve as a substitute for deep emissions reductions\"</cite> (Chapter 12 Executive Summary, and Section 12.3 / Cross-Chapter Box 8). The statement is made 'within ambitious mitigation strategies at global or national levels'.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The IPCC assessment finds that CDR is a necessary element to achieve net zero CO2 and greenhouse gas (GHG) emissions, both globally and nationally, by counterbalancing residual emissions from hard-to-transition sectors, and that it is a key element in scenarios that limit warming to 2°C (>67%) or lower by 2100 (robust evidence, high agreement) [1].",
+        "objection": "The opening characterisation of the chapter omits the qualifier that sits next to the 'necessary' finding: CDR does not replace deep emissions reductions.",
+        "source_says": "CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+        "locator": "Cross-Chapter Box 8, 'Roles of CDR in mitigation strategies' (Chapter 12)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the first sentence that characterises the chapter. If the 'not a substitute' finding appears nowhere on the page, the page presents half of one chapter finding as the whole.",
+        "source_says_first": "<cite index=\"2-3\">\"CDR cannot serve as a substitute for deep emissions reductions but\"</cite> can fulfil multiple complementary roles (Chapter 12 Executive Summary; Section 12.3).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "In ambitious mitigation pathways, CDR serves three functions: (i) further reducing net CO2 or GHG emissions in the near term; (ii) counterbalancing residual emissions from hard-to-transition sectors such as transport, industry or agriculture to help reach net zero in the mid term; and (iii) achieving and sustaining net-negative emissions in the long term [1].",
+        "objection": "The chapter introduces the three functions as complementary to deep emissions reductions. The page presents them as CDR's role in the abstract, without that framing.",
+        "source_says": "Within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+        "locator": "Cross-Chapter Box 8, 'Roles of CDR in mitigation strategies' (Section 12.3)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The three functions are reported accurately. They appear in the source as roles added to deep cuts, and the page loses that.",
+        "source_says_first": "<cite index=\"3-2\">\"deep emissions reductions but can fulfil multiple complementary roles\"</cite> (Section 12.3, Cross-Chapter Box 8). The same chapter says that to avoid CDR being misperceived as a substitute, differentiated targets for reductions and removals can signal that emissions cuts come first (Section 12.3.3).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Its role grows over time, from a modest contribution today to several gigatons by mid-century and potentially net-negative emissions later in the century [1, 4].",
+        "objection": "The page describes CDR's growth as a trajectory and omits the chapter's statement that the scale and timing of CDR depend on gross emission reductions, and that CDR does not replace them.",
+        "source_says": "Within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+        "locator": "Box 12.1 (Roles of CDR in mitigation strategies)",
+        "could_not_find": "I did not locate the chapter's exact GtCO2/yr figures for 'mid-century' in the retrieved text. I make no objection to the number.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's 'role grows' sentence reads as a forecast independent of cuts. The chapter treats CDR volumes as conditional on how fast gross emissions fall.",
+        "source_says_first": "<cite index=\"6-5\">\"The scale and timing of deployment will depend on the trajectories of gross emission reductions in different sectors.\"</cite> This is the WGIII SPM statement (C.11) that summarises Chapter 12. The chapter itself says CDR 'cannot serve as a substitute for deep emissions reductions' (Section 12.3, Executive Summary).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S003",
+    "title": "The carbon dioxide removal gap",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the investigators and statisticians who published The carbon dioxide removal gap",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A 2024 analysis identifies a 'CDR gap': CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5°C [3].",
+        "objection": "The page gives the gap as a bare qualitative shortfall and leaves out that the paper quantifies it as scenario-dependent, from small to large, and in 2030 as much smaller than in 2050.",
+        "source_says": "Main results, via the paper's reported figures (secondary report, eco-business/Carbon Brief; I could not open the full-text section): across 1.5 °C scenarios the authors find a \"CDR gap\" in 2050 of 0.4bn-5.5bn tonnes of CDR per year. The authors' own policy brief says proposals fall short by hundreds of megatonnes in 2030 and several gigatonnes in 2050.",
+        "locator": "Results, 'CDR gap' section and the focus-scenario table (demand-reduction vs carbon-removal scenarios); Policy Brief 03 May 2024",
+        "could_not_find": "I could not retrieve the full-text paper. I searched the abstract, the Nature page, the preprint excerpt and secondary summaries. The figures above come from the secondary report and the authors' brief, not from a directly quoted table.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's 'falls short' conclusion survives. A reader would not learn from it that the gap ranges from about 0.4 to 5.5 Gt in 2050, or that the authors chose conservative focus scenarios, so the page leaves the size of the shortfall unclear.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as BECCS, biochar or DACCS [3].",
+        "objection": "The paper's finding rests on assumptions about incomplete reporting, and it treats the proposals as not yet firm policy. 'None yet commit' states this more categorically than the paper does.",
+        "source_says": "Authors' brief: \"our evaluation of proposed CDR does assume that a number of countries simply maintain their current levels of (conventional) removals.\" It adds that it remains unknown to what extent firm CDR policies will follow these proposals. Carbon Brief's account of the paper also notes that the study assumes countries without quantifiable scenarios do not currently plan to implement novel CDR methods.",
+        "locator": "Methods and Discussion on national proposals (NDCs and long-term strategies); authors' policy brief",
+        "could_not_find": "I could not retrieve the full-text methods section. The wording above comes from the authors' brief and a secondary report. I did not find a sentence in the abstract or excerpts that says in these words that 'none' of the countries commit to novel CDR.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's claim may be an artefact of what countries quantified in their reports. A more accurate wording is that few or no quantified national proposals include substantial novel CDR.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The most ambitious national proposals are close to levels in a low-energy-demand scenario with the most limited CDR scaling and aggressive near-term emissions reductions [3].",
+        "objection": "The page does not give the authors' reading of this result: the gap closes if countries pledge more ambitious emissions reductions. That reading answers the 'less certain' framing in the page's later sentence.",
+        "source_says": "Authors' brief: \"the most ambitious proposals do come close to levels in a low-energy-demand scenario where CDR requirements are minimized\". The brief reads this as suggesting that the CDR gap would be closed if countries pledge more ambitious emissions reductions consistent with these scenarios.",
+        "locator": "Policy Brief 03 May 2024; Results, comparison with the three focus scenarios",
+        "could_not_find": "I could not retrieve the full-text paper. This is taken from the authors' brief, which is not the paper's own Results text.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's sentence is accurate. The omitted point is that the gap is partly a function of emissions ambition, not only of CDR ambition, which affects how the 'gap' headline should be read.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      }
+    ]
+  },
+  {
+    "source": "S004",
+    "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Taken together, current CDR approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions [4].",
+        "objection": "The only 3% figure I could find in my document is the share of documents that deal with governance, not a share of emissions, and I could not find the 2 GtCO2 per year figure in the passages I could retrieve.",
+        "source_says": "\"This reduced our final set of documents that discuss governance and policy aspects of CDR technologies to 876 (3% of the 28,976 relevant classified documents on CDR as a whole).\"",
+        "locator": "Methods / data-gathering section (the 876 of 28,976 filtering step)",
+        "could_not_find": "I searched the retrievable abstract, introduction and methods text for a current-CDR-volume figure (GtCO2 per year) and for a share of net GHG emissions. I found neither. I could not retrieve the full text, so this attribution should be checked against the paper before publication.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The 2 Gt and 3% figures probably belong to another source, such as the State of CDR report. Citing them to a systematic map of 876 documents is likely a misattribution, and the 3% may have been confused with the map's own 3% document share.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The sources are equally clear that CDR is not a substitute for emissions reductions [4].",
+        "objection": "My document does not present this as an evidence finding. It is an introductory framing statement, and the map's own results concern the volume and coverage of governance literature.",
+        "source_says": "While CDR methods expand the range of options available to address climate change, it should be clear that they are not a substitute for emissions reductions: scenarios suggest an 8:2 ratio of effort between reducing CO 2 emissions and scaling CO 2 removals by the mid-century ( Prütz et al., 2023 ), and a precautionary approach may suggest even more focus on reductions.",
+        "locator": "Introduction paragraph beginning 'CDR refers to capturing CO 2 from the atmosphere via human intervention'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The 8:2 ratio is secondhand, taken from Prütz et al. 2023. The map's own findings are the 876 documents, the growth in attention to the topic, and the limited Global South coverage. The page treats this as independent corroboration from [4], and it is not.",
+        "source_says_first": "\"While CDR methods expand the range of options available to address climate change, it should be clear that they are not a substitute for emissions reductions: scenarios suggest an 8:2 ratio of effort between reducing CO_2 emissions and scaling CO_2 removals by the mid century (Prütz et al., 2023), and a precautionary approach may suggest even more focus on reductions.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Also consistent across the sources: emissions reductions remain the dominant lever, and CDR complements rather than replaces them [3, 4].",
+        "objection": "The map does not assess the relative importance of reductions and removals. It classifies governance literature, so it cannot independently confirm the claim.",
+        "source_says": "\"The primary objective of our article is to develop a “systematic map” of the state of the scientific peer-reviewed literature on the governance of CDR, as a prior step to accumulating knowledge in this domain.\"",
+        "locator": "Introduction, statement of objective",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion still stands on the other sources. The claim of consistency across sources is weaker than it looks, because [4] only restates a framing taken from another paper.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Its role grows over time, from a modest contribution today to several gigatons by mid-century and potentially net-negative emissions later in the century [1, 4].",
+        "objection": "The growth my document reports is growth in the volume of policy and governance literature. It is not growth in CDR deployment or in CDR's role in mitigation.",
+        "source_says": "\"Our findings show sharply growing attention to CDR policies and governance issues over time, but with limited coverage of the Global South.\"",
+        "locator": "Abstract",
+        "could_not_find": "I looked for a scenario trajectory of several gigatons by mid-century, or of net-negative emissions, in the abstract, introduction and methods text I could retrieve. I found none and could not retrieve the results sections in full.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "[4] supports the idea that attention is growing. It does not support the page's trajectory of removals, and a reader could mistake literature growth for deployment growth.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "One review states that CDR would potentially allow a global temperature exceedance to be reversed in the long term, but would not compensate for the impacts of overshoot [4].",
+        "objection": "I could not find an overshoot-reversal statement in my document, and it is a systematic map, not a review that reaches substantive conclusions.",
+        "source_says": "",
+        "locator": "",
+        "could_not_find": "I searched the abstract, introduction, methods and results text I could retrieve (document counts, governance topics, geographic coverage) for overshoot, temperature reversal and impacts of overshoot. I found nothing. I could not retrieve the full text, so check this against the paper.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "If the statement is not in [4], the citation is wrong. The substance may still hold if it comes from another source."
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Even low estimates of CDR requirements by mid-century imply several gigatons of removals [4].",
+        "objection": "I could not find any mid-century CDR requirement estimate in my document. It maps literature and does not estimate removal needs.",
+        "source_says": "",
+        "locator": "",
+        "could_not_find": "I searched the abstract, introduction and methods text I could retrieve for mid-century removal estimates in GtCO2 and for low-end scenario ranges. I found only the 8:2 effort-ratio statement, which gives no gigaton figure.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The claim is plausible as science, but [4] does not appear to support it."
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Many authors have discussed organising separate policy tracks for reductions and removals, to avoid the risk that longer-term CDR ambitions dilute short-term efforts to reduce emissions [4].",
+        "objection": "I could not find, in the text I could retrieve, a statement that many authors discuss separate tracks, or any count of how many documents do.",
+        "source_says": "",
+        "locator": "",
+        "could_not_find": "I searched the introduction and the governance-topic breakdown text I could retrieve. That text includes counts for policy instruments such as carbon pricing (179 documents, 20%), subsidies (76) and direct investments (82). I found no reference to separate reduction and removal targets or to mitigation deterrence. The results sections may cover this, and I could not retrieve them in full.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "If the map does not contain this, the attribution should move to the papers that do discuss separate targets. If it does, the page should cite the document count."
+      }
+    ]
+  },
+  {
+    "source": "S006",
+    "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Negative emissions—Part 2: Costs, potentials and side effects",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The same review gives best estimates for sustainable global potentials in 2050 of 0.5–3.6 GtCO2 per year for afforestation and reforestation, 0.5–5 for BECCS, 0.5–2 for biochar, 2–4 for enhanced weathering, 0.5–5 for DACCS, and up to 5 for soil carbon sequestration [6].",
+        "objection": "The page gives the per-technology ranges but leaves out the review's own verdict on what they add up to against the scenario rates, which is the question the page raises.",
+        "source_says": "It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 °C of global warming.",
+        "locator": "Abstract",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "A reader will compare the 5–15 GtCO2/yr scenario deployment with these ranges. The review's explicit conclusion on that comparison is that no single NET can meet the 1.5°C rates sustainably. Omitting it leaves the ranges without the interpretation the authors attached to them.",
+        "source_says_first": "\"It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 degrees C of global warming.\" (Abstract)",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "with NETs deployment already between 5 and 15 GtCO2 per year by 2050 in most scenarios [6].",
+        "objection": "The scenario scale is presented without the review's finding that a single NET is unlikely to sustainably deliver such rates, which is the review's answer to this scale of deployment.",
+        "source_says": "It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 °C of global warming.",
+        "locator": "Abstract",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the same omission as in the potentials sentence, placed where the scenario figure appears. The review treats the scenario numbers as a demand that its bottom-up potentials cannot readily meet, not as a settled supply.",
+        "source_says_first": "\"It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 degrees C of global warming.\" (Abstract)",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The same review gives best estimates for sustainable global potentials in 2050 ... and up to 5 for soil carbon sequestration [6].",
+        "objection": "The page treats the 2050 annual potentials as comparable across NETs. The review says the technologies differ in permanence and in cumulative potential beyond 2050, so a single 2050 snapshot overstates the lasting contribution of some of them, notably soil carbon and afforestation.",
+        "source_says": "Costs vary widely across the technologies, as do their permanency and cumulative potentials beyond 2050.",
+        "locator": "Abstract",
+        "could_not_find": "I could not retrieve the full sentence on the sustainability of annual SCS and afforestation deployments, so I rely on the abstract sentence.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 2050 figures are annual rates at a single date. The review qualifies them with permanence and post-2050 limits, and the page omits that qualification.",
+        "source_says_first": "\"Costs vary widely across the technologies, as do their permanency and cumulative potentials beyond 2050.\" (Abstract). The review also notes that annual deployments of soil carbon sequestration and afforestation cannot be sustained as long as other NETs. The extracted text of that sentence is fragmentary, so I am not quoting it.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Soil carbon sinks saturate after 10–100 years and are reversible if the practices that create them cease [6].",
+        "objection": "The page reports only the drawbacks of soil carbon. The review's overall assessment is that soil carbon is cheap and has fewer side effects than many other NETs, with saturation and reversibility as the main caveats.",
+        "source_says": "Costs are low, estimated here in the range of US$0–100/tCO 2, and the side effects are likely to be less of an issue than for many other NETS, though sink saturation and reversibility (non-permanence) are significant drawbacks for SCS.",
+        "locator": "Soil carbon sequestration section, 'Authors’ assessment' paragraph",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's figures are right, but the authors place the drawbacks inside a favourable cost and side-effect verdict. Without it, soil carbon reads as a weak option, when the review rates it as low-cost with caveats.",
+        "source_says_first": "\"Costs are low, estimated here in the range of US$0–100/tCO_2, and the side effects are likely to be less of an issue than for many other NETS, though sink saturation and reversibility (non-permanence) are significant drawbacks for SCS.\" The saturation time depends on \"the SCS option, soil type and climate zone (slower in colder regions)\", with a 20-year IPCC default.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "One review concludes that, given these uncertainties, strategies should aim to limit warming with the least possible assumed dependence on NETs, and that there should be no delay in a global peak and decline of CO2 emissions until NETs are demonstrably available at scale [6].",
+        "objection": "The page cuts the recommendation off before its companion clause that NETs should still be researched. It also drops the stated target of below 2°C, so a reader could take the sentence as general advice against relying on NETs.",
+        "source_says": "The direct policy implications of this NETs review are thus that, given the assessed uncertainties, strategies should aim at limiting warming to below 2 °C with the least possible assumed dependence on NETs. Simultaneously, NETs should be further researched, but until they are demonstrably available at the global scale there should be no delay in a global peak and decline of CO 2 emissions.",
+        "locator": "Conclusions paragraph on direct policy implications of this NETs review",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review's position is to minimise assumed dependence on NETs while continuing to research them. It is not a call to drop NETs. The sentence is accurate as far as it goes, but it omits the second half of the recommendation.",
+        "source_says_first": "\"The direct policy implications of this NETs review are thus that, given the assessed uncertainties, strategies should aim at limiting warming to below 2 °C with the least possible assumed dependence on NETs. Simultaneously, NETs should be further researched, but until they are demonstrably available at the global scale there should be no delay in a global peak and decline of CO_2 emissions.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+{
+ "_what_this_is": "Run provenance manifest: the bindings file and every stored document this run's issue holds, by hash (advisor's ruling 2026-11-24). The files themselves are copied to the private study folder, never to this repo (held documents carry publisher text).",
+ "slug": "whu-lean-orch-t1-q1-04f",
+ "built_at": "2026-11-27T18:43:47+00:00",
+ "library_root": "backend/data/whatholdsup/library_trial",
+ "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04f",
+ "files": [
+  {
+   "role": "bindings",
+   "path": "issues/WHU-OT1-04f-whu-lean-orch-t1-q1-04f/bindings.json",
+   "sha256": "1935fad36485294f393b11db6a36e1a6591e7d883651944026c2e9921920b44c",
+   "size": 106827,
+   "mtime_utc": "2026-11-27T18:43:47+00:00"
+  },
+  {
+   "role": "library_index",
+   "path": "library:issues/whu-lean-orch-t1-q1-04f.json",
+   "sha256": "b53ab6bac4a0ecf8d83aa5387f75f7e32494a53ad8a3a11f15c3b061c9175ff4",
+   "size": 2602,
+   "mtime_utc": "2026-11-27T18:14:50+00:00"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/79/79793ab88f1188a481bc540239af816119832ad475137b277b939da5e9ff8b4d.html",
+   "sha256": "79793ab88f1188a481bc540239af816119832ad475137b277b939da5e9ff8b4d",
+   "size": 1664566,
+   "mtime_utc": "2026-11-27T18:14:45+00:00",
+   "source_id": "S001",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "79793ab88f1188a481bc540239af816119832ad475137b277b939da5e9ff8b4d"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/93/93f95bfbbdbe2693d327376a92996852f02c64b5c14abf886e51e1b76128c6f4.html",
+   "sha256": "93f95bfbbdbe2693d327376a92996852f02c64b5c14abf886e51e1b76128c6f4",
+   "size": 377738,
+   "mtime_utc": "2026-11-27T18:14:47+00:00",
+   "source_id": "S003",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "93f95bfbbdbe2693d327376a92996852f02c64b5c14abf886e51e1b76128c6f4"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/11/11e88821d49d90413919b50ac435dcc9994fe9a8daa0be30d67b0851e101c7a7.html",
+   "sha256": "11e88821d49d90413919b50ac435dcc9994fe9a8daa0be30d67b0851e101c7a7",
+   "size": 800816,
+   "mtime_utc": "2026-11-27T15:11:22+00:00",
+   "source_id": "S004",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "11e88821d49d90413919b50ac435dcc9994fe9a8daa0be30d67b0851e101c7a7"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/cc/cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3.html",
+   "sha256": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3",
+   "size": 652361,
+   "mtime_utc": "2026-11-27T18:14:50+00:00",
+   "source_id": "S006",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3"
+  }
+ ],
+ "copied": 6
+}

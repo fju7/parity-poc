@@ -1,0 +1,101 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f7a538cf3-rec-2",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Lamb et al. (2024) — 'The carbon dioxide removal gap', Nature Climate Change 14(6):644–651 is SUPERSEDED: the draft uses CDR gap framing; claim that current CDR 'approximates 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions'; national proposals fall short of 1.5°C scenarios; most ambitious proposals align with low-energy-demand scenario; no countries commit to novel met",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: ipcc.ch, ieefa.org, arxiv.org, en.wikipedia.org, researchgate.net, researchsquare.com, research-portal.uea.ac.uk, ora.ox.ac.uk, nature.com, phys.org, yubanet.com, ueaeprints.uea.ac.uk, carbonremovalupdates.substack.com, frontiersin.org, cdrterra.de, pure.iiasa.ac.at, eprints.whiterose.ac.uk, iopscience.iop.org, spiral.imperial.ac.uk, publications.pik-potsdam.de, semanticscholar.org, abdn.elsevierpure.com, scopus.com, nationalacademies.org, nap.nationalacademies.org, files.modelclimatelaws.org, ncbi.nlm.nih.gov, image-ppubs.uspto.gov, policycommons.net, carbonbrief.org, afen.fr, stateofcdr.org, wcrp-climate.org, events.ecmwf.int) could not establish whether The carbon dioxide removal gap has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "Lamb et al. (2024) — 'The carbon dioxide removal gap', Nature Climate Change 14(6):644–651",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "b88e6866bb381687",
+          "81730257063d9845",
+          "76a0f966ecb1bf42",
+          "ff378d4706c1f8db",
+          "f7aaaf156526bdeb",
+          "37f31de42d12d822"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f7a538cf3-rec-4",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Fuss et al. (2018) — 'Negative emissions—Part 2: Costs, potentials and side effects', Environmental Research Letters 13:063002 is SUPERSEDED: the draft uses 2050 sustainable global potentials: afforestation/reforestation 0.5–3.6 GtCO2/yr, BECCS 0.5–5, biochar 0.5–2, enhanced weathering 2–4, DACCS 0.5–5, soil carbon up to 5; net zero CO2 reached globally between 2046 and 2056 in 1.5°C pathways; NET",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: ipcc.ch, ieefa.org, arxiv.org, en.wikipedia.org, researchgate.net, researchsquare.com, research-portal.uea.ac.uk, ora.ox.ac.uk, nature.com, phys.org, yubanet.com, ueaeprints.uea.ac.uk, carbonremovalupdates.substack.com, frontiersin.org, cdrterra.de, pure.iiasa.ac.at, eprints.whiterose.ac.uk, iopscience.iop.org, spiral.imperial.ac.uk, publications.pik-potsdam.de, semanticscholar.org, abdn.elsevierpure.com, scopus.com, nationalacademies.org, nap.nationalacademies.org, files.modelclimatelaws.org, ncbi.nlm.nih.gov, image-ppubs.uspto.gov, policycommons.net, carbonbrief.org, afen.fr, stateofcdr.org, wcrp-climate.org, events.ecmwf.int) could not establish whether Negative emissions—Part 2: Costs, potentials and side effects has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "Fuss et al. (2018) — 'Negative emissions—Part 2: Costs, potentials and side effects', Environmental Research Letters 13:063002",
+        "sources": [
+          "S006"
+        ],
+        "rows": [
+          "13608b44198fb803",
+          "3b3917364d8ba344",
+          "b866265d9f629dcd",
+          "828087b884273811",
+          "0883b1dbe0f0deb5",
+          "8c0dc8c121b71df2",
+          "b5c4c541881eed38",
+          "4548a6671f410244"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f7a538cf3-rec-5",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "National Academies of Sciences, Engineering, and Medicine (2019) — 'Negative Emissions Technologies and Reliable Sequestration: A Research Agenda' is UNKNOWN: the draft uses Listed as source [5]; the draft explicitly states it 'could not hold it, so nothing on this page draws on it'; the latest known is The 2019 report remains the primary National Academies consensus study on NETs. No follow-up co",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "recency question not tied to any source on this page (no DOI, PMID, PMCID, URL, author or title matches a page source); recorded and counted on the page, not acted on (lean rule 3b)",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "National Academies of Sciences, Engineering, and Medicine (2019) — 'Negative Emissions Technologies and Reliable Sequestration: A Research Agenda'",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S005 (first author 'sciences' and 6 title words (overlap 0.86), source-list entry), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f7a538cf3-rec-6",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "IPCC AR6 Synthesis Report — Summary for Policymakers (2023) is UNKNOWN: the draft uses Listed as source [2]; the draft explicitly states it 'found [it] but could not hold it, so nothing on this page draws on it'; the latest known is Published March 2023; remains the current IPCC Synthesis Report. AR7 Synthesis Report is expected in 2029.; what changes: Not applicable — the draft draws no figures f",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "recency question not tied to any source on this page (no DOI, PMID, PMCID, URL, author or title matches a page source); recorded and counted on the page, not acted on (lean rule 3b)",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "IPCC AR6 Synthesis Report — Summary for Policymakers (2023)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S002 (first author 'ipcc' and 5 title words (overlap 0.71), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

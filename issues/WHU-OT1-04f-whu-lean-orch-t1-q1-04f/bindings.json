@@ -261,7 +261,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         160436,
         161208
@@ -276,7 +276,9 @@
             85106
           ]
         }
-      ]
+      ],
+      "off_page_by": "failsafe:overstatement:71384fa33f2d9bf73d2f5bc367010a7a5fbb198c7be589cfb80b8d5b9d1b9baa:9d4d7c00ab0e8d93",
+      "left_page": "2026-11-27"
     },
     "954196f31d30932c": {
       "sentence": "One review states that CDR would potentially allow a global temperature exceedance to be reversed in the long term, but would not compensate for the impacts of overshoot [4].",
@@ -821,7 +823,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         1386,
         2144
@@ -836,6 +838,11 @@
             7561
           ]
         }
+      ],
+      "off_page_by": "ruling:rulings/rulings.jsonl:4",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "37f31de42d12d822"
       ]
     },
     "8abef47c11461706": {
@@ -857,7 +864,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         8424,
         9257
@@ -880,6 +887,11 @@
             161208
           ]
         }
+      ],
+      "off_page_by": "ruling:rulings/rulings.jsonl:5",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "c951eddcc300f8bd"
       ]
     },
     "f7aaaf156526bdeb": {
@@ -901,7 +913,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         79797,
         80675
@@ -924,6 +936,11 @@
             3027
           ]
         }
+      ],
+      "off_page_by": "failsafe:overstatement:8685edf72f2b0b969706e85861d8fe7476548d1eeb1c5613d905b0317902f989:f7aaaf156526bdeb",
+      "left_page": "2026-11-27",
+      "also_removed_by": [
+        "failsafe:overstatement:57d388ab406209ed3f149d8b3e6c007a31947f4efb479490a21e7d9f949e3eaf:f7aaaf156526bdeb"
       ]
     },
     "0883b1dbe0f0deb5": {
@@ -1726,6 +1743,264 @@
         4507
       ],
       "declaration_key": "S004@4389-4507"
+    },
+    "37f31de42d12d822": {
+      "sentence": "Both [3] and [4] state that emissions reductions remain the dominant lever and that CDR complements rather than replaces them, though [4], a systematic map of governance literature, takes this framing from scenario work (Prütz et al., 2023) rather than assessing it itself.",
+      "sentence_sha": "37f31de42d12d822",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "93f95bfbbdbe2693d327376a92996852f02c64b5c14abf886e51e1b76128c6f4",
+      "locator_type": "prose",
+      "locator": "passage S003@1386",
+      "span": "Minx ORCID: orcid.org/0000-0002-2862-0178 1 , 2 Show authors Nature Climate Change volume 14 , pages 644–651 ( 2024 ) Cite this article Save article View saved research 12k Accesses 123 Citations 161 Altmetric Metrics details Abstract Rapid emissions reductions, including reductions in deforestation-based land emissions, are the dominant source of global climate mitigation potential in the coming decades. However, carbon dioxide removal (CDR) will also have an important role to play. Despite this, it remains unclear whether current national proposals for CDR align with temperature targets. Here we show the ‘CDR gap’, that is, CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5 °C.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        1386,
+        2144
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "CDR refers to capturing CO 2 from the atmosphere via human intervention and storing it reliably over a period of decades to centuries ( Smith et al., 2023 ). CDR methods can reduce emissions in the near term, compensate for “hard-to-abate” residual emissions in the medium term, and would potentially allow global temperature exceedance to be reversed in the long-term (but would not compensate for the impacts of overshoot). While CDR methods expand the range of options available to address climate change, it should be clear that they are not a substitute for emissions reductions: scenarios suggest an 8:2 ratio of effort between reducing CO 2 emissions and scaling CO 2 removals by the mid-century ( Prütz et al., 2023 ), and a precautionary approach may suggest even more focus on reductions.",
+          "offsets": [
+            6763,
+            7561
+          ]
+        }
+      ]
+    },
+    "c951eddcc300f8bd": {
+      "sentence": "Its role grows over time, from a modest contribution today to several gigatons by mid-century and potentially net-negative emissions later in the century [1].",
+      "sentence_sha": "c951eddcc300f8bd",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "11e88821d49d90413919b50ac435dcc9994fe9a8daa0be30d67b0851e101c7a7",
+      "locator_type": "prose",
+      "locator": "passage S004@8424",
+      "span": "These include bioenergy with carbon capture and storage (BECCS), direct air carbon capture and storage (DACCS), biochar, enhanced weathering and blue carbon. Taken all together, current CDR approximates 2 GtCO 2 per year, or about 3% of current global net greenhouse gas emissions ( United Nations Environment Programme, 2023 ). With the new logic of national “net-zero” targets that integrate both reductions and removals, it is becoming increasingly urgent to develop appropriate governance systems for CDR ( Schenuit et al., 2021 ; Schenuit et al., 2023a ). Many have discussed, for example, the need to organise separate policy tracks for reduction and removals, to avoid any fungibility and the risk that longer-term ambitions for CDR dilute short-term efforts to reduce emissions ( McLaren et al., 2019 ; Rogelj et al., 2021 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": false,
+      "offsets": [
+        8424,
+        9257
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S004",
+          "span": "Nonetheless, even low estimates of CDR requirements by the mid-century imply several gigatons of removals ( Smith et al., 2023 ). It is therefore important to set the policy conditions for preserving existing levels of CDR while sustainably scaling new methods ( Nemet et al., 2023 ). CDR refers to a variety of technologies and methods, including those that are relatively well integrated into national policy and planning such as afforestation/reforestation, soil carbon sequestration and harvested wood products. These methods already entered the international climate negotiations discourse under the United Nations Framework Convention on Climate Change (UNFCCC) in the early 2000s ( Carton et al., 2020 ). However, a range of further methods are now emerging that have so far had little exposure to national or international governance and policy regimes.",
+          "offsets": [
+            7562,
+            8423
+          ]
+        },
+        {
+          "source_id": "S001",
+          "span": "Status, costs, potentials, risk and impacts, co-benefits, trade-offs and spillover effects and the role in mitigation pathways of A/R, biochar, SCS, peatland and coastal wetland restoration, agroforestry and forest management are summarised in Table 12.6. See also Section 12.5 . 12.3.3 CDR Governance and Policies As shown in Cross-Chapter Box 8 in this chapter, CDR fulfils multiple functions in different phases of ambitious mitigation: (i) further reducing net CO 2 or GHG emission levels in the near term; (ii) counterbalancing residual emissions (from hard-to-transition sectors like transport, industry, or agriculture) to help reach net zero CO 2 or GHG emissions in the mid term; (iii) achieving and sustaining net-negative CO 2 or GHG emissions in the long term.",
+          "offsets": [
+            160436,
+            161208
+          ]
+        }
+      ],
+      "off_page_by": "failsafe:overstatement:c74a2c7376ef1a9be3a8d1c81478b4bdb963e6919bb685f16017c9c33ec8583f:c951eddcc300f8bd",
+      "left_page": "2026-11-27",
+      "also_removed_by": [
+        "failsafe:overstatement:f433f6d69acd0dbeb03a04ab3cbe491316f18085054513021692228cef772a7e:c951eddcc300f8bd"
+      ]
+    },
+    "ffe59d702c6cc6c8": {
+      "sentence": "The IPCC assessment itself states that, within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles [1].",
+      "sentence_sha": "ffe59d702c6cc6c8",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "79793ab88f1188a481bc540239af816119832ad475137b277b939da5e9ff8b4d",
+      "locator_type": "prose",
+      "locator": "passage S001@82785",
+      "span": "Within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        82785,
+        82960
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "10bd26987fde2c28": {
+      "sentence": "The review concludes that 'it is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 °C of global warming' [6].",
+      "sentence_sha": "10bd26987fde2c28",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S006",
+      "document_sha": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3",
+      "locator_type": "prose",
+      "locator": "passage S006@10461",
+      "span": "It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 °C of global warming.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": false,
+      "offsets": [
+        10461,
+        10639
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:14",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "8c0dc8c121b71df2"
+      ]
+    },
+    "2876b5bf763c5757": {
+      "sentence": "The same review estimates that soil carbon sequestration costs are low, \"in the range of US$0–100/tCO2\", and that \"the side effects are likely to be less of an issue than for many other NETS, though sink saturation and reversibility (non-permanence) are significant drawbacks\" [6].",
+      "sentence_sha": "2876b5bf763c5757",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S006",
+      "document_sha": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3",
+      "locator_type": "prose",
+      "locator": "passage S006@138684",
+      "span": "Costs are low, estimated here in the range of US$0–100/tCO 2, and the side effects are likely to be less of an issue than for many other NETS, though sink saturation and reversibility (non-permanence) are significant drawbacks for SCS.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": false,
+      "offsets": [
+        138684,
+        138919
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:15",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "b5c4c541881eed38"
+      ]
+    },
+    "8c0dc8c121b71df2": {
+      "sentence": "The review concludes that it is unlikely that any single one of the carbon-removal approaches it assesses (afforestation and reforestation, BECCS, biochar, enhanced weathering, DACCS and soil carbon sequestration) 'will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 °C of global warming' [6].",
+      "sentence_sha": "8c0dc8c121b71df2",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S006",
+      "document_sha": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3",
+      "locator_type": "prose",
+      "locator": "passage S006@10461",
+      "span": "It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 °C of global warming.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        10461,
+        10639
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b5c4c541881eed38": {
+      "sentence": "The same review estimates that soil carbon sequestration costs are low, \"in the range of US$0–100/tCO2\", and that its side effects are likely to be less of an issue than for many of the other technologies the review assesses, \"though sink saturation and reversibility (non-permanence) are significant drawbacks\" [6].",
+      "sentence_sha": "b5c4c541881eed38",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S006",
+      "document_sha": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3",
+      "locator_type": "prose",
+      "locator": "passage S006@138684",
+      "span": "Costs are low, estimated here in the range of US$0–100/tCO 2, and the side effects are likely to be less of an issue than for many other NETS, though sink saturation and reversibility (non-permanence) are significant drawbacks for SCS.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        138684,
+        138919
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4548a6671f410244": {
+      "sentence": "Not added: “Costs vary widely across the technologies, as do their permanency and cumulative potentials beyond 2050.” (Negative emissions—Part 2: Costs, potentials and side effects [6]) (no place on the page).",
+      "sentence_sha": "4548a6671f410244",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S006",
+      "document_sha": "cc9187959e24f1966f4da1e9e01e544570391293d0287c65edcc8ffcbfefb1a3",
+      "locator_type": "prose",
+      "locator": "readers' list line (S006@10356-10460, not_added_no_place)",
+      "span": "Costs vary widely across the technologies, as do their permanency and cumulative potentials beyond 2050.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        10356,
+        10460
+      ],
+      "declaration_key": "S006@10356-10460"
     }
   }
 }
