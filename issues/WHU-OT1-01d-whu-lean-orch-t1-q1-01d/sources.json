@@ -1,0 +1,1112 @@
+{
+  "sources": [
+    {
+      "id": "S001",
+      "type": "review",
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+      "year": 2025,
+      "container": "Cochrane Database of Systematic Reviews",
+      "authors": "Agarwal",
+      "used_for": "Most recent Cochrane review (pub2) directly answering the question: tracking + CDSS + TCC via mobile devices in primary care.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+        "first_author": "Agarwal",
+        "year": 2025
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/14651858.cd012925.pub2",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Agarwal S",
+          "Chin WY",
+          "Vasudevan L",
+          "Henschke N",
+          "Tamrat T",
+          "Foss HS",
+          "Glenton C",
+          "Bergman H",
+          "Fønhus MS",
+          "Ratanaprayul N",
+          "Pandya S",
+          "Mehl GL",
+          "Lewin S"
+        ],
+        "year": 2025,
+        "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+        "container": "The Cochrane database of systematic reviews"
+      },
+      "pmid": "40193137",
+      "pmcid": "PMC11975193",
+      "url": "https://europepmc.org/article/PMC/PMC11975193",
+      "also_called": [
+        "Digital tracking, provider decision support systems, and targeted client communi"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+          "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+          "bytes": 1164109,
+          "identified_by": "contains its identifier PMC11975193 — 536898 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "536898 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC11975193",
+          "PubMed PMID 40193137",
+          "Crossref 10.1002/14651858.cd012925.pub2"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC11975193, PMID 40193137, DOI 10.1002/14651858.cd012925.pub2",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC11975193",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 40193137",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 40193137",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/14651858.cd012925.pub2",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/14651858.cd012925.pub2 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S002",
+      "type": "review",
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+      "year": 2021,
+      "container": "Cochrane Database of Systematic Reviews",
+      "authors": "Agarwal",
+      "used_for": "Cochrane review of mobile CDSS (checklists, protocols, risk tools) used by primary healthcare workers; 8 studies included.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings",
+        "first_author": "Agarwal",
+        "year": 2021
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/14651858.cd012944.pub2",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Agarwal S",
+          "Glenton C",
+          "Tamrat T",
+          "Henschke N",
+          "Maayan N",
+          "Fønhus MS",
+          "Mehl GL",
+          "Lewin S"
+        ],
+        "year": 2021,
+        "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+        "container": "The Cochrane database of systematic reviews"
+      },
+      "pmid": "34314020",
+      "pmcid": "PMC8406991",
+      "url": "https://europepmc.org/article/PMC/PMC8406991",
+      "also_called": [
+        "Decision-support tools via mobile devices to improve quality of care in primary "
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/d0/d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d.xml",
+          "sha256": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+          "bytes": 415417,
+          "identified_by": "contains its identifier PMC8406991 — 192130 characters, reference list and discussion present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "192130 characters, reference list and discussion present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC8406991",
+          "PubMed PMID 34314020",
+          "Crossref 10.1002/14651858.cd012944.pub2"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC8406991, PMID 34314020, DOI 10.1002/14651858.cd012944.pub2",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC8406991",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 34314020",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 34314020",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/14651858.cd012944.pub2",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/14651858.cd012944.pub2 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S003",
+      "type": "review",
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "authors": "Palmer",
+      "used_for": "Cochrane review of SMS/voice reminders to clients for MNCH outcomes; directly addresses patient-reminder component of the question.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health",
+        "first_author": "Palmer",
+        "year": 2020
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/14651858.cd013679",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Palmer MJ",
+          "Henschke N",
+          "Bergman H",
+          "Villanueva G",
+          "Maayan N",
+          "Tamrat T",
+          "Mehl GL",
+          "Glenton C",
+          "Lewin S",
+          "Fønhus MS",
+          "Free C"
+        ],
+        "year": 2020,
+        "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+        "container": "The Cochrane database of systematic reviews"
+      },
+      "pmid": "32813276",
+      "pmcid": "PMC8477611",
+      "url": "https://europepmc.org/article/PMC/PMC8477611",
+      "also_called": [
+        "Targeted client communication via mobile devices for improving maternal, neonata"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/ef/ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd.xml",
+          "sha256": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+          "bytes": 995833,
+          "identified_by": "contains its identifier PMC8477611 — 486512 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "486512 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC8477611",
+          "PubMed PMID 32813276",
+          "Crossref 10.1002/14651858.cd013679"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC8477611, PMID 32813276, DOI 10.1002/14651858.cd013679",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC8477611",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 32813276",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 32813276",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/14651858.cd013679",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/14651858.cd013679 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S004",
+      "type": "review",
+      "title": "Targeted client communication via mobile devices for improving sexual and reproductive health.",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "authors": "Palmer",
+      "used_for": "Cochrane review of mobile TCC for sexual/reproductive health; complements MNCH review on patient reminder effects.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Targeted client communication via mobile devices for improving sexual and reproductive health",
+        "first_author": "Palmer",
+        "year": 2020
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/14651858.cd013680",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Palmer MJ",
+          "Henschke N",
+          "Villanueva G",
+          "Maayan N",
+          "Bergman H",
+          "Glenton C",
+          "Lewin S",
+          "Fønhus MS",
+          "Tamrat T",
+          "Mehl GL",
+          "Free C"
+        ],
+        "year": 2020,
+        "title": "Targeted client communication via mobile devices for improving sexual and reproductive health.",
+        "container": "The Cochrane database of systematic reviews"
+      },
+      "pmid": "32779730",
+      "pmcid": "PMC8409381",
+      "url": "https://europepmc.org/article/PMC/PMC8409381",
+      "also_called": [
+        "Targeted client communication via mobile devices for improving sexual and reprod"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/4f/4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae.xml",
+          "sha256": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+          "bytes": 1005713,
+          "identified_by": "contains its identifier PMC8409381 — 492242 characters, reference list and discussion present; title present (9 of 9 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "492242 characters, reference list and discussion present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC8409381",
+          "PubMed PMID 32779730",
+          "Crossref 10.1002/14651858.cd013680"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC8409381, PMID 32779730, DOI 10.1002/14651858.cd013680",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC8409381",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 32779730",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 32779730",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/14651858.cd013680",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/14651858.cd013680 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S005",
+      "type": "review",
+      "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis.",
+      "year": 2019,
+      "container": "Cochrane Database of Systematic Reviews",
+      "authors": "Ames",
+      "used_for": "Qualitative synthesis of patient perspectives on mobile reminder/communication programmes; informs acceptability and implementation.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis",
+        "first_author": "Ames",
+        "year": 2019
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.1002/14651858.cd013447",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Ames HM",
+          "Glenton C",
+          "Lewin S",
+          "Tamrat T",
+          "Akama E",
+          "Leon N"
+        ],
+        "year": 2019,
+        "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis.",
+        "container": "The Cochrane database of systematic reviews"
+      },
+      "pmid": "31608981",
+      "pmcid": "PMC6791116",
+      "url": "https://europepmc.org/article/PMC/PMC6791116",
+      "also_called": [
+        "Clients' perceptions and experiences of targeted digital communication accessibl"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/b6/b68a2f8a89b6352036926f511c722a491cc9f2d6e83a300720f726eee2a90caa.xml",
+          "sha256": "b68a2f8a89b6352036926f511c722a491cc9f2d6e83a300720f726eee2a90caa",
+          "bytes": 881897,
+          "identified_by": "contains its identifier PMC6791116 — 397293 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "397293 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC6791116",
+          "PubMed PMID 31608981",
+          "Crossref 10.1002/14651858.cd013447"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC6791116, PMID 31608981, DOI 10.1002/14651858.cd013447",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC6791116",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 31608981",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 31608981",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.1002/14651858.cd013447",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.1002/14651858.cd013447 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S006",
+      "type": "guideline",
+      "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+      "year": 2019,
+      "container": "World Health Organization",
+      "authors": "World Health Organization",
+      "used_for": "First WHO evidence-based guideline recommending digital tracking + CDSS and TCC via mobile devices for primary health care.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+        "first_author": "World Health Organization",
+        "year": 2019
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": false
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": false
+        }
+      ],
+      "pmid": "31162915",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [],
+        "year": 2019,
+        "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+        "container": null
+      },
+      "url": "https://iris.who.int/items/df396062-86b0-41c4-94c7-6e04e341bce2",
+      "also_called": [
+        "WHO guideline Recommendations on Digital Interventions for Health System Strengt"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/45/4526930d9e7051063650551665a3cd7e46986138003be816524662a71ba7dcba.html",
+          "sha256": "4526930d9e7051063650551665a3cd7e46986138003be816524662a71ba7dcba",
+          "bytes": 619957,
+          "identified_by": "contains 7 of 7 distinctive title words — form 'record' — 3000 characters held. The article test does not apply to this form; title present (7 of 7 title words in the visible text)",
+          "kind": "document",
+          "kind_why": "form 'record' — 3000 characters held. The article test does not apply to this form"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "record",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMID 31162915",
+          "PubMed PMID 31162915: PubMed has no record for PMID 31162915"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMID 31162915",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMID 31162915",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 31162915",
+            "answered": true,
+            "record": "none",
+            "why": "PubMed has no record for PMID 31162915",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "-",
+            "answered": false,
+            "record": null,
+            "why": "no DOI to ask by",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S007",
+      "type": "review",
+      "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+      "year": 2018,
+      "container": "JMIR mHealth and uHealth",
+      "authors": "Marcolino",
+      "used_for": "Umbrella review of 23 systematic reviews (371 studies) on mHealth effectiveness across conditions and care processes.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews",
+        "first_author": "Marcolino",
+        "year": 2018
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.2196/mhealth.8873",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Marcolino MS",
+          "Oliveira JAQ",
+          "D'Agostino M",
+          "Ribeiro AL",
+          "Alkmim MBM",
+          "Novillo-Ortiz D"
+        ],
+        "year": 2018,
+        "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+        "container": "JMIR mHealth and uHealth"
+      },
+      "pmid": "29343463",
+      "pmcid": "PMC5792697",
+      "url": "https://europepmc.org/article/PMC/PMC5792697",
+      "also_called": [
+        "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews."
+      ],
+      "access": {
+        "landing_pdf": {
+          "page": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5792697/fullTextXML",
+          "page_domain": "ebi.ac.uk",
+          "psl_version": "2026-11-25_10-02-46_UTC",
+          "candidates": [],
+          "from": "PDF links passing the title rule",
+          "outcome": "refused: no PDF link passing the title rule on the page's registrable domain (ebi.ac.uk)",
+          "route": "landing page PDF link",
+          "on": "2026-11-27"
+        },
+        "open_copies": {
+          "route": "open copy via OpenAlex",
+          "doi": "10.2196/mhealth.8873",
+          "found": [
+            {
+              "where": "JMIR mhealth and uhealth",
+              "host_type": "journal",
+              "url": "https://mhealth.jmir.org/2018/1/e23/PDF",
+              "version": "publishedVersion",
+              "is_oa": true,
+              "licence": "cc-by",
+              "licence_from": "OpenAlex location record",
+              "permitted": true,
+              "why": "a copy under a Creative Commons licence, cc-by (copy rule b)"
+            },
+            {
+              "where": "Europe PMC (PubMed Central)",
+              "host_type": "repository",
+              "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/5792697",
+              "version": "publishedVersion",
+              "is_oa": true,
+              "licence": "cc-by",
+              "licence_from": "OpenAlex location record",
+              "permitted": true,
+              "why": "a repository copy, free to read (copy rule a)"
+            },
+            {
+              "where": "PubMed Central",
+              "host_type": "repository",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5792697/",
+              "version": "publishedVersion",
+              "is_oa": true,
+              "licence": "cc-by",
+              "licence_from": "OpenAlex location record",
+              "permitted": true,
+              "why": "a repository copy, free to read (copy rule a)"
+            },
+            {
+              "where": "PubMed",
+              "host_type": "repository",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29343463",
+              "version": "publishedVersion",
+              "is_oa": false,
+              "licence": "none stated",
+              "licence_from": "OpenAlex location record",
+              "permitted": false,
+              "why": "not free to read (OpenAlex is_oa false)"
+            },
+            {
+              "where": "DOAJ (DOAJ: Directory of Open Access Journals)",
+              "host_type": "repository",
+              "url": "https://doaj.org/article/438ec5210ec64bb6a1b4450ca0ef15d4",
+              "version": "submittedVersion",
+              "is_oa": false,
+              "licence": "none stated",
+              "licence_from": "OpenAlex location record",
+              "permitted": false,
+              "why": "not free to read (OpenAlex is_oa false)"
+            }
+          ],
+          "tried": [
+            {
+              "url": "https://mhealth.jmir.org/2018/1/e23/PDF",
+              "where": "JMIR mhealth and uhealth",
+              "robots": "robots.txt allows it",
+              "tdm": "no tdmrep.json (HTTP 404)",
+              "result": "not the document: nothing in these bytes identifies them as this document (0 of 6 title words, no DOI/PMID/NCT match)"
+            },
+            {
+              "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/5792697",
+              "where": "Europe PMC (PubMed Central)",
+              "robots": "robots.txt disallows it",
+              "result": "not fetched: robots.txt disallows it"
+            },
+            {
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5792697/",
+              "where": "PubMed Central",
+              "robots": "robots.txt allows it",
+              "tdm": "no tdmrep.json (HTTP 404)",
+              "result": "not the document: nothing in these bytes identifies them as this document (0 of 6 title words, no DOI/PMID/NCT match)"
+            }
+          ],
+          "outcome": "3 permitted open copies listed, none could be held",
+          "on": "2026-11-27"
+        },
+        "rescue": {
+          "landing": "tried",
+          "open_copy": "tried",
+          "on": "2026-11-27"
+        },
+        "state": "abstract_held",
+        "held": {
+          "file": "docs/45/456a9cd3068b4ccf70671b02ec512bcff3d05516a6b95db2f05c5e1ce02947d7.xml",
+          "sha256": "456a9cd3068b4ccf70671b02ec512bcff3d05516a6b95db2f05c5e1ce02947d7",
+          "bytes": 107654,
+          "identified_by": "contains its identifier PMC5792697 — 51106 characters, abstract present but no reference list or discussion — this is the abstract, not the paper; title present (7 of 7 title words in the visible text)",
+          "kind": "abstract",
+          "kind_why": "51106 characters, abstract present but no reference list or discussion — this is the abstract, not the paper"
+        },
+        "on": "2026-11-27",
+        "not_held": {
+          "line": "could_not_hold",
+          "why": "not fetched"
+        }
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC5792697",
+          "PubMed PMID 29343463",
+          "Crossref 10.2196/mhealth.8873"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC5792697, PMID 29343463, DOI 10.2196/mhealth.8873",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC5792697",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 29343463",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 29343463",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.2196/mhealth.8873",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.2196/mhealth.8873 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    },
+    {
+      "id": "S008",
+      "type": "review",
+      "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review.",
+      "year": 2025,
+      "container": "Cureus",
+      "authors": "Khormi",
+      "used_for": "2025 systematic review and meta-analysis of clinician-facing reminder systems for preventive care in primary care settings.",
+      "proposed_by": "orchestrator discover step",
+      "proposed": {
+        "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review",
+        "first_author": "Khormi",
+        "year": 2025
+      },
+      "identity_lookup": [
+        {
+          "registry": "Europe PMC",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "matched",
+          "matched": true
+        },
+        {
+          "registry": "PubMed",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "summaries",
+          "matched": true
+        },
+        {
+          "registry": "Crossref",
+          "asked": "title",
+          "answered": true,
+          "record": "found",
+          "why": "10 candidate(s)",
+          "matched": true
+        }
+      ],
+      "doi": "10.7759/cureus.108442",
+      "registry": "europepmc",
+      "registry_record": {
+        "registry": "europepmc",
+        "authors": [
+          "Khormi MA",
+          "Alqahtani MA",
+          "Mujayri HM",
+          "Alzahrani AO",
+          "Alqarni GA",
+          "Alshehri RA",
+          "Alaklabi SS",
+          "Alharthi AW",
+          "Alharthi AO",
+          "Alharthi AO",
+          "Alshahrani AF",
+          "Zughlul MK"
+        ],
+        "year": 2026,
+        "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review.",
+        "container": "Cureus"
+      },
+      "pmid": "42255855",
+      "pmcid": "PMC13242270",
+      "url": "https://europepmc.org/article/PMC/PMC13242270",
+      "also_called": [
+        "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obe"
+      ],
+      "access": {
+        "state": "full_text_held",
+        "held": {
+          "file": "docs/0e/0e40063cc2601ef63f56b74c3fa4b122541683741ef930c4f5470a1df1f8a0f3.xml",
+          "sha256": "0e40063cc2601ef63f56b74c3fa4b122541683741ef930c4f5470a1df1f8a0f3",
+          "bytes": 63813,
+          "identified_by": "contains its identifier PMC13242270 — 35281 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text)",
+          "kind": "full_text",
+          "kind_why": "35281 characters, reference list and discussion/introduction present"
+        },
+        "on": "2026-11-27"
+      },
+      "form": "article",
+      "retraction_check": {
+        "retracted": false,
+        "concern": false,
+        "why": [],
+        "answered": [
+          "Europe PMC PMCID PMC13242270",
+          "PubMed PMID 42255855",
+          "Crossref 10.7759/cureus.108442"
+        ],
+        "registries": [
+          {
+            "registry": "Europe PMC",
+            "asked": "PMCID PMC13242270, PMID 42255855, DOI 10.7759/cureus.108442",
+            "answered": true,
+            "record": "found",
+            "why": "Europe PMC PMCID PMC13242270",
+            "findings": []
+          },
+          {
+            "registry": "PubMed",
+            "asked": "PMID 42255855",
+            "answered": true,
+            "record": "found",
+            "why": "matched on PMID 42255855",
+            "findings": []
+          },
+          {
+            "registry": "Crossref",
+            "asked": "DOI 10.7759/cureus.108442",
+            "answered": true,
+            "record": "found",
+            "why": "matched on DOI 10.7759/cureus.108442 at Crossref",
+            "findings": []
+          }
+        ],
+        "state": "checked",
+        "checkable": true,
+        "status_from": [
+          "Europe PMC",
+          "PubMed",
+          "Crossref"
+        ],
+        "corrections": [],
+        "on": "2026-11-27"
+      }
+    }
+  ],
+  "search": {
+    "searched": [
+      "web search: mobile phones tablets clinical decision support reminders primary health care systematic review",
+      "web search: mHealth electronic decision support patient reminders primary care outcomes systematic review",
+      "web search: WHO guideline digital interventions health system strengthening 2019",
+      "web search: targeted client communication mobile devices primary health care Cochrane review Tamrat",
+      "web search: Effectiveness single-component clinician reminder systems smoking obesity primary care systematic review 2025 PubMed",
+      "web search: mHealth interventions systematic review systematic reviews Beratarrechea JMIR 2018",
+      "web search: Palmer \"targeted client communication via mobile devices\" maternal neonatal child health Cochrane 2020 CD013679",
+      "web search: Agarwal 2025 \"digital tracking\" \"targeted client communication\" Cochrane CD012925 pub2",
+      "registry: Europe PMC",
+      "registry: PubMed",
+      "registry: Crossref"
+    ],
+    "not_searched": [
+      "trial registries",
+      "Crossref",
+      "MEDLINE, Embase and CENTRAL directly",
+      "national guidelines"
+    ]
+  },
+  "unresolved_proposals": [],
+  "not_of_a_type": []
+}

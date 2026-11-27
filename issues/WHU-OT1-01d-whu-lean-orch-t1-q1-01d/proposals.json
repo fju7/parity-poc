@@ -1,0 +1,121 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "first_author": "Agarwal",
+      "year": 2025,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40193137/",
+      "why": "Most recent Cochrane review (pub2) directly answering the question: tracking + CDSS + TCC via mobile devices in primary care."
+    },
+    {
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings",
+      "first_author": "Agarwal",
+      "year": 2021,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD012944.pub2/full",
+      "why": "Cochrane review of mobile CDSS (checklists, protocols, risk tools) used by primary healthcare workers; 8 studies included."
+    },
+    {
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health",
+      "first_author": "Palmer",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32813276/",
+      "why": "Cochrane review of SMS/voice reminders to clients for MNCH outcomes; directly addresses patient-reminder component of the question."
+    },
+    {
+      "title": "Targeted client communication via mobile devices for improving sexual and reproductive health",
+      "first_author": "Palmer",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.researchgate.net/publication/343606550_Targeted_client_communication_via_mobile_devices_for_improving_sexual_and_reproductive_health",
+      "why": "Cochrane review of mobile TCC for sexual/reproductive health; complements MNCH review on patient reminder effects."
+    },
+    {
+      "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis",
+      "first_author": "Ames",
+      "year": 2019,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6791116/",
+      "why": "Qualitative synthesis of patient perspectives on mobile reminder/communication programmes; informs acceptability and implementation."
+    },
+    {
+      "title": "WHO guideline: recommendations on digital interventions for health system strengthening",
+      "first_author": "World Health Organization",
+      "year": 2019,
+      "container": "World Health Organization",
+      "type": "guideline",
+      "url": "https://iris.who.int/items/df396062-86b0-41c4-94c7-6e04e341bce2",
+      "why": "First WHO evidence-based guideline recommending digital tracking + CDSS and TCC via mobile devices for primary health care."
+    },
+    {
+      "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews",
+      "first_author": "Marcolino",
+      "year": 2018,
+      "container": "JMIR mHealth and uHealth",
+      "type": "review",
+      "url": "https://mhealth.jmir.org/2018/1/E23",
+      "why": "Umbrella review of 23 systematic reviews (371 studies) on mHealth effectiveness across conditions and care processes."
+    },
+    {
+      "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review",
+      "first_author": "Khormi",
+      "year": 2025,
+      "container": "Cureus",
+      "type": "review",
+      "url": "https://www.cureus.com/articles/491606-effectiveness-of-single-component-clinician-reminder-systems-for-smoking-and-obesity-preventive-care-in-primary-care-a-systematic-review",
+      "why": "2025 systematic review and meta-analysis of clinician-facing reminder systems for preventive care in primary care settings."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "mobile phones tablets clinical decision support reminders primary health care systematic review",
+      "mHealth electronic decision support patient reminders primary care outcomes systematic review",
+      "WHO guideline digital interventions health system strengthening 2019",
+      "targeted client communication mobile devices primary health care Cochrane review Tamrat",
+      "Effectiveness single-component clinician reminder systems smoking obesity primary care systematic review 2025 PubMed",
+      "mHealth interventions systematic review systematic reviews Beratarrechea JMIR 2018",
+      "Palmer \"targeted client communication via mobile devices\" maternal neonatal child health Cochrane 2020 CD013679",
+      "Agarwal 2025 \"digital tracking\" \"targeted client communication\" Cochrane CD012925 pub2"
+    ],
+    "domains": [
+      "cochranelibrary.com",
+      "fhi.brage.unit.no",
+      "epoc.cochrane.org",
+      "arxiv.org",
+      "pure.johnshopkins.edu",
+      "cdn.clinicaltrials.gov",
+      "ncbi.nlm.nih.gov",
+      "researchgate.net",
+      "doi.org",
+      "pmc.ncbi.nlm.nih.gov",
+      "sciencedirect.com",
+      "pubmed.ncbi.nlm.nih.gov",
+      "iris.who.int",
+      "pmnch.who.int",
+      "who.int",
+      "researchonline.lshtm.ac.uk",
+      "africaevidencenetwork.org",
+      "cochrane.org",
+      "cureus.com",
+      "s3-ap-southeast-2.amazonaws.com",
+      "link.springer.com",
+      "mhealth.jmir.org",
+      "semanticscholar.org",
+      "ngdc.cncb.ac.cn",
+      "ouci.dntb.gov.ua",
+      "clinicaltrials.gov",
+      "formative.jmir.org",
+      "winshipcancer.emory.edu",
+      "lilylink.com"
+    ]
+  },
+  "sha256": "db3f3f05df4e3d6bf7fcd5822cca3e8392fbb47348ac942826a9d05290e6065b"
+}

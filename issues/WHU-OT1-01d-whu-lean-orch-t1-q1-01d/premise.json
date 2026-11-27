@@ -1,0 +1,129 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Giving health workers phone or tablet apps to track each patient's care, with prompts telling them what to do next, and texting patients reminders, clearly makes primary care better. More people get vaccinated, attend antenatal visits and take their medicines, so health outcomes improve. It's a cheap, proven fix, especially in low-resource settings.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "outlet_unverified": {
+      "sentence": "We could not verify where this belief is published.",
+      "proposed": 3,
+      "rounds": [
+        {
+          "round": 1,
+          "proposed": 3,
+          "verified": 0
+        }
+      ],
+      "refused": [
+        "IntraHealth International (https://www.intrahealth.org/vital/msakhi-pictures): the page has 10 of the belief's 34 key words (needs 21)",
+        "IntraHealth International (https://intrahealth.org/news/mhealth-tool-keeping-central-american-clients-connected-hiv-care-amid-c): the page has 8 of the belief's 34 key words (needs 21)",
+        "PATH (https://www.path.org/our-impact/articles/universal-health-coverage-depends-digital/): the page has 12 of the belief's 34 key words (needs 21)"
+      ],
+      "by": "code: no proposed outlet verified (a model's proposals, checked by code)",
+      "at": "2026-11-27T01:34:30+00:00"
+    }
+  },
+  "what_the_sources_show": {
+    "statement": "The held sources show that targeted messages to pregnant women and parents may improve some people's health and use of services while others may make little or no difference, and that the existing evidence is mostly of low or very low certainty.",
+    "sources": [
+      "S003"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-27T01:35:25+00:00",
+    "evidence": {
+      "source": "S003",
+      "offsets": [
+        9052,
+        9248
+      ],
+      "span_sha256": "b9a9014b435e13f8ed429ef9ab3f940890b13357381fdac5be6f3fb882c89bae"
+    }
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-27T01:35:25+00:00",
+    "evidence": {
+      "source": "S003",
+      "offsets": [
+        9052,
+        9186
+      ],
+      "span_sha256": "e081d3ff1f5338a225ef99106ddce7d9d758ae5fabbb207fe294c667177b56a7"
+    },
+    "why": "The belief says these tools clearly and provenly improve care and outcomes, but the review finds benefits only for some messages and some people, with others showing little or no difference."
+  },
+  "reader_with_a_decision": "A ministry of health, donor or NGO programme manager deciding whether to fund and scale up a digital tracking system with provider decision support and/or SMS client reminders for primary care, versus spending the same money on staff, supplies or other interventions.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "The randomised trials and the systematic reviews that pool them show consistent, clinically meaningful improvements in both care delivery (e.g., adherence to guidelines, service uptake, follow-up) and patient health outcomes, rated at moderate-to-high certainty, across the combinations of digital tracking plus decision support, digital tracking plus targeted client communication, and both. That would match the belief and leave no story.",
+  "kill_condition_tested": {
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "on": "2026-11-27",
+    "result": "survived",
+    "note": "The kill condition needed consistent, clinically meaningful improvements rated at moderate-to-high certainty across the intervention combinations, but the passages report mostly low or very low certainty evidence with mixed effects, and S001 notes large heterogeneity in which outcomes were measured ",
+    "evidence": {
+      "source": "S003",
+      "offsets": [
+        9187,
+        9248
+      ],
+      "span_sha256": "27f22d80f9260e58a81f33bb032fd1e20d75dd79d06024cd701c32653ee4fb1d"
+    },
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Primary health care settings where health workers use mobile devices (phones, tablets) to digitally track individual patients' health status and services received, combined with on-screen decision support for providers, targeted reminder or communication messages to clients, or both. Outcomes cover quality and coverage of care received (e.g., guideline adherence, service uptake, timeliness, follow-up) and patient health outcomes, plus any reported unintended consequences, compared with usual care or paper-based tracking.",
+    "out": [
+      {
+        "what": "Whether SMS reminders alone, without digital tracking of patients, improve adherence or attendance",
+        "why": "Standalone client messaging is a different intervention with its own evidence base. The question concerns tracking combined with prompts or reminders."
+      },
+      {
+        "what": "Hospital electronic health records and clinical decision support in secondary or tertiary care",
+        "why": "The question is limited to primary health care and mobile devices."
+      },
+      {
+        "what": "Telemedicine, remote consultations and provider-to-provider mobile communication",
+        "why": "These are different digital health functions from tracking plus decision support or client reminders."
+      },
+      {
+        "what": "Cost-effectiveness and implementation costs of scaling mHealth systems",
+        "why": "The question asks whether care and health improve, not whether the intervention is affordable or value for money. Economic evidence would need separate treatment."
+      },
+      {
+        "what": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+        "why": "These are qualitative and ethical questions about feasibility, not effectiveness on care and health outcomes."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T01:23:27+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Effect estimates from randomised and cluster-randomised trials comparing mobile digital tracking plus decision support and/or targeted client communication against usual care. Examples are risk ratios or mean differences for service uptake (immunisation completion, antenatal or postnatal visits, treatment adherence), provider adherence to clinical guidelines, and health outcomes (e.g., morbidity, mortality, disease control markers), along with any measured adverse or unintended effects.",
+    "assessed": "A systematic review's GRADE certainty ratings (high, moderate, low, very low) for each outcome and intervention combination. These reflect risk of bias, inconsistency, imprecision, indirectness across settings, and publication bias, together with the review authors' overall judgement of whether the intervention probably, may or may not improve care and health.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T01:23:27+00:00"
+  }
+}

@@ -1,0 +1,271 @@
+{
+ "units": [],
+ "declarations": {
+  "S003@3107-3345": {
+   "state": "not_material",
+   "reason": "The finding only describes the delivery channels used in the included interventions (mostly text messages). It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:35:39+00:00"
+  },
+  "S003@3346-3721": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication by mobile device versus standard care, with no digital tracking of patients. Standalone client messaging is excluded by the scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders alone, without digital tracking of patients, improve adherence or attendance",
+   "decided_at": "2026-11-27T01:35:46+00:00"
+  },
+  "S003@4889-5021": {
+   "state": "not_material",
+   "reason": "The finding only says no studies reported outcomes for one comparison (TCCMD vs non-targeted digital communication). It is an evidence gap that does not change the answer on tracking plus prompts versus usual care.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:36:08+00:00"
+  },
+  "S003@6401-6464": {
+   "state": "not_material",
+   "reason": "The finding is a vague statement that effects on unspecified 'other outcomes' are unknown for lack of studies. It names no outcome and changes nothing about the answer on care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:36:39+00:00"
+  },
+  "S003@7046-7240": {
+   "state": "not_material",
+   "reason": "Low-certainty, imprecise result (CI spans benefit and harm) from a comparison with non-targeted digital messaging, not usual care. It would not change the page's conclusions on the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:36:55+00:00"
+  },
+  "S001@4356-4477": {
+   "state": "not_material",
+   "reason": "The finding is only a note that results come from randomised studies and a key to certainty wording. It reports no result about care or health outcomes, so there is nothing to add.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:37:03+00:00"
+  },
+  "S002@4748-4864": {
+   "state": "not_material",
+   "reason": "The finding only describes who used digital decision support (types of providers). It reports no effect on care or health, so it would not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:37:30+00:00"
+  },
+  "S002@4865-5021": {
+   "state": "not_material",
+   "reason": "The finding only describes which conditions the included studies addressed (cardiovascular, gastrointestinal risk, maternal and child health). It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:37:31+00:00"
+  },
+  "S002@6106-6221": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns patient acceptability and satisfaction, which the scope explicitly excludes as a feasibility question rather than an effect on care received or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:37:46+00:00"
+  },
+  "S004@3191-3463": {
+   "state": "out_of_scope",
+   "reason": "The finding describes delivery channels of messaging interventions for adolescents, mostly text messages alone, without digital patient tracking, so it falls under standalone SMS reminders, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders alone, without digital tracking of patients, improve adherence or attendance",
+   "decided_at": "2026-11-27T01:37:52+00:00"
+  },
+  "S004@3464-3746": {
+   "state": "not_material",
+   "reason": "The finding only describes the delivery channels (text messages, voice calls, etc.) used in the included interventions. It reports no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:37:54+00:00"
+  },
+  "S004@3747-3930": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication by mobile device alone, with no digital tracking of patients. It reports sexual health knowledge in adolescents, which is standalone messaging, not tracking combined with prompts.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders alone, without digital tracking of patients, improve adherence or attendance",
+   "decided_at": "2026-11-27T01:38:01+00:00"
+  },
+  "S004@4173-4246": {
+   "state": "not_material",
+   "reason": "The finding only says evidence is missing for two narrow outcomes, abortion and STI rates. It adds no effect estimate and would not change the page's conclusion on care quality or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:38:14+00:00"
+  },
+  "S004@4247-4489": {
+   "state": "out_of_scope",
+   "reason": "The finding compares mobile targeted client messaging with non-digital messaging such as pamphlets, with no digital patient tracking. That is standalone client messaging, which the scope excludes, and the finding only reports a lack of studies.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders alone, without digital tracking of patients, improve adherence or attendance",
+   "decided_at": "2026-11-27T01:38:20+00:00"
+  },
+  "S004@4968-5054": {
+   "state": "not_material",
+   "reason": "The finding only says abortion rates and ART adherence effects are unknown for lack of studies. It reports an evidence gap on peripheral outcomes and does not change the page's answer on care and health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:38:34+00:00"
+  },
+  "S004@6689-6864": {
+   "state": "not_material",
+   "reason": "The finding only reports that no studies measured certain outcomes (STI rates, condom use, ART adherence, etc.) for one comparison. It states no effect and does not change the answer to the question.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:39:12+00:00"
+  },
+  "S005@4078-4285": {
+   "state": "out_of_scope",
+   "reason": "The finding describes studies exploring views of people who experienced or hypothetically imagined digital interventions, which is qualitative evidence on acceptability and experiences, not effectiveness on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:20+00:00"
+  },
+  "S005@4286-4517": {
+   "state": "not_material",
+   "reason": "The finding only describes the kinds of client communication in the studies. It reports no result, so it does not change the answer to whether tracking plus prompts improves care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:39:22+00:00"
+  },
+  "S005@4518-4605": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' experiences of the programmes, a qualitative acceptability question the scope excludes rather than an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:24+00:00"
+  },
+  "S005@4606-4802": {
+   "state": "out_of_scope",
+   "reason": "The finding reports patients' feelings of support from receiving messages, which is an experiential and acceptability matter, not an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:26+00:00"
+  },
+  "S005@4803-4896": {
+   "state": "out_of_scope",
+   "reason": "The finding is a qualitative report of how patients experienced and used the messages, not an effect on care received or health outcomes. That falls under patient experiences.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:30+00:00"
+  },
+  "S005@4897-4967": {
+   "state": "out_of_scope",
+   "reason": "The finding only says clients reported unspecified problems using the programmes. That is client experience and acceptability, not effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:33+00:00"
+  },
+  "S005@4968-5052": {
+   "state": "not_material",
+   "reason": "The finding is a feasibility and context barrier on network access. It does not change whether tracking with prompts or reminders improves care or health, which is what the page answers.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:39:40+00:00"
+  },
+  "S005@5053-5188": {
+   "state": "out_of_scope",
+   "reason": "The finding describes patients' barriers to receiving messages (no phone, no airtime, changed number). These are qualitative feasibility and experience issues, not effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:45+00:00"
+  },
+  "S005@5189-5307": {
+   "state": "out_of_scope",
+   "reason": "The finding is a qualitative feasibility and experience observation about who controls phone access, not an effect on care or health outcomes, so it falls under the excluded acceptability and experiences entry.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:51+00:00"
+  },
+  "S005@5308-5428": {
+   "state": "out_of_scope",
+   "reason": "The finding reports people's views that messages should be free, a qualitative acceptability and experience concern rather than an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:55+00:00"
+  },
+  "S005@5429-5554": {
+   "state": "out_of_scope",
+   "reason": "The finding is about barriers to use, such as language and literacy or phone skills. That is a feasibility and experience issue, not an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:39:58+00:00"
+  },
+  "S005@5555-5737": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns clients' privacy and confidentiality concerns, which the scope excludes as acceptability, experiences and data privacy questions rather than effectiveness on care and health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:00+00:00"
+  },
+  "S005@5738-5909": {
+   "state": "out_of_scope",
+   "reason": "The finding reports clients' suggested strategies for message-related problems, such as neutral wording and tailoring. That is about client experiences and acceptability, not effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:04+00:00"
+  },
+  "S005@5910-6009": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns client preferences for message timing and frequency, which is an acceptability and experience matter rather than an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:05+00:00"
+  },
+  "S005@6010-6150": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns preferences for message delivery channels (SMS vs voice), a question of user acceptability and experience rather than effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:07+00:00"
+  },
+  "S005@6151-6305": {
+   "state": "out_of_scope",
+   "reason": "The finding reports client preferences about message content, a qualitative acceptability and experience matter rather than an effect on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:10+00:00"
+  },
+  "S005@6306-6436": {
+   "state": "out_of_scope",
+   "reason": "The finding is about clients' views of who sent a digital communication, a matter of client perceptions and acceptability rather than effects on care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:12+00:00"
+  },
+  "S005@6437-6561": {
+   "state": "not_material",
+   "reason": "The finding only points readers to 'Summary of qualitative findings' tables and states no substantive result about care or health outcomes, so there is nothing material to add.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:40:13+00:00"
+  },
+  "S005@6562-6736": {
+   "state": "not_material",
+   "reason": "The finding is vague: it does not say which 'problems' trials failed to address, and it may only reflect reporting. It says nothing about effects on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:40:16+00:00"
+  },
+  "S005@6758-6913": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns factors influencing implementation success, which are feasibility and experience questions rather than effects on care and health outcomes, and they fall within the excluded acceptability and experiences entry.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' acceptability, experiences and data privacy concerns",
+   "decided_at": "2026-11-27T01:40:19+00:00"
+  },
+  "S005@6975-7076": {
+   "state": "not_material",
+   "reason": "The finding is a generic recommendation to planners with no stated result, population, or effect on care or health outcomes, so it adds nothing the page needs to state.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:40:24+00:00"
+  },
+  "S005@7077-7198": {
+   "state": "not_material",
+   "reason": "The finding is a methodological recommendation to future trial authors about reporting. It makes no claim about whether the intervention improves care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T01:40:26+00:00"
+  }
+ }
+}
