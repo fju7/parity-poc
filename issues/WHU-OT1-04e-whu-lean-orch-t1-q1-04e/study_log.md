@@ -12,3 +12,10 @@
 | premise_reading (orchestrator) | 2026-11-27T17:11:19+00:00 | 2026-11-27T17:11:31+00:00 | $0.0446 | 0 | sources show verified; direction narrows; kill condition survived |
 | coverage (orchestrator) | 2026-11-27T17:11:31+00:00 | 2026-11-27T17:13:33+00:00 | $0.0279 | 0 | 6 coverage decision(s), 0 left in scope |
 | corrections_3b (orchestrator) | 2026-11-27T17:13:33+00:00 | 2026-11-27T17:15:02+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-27T17:15:02+00:00 | 2026-11-27T17:17:05+00:00 | $0.0000 | 0 | committed 1e9d3e08a75e |
+| gate (orchestrator) | 2026-11-27T17:17:05+00:00 | 2026-11-27T17:18:40+00:00 | $0.8267 | 0 | done |
+| advocate (orchestrator) | 2026-11-27T17:18:40+00:00 | 2026-11-27T17:23:42+00:00 | $0.8807 | 0 | 0 record(s) applied |
+| omissions (orchestrator) | 2026-11-27T17:23:42+00:00 | 2026-11-27T17:28:04+00:00 | $0.4647 | 0 | 6 record(s) applied |
+| findings (orchestrator) | 2026-11-27T17:28:04+00:00 | 2026-11-27T17:29:38+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| conclusions (orchestrator) | 2026-11-27T17:29:38+00:00 | 2026-11-27T17:31:11+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| audit (orchestrator) | 2026-11-27T17:31:12+00:00 | 2026-11-27T17:35:29+00:00 | $0.7714 | 0 | FAILED: RunStop: audit: references still point at nothing after the dangling ruling |

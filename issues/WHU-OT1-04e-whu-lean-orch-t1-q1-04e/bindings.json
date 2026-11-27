@@ -79,7 +79,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         370876,
         371620
@@ -94,6 +94,11 @@
             112214
           ]
         }
+      ],
+      "off_page_by": "ruling:rulings/rulings.jsonl:184",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "8ca18f199087f568"
       ]
     },
     "6066c0cff111eaf4": {
@@ -1660,7 +1665,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:1",
+      "left_page": "2026-11-27"
     },
     "6fd42701fd5a5b19": {
       "sentence": "Equally well supported is that removal complements deep emission cuts rather than replacing them.",
@@ -1681,7 +1688,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:2",
+      "left_page": "2026-11-27"
     },
     "46122b99b3d9fae9": {
       "sentence": "Gross emission reductions deliver over 80% of net reductions until net zero CO2 in the assessed pathways.",
@@ -1702,7 +1711,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:3",
+      "left_page": "2026-11-27"
     },
     "a7c8ee6c4c1ededc": {
       "sentence": "Today removal is mostly land-based and modest in scale.",
@@ -1723,7 +1734,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:4",
+      "left_page": "2026-11-27"
     },
     "2a0a9c28d2047d76": {
       "sentence": "In this decade, its main modelled contribution comes through halting deforestation and expanding conventional land-based removal.",
@@ -1744,7 +1757,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:5",
+      "left_page": "2026-11-27"
     },
     "fd6e02c586a06da7": {
       "sentence": "The larger role for removal lies in the decades ahead, when modelled pathways scale novel methods to gigatonne levels.",
@@ -1765,7 +1780,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:6",
+      "left_page": "2026-11-27"
     },
     "b6c9476cd1fea4bc": {
       "sentence": "In those pathways, removal balances residual emissions, enables net negative CO2 and potentially reverses temperature exceedance.",
@@ -1786,7 +1803,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:7",
+      "left_page": "2026-11-27"
     },
     "edfc3b3bcb218e16": {
       "sentence": "These future volumes come from scenarios, and the sources describe novel methods as nascent.",
@@ -1807,7 +1826,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:8",
+      "left_page": "2026-11-27"
     },
     "7734668f81010242": {
       "sentence": "The sources also describe national proposals as falling short and governance as still developing.",
@@ -1828,7 +1849,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:9",
+      "left_page": "2026-11-27"
     },
     "f7cadded146b8614": {
       "sentence": "Delaying emission cuts raises reliance on these unproven technologies.",
@@ -1849,7 +1872,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T173112Z/rulings.jsonl:10",
+      "left_page": "2026-11-27"
     },
     "4f40dad770ad15eb": {
       "sentence": "We found Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal) but could not hold it, so nothing on this page draws on it.",
@@ -3019,6 +3044,204 @@
         4245
       ],
       "declaration_key": "S005@4055-4285"
+    },
+    "35ac5f84bd436e6b": {
+      "sentence": "The IPCC finds, with high confidence, that in addition to deep, rapid, and sustained emission reductions, CDR can fulfil three complementary roles: lowering net CO2 or net GHG emissions in the near term; counterbalancing ‘hard-to-abate’ residual emissions (e.g., some emissions from agriculture, aviation, shipping, industrial processes) to help reach net zero CO2 or GHG emissions; and achieving net negative CO2 or GHG emissions if deployed at levels exceeding annual residual emissions [2].",
+      "sentence_sha": "35ac5f84bd436e6b",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@381515",
+      "span": "In addition to deep, rapid, and sustained emission reductions, CDR can fulfil three complementary roles: lowering net CO2 or net GHG emissions in the near term; counterbalancing ‘hard-to-abate’ residual emissions (e.g., some emissions from agriculture, aviation, shipping, industrial processes) to help reach net zero CO2 or GHG emissions, and achieving net negative CO2 or GHG emissions if deployed at levels exceeding annual residual emissions (high confidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        381515,
+        381979
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "7368cc98f019362b": {
+      "sentence": "However, the same analysis finds that the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions [3].",
+      "sentence_sha": "7368cc98f019362b",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "72487ab4cf2d9848246e6e1c33b71c88e3a1f02ffc7455bc20312815280709bd",
+      "locator_type": "prose",
+      "locator": "passage S003@2145",
+      "span": "However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        2145,
+        2323
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "40589f0e69d73907": {
+      "sentence": "By contrast, the authors find that \"the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions, implying that scenarios utilise land-based CDR regardless of the delay of emissions reductions elsewhere\" [4].",
+      "sentence_sha": "40589f0e69d73907",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "b492e7350ec433a32b085ce488eef9310ad1b83b9dff373d68dc59b256b9def9",
+      "locator_type": "prose",
+      "locator": "passage S004@10028",
+      "span": "We find that the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions, implying that scenarios utilise land-based CDR regardless of the delay of emissions reductions elsewhere. Conversely, we observe a strong signal both in the median and extreme values in the amount of novel CDR utilised in scenarios which have longer net emission halving times, showing scenarios’ dependence on future, unproven CDR technologies when net emissions reductions are delayed.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        10028,
+        10547
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "c90218d487540577": {
+      "sentence": "The analysis finds that conventional CDR on land tends to increase faster in scenarios with net zero CO2 timing between 2050 and 2075, while novel CDR increases faster in scenarios with net zero CO2 timing between 2075 and 2100 [4].",
+      "sentence_sha": "c90218d487540577",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "b492e7350ec433a32b085ce488eef9310ad1b83b9dff373d68dc59b256b9def9",
+      "locator_type": "prose",
+      "locator": "passage S004@10920",
+      "span": "Conventional CDR on land tends to increase faster in scenarios with net zero CO 2 timing between 2050 and 2075 (Fig. 1d ) while novel CDR increases faster in scenarios with net zero CO 2 timing between 2075 and 2100 (Fig. 1e ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        10920,
+        11147
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "d770b8396b49efa4": {
+      "sentence": "Beyond global net zero CO2, the authors find that \"CDR is the dominant mitigation option used in scenarios\" [4].",
+      "sentence_sha": "d770b8396b49efa4",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "b492e7350ec433a32b085ce488eef9310ad1b83b9dff373d68dc59b256b9def9",
+      "locator_type": "prose",
+      "locator": "passage S004@12119",
+      "span": "Beyond global net zero CO 2 , CDR is the dominant mitigation option used in scenarios.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        12119,
+        12205
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "51118002f00d665e": {
+      "sentence": "The same source, a systematic map of the scientific literature on CDR governance, reports that its results reveal \"significant gaps in the literature in terms of how to integrate CDR into climate governance, including a lack of ex-post policy evaluations, even for mature methods such as afforestation/reforestation, soil carbon sequestration and forest management\" [5].",
+      "sentence_sha": "51118002f00d665e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "11e88821d49d90413919b50ac435dcc9994fe9a8daa0be30d67b0851e101c7a7",
+      "locator_type": "prose",
+      "locator": "passage S005@12231",
+      "span": "Our results reveal significant gaps in the literature in terms of how to integrate CDR into climate governance, including a lack of ex-post policy evaluations, even for mature methods such as afforestation/reforestation, soil carbon sequestration and forest management.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        12231,
+        12500
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8ca18f199087f568": {
+      "sentence": "The cited assessment states with high confidence that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable for reaching net zero carbon dioxide (CO2) or net zero GHG emissions [2].",
+      "sentence_sha": "8ca18f199087f568",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@370876",
+      "span": "Emissions pathways that reach and sustain net zero GHG emissions defined by the 100-year global warming potential imply net negative CO2 emissions and are projected to result in a gradual decline in surface temperature after an earlier peak (high confidence). While reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions, the deployment of CDR to counterbalance hardto-abate residual emissions (e.g., some emissions from agriculture, aviation, shipping, and industrial processes) is unavoidable (high confidence). {WGI SPM D.1, WGI SPM D.1.1, WGI SPM D.1.8; WGIII SPM C.2, WGIII SPM C.3, WGIII SPM C.11, WGIII Box TS.6; SR1.5 SPM A.2.2} net zero GHG, counterbalanced by net negative CO2 emissions.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        370876,
+        371620
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "However, some hard-to-abate residual GHG emissions (e.g., some emissions from agriculture, aviation, shipping, and industrial processes) remain and would need to be counterbalanced by deployment of CDR methods to achieve net zero CO2 or GHG emissions (high confidence). As a result, net zero CO2 is reached earlier than net zero GHGs (high confidence). {3.3.2, 3.3.3, Table 3.1, Figure 3.5} (Figure SPM.5) B.6.3 Global modelled mitigation pathways reaching net zero CO2 and GHG emissions include transitioning from fossil fuels without carbon capture and storage (CCS) to very low- or zero-carbon energy sources, such as renewables or fossil fuels with CCS, demand-side measures and improving efficiency, reducing non-CO2 GHG emissions, and CDR47.",
+          "offsets": [
+            111467,
+            112214
+          ]
+        }
+      ]
     }
   }
 }

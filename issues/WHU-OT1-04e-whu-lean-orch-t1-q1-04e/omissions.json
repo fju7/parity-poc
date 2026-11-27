@@ -1,0 +1,231 @@
+{
+ "omissions": [
+  {
+   "key": "S003@-",
+   "source": "S003",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S003",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S003-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T17:24:59+00:00"
+  },
+  {
+   "key": "S005@-",
+   "source": "S005",
+   "held_sha256": null,
+   "at": null,
+   "quote_sha256": null,
+   "outcome": "NOT_IN_SOURCE",
+   "element": "",
+   "reason": "the quotation is not in the held text of S005",
+   "by": "code (omissions.precheck)",
+   "ruling": null,
+   "origins": [
+    "S005-15"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T17:24:59+00:00"
+  },
+  {
+   "key": "S002@111101-111289",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    111101,
+    111289
+   ],
+   "quote_sha256": "ebfb48ebf2cd4821feaa75a12e88df6008aee984b9a194c5eb7b52bdc0ea53af",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding says net zero primarily requires deep cuts in gross emissions, which bears directly on the role of removal 'alongside cutting emissions' in reaching net zero. Step 2 fails: the draft already states from the same source that '[S002@105511-105618]'. It also cites B.6 and B.6.1, under which all pathways involve [S002@115287-115326] [S002@400420-400468] finding's extra wording ('net zero CO2', 'rapid', 'gross') restates that same conclusion without changing what the reader would weigh about relying on removal versus cutting emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2b84bf284e2d7ae4",
+   "origins": [
+    "S002-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T17:25:16+00:00"
+  },
+  {
+   "key": "S002@371136-371436",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    371136,
+    371436
+   ],
+   "quote_sha256": "ed2b464951559ec051573ed8521651bcd5eb64cd6e63dcb6eb3b43f97dfff31f",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding concerns how much the net-zero pathways rely on removal, which falls squarely under the question's 'what part can removing carbon dioxide from the air play in reaching net zero.' Step 2 fails: the draft already states it. It says, with high confidence, that deploying CDR to counterbalance hard-to-abate residual emissions is unavoidable for [S002@371142-371189]. It also lists the example sectors (agriculture, aviation, shipping, industrial processes). The finding's remaining clause, that net zero '[S002@111150-111203],' is covered by the existing statements that net zero GHG primarily requires deep reductions and that pathways involve rapid and deep emissions reductions. The finding therefore adds nothing distinct for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e7500bf33f3f6350",
+   "origins": [
+    "S002-01"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T17:25:28+00:00"
+  },
+  {
+   "key": "S002@381515-381979",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    381515,
+    381979
+   ],
+   "quote_sha256": "cfa7132083f496f6ac629db542bd7a9f5db0f9b320c93696acb40a053c164a94",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding directly addresses what part removal can play 'alongside cutting emissions' in reaching net zero, 'now and in the decades ahead'. Step 2: The draft already covers counterbalancing residual emissions and achieving net negative emissions. It does not state CDR's near-term role in lowering net emissions. Nor does it frame the three roles as complementary to, and in addition to, deep emission cuts. Both bear on how a policymaker or company weighs removal against direct cuts over time, so the finding is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "2059bfe858560fd2",
+   "origins": [
+    "S002-02"
+   ],
+   "on_page": "35ac5f84bd436e6b",
+   "after": "6066c0cff111eaf4",
+   "decided_at": "2026-11-27T17:25:36+00:00"
+  },
+  {
+   "key": "S002@386015-386377",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    386015,
+    386377
+   ],
+   "quote_sha256": "11fb21cc7d1fbf7da5843a4a3aa5b3eeb148185472f612f093fb0991e08a6fc4",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding covers land-based and engineered removal methods (afforestation, BECCS, biochar) and their land and socio-economic risks, which the SCOPE lists under 'the main constraints and risks, namely cost, land and energy demand'. Step 2 fails: the draft already states this finding. Its paraphrase of B.6.4 says that afforestation or biomass crop production [S002@113104-113161] [S002@113173-113281] [S002@386327-386394]). It drops only the words 'for BECCS or biochar', which do not change the outcome, its limits or its confidence for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "807b31181c996918",
+   "origins": [
+    "S002-04"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T17:25:49+00:00"
+  },
+  {
+   "key": "S003@2145-2323",
+   "source": "S003",
+   "held_sha256": "731ab0615a56d41fa068a1bd9910d1355163b13a8d4c96e256d9d7745c4449bd",
+   "at": [
+    2145,
+    2323
+   ],
+   "quote_sha256": "4018c3b9eefe327d2565dda14a36b3e3e26dfe33505ce55fd5d543c7edd3c02c",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding compares proposed CDR with the levels in assessed pathways. That falls under the scope's 'the gap between current and required scale' and 'how much removal the assessed net-zero pathways rely on'. It is about national proposals in aggregate, not 'Country-by-country net-zero target adequacy', so no exclusion applies. Step 2: The draft already states the 'CDR gap' but not this qualification. The qualification is that the most ambitious proposals roughly match a scenario that pairs limited CDR scaling with low energy demand and aggressive near-term cuts. This narrows the gap claim and shows that how much CDR is needed depends on how fast emissions are cut. A policymaker weighing reliance on removal against direct cuts would weigh that.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "514995706db4ee7a",
+   "origins": [
+    "S003-05",
+    "S003-06"
+   ],
+   "on_page": "7368cc98f019362b",
+   "after": "a37e0f3c32b5c34f",
+   "decided_at": "2026-11-27T17:25:56+00:00"
+  },
+  {
+   "key": "S004@10028-10547",
+   "source": "S004",
+   "held_sha256": "a53310a94d2d3f0bb1874d9e94f01ddf782ca745514ecf48b81358ef158fa25e",
+   "at": [
+    10028,
+    10547
+   ],
+   "quote_sha256": "e142ee8ce702521f558605fcd8743ba01c47e146af040d49a4e638e5310ff92b",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears on how much removal net-zero pathways rely on, and when. It also bears on the risk of delaying cuts, both of which are named in SCOPE 'Covers'. Step 2: The draft already states the novel-CDR half: longer halving times bring more novel CDR, which shows dependence on unproven technologies. It does not state that land-based CDR stays largely constant whatever the delay. That contrast matters to a policymaker or credit buyer. It shows that delay shifts the extra burden onto unproven novel removal rather than land-based removal, and that land-based CDR is used in the pathways either way. So it narrows and qualifies the answer.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "392bc0c2525276bb",
+   "origins": [
+    "S004-10"
+   ],
+   "on_page": "40589f0e69d73907",
+   "after": "e5516c78f55fcf6e",
+   "decided_at": "2026-11-27T17:26:03+00:00"
+  },
+  {
+   "key": "S004@10920-11147",
+   "source": "S004",
+   "held_sha256": "a53310a94d2d3f0bb1874d9e94f01ddf782ca745514ecf48b81358ef158fa25e",
+   "at": [
+    10920,
+    11147
+   ],
+   "quote_sha256": "d7848cfb5be3da2cbc6cce68e344486b4b0e6ecb5a2aecfa5f51cd7f8da10e9e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: in scope. It bears on 'how much removal the assessed net-zero pathways rely on, and when' and on which removal methods they use. Step 2: material. The draft already says delayed net zero means more total CDR and more novel CDR. It does not say that the mix shifts with net-zero timing: conventional land CDR grows faster for 2050-2075 net zero, and novel CDR grows faster for 2075-2100. A policymaker or buyer choosing which removal types to rely on, and when, would weigh that shift.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a37d0f6af849b060",
+   "origins": [
+    "S004-11"
+   ],
+   "on_page": "c90218d487540577",
+   "after": "6b52ffc04516ae05",
+   "decided_at": "2026-11-27T17:26:10+00:00"
+  },
+  {
+   "key": "S004@12119-12205",
+   "source": "S004",
+   "held_sha256": "a53310a94d2d3f0bb1874d9e94f01ddf782ca745514ecf48b81358ef158fa25e",
+   "at": [
+    12119,
+    12205
+   ],
+   "quote_sha256": "514c4f8bbf692d6b6b4c803cf6f823c4898c52cda53a4e3b4b53042ae0e2fa0d",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns how much the assessed net-zero pathways rely on removal and when, which the SCOPE covers and which answers the question's 'in the decades ahead'. Step 2: the draft gives CDR's 15% share before net zero and some post-2050 OECD/EU shares, but it never says that CDR becomes the dominant mitigation option globally once net zero CO2 is reached. That is a distinct qualification of removal's long-term role, and a policymaker weighing reliance on removal would consider it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "36f586c17e6a05a9",
+   "origins": [
+    "S004-08",
+    "S004-09"
+   ],
+   "on_page": "d770b8396b49efa4",
+   "after": "056bc75ac1ba0eed",
+   "decided_at": "2026-11-27T17:26:13+00:00"
+  },
+  {
+   "key": "S005@12231-12500",
+   "source": "S005",
+   "held_sha256": "9fabe133488181b4d93d39429c3982090d0eb554e0a1a2e1449d2c62c812a677",
+   "at": [
+    12231,
+    12500
+   ],
+   "quote_sha256": "f81df514e6d19f5ec420b5d4d34c27ad663f7c47b4a457ab170af14681d8d4d5",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding bears on the role removal can play in reaching net zero. The SCOPE covers the main constraints on removal, and the draft already treats governance as a condition for scaling CDR. No out-of-scope entry applies: this is a literature-level evidence gap, not project credibility or national pledges. Step 2: a policymaker deciding how much to rely on, fund or credit CDR would weigh this. It qualifies the draft's statement that scaling CDR needs advances in policymaking and governance by showing how thin the evidence on policy effectiveness is, even for mature land-based methods. ALREADY does not state it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "34a153d5abc3c04c",
+   "origins": [
+    "S005-13"
+   ],
+   "on_page": "51118002f00d665e",
+   "after": "f44c283fe986a04b",
+   "decided_at": "2026-11-27T17:26:20+00:00"
+  }
+ ]
+}

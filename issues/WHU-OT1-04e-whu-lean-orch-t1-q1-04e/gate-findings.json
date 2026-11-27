@@ -1,0 +1,25 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f945c536c-rec-5",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "State of Carbon Dioxide Removal (background data source for current CDR levels) is SUPERSEDED: the draft uses Not cited directly, but the draft's figures for current total CDR (~2 GtCO2/yr, ~3% of net GHG emissions) and novel CDR (~2 MtCO2/yr) originate from the State of CDR 1st Edition (2023) and are reproduced via sources [4] and [5]. The draft's figure of ~2 MtCO2/yr for novel CDR and ~2 GtCO2/",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by title overlap (no author)): Our recency check (searched: ipcc.ch, civil-protection-knowledge-network.europa.eu, digitallibrary.un.org, cgspace.cgiar.org, brasil.un.org, researchgate.net, nature.com, researchsquare.com, sciencedaily.com, research-portal.uea.ac.uk, ora.ox.ac.uk, carbondioxide-removal.eu, carbonbrief.org, arxiv.org, pnnl.gov, profiles.imperial.ac.uk, publications.pik-potsdam.de, d-nb.info, scholar.google.com, ca1-clm.edcdn.com, frontiersin.org, balsilliepapers.ca, pmc.ncbi.nlm.nih.gov, cdrterra.de, pure.iiasa.ac.at, climate.gov, lse.ac.uk, scribd.com, stateofcdr.org, unfccc.int, enb.iisd.org, wcrp-climate.org, events.ecmwf.int, greencalculus.com, essd.copernicus.org, image-ppubs.uspto.gov, ncbi.nlm.nih.gov, swp-berlin.org, policycommons.net, cmcc.it, eurekalert.org, afen.fr, cdn.kapsarc.org, carbongap.org, smithschool.ox.ac.uk) could not establish whether The carbon dioxide removal gap has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "State of Carbon Dioxide Removal (background data source for current CDR levels)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "no author named; acronym CDR in no source"
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

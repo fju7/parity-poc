@@ -1,0 +1,679 @@
+{
+ "result": "Not Ready: audit: references still point at nothing after the dangling ruling",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T16:54:52+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (140 code files)"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T16:54:52+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T16:54:52+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T16:55:10+00:00",
+   "usd": 0.032
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T16:55:10+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "6fd62363614d71ddfe4dfbf4b1217873c74aa64c3cdd5b9b4b48a42fe1ee796f"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T16:55:40+00:00",
+   "usd": 0.5122
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T16:55:40+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "5 source(s), 3 unresolved proposal(s)"
+   },
+   "code_hash": "1260c9a12269de897e00601651e9d14eff1f2c7e5ef4da71d4847e88dee8b790",
+   "end": "2026-11-27T16:57:07+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T16:57:07+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-04e",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S002   f5258cf9434f                                    4913496 B  (contains 4 of 4 distinctive title words — form 'assessment summary' -- 648756 characters held, and it names the report it summarises; title present (4 of 4 title words in the visible text))\n  HELD     S003   72487ab4cf2d                                     377738 B  (contains 3 of 3 distinctive title words — 23165 characters, reference list and discussion present; title present (3 of 3 title words in the visible text))\n  HELD     S004   b492e7350ec4                                     362022 B  (contains 11 of 11 distinctive title words — 43692 characters, reference list and discussion/introduction present; title present (11 of 11 title words in the visible text))\n  HELD     S005   11e88821d49d                                     800816 B  (contains its identifier 10.3389/fclim.2024.1425971/full — 62288 characters, reference list and discussion/introduction present; title present (8 of 8 title words in the visible text))\n\n  held now: 4   failed: 1   skipped: 0\n\n  NOT HELD S001   Climate Change 2022: Mitigation of Climate Change – Chapter 12\n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n\n",
+     "proof": "proved: issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-04e",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            4 document(s) in the library, every hash matches\n  warn     sources we hold                  4 of 5 held — not held: S001\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-04e\n\n  S001   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S004   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S005   UNCHECKED    no registry record; retraction status not checkable (Europe PMC, PubMe\n\n  ok     sources checked for corrections        all 5 source(s) have had their bibliographic record read for errata\n  warn   correction lookups that failed         1 source(s) could not be looked up and are NOT known to be clean: S005\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S001\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-04e",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-04e-whu-lean-orch-t1-q1-04e — what can be swept at all\n\n    S003   doi   10.21203/rs.3.rs-3255532/v1        url/field The carbon dioxide removal gap\n    S004   doi   10.1038/s43247-024-01527-z         url/field Evaluating the near- and long-term r\n    S005   doi   10.3389/fclim.2024.1425971         url/field Governance of carbon dioxide removal\n\n  3 of 5 sweepable as held.\n\n  2 carry nothing that implies an identifier:\n\n    S001   assessmen Climate Change 2022: Mitigation of Climate Change – Chap\n    S002   assessmen Climate Change 2023: Synthesis Report\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-04e\n  ok      checks can read the documents      4 of 4 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "4 held, 1 not held",
+    "not_held": [
+     "S001"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S001": "could_not_hold"
+    }
+   },
+   "code_hash": "660563271f68dc7b566f48cd4748946ee7ceb692356da243c455918b7b007c37",
+   "end": "2026-11-27T16:59:59+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-27T16:59:59+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "67 sentences drafted from 67 passages"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T17:00:56+00:00",
+   "usd": 0.217164
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-27T17:00:56+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-04e",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  93 empirical sentence(s) on the page\n  -3 bound, 96 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "57 sentence(s) bound to their passages"
+   },
+   "code_hash": "8920ed16d2faecd82126aba6271982fee33330a37c3ea5cafbadbbdec68de860",
+   "end": "2026-11-27T17:01:26+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-27T17:01:26+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-04e",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.04 (the next candidate's bound $0.0432 (the highest of 624 same-config logged relevance ruling(s) ($0.0216) x 2), checked before every call; 110 candidate(s) in all x $0.0432 = $4.75, not reserved up front); $42.44 left today, $9.24 left on whu-lean-orch-t1-q1-04e\n  91 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/rulings/rulings.jsonl\n  consistency: re-ran 35 of 171 ruling(s) (seed 114068385391219): 35 of 35 usable pair(s) agree on decision and text; never applied\n  usd this run: 1.2131\n"
+    }
+   ],
+   "code": {
+    "outcome": "17 judgement(s) stated"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T17:09:44+00:00",
+   "usd": 1.301118
+  },
+  {
+   "step": "belief",
+   "start": "2026-11-27T17:09:44+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 outlet(s) verified of 3 proposed; the page says it could not verify where the belief is published",
+    "belief": {
+     "proposed": 3,
+     "verified": 0,
+     "rounds": [
+      {
+       "round": 1,
+       "proposed": 3,
+       "verified": 0
+      }
+     ],
+     "refused": [
+      "https://earthtimes.org/the-truth-about-carbon-capture-miracle-tech-or-mirage/: a wall (HTTP 403): not worked around",
+      "https://earth.org/explainer-the-vast-promise-and-uncertain-future-of-carbon-remo: a wall (HTTP 403): not worked around",
+      "https://www.abc.net.au/news/2022-08-11/net-zero-has-zero-chance-of-saving-us-fro: the page has 9 of the belief's 22 key words (needs 14)"
+     ]
+    }
+   },
+   "code_hash": "e55c6980aecae975e3c9da03846c4fc988129a35e0de7e93c13c337cf3c58a74",
+   "end": "2026-11-27T17:11:19+00:00",
+   "usd": 0.2973
+  },
+  {
+   "step": "premise_reading",
+   "start": "2026-11-27T17:11:19+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "sources show verified; direction narrows; kill condition survived",
+    "reading": {
+     "direction": "narrows",
+     "kill": "survived",
+     "sources_show": true
+    }
+   },
+   "code_hash": "e55c6980aecae975e3c9da03846c4fc988129a35e0de7e93c13c337cf3c58a74",
+   "end": "2026-11-27T17:11:31+00:00",
+   "usd": 0.044572
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-27T17:11:31+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "6 coverage decision(s), 0 left in scope"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T17:13:33+00:00",
+   "usd": 0.0279
+  },
+  {
+   "step": "corrections_3b",
+   "start": "2026-11-27T17:13:33+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 check(s): 0 removed, 0 re-bound",
+    "counts": {
+     "checked": 0,
+     "removed": 0,
+     "rebound": 0
+    },
+    "changed": false
+   },
+   "code_hash": "bf415d35866c741d4a71efb644699b532a6b8b8a6f81a39569e46c9bcdbe2cc9",
+   "end": "2026-11-27T17:15:02+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "commit_3b",
+   "start": "2026-11-27T17:15:02+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "committed 1e9d3e08a75e",
+    "head": "1e9d3e08a75edc81dae23dcf2957de9153db9ec6"
+   },
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T17:17:05+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "gate",
+   "start": "2026-11-27T17:17:05+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html",
+      "--dry-run"
+     ],
+     "rc": 0,
+     "tail": "NARROW GATE — DRY RUN (no API call is made)\n  free checks considered 2 sentence(s) or quotation(s) carrying a figure or a quotation\n  claims the source role would receive: 0\n  calls that would be made: 1\n    recency                                        whole draft\n    (source: no UNDETERMINED claim, so no source call)\n  not run (--full only): extract, advocate, inference, coverage\n  estimated cost: 1 call(s) x $0.75 = $0.75 (the per-call figure the cap is checked with; Phase B's full run was $4.63)\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html",
+      "--report",
+      "issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html.gate.json"
+     ],
+     "rc": 1,
+     "tail": "==========================================\n\n========================================================================\nINFERENCE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nCOVERAGE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nADJUDICATION  0 already decided · 0 moved since\n========================================================================\n\n  Nothing has been adjudicated for this draft. Every finding above\n  is new. Record the ones you accept in draft_decisions.json so the\n  next run can tell a fresh problem from a settled one.\n========================================================================\nCOST     $0.83 - 1 API call(s) - 223,926 tokens in, 4,326 out - 9 web search(es)\n========================================================================\n\n  recency                                  $0.83  228,252 tok   9 search\n\n  Priced from https://platform.claude.com/docs/en/about-claude/pricing,\n  read 2026-08-28. Prices go stale; a figure here older than the\n  page it came from is a figure to re-check.\n\nFull result written to issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html.gate.json\n\nBLOCKED — resolve every item above, or record it in the piece, before publishing.\n",
+     "proof": "proved: issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html.gate.json written in this step, findings present"
+    }
+   ],
+   "code_hash": "a72f098166db765d2fe5f8509772b6b6b6326cebcc3b762efd502b712c22efa6",
+   "end": "2026-11-27T17:18:40+00:00",
+   "usd": 0.8267
+  },
+  {
+   "step": "advocate",
+   "start": "2026-11-27T17:18:40+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_advocate.py",
+      "run",
+      "whu-lean-orch-t1-q1-04e",
+      "--page",
+      "issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html"
+     ],
+     "rc": 0,
+     "tail": " next source's bound $1.3940 ($0.6970 the highest of 35 measured source(s) in 15 issue(s), x 2), checked before every call; 4 source(s) in all x $1.3940 = $5.58, not reserved up front); $39.94 left today, $6.74 left on whu-lean-orch-t1-q1-04e\n  run         issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/advocate/runs/20261127T171840Z\n  routing     80 sentence(s) reach a source by their binding; 55 reach none (21 with no binding row, 34 whose row rests on no source; issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/advocate/runs/20261127T171840Z/routing.json)\n  S001  blocked      the authors of Climate Change 2022: Mitigation of Climate \n  S002  full_text_held the authors of Climate Change 2023: Synthesis Report\n        -> 4 objections\n  S003  full_text_held the investigators and statisticians who published The carb\n        -> 3 objections\n  S004  full_text_held the investigators and statisticians who published Evaluati\n        -> 5 objections\n  S005  full_text_held the authors of Governance of carbon dioxide removal: an AI\n        -> 4 objections\n  quotations  16 checked against the held text; 3 still not in it after one re-ask (log: issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/advocate/quote_checks.jsonl, never committed)\n\n  briefs      issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/advocate/20261127T171840Z-briefs.json\n  adjudicate  issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/advocate/20261127T171840Z-adjudication.md\n  16 item(s) need a MERIT and an EFFECT line before this issue can publish.\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "advocate",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the ruling model estimated $0.08 (the next ruling's bound $0.0786 (the highest of 939 same-config logged ruling(s) ($0.0393) x 2), checked before every call; 3 ruling(s) in all x $0.0786 = $0.24, not reserved up front); $39.10 left today, $5.90 left on whu-lean-orch-t1-q1-04e\n  2 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/rulings/rulings.jsonl\n  consistency: re-ran 1 of 2 ruling(s) (seed 91087173024059): 1 of 1 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.0429\n"
+    }
+   ],
+   "code": {
+    "outcome": "0 record(s) applied",
+    "changed": false,
+    "applied": 0
+   },
+   "code_hash": "45e6b9a7fe6e89bcc2889be2af3f2357723eaca3782797f67401b1033878c284",
+   "end": "2026-11-27T17:23:42+00:00",
+   "usd": 0.880696
+  },
+  {
+   "step": "omissions",
+   "start": "2026-11-27T17:23:42+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "omissions",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the omission ruling estimated $0.08 (the next omission unit's bound $0.0786 (the highest of 86 same-config logged omission ruling(s) ($0.0393) x 2), checked before every call; 21 omission unit(s) in all x $0.0786 = $1.65, not reserved up front); $39.06 left today, $5.86 left on whu-lean-orch-t1-q1-04e\n  12 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/rulings/rulings.jsonl\n  consistency: re-ran 2 of 9 ruling(s) (seed 202059243353665): 2 of 2 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.3448\n"
+    }
+   ],
+   "code": {
+    "outcome": "6 record(s) applied",
+    "changed": true,
+    "applied": 6
+   },
+   "code_hash": "45e6b9a7fe6e89bcc2889be2af3f2357723eaca3782797f67401b1033878c284",
+   "end": "2026-11-27T17:28:04+00:00",
+   "usd": 0.464732
+  },
+  {
+   "step": "findings",
+   "start": "2026-11-27T17:28:04+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/findings.py",
+      "whu-lean-orch-t1-q1-04e",
+      "--report",
+      "issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/draft/whu-lean-orch-t1-q1-04e.html.gate.json",
+      "--scan"
+     ],
+     "rc": 0,
+     "tail": "\n  1 finding(s) recorded in /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/gate-findings.json\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "gate",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the ruling model estimated $0.00 (0 ruling(s) x $0.0844 per ruling (the highest of 950 same-config logged ruling(s) ($0.0422) x 2)); $38.59 left today, $5.40 left on whu-lean-orch-t1-q1-04e\n  lean rule 3b: State of Carbon Dioxide Removal (background data source for current CD -- newer edition unknown\n  1 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/rulings/rulings.jsonl\n  usd this run: 0.0000\n"
+    }
+   ],
+   "code": {
+    "outcome": "0 record(s) applied",
+    "changed": false,
+    "applied": 0
+   },
+   "code_hash": "45e6b9a7fe6e89bcc2889be2af3f2357723eaca3782797f67401b1033878c284",
+   "end": "2026-11-27T17:29:38+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "conclusions",
+   "start": "2026-11-27T17:29:38+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/conclusion_judge.py",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "  whu-lean-orch-t1-q1-04e: 0 judged, 0 kept from the last run, 0 flagged; review at /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/conclusion-review.json\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "conclusions",
+      "whu-lean-orch-t1-q1-04e"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the ruling model estimated $0.00 (0 ruling(s) x $0.0844 per ruling (the highest of 950 same-config logged ruling(s) ($0.0422) x 2)); $38.59 left today, $5.40 left on whu-lean-orch-t1-q1-04e\n  0 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04e-whu-lean-orch-t1-q1-04e/rulings/rulings.jsonl\n  usd this run: 0.0000\n"
+    }
+   ],
+   "code": {
+    "outcome": "0 record(s) applied",
+    "changed": false,
+    "applied": 0
+   },
+   "code_hash": "45e6b9a7fe6e89bcc2889be2af3f2357723eaca3782797f67401b1033878c284",
+   "end": "2026-11-27T17:31:11+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "audit",
+   "start": "2026-11-27T17:31:12+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/audit_stage.py",
+      "run",
+      "whu-lean-orch-t1-q1-04e",
+      "--cap",
+      "4.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the audit stage estimated $0.02 (the next sentence unit's bound $0.0154 (the highest per-unit cost of 26 audit run(s) with this run's lean_config ($0.0077, WHU-L1-02b-whu-lean-q1-02b/20261106T002750Z) x 2), checked before every call; 138 sentence unit(s) in all x $0.0154 = $2.12, not reserved up front); $38.59 left today, $5.40 left on whu-lean-orch-t1-q1-04e\n{\n \"status\": \"complete\",\n \"failure\": null,\n \"units\": 138,\n \"usd\": 0.708449,\n \"second_read\": {\n  \"read\": 11,\n  \"seed\": 20261019,\n  \"had_finding\": 0,\n  \"sampled\": 11,\n  \"holds_pool\": 108,\n  \"sampled_units\": [\n   \"u77\",\n   \"u43\",\n   \"u104\",\n   \"u17\",\n   \"u29\",\n   \"u62\",\n   \"u71\",\n   \"u39\",\n   \"u36\",\n   \"u93\",\n   \"u5\"\n  ]\n }\n}\n"
+    }
+   ],
+   "failed": "RunStop: audit: references still point at nothing after the dangling ruling",
+   "end": "2026-11-27T17:35:29+00:00",
+   "replies": [],
+   "usd": 0.771405
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 1,
+  "narration": 9,
+  "multi_sentence": 1,
+  "by_role": {
+   "judgement_sentence": {
+    "malformed": 0,
+    "reasks": 1,
+    "multi_sentence": 1
+   },
+   "recency": {
+    "malformed": 0,
+    "reasks": 0,
+    "narration": 6
+   },
+   "advocate:S002": {
+    "malformed": 0,
+    "reasks": 0,
+    "narration": 1
+   },
+   "advocate-reask-omission:S002": {
+    "malformed": 0,
+    "reasks": 0,
+    "narration": 1
+   },
+   "advocate-reask-omission:S003": {
+    "malformed": 0,
+    "reasks": 0,
+    "narration": 1
+   }
+  },
+  "events": [
+   {
+    "role": "judgement_sentence",
+    "event": "multi_sentence",
+    "at": "2026-11-27T17:08:54+00:00",
+    "text": "The IPCC AR6 Synthesis Report (Summary for Policymakers, A.3.6) states that key barriers to adaptation include limited resources, lack of private sector and citizen engagement, insufficient mobilization of finance, low climate literacy, lack of political commitment, limited research and slow, low uptake of adaptation science, and low sense of urgency, and that there are widening disparities between the estimated costs of adaptation and the finance allocated to it (high confidence), that adaptation finance has come predominantly from public sources and a small proportion of global tracked climate finance was targeted to adaptation versus an overwhelming majority to mitigation (very high confidence), that current global financial flows for adaptation are insufficient and constrain implementation of adaptation options, especially in developing countries (high confidence), and that adverse climate impacts can reduce the availability of financial resources and further increase financial constraints for adaptation, particularly for developing and least developed countries (medium confidence)."
+   },
+   {
+    "role": "judgement_sentence",
+    "event": "reask",
+    "at": "2026-11-27T17:08:54+00:00",
+    "text": ""
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "I'll systematically search for the latest versions of each study and dataset cited in the draft.",
+    "at": "2026-11-27T17:18:38+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "The draft cites [3] as \"Lamb W, Gasser T, Grassi G, et al. The carbon dioxide removal gap. 2023.\" but the published paper is from 2024 (Nature Climate Change, May 2024). Now let me check the other two key studies.",
+    "at": "2026-11-27T17:18:38+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "Now let me check whether there is a newer \"State of Carbon Dioxide Removal\" report (2nd edition 2024) that might supersede figures used in the draft, and also check for any IPCC AR7 or newer CDR-specific assessments.",
+    "at": "2026-11-27T17:18:38+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "This is very important. The State of Carbon Dioxide Removal 2nd Edition (2024) gives novel CDR as **0.0013 GtCO2/yr** (1.3 MtCO2/yr), while the draft says \"around 2 MtCO2 per year.\" Let me now check the specific figures the draft cites from [4] (Ganti et al. 2024) — particularly the gross GHG emission level at net zero CO2 (18 GtCO2eq) and the CDR totals (166, 251, 445 GtCO2) — and also verify the \"CDR gap\" paper's year discrepancy more carefully.",
+    "at": "2026-11-27T17:18:38+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "I now have enough information to compile the full analysis. Let me now check the specific novel CDR figure the draft uses (2 MtCO2/yr) against the 3rd edition SoCDR figure, and also confirm the conventional CDR figure.",
+    "at": "2026-11-27T17:18:38+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "I now have all the information needed to compile the full JSON response. Let me synthesize the findings:\n\n**Summary of what I found:**\n\n1. **[2] IPCC AR6 Synthesis Report (2023)** — No superseding IPCC assessment report exists. AR7 is in progress (WGI First Order Draft under expert review Aug–Oct 2026; full reports not yet published). The AR6 SYR remains the current authoritative IPCC assessment. **CURRENT.**\n\n2. **[3] \"The carbon dioxide removal gap\"** — The draft cites this as \"Lamb W, Gasser T, Grassi G, et al. 2023.\" The paper was published in *Nature Climate Change* on **3 May 2024** (vol. 14, pp. 644–651). The draft's year attribution (\"2023\") is wrong — this is a preprint date, not the published version. However, the draft's *content* claims (CDR gap, land-based removals, no novel methods committed) match the published 2024 paper. The year in the reference list is the only discrepancy, not the figures. **CURRENT** (figures match published 2024 paper; year in reference is wrong but that is a citation error, not a stale-figure error).\n\n3. **[4] Ganti et al. 2024, Commun. Earth Environ.** — Published 15 July 2024. The specific figures the draft uses (18 GtCO2eq/yr at net zero CO2; 166/251/445 GtCO2 cumulative CDR; >80% from gross emission cuts; 71%/15% split; ~4 GtCO2 novel CDR by 2050; 35–48% OECD/EU post-2050) are confirmed in the published paper. No superseding update found. **CURRENT.**\n\n4. **[5] Lück, Mohn & Lamb 2024, Frontiers in Climate** — Published 17 September 2024. No superseding update found. **CURRENT.**\n\n5. **Implicit background data on current CDR levels** — The draft states: \"Current CDR totals approximately 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions\" and \"Novel methods such as BECCS, direct air carbon capture and storage, and enhanced weathering are estimated to contribute around 2 MtCO2 per year.\" These figures are attributed to [4] (Ganti et al.) and [5] (Lück et al.) but the underlying data source is the State of Carbon Dioxide Removal reports. The **3rd Edition (June 2026)** updates these figures: total CDR is now **2.2 GtCO2/yr** (up from ~2 GtCO2/yr), novel CDR is **~0.002 GtCO2/yr = 2 MtCO2/yr** (same order), and the \"3% of net GHG emissions\" framing has changed to \"5% of gross CO2 emissions.\" The draft's sources ([4] and [5]) are the 2024 papers themselves, not the SoCDR directly — so the question is whether [4] and [5] are superseded. They are not superseded as papers, but the background current-CDR figures they rely on have been updated by the 3rd SoCDR edition. Since the draft attributes these figures to [4] and [5] (not to SoCDR directly), and those papers have not been retracted or corrected, this is a nuanced case. The novel CDR figure (2 MtCO2/yr) is consistent across 2nd and 3rd SoCDR editions. The total CDR figure (2 vs 2.2 GtCO2/yr) and the \"3% of net GHG\" vs \"5% of gross CO2\" framing have shifted.",
+    "at": "2026-11-27T17:18:38+00:00"
+   },
+   {
+    "role": "advocate:S002",
+    "event": "narration",
+    "text": "I found no sentence where the page misstates a figure or contradicts the document. The B.5, B.6, B.7 and C.2 paraphrases in the page match my text. The objections above are omissions only. All quotes come from copies of the Synthesis Report that turned up in search. I could not open the official PDF to confirm locators and page numbers.",
+    "at": "2026-11-27T17:19:21+00:00"
+   },
+   {
+    "role": "advocate-reask-omission:S002",
+    "event": "narration",
+    "text": "The passage quoted in the objection (\"While reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions, the deployment of CDR to counterbalance hardto-abate residual emissions (e.g., some emissions from agriculture, aviation, shipping, and industrial processes) is unavoidable (high confidence).\") is already present verbatim in the page's bound sentences. There is no omitted finding.",
+    "at": "2026-11-27T17:24:15+00:00"
+   },
+   {
+    "role": "advocate-reask-omission:S003",
+    "event": "narration",
+    "text": "The quoted finding (\"However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions.\") is already present in the \"already_on_the_page\" list. There is no omitted finding in the held document text that is absent from the page.",
+    "at": "2026-11-27T17:24:44+00:00"
+   }
+  ]
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 5,
+  "held": 4,
+  "not_held": 1,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal)",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S002",
+    "title": "Climate Change 2023: Synthesis Report",
+    "type": "assessment_summary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "The carbon dioxide removal gap",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 3,
+  "unconfirmed": [
+   {
+    "title": "The State of Carbon Dioxide Removal – 2nd Edition",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Emissions Gap Report 2024: No more hot air … please!",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.143 on 1 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Greenhouse Gas Removal",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: first author 'Royal Society' does not agree with the record's first author 'Jeewani P'; Europe PMC: first author 'Royal Society' does not agree with the record's first author 'Jeewani PH'; Europe PMC: first author 'Royal Society' does not agree with the record's first author 'Morris C'; Europe PMC: first author 'Royal Society' does not agree with the record's first author 'Asibor JO'"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 144,
+   "claude-opus-5-5": 80
+  },
+  "belief": {
+   "claude-sonnet-4-6": 1
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 6
+  },
+  "gate": {
+   "claude-sonnet-4-6": 1
+  },
+  "advocate": {
+   "claude-sonnet-5-5": 20,
+   "claude-opus-5-5": 3
+  },
+  "omissions": {
+   "claude-sonnet-4-6": 5,
+   "claude-opus-5-5": 11
+  },
+  "audit": {
+   "claude-sonnet-5-5": 8,
+   "claude-opus-5-5": 20
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 6,
+  "copied": 6,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04e"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T17:35:29+00:00"
+}

@@ -1,0 +1,294 @@
+[
+  {
+    "source": "S002",
+    "title": "Climate Change 2023: Synthesis Report",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Climate Change 2023: Synthesis Report",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The IPCC states with high confidence that deploying CDR to counterbalance hard-to-abate residual emissions is unavoidable for reaching net zero CO2 or net zero GHG emissions [2].",
+        "objection": "The page gives the 'unavoidable' half of the sentence and drops the clause before it, which says net zero first requires deep and rapid cuts in gross emissions, so CDR reads as a stand-alone requirement.",
+        "source_says": "While reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions, the deployment of CDR to counterbalance hardto-abate residual emissions (e.g., some emissions from agriculture, aviation, shipping, and industrial processes) is unavoidable (high confidence).",
+        "locator": "Section 3 (Long-term responses), passage following 'Emissions pathways that reach and sustain net zero GHG emissions defined by the 100-year global warming potential...' (citing WGI SPM D.1, WGIII SPM C.2 etc.)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's question is what CDR is needed for. The Synthesis Report ties CDR to residual emissions only after gross emissions have been cut deeply and rapidly. Without that clause, 'unavoidable' can be read as licence for CDR in place of cuts.",
+        "source_says_first": "\"While reaching net-zero CO2 or net-zero GHG emissions requires deep and rapid reductions in gross emissions\" the deployment of CDR to counterbalance hard-to-abate residual emissions is unavoidable (high confidence).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The IPCC also states that CDR will be necessary to achieve net negative CO2 emissions [2].",
+        "objection": "The page omits the Synthesis Report's statement of CDR's three roles, which it places explicitly 'in addition to' emission reductions, and that net negative emissions come only if removals exceed annual residual emissions.",
+        "source_says": "In addition to deep, rapid, and sustained emission reductions, CDR can fulfil three complementary roles: lowering net CO2 or net GHG emissions in the near term; counterbalancing ‘hard-to-abate’ residual emissions (e.g., some emissions from agriculture, aviation, shipping, industrial processes) to help reach net zero CO2 or GHG emissions, and achieving net negative CO2 or GHG emissions if deployed at levels exceeding annual residual emissions (high confidence).",
+        "locator": "Section 3, 3.3.3 (text following the 'Limited overshoot' footnote)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "'Necessary to achieve net negative' is one of three roles. The page states it as a freestanding necessity without the framing that CDR complements emission reductions.",
+        "source_says_first": "\"In addition to deep, rapid, and sustained emission reductions, CDR can fulfil three complementary roles\": lowering net emissions in the near term, counterbalancing hard-to-abate residual emissions, and achieving net negative CO2 or GHG emissions if deployed at levels exceeding annual residual emissions (high confidence).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the IPCC, some hard-to-abate residual emissions remain and would need to be counterbalanced by CDR, such as some emissions from agriculture, aviation, shipping and industrial processes [2].",
+        "objection": "The page presents residual emissions as the source of CDR demand but leaves out the statement that net zero requires deep and rapid cuts in gross emissions, and that the scale and need for CDR depend on those cuts.",
+        "source_says": "Reaching net zero CO2 or GHG emissions primarily requires deep and rapid reductions in gross emissions of CO2, as well as substantial reductions of non-CO2 GHG emissions (high confidence).",
+        "locator": "Section B.6 (text following Table SPM.1)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The sentence is accurate, but the surrounding text gives CDR as a response to unavoidable residuals only. The Synthesis Report says the size of the CDR requirement falls with faster emission cuts.",
+        "source_says_first": "\"In addition to deep, rapid, and sustained emission reductions, CDR can fulfil three complementary roles\". The Synthesis Report also says that more rapid reduction in CO2 and non-CO2 emissions, particularly methane, \"limits peak warming levels and reduces the requirement for net negative CO2 emissions and CDR\" (SPM B.7.3).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The glossary notes that, depending on the total emissions of the BECCS supply chain, BECCS can remove CO2 from the atmosphere [2].",
+        "objection": "The page covers BECCS only through the glossary definition and omits the Synthesis Report's own finding on land-based risks of bioenergy-with-CCS at scale, and that only some biological CDR methods are widely practised today.",
+        "source_says": "However, afforestation or production of biomass crops for bioenergy with carbon dioxide capture and storage or biochar can have adverse socio-economic and environmental impacts, including on biodiversity, food and water security, local livelihoods and the rights of Indigenous Peoples, especially if implemented at large scales and where land tenure is insecure.",
+        "locator": "Passage on adverse impacts of afforestation or biomass crops for BECCS or biochar (high confidence), citing WGII SPM B.5.4, WGIII SPM C.11.2, SRCCL SPM B.3",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's later B.6.4 sentence covers afforestation and biomass crops but does not tie them to BECCS. A reader of the BECCS sentences gets a definitional 'can remove CO2' with none of the Synthesis Report's qualifiers about land and sustainability at scale.",
+        "source_says_first": "\"Large-scale land conversion for bioenergy, biochar, or afforestation can increase risks to biodiversity, water and food security.\" Another passage says afforestation or production of biomass crops for bioenergy with CCS or biochar \"can have adverse socio-economic and environmental impacts\". The Synthesis Report also says that agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods; the full list of methods in that sentence is not reproduced here.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S003",
+    "title": "The carbon dioxide removal gap",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the investigators and statisticians who published The carbon dioxide removal gap",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "One analysis finds a 'CDR gap': the CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5°C [3].",
+        "objection": "The sentence presents the shortfall as holding against 1.5°C scenarios generally, but the same abstract says the most ambitious national proposals come close to the levels in one 1.5°C scenario.",
+        "source_says": "However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions.",
+        "locator": "Abstract",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The size of the gap depends on which 1.5°C pathway is the benchmark. Carbon Brief's reading of the paper's results puts the 2050 gap at \"only 0.4bn tonnes of CDR per year\" in the demand-reduction scenario and 5.5bn in the carbon-removal scenario. A reader of the page would not learn that the gap is scenario-dependent and nearly closes for the most ambitious plans.",
+        "source_says_first": "Abstract (published Nature version, as reproduced by carbondioxide-removal.eu): \"the most ambitious proposals for CDR are close to levels in a low-energy demand scenario\". The abstract goes on to describe that scenario as having the most-limited CDR scaling and aggressive near-term emissions reductions.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "None yet commit to substantively scaling novel methods such as BECCS, biochar or direct air carbon capture and storage [3].",
+        "objection": "The page implies that the lack of novel-CDR commitments is itself part of the shortfall against 1.5°C. The paper finds that the low-demand 1.5°C scenario needs no increase in novel CDR, so the absence is a gap only against the removal-heavy scenarios.",
+        "source_says": "However, the most ambitious proposals for CDR are close to levels in a low-energy demand scenario with the most-limited CDR scaling and aggressive near-term emissions reductions.",
+        "locator": "Abstract",
+        "could_not_find": "I could not retrieve the full text of the Results section. The wording above comes from the abstract and from Carbon Brief's reproduction of the paper's table and figure, so it is second-hand. I searched the abstract, the Carbon Brief and Eco-Business coverage, and the Research Square preprint.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The statement about countries is accurate. Without the scenario dependence, though, it reads as a universal deficit in novel CDR, when the paper shows the novel-CDR gap varies from near zero to several Gt CO2 per year (3.5 Gt additional novel CDR in the carbon-removal scenario).",
+        "source_says_first": "Carbon Brief's account of the paper's results, on the demand-reduction scenario: \"requires an increase in land-based CDR, but no increase in “novel” CDR methods\". The paper's own abstract says the most ambitious proposals are close to that low-energy-demand scenario, which has the most-limited CDR scaling.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Many countries propose to expand land-based removals [3].",
+        "objection": "The page leaves out the paper's finding that national CDR reporting is unclear and has no reporting rules, so the proposed levels carry uncertainty. This affects how the 'gap' should be read.",
+        "source_says": "Eco-Business/Carbon Brief on the paper: \"there are currently no rules requiring governments to clearly report their CDR plans.\" Lead author Lamb is also quoted there as saying more clarity is needed in CDR reporting.",
+        "locator": "Discussion and Methods on data on national proposals. The finding is reported in Carbon Brief's coverage.",
+        "could_not_find": "I could not retrieve the exact sentences from the paper's Discussion. This quote is from secondary coverage of the paper.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This qualifies how firmly the quantified gap and 'none commit' claims can be read. It does not overturn the page's conclusion.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      }
+    ]
+  },
+  {
+    "source": "S004",
+    "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the investigators and statisticians who published Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "CDR contributes a much smaller 15% over the same period [4].",
+        "objection": "The page gives CDR's small share up to net zero CO2 but leaves out the paper's finding that after net zero CDR becomes the dominant mitigation option.",
+        "source_says": "Beyond global net zero CO 2 , CDR is the dominant mitigation option used in scenarios.",
+        "locator": "Paragraph on costs of novel vs. conventional CDR options (end of paragraph, before the C2 scenarios paragraph)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The 15% figure covers only 2020 to net zero CO2. Read alone, it suggests CDR is a minor lever overall. The paper's own framing is that CDR is small before net zero and dominant after it. A reader who sees only '15%' will take away the wrong long-term picture.",
+        "source_says_first": "<cite index=\"29-4\">Beyond global net zero CO_2, CDR is the dominant mitigation option used in scenarios.</cite> The paper also says <cite index=\"26-6\">novel CDR accounts for around two thirds of total CDR between net zero CO_2 and 2100 (66% [58, 79])</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Across all assessed categories of pathways, over 80% of net GHG reductions between 2020 and global net zero CO2 come from cuts in gross CO2 and non-CO2 emissions [4].",
+        "objection": "The page does not say that this 80% applies only until net zero CO2, or that CDR plays a larger role afterwards, especially in the slower-action C2 and C3 pathways.",
+        "source_says": "Beyond global net zero CO 2 , CDR is the dominant mitigation option used in scenarios.",
+        "locator": "Section discussing CDR costs and longer-term options (paragraph beginning 'The contributing factors to high costs vary across the novel carbon removal options')",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 80% result is time-bounded. Stated without that bound, it implies emissions cuts dominate throughout, which the paper says is not true after net zero.",
+        "source_says_first": "<cite index=\"29-6\">in C2 and C3 pathways where there is slower global near-term action, CDR plays a larger role beyond 2050, accounting for over 20% (median) of the regional net GHG reductions.</cite> The paper also states: <cite index=\"29-4\">Beyond global net zero CO_2, CDR is the dominant mitigation option used in scenarios.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Total CDR rises from 166 GtCO2 for net zero by mid-century to 251 GtCO2 for net zero between 2050 and 2075 [4].",
+        "objection": "The page leaves out that the paper finds conventional land CDR is roughly constant across delay scenarios, so the extra CDR is driven by novel CDR.",
+        "source_says": "We find that the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions, implying that scenarios utilise land-based CDR regardless of the delay of emissions reductions elsewhere. Conversely, we observe a strong signal both in the median and extreme values in the amount of novel CDR utilised in scenarios which have longer net emission halving times, showing scenarios’ dependence on future, unproven CDR technologies when net emissions reductions are delayed.",
+        "locator": "Results paragraph on delay dimensions (time to halve net CO2 emissions and years until net zero CO2)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The cumulative totals alone suggest all CDR types grow with delay. The paper's point is that land-based CDR stays stable and the growth is in novel, unproven CDR. That is the basis for its dependence-on-unproven-technology conclusion, which the page states two sentences later without the supporting split.",
+        "source_says_first": "<cite index=\"23-3\">the amount of conventional CDR on land is largely consistent across different timings of delayed emissions reductions</cite>. The paper says novel CDR increases instead: <cite index=\"26-3\">we observe a strong signal both in the median and extreme values in the amount of novel CDR utilised in scenarios which have longer net emission halving times</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It reaches 445 GtCO2 for net zero later than 2075 [4].",
+        "objection": "The page gives the headline cumulative numbers without the finding about where the increase comes from. It also omits the paper's timing detail: conventional CDR rises faster for net zero between 2050 and 2075, and novel CDR rises faster for net zero between 2075 and 2100.",
+        "source_says": "Conventional CDR on land tends to increase faster in scenarios with net zero CO 2 timing between 2050 and 2075 (Fig. 1d ) while novel CDR increases faster in scenarios with net zero CO 2 timing between 2075 and 2100 (Fig. 1e ).",
+        "locator": "Paragraph beginning 'Delaying the time of net zero CO 2 results in an increase in the total CDR deployed till this year'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 445 GtCO2 figure sits mostly in the latest net-zero scenarios, where novel CDR is what grows. Without that, the numbers do not show which kind of removal the delay penalty falls on.",
+        "source_says_first": "<cite index=\"26-4,26-5\">Conventional CDR on land tends to increase faster in scenarios with net zero CO_2 timing between 2050 and 2075 (Fig. 1d) while novel CDR increases faster in scenarios with net zero CO_2 timing between 2075 and 2100 (Fig. 1e).</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Sustainable land-use strategies make up about 10% of net GHG reductions in the same period, through halting deforestation and expanding conventional CDR on land [4].",
+        "objection": "The paper attributes the roughly 10% to removals through afforestation and reforestation. Deforestation emission reductions are counted in gross emissions, which are in the 70% emissions-cuts share.",
+        "source_says": "removals via afforestation and reforestation play a critical near-term role in mitigation, accounting for around 10% (median) of the net greenhouse gas emission reductions between 2020 and 2030",
+        "locator": "Abstract, first paragraph",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "Putting halting deforestation inside the 10% would double-count it with the 70% gross-emissions share. The 10% is a CDR (removal) share. The page's own sentence 3 and sentence 4 would then add up wrongly. The paper's summary elsewhere is looser on this point, so this is a request for precision.",
+        "source_says_first": "<cite index=\"1-3\">removals via afforestation and reforestation play a critical near-term role in mitigation, accounting for around 10% (median) of the net greenhouse gas emission reductions between 2020 and 2030</cite>. The paper defines gross emissions as <cite index=\"29-1\">reducing fossil fuel and deforestation emissions (gross emissions)</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S005",
+    "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Scaling CDR will require advances in policymaking and governance [5].",
+        "objection": "The page uses the paper only for background claims and leaves out its main finding, which is that the governance literature has large evidence gaps, including almost no ex-post policy evaluation.",
+        "source_says": "Our results reveal significant gaps in the literature in terms of how to integrate CDR into climate governance, including a lack of ex-post policy evaluations, even for mature methods such as afforestation/reforestation, soil carbon sequestration and forest management.",
+        "locator": "Introduction/aims paragraph beginning 'A systematic map is a form of systematic evidence synthesis'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page says governance must advance but never says what the mapped literature shows. It shows a thin evidence base on how to do that, even for mature methods. That is the paper's actual contribution and it answers the question the page poses.",
+        "source_says_first": "<cite index=\"21-2\">Our results reveal significant gaps in the literature in terms of how to integrate CDR into climate governance, including a lack of ex-post policy evaluations, even for mature methods such as afforestation/reforestation, soil carbon sequestration and forest management.</cite> The paper also finds that <cite index=\"21-9\">the existing governance and policy literature mainly focus on how to incentivise research, and evaluations of carbon pricing schemes to incentivise BECCS deployment.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Current CDR totals approximately 2 GtCO2 per year, or about 3% of current global net greenhouse gas emissions [5].",
+        "objection": "The page presents today's removals and the 'several gigatons' needed by mid-century without the paper's point that countries plan to expand land-based removals and none yet commit to significantly scaling novel methods.",
+        "source_says": "<cite index=\"25-8\">many countries propose to expand land-based removals, but none yet commit to significantly scaling novel methods such as bioenergy carbon capture and storage, biochar, or direct air carbon capture and storage.</cite>",
+        "locator": "Introduction / Discussion (national CDR plans). I could not confirm the exact section from the excerpts retrieved.",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The gap between about 2 Gt today and several Gt needed is a gap in the type of CDR, not only in volume. This matters for the permanence and liability sentences that follow.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Permanence, and how to govern liabilities for removals that expire after a certain period such as afforestation, are described as central issues [5].",
+        "objection": "The page calls permanence central but omits the paper's finding that the evidence on non-permanent removals is itself lacking and flagged for further research.",
+        "source_says": "<cite index=\"25-7\">Additional research is needed to develop standards for SOC change metrics and monitoring, and to better understand the impact of short term, non-permanent carbon removals on peaks in atmospheric greenhouse gas concentrations and on the probability of exceeding climatic tipping points.</cite>",
+        "locator": "Discussion (research gaps). I could not confirm the exact section from the excerpts retrieved.",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Permanence is presented as a settled governance problem. The paper treats the effects of temporary removals and the monitoring standards as open research questions.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "This includes strict monitoring to ensure durable, additional removals that do not compete with emission reduction efforts [5].",
+        "objection": "In the paper the quantification, additionality and durability requirements are the stated concerns of the European Commission's certification framework, not a general call for 'strict monitoring' to keep removals from competing with reductions.",
+        "source_says": "This will require advances in policymaking and governance to incentivise, coordinate and regulate CDR, including strict monitoring to ensure durable, additional removals that do not compete with emission reduction efforts.",
+        "locator": "Abstract, Introduction",
+        "could_not_find": "I did not find 'do not compete with emission reduction efforts' attached to the certification criteria in the excerpts I retrieved. I could only read the Abstract, Introduction and Results excerpts, so a different passage in the full text may support the page's wording.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This is an attribution slip. The paper ties these criteria to a specific certification scheme, and the page folds in a separate worry about competition with reductions. The page's broader point about reductions comes from the 8:2 and separate-tracks passages.",
+        "source_says_first": "<cite index=\"28-5\">The European Commission's Carbon Removal Certification Framework, which aims to regulate certification of removals in the voluntary market, is particularly concerned with ensuring that CDR is appropriately quantified, that removals are additional, that carbon is durably stored, and that projects meet sustainability criteria (European Commission, 2024).</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]
