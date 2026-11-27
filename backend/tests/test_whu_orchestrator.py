@@ -881,7 +881,7 @@ def test_reply_limits_cover_the_stored_records_with_a_margin():
     assert set(rec["steps"]) <= set(ST.REPLY_LIMITS)
     for k, v in rec["steps"].items():
         assert ST.REPLY_LIMITS[k] >= v["new_limit"] >= 1.5 * v["basis_tokens"], k
-    assert ST.REPLY_LIMITS["premise"] == 4000
+    assert ST.REPLY_LIMITS["premise"] == 4100          # P191: 03b measured 2,021 (was 4000)
     from orch import google as G
     assert G.MAX_OUT == ST.REPLY_LIMITS["overstatement"]
 
