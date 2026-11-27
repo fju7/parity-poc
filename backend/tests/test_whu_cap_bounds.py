@@ -45,7 +45,12 @@ def test_q1_04s_gate_now_fits_its_cap(tmp_path, monkeypatch):
     monkeypatch.setenv("WHU_LEAN", "1")
     cfg = F.gate_config("narrow")
     amount, how = SC.gate_bound(cfg, F.gate_dry_estimate("narrow", 1), issues_dir=tmp_path)
-    assert amount == pytest.approx(1.50) and "same-config gate run(s) $0.6288 (whu-lean-orch-t1-q1-02n)" in how
+    # P205: the bound is derived from the ledger as it stands (it was $1.50 from 02n's $0.6288 when written; 04e's
+    # $0.8267 gate run, 2026-11-27, made it $1.6534). The point stands: max(dry run, highest same-config) x 2, and it
+    # fits what Q1-04 had left where the old fixed $3.00 never could.
+    import re as _re
+    hi = float(_re.search(r"same-config gate run\(s\) \$([0-9.]+)", how).group(1))
+    assert amount == pytest.approx(2 * max(0.75, hi)) and hi >= 0.6288
     spent = sum(s.get("usd") or 0 for s in rec["steps"])
     assert spent == pytest.approx(1.2429, abs=1e-3) and amount <= 3.00 - spent
     assert 3.00 > 3.00 - spent                                  # the old fixed $3.00 could never fit
