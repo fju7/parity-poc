@@ -2078,13 +2078,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         120954,
         121565
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:172",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "935f4eace9323272"
+      ]
     },
     "4a4c69a624599101": {
       "sentence": "The IPCC's Sixth Assessment Report Synthesis Report states with high confidence that many agriculture, forestry, and other land use (AFOLU) options provide adaptation and mitigation benefits that could be upscaled in the near term across most regions, that conservation, improved management, and restoration of forests and other ecosystems offer the largest share of economic mitigation potential (with reduced tropical deforestation having the highest total mitigation potential), that ecosystem restoration, reforestation, and afforestation can create trade-offs from competing land demands that require integrated approaches to minimize, and that some options, such as conserving high-carbon ecosystems, deliver immediate benefits while others, such as restoring them, take decades to deliver measurable results [2].",
@@ -2330,6 +2335,249 @@
         107090
       ],
       "declaration_key": "S002@106976-107336"
+    },
+    "935f4eace9323272": {
+      "sentence": "According to the IPCC (AR6 Synthesis Report, Summary for Policymakers, B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].",
+      "sentence_sha": "935f4eace9323272",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@120954",
+      "span": "B.7.3 The larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100. Transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales. (high confidence) {3.3.3, 3.3.4, 3.4.1, Table 3.1} Summary for Policymakers Overshoot: Exceeding a Warming Level and Returning 23 Summary for Policymakers ",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        120954,
+        121565
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "8da10786a4b67a6b": {
+      "sentence": "The assessment also finds that carbon stored in vegetation or through soil carbon sequestration (SCS) \"has shorter storage times and is more vulnerable than carbon stored in buildings as wood products\" [1].",
+      "sentence_sha": "8da10786a4b67a6b",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "dd14c0aff51c99ff042167b122506f6a72bff5d2ef0997f4079b09f61344cb23",
+      "locator_type": "prose",
+      "locator": "passage S001@81569",
+      "span": "carbon stored in vegetation or through SCS has shorter storage times and is more vulnerable than carbon stored in buildings as wood products",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        81569,
+        81709
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b579d9435f02724b": {
+      "sentence": "For enhanced weathering, the assessment finds that the emissions from generating the extra energy needed to process the rock 'may reduce the net carbon dioxide removal by up to 30% with present-day grid average emissions, but this efficiency loss would decrease with low-carbon power' [1].",
+      "sentence_sha": "b579d9435f02724b",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "dd14c0aff51c99ff042167b122506f6a72bff5d2ef0997f4079b09f61344cb23",
+      "locator_type": "prose",
+      "locator": "passage S001@123843",
+      "span": "The emissions associated with this additional energy generation may reduce the net carbon dioxide removal by up to 30% with present-day grid average emissions, but this efficiency loss would decrease with low-carbon power ( Beerling et al. 2020 ).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        123843,
+        124090
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "6544d5cdcfdde854": {
+      "sentence": "The assessment notes that, to avoid CDR being misperceived as a substitute for deep emissions reductions, the prioritisation of emissions cuts can be signalled and achieved with differentiated target setting for reductions and removals [1].",
+      "sentence_sha": "6544d5cdcfdde854",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S001",
+      "document_sha": "dd14c0aff51c99ff042167b122506f6a72bff5d2ef0997f4079b09f61344cb23",
+      "locator_type": "prose",
+      "locator": "passage S001@169121",
+      "span": "To avoid CDR being misperceived as a substitute for deep emissions reductions, the prioritisation of emissions cuts can be signalled and achieved with differentiated target setting for reductions and removals",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        169121,
+        169329
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "415b466bc4e4e832": {
+      "sentence": "The IPCC adds that, using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced [2].",
+      "sentence_sha": "415b466bc4e4e832",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@106976",
+      "span": "Using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        106976,
+        107091
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "1f3b39acd58ee664": {
+      "sentence": "The IPCC finds that while non-CO2 GHG emissions are strongly reduced in all pathways that limit warming to 2°C (>67%) or lower, residual emissions of CH4 and N2O and F-gases of about 8 [5–11] GtCO2-eq yr-1 remain at the time of net zero GHG emissions [2].",
+      "sentence_sha": "1f3b39acd58ee664",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@372238",
+      "span": "While non-CO2 GHG emissions are strongly reduced in all pathways that limit warming to 2°C (>67%) or lower, residual emissions of CH4 and N2O and F-gases of about 8 [5–11] GtCO2-eq yr-1 remain at the time of",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        372238,
+        372445
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "a032fdc63b50097e": {
+      "sentence": "The IPCC assessment adds, with medium confidence, that reducing global temperature by removing CO2 would require net negative emissions of 220 GtCO2 (best estimate, with a likely range of 160 to 370 GtCO2) for every tenth of a degree [2].",
+      "sentence_sha": "a032fdc63b50097e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@380482",
+      "span": "Reducing global temperature by removing CO2 would require net negative emissions of 220 GtCO2 (best estimate, with a likely range of 160 to 370 GtCO2) for every tenth of a degree (medium confidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        380482,
+        380681
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "90f331043c5853a1": {
+      "sentence": "The IPCC assessment finds, with high confidence, that \"afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods.\"",
+      "sentence_sha": "90f331043c5853a1",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@382927",
+      "span": "Afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods (high confidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        382927,
+        383098
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "99e8195df7966be6": {
+      "sentence": "The assessment finds that all pathways that limit global warming to 1.5°C with limited or no overshoot project the use of carbon dioxide removal (CDR) on the order of 100–1000 GtCO2 over the 21st century [3].",
+      "sentence_sha": "99e8195df7966be6",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "f5dcc2b915109827ef8761217466a5f328f65353c8fdd98040b3d456313b92fb",
+      "locator_type": "prose",
+      "locator": "passage S003@46985",
+      "span": "All pathways that limit global warming to 1.5°C with limited or no overshoot project the use of carbon dioxide removal (CDR) on the order of 100–1000 GtCO 2 over the 21st century.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        46985,
+        47164
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

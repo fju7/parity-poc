@@ -482,5 +482,40 @@
   "web_search_max_uses": 12
  },
  "mode": "paid",
- "slug": "whu-lean-orch-t1-q1-04g"
+ "slug": "whu-lean-orch-t1-q1-04g",
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 145,
+   "claude-opus-5-5": 80
+  },
+  "belief": {
+   "claude-sonnet-4-6": 1
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 3
+  },
+  "gate": {
+   "claude-sonnet-4-6": 1
+  },
+  "advocate": {
+   "claude-sonnet-5-5": 24,
+   "claude-opus-5-5": 2
+  },
+  "omissions": {
+   "claude-sonnet-4-6": 4,
+   "claude-opus-5-5": 18
+  }
+ }
 }

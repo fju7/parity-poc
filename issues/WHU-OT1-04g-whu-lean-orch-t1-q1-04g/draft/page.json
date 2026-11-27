@@ -21,6 +21,7 @@
    "section": "answer",
    "sentences": [
     "Carbon dioxide removal (CDR) is assessed as a necessary element to achieve net zero CO2 and greenhouse gas (GHG) emissions both globally and nationally, because it counterbalances residual emissions from hard-to-transition sectors (robust evidence, high agreement) [1].",
+    "The assessment notes that, to avoid CDR being misperceived as a substitute for deep emissions reductions, the prioritisation of emissions cuts can be signalled and achieved with differentiated target setting for reductions and removals [1].",
     "It does not replace cutting emissions: reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions, while deploying CDR to counterbalance hard-to-abate residual emissions is unavoidable (high confidence) [2].",
     "The role of CDR changes over time: it further reduces net emissions in the near term, counterbalances residual emissions to help reach net zero in the mid term, and achieves and sustains net-negative emissions in the long term [1]."
    ]
@@ -51,8 +52,9 @@
     "According to the IPCC (AR6 Synthesis Report, B.6.4), mitigation options often have synergies with other aspects of sustainable development but some can also have trade-offs, for example energy efficiency and renewable energy offer potential synergies and, depending on context, biological CDR methods such as reforestation, improved forest management, soil carbon sequestration, peatland restoration and coastal blue carbon management can enhance biodiversity, ecosystem functions, employment and local livelihoods, whereas afforestation or biomass crop production can have adverse socio-economic and environmental impacts, especially at large scales and where land tenure is insecure, and modelled pathways that use resources more efficiently or shift development toward sustainability face fewer challenges, such as less dependence on CDR and less pressure on land and biodiversity (high confidence) [2].",
     "According to the source, if warming exceeds a specified level such as 1.5°C it could gradually be reduced again by achieving and sustaining net negative global CO2 emissions, but this would require additional deployment of carbon dioxide removal compared to pathways without overshoot, leading to greater feasibility and sustainability concerns, and overshoot entails adverse impacts, some irreversible, and additional risks for human and natural systems, all growing with the magnitude and duration of overshoot (high confidence) [2].",
     "According to the IPCC (AR6 Synthesis Report, B.7.1), only a small number of the most ambitious global modelled pathways limit global warming to 1.5°C (>50%) by 2100 without temporarily exceeding that level; achieving and sustaining net negative global CO2 emissions, with annual rates of CDR greater than residual CO2 emissions, would gradually reduce the warming level again (high confidence), while adverse impacts during overshoot that cause additional warming via feedback mechanisms, such as increased wildfires, mass mortality of trees, drying of peatlands, and permafrost thawing, weakening natural land carbon sinks and increasing releases of GHGs, would make the return more challenging (medium confidence) [2].",
+    "The IPCC assessment adds, with medium confidence, that reducing global temperature by removing CO2 would require net negative emissions of 220 GtCO2 (best estimate, with a likely range of 160 to 370 GtCO2) for every tenth of a degree [2].",
     "According to the IPCC (statement B.7.2), the higher the magnitude and the longer the duration of overshoot, the more ecosystems and societies are exposed to greater and more widespread changes in climatic impact-drivers, increasing risks for many natural and human systems; compared to pathways without overshoot, societies would face higher risks to infrastructure, low-lying coastal settlements, and associated livelihoods, and overshooting 1.5°C will result in irreversible adverse impacts on certain ecosystems with low resilience, such as polar, mountain, and coastal ecosystems, impacted by ice-sheet melt, glacier melt, or by accelerating and higher committed sea level rise (high confidence) [2].",
-    "According to the IPCC (SR1.5 Summary for Policymakers, B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].",
+    "According to the IPCC (AR6 Synthesis Report, Summary for Policymakers, B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].",
     "The IPCC's Sixth Assessment Report Synthesis Report states with high confidence that many agriculture, forestry, and other land use (AFOLU) options provide adaptation and mitigation benefits that could be upscaled in the near term across most regions, that conservation, improved management, and restoration of forests and other ecosystems offer the largest share of economic mitigation potential (with reduced tropical deforestation having the highest total mitigation potential), that ecosystem restoration, reforestation, and afforestation can create trade-offs from competing land demands that require integrated approaches to minimize, and that some options, such as conserving high-carbon ecosystems, deliver immediate benefits while others, such as restoring them, take decades to deliver measurable results [2].",
     "According to the IPCC (AR6 Synthesis Report, Summary for Policymakers, C.3.6), maintaining the resilience of biodiversity and ecosystem services at a global scale depends on effective and equitable conservation of approximately 30% to 50% of Earth's land, freshwater and ocean areas, including currently near-natural ecosystems (high confidence) [2].",
     "According to the IPCC AR6 Synthesis Report, the economic effects of strengthened mitigation action vary across regions and countries, depending notably on economic structure, regional emissions reductions, policy design and level of international cooperation (high confidence) [2].",
@@ -88,9 +90,11 @@
    "sentences": [
     "Some hard-to-abate residual emissions will remain and would need to be counterbalanced by CDR to achieve net zero CO2 or GHG emissions, such as some emissions from agriculture, aviation, shipping and industrial processes (high confidence) [2].",
     "As a result, net zero CO2 is reached earlier than net zero GHGs (high confidence) [2].",
+    "The IPCC finds that while non-CO2 GHG emissions are strongly reduced in all pathways that limit warming to 2°C (>67%) or lower, residual emissions of CH4 and N2O and F-gases of about 8 [5–11] GtCO2-eq yr-1 remain at the time of net zero GHG emissions [2].",
     "Because residual non-CO2 emissions are expected to be significant, the gap between the two could reach one to several decades [1].",
     "Counterbalancing residual non-CO2 emissions with CO2 removals will lead to net-negative CO2 emissions at the time of net zero GHG emissions [1].",
     "CDR will be necessary to achieve net negative CO2 emissions [2].",
+    "The IPCC assessment finds, with high confidence, that \"afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods.\"",
     "In model pathways with no or limited overshoot of 1.5°C, global net CO2 emissions reach net zero around 2050 (2045–2055 interquartile range) [3].",
     "In pathways limiting warming to below 2°C, global net CO2 emissions reach net zero around 2070 (2065–2080 interquartile range) [3]."
    ]
@@ -105,6 +109,7 @@
    "section": "findings",
    "sentences": [
     "In 1.5°C pathways, CDR would be used to compensate for residual emissions and, in most cases, to achieve net negative emissions that return warming to 1.5°C after a peak (high confidence) [3].",
+    "The assessment finds that all pathways that limit global warming to 1.5°C with limited or no overshoot project the use of carbon dioxide removal (CDR) on the order of 100–1000 GtCO2 over the 21st century [3].",
     "Net zero GHG emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence) [2].",
     "However, understanding of the carbon cycle and climate system is still limited about how effective net negative emissions are at reducing temperatures after they peak (high confidence) [3].",
     "Achieving net-negative CO2 emissions globally does not necessarily involve all countries reaching net-negative levels [1].",
@@ -121,10 +126,12 @@
    "section": "findings",
    "sentences": [
     "Some methods have been practised for decades to millennia, though not necessarily to remove carbon, including afforestation, improved forest management, wetland restoration and soil carbon sequestration [1].",
+    "The assessment also finds that carbon stored in vegetation or through soil carbon sequestration (SCS) \"has shorter storage times and is more vulnerable than carbon stored in buildings as wood products\" [1].",
     "Other methods are novel, including direct air carbon capture and storage (DACCS), BECCS and enhanced weathering, and their demonstration and deployment are limited in scale [1].",
     "These newer approaches have medium to low technology readiness levels and are therefore subject to significant uncertainty [1].",
     "CDR methods differ in removal process, timescale of carbon storage, technological maturity, mitigation potential, cost, co-benefits, adverse side effects and governance requirements [1].",
     "Studies have shown that the life-cycle net emissions of DACCS systems can be negative, even with some current energy mixes, with the GHG intensity of the energy used being a key factor [1].",
+    "For enhanced weathering, the assessment finds that the emissions from generating the extra energy needed to process the rock 'may reduce the net carbon dioxide removal by up to 30% with present-day grid average emissions, but this efficiency loss would decrease with low-carbon power' [1].",
     "Estimates of DACCS's future role vary [1].",
     "One modelling study identified a substantial role for DACCS, whereas the IEA's Net Zero scenario deploys CDR on a limited scale, with DACCS removing 0.6 GtCO2 in 2050 [1]."
    ]
@@ -160,7 +167,8 @@
     "Countries with national net-zero targets have begun to include CDR in modelled national pathways, to increase research and demonstration, and to consider CDR-specific incentives and policies [1].",
     "This attention has not yet extended to net-negative targets and the policies needed to achieve them [1].",
     "In the UK, the latest national plan, published in October 2021, proposes afforestation, wood in construction, soil carbon and BECCS, as well as DACCS, biochar and enhanced weathering [1].",
-    "Most countries report anthropogenic land CO2 fluxes, including those caused by human-driven environmental change such as CO2 fertilisation, on 'managed' land in their national greenhouse gas inventories [2]."
+    "Most countries report anthropogenic land CO2 fluxes, including those caused by human-driven environmental change such as CO2 fertilisation, on 'managed' land in their national greenhouse gas inventories [2].",
+    "The IPCC adds that, using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced [2]."
    ]
   },
   {
@@ -652,6 +660,69 @@
     "source": "S002",
     "start": 106781,
     "end": 106975
+   }
+  ],
+  "According to the IPCC (AR6 Synthesis Report, Summary for Policymakers, B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 120954,
+    "end": 121565
+   }
+  ],
+  "The assessment also finds that carbon stored in vegetation or through soil carbon sequestration (SCS) \"has shorter storage times and is more vulnerable than carbon stored in buildings as wood products\" [1].": [
+   {
+    "source": "S001",
+    "start": 81569,
+    "end": 81709
+   }
+  ],
+  "For enhanced weathering, the assessment finds that the emissions from generating the extra energy needed to process the rock 'may reduce the net carbon dioxide removal by up to 30% with present-day grid average emissions, but this efficiency loss would decrease with low-carbon power' [1].": [
+   {
+    "source": "S001",
+    "start": 123843,
+    "end": 124090
+   }
+  ],
+  "The assessment notes that, to avoid CDR being misperceived as a substitute for deep emissions reductions, the prioritisation of emissions cuts can be signalled and achieved with differentiated target setting for reductions and removals [1].": [
+   {
+    "source": "S001",
+    "start": 169121,
+    "end": 169329
+   }
+  ],
+  "The IPCC adds that, using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced [2].": [
+   {
+    "source": "S002",
+    "start": 106976,
+    "end": 107091
+   }
+  ],
+  "The IPCC finds that while non-CO2 GHG emissions are strongly reduced in all pathways that limit warming to 2°C (>67%) or lower, residual emissions of CH4 and N2O and F-gases of about 8 [5–11] GtCO2-eq yr-1 remain at the time of net zero GHG emissions [2].": [
+   {
+    "source": "S002",
+    "start": 372238,
+    "end": 372445
+   }
+  ],
+  "The IPCC assessment adds, with medium confidence, that reducing global temperature by removing CO2 would require net negative emissions of 220 GtCO2 (best estimate, with a likely range of 160 to 370 GtCO2) for every tenth of a degree [2].": [
+   {
+    "source": "S002",
+    "start": 380482,
+    "end": 380681
+   }
+  ],
+  "The IPCC assessment finds, with high confidence, that \"afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods.\"": [
+   {
+    "source": "S002",
+    "start": 382927,
+    "end": 383098
+   }
+  ],
+  "The assessment finds that all pathways that limit global warming to 1.5°C with limited or no overshoot project the use of carbon dioxide removal (CDR) on the order of 100–1000 GtCO2 over the 21st century [3].": [
+   {
+    "source": "S003",
+    "start": 46985,
+    "end": 47164
    }
   ]
  }

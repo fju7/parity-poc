@@ -12,3 +12,7 @@
 | premise_reading (orchestrator) | 2026-11-27T19:20:22+00:00 | 2026-11-27T19:20:36+00:00 | $0.0440 | 0 | sources show verified; direction narrows; kill condition survived |
 | coverage (orchestrator) | 2026-11-27T19:20:36+00:00 | 2026-11-27T19:22:53+00:00 | $0.0191 | 0 | 3 coverage decision(s), 0 left in scope |
 | corrections_3b (orchestrator) | 2026-11-27T19:22:53+00:00 | 2026-11-27T19:24:40+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-27T19:24:40+00:00 | 2026-11-27T19:26:44+00:00 | $0.0000 | 0 | committed 6a8ca3091840 |
+| gate (orchestrator) | 2026-11-27T19:26:44+00:00 | 2026-11-27T19:28:24+00:00 | $0.8479 | 0 | done |
+| advocate (orchestrator) | 2026-11-27T19:28:24+00:00 | 2026-11-27T19:38:02+00:00 | $1.2172 | 0 | 1 record(s) applied |
+| omissions (orchestrator) | 2026-11-27T19:38:02+00:00 | 2026-11-27T19:42:34+00:00 | $0.5784 | 0 | FAILED: RunStop: omissions: applied_check found 1 mismatch(es) |
