@@ -362,6 +362,9 @@ def carried_ruling(log: Path, base: dict) -> dict | None:
     return hit
 
 
+REPLY_REASK = "\n\nReturn exactly one JSON object and nothing after it.\n"
+
+
 def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped: bool = False) -> dict:
     """One ruling: prompt, call, check, log. `call(prompt, max_tokens, role)`
     returns (text, usage) -- audit_stage.Caller, metered and capped, or a fake.
@@ -421,8 +424,20 @@ def rule(kind: str, p: dict, n_quotes: int, call, log: Path, ref: dict, grouped:
                                     "finding(s) stay open" % (MAX_OUT, ATTEMPTS)})
         raise RulingFailed("%s: cut off at %d tokens on all %d attempts (record %s)"
                            % (kind, MAX_OUT, ATTEMPTS, failed["id"]))
-    got = parse(kind, text, n_quotes)
     import one_sentence as OS
+    if OS.strict():
+        # The shared reply rule (reply_json; advisor's ruling 1 on the 04h fork): one JSON object, at most a short
+        # lead-in, nothing after it, parsed whole. Otherwise one re-ask, then the ruling fails (RulingError).
+        import reply_json as RJ
+        if not RJ.ok(text, "object"):
+            _append(attempts_log(log), {"type": "malformed", "at": datetime.now(timezone.utc).isoformat(
+                timespec="seconds"), **base, **ref, "text": (text or "")[:4000]})
+            text, usage = call(prompt + REPLY_REASK, MAX_OUT, "rule-%s-reask" % kind)
+            if not RJ.ok(text, "object"):
+                _append(attempts_log(log), {"type": "malformed", "at": datetime.now(timezone.utc).isoformat(
+                    timespec="seconds"), **base, **ref, "text": (text or "")[:4000], "after_reask": True})
+                raise RulingError("%s reply is not exactly one JSON object after a re-ask" % kind)
+    got = parse(kind, text, n_quotes)
     reasked = None
     if OS.strict() and kind != "relevance" and isinstance(got.get("text"), str) and got["text"].strip() \
             and not OS.is_one(got["text"]):

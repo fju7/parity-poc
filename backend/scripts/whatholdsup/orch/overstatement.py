@@ -91,14 +91,10 @@ def pairs(rows: dict, held: dict, locate) -> list[dict]:
 
 def parse(reply: str) -> dict | None:
     """{"overstates": "yes"|"no", "how", "why"} or None when the reply is not the schema."""
-    t = (reply or "").strip()
-    t = re.sub(r"^```(?:json)?\s*|\s*```$", "", t)
-    m = re.search(r"\{.*\}", t, re.S)
-    if not m:
-        return None
+    import reply_json as RJ                 # the shared reply rule (advisor's ruling 1 on the 04h fork)
     try:
-        d = json.loads(m.group(0))
-    except Exception:
+        d = RJ.value(reply, "object")
+    except RJ.Invalid:
         return None
     v = str(d.get("overstates", "")).strip().lower()
     if v not in ("yes", "no"):

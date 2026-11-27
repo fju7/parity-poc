@@ -845,6 +845,21 @@ def _json_values_in(prose: str, citations_allowed: bool = True) -> list:
         i = end
 
 
+_RJ: list = []
+
+
+def _reply_json():
+    if _RJ:
+        return _RJ[0]
+    import importlib.util
+    p = Path(__file__).resolve().parents[1] / "whatholdsup" / "reply_json.py"
+    spec = importlib.util.spec_from_file_location("reply_json", p)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    _RJ.append(m)
+    return m
+
+
 def fenced_value(text: str, kind: str, label: str = ""):
     """Advisor's ruling after attempt 14 (2026-11-23): the final block's one value when it holds exactly one
     fenced ```json block containing exactly one JSON value of KIND and no other JSON value anywhere outside it;
@@ -1078,14 +1093,17 @@ def call(system: str, user: str, *, search: bool,
             reply, narration = _final_text(response)
             for n in narration:              # between searches: logged, never parsed, not malformed
                 _note_malformed(label, "narration", n)
-            v = one_value(reply, kind)
-            if v is not None:
+            # The shared reply rule (whatholdsup/reply_json.py; advisor's ruling 1 on the 04h fork): one value of KIND,
+            # at most a short lead-in before it (citation markers allowed there), nothing after it, parsed whole as
+            # given. It replaces one_value + fenced_value here: prose AFTER a fence is now malformed.
+            RJ = _reply_json()
+            try:
+                v, lead = RJ.parts(reply, kind)
+                if lead:
+                    _note_malformed(label, "narration", lead)     # the lead-in: logged, never parsed
                 return v
-            v, prose = fenced_value(reply, kind, label)
-            if v is not None:
-                if prose:
-                    _note_malformed(label, "narration", prose)    # the prose around the fence: logged, not parsed
-                return v
+            except RJ.Invalid:
+                pass
             text = reply
             _note_malformed(label, "malformed", text)
             if json_attempt == 0:

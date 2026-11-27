@@ -1806,9 +1806,10 @@ def _stub(replies):
 def test_parse_json_one_object_only():
     from orch import model_steps as M
     assert M.parse_json('```json\n{"a": 1}\n```') == {"a": 1}
-    assert M.parse_json('Here it is: {"a": {"b": 2}} done') == {"a": {"b": 2}}
+    assert M.parse_json('Here it is: {"a": {"b": 2}}') == {"a": {"b": 2}}
+    # the shared reply rule (advisor's ruling 1 on the 04h fork): nothing after the value
     for bad in (ATTEMPT9_REPLY, '{"a": {"b": 2}, "c": ', '[{"a": 1}]', "no json here", "", None,
-                '{"a": 1} {"a": 2}'):
+                '{"a": 1} {"a": 2}', 'Here it is: {"a": {"b": 2}} done'):
         with pytest.raises(M.Malformed):
             M.parse_json(bad)
 

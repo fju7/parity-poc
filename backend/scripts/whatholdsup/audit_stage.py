@@ -737,13 +737,13 @@ def strict_replies() -> bool:
 
 
 def one_object(text: str) -> dict | None:
-    """The reply's one JSON object, or None: the whole reply (code fence stripped) must parse as one object
-    (the audit's twin of factcheck_draft.one_value)."""
+    """The reply's one JSON object, or None, under the shared reply rule (reply_json; advisor's ruling 1 on the 04h
+    fork): at most a short lead-in before it, nothing after it, parsed whole as given."""
+    import reply_json as RJ
     try:
-        v = json.loads(jsonio.strip_code_fence(text or ""))
-    except ValueError:
+        return RJ.value(text, "object")
+    except RJ.Invalid:
         return None
-    return v if isinstance(v, dict) else None
 
 
 def save_unparsed(role: str, text: str, why: str) -> None:
@@ -795,6 +795,15 @@ def parse_reply(text: str, role: str, reask=None) -> dict | list:
 
 
 def parse_json(text: str) -> dict | list:
+    if strict_replies():
+        # lean / orchestrated callers (the consistency audit's rulings): the shared reply rule, never a salvage
+        import reply_json as RJ
+        for kind in ("object", "array"):
+            try:
+                return RJ.value(text, kind)
+            except RJ.Invalid:
+                continue
+        raise AuditFailure("reply is not exactly one JSON value: %r" % (text or "")[:200])
     s = jsonio.strip_code_fence(text)
     try:
         return json.loads(s)

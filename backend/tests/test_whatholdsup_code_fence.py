@@ -232,9 +232,13 @@ def test_lean_array_prompt_takes_one_array_and_refuses_an_object(monkeypatch):
 
 
 def test_lean_prose_around_one_object_is_malformed(monkeypatch):
+    """Since the shared reply rule (advisor's ruling 1 on the 04h fork): a short lead-in is allowed, anything after
+    the value is not."""
     monkeypatch.setenv("WHU_LEAN", "1")
-    client, _ = _seq(monkeypatch, ['Here you go: {"label": "a"}', 'Sure {"label": "a"}'])
+    client, _ = _seq(monkeypatch, ['Here you go: {"label": "a"} thanks', 'Sure {"label": "a"}. Done.'])
     assert fc.call("s", "U", search=False, label="x") is None and client.calls == 2
+    client, _ = _seq(monkeypatch, ['Here you go: {"label": "a"}'])
+    assert fc.call("s", "U", search=False, label="x") == {"label": "a"} and client.calls == 1
 
 
 def test_non_lean_behaviour_is_unchanged(monkeypatch):
@@ -320,8 +324,9 @@ def test_attempt_12s_recency_reply_is_read_from_its_final_block(monkeypatch):
 
 def test_prose_in_the_final_block_is_still_malformed_and_reasked(monkeypatch):
     monkeypatch.setenv("WHU_LEAN", "1")
+    # since the shared reply rule a short lead-in is allowed; text after the value is what stays malformed
     bad = _search_response([("server_tool_use", ""), ("web_search_tool_result", ""),
-                            ("text", "Let me consolidate:\n" + A12_FINAL.replace("```json\n", "").replace("\n```", ""))])
+                            ("text", A12_FINAL.replace("```json\n", "").replace("\n```", "") + "\nThat is all.")])
     good = _search_response([("server_tool_use", ""), ("web_search_tool_result", ""), ("text", A12_FINAL)])
     C, seen = _client_of([bad, good], monkeypatch)
     assert fc.call("s", "u", search=True, label="recency")["studies"]

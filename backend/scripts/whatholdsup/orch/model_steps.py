@@ -42,16 +42,13 @@ def parse_json(text: str) -> dict:
     single JSON object (a code fence and text outside that span are allowed). Two objects (attempt 9: an answer,
     prose, a second answer), a cut-off object, or no object is Malformed. Code never selects among several
     objects, and never takes an inner object out of a broken one (advisor's ruling 1, 2026-11-23)."""
-    t = re.sub(r"^```(?:json)?\s*|\s*```$", "", (text or "").strip())
-    i, j = t.find("{"), t.rfind("}")
-    if i >= 0 and j > i and not t.startswith("["):     # an array is not an object, whatever it holds
-        try:
-            d = json.loads(t[i:j + 1])
-        except ValueError:
-            d = None
-        if isinstance(d, dict):
-            return d
-    raise Malformed("the reply is not exactly one JSON object: %r" % (text or "")[:200])
+    # The shared reply rule (reply_json; advisor's ruling 1 on the 04h fork): one object, at most a short lead-in
+    # before it, nothing after it, parsed whole as given. Text after the object (allowed before) is now malformed.
+    import reply_json as RJ
+    try:
+        return RJ.value(text, "object")
+    except RJ.Invalid as e:
+        raise Malformed("the reply is not exactly one JSON object (%s): %r" % (e, (text or "")[:200]))
 
 
 REASK_NOTE = "\n\nReturn exactly one JSON object and nothing else.\n"
