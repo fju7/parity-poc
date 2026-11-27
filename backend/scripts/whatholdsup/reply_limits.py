@@ -32,7 +32,7 @@ LIMITS = {
     "draft": 30000,               # measured 4,389
     "coverage": 2100,             # measured 1,007 (01d, 2026-11-27; was 1800 against 873, P147); 2x = 2,014
     "judgement-sentence": 1600,   # measured 752 (04g, 2026-11-27; P213); 748 (04e, P205); 676 (04d, P201)
-    "premise-reading": 3000,      # 1,500 cut off on 02zd, censored at 1,500 (was a hard-coded 1,500)
+    "premise-reading": 3700,      # measured 1,803 (04h, 2026-11-27; P218); 1,500 cut off on 02zd
     "audit-read": 12000,          # pooled audit-step max 5,813 (<= 12,000: the reader's own); 2x = 11,626
     "audit-rule": 3000,           # censored at its old limit 1,500 (pooled with the reader)
     "ruling": 8000,               # ruling.py, every mode: 967 in its own steps; censored at its old 4,000 in the
