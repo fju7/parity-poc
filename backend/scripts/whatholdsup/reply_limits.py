@@ -28,7 +28,7 @@ PROVIDER_MAX = 128000        # Claude Opus 5.5 / Sonnet 5.5 / Sonnet 4.6 maximum
 
 LIMITS = {
     # audit_stage.Caller call sites ------------------------------------------------------------------------
-    "premise": 4000,              # measured 1,941 (02w)
+    "premise": 4100,              # measured 2,021 (03b, 2026-11-27; was 1,941, 02w)
     "draft": 30000,               # measured 4,389
     "coverage": 2100,             # measured 1,007 (01d, 2026-11-27; was 1800 against 873, P147); 2x = 2,014
     "judgement-sentence": 1000,   # censored at its old limit 500 (pooled with relevance rulings, max 622)
