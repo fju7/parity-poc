@@ -241,6 +241,12 @@ def check(case: Path, page_html: str) -> dict:
     out = {"checked": [], "mismatches": [], "superseded": [], "skipped": [], "cut": []}
     cuts = {(c["_run"], c.get("unit"), _n(c.get("last_text")), _n(c["rounds"][-1]["text"])): c
             for c in load_cuts(case)}
+    import lean_failsafe as _FS
+    failsafe_removed = {}
+    for row in _FS.load(case):
+        if row.get("outcome") == _FS.OUTCOME and row.get("sentence"):
+            for s in norm_sentences(row["sentence"]):
+                failsafe_removed.setdefault(s, row)
     for i, r in enumerate(applied):
         ref = {"log": r["_log"], "ruling": r.get("ruling"), "ruling_kind": r.get("ruling_kind") or "audit",
                "ruled_on": _ruled_on(r), "text": r.get("text")}
@@ -268,6 +274,14 @@ def check(case: Path, page_html: str) -> dict:
         if new:
             want = norm_sentences(new)
             missing = [s for s in want if s not in page]
+            # P208 (after WHU-OT1-04f): a ruling's sentence that a later lean fail-safe record removed (the
+            # overstatement check, the audit's withholding, ...) is superseded by that record, as a later ruling or
+            # an audit cut supersedes it -- only when every missing sentence is exactly one such record removed.
+            gone = [failsafe_removed.get(s) for s in missing]
+            if missing and want and all(gone):
+                out["superseded"].append(dict(ref, by="lean fail-safe (%s): %s" % (
+                    gone[0].get("path"), gone[0].get("finding_key") or gone[0].get("fingerprint"))))
+                continue
             row = dict(ref, expected=want, missing=missing)
             (out["mismatches"] if missing or not want else out["checked"]).append(row)
         else:
