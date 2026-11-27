@@ -747,6 +747,16 @@ def code_confirm(ctx: Ctx, step) -> dict:
         raise RunStop("confirm: no proposal resolved to a source")
     for s in sources:
         s["also_called"] = [s["title"][:80]]
+    # P193 (after WHU-OT1-04b): the assessment-summary rule (post-study fix 3: an IPCC AR6 WGII/WGIII chapter brings
+    # its report's Summary for Policymakers) is applied HERE, by the step that owns the source list, not by acquire --
+    # the list is frozen at confirm, and acquire's addition broke the freeze. The rule reads the chapter URL only, so
+    # its result is the same; acquire then finds the summary listed and adds nothing.
+    import acquire_sources as AQ
+    for e in AQ.summaries_to_add(sources, now()[:10]):
+        e["also_called"] = [e["title"][:80]]
+        e["registry"] = "none (an agency's own site: ipcc.ch)"
+        e["confirmed_by"] = "code (the assessment-summary rule, applied at confirm; P193)"
+        sources.append(e)
     doc = {"sources": sources,
            "search": {"searched": ["web search: %s" % q for q in searched.get("queries") or []] +
                       ["registry: %s" % r for r in registries_answered(sources, unresolved)],
