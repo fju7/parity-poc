@@ -1,0 +1,13 @@
+{
+  "study": true,
+  "round": "orchestrator trial 1",
+  "status": "draft",
+  "orchestrated": true,
+  "id": "WHU-OT1-03b",
+  "slug": "whu-lean-orch-t1-q1-03b",
+  "title": "If greenhouse gas emissions continue, how will further warming change the climate: rainfall and the water cycle, very wet and very dry extremes, ice, sea level and the oceans?",
+  "question": "If greenhouse gas emissions continue, how will further warming change the climate: rainfall and the water cycle, very wet and very dry extremes, ice, sea level and the oceans?",
+  "run_cap_usd": 9.5,
+  "_round_note": "Orchestrator trial 1, development run under the development budget (Fred's +$30, 2026-11-27, relayed by the advisor; P177): Q1-03, run because Q1-01 is blocked by its sources (P184: every fresh orchestrated Q1-01 over the declarations budget). A development run, not a reliability measurement; outputs discarded by rule and never scored. Question verbatim from WHU-Q1-03 (and WHU-OT1-03, prepared at $3.00 and never run). \"study\": true only so the WHU tools run unchanged and publish/update/announce refuse it. Ledger issue: whu-lean-orch-t1-q1-03b.",
+  "_run_cap_note": "run_cap_usd: $9.50 = the needed cap $9.02 (standing rule 3: the most, over the run, of likely spend so far + the next call's bound; likely from WHU-OT1-01e's measured steps through omissions, $5.1387, then WHU-L1-03b's audit on this question $2.1868, 01d-era overstatement $0.1964 and changecheck $0.0529; the largest is the final gate, $7.52 + its $1.50 bound) rounded up to the next $0.50; within the trial line's $31.64 left and $10.00. No orchestrated Q1-03 run has been measured: the per-source steps are 01e's."
+}
