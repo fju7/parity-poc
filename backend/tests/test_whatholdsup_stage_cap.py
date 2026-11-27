@@ -19,16 +19,31 @@ spec = importlib.util.spec_from_file_location("stage_cap_t", WHU / "stage_cap.py
 SC = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(SC)
 
-TODAY = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+class _Clock(datetime):
+    """One clock for a test: the ledger rows it writes and stage_cap / spend_ledger's "today" (P163). Until
+    2026-11-27 TODAY was fixed when the module was imported, so a run collected before 00:00 UTC and run after it
+    wrote rows dated yesterday and three tests failed the commit hook on P161."""
+    NOW = None
+
+    @classmethod
+    def now(cls, tz=None):
+        return cls.NOW if cls.NOW is not None else datetime.now(tz)
+
+
+def _today() -> str:
+    return _Clock.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def _e(role, usd, issue="demo", at=None, script="factcheck_draft.py"):
-    return {"at": at or TODAY + "T01:00:00+00:00", "script": script, "role": role, "issue": issue, "usd": usd}
+    return {"at": at or _today() + "T01:00:00+00:00", "script": script, "role": role, "issue": issue, "usd": usd}
 
 
 @pytest.fixture
 def ledger(monkeypatch, tmp_path):
     rows = []
+    monkeypatch.setattr(_Clock, "NOW", datetime.now(timezone.utc))
+    monkeypatch.setattr(SC, "datetime", _Clock)
+    monkeypatch.setattr(SC.S, "datetime", _Clock)
     monkeypatch.setattr(SC.S, "entries", lambda: list(rows))
     monkeypatch.setattr(SC.S, "caps", lambda: {"default_per_day": 25, "default_per_issue": 40,
                                                "study_per_issue": 50})
@@ -140,3 +155,18 @@ def test_the_advocate_estimate_is_the_higher_of_per_source_and_per_objection(led
         json.dumps([{"source": "S1", "objections": [{}]}]))
     # per objection now max(0.20, 1.00 / 1) x 1 = 1.00, equal to the per-source 1.00: 1.00 x 2
     assert SC.per_unit("advocate", issues_dir=issues)[0] == pytest.approx(2.00)
+
+
+def test_a_run_that_crosses_midnight_utc_still_counts_todays_rows(ledger, monkeypatch):
+    """P161's commit hook: collected at 23:59 UTC, run at 00:00. The clock is set just past midnight; the rows a test
+    writes take today's date from that same clock, so the day's spend is counted and the guard still refuses."""
+    monkeypatch.setattr(_Clock, "NOW", datetime(2026, 11, 27, 0, 0, 1, tzinfo=timezone.utc))
+    ledger += [_e("advocate:S1", 0.40), _e("x", 24.9, issue="")]
+    assert ledger[0]["at"].startswith("2026-11-27")
+    with pytest.raises(SystemExit) as e:
+        SC.guard("advocate", "demo", 5)
+    assert e.value.code == 3
+    # what went wrong before: rows dated by a date fixed at import (2026-11-26) are not today's after midnight
+    stale = [dict(r, at="2026-11-26T01:00:00+00:00") for r in ledger]
+    ledger[:] = stale
+    assert SC.remaining("demo")["day_left"] == pytest.approx(25.0)
