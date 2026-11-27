@@ -22,6 +22,20 @@
 set -e
 ROOT=$(git rev-parse --show-toplevel)
 
+# PRIVATE RECORDS NEVER ENTER THE REPOSITORY (advisor's ruling 5 on the P187 fork, 2026-11-27). The repository is
+# public. rulings/omissions.jsonl holds source quotations and audit retrieval.jsonl files are private run records;
+# a commit that adds or changes either is refused, whatever else it touches. Removing one (git rm --cached) is allowed.
+PRIVATE=$(git diff --cached --name-only --diff-filter=ACMR \
+          | grep -E '(^|/)rulings/omissions\.jsonl$|(^|/)retrieval\.jsonl$' || true)
+if [ -n "$PRIVATE" ]; then
+    echo
+    echo "COMMIT REFUSED — a private record is staged (source quotations or audit retrieval):"
+    echo "$PRIVATE" | sed 's/^/    /'
+    echo
+    echo "  These stay in ~/Projects/whu-study-private/ only. Unstage them: git restore --staged <path>"
+    exit 1
+fi
+
 STAGED=$(git diff --cached --name-only --diff-filter=ACM \
          | grep -E '(whatholdsup|WHU-)' || true)
 [ -n "$STAGED" ] || exit 0
