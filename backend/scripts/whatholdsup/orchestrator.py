@@ -974,6 +974,7 @@ def code_draft(ctx: Ctx, step) -> dict:
     d = M.draft_page(reply, passages)
     nums = _cite_numbers(ctx)
     q_html, limits_html, readers_html = _generated_blocks(ctx)
+    split_items = 0
     blocks = [{"tag": "h2", "section": "question", "text": "The question"},
               {"tag": "html", "section": "question", "html": q_html}]
     provenance = {}
@@ -986,9 +987,14 @@ def code_draft(ctx: Ctx, step) -> dict:
             sents = []
             for x in b["sentences"]:
                 srcs = [nums[passages[p]["source"]] for p in x["passages"]]
-                t = _with_marker(x["text"], srcs)
-                sents.append(t)
-                provenance[t] = [{k: passages[p][k] for k in ("source", "start", "end")} for p in x["passages"]]
+                # P196 (after WHU-OT1-04c): a drafted item holding more than one sentence is stored as the audit's
+                # own units (bindings.page_sentences, the splitter the standing check compares with), each with the
+                # item's passages and citation, so every sentence is bound and audited on its own.
+                for piece in draft_units(ctx.slug, x["text"]):
+                    t = _with_marker(piece, srcs)
+                    sents.append(t)
+                    provenance[t] = [{k: passages[p][k] for k in ("source", "start", "end")} for p in x["passages"]]
+                    split_items += 1 if piece != x["text"] else 0
             blocks.append({"tag": "p", "section": sec["id"], "sentences": sents})
     blocks += [{"tag": "h2", "section": "limits", "text": "What we read and what we did not"},
                {"tag": "html", "section": "limits", "html": limits_html},
@@ -999,7 +1005,19 @@ def code_draft(ctx: Ctx, step) -> dict:
     ctx.page.parent.mkdir(parents=True, exist_ok=True)
     page.save(ctx.page_json)
     ctx.page.write_text(_render(ctx, page), encoding="utf-8")
-    return {"outcome": "%d sentences drafted from %d passages" % (len(provenance), len(passages))}
+    return {"outcome": "%d sentences drafted from %d passages" % (len(provenance), len(passages))
+            + ("; %d of them from drafted items holding more than one sentence, stored one per unit" % split_items
+               if split_items else "")}
+
+
+def draft_units(slug: str, text: str) -> list[str]:
+    """TEXT as the audit's splitter divides it (bindings.page_sentences on a one-paragraph page). One unit: TEXT
+    itself, unchanged."""
+    import bindings as B
+    from html import escape as html_escape
+    units = [" ".join(u.split()) for u in B.page_sentences(slug, html="<p>%s</p>" % html_escape(text, quote=False))
+             if u.strip()]
+    return units if len(units) > 1 else [text]
 
 
 def _render(ctx: Ctx, page) -> str:
