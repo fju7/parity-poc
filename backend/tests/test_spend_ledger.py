@@ -162,6 +162,7 @@ def test_the_committed_lines_hold_todays_spend():
     # moves between these two lines are by ruling (8 Nov, 23 Nov x3); together they were $160 ($10 lean runs + $150 Fred),
     # $170 since Fred approved +$10 on the trial line (2026-11-25, relayed by the advisor; deviations.md P108),
     # $180 since a further +$10 (2026-11-26, relayed by the advisor; deviations.md P148),
-    # $185 since a further +$5 (2026-11-26 19:37 ET, relayed by the advisor; deviations.md P166)
-    assert real["orchestrator trial 1"]["cap_usd"] == 65 and real["new-questions test"]["cap_usd"] == 120
-    assert real["orchestrator trial 1"]["cap_usd"] + real["new-questions test"]["cap_usd"] == 185
+    # $185 since a further +$5 (2026-11-26 19:37 ET, relayed by the advisor; deviations.md P166),
+    # $215 since a further +$30, the development budget (2026-11-27 06:44 ET, relayed by the advisor; deviations.md P177)
+    assert real["orchestrator trial 1"]["cap_usd"] == 95 and real["new-questions test"]["cap_usd"] == 120
+    assert real["orchestrator trial 1"]["cap_usd"] + real["new-questions test"]["cap_usd"] == 215
