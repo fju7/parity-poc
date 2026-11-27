@@ -63,6 +63,11 @@ BELIEF:
 # key words. A different proposal could avoid those, so when round 1 confirms nothing the step asks once more for
 # DIFFERENT outlets, naming the refused ones; code also drops any round-2 candidate that repeats a refused URL or
 # outlet. verify_outlet is unchanged; both rounds are logged ("round": 1 | 2).
+# ONE ROUND ONLY (advisor's ruling 2 on P162, 2026-11-26): until the step is redesigned it asks once (plus the
+# malformed-reply re-ask ask_json makes) and never for different outlets; round 2 stays in the code, off. With no
+# outlet verified the page keeps the fail-safe sentence (belief_claims.UNVERIFIED). Outcome history before this
+# (verified of proposed): 0/3, 1/6, 0/6, 1/6, 0/6.
+ROUNDS = 1
 REASK_TAIL = """
 These pages were proposed before and could not be confirmed; give DIFFERENT outlets and pages, none of these:
 {refused}
@@ -243,13 +248,27 @@ def belief_outlets(case: Path, ask, model: str, get=fetch, save=None, n: int = 3
                     "code": {k: v.get(k) for k in ("ok", "why", "sha256", "final_url", "key_words",
                                                    "key_words_found", "robots", "fetched_at")}})
 
-    reply = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief), M.LIMITS["belief"], "belief-outlet")
+    malformed = False
+    if ROUNDS > 1:
+        reply = M.ask_json(ask, BELIEF_PROMPT.format(n=n, belief=belief), M.LIMITS["belief"], "belief-outlet")
+    else:
+        # one round, no re-ask (the advisor's ruling on the belief limit): a malformed reply proposes nothing and
+        # the page keeps the fail-safe sentence; it is never asked again
+        text = ask(BELIEF_PROMPT.format(n=n, belief=belief), M.LIMITS["belief"], "belief-outlet")
+        try:
+            reply = M.parse_json(text)
+        except M.Malformed:
+            reply, malformed = None, True
+            note = getattr(ask, "note_malformed", None)
+            if note:
+                note("belief-outlet", "malformed", text)
     cands = _cands(reply)
     checked = [verify_outlet(belief, c, get, save) for c in cands]
     for c, v in zip(cands, checked):
         _record(1, c, v)
-    rounds = [{"round": 1, "proposed": len(cands), "verified": sum(1 for v in checked if v["ok"])}]
-    if not any(v["ok"] for v in checked):
+    rounds = [{"round": 1, "proposed": len(cands), "verified": sum(1 for v in checked if v["ok"]),
+               **({"malformed": True} if malformed else {})}]
+    if ROUNDS > 1 and not any(v["ok"] for v in checked):
         refused = [(c, v) for c, v in zip(cands, checked)]
         seen_urls = {_url_key(c.get("url")) for c, _v in refused} - {""}
         seen_outlets = {_outlet_key(c.get("outlet")) for c, _v in refused} - {""}

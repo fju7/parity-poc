@@ -6,6 +6,8 @@ typed by anyone); `code` names the orchestrator function that does the rest (orc
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 from dataclasses import dataclass, field
 
 GATE_MODEL = "claude-sonnet-4-6"       # factcheck_draft's (signal_model.DEFAULT_MODEL)
@@ -101,7 +103,11 @@ STEPS: tuple[Step, ...] = (
     # code (orch/premise_reading.py). belief: one web-search call (+ one re-ask), and once more for different outlets
     # if none is confirmed (ruling D on P117); premise_reading: one call (+ one).
     # ruling D on P117: one re-ask for different outlets when round 1 confirms none (round 2 + its re-ask: 4 calls)
-    Step("belief", "model", models=(GATE_MODEL,), max_calls=4, cap_usd=2.00, code="belief"),
+    # One round, no re-ask (ruling 2 on P162, and the advisor's ruling on the belief limit): one call; its limit is
+    # (calls in one round = 1) x the call's bound, derived at run time (cap_for, stage_cap.belief_call_bound). The
+    # $0.50 of ruling 2 was below the call's own $0.75 reservation and refused the first call (the advisor's error).
+    # cap_usd here is the bound as derived on 2026-11-26 (max($0.75, $0.7127) x 2), shown for estimates only.
+    Step("belief", "model", models=(GATE_MODEL,), max_calls=1, cap_usd=1.50, code="belief"),
     Step("premise_reading", "model", models=(CURRENT,), max_calls=2, cap_usd=0.40, code="premise_reading"),
     # Advisor's ruling 4 on P140: coverage runs AFTER premise_reading (and judgements), so every source those make
     # relied on -- named in what_the_sources_show, or bound by judgement sentences -- has its headline units decided
@@ -179,6 +185,21 @@ NEVER_WRITTEN = ("human_reads.jsonl", "person_decisions.md", "protected_signoffs
 
 def owns_for(step: Step, slug: str) -> tuple:
     return tuple(p.replace("{slug}", slug) for p in step.owns)
+
+
+BELIEF_CALLS_PER_ROUND = 1
+
+
+def cap_for(step: Step) -> float:
+    """The limit the guard enforces for STEP: its cap_usd, except belief, whose limit is derived each run as
+    (calls in one round) x the call's bound (stage_cap.belief_call_bound)."""
+    if step.name != "belief":
+        return step.cap_usd
+    import importlib.util
+    sp = importlib.util.spec_from_file_location("stage_cap", Path(__file__).resolve().parents[1] / "stage_cap.py")
+    sc = importlib.util.module_from_spec(sp)
+    sp.loader.exec_module(sc)
+    return round(BELIEF_CALLS_PER_ROUND * sc.belief_call_bound(GATE_MODEL)[0], 4)
 
 
 def allow_for(step: Step) -> dict:

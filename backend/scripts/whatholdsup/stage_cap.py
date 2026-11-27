@@ -402,6 +402,24 @@ def gate_bound(gate_config: dict, dry_estimate: float, issues_dir: Path | None =
     return round(base * MARGIN, 4), how
 
 
+BELIEF_DRY = 0.75          # the belief call's own dry-run figure: factcheck_draft.call's per-call reservation
+
+
+def belief_call_bound(model: str, entries: list[dict] | None = None) -> tuple[float, str]:
+    """The belief step's per-call bound (advisor's ruling on the belief limit after P162, 2026-11-26): max(the
+    call's dry-run estimate BELIEF_DRY, the highest same-config measured belief-outlet call) x MARGIN, as every other
+    step's bound is derived. Same config: MODEL and an orchestrated run (current_config, matched by same_config)."""
+    es = S.entries() if entries is None else entries
+    want = {"model": model, "orchestrated": True, "limits": None}
+    same = [float(e.get("usd") or 0) for e in es
+            if (e.get("role") or "").split(":")[0] in ("belief-outlet", "belief-outlet-reask")
+            and same_config(want, row_config(e)) and e.get("usd")]
+    top = max(same) if same else 0.0
+    return round(max(BELIEF_DRY, top) * MARGIN, 4), (
+        "max(the call's dry-run $%.2f, the highest of %d same-config measured belief call(s) $%.4f) x %g"
+        % (BELIEF_DRY, len(same), top, MARGIN))
+
+
 def guard_amount(name: str, issue: str, amount: float, how: str, next_bound: tuple | None = None) -> None:
     """guard() for a stage whose estimate is an amount already computed (the gate): the frozen-file check, then
     spend_ledger.check_cap with AMOUNT (the day, issue and line caps); a refusal prints and exits 3.

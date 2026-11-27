@@ -60,7 +60,8 @@ def test_no_verified_outlet_is_recorded_and_the_premise_rows_do_not_stop(tmp_pat
     assert got["verified"] == 0
     d = json.loads((c / "premise.json").read_text())
     un = d["belief"]["outlet_unverified"]
-    assert un["sentence"] == BC.UNVERIFIED and un["proposed"] == 2 and len(un["refused"]) == 2
+    # one round since ruling 2 on P162: the asker's first proposal only (it had been 2, round 1 + round 2)
+    assert un["sentence"] == BC.UNVERIFIED and un["proposed"] == 1 and len(un["refused"]) == 1
     assert "carried_by" not in d["belief"]
     monkeypatch.setattr(PM, "load", lambda slug: d)
     monkeypatch.setattr(PM, "is_study", lambda slug: True)

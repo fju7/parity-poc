@@ -43,7 +43,9 @@ def _ok(url, body=GOOD, status=200, final=None):
 
 
 @pytest.fixture
-def case(tmp_path):
+def case(tmp_path, monkeypatch):
+    # Round 2 is off since ruling 2 on P162 (P.ROUNDS = 1); its code stays and is tested with it switched on.
+    monkeypatch.setattr(P, "ROUNDS", 2)
     c = tmp_path / "issues" / "WHU-OT1-99-whu-x"
     c.mkdir(parents=True)
     (c / "premise.json").write_text(json.dumps({"belief": {"statement": BELIEF},
@@ -131,6 +133,69 @@ def test_an_unusable_round_two_reply_is_recorded_not_a_crash(case):
     assert len(asked) == 3                                        # round 2 and its one re-ask, then stop
 
 
-def test_the_step_allows_both_rounds():
+def test_the_step_is_one_call_whose_limit_is_its_derived_bound():
+    # the advisor's ruling on the belief limit: (calls in one round = 1) x max(dry run $0.75, highest same-config
+    # measured belief call) x 2; the $0.50 of ruling 2 on P162 was below the call's own $0.75 reservation
+    import stage_cap as SC
     b = ST.BY_NAME["belief"]
-    assert b.max_calls == 4 and b.cap_usd == pytest.approx(2.00)
+    assert P.ROUNDS == 1 and b.max_calls == 1 and ST.BELIEF_CALLS_PER_ROUND == 1
+    rows = [{"role": "belief-outlet", "usd": 0.7127, "model": ST.GATE_MODEL, "step": "belief"},
+            {"role": "belief-outlet", "usd": 2.00, "model": "other-model", "step": "belief"},      # not same config
+            {"role": "belief-outlet", "usd": 3.00, "model": ST.GATE_MODEL}]                        # not orchestrated
+    assert SC.belief_call_bound(ST.GATE_MODEL, rows)[0] == pytest.approx(1.50)                    # max(.75,.7127)x2
+    assert SC.belief_call_bound(ST.GATE_MODEL, [])[0] == pytest.approx(1.50)                      # the dry run
+    hi = rows[:1] + [{"role": "belief-outlet", "usd": 0.90, "model": ST.GATE_MODEL, "step": "belief"}]
+    assert SC.belief_call_bound(ST.GATE_MODEL, hi)[0] == pytest.approx(1.80)
+
+
+def test_the_guard_admits_the_rounds_call_and_refuses_a_second_round(monkeypatch):
+    import stage_cap as SC
+    SL = SC.S                     # spend_ledger as stage_cap loads it (backend/scripts never goes on sys.path)
+    b = ST.BY_NAME["belief"]
+    made = []
+    monkeypatch.setattr(SL, "entries", lambda: list(made))
+    monkeypatch.setattr(SL, "orch_lock", lambda: {"token": "t", "step": "belief"})
+    for k, v in {"WHU_ORCH_STEP": "belief", "WHU_ORCH_TOKEN": "t", "WHU_ORCH_ISSUE": "x", "WHU_ORCH_STEP_START": "",
+                 "WHU_ORCH_ALLOW": json.dumps(ST.allow_for(b)), "WHU_ORCH_STEP_CAP": "1.5",
+                 "WHU_ORCH_STEP_CALLS": str(b.max_calls)}.items():
+        monkeypatch.setenv(k, v)
+    monkeypatch.delenv(SL.NEXT_BOUND_ENV, raising=False)
+    SL.orch_guard(ST.GATE_MODEL, "factcheck_draft.py", "belief-outlet", "x", 0.75)          # the round's one call
+    made.append({"issue": "x", "at": "2026-11-27T01:00:00+00:00", "step": "belief", "role": "belief-outlet",
+                 "usd": 0.7127})
+    with pytest.raises(SL.OrchestratorRefused, match="made its 1 calls"):
+        SL.orch_guard(ST.GATE_MODEL, "factcheck_draft.py", "belief-outlet", "x", 0.75)      # a second round
+    monkeypatch.setenv("WHU_ORCH_STEP_CAP", "0.5")                                         # the $0.50 error
+    made.clear()
+    with pytest.raises(SL.OrchestratorRefused, match="\\$0.50 cap"):
+        SL.orch_guard(ST.GATE_MODEL, "factcheck_draft.py", "belief-outlet", "x", 0.75)
+
+
+def test_a_malformed_reply_is_never_asked_again_and_the_fail_safe_stays(tmp_path):
+    import belief_claims as BC
+    c = tmp_path / "issues" / "WHU-OT1-99-whu-z"
+    c.mkdir(parents=True)
+    (c / "premise.json").write_text(json.dumps({"belief": {"statement": BELIEF},
+                                                "public_record_check": {"carried_in_general_coverage": ""}}))
+    asked = []
+    got = P.belief_outlets(c, lambda p, m, r: asked.append(r) or "not json at all", "m",
+                           get=lambda url: {"status": 404, "headers": {}, "body": b"", "final_url": url})
+    assert asked == ["belief-outlet"] and got["verified"] == 0 and got["rounds"][0].get("malformed") is True
+    assert json.loads((c / "premise.json").read_text())["belief"]["outlet_unverified"]["sentence"] == BC.UNVERIFIED
+
+
+def test_with_one_round_nothing_confirmed_asks_once_and_keeps_the_fail_safe(tmp_path):
+    import belief_claims as BC
+    c = tmp_path / "issues" / "WHU-OT1-99-whu-y"
+    c.mkdir(parents=True)
+    (c / "premise.json").write_text(json.dumps({"belief": {"statement": BELIEF},
+                                                "public_record_check": {"carried_in_general_coverage": ""}}))
+    asked = []
+
+    def ask(prompt, max_tokens, role):
+        asked.append(role)
+        return json.dumps({"outlets": [{"outlet": "Nowhere", "url": "https://example.org/x", "sentence": "x"}]})
+    got = P.belief_outlets(c, ask, "m", get=lambda url: {"status": 404, "headers": {}, "body": b"", "final_url": url})
+    assert asked == ["belief-outlet"] and got["verified"] == 0 and len(got["rounds"]) == 1
+    rec = json.loads((c / "premise.json").read_text())["belief"]["outlet_unverified"]
+    assert rec["sentence"] == BC.UNVERIFIED

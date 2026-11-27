@@ -142,7 +142,7 @@ class Ctx:
         e.update({"WHU_LEAN": "1", "WHU_ORCH_MODE": self.mode, "WHU_ORCH_STEP": step.name,
                   "WHU_ORCH_TOKEN": self.lock.token if self.lock else "", "WHU_ORCH_ISSUE": self.slug,
                   "WHU_ORCH_ALLOW": json.dumps(ST.allow_for(step)), "WHU_ORCH_STEP_START": now(),
-                  "WHU_ORCH_STEP_CAP": str(step.cap_usd), "WHU_ORCH_STEP_CALLS": str(step.max_calls),
+                  "WHU_ORCH_STEP_CAP": str(ST.cap_for(step)), "WHU_ORCH_STEP_CALLS": str(step.max_calls),
                   "WHU_ORCH_LIMITS_SHA": _limits_sha()})
         if self.lock:
             e["WHU_ORCH_LOCK"] = str(self.lock.path)
