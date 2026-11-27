@@ -1,0 +1,559 @@
+{
+ "result": "Not Ready: omissions: a ruling could not be placed by code: anchor 38871faf9aac0e2f: not on the page",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T01:23:12+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (137 code files)"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:23:13+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T01:23:13+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:23:28+00:00",
+   "usd": 0.030204
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T01:23:28+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "db3f3f05df4e3d6bf7fcd5822cca3e8392fbb47348ac942826a9d05290e6065b"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:24:00+00:00",
+   "usd": 0.4896
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T01:24:00+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 source(s), 0 unresolved proposal(s)"
+   },
+   "code_hash": "1117beddfdc3349fe4ffcce6fc7dcc32f3a89a5587d2b27b47872a9899221e68",
+   "end": "2026-11-27T01:25:06+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T01:25:06+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-01d",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/orchestrator/acquire.json"
+     ],
+     "rc": 0,
+     "tail": "                         995833 B  (contains its identifier PMC8477611 — 486512 characters, reference list and discussion/introduction present; title present (10 of 10 title words in the visible text))\n  HELD     S004   4f0b799f2abe                                    1005713 B  (contains its identifier PMC8409381 — 492242 characters, reference list and discussion present; title present (9 of 9 title words in the visible text))\n  HELD     S005   b68a2f8a89b6                                     881897 B  (contains its identifier PMC6791116 — 397293 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text))\n  HELD     S006   4526930d9e70                                     619957 B  (contains 7 of 7 distinctive title words — form 'record' — 3000 characters held. The article test does not apply to this form; title present (7 of 7 title words in the visible text))\n  HELD     S007   456a9cd3068b                                     107654 B  (contains its identifier PMC5792697 — 51106 characters, abstract present but no reference list or discussion — this is the abstract, not the paper; title present (7 of 7 title words in the visible text))\n  HELD     S008   0e40063cc260                                      63813 B  (contains its identifier PMC13242270 — 35281 characters, reference list and discussion/introduction present; title present (12 of 12 title words in the visible text))\n\n  held now: 8   failed: 0   skipped: 0\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-01d",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            8 document(s) in the library, every hash matches\n  ok       sources we hold                  all 8 source documents are in the library\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-01d"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-01d\n\n  S001   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S002   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S003   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S004   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S005   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S006   n/a          type 'guideline' is not a journal article; it has versions, not errata\n  S007   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n  S008   CLEAN        record read at Europe PMC, PubMed, Crossref; Europe PMC, PubMed, Cross\n\n  ok     sources checked for corrections        all 8 source(s) have had their bibliographic record read for errata\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-01d",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-01d-whu-lean-orch-t1-q1-01d — what can be swept at all\n\n    S001   pmid  40193137                           url/field Digital tracking, provider decision \n    S002   pmid  34314020                           url/field Decision-support tools via mobile de\n    S003   pmid  32813276                           url/field Targeted client communication via mo\n    S004   pmid  32779730                           url/field Targeted client communication via mo\n    S005   pmid  31608981                           url/field Clients' perceptions and experiences\n    S006   pmid  31162915                           url/field WHO guideline Recommendations on Dig\n    S007   pmid  29343463                           url/field The Impact of mHealth Interventions:\n    S008   pmid  42255855                           url/field Effectiveness of Single-Component Cl\n\n  8 of 8 sweepable as held.\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-01d"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-01d\n  ok      checks can read the documents      8 of 8 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "7 held, 1 not held",
+    "not_held": [
+     "S007"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S006": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S007": {
+      "holding": "blocked",
+      "state": "abstract_held",
+      "reason": "could_not_hold: not fetched"
+     },
+     "S008": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S007": "could_not_hold"
+    }
+   },
+   "code_hash": "a669520e43044f9658faec704f328aeb1bbd01e15fb2dc5ad6b65e0722ca8e81",
+   "end": "2026-11-27T01:30:16+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-27T01:30:16+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "32 sentences drafted from 57 passages"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:30:44+00:00",
+   "usd": 0.129516
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-27T01:30:44+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-01d",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  67 empirical sentence(s) on the page\n  -6 bound, 73 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "28 sentence(s) bound to their passages"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:31:04+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-27T01:31:04+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-01d",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.04 (the next candidate's bound $0.0374 (the highest of 378 same-config logged relevance ruling(s) ($0.0187) x 2), checked before every call; 29 candidate(s) in all x $0.0374 = $1.09, not reserved up front); $56.59 left today, $6.35 left on whu-lean-orch-t1-q1-01d\n  24 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/rulings/rulings.jsonl\n  consistency: re-ran 7 of 33 ruling(s) (seed 191658065837031): 6 of 7 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.1901\n"
+    }
+   ],
+   "code": {
+    "outcome": "16 judgement(s) stated"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:33:55+00:00",
+   "usd": 0.225204
+  },
+  {
+   "step": "belief",
+   "start": "2026-11-27T01:33:56+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 outlet(s) verified of 3 proposed; the page says it could not verify where the belief is published",
+    "belief": {
+     "proposed": 3,
+     "verified": 0,
+     "rounds": [
+      {
+       "round": 1,
+       "proposed": 3,
+       "verified": 0
+      }
+     ],
+     "refused": [
+      "https://www.intrahealth.org/vital/msakhi-pictures: the page has 10 of the belief's 34 key words (needs 21)",
+      "https://intrahealth.org/news/mhealth-tool-keeping-central-american-clients-conne: the page has 8 of the belief's 34 key words (needs 21)",
+      "https://www.path.org/our-impact/articles/universal-health-coverage-depends-digit: the page has 12 of the belief's 34 key words (needs 21)"
+     ]
+    }
+   },
+   "code_hash": "fdf06712e4b078faa4dbf1dc2535e36c37e06c4c6b1fda91453bcb2728b756c0",
+   "end": "2026-11-27T01:35:16+00:00",
+   "usd": 0.5478
+  },
+  {
+   "step": "premise_reading",
+   "start": "2026-11-27T01:35:16+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "sources show verified; direction narrows; kill condition survived",
+    "reading": {
+     "direction": "narrows",
+     "kill": "survived",
+     "sources_show": true
+    }
+   },
+   "code_hash": "fdf06712e4b078faa4dbf1dc2535e36c37e06c4c6b1fda91453bcb2728b756c0",
+   "end": "2026-11-27T01:35:25+00:00",
+   "usd": 0.030212
+  },
+  {
+   "step": "coverage",
+   "start": "2026-11-27T01:35:25+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "87 coverage decision(s), 0 left in scope"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:42:42+00:00",
+   "usd": 0.48139
+  },
+  {
+   "step": "corrections_3b",
+   "start": "2026-11-27T01:42:42+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "0 check(s): 0 removed, 0 re-bound",
+    "counts": {
+     "checked": 0,
+     "removed": 0,
+     "rebound": 0
+    },
+    "changed": false
+   },
+   "code_hash": "eb152aee35efed93415f6c70dd3d48b7a27530c39549a21bc5a982e886d9d349",
+   "end": "2026-11-27T01:44:53+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "commit_3b",
+   "start": "2026-11-27T01:44:53+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "committed 359574c09492",
+    "head": "359574c09492c2bcc329b8417bf3748d32189f0a"
+   },
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:46:55+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "gate",
+   "start": "2026-11-27T01:46:56+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/draft/whu-lean-orch-t1-q1-01d.html",
+      "--dry-run"
+     ],
+     "rc": 0,
+     "tail": "NARROW GATE — DRY RUN (no API call is made)\n  free checks considered 28 sentence(s) or quotation(s) carrying a figure or a quotation\n  claims the source role would receive: 0\n  calls that would be made: 1\n    recency                                        whole draft\n    (source: no UNDETERMINED claim, so no source call)\n  not run (--full only): extract, advocate, inference, coverage\n  estimated cost: 1 call(s) x $0.75 = $0.75 (the per-call figure the cap is checked with; Phase B's full run was $4.63)\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/signal/factcheck_draft.py",
+      "issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/draft/whu-lean-orch-t1-q1-01d.html",
+      "--report",
+      "issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/draft/whu-lean-orch-t1-q1-01d.html.gate.json"
+     ],
+     "rc": 1,
+     "tail": "==========================================\n\n========================================================================\nINFERENCE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nCOVERAGE  NOT RUN — narrow gate; --full runs it\n========================================================================\n\n========================================================================\nADJUDICATION  0 already decided · 0 moved since\n========================================================================\n\n  Nothing has been adjudicated for this draft. Every finding above\n  is new. Record the ones you accept in draft_decisions.json so the\n  next run can tell a fresh problem from a settled one.\n========================================================================\nCOST     $0.54 - 1 API call(s) - 137,462 tokens in, 2,962 out - 8 web search(es)\n========================================================================\n\n  recency                                  $0.54  140,424 tok   8 search\n\n  Priced from https://platform.claude.com/docs/en/about-claude/pricing,\n  read 2026-08-28. Prices go stale; a figure here older than the\n  page it came from is a figure to re-check.\n\nFull result written to issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/draft/whu-lean-orch-t1-q1-01d.html.gate.json\n\nBLOCKED — resolve every item above, or record it in the piece, before publishing.\n",
+     "proof": "proved: issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/draft/whu-lean-orch-t1-q1-01d.html.gate.json written in this step, findings present"
+    }
+   ],
+   "code_hash": "a2469324624be863aa2f3152cc0cf62ef3d3416822b2c15ea55597108140410b",
+   "end": "2026-11-27T01:48:01+00:00",
+   "usd": 0.5368
+  },
+  {
+   "step": "advocate",
+   "start": "2026-11-27T01:48:01+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_advocate.py",
+      "run",
+      "whu-lean-orch-t1-q1-01d",
+      "--page",
+      "issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/draft/whu-lean-orch-t1-q1-01d.html"
+     ],
+     "rc": 0,
+     "tail": "lean-orch-t1-q1-01d/advocate/runs/20261127T014801Z\n  routing     131 sentence(s) reach a source by their binding; 58 reach none (21 with no binding row, 37 whose row rests on no source; issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/advocate/runs/20261127T014801Z/routing.json)\n  S001  full_text_held the authors of Digital tracking, provider decision support\n        -> 5 objections\n  S002  full_text_held the authors of Decision-support tools via mobile devices t\n        -> 2 objections\n  S003  full_text_held the authors of Targeted client communication via mobile de\n        -> 10 objections\n  S004  full_text_held the authors of Targeted client communication via mobile de\n        -> 12 objections\n  S005  full_text_held the authors of Clients' perceptions and experiences of tar\n        -> 4 objections\n  S006  full_text_held the authors of WHO guideline Recommendations on Digital In\n  S007  abstract_held the authors of The Impact of mHealth Interventions: System\n  S008  full_text_held the authors of Effectiveness of Single-Component Clinician\n  quotations  33 checked against the held text; 0 still not in it after one re-ask (log: issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/advocate/quote_checks.jsonl, never committed)\n\n  briefs      issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/advocate/20261127T014801Z-briefs.json\n  adjudicate  issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/advocate/20261127T014801Z-adjudication.md\n  33 item(s) need a MERIT and an EFFECT line before this issue can publish.\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "advocate",
+      "whu-lean-orch-t1-q1-01d"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the ruling model estimated $0.08 (the next ruling's bound $0.0786 (the highest of 491 same-config logged ruling(s) ($0.0393) x 2), checked before every call; 20 ruling(s) in all x $0.0786 = $1.57, not reserved up front); $53.42 left today, $3.18 left on whu-lean-orch-t1-q1-01d\n  lean fail-safe: Not Ready: unresolved finding on a required readers'-list line (advocate, source advocate objection (SERIOUS)) -- the line stays; the page is Not Ready: 'Judged not material to this question: “These results are from randomised studies'\n  16 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/rulings/rulings.jsonl\n  consistency: re-ran 4 of 16 ruling(s) (seed 149991828990768): 1 of 4 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.3513\n"
+    }
+   ],
+   "code": {
+    "outcome": "14 record(s) applied",
+    "changed": true,
+    "applied": 14
+   },
+   "code_hash": "422d55daf88c5628a365030c083624bfaa885a629f54f5596c6958ee157ce756",
+   "end": "2026-11-27T02:00:53+00:00",
+   "usd": 1.700888
+  },
+  {
+   "step": "omissions",
+   "start": "2026-11-27T02:00:53+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "omissions",
+      "whu-lean-orch-t1-q1-01d"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the omission ruling estimated $0.08 (the next omission unit's bound $0.0786 (the highest of 54 same-config logged omission ruling(s) ($0.0393) x 2), checked before every call; 24 omission unit(s) in all x $0.0786 = $1.89, not reserved up front); $53.07 left today, $2.83 left on whu-lean-orch-t1-q1-01d\n  15 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-01d-whu-lean-orch-t1-q1-01d/rulings/rulings.jsonl\n  consistency: re-ran 3 of 15 ruling(s) (seed 197649960427000): 1 of 3 usable pair(s) agree on decision and text; never applied\n  usd this run: 0.5360\n"
+    }
+   ],
+   "failed": "RunStop: omissions: a ruling could not be placed by code: anchor 38871faf9aac0e2f: not on the page",
+   "end": "2026-11-27T02:04:30+00:00",
+   "replies": [],
+   "usd": 0.577812
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 5,
+  "multi_sentence": 0,
+  "by_role": {
+   "recency": {
+    "malformed": 0,
+    "reasks": 0,
+    "narration": 4
+   },
+   "advocate:S002": {
+    "malformed": 0,
+    "reasks": 0,
+    "narration": 1
+   }
+  },
+  "events": [
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "I need to check the currency of each of the five Cochrane reviews and other studies cited in the draft. Let me search for the latest versions of all of them simultaneously.",
+    "at": "2026-11-27T01:48:00+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "Good. Now let me check for updates to the remaining three sources: Palmer 2020 (sexual and reproductive health, CD013680), Ames 2019 (qualitative synthesis, CD013680), and Khormi 2026 (Cureus).",
+    "at": "2026-11-27T01:48:00+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "Now let me check whether the Agarwal 2021 decision-support review (CD012944) has been updated, and also check the WHO 2019 guideline and Marcolino 2018 for updates.",
+    "at": "2026-11-27T01:48:00+00:00"
+   },
+   {
+    "role": "recency",
+    "event": "narration",
+    "text": "I now have enough information to compile the full assessment. Let me summarize what I found for each source:\n\n**[1] Agarwal 2025 (CD012925.pub2)** — Published April 7, 2025. This IS the pub2 update. The draft correctly cites it as \"2025.\" CURRENT — confirmed as the latest version.\n\n**[2] Agarwal 2021 (CD012944.pub2)** — Published July 27, 2021. No pub3 found anywhere; the 2025 Agarwal review (CD012925) cites it as \"Agarwal 2021\" without superseding it. No update found. UNKNOWN — cannot positively confirm it is still the latest (no pub3 found, but also no positive confirmation it hasn't been updated since my searches only show the 2021 version being cited).\n\n**[3] Palmer 2020 (CD013679)** — Published July 14, 2020. No update found. UNKNOWN.\n\n**[4] Palmer 2020 (CD013680)** — Published July 14, 2020. No update found. UNKNOWN.\n\n**[5] Ames 2019 (CD013447)** — Published 2019. No update found. UNKNOWN.\n\n**[6] WHO 2019 guideline** — The 2019 guideline remains the current version; a planned update was noted but no new version found. UNKNOWN (cannot positively confirm no update exists).\n\n**[7] Marcolino 2018** — Not held; draft explicitly notes it could not be held. Not assessed.\n\n**[8] Khormi 2026 (Cureus)** — Published May 7, 2026. Confirmed as the current publication. CURRENT.\n\nNow, critically: the draft cites [1] as \"Agarwal S, Chin WY, Vasudevan L, et al. 2025\" — this matches CD012925.pub2, April 2025. CURRENT. The draft cites [2] as \"Agarwal S, Glenton C, Tamrat T, et al. 2021\" — this is CD012944.pub2, July 2021. No pub3 found. For [3] and [4], both Palmer 2020 reviews — no updates found. For [5] Ames 2019 — no update found. For [6] WHO 2019 — no update found.",
+    "at": "2026-11-27T01:48:00+00:00"
+   },
+   {
+    "role": "advocate:S002",
+    "event": "narration",
+    "text": "I found no other objections. The quotations on provider adherence (2 studies, 185 participants), the authors' conclusions, the eight-study count, and the \"systems lens\" sentence all match the review. The \"no studies reported\" outcomes and the smoking and systolic blood pressure results also match it.",
+    "at": "2026-11-27T01:49:11+00:00"
+   }
+  ]
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 8,
+  "held": 7,
+  "not_held": 1,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S002",
+    "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Targeted client communication via mobile devices for improving sexual and reproductive health.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "Clients' perceptions and experiences of targeted digital communication accessible via mobile devices for reproductive, maternal, newborn, child, and adolescent health: a qualitative evidence synthesis.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S006",
+    "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+    "type": "guideline",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S007",
+    "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+    "type": "review",
+    "held": false,
+    "state": "abstract_held",
+    "reason": "could_not_hold: not fetched"
+   },
+   {
+    "id": "S008",
+    "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review.",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 0,
+  "unconfirmed": []
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 47,
+   "claude-opus-5-5": 9
+  },
+  "belief": {
+   "claude-sonnet-4-6": 1
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "coverage": {
+   "claude-sonnet-5-5": 87
+  },
+  "gate": {
+   "claude-sonnet-4-6": 1
+  },
+  "advocate": {
+   "claude-sonnet-5-5": 36,
+   "claude-opus-5-5": 20
+  },
+  "omissions": {
+   "claude-sonnet-4-6": 3,
+   "claude-opus-5-5": 18
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 10,
+  "copied": 10,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-01d"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T02:04:30+00:00"
+}

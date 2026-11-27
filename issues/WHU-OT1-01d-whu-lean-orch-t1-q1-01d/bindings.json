@@ -2114,13 +2114,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         3722,
         3921
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:38",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "eb603e38dd909fa8"
+      ]
     },
     "0832f46b9b80fc82": {
       "sentence": "The intervention may increase skilled attendants at birth where lack of them is common (differing by urban/rural residence), but may make no difference where almost all women already have one (OR 1.00, 95% CI 0.34 to 2.94; low-certainty evidence) [3].",
@@ -2249,13 +2254,15 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         4819,
         4888
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:36",
+      "left_page": "2026-11-26"
     },
     "0c63bde0e8aaccaa": {
       "sentence": "For use of health services, effects on skilled attendance at birth are uncertain (very low-certainty evidence), and the intervention may make little or no difference to antenatal influenza vaccination attendance (RR 1.05, 95% CI 0.71 to 1.58; low-certainty evidence), with the CI including both benefit and harm [3].",
@@ -2303,13 +2310,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5373,
         5591
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:43",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "52ea076c61e11c42"
+      ]
     },
     "6ebb6b13f01536da": {
       "sentence": "Targeted client communication reminders sent by mobile phone may slightly increase antenatal care use (mean difference 1.5, 95% CI -0.36 to 3.36), but the evidence is low-certainty and the interval includes no effect [3].",
@@ -2357,13 +2369,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5765,
         5883
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:39",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "92c8e2124726b53e"
+      ]
     },
     "28ca277c48e6e488": {
       "sentence": "For health and well-being outcomes, the intervention's effect on neonatal death or stillbirth and on infant HIV is uncertain, because the evidence is of very low certainty [3].",
@@ -2411,13 +2428,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6047,
         6102
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:40",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "15d69fb9c73efb54"
+      ]
     },
     "327796d01248a74e": {
       "sentence": "The effect of digital targeted client communication via mobile devices compared with non-digital targeted client communication is unknown, because no studies reported this comparison [3].",
@@ -2438,13 +2460,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6103,
         6203
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:41",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "1ff00044f2080d8a"
+      ]
     },
     "6c68adf4bdb7703b": {
       "sentence": "Targeted client communication via mobile devices may increase infant ARV/prevention of mother-to-child transmission treatment adherence compared with digital non-targeted communication (RR 1.26, 95% CI 1.07 to 1.48; low-certainty evidence) [3].",
@@ -2519,13 +2546,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6586,
         6824
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:37",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "b9ec1b1101cde0a0"
+      ]
     },
     "987958af46f26329": {
       "sentence": "Targeted client communication via mobile devices may slightly increase attendance for vaccinations compared with non-digital targeted client communication (RR 1.13, 95% CI 1.00 to 1.28; low-certainty evidence) and may make little or no difference to oral hygiene practices (low-certainty evidence) [3].",
@@ -2573,13 +2605,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         7241,
         7310
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:42",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "ab2fc472f0442e4e"
+      ]
     },
     "712461644da774ed": {
       "sentence": "All of the non-randomised studies included in the evidence were judged to have a high risk of bias [1].",
@@ -2951,13 +2988,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5904,
         6105
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:35",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "58fc3d6332080817"
+      ]
     },
     "1703e8cc0f074f0d": {
       "sentence": "The review found no studies that reported the time between illness presentation and appropriate management, provider acceptability or satisfaction, resource use, or unintended consequences [2].",
@@ -3113,13 +3155,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         4791,
         4967
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:44",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "0ed7804df66c1619"
+      ]
     },
     "20395157851de5b5": {
       "sentence": "We are uncertain whether digital tracking of clients combined with decision support or client messaging on mobile devices (TCCMD) results in unintended consequences, because there is a lack of evidence [4].",
@@ -3194,13 +3241,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5452,
         5490
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:46",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "3719823ffe5ae5ca"
+      ]
     },
     "3ad43622f9a20096": {
       "sentence": "No study measured the impact of this intervention on sexually transmitted infection (STI) rates, so its effect on that health outcome is unknown [4].",
@@ -3221,13 +3273,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         5491,
         5554
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:45",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "b7bf4a487795a3bc"
+      ]
     },
     "5e8dbb1a845a0124": {
       "sentence": "Targeted client communication via mobile devices may modestly increase adherence to antiretroviral therapy (RR 1.13, 95% CI 0.97 to 1.32; standardised mean difference 0.44, 95% CI -0.14 to 1.02), but the evidence is low-certainty and the intervals include no effect [4].",
@@ -3302,13 +3359,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6103,
         6357
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:47",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "585191307c143d28"
+      ]
     },
     "aa162662bff081e7": {
       "sentence": "For digital tracking with client communication on mobile devices versus non-digital tracking and communication, no studies reported STI rates, condom use, ART adherence, abortion rates, or contraceptive use, so effects on these outcomes are unknown [4].",
@@ -3329,13 +3391,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-26",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         6358,
         6514
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:48",
+      "left_page": "2026-11-26",
+      "replaced_by": [
+        "21e919629e496bf8"
+      ]
     },
     "82ec7c9551ce7deb": {
       "sentence": "Few of the included studies reported on unintended consequences, so evidence on possible harms of these mobile tracking and prompting systems is limited [4].",
@@ -4481,6 +4548,385 @@
         7198
       ],
       "declaration_key": "S005@7077-7198"
+    },
+    "58fc3d6332080817": {
+      "sentence": "Mobile phone-based decision-support tools probably make little or no difference to some types of health outcomes, but their effect on other outcomes, including maternal and neonatal deaths, is uncertain because the evidence is very low-certainty [2].",
+      "sentence_sha": "58fc3d6332080817",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+      "locator_type": "prose",
+      "locator": "passage S002@5904",
+      "span": "It probably makes little or no difference to some types of health outcomes, but we are uncertain about other health outcomes, including maternal and neonatal deaths, due to very low‐certainty evidence.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5904,
+        6105
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b9ec1b1101cde0a0": {
+      "sentence": "Based on 10 trials, targeted client communication via mobile devices (TCCMD), such as text messages reminding parents of children under five to attend appointments or offering health information, may modestly increase health service use such as vaccinations and HIV care compared with standard care (RR 1.21, 95% CI 1.08 to 1.34; low-certainty evidence), though effects varied widely between studies [3].",
+      "sentence_sha": "b9ec1b1101cde0a0",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@6586",
+      "span": "TCCMD versus standard care Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low‐certainty evidence); however, the effect estimates varied widely between studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6586,
+        6824
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "eb603e38dd909fa8": {
+      "sentence": "Targeted client communication via mobile devices (TCCMD) may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96), but this is low-certainty evidence and the confidence interval includes both benefit and harm [3].",
+      "sentence_sha": "eb603e38dd909fa8",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@3722",
+      "span": "For use of health services, TCCMD may increase antenatal appointment attendance (odds ratio (OR) 1.54, 95% CI 0.80 to 2.96; low‐certainty evidence); however, the CI encompasses both benefit and harm.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        3722,
+        3921
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "92c8e2124726b53e": {
+      "sentence": "Among pregnant and postpartum women living with HIV, the effect of targeted client communication via mobile devices, compared with standard care, on the proportion of births occurring in a health facility is uncertain, because the evidence is of very low certainty [3].",
+      "sentence_sha": "92c8e2124726b53e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@5765",
+      "span": "The effect on the proportion of births occurring in a health facility is uncertain due to very low‐certainty evidence.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5765,
+        5883
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "15d69fb9c73efb54": {
+      "sentence": "For pregnant and postpartum women living with HIV, no studies reported on maternal mortality or morbidity, so the effect of these mobile tracking and prompt or reminder interventions on those outcomes in this group is unknown [3].",
+      "sentence_sha": "15d69fb9c73efb54",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@6047",
+      "span": "No studies reported on maternal mortality or morbidity.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6047,
+        6102
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "1ff00044f2080d8a": {
+      "sentence": "Compared with non-digital targeted client communication (e.g. pamphlets), digital targeted client communication via mobile devices may have little or no effect on exclusive breastfeeding (RR 0.92, 95% CI 0.79 to 1.07) and may reduce 'any maternal health problem' reported up to 10 days postpartum (RR 0.19, 95% CI 0.04 to 0.79) (low-certainty evidence); its effect on health service use, and for some other groups of participants on any outcome, is unknown because no studies reported it [3].",
+      "sentence_sha": "1ff00044f2080d8a",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@6103",
+      "span": "TCCMD versus non‐digital TCC The effect is unknown due to lack of studies reporting this comparison.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6103,
+        6203
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "ab2fc472f0442e4e": {
+      "sentence": "No trials in any population reported data on unintended consequences of targeted client communication via mobile devices, so potential harms remain unmeasured [3].",
+      "sentence_sha": "ab2fc472f0442e4e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@7241",
+      "span": "No trials in any population reported data on unintended consequences.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        7241,
+        7310
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "52ea076c61e11c42": {
+      "sentence": "For pregnant and postpartum women living with HIV, TCCMD may make little or no difference to maternal and infant adherence to antiretroviral therapy compared with standard care (low-certainty evidence) [3].",
+      "sentence_sha": "52ea076c61e11c42",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "passage S003@5373",
+      "span": "Pregnant and postpartum women living with HIV TCCMD versus standard care For behaviours, TCCMD may make little or no difference to maternal and infant adherence to antiretroviral (ARV) therapy (low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5373,
+        5591
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "0ed7804df66c1619": {
+      "sentence": "Among adolescents, targeted text-message communication via mobile devices, compared with digital non-targeted communication, may reduce chlamydia or gonorrhoea incidence (RR 0.61, 95% CI 0.28 to 1.33), but this is low-certainty evidence from a single underpowered pilot trial of 200 young people in Britain, and the interval includes both benefit and harm [4].",
+      "sentence_sha": "0ed7804df66c1619",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+      "locator_type": "prose",
+      "locator": "passage S004@4791",
+      "span": "The intervention may be beneficial for reducing STI rates (RR 0.61, 95% CI 0.28 to 1.33; low‐certainty evidence), but the confidence interval encompasses both benefit and harm.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        4791,
+        4967
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "b7bf4a487795a3bc": {
+      "sentence": "For adult populations, no study measured the impact of this intervention compared with standard care on sexually transmitted infection (STI) rates, so its effect on that outcome is unknown for this comparison [4].",
+      "sentence_sha": "b7bf4a487795a3bc",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+      "locator_type": "prose",
+      "locator": "passage S004@5491",
+      "span": "No study measured the impact of this intervention on STI rates.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5491,
+        5554
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "3719823ffe5ae5ca": {
+      "sentence": "The effect of targeted client communication via mobile devices (TCCMD) on condom use is uncertain, whether compared with standard care or with digital non-targeted communication [4].",
+      "sentence_sha": "3719823ffe5ae5ca",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+      "locator_type": "prose",
+      "locator": "passage S004@5452",
+      "span": "The effect on condom use is uncertain.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        5452,
+        5490
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "585191307c143d28": {
+      "sentence": "For health outcomes in adults living with HIV, targeted client communication via mobile devices may have little or no effect on CD4 count (mean difference 13.99 cells per mm3, 95% CI -8.65 to 36.63; three trials in China and Cameroon) and may slightly reduce virological failure (RR 0.86, 95% CI 0.73 to 1.01; two trials in Kenya and India), both low-certainty evidence [4].",
+      "sentence_sha": "585191307c143d28",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+      "locator_type": "prose",
+      "locator": "passage S004@6103",
+      "span": "For health and well‐being outcomes, there may be little or no effect on CD4 count (mean difference 13.99, 95% CI ‐8.65 to 36.63; low‐certainty evidence) and a slight reduction in virological failure (RR 0.86, 95% CI 0.73 to 1.01; low‐certainty evidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6103,
+        6357
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "21e919629e496bf8": {
+      "sentence": "For targeted client communication via mobile devices (TCCMD) versus non-digital targeted client communication, no studies reported STI rates, condom use, ART adherence, abortion rates, or contraceptive use; TCCMD may modestly increase service attendance overall (RR 1.12, 95% CI 0.92 to 1.35; low-certainty evidence), though the confidence interval encompasses benefit and harm [4].",
+      "sentence_sha": "21e919629e496bf8",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S004",
+      "document_sha": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+      "locator_type": "prose",
+      "locator": "passage S004@6358",
+      "span": "TCCMD versus non‐digital TCC No studies reported STI rates, condom use, ART adherence, abortion rates, or contraceptive use as outcomes for this comparison.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "offsets": [
+        6358,
+        6514
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "38eebd25385cf3e6": {
+      "sentence": "Not added: “The effect on health service use is unknown due to a lack of studies.” (Targeted client communication via mobile devices for improving maternal, neonata [3]) (found in our sources, not stated on this page: the sentence that stated it was removed).",
+      "sentence_sha": "38eebd25385cf3e6",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S003",
+      "document_sha": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+      "locator_type": "prose",
+      "locator": "readers' list line (S003@4819-4888, not_stated_removed)",
+      "span": "The effect on health service use is unknown due to a lack of studies.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-26",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        4819,
+        4888
+      ],
+      "declaration_key": "S003@4819-4888"
     }
   }
 }

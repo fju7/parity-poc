@@ -12,3 +12,7 @@
 | premise_reading (orchestrator) | 2026-11-27T01:35:16+00:00 | 2026-11-27T01:35:25+00:00 | $0.0302 | 0 | sources show verified; direction narrows; kill condition survived |
 | coverage (orchestrator) | 2026-11-27T01:35:25+00:00 | 2026-11-27T01:42:42+00:00 | $0.4814 | 0 | 87 coverage decision(s), 0 left in scope |
 | corrections_3b (orchestrator) | 2026-11-27T01:42:42+00:00 | 2026-11-27T01:44:53+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-27T01:44:53+00:00 | 2026-11-27T01:46:55+00:00 | $0.0000 | 0 | committed 359574c09492 |
+| gate (orchestrator) | 2026-11-27T01:46:56+00:00 | 2026-11-27T01:48:01+00:00 | $0.5368 | 0 | done |
+| advocate (orchestrator) | 2026-11-27T01:48:01+00:00 | 2026-11-27T02:00:53+00:00 | $1.7009 | 0 | 14 record(s) applied |
+| omissions (orchestrator) | 2026-11-27T02:00:53+00:00 | 2026-11-27T02:04:30+00:00 | $0.5778 | 0 | FAILED: RunStop: omissions: a ruling could not be placed by code: anchor 38871faf9aac0e2f: not on the page |
