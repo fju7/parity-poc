@@ -1290,6 +1290,28 @@ SCOPE_REFUSED_BY = "code (lean: OUT_OF_SCOPE element refused; declared and count
 WITHDRAW_PROTECTED = "omission: conclusion withdrawn"
 
 
+CITE_MARK = re.compile(r"\[\d+(?:[,\u2013-]\s*\d+)*\]")
+
+
+def orchestrated_marker(case: Path, sid: str, text: str) -> str:
+    """P211 (after WHU-OT1-04g): in an orchestrated run every body sentence carries its citation marker. An omission
+    ADD whose text carries none gets its own source's, by the drafted sentences' rule (orchestrator._with_marker:
+    before the final period, or after a closing quotation with the period after the marker, '... methods" [2].'), so
+    the inserted sentence is cited and ends where the audit's splitter ends it. Outside an orchestrated run, or with a
+    marker already there, the text is unchanged."""
+    if not os.environ.get("WHU_ORCH_STEP") or CITE_MARK.search(text or ""):
+        return text
+    try:
+        ids = [s.get("id") for s in json.loads((Path(case) / "sources.json").read_text(encoding="utf-8")).get("sources")
+               or []]
+    except (OSError, ValueError):
+        return text
+    if sid not in ids:
+        return text
+    from orchestrator import _with_marker
+    return _with_marker(" ".join((text or "").split()), [ids.index(sid) + 1])
+
+
 DECL_BUDGET_WHY = "over the declarations budget"
 UNUSABLE_WHY = "the ruling reply was not usable"
 SERIOUS_WHY = "NOT_MATERIAL on a SERIOUS objection that CHANGES the conclusion"
@@ -1555,6 +1577,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                      by=BY, ruling=rid, reason_for_reader=got.get("reason_for_reader") or "")
             close(f, O.NOT_MATERIAL, "nothing added; not material; listed for readers")
         else:
+            got["text"] = orchestrated_marker(case, f["source"], got["text"])
             if O.locate(got["span"], f["held_quote"]) is None:
                 to_person(f, BEYOND_WHY)
                 continue
