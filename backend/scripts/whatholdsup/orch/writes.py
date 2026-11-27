@@ -55,6 +55,7 @@ MODULE_READS = {
     "source_advocate": ("-briefs.json", "briefs.jsonl", "inputs.json", "quote_checks.jsonl", "routing.json",
                         "state.json"),
     "findings": ("issue.json", "sources.json"),
+    "lean_editions": ("errata.json", "sources.json"),             # P178: a newer edition rests on a registry record
     "conclusion_judge": ("published.json",),
     "audit_stage": ("human_reads.jsonl", "manifest.json", "read.md", "rule.md", "sources.json", "summary.md"),
     "consistency": ("rulings.jsonl",),
