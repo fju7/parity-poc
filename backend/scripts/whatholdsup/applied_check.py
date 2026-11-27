@@ -329,10 +329,18 @@ def _uses(term: str, sentence: str) -> bool:
     return re.search(r"(?<![A-Za-z0-9])%s(?![A-Za-z0-9])" % re.escape(term), sentence or "") is not None
 
 
+def introduces(term: str, sentence: str) -> bool:
+    """Does SENTENCE introduce TERM itself, in the standard form -- words, then the term alone in brackets
+    ("carbon dioxide removal (CDR)")? P203: such a sentence does not point at nothing, whatever a ruling removed
+    before it. Only that form: "CDR (carbon dioxide removal)" or "CDR (see [2])" is not read as an introduction, so
+    it stays a finding (the safe direction)."""
+    return bool(re.search(r"[A-Za-z]{2,}[\w\s,\-]*\s\(\s*%s\s*\)" % re.escape(term), sentence or ""))
+
+
 def dangling(case: Path, page_html: str) -> list[dict]:
     """Every term an applied ruling removed that a later sentence still uses
-    while no earlier sentence now introduces it. One finding per (term, later
-    sentence)."""
+    while no earlier sentence now introduces it -- and the later sentence does not introduce it itself (P203).
+    One finding per (term, later sentence)."""
     res = check(case, page_html)
     page = page_sentences(page_html)
     out, seen = [], set()
@@ -353,6 +361,8 @@ def dangling(case: Path, page_html: str) -> list[dict]:
             first = next((i for i, s in enumerate(page) if _uses(term, s)), None)
             if first is None or first <= at:
                 continue                                                # unused, or still introduced earlier
+            if introduces(term, page[first]):
+                continue                                                # P203: the first use introduces it
             key = (term, page[first])
             if key in seen:
                 continue
