@@ -1,0 +1,582 @@
+{
+ "candidates": {
+  "S001@9577-9767": {
+   "source": "S001",
+   "at": [
+    9577,
+    9767
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "d93ccad66192381d45e84090fb471b10cb311a4caaa7cc6f6ba8e5fe25337e84",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says digital tracking may improve care practices, record quality, health outcomes and service use in primary care, which directly addresses whether the intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "eff63947490e537d",
+   "to_person": false,
+   "decided_at": "2026-11-27T12:59:58+00:00"
+  },
+  "S001@9768-9852": {
+   "source": "S001",
+   "at": [
+    9768,
+    9852
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "eae1e356dbee419ae148d057a923cd767749b8a128f71909a6f0dcb4e786a891",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says these interventions led to small or no outcome differences in most studies, which bears directly on whether tracking with prompts or reminders improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "80189225b5131b67",
+   "to_person": false,
+   "decided_at": "2026-11-27T12:59:59+00:00"
+  },
+  "S002@5149-5318": {
+   "source": "S002",
+   "at": [
+    5149,
+    5318
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "adb959008c656efe444aedd6b809018ad26cb6cb5cc91b8e4b40bded599571a3",
+   "relevant": true,
+   "words": "improve the care people receive",
+   "reason": "The judgement states that the effect of the intervention on providers' adherence to recommended practice is uncertain because the evidence is very low certainty, and this bears on whether the intervention improves quality of care.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "d28ea3879bf5288d",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:01+00:00"
+  },
+  "S002@6435-6586": {
+   "source": "S002",
+   "at": [
+    6435,
+    6586
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "40f6fe194eb8f019a03ae1c3d88ce194bd248367d965875f8641dab8bdecfbac",
+   "relevant": true,
+   "words": "on-screen prompts that guide health workers",
+   "reason": "The judgement addresses the effectiveness of mobile phone-based decision-support tools on outcomes such as adherence to recommended practice, which is part of the intervention and outcomes the question asks about.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "7f26c0dc4282692c",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:03+00:00"
+  },
+  "S002@6587-6681": {
+   "source": "S002",
+   "at": [
+    6587,
+    6681
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6ea826b239c0252037734eb7efecd1bf3af2852e891e39b89bfe078a132bf711",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the included studies lacked a quality of care framework and covered only specific health areas, which limits how far the evidence can show improved quality of care and health, so a reader needs it to weigh the answer.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "b2fdd64b86a37d5d",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:05+00:00"
+  },
+  "S002@6682-6762": {
+   "source": "S002",
+   "at": [
+    6682,
+    6762
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "f68587257a5ee16313db5efe81a07e43fe43d7b551a8c37cd18a765ba6ac8b32",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The source's call for well-designed, systems-level research signals gaps in the evidence on whether this tracking-plus-prompts intervention improves care and health, which bears on how much weight the answer can carry.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "76d9b68393a32fdd",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:14+00:00"
+  },
+  "S003@7332-7383": {
+   "source": "S003",
+   "at": [
+    7332,
+    7383
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "00cdb74538a7434be3ac936392098fe11cb04e1ee12b568188a46688c12e0f9b",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "TCCMD (tracking combined with decision support/communication via mobile devices) is the question's intervention, and the judgement says its effect on most outcomes is uncertain, which bears directly on whether it improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "4ae31e436a33d233",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:16+00:00"
+  },
+  "S003@7384-7498": {
+   "source": "S003",
+   "at": [
+    7384,
+    7498
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1136435e201e423f4cadca50010acc5029b5210cc8d1cdc7bc014f2deb5413eb",
+   "relevant": true,
+   "words": "reminder messages sent to patients",
+   "reason": "The judgement says targeted communication (messages to patients) may improve some outcomes but the evidence is low certainty, which bears directly on whether the intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "0e3283743940dddc",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:18+00:00"
+  },
+  "S003@7499-7649": {
+   "source": "S003",
+   "at": [
+    7499,
+    7649
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "ddc02d5a2eedce76940990fbf4af259d24d1480cddb442bd5f7ad692a542912a",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the evidence on tracking-plus-prompts/messaging via mobile devices (TCCMD) is limited and needs high-quality, adequately powered trials, which bears directly on how far the evidence shows these interventions improve care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "3a602487ee2b9b93",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:20+00:00"
+  },
+  "S003@7650-7771": {
+   "source": "S003",
+   "at": [
+    7650,
+    7771
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "75d0738edf0c6f8093615b4ff837d7ba6338f60afabde0e2fc2669a8b458dd66",
+   "relevant": true,
+   "words": "any unintended or adverse effects",
+   "reason": "The judgement says unintended consequences such as partner violence or confidentiality breaches have not been adequately measured, which affects how far the evidence on adverse effects of this intervention can be trusted.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "ed05feb9f7578264",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:22+00:00"
+  },
+  "S004@6515-6688": {
+   "source": "S004",
+   "at": [
+    6515,
+    6688
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "28116ea23373e4cc87b60ea98ebded110ed2e308124a17da9e8ba5e8cb60fab5",
+   "relevant": true,
+   "words": "improve the care people receive",
+   "reason": "The judgement reports the effect of tracking combined with decision support or messaging on service attendance (a patients' timely-use-of-services outcome), with low-certainty evidence and a confidence interval spanning benefit and harm, so a reader needs it to weigh the answer.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "ed1aa4911463b1b9",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:24+00:00"
+  },
+  "S004@6865-7169": {
+   "source": "S004",
+   "at": [
+    6865,
+    7169
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "16bd4f76863b8ef08d7e9d73380f6777da6371a25e56507999fbcd6f5fa71e24",
+   "relevant": true,
+   "words": "reminder messages sent to patients",
+   "reason": "The judgement reports the effect of targeted client communication via mobile devices on service utilisation, which is the patient-messaging component and a timely-use-of-services outcome the question asks about, and it rates the evidence low certainty and inconsistent.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "82f433ea22e0e6d6",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:28+00:00"
+  },
+  "S004@7367-7436": {
+   "source": "S004",
+   "at": [
+    7367,
+    7436
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6c52bc22b8486e7c99f2965bf29d52b61c31a7854a70a15cc2b7192a428f99cd",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "TCCMD (tracking combined with clinical/client communication via mobile devices) matches the question's intervention, and the judgement says it may improve some outcomes but with low-certainty evidence, which a reader needs to weigh the answer.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "9aba0205c349b5ec",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:29+00:00"
+  },
+  "S004@7437-7541": {
+   "source": "S004",
+   "at": [
+    7437,
+    7541
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "50ce21ecb444ca2190663edd23374f65e59a816a5c02ee8ab08f29e76233d0a5",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the effect on most outcomes is uncertain because the evidence is very low certainty or lacking, which bears directly on whether this intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "2879509e6e5736e6",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:30+00:00"
+  },
+  "S004@7542-7718": {
+   "source": "S004",
+   "at": [
+    7542,
+    7718
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e0ae9edcc12e492693b3bbf3b456454ca622aa18833d1fd191e3e226b0f142a6",
+   "relevant": true,
+   "words": "using mobile phones or tablets to keep track of the care each patient gets",
+   "reason": "The judgement says high-quality, adequately powered trials are still needed to establish the effects of tracking and communication delivered by mobile devices, so it bears directly on how strong the evidence is for the question's intervention and outcomes.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "9c604c07be0e8c51",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:32+00:00"
+  },
+  "S004@7719-7910": {
+   "source": "S004",
+   "at": [
+    7719,
+    7910
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "44614ae60bccd6f97e0b8e0189ec56a7a5578f56529e55da9ae89c06828bd348",
+   "relevant": true,
+   "words": "any unintended or adverse effects",
+   "reason": "The judgement says studies of these digital tracking and messaging interventions in sexual and reproductive health should measure unintended consequences such as partner violence or confidentiality breaches. That bears on whether the evidence on unintended or adverse effects is adequate, which the scope covers.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "2674420f300b9dc1",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:35+00:00"
+  },
+  "S005@5877-6137": {
+   "source": "S005",
+   "at": [
+    5877,
+    6137
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "b0d2e3fcb967b5cda6ff7bee73d7c2c90d79c5900a86996a15218c14cf96ce7b",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns text message reminders on their own versus no reminders, without digital tracking of patients by health workers, which the scope explicitly excludes as a separate intervention.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b04683ffc8252edb",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:40+00:00"
+  },
+  "S005@6138-6329": {
+   "source": "S005",
+   "at": [
+    6138,
+    6329
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "e3f2171394555d77ec10f9dac9a629b58bc1f69637252301d3056cfd19482aac",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement compares text message reminders with phone call reminders on their own, with no digital tracking by health workers, which the scope explicitly excludes.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "c76edd0f759d804d",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:44+00:00"
+  },
+  "S005@6330-6586": {
+   "source": "S005",
+   "at": [
+    6330,
+    6586
+   ],
+   "section": "abstract main results",
+   "kind": "review",
+   "text_sha256": "d8e95ed9bec4d9fa77b0a03ee251bd9f50df84bdcec90ecf56d7245487a39138",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement concerns text-message plus postal appointment reminders to patients with no digital tracking by health workers, which the scope explicitly excludes as a separate intervention.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "76954e25c5181c8c",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:00:50+00:00"
+  },
+  "S005@7315-7514": {
+   "source": "S005",
+   "at": [
+    7315,
+    7514
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e73868174a0c60b74f99cc39d311f11a95ab1bd7a8649a6591a1a105a0ad98ff",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement is about standalone text-message appointment reminders, with no digital tracking by health workers, which the scope explicitly excludes as a separate intervention.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "ee493963b10c021a",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:01+00:00"
+  },
+  "S005@7515-7661": {
+   "source": "S005",
+   "at": [
+    7515,
+    7661
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "c5128706ae9f56b224301677ab2366a170e9bb848dd804e62901b592e5879d7d",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement compares text-message reminders with telephone reminders on attendance and cost, without digital tracking by health workers, which the scope explicitly excludes as a separate intervention.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "3ac758c8feeb1784",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:09+00:00"
+  },
+  "S005@7662-7770": {
+   "source": "S005",
+   "at": [
+    7662,
+    7770
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "1f3a03481408bf9274f29c0799e64fde1b0385ca2ad1b9fc3784a0ded31c0503",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the included studies were heterogeneous and the evidence quality low to moderate, which a reader needs in order to weigh whether the intervention really improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "c919b8552b525782",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:12+00:00"
+  },
+  "S005@7771-7931": {
+   "source": "S005",
+   "at": [
+    7771,
+    7931
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "c54ff4efadc8fd04381bba9eb7589fa2302bc985719a3fad571d1066b57dadc7",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says evidence on health effects and adverse effects of the intervention is lacking, which bears directly on whether the evidence shows that it improves patients' health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "28a179cbefe66bc1",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:21+00:00"
+  },
+  "S005@7932-8030": {
+   "source": "S005",
+   "at": [
+    7932,
+    8030
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "be5121c25658b665e25da972966174c4630496bd775ea55d73f4e415aff28217",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says the evidence is still insufficient to inform policy, which bears directly on whether mobile tracking with prompts or reminders improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "6c91a9a57d930485",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:23+00:00"
+  },
+  "S005@8031-8238": {
+   "source": "S005",
+   "at": [
+    8031,
+    8238
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "904314c029442d211b59a211262e515fc17ac3196ade58aea584c70d70966829",
+   "relevant": false,
+   "words": "",
+   "reason": "The judgement calls for more trials of stand-alone mobile phone messaging reminders and their cost-effectiveness, both of which the scope explicitly excludes, rather than digital tracking combined with prompts or messages.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "74f9afeda2e99f50",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:28+00:00"
+  },
+  "S005@8239-8447": {
+   "source": "S005",
+   "at": [
+    8239,
+    8447
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e1e20598bd357dfac5ea521c46f2d1066522daae7d7772109e9419d8447cc4b9",
+   "relevant": true,
+   "words": "reminder messages sent to patients … improve the care people receive and their health",
+   "reason": "The judgement says health outcomes, safety perceptions, harms and adverse effects of mobile phone messaging reminders should be assessed, which bears on whether reminder messages improve health and on the unintended effects the scope covers.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "f844ac86bf3e76fb",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:29+00:00"
+  },
+  "S005@8448-8528": {
+   "source": "S005",
+   "at": [
+    8448,
+    8528
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "f586874d574256da63d75de6b851e795ea28133add0ac2b971c5e6eb0fd1ca5d",
+   "relevant": true,
+   "words": "reminder messages sent to patients",
+   "reason": "The judgement says studies should report message content and timing relative to the appointment, which bears on how far the evidence on patient reminder messages can be trusted or interpreted.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "0cc83fbd72590dab",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:30+00:00"
+  },
+  "S007@3760-4021": {
+   "source": "S007",
+   "at": [
+    3760,
+    4021
+   ],
+   "section": "abstract results",
+   "kind": "review",
+   "text_sha256": "257b0849f5cbdc0a9fc73cfded134db35a3e6b7c6f7f4ed36fda2d5014d8e4e4",
+   "relevant": true,
+   "words": "using mobile phones … improve the care people receive",
+   "reason": "The judgement says evidence on whether mHealth (mobile-phone-delivered health care) works is still mixed, which bears directly on whether the evidence shows the question's mobile-phone intervention improves care, though it covers mHealth broadly.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a2d038b1e5210010",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:36+00:00"
+  },
+  "S007@4961-5137": {
+   "source": "S007",
+   "at": [
+    4961,
+    5137
+   ],
+   "section": "abstract results",
+   "kind": "review",
+   "text_sha256": "c8b8265fe77cf74c2d5948aa17e68ca1bd6a03de8994c6ea2031ede5f84c202f",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement rates the methodological quality of the reviews making up the evidence base, which a reader needs in order to weigh whether the intervention is shown to improve care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "963014153881b8e3",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:43+00:00"
+  },
+  "S007@5942-6028": {
+   "source": "S007",
+   "at": [
+    5942,
+    6028
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "a6273710ad85466adaeef3a4b998038e6999ec4df68defa8fab89c3a55a931a9",
+   "relevant": true,
+   "words": "using mobile phones or tablets to keep track of the care each patient gets",
+   "reason": "The judgement says evidence for the efficacy of mHealth is limited, which bears directly on whether mobile-based tracking with prompts or reminders improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "4a06f56b45afdee1",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:44+00:00"
+  },
+  "S007@6029-6125": {
+   "source": "S007",
+   "at": [
+    6029,
+    6125
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "6ae4578f9f32e82ebc7ac7f6c9664aa3e45f2e8791abfa9711a2e9efe1254e60",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement on the low methodological quality of studies in the systematic reviews bears on how far the evidence can be trusted to show that this intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "0eb9fae96d4c051c",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:46+00:00"
+  },
+  "S007@6126-6223": {
+   "source": "S007",
+   "at": [
+    6126,
+    6223
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "025c0b2426e1c94c7ccf12cdc27b868c22a79da02813b5a206d329157b588b01",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement speaks directly to whether the evidence shows impact, saying results are mixed, not evident, or lacking long-term studies, which a reader would need to weigh whether the intervention improves care and health.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "589a2cfe870d5e8d",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:49+00:00"
+  },
+  "S007@6224-6365": {
+   "source": "S007",
+   "at": [
+    6224,
+    6365
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "e86ce7e5b839a734474243d79c8cc02f9d901376c9f199880e17c97411b80980",
+   "relevant": true,
+   "words": "improve the care people receive and their health",
+   "reason": "The judgement says moderate-quality evidence shows improvements in asthma, attendance rates and smoking abstinence, which bears directly on whether the intervention improves care and health outcomes.",
+   "by": "ruling model claude-sonnet-5-5",
+   "ruling": "011baaad0d439d85",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:52+00:00"
+  },
+  "S007@6366-6508": {
+   "source": "S007",
+   "at": [
+    6366,
+    6508
+   ],
+   "section": "abstract conclusions",
+   "kind": "review",
+   "text_sha256": "12766194c7e82a9c224454829a8338eb185c9b094a1a4ea38c91e9678ea165f0",
+   "relevant": true,
+   "words": "using mobile phones or tablets",
+   "reason": "It describes where the mHealth evidence base comes from, mostly high-income countries, which affects how far findings on mobile-device interventions apply to low-income primary care settings.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b4b6036db69f134f",
+   "to_person": false,
+   "decided_at": "2026-11-27T13:01:59+00:00"
+  }
+ }
+}

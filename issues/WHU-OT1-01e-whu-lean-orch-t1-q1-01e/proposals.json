@@ -1,0 +1,121 @@
+{
+  "_what_this_is": "the discover step's proposals (model call); the confirm step looks each up in the registries",
+  "proposals": [
+    {
+      "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care",
+      "first_author": "Agarwal",
+      "year": 2025,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40193137/",
+      "why": "Most recent Cochrane review (18 RCTs) directly addressing digital tracking, CDSS, and patient messaging in primary care."
+    },
+    {
+      "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings",
+      "first_author": "Agarwal",
+      "year": 2021,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD012944.pub2/full",
+      "why": "Cochrane review of 8 studies on mobile CDSS (checklists, protocols) used by primary/community health workers."
+    },
+    {
+      "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health",
+      "first_author": "Palmer",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013679/full",
+      "why": "Cochrane review assessing SMS/mobile reminders to patients for MNCH outcomes; informs WHO 2019 guideline."
+    },
+    {
+      "title": "Targeted client communication via mobile devices for improving sexual and reproductive health",
+      "first_author": "Palmer",
+      "year": 2020,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013680/full",
+      "why": "Cochrane review of mobile-device targeted messaging to patients for sexual/reproductive health service use."
+    },
+    {
+      "title": "Mobile phone messaging reminders for attendance at healthcare appointments",
+      "first_author": "Gurol-Urganci",
+      "year": 2013,
+      "container": "Cochrane Database of Systematic Reviews",
+      "type": "review",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD007458.pub3/abstract",
+      "why": "Foundational Cochrane review showing SMS reminders increase appointment attendance vs. no reminders or postal reminders."
+    },
+    {
+      "title": "WHO Guideline: Recommendations on Digital Interventions for Health System Strengthening",
+      "first_author": "World Health Organization",
+      "year": 2019,
+      "container": "World Health Organization",
+      "type": "guideline",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK541898/",
+      "why": "First WHO evidence-based guideline recommending health worker decision support and targeted client communication via mobile devices."
+    },
+    {
+      "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews",
+      "first_author": "Marcolino",
+      "year": 2018,
+      "container": "JMIR mHealth and uHealth",
+      "type": "review",
+      "url": "https://mhealth.jmir.org/2018/1/e23/",
+      "why": "Umbrella review of 23 systematic reviews (371 studies) on mHealth effectiveness across health conditions and care processes."
+    },
+    {
+      "title": "Effectiveness of Single-Component Clinician Reminder Systems for Smoking and Obesity Preventive Care in Primary Care: A Systematic Review",
+      "first_author": "Khormi",
+      "year": 2025,
+      "container": "Cureus",
+      "type": "review",
+      "url": "https://www.cureus.com/articles/491606-effectiveness-of-single-component-clinician-reminder-systems-for-smoking-and-obesity-preventive-care-in-primary-care-a-systematic-review",
+      "why": "2025 systematic review and meta-analysis of on-screen clinician reminder systems for preventive care in primary care settings."
+    }
+  ],
+  "searched": {
+    "queries": [
+      "mobile phones tablets clinical decision support reminders primary health care systematic review",
+      "mHealth electronic decision support patient reminders primary care outcomes systematic review",
+      "WHO guideline digital health interventions mobile devices primary care 2019",
+      "targeted client communication mobile devices primary health care Cochrane review 2025",
+      "Tamrat Mehl \"targeted client communication\" maternal newborn child health Cochrane systematic review",
+      "effectiveness single-component clinician reminder systems smoking obesity primary care systematic review 2025 PubMed",
+      "Gurol-Urganci mobile phone text messaging reminders healthcare appointments Cochrane review",
+      "\"Impact of mHealth Interventions\" systematic review of systematic reviews Beratarrechea 2014 OR Marcolino 2018 JMIR"
+    ],
+    "domains": [
+      "cochranelibrary.com",
+      "fhi.brage.unit.no",
+      "epoc.cochrane.org",
+      "arxiv.org",
+      "pure.johnshopkins.edu",
+      "cdn.clinicaltrials.gov",
+      "ncbi.nlm.nih.gov",
+      "researchgate.net",
+      "sciencedirect.com",
+      "doi.org",
+      "pmc.ncbi.nlm.nih.gov",
+      "pubmed.ncbi.nlm.nih.gov",
+      "aidsdatahub.org",
+      "who.int",
+      "iris.who.int",
+      "nature.com",
+      "saluddigital.com",
+      "cochrane.org",
+      "cccrg.cochrane.org",
+      "researchonline.lshtm.ac.uk",
+      "ouci.dntb.gov.ua",
+      "clinicaltrials.gov",
+      "cureus.com",
+      "s3-ap-southeast-2.amazonaws.com",
+      "semanticscholar.org",
+      "healthevidence.org",
+      "kclpure.kcl.ac.uk",
+      "mhealth.jmir.org",
+      "ora.ox.ac.uk"
+    ]
+  },
+  "sha256": "1480fb76e2a811de000b9b9a033cdaf6ed1654ffe4d8cdd6ba469af21b4fbe72"
+}

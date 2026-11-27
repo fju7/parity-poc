@@ -1,0 +1,171 @@
+{
+  "_what_this_is": "The entry gate, answered BEFORE drafting. The threshold question is whether a well-informed non-expert would confidently believe something the primary sources do not support.",
+  "belief": {
+    "_note": "What the reader already believes, stated as they would state it. If you cannot write this sentence, there is nothing to correct and no subject -- which is how the tobacco-analogy candidate died.",
+    "statement": "Giving health workers phones or tablets to track patients, with on-screen guidance and text-message reminders to patients, clearly makes care better. People keep their appointments, take their medicines and get vaccinated on time, and health workers follow guidelines more closely, so health improves.",
+    "how_we_know_they_believe_it": "The coverage that settled it. Named outlets, quoted headlines. Not 'it is widely assumed'.",
+    "carried_by": [
+      {
+        "outlet": "Modern Ghana",
+        "url": "https://www.modernghana.com/news/343659/sms-reminders-a-simple-way-to-improve-health-care-in-africa.html",
+        "final_url": "https://www.modernghana.com/news/343659/sms-reminders-a-simple-way-to-improve-health-care-in-africa.html",
+        "fetched_at": "2026-11-27T13:04:43+00:00",
+        "sha256": "b33e2d999136d2e115744238e557c9c73dce517b965bdd7578b3213638c82294",
+        "key_words_found": [
+          "health",
+          "workers",
+          "phones",
+          "tablets",
+          "patients",
+          "text-message",
+          "reminders",
+          "care",
+          "better",
+          "people",
+          "keep",
+          "take",
+          "medicines",
+          "time",
+          "follow",
+          "guidelines"
+        ],
+        "key_words": 26,
+        "by": "a model's reading (claude-sonnet-4-6, web search), verified by code: the page was fetched with the honest client and contains the belief's key words"
+      },
+      {
+        "outlet": "Medesk",
+        "url": "https://www.medesk.net/en/blog/text-messaging-in-healthcare/",
+        "final_url": "https://www.medesk.net/en/blog/text-messaging-in-healthcare/",
+        "fetched_at": "2026-11-27T13:04:44+00:00",
+        "sha256": "454ed1ce127b8cfbebd3584ba15e2d08bed3948d66d6a99e48aafe1b2cdfdac1",
+        "key_words_found": [
+          "health",
+          "phones",
+          "track",
+          "patients",
+          "guidance",
+          "reminders",
+          "clearly",
+          "makes",
+          "care",
+          "better",
+          "keep",
+          "appointments",
+          "take",
+          "time",
+          "follow",
+          "guidelines"
+        ],
+        "key_words": 26,
+        "by": "a model's reading (claude-sonnet-4-6, web search), verified by code: the page was fetched with the honest client and contains the belief's key words"
+      }
+    ]
+  },
+  "what_the_sources_show": {
+    "statement": "The held reviews find these digital tracking, decision-support and text-message tools may improve some worker practices, service use and health outcomes, but the effects may be small, other outcomes may show little or no difference, and much of the evidence is of low or very low certainty or missing.",
+    "sources": [
+      "S001"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-27T13:05:31+00:00",
+    "evidence": {
+      "source": "S001",
+      "offsets": [
+        12795,
+        12971
+      ],
+      "span_sha256": "ca362954e5abfce624aaf4c244a487a22ab24e02188311f34748c0b4bad5b2f4"
+    }
+  },
+  "direction": {
+    "_note": "CORRECTS, CONFIRMS or NARROWS. This field exists so the contrarianism guard can count. A publication whose answer is always CORRECTS is performing scepticism rather than assessing evidence, and is not to be trusted.",
+    "value": "narrows",
+    "_values": [
+      "corrects",
+      "confirms",
+      "narrows"
+    ],
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "written_at": "2026-11-27T13:05:31+00:00",
+    "evidence": {
+      "source": "S003",
+      "offsets": [
+        9052,
+        9248
+      ],
+      "span_sha256": "b9a9014b435e13f8ed429ef9ab3f940890b13357381fdac5be6f3fb882c89bae"
+    },
+    "why": "The belief holds only in part: benefits appear for some outcomes and groups (for example breastfeeding and vaccination attendance), while other outcomes show little or no difference or remain unknown."
+  },
+  "reader_with_a_decision": "A ministry of health digital-health lead, primary care programme manager or donor deciding whether to fund and scale mobile tracking with decision support and patient reminders for community and primary health workers, or to put that money into other ways of improving care.",
+  "public_record_check": {
+    "_note": "NOT 'has anybody published this'. On any contested question, somebody has. The question is whether it has been carried WHERE THIS READER WOULD FIND IT. Run the counterexample hunter on the belief statement, not on the finding.",
+    "prior_art_found": [],
+    "carried_in_general_coverage": "Yes: Modern Ghana (https://www.modernghana.com/news/343659/sms-reminders-a-simple-way-to-improve-health-care-in-africa.html), fetched 2026-11-27, sha256 b33e2d999136d2e1; the page contains 16 of the belief's 26 key words. A model's reading (web search), checked by code.",
+    "our_contribution": "translation, extension, or correction of the prior art -- say which"
+  },
+  "sources_are_open": "",
+  "evidence_base_is_bounded": "",
+  "kill_condition": "Randomised trials consistently show meaningful improvements in health worker performance, patients' use of services, and patients' health outcomes, and the evidence is rated moderate-to-high certainty. That would confirm the common belief with nothing to qualify.",
+  "kill_condition_tested": {
+    "by": "a model's reading (claude-opus-5-5, from held sources), the quotation verified verbatim by code",
+    "on": "2026-11-27",
+    "result": "survived",
+    "note": "The passages do not show consistent, meaningful improvements backed by moderate-to-high certainty evidence; they report uncertainty, small effects and mostly low or very low certainty evidence, so the kill condition was not met.",
+    "evidence": {
+      "source": "S002",
+      "offsets": [
+        6435,
+        6586
+      ],
+      "span_sha256": "40f6fe194eb8f019a03ae1c3d88ce194bd248367d965875f8641dab8bdecfbac"
+    },
+    "_result_values": [
+      "survived",
+      "narrowed",
+      "killed"
+    ]
+  },
+  "lead_came_from": "the question in issue.json (orchestrator)",
+  "scope": {
+    "_note": "What the answer will and will not cover, written at step 1 BEFORE any source is opened, so scope cannot be fitted to the findings afterwards. An omission ruled OUT_OF_SCOPE, and a headline conclusion declared out of scope, must name the question's words or one of these entries (fix 2, docs/whu-fix2-omission-rulings-design.md section 2.4).",
+    "covers": "Primary health care settings where health workers use mobile devices (phones or tablets) to digitally track each patient's health status and services received. The tracking is combined with on-screen decision support for health workers, targeted messages to patients, or both. These are compared with usual care, such as paper records. Outcomes are health worker adherence to guidelines and quality of care, patients' timely use of services (e.g. antenatal visits, immunisation, treatment adherence), patients' health status, and any unintended or adverse effects.",
+    "out": [
+      {
+        "what": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+        "why": "That is a separate intervention with its own body of evidence; this question concerns tracking combined with prompts or messages."
+      },
+      {
+        "what": "Hospital electronic health records or inpatient clinical decision support systems",
+        "why": "The question is limited to primary health care and mobile devices."
+      },
+      {
+        "what": "Telemedicine or remote consultations between patients and clinicians",
+        "why": "Those are a different digital intervention, not tracking with prompts or reminders."
+      },
+      {
+        "what": "Cost-effectiveness and budget impact of these systems",
+        "why": "The question asks about effects on care and health, not value for money."
+      },
+      {
+        "what": "Health workers' and patients' experiences, acceptability, and implementation barriers",
+        "why": "These are qualitative and implementation questions, separate from whether the intervention improves outcomes."
+      },
+      {
+        "what": "Data privacy, security and governance of patient data on mobile devices",
+        "why": "That is an ethical and regulatory issue outside the effectiveness question."
+      }
+    ],
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T12:50:45+00:00"
+  },
+  "evidence_standard": {
+    "_note": "What kinds of evidence the answer will weigh, written at step 1 BEFORE any source is opened (post-study fix 3, docs/whu-fix3-evidence-standard.md). 'measured': outcomes measured in trials, cohorts, evaluations. 'assessed': expert assessments -- systematic-review conclusions, IPCC confidence-rated statements, guideline recommendations. When they differ, the page states both and drops neither.",
+    "weighs": "measured and assessed",
+    "measured": "Effect estimates from randomised and cluster-randomised trials comparing the intervention with usual care. Examples are risk ratios or differences in the proportion of patients receiving timely services (vaccination coverage, antenatal visit attendance, treatment adherence), measures of health worker adherence to clinical guidelines, and health status outcomes, with confidence intervals and the number of trials and participants.",
+    "assessed": "A systematic review's or guideline panel's GRADE certainty rating (high, moderate, low, very low) for each outcome. It reflects risk of bias, inconsistency across trials, indirectness, imprecision, and publication bias, and determines whether an effect can be stated as likely, possible, or uncertain.",
+    "when_they_differ": "state both",
+    "by": "claude-opus-5-5",
+    "written_at": "2026-11-27T12:50:45+00:00"
+  }
+}

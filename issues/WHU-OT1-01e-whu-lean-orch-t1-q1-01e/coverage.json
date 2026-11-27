@@ -1,0 +1,187 @@
+{
+ "units": [],
+ "declarations": {
+  "S001@4356-4477": {
+   "state": "not_material",
+   "reason": "The finding contains only a note on how certainty wording maps to evidence grades; it reports no result about the intervention, outcome or population, so there is nothing to add to the page.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:05:48+00:00"
+  },
+  "S002@4748-4864": {
+   "state": "not_material",
+   "reason": "The finding only describes who used digital decision support (facility, community, lay workers); it reports no effect on care quality or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:06:14+00:00"
+  },
+  "S002@4865-5021": {
+   "state": "not_material",
+   "reason": "The finding only describes which conditions the care addressed (cardiovascular, gastrointestinal risk, maternal and child health). It states no effect on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:06:16+00:00"
+  },
+  "S002@6106-6221": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns patient acceptability and satisfaction, which the scope excludes as experiences/acceptability rather than care or health outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Health workers' and patients' experiences, acceptability, and implementation barriers",
+   "decided_at": "2026-11-27T13:06:28+00:00"
+  },
+  "S003@3107-3345": {
+   "state": "not_material",
+   "reason": "The finding describes how interventions were delivered (mostly text messages) and doesn't report effects on care or health, so it wouldn't change the answer; it is descriptive and within scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:06:34+00:00"
+  },
+  "S003@4889-5021": {
+   "state": "not_material",
+   "reason": "The finding only reports that no studies exist for a secondary comparison (versus non-targeted digital messaging). It adds no effect evidence and does not change the answer about improvement over usual care.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:07:02+00:00"
+  },
+  "S003@6103-6203": {
+   "state": "not_material",
+   "reason": "The finding only reports that no studies compared mobile-device targeted client communication with non-digital communication. It reports no effect, and the question's central comparison is with usual care such as paper records.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:07:27+00:00"
+  },
+  "S004@3191-3463": {
+   "state": "out_of_scope",
+   "reason": "The finding describes interventions delivered solely by text messages or voice calls to adolescents, without health-worker digital tracking, which the scope excludes as a separate intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:07:55+00:00"
+  },
+  "S004@3464-3746": {
+   "state": "out_of_scope",
+   "reason": "The finding only describes delivery channels (text, voice, etc.) of messaging interventions to adults, apparently without digital tracking by health workers; this is standalone messaging, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:07:57+00:00"
+  },
+  "S004@3747-3930": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication via mobile devices (messages to adolescents) versus standard care, with no digital tracking by health workers. That is messaging alone, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:08:02+00:00"
+  },
+  "S004@4173-4246": {
+   "state": "not_material",
+   "reason": "The finding only says effects on abortion and STI rates are unknown for lack of studies; it is a peripheral evidence gap that does not change the page's conclusions on care quality, service use or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:08:10+00:00"
+  },
+  "S004@4247-4489": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns mobile targeted messages to clients compared with pamphlets, with no health-worker digital tracking, which is the stand-alone messaging scenario the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:08:14+00:00"
+  },
+  "S004@4490-4656": {
+   "state": "out_of_scope",
+   "reason": "The finding compares targeted messages to patients with non-targeted digital messages, so it concerns messaging without health-worker digital tracking and does not use the usual-care comparator.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:08:19+00:00"
+  },
+  "S004@5146-5451": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns targeted client communication via mobile devices (messages to patients) versus standard care, with no mention of health workers' digital tracking. This is standalone messaging, which the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:08:35+00:00"
+  },
+  "S004@5491-5554": {
+   "state": "not_material",
+   "reason": "The finding only says no study measured STI rates. It is an absence of evidence on one narrow outcome and does not change the answer on care quality or health overall.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:08:41+00:00"
+  },
+  "S004@6358-6514": {
+   "state": "out_of_scope",
+   "reason": "The finding compares mobile-device targeted client communication with non-digital communication, which is messaging to patients without digital tracking by health workers. That is a separate intervention, and it reports only missing outcomes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:01+00:00"
+  },
+  "S004@6689-6864": {
+   "state": "not_material",
+   "reason": "It only reports that no studies measured certain sexual-health outcomes in a comparison against non-targeted digital messaging. That comparison is not usual care, and the finding gives no effect, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:09:05+00:00"
+  },
+  "S005@5813-5876": {
+   "state": "not_material",
+   "reason": "The finding only says four studies were newly identified in the update. It reports no result about effects on care or health, so it would not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T13:09:13+00:00"
+  },
+  "S005@5877-6137": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns text message reminders for appointment attendance compared with no reminders. It does not involve health workers' digital tracking or on-screen prompts, so it is the standalone SMS intervention the scope excludes.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:17+00:00"
+  },
+  "S005@6138-6329": {
+   "state": "out_of_scope",
+   "reason": "The finding compares text message reminders with phone call reminders to patients. It does not concern digital tracking by health workers combined with prompts, so it falls under standalone SMS reminders.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:20+00:00"
+  },
+  "S005@6330-6586": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns text message reminders added to postal reminders for appointment attendance, with no digital tracking by health workers or decision support, so it is a standalone reminder intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:22+00:00"
+  },
+  "S005@6587-6769": {
+   "state": "out_of_scope",
+   "reason": "The finding compares standalone SMS or phone-call reminders with no reminders for appointment attendance. It does not involve health workers' digital tracking, so it falls under the standalone-reminder exclusion.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:26+00:00"
+  },
+  "S005@7003-7142": {
+   "state": "out_of_scope",
+   "reason": "The finding compares costs of text message versus phone call reminders, which is a cost question; the scope excludes cost-effectiveness and budget impact of these systems.",
+   "by": "claude-sonnet-5-5",
+   "element": "Cost-effectiveness and budget impact of these systems",
+   "decided_at": "2026-11-27T13:09:29+00:00"
+  },
+  "S005@7315-7514": {
+   "state": "out_of_scope",
+   "reason": "The finding is about standalone SMS reminders versus no or postal reminders, with no health-worker digital tracking, which the scope excludes as a separate intervention.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:32+00:00"
+  },
+  "S005@7515-7661": {
+   "state": "out_of_scope",
+   "reason": "The finding compares standalone SMS reminders with telephone reminders for attendance and cost. It involves no health-worker digital tracking, so it falls under the standalone SMS exclusion.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:35+00:00"
+  },
+  "S005@8031-8238": {
+   "state": "out_of_scope",
+   "reason": "The finding is about patient messaging reminders as a standalone intervention and calls for cost-effectiveness research, both excluded; it also reports no effect on care or health.",
+   "by": "claude-sonnet-5-5",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "decided_at": "2026-11-27T13:09:38+00:00"
+  }
+ }
+}

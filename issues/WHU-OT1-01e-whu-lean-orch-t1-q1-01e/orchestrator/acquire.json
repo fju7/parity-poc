@@ -1,0 +1,21 @@
+{
+ "slug": "whu-lean-orch-t1-q1-01e",
+ "complete": true,
+ "held": [
+  "S001",
+  "S002",
+  "S003",
+  "S004",
+  "S005",
+  "S007",
+  "S008"
+ ],
+ "not_held": [
+  {
+   "id": "S006",
+   "title": "WHO guideline Recommendations on Digital Interventions for Health System Strengthening",
+   "reason": "nothing in these bytes identifies them as this document (0 of 7 title words, no DOI/PMID/NCT match) (21446 bytes at https://www.ncbi.nlm.nih.gov/books/NBK541898/)"
+  }
+ ],
+ "skipped": []
+}
