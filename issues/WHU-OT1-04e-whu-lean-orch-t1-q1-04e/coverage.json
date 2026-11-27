@@ -1,0 +1,40 @@
+{
+ "units": [],
+ "declarations": {
+  "S002@106346-106638": {
+   "state": "not_material",
+   "reason": "The finding concerns how non-CO2 emission cuts affect the remaining carbon budget. It is background on carbon budgets and does not bear on the role of carbon dioxide removal, so the answer would not change.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T17:11:49+00:00"
+  },
+  "S002@106976-107336": {
+   "state": "not_material",
+   "reason": "The finding only gives how uncertain the remaining 1.5°C carbon budget is (300–600 vs 500 GtCO2). It says nothing about carbon dioxide removal, its scale, timing, methods or constraints.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T17:11:57+00:00"
+  },
+  "S005@3825-4023": {
+   "state": "not_material",
+   "reason": "The finding is only page boilerplate (figure and reference navigation labels and an article header) with no substantive claim about carbon dioxide removal, so it adds nothing to the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T17:11:59+00:00"
+  },
+  "S005@4024-4054": {
+   "state": "not_material",
+   "reason": "The finding is only a truncated citation fragment ('Clim., 17 September 2024 Sec.') with no substantive claim about carbon dioxide removal, so there is nothing to state or to rule out of scope.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T17:12:01+00:00"
+  },
+  "S005@4055-4285": {
+   "state": "not_material",
+   "reason": "The finding is just a bibliographic title and author list for a governance literature map; it states no result bearing on removal's role, scale, methods, or constraints.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T17:12:04+00:00"
+  }
+ }
+}
