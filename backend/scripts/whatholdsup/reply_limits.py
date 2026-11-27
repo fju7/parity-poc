@@ -31,7 +31,7 @@ LIMITS = {
     "premise": 4100,              # measured 2,021 (03b, 2026-11-27; was 1,941, 02w)
     "draft": 30000,               # measured 4,389
     "coverage": 2100,             # measured 1,007 (01d, 2026-11-27; was 1800 against 873, P147); 2x = 2,014
-    "judgement-sentence": 1500,   # measured 748 (04e, 2026-11-27; P205); 676 (04d, P201); was 1000
+    "judgement-sentence": 1600,   # measured 752 (04g, 2026-11-27; P213); 748 (04e, P205); 676 (04d, P201)
     "premise-reading": 3000,      # 1,500 cut off on 02zd, censored at 1,500 (was a hard-coded 1,500)
     "audit-read": 12000,          # pooled audit-step max 5,813 (<= 12,000: the reader's own); 2x = 11,626
     "audit-rule": 3000,           # censored at its old limit 1,500 (pooled with the reader)
