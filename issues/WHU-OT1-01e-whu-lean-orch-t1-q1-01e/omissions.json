@@ -1,0 +1,366 @@
+{
+ "omissions": [
+  {
+   "key": "S001@4356-4398",
+   "source": "S001",
+   "held_sha256": "cdb44f085b3932df0e45228c064e7779880213799f5ba7d082e478c439fe1f2a",
+   "at": [
+    4356,
+    4398
+   ],
+   "quote_sha256": "1a520643f67fc9a6ce28c6d450750e54d3a131c3ec20a875b10bb46caf73d34b",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the sentence describes the evidence base for the review's effect estimates on tracking with decision support and/or client communication in primary care, which is the question. Step 2 fails: it is a methodological framing note, not a finding. It gives no effect, outcome or limit that would change the reader's funding decision. The draft already reports the certainty of each result and that all non-randomised [S003@130273-130306]. ALREADY also records this same sentence as judged not material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "6c09464ee62d099b",
+   "origins": [
+    "S001-02",
+    "S001-03"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:31:51+00:00"
+  },
+  {
+   "key": "S002@97437-97544",
+   "source": "S002",
+   "held_sha256": "8ef2d8509f316feb3a44ef326e202f593c82edc0e17624b73961114017073855",
+   "at": [
+    97437,
+    97544
+   ],
+   "quote_sha256": "2a70a5d1c36814dce24dd6a276df54b8cc5ab230aa2d8862021ac07b7fd76dcf",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. It concerns possible harms of mobile decision support for primary health workers, which the SCOPE lists as an outcome ('any unintended or adverse effects'). Step 2: it is not material. The draft already says this review found no studies on unintended consequences such as harms, and that 'Costs and possible harms have not been assessed [1, 2].' The authors' remark that the review gives no suggestion of deleterious effects reflects that same absence of data, not evidence of safety. It adds nothing distinct for the reader, and adding it risks being read as reassurance the source does not support.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "f5ec33a5efa42a81",
+   "origins": [
+    "S002-06",
+    "S002-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:31:57+00:00"
+  },
+  {
+   "key": "S003@4561-4818",
+   "source": "S003",
+   "held_sha256": "43c40125c901286aeb4954b9147a5448ff6479808ff11a4e5dba763f8f23e251",
+   "at": [
+    4561,
+    4818
+   ],
+   "quote_sha256": "5f007015bda0cb9e2e4a9f360b4423f9b3c2d8daf4354a0e07deeb1b25fa93b0",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding reports patient health outcomes (maternal and newborn health problems) of targeted messages to patients, which the question covers. Step 2 fails: ALREADY contains this finding almost verbatim. It gives the same estimates, the same 10-day postpartum window, the same low-certainty grading and the same caveat that the newborn interval includes benefit and harm. Adding it again would tell the reader nothing new.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4ef80d2adb336d34",
+   "origins": [
+    "S003-18"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:31:59+00:00"
+  },
+  {
+   "key": "S003@186049-186197",
+   "source": "S003",
+   "held_sha256": "43c40125c901286aeb4954b9147a5448ff6479808ff11a4e5dba763f8f23e251",
+   "at": [
+    186049,
+    186197
+   ],
+   "quote_sha256": "bb26e86cd0c09bc1161821cba3cbf8e87c88eabc00f1d29133582138be5017fa",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about the effect of mobile-device targeted client communication on breastfeeding and maternal and newborn health, which falls under patients' health status in the question. Step 2 fails: ALREADY already reports both parts of the finding for this same comparison (TCC via mobile vs non-digital TCC). It states that TCC '[S003@4449-4504] compared with non-digital communication such as pamphlets (RR 0.92...; low-certainty evidence)'. It also states that TCC '[S003@4567-4606]... and any newborn health problem... based on low-certainty evidence'. The omitted sentence is the plain-language summary of these findings and adds nothing new.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "694a27c4196b0c59",
+   "origins": [
+    "S003-17"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:32:03+00:00"
+  },
+  {
+   "key": "S004@4173-4246",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    4173,
+    4246
+   ],
+   "quote_sha256": "5961dcfbf613c0edb20925da964f5fcbec0eb2276a69fa15543868f0c5b8dcfc",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: Abortion and STI rates are patient health outcomes. The SCOPE lists 'patients' health status' as an outcome, and the comparison is with usual care. The draft already treats this source as in scope. Step 2: The draft reports a possible STI reduction (RR 0.61) without saying which comparison it comes from. That figure is from the comparison with digital non-targeted communication. Against standard care, no adolescent studies measured abortion or STI rates. This qualifies the answer on health effects, so a funder would weigh it. The draft does not already state it for this comparison.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "010c0d8d8522248f",
+   "origins": [
+    "S004-31"
+   ],
+   "on_page": "27a0a888b06dda6d",
+   "after": "380c5f57cc108855",
+   "decided_at": "2026-11-27T13:32:14+00:00"
+  },
+  {
+   "key": "S004@5146-5303",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    5146,
+    5303
+   ],
+   "quote_sha256": "fb770bb32bc270afd3e7fd0366b38dc2d8d1b8fe680e1a706929e852aa07b07f",
+   "outcome": "NOT_ADDED_NO_PLACE",
+   "element": "",
+   "reason": "no place for the ADD: the anchor is not on the page",
+   "by": "code (lean: no place on the page)",
+   "ruling": null,
+   "origins": [
+    "S004-27"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:32:25+00:00"
+  },
+  {
+   "key": "S004@118852-118994",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    118852,
+    118994
+   ],
+   "quote_sha256": "6582c9d4eb4c50678a62b8c1bad0a8888ce8a3ee1122283d6a2972c2d30e0c91",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the SCOPE lists 'any unintended or adverse effects' as an outcome, and the draft already treats this source as bearing on the question. Step 2: the draft says only that few studies reported harms, that evidence is lacking, and that one participant withdrew. It does not give the number of studies reporting (six) or that half of them explicitly found no unintended consequences. A funder weighing possible harms would use that detail, because it qualifies the picture of harms beyond 'lack of evidence'.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bf82538ec30b6e4f",
+   "origins": [
+    "S004-23",
+    "S004-24",
+    "S004-25"
+   ],
+   "on_page": "2d47fc89e2a82892",
+   "after": "7fcf8f80f97563db",
+   "decided_at": "2026-11-27T13:32:33+00:00"
+  },
+  {
+   "key": "S004@140141-140402",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    140141,
+    140402
+   ],
+   "quote_sha256": "aa68e9d09fe82a7bb0faac8071f83f08a86c42ef2a1ddf13a960b4e2080ce5af",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: The finding reports the effect of a targeted mobile messaging intervention on STI incidence, a patient health outcome. The draft already treats this source's TCCMD findings as bearing on the question, so it is taken as in scope. Step 2: The draft already states this result in its anchor sentence: 'The intervention may reduce sexually transmitted infection [S004@4843-4878]; low-certainty evidence), [S001@7908-7949] benefit and harm.' That sentence gives the same estimate, interval and certainty, so adding the finding would duplicate it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "358f2b7760e1e537",
+   "origins": [
+    "S004-32"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:32:40+00:00"
+  },
+  {
+   "key": "S004@160085-160334",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    160085,
+    160334
+   ],
+   "quote_sha256": "c7c03dbb8c0c6da290a5f6a85ec47bb4f470951b2dc84367bbfdb9ab4ba2da24",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about whether mobile-delivered client communication increases patients' use of services, which is an outcome the question covers. Step 2 fails: the draft already states this result. ALREADY has 'TCCMD may modestly increase [S004@6546-6687] [4]'. That is the same estimate, interval and certainty rating, so adding it would repeat the draft.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "021ce1da255c7553",
+   "origins": [
+    "S004-20"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:32:44+00:00"
+  },
+  {
+   "key": "S004@163885-164143",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    163885,
+    164143
+   ],
+   "quote_sha256": "30946907876ec1ea0be7e8a41ee309c9d85909805c12cae72ce6a86a5f0da8f1",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "reason": "Step 1 fails. The finding tests [S004@197-245] (peer mentoring for [S004@454865-454893] Peru) against digital non-targeted communication (Facebook groups without peer mentoring). That is messaging to clients on its own, with no digital tracking of patients by health workers, which SCOPE explicitly excludes. The comparator is also another digital communication rather than usual care such as paper records. This matches how the draft already handled the source's other 'TCCMD versus digital non-targeted communication' findings, which it marked as outside the question. Step 2 is not reached.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e16a5cf760eeaf85",
+   "origins": [
+    "S004-21",
+    "S004-22"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:32:53+00:00"
+  },
+  {
+   "key": "S004@180604-180673",
+   "source": "S004",
+   "held_sha256": "7bde1c8d9e5792d6c02b42a2c017d8c515000da185fd6ff41a50ac28ff3d7e40",
+   "at": [
+    180604,
+    180673
+   ],
+   "quote_sha256": "ac5afce09bbccf6d612cb949b631ae4ad0b87465526f4ccc5927629b6d602e0e",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: adherence to antiretroviral therapy is a form of treatment adherence, which the SCOPE lists among outcomes ('patients' timely use of services (e.g. antenatal visits, immunisation, treatment adherence)'). Step 2 fails: the draft already states that TCCMD 'may modestly increase adherence to antiretroviral therapy, but the evidence is low-certainty ([S004@5598-5626]...)'. That matches this finding's '[S004@180627-180672]', so adding it would only repeat the draft.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "baac58f9866d59cf",
+   "origins": [
+    "S004-30"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:32:57+00:00"
+  },
+  {
+   "key": "S005@5877-6137",
+   "source": "S005",
+   "held_sha256": "f2424bcd25543f204a6cc71309ff097f52e5572f167d89719e6edad797026960",
+   "at": [
+    5877,
+    6137
+   ],
+   "quote_sha256": "b0d2e3fcb967b5cda6ff7bee73d7c2c90d79c5900a86996a15218c14cf96ce7b",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "reason": "Step 1 fails: the finding compares mobile text message reminders with no reminders for appointment attendance. Nothing in the finding or its context mentions health workers digitally tracking patients or on-screen decision support. That makes it the stand-alone SMS reminder intervention the SCOPE explicitly excludes. Step 2 is not reached. The draft's earlier record also marks this sentence as outside this question.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "65bb3e41ccc4bcdb",
+   "origins": [
+    "S005-33"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:33:01+00:00"
+  },
+  {
+   "key": "S005@6770-7002",
+   "source": "S005",
+   "held_sha256": "f2424bcd25543f204a6cc71309ff097f52e5572f167d89719e6edad797026960",
+   "at": [
+    6770,
+    7002
+   ],
+   "quote_sha256": "ad9a3f000440cec2005192937e8af57cba5335bebbc45b6b36ee6295de39c6d7",
+   "outcome": "OUT_OF_SCOPE",
+   "element": "Whether SMS reminders or text messaging to patients work on their own, without digital tracking by health workers",
+   "reason": "Step 1: The finding comes from a review of mobile text message reminders for appointment attendance. It reports adverse-effect data for SMS reminders used on their own, not combined with health workers' digital tracking, which SCOPE explicitly excludes. The draft's other findings from this source are marked 'Outside this question' for the same reason. Step 2: Even if it were in scope, it would not be material, because ALREADY contains a near-verbatim sentence stating it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a37e7ec59b057631",
+   "origins": [
+    "S005-35"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:33:07+00:00"
+  },
+  {
+   "key": "S005@7315-7514",
+   "source": "S005",
+   "held_sha256": "f2424bcd25543f204a6cc71309ff097f52e5572f167d89719e6edad797026960",
+   "at": [
+    7315,
+    7514
+   ],
+   "quote_sha256": "e73868174a0c60b74f99cc39d311f11a95ab1bd7a8649a6591a1a105a0ad98ff",
+   "outcome": "OVER_DECLARATIONS_BUDGET",
+   "element": "",
+   "reason": "over the declarations budget (10)",
+   "by": "code (lean: past the declarations budget; Not Ready)",
+   "ruling": null,
+   "origins": [
+    "S005-34"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:33:11+00:00"
+  },
+  {
+   "key": "S007@4687-4768",
+   "source": "S007",
+   "held_sha256": "fdf75c4c16e43b58481b5187dc4aae309ed321719e99f8240eb70ab2b6166ec9",
+   "at": [
+    4687,
+    4768
+   ],
+   "quote_sha256": "1ca709d7bfbcc2db66b383aca72a47065d09ec9c163a7d1364af7f05dcc37704",
+   "outcome": "OVER_DECLARATIONS_BUDGET",
+   "element": "",
+   "reason": "over the declarations budget (10)",
+   "by": "code (lean: past the declarations budget; Not Ready)",
+   "ruling": null,
+   "origins": [
+    "S007-37"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:33:19+00:00"
+  },
+  {
+   "key": "S007@5641-5929",
+   "source": "S007",
+   "held_sha256": "fdf75c4c16e43b58481b5187dc4aae309ed321719e99f8240eb70ab2b6166ec9",
+   "at": [
+    5641,
+    5929
+   ],
+   "quote_sha256": "1ba2e8f6cc1badb9bfe25dbcfabba519f3d93c1a7851a76506a9fcb6396464c2",
+   "outcome": "OVER_DECLARATIONS_BUDGET",
+   "element": "",
+   "reason": "over the declarations budget (10)",
+   "by": "code (lean: past the declarations budget; Not Ready)",
+   "ruling": null,
+   "origins": [
+    "S007-36"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:33:25+00:00"
+  },
+  {
+   "key": "S007@33035-33147",
+   "source": "S007",
+   "held_sha256": "fdf75c4c16e43b58481b5187dc4aae309ed321719e99f8240eb70ab2b6166ec9",
+   "at": [
+    33035,
+    33147
+   ],
+   "quote_sha256": "1a325014875816650cedbb06dc505370f0f3130aedea7d4714e0f3c3e2b3a6b1",
+   "outcome": "OVER_DECLARATIONS_BUDGET",
+   "element": "",
+   "reason": "over the declarations budget (10)",
+   "by": "code (lean: past the declarations budget; Not Ready)",
+   "ruling": null,
+   "origins": [
+    "S007-38"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T13:33:28+00:00"
+  }
+ ]
+}

@@ -12,3 +12,7 @@
 | premise_reading (orchestrator) | 2026-11-27T13:05:22+00:00 | 2026-11-27T13:05:31+00:00 | $0.0342 | 0 | sources show verified; direction narrows; kill condition survived |
 | coverage (orchestrator) | 2026-11-27T13:05:31+00:00 | 2026-11-27T13:11:43+00:00 | $0.4013 | 0 | 74 coverage decision(s), 0 left in scope |
 | corrections_3b (orchestrator) | 2026-11-27T13:11:43+00:00 | 2026-11-27T13:13:50+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-27T13:13:50+00:00 | 2026-11-27T13:15:52+00:00 | $0.0000 | 0 | committed 5bd9d7df82ef |
+| gate (orchestrator) | 2026-11-27T13:15:52+00:00 | 2026-11-27T13:16:47+00:00 | $0.5144 | 0 | done |
+| advocate (orchestrator) | 2026-11-27T13:16:47+00:00 | 2026-11-27T13:29:47+00:00 | $1.9300 | 0 | 16 record(s) applied |
+| omissions (orchestrator) | 2026-11-27T13:29:47+00:00 | 2026-11-27T13:33:42+00:00 | $0.6251 | 0 | FAILED: RunStop: omissions: 4 omission finding(s) end the page, an honest stop (ruling 4 on P171-P176): over the declarations budget (10); over the declarations budget (10) |

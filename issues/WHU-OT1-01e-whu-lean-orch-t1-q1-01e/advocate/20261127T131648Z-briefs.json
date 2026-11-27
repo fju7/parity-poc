@@ -1,0 +1,653 @@
+[
+  {
+    "source": "S001",
+    "title": "Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Tracking with decision support may reduce deaths in patients with hypertension and diabetes (OR 0.61 [0.35, 1.06]) and new cardiovascular events in high-risk adults (OR 0.58 [0.42, 0.80]), but may make little or no difference to adverse pregnancy outcomes (OR 0.99 [0.87, 1.12])",
+        "objection": "The adverse-pregnancy-outcomes result (OR 0.99) belongs to the three-part intervention, tracking + CDSS + TCC, not to tracking with decision support alone, so the page puts it under the wrong comparison.",
+        "source_says": "In women receiving antenatal care (1 study, 6367 participants), tracking + CDSS + TCC maymake little or no difference to adverse pregnancy outcomes (OR 0.99 [0.87, 1.12])",
+        "locator": "Summary of findings text on antenatal care outcomes, following the severe hypertension result (OR 0.61 [0.27, 1.37])",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The review reports tracking + CDSS and tracking + CDSS + TCC as separate comparisons. Putting a null result from the combined package under the CDSS-only heading misleads the reader about which intervention produced which effect. The page's broader conclusion of mixed results still stands.",
+        "source_says_first": "\"In women receiving antenatal care (1 study, 6367 participants), tracking + CDSS + TCC may make little or no difference to adverse pregnancy outcomes (OR 0.99 [0.87, 1.12])\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "All the non-randomised studies included in the evidence were judged to have a high risk of bias [1].",
+        "objection": "The page omits that the review's effect estimates come only from the randomised studies, so the high-risk non-randomised studies do not feed the results the page goes on to report.",
+        "source_says": "All non‐randomised studies had a high risk of bias. These results are from randomised studies.",
+        "locator": "Main results (summary section)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "\"Included in the evidence\" reads as if the high-risk non-randomised studies underlie the reported effects. In the review they sit outside the results summary. The page also never gives the 11/7 randomised/non-randomised split. A reader could wrongly discount the effect estimates as resting on biased studies. The review's own reason for downgrading is risk of bias within the randomised evidence: \"The evidence for many outcomes was downgraded to low‐ or very low‐certainty because of concerns about the risk of bias.\" (Authors' conclusions, Implications for research).",
+        "source_says_first": "\"We identified 18 eligible studies (11 randomised, seven non-randomised)... All non-randomised studies had a high risk of bias. These results are from randomised studies.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Judged not material to this question: “These results are from randomised studies …”",
+        "objection": "The sentence the page discards is the review's own scoping statement. It says all the effect estimates the page reports (RRs, ORs, 'may/probably' ratings) come from randomised studies, and that is material to how far they can be trusted.",
+        "source_says": "These results are from randomised studies.",
+        "locator": "Main results paragraph of the summary, following 'All non‐randomised studies had a high risk of bias.'",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page calls this not material, yet it tells the reader the evidence base behind the effect estimates is randomised. It also sits beside the key to the review's certainty wording, which the page leans on throughout. Leaving it out, while noting the non-randomised studies' high risk of bias, tilts the page toward distrust of the reported effects.",
+        "source_says_first": "\"Main results: We identified 18 eligible studies (11 randomised, seven non-randomised)... These results are from randomised studies. 'Probably/may/uncertain' indicates 'moderate/low/very low' certainty evidence.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Decision-support tools via mobile devices to improve quality of care in primary healthcare settings.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The tools probably make little or no difference to the number of women giving birth in a hospital (one study, 799 participants) [2].",
+        "objection": "The review grades this finding as low certainty, which supports 'may', not 'probably'. The page has overstated the certainty.",
+        "source_says": "Hospital delivery at 12 months of follow‐up 77 per 1000 98 per 1000 (62 to 154) RR 1.27 (0.81 to 2.00) 799 (1 RCT) Guatemala ( Martinez 2018 ) ⊕⊕⊝⊝ Low a,i,m This approach may increase the number of hospital deliveries, but the 95% CI included both a decrease and an increase in hospital deliveries.",
+        "locator": "Summary of findings 2 table, row 'Hospital delivery at 12 months of follow‐up'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "'Probably' is the review's wording for moderate-certainty findings. The point estimate is RR 1.27 (0.81 to 2.00) from a single study. The page sets this beside the moderate-certainty blood-pressure and smoking findings without marking the difference. A reader would take it as firmer than it is.",
+        "source_says_first": "Summary of findings table: \"Hospital delivery at 12 months of follow‐up · 77 per 1000 · 98 per 1000 (62 to 154) · RR 1.27 (0.81 to 2.00) · 799 (1 RCT) Guatemala (Martinez 2018) · ⊕⊕⊝⊝ Low\". The abstract also says: \"hospital delivery over the 12‐month study period: RR 1.27, 95% CI 0.81 to 2.00; low‐certainty evidence\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Digital tracking with decision support or reminders probably makes little or no difference to some types of health outcomes, and we are uncertain about others, including maternal and neonatal deaths, because the evidence is very low-certainty [2].",
+        "objection": "The review is about mobile-device clinical decision-support tools used by primary care providers. It is not about 'digital tracking' or 'reminders', so the page has given the intervention the wrong label.",
+        "source_says": "To assess the effects of digital clinical decision‐support systems (CDSS) accessible via mobile devices by primary healthcare providers in the context of primary care settings.",
+        "locator": "Objectives section of the abstract (also repeated in the Background Objectives)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The finding is attributed to a broader intervention class (tracking and reminders) than the review studied. Its scope is mobile CDSS only, so the page should not use it as evidence about tracking or reminder tools.",
+        "source_says_first": "Objective: \"To assess the effects of digital clinical decision-support systems (CDSS) accessible via mobile devices by primary healthcare providers in the context of primary care settings.\" The abstract finding is: \"It probably makes little or no difference to some types of health outcomes, but we are uncertain about other health outcomes, including maternal and neonatal deaths, due to very low-certainty evidence.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Costs and possible harms have not been assessed [1, 2].",
+        "objection": "The page leaves out the review's own conclusion on harms. It says the review found no suggestion of deleterious effects from the tools, even though no study reported unintended consequences.",
+        "source_says": "\"At the same time, the review does not provide any suggestion of deleterious effects due to the use of CDSS.\"",
+        "locator": "Plain language summary, Key messages (Cochrane Library full text)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'Not assessed' alone suggests the harm question is entirely open. The review reports that across its eight trials the data gave no signal of harm. That is limited evidence, but the page's bare statement is incomplete.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "That review found no studies on healthcare worker satisfaction, resource use, or unintended consequences such as harms [2].",
+        "objection": "The page reports the gap in unintended-consequence data. It omits the authors' statement that the evidence they did have gave no suggestion of deleterious effects.",
+        "source_says": "At the same time, the review does not provide any suggestion of deleterious effects due to the use of CDSS.",
+        "locator": "Authors' conclusions, Implications for practice",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page gives the absence of harm data but not the authors' reading of the harm-relevant outcomes they did have. That leaves the safety picture one-sided.",
+        "source_says_first": "\"At the same time, the review does not provide any suggestion of deleterious effects due to the use of CDSS.\" The results also state: \"No studies reported unintended consequences.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S003",
+    "title": "Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Targeted client communication via mobile devices for improving maternal, neonatal, and child health.",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Tracking combined with messaging or decision support (TCCMD) may increase exclusive breastfeeding among pregnant and postpartum women in settings where it is less common",
+        "objection": "TCCMD in this review stands for targeted client communication via mobile devices; it does not mean tracking combined with messaging or decision support, and the review did not evaluate digital tracking or decision support.",
+        "source_says": "Targeted client communication (TCC) via mobile devices (MD) (TCCMD) may be a useful strategy to improve MNCH.",
+        "locator": "Abstract, Background",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page mislabels the intervention reviewed, so readers will attribute the findings to a broader package (tracking plus decision support) than the one tested. The numbers survive but their scope does not.",
+        "source_says_first": "\"Targeted client communication (TCC) via mobile devices (MD) (TCCMD) may be a useful strategy to improve MNCH.\" Inclusion: \"randomised controlled trials that assessed TCC via MD to improve MNCH behaviour, service use, health, and well-being.\" Tracking and decision support are covered in a separate review (Agarwal, 'Digital tracking, provider decision support systems, and targeted client communication via mobile devices to improve primary health care').",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Tracking combined with decision support or messaging via mobile devices may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96)",
+        "objection": "The same mislabelling: the review's intervention is targeted client communication, not tracking or decision support.",
+        "source_says": "\"TCCMD may increase antenatal appointment attendance (odds ratio (OR) 1.54, 95% CI 0.80 to 2.96; low-certainty evidence); however, the CI encompasses both benefit and harm.\" TCCMD is defined as targeted client communication via mobile devices.",
+        "locator": "Abstract, Main results: pregnant and postpartum women, TCCMD versus standard care",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The intervention is described as something the review did not test.",
+        "quotation_check": {
+          "in_held_text": false,
+          "asked": 2,
+          "note": "the quotation is not in the held text"
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Tracking combined with client communication via mobile devices may reduce any maternal health problem (RR 0.19, 95% CI 0.04 to 0.79)",
+        "objection": "The review tested targeted client communication, not tracking plus communication. The sentence also omits which comparator the figures come from.",
+        "source_says": "TCCMD versus non‐digital TCC (e.g. pamphlets) TCCMD may have little or no effect on exclusive breastfeeding (RR 0.92, 95% CI 0.79 to 1.07; low‐certainty evidence). TCCMD may reduce 'any maternal health problem' (RR 0.19, 95% CI 0.04 to 0.79) and 'any newborn health problem' (RR 0.52, 95% CI 0.25 to 1.06) reported up to 10 days postpartum (low‐certainty evidence), though the CI for the latter includes benefit and harm.",
+        "locator": "Plain language/Main results summary, section on pregnant and postpartum women: TCCMD versus non‐digital TCC",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The intervention is mislabelled, and the comparator is left out.",
+        "source_says_first": "\"TCCMD may reduce 'any maternal health problem' (RR 0.19, 95% CI 0.04 to 0.79) and 'any newborn health problem' (RR 0.52, 95% CI 0.25 to 1.06) reported up to 10 days postpartum (low-certainty evidence), though the CI for the latter includes benefit and harm.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "mobile-device tracking combined with client communication (TCCMD) may make little or no difference to maternal and infant antiretroviral adherence compared with standard care",
+        "objection": "The same mislabelling of TCCMD as tracking plus communication.",
+        "source_says": "For behaviours, TCCMD may make little or no difference to maternal and infant adherence to antiretroviral (ARV) therapy (low‐certainty evidence).",
+        "locator": "Summary section, 'Pregnant and postpartum women living with HIV – TCCMD versus standard care'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "This is the same error repeated; every instance needs the same correction.",
+        "source_says_first": "\"For behaviours, TCCMD may make little or no difference to maternal and infant adherence to antiretroviral (ARV) therapy (low-certainty evidence).\" TCCMD means targeted client communication via mobile devices.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Based on 10 trials, tracking combined with communication via mobile devices (TCCMD) may modestly increase health service use",
+        "objection": "The same mislabelling of the intervention.",
+        "source_says": "Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low‐certainty evidence); however, the effect estimates varied widely between studies.",
+        "locator": "Plain language/abstract summary, 'Parents of children aged less than five years' – TCCMD versus standard care",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The intervention is described incorrectly.",
+        "source_says_first": "\"Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low-certainty evidence); however, the effect estimates varied widely between studies.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Compared with digital non-targeted communication, tracking with targeted communication on mobile devices may reduce vaccination attendance",
+        "objection": "The same mislabelling: the review did not test tracking.",
+        "source_says": "TCCMD versus digital non‐targeted communication TCCMD may reduce attendance for vaccinations, but the CI encompasses both benefit and harm (RR 0.63, 95% CI 0.33 to 1.20; low‐certainty evidence).",
+        "locator": "Plain language/Main results summary: Parents of children aged less than five years, TCCMD versus digital non‐targeted communication",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The intervention is described incorrectly.",
+        "source_says_first": "\"TCCMD versus digital non-targeted communication TCCMD may reduce attendance for vaccinations, but the CI encompasses both benefit and harm (RR 0.63, 95% CI 0.33 to 1.20; low-certainty evidence).\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effect of these digital tracking and messaging approaches on other outcomes is unknown, because too few studies have measured them",
+        "objection": "The same mislabelling; 'tracking' is not part of this review's intervention.",
+        "source_says": "\"The effects of TCC via mobile devices on unintended consequences is unknown due to lack of studies.\"",
+        "locator": "Summary of main results; Authors' conclusions",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review reports unknown effects for targeted communication specifically, not for tracking.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "No trials, in any population, reported data on unintended consequences, so possible harms of these mobile tracking and prompt or reminder interventions remain unassessed",
+        "objection": "The finding is right, but the intervention is again mislabelled as tracking and prompts.",
+        "source_says": "\"No trials in any population reported data on unintended consequences.\"",
+        "locator": "Abstract, Main results; Results: Unintended consequences",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The wording describes an intervention the review did not test.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effect of these interventions on health service use is unknown because there is a lack of studies [3].",
+        "objection": "As written, this is a blanket claim, but the review found low-certainty evidence of increased health service use in several comparisons. 'Unknown due to lack of studies' applies only to specific comparisons.",
+        "source_says": "Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low‐certainty evidence)",
+        "locator": "Plain language/Abstract summary, 'Parents of children aged less than five years' – TCCMD versus standard care",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "Health service use is the outcome with the most positive, if low-certainty, evidence in the review. Calling it unknown contradicts the page's own sentences citing RR 1.21 and RR 1.13.",
+        "source_says_first": "\"Based on 10 trials, TCCMD may modestly increase health service use (vaccinations and HIV care) (RR 1.21, 95% CI 1.08 to 1.34; low-certainty evidence).\" Also: \"TCCMD may increase antenatal appointment attendance (OR 1.54, 95% CI 0.80 to 2.96; low-certainty evidence).\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Targeted client communication via mobile devices may have little or no effect on exclusive breastfeeding compared with non-digital communication such as pamphlets (RR 0.92, 95% CI 0.79 to 1.07; low-certainty evidence)",
+        "objection": "The page leaves out that, against the same non-digital comparator, the review found TCCMD may improve maternal and newborn health.",
+        "source_says": "When compared to non‐digital TCC, TCC via mobile devices may have little or no effect on breastfeeding, and may improve maternal and newborn health.",
+        "locator": "Plain language summary / Main results: 'Targeted client communication via mobile devices compared to non‐digital targeted client communication or digital non‐targeted communication' (pregnant and postpartum women)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page gives the null breastfeeding result for the non-digital comparison but not the health improvement from the same comparison. Elsewhere it attaches the maternal and newborn figures to the wrong comparator.",
+        "source_says_first": "\"When compared to non-digital TCC, TCC via mobile devices may have little or no effect on breastfeeding, and may improve maternal and newborn health.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Effects on people's health are often unknown because evidence is missing or of low certainty [1, 3].",
+        "objection": "The page leaves out that the review found low-certainty evidence of fewer maternal and newborn health problems, so 'unknown' overstates the position for health outcomes.",
+        "source_says": "TCCMD may reduce 'any maternal health problem' (RR 0.19, 95% CI 0.04 to 0.79) and 'any newborn health problem' (RR 0.52, 95% CI 0.25 to 1.06) reported up to 10 days postpartum (low‐certainty evidence), though the CI for the latter includes benefit and harm.",
+        "locator": "Plain language/summary of main results, TCCMD versus non-digital TCC (e.g. pamphlets)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The conclusion survives in a smaller form. Health effects are low certainty, and the very-low-certainty and unknown findings are limited to mortality, morbidity and specific outcomes.",
+        "source_says_first": "\"TCCMD may reduce 'any maternal health problem' (RR 0.19, 95% CI 0.04 to 0.79) and 'any newborn health problem' (RR 0.52, 95% CI 0.25 to 1.06) reported up to 10 days postpartum (low-certainty evidence), though the CI for the latter includes benefit and harm.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "For use of health services, effects on skilled attendance at birth are uncertain (very low-certainty evidence)",
+        "objection": "The review rates skilled attendance at birth as low-certainty against standard care. The page's own earlier sentence also says low-certainty, and this sentence does not name a comparator.",
+        "source_says": "may make no difference in settings where almost all women already have a skilled attendant at birth (OR 1.00, 95% CI 0.34 to 2.94; low‐certainty evidence)",
+        "locator": "Summary of results, Pregnant and postpartum women, TCCMD versus standard care (paragraph beginning 'The intervention may increase skilled attendants at birth')",
+        "could_not_find": "I could not retrieve the full text to check whether a different comparison rates skilled attendance as very low certainty. I searched the abstract and summary-of-findings snippets only. The page's two sentences conflict unless they refer to different comparisons.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The certainty rating is inconsistent unless the comparator is specified.",
+        "source_says_first": "\"may make no difference in settings where almost all women already have a skilled attendant at birth (OR 1.00, 95% CI 0.34 to 2.94; low-certainty evidence).\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S004",
+    "title": "Targeted client communication via mobile devices for improving sexual and reproductive health.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Targeted client communication via mobile devices for improving sexual and reproductive health.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "TCCMD may modestly increase service attendance overall (RR: 1.12, 95% CI 0.92‐1.35, low certainty evidence), however the confidence interval encompasses benefit and harm",
+        "objection": "The page gives no comparator or population for this estimate, so it reads as a general finding. The review reports it only for adults against non-digital targeted communication.",
+        "source_says": "we found evidence to suggest that TCC via mobile devices may have a modest effect on increasing service utilisation among adults compared with non‐digital targeted communication (RR 1.12, 95% CI 0.92 to 1.35; up to 6 months follow‐up; Analysis 4.1 )",
+        "locator": "Results, Effects of interventions: TCC via mobile devices compared to non‐digital TCC, Utilisation of services",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's other service-use figures (RR 1.71, RR 1.17, RR 1.61) are mostly vs standard care or in different populations. Putting them side by side without comparators makes the review look inconsistent when it is not.",
+        "source_says_first": "Summary of findings / Results: the pooled estimate is for the effect \"on increasing service utilisation among adults compared with non-digital targeted communication (RR 1.12, 95% CI 0.92 to 1.35\". The Authors' conclusions also tie it to 'TCCMD versus non-digital TCC'.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Interventions may increase health service use, such as attendance for STI/HIV testing (RR 1.61, 95% CI 1.08 to 2.40), but the evidence is low-certainty",
+        "objection": "The page omits that the review contains a moderate-certainty finding of a large effect on STI/HIV testing attendance. It also omits that the RR 1.61 figure is for adolescents.",
+        "source_says": "This study provided moderate‐certainty evidence (downgraded once due to risk of bias) that TCC via mobile devices may have a large effect on increasing attendance for STI/HIV testing (RR 2.62, 95% CI 1.52 to 4.53; N = 498; 12 weeks follow‐up) ( Young 2015 ).",
+        "locator": "Results, utilisation of services, trial among MSM in Peru (Young 2015), comparison with digital non-targeted communication",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's framing is that everything is low or very low certainty. The review's strongest result, STI/HIV testing uptake among adolescents, is the one finding rated moderate and described as large. Leaving it out understates the evidence on the page's own question.",
+        "source_says_first": "Results, adolescents vs digital non-targeted communication: \"This study provided moderate‐certainty evidence (downgraded once due to risk of bias) that TCC via mobile devices may have a large effect on increasing attendance for STI/HIV testing (RR 2.62, 95% CI 1.52 to 4.53; N = 498; 12 weeks follow‐up) (Young 2015).\" The pooled RR 1.61 is described as \"a relatively large beneficial effect... among adolescents\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, TCCMD may improve some outcomes but the evidence is of low certainty",
+        "objection": "The page leaves out that the review's own wording is 'low or very low across the vast majority of outcomes', which implies at least one moderate-certainty exception. That exception is the Young 2015 STI/HIV testing result.",
+        "source_says": "This study provided moderate‐certainty evidence (downgraded once due to risk of bias) that TCC via mobile devices may have a large effect on increasing attendance for STI/HIV testing (RR 2.62, 95% CI 1.52 to 4.53; N = 498; 12 weeks follow‐up) ( Young 2015 ).",
+        "locator": "Results, adults comparison 3, health service utilization (Young 2015, MSM in Peru)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The headline 'low certainty' is the review's summary line, but the page does not mention the one finding that rises above it.",
+        "source_says_first": "\"The evidence was of low‐ or very low‐certainty across the vast majority of outcomes.\" Also: \"moderate‐certainty evidence (downgraded once due to risk of bias) that TCC via mobile devices may have a large effect on increasing attendance for STI/HIV testing (RR 2.62, 95% CI 1.52 to 4.53...\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "We are uncertain whether tracking combined with decision support or messaging on mobile devices (TCCMD) results in unintended consequences, because there is a lack of evidence",
+        "objection": "The page says there is a lack of evidence on unintended consequences. The review reports that six studies measured them and three explicitly found none.",
+        "source_says": "Six studies reported on unintended consequences as a result of the intervention. Three studies explicitly reported no unintended consequences.",
+        "locator": "Results, Unintended consequences (summary paragraph following the health utilization outcomes)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "'Lack of evidence' is the Abstract's wording, but the body shows some data, including explicit null reports. The page leaves the reader unable to tell that some evidence exists and that it was not harmful in those studies.",
+        "source_says_first": "Results, Unintended consequences: \"Six studies reported on unintended consequences as a result of the intervention. Three studies explicitly reported no unintended consequences.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Few studies reported on unintended consequences, so evidence about possible harms of these interventions is limited",
+        "objection": "The page omits the count and direction of the unintended-consequence reports: six studies, three of them explicitly reporting none.",
+        "source_says": "\"Six studies reported on unintended consequences as a result of the intervention. Three studies explicitly reported no unintended consequences.\"",
+        "locator": "Results, Unintended consequences",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'Limited' is right, but the page gives no sense of how much was reported or which way it pointed.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "One study reported that a participant withdrew from the intervention because they felt it compromised their undisclosed HIV status",
+        "objection": "The page gives the single adverse event without the surrounding finding that three studies explicitly reported no unintended consequences. A reader may take the one withdrawal as the main harm signal.",
+        "source_says": "Six studies reported on unintended consequences as a result of the intervention. Three studies explicitly reported no unintended consequences.",
+        "locator": "Results section on unintended consequences (paragraph beginning 'Three further trials reported health utilization outcomes')",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The sentence is accurate but selective. Context would stop the anecdote being over-read as the harm evidence.",
+        "source_says_first": "\"Six studies reported on unintended consequences as a result of the intervention. Three studies explicitly reported no unintended consequences.\" The abstract adds: \"Few studies reported on unintended consequences. One study reported that a participant withdrew from the intervention as they felt it compromised their undisclosed HIV status.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "In a review of text reminders for HIV care, some trials excluded people who were illiterate or had no phone, and the authors judged it likely that most trials excluded people without a personal mobile phone",
+        "objection": "The exclusions were reported by one trial (Joseph Davey 2016) discussed within this review, not by a separate review of HIV text reminders. The authors' inference covers all other trials, not just 'most'.",
+        "source_says": "For example, one trial ( Joseph Davey 2016 ) evaluating whether regular mobile phone text reminders improved patients’ retention in antiretroviral therapy care in Mozambique reported that 345 of the 1202 people assessed for participation were excluded because they were illiterate, had no phone, or both.",
+        "locator": "Equity considerations",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page misattributes the source and understates the authors' applicability concern. The point stands, and it is stronger than the page says.",
+        "source_says_first": "Overall completeness and applicability: \"one trial (Joseph Davey 2016) evaluating whether regular mobile phone text reminders improved patients' retention in antiretroviral therapy care in Mozambique reported that 345 of the 1202 people assessed for participation were excluded because they were illiterate, had no phone, or both.\" Also: \"only one trial specifically stated that they provided mobile phones to participants, therefore it is likely that all other trials will have excluded those who do not own a personal mobile phone.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Tracking combined with targeted client communication on mobile devices may modestly increase contraception use (RR 1.19, 95% CI 1.05 to 1.35), based on low-certainty evidence",
+        "objection": "The page gives no population or comparator for RR 1.19. It omits that the adult estimate at 12 months is smaller and its CI crosses 1.",
+        "source_says": "Adult populations TCCMD versus standard care For health behaviours, TCCMD may modestly increase contraception use at 12 months (RR 1.17, 95% CI 0.92 to 1.48)",
+        "locator": "Summary of results, adult populations: TCCMD versus standard care (health behaviours)",
+        "could_not_find": "I could not retrieve the full results text. I did not confirm which exact comparison the pooled RR 1.19 belongs to, only that it is the abstract's headline contraception figure.",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "A reader will take 'modestly increase contraception use' as applying to everyone. The adult estimate does not exclude no effect.",
+        "source_says_first": "\"Adult populations TCCMD versus standard care For health behaviours, TCCMD may modestly increase contraception use at 12 months (RR 1.17, 95% CI 0.92 to 1.48)\". The plain-language summary attaches the contraception benefit to young people: \"Young people may have better SRH knowledge and may use contraceptives slightly more.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Tracking combined with targeted client communication on mobile devices",
+        "objection": "The review evaluates targeted client communication via mobile devices. It does not describe the intervention as 'tracking combined with' anything.",
+        "source_says": "",
+        "locator": "Abstract; Background; Criteria for considering studies",
+        "could_not_find": "I searched the title, abstract, main results and plain-language summary. The intervention is consistently 'targeted client communication via mobile devices (TCCMD)' compared with standard care, non-digital TCC or digital non-targeted communication. I found no 'tracking' or 'decision support' arm.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The label misdescribes the intervention and imports a different Cochrane review's category (decision-support tools)."
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The effects of these tracking-plus-prompt or reminder interventions on abortion rates and on antiretroviral therapy (ART) adherence are unknown, because no studies were found",
+        "objection": "The label is wrong, and the 'no studies' finding applies to one comparison and population. The same review reports ART adherence estimates elsewhere.",
+        "source_says": "TCCMD may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32, low‐certainty evidence, and standardised mean difference 0.44, 95% CI ‐0.14 to 1.02, low‐certainty evidence).",
+        "locator": "Abstract, Adult populations, TCCMD versus standard care",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Read next to the page's own ART adherence sentences, this appears to contradict the review. It reflects different populations and comparators, which the page never states.",
+        "source_says_first": "Abstract: \"The effects on abortion rates and on ART adherence are unknown due to lack of studies.\" This is in the adolescent vs standard care findings. Elsewhere: \"TCCMD may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32, low‐certainty evidence...\" and \"TCC via mobile devices may slightly improve adults' adherence to ART.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Tracking combined with decision support or client messaging on mobile devices (TCCMD) may modestly increase adherence to antiretroviral therapy, but the evidence is low-certainty (RR 1.13, 95% CI 0.97 to 1.32; standardised mean difference 0.44, 95% CI -0.14 to 1.02)",
+        "objection": "The page does not say this is the adult finding, and it does not point out that both confidence intervals cross the null. It also sits unexplained beside the page's other ART sentences, which say 'uncertain' and 'unknown'.",
+        "source_says": "TCCMD may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32, low‐certainty evidence, and standardised mean difference 0.44, 95% CI ‐0.14 to 1.02, low‐certainty evidence).",
+        "locator": "Abstract (plain-language/main results), Adult populations, TCCMD versus standard care",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review's ART adherence finding depends on population and comparator. Without that split, the page's three ART statements cannot be reconciled.",
+        "source_says_first": "Abstract: \"TCCMD may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32, low‐certainty evidence, and standardised mean difference 0.44, 95% CI -0.14 to 1.02, low‐certainty evidence).\" Contrast: \"We are uncertain of the effect of TCC via mobile devices on attendance for STI/HIV testing and on ART adherence because the evidence is of very low certainty.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The effects on condom use, antiretroviral therapy (ART) adherence, and health service use are uncertain because the evidence is of very low certainty",
+        "objection": "The page does not say that this very-low-certainty statement is tied to a specific comparison. The review reports low-certainty benefit for ART adherence and service use in other comparisons.",
+        "source_says": "TCCMD may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32, low‐certainty evidence, and standardised mean difference 0.44, 95% CI ‐0.14 to 1.02, low‐certainty evidence). TCCMD may modestly increase health service utilisation (RR 1.17, 95% CI 1.04 to 1.31; low‐certainty evidence)",
+        "locator": "Adult populations, TCCMD versus standard care (summary of main results)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Without the comparator, 'uncertain' for ART adherence and service use appears to conflict with the page's own other sentences. These are different comparisons.",
+        "source_says_first": "\"TCCMD may modestly increase ART adherence (RR 1.13, 95% CI 0.97 to 1.32, low‐certainty evidence...\". Also: \"TCCMD may modestly increase health service utilisation (RR 1.17, 95% CI 1.04 to 1.31; low-certainty evidence)\".",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The intervention may reduce sexually transmitted infection rates (RR 0.61, 95% CI 0.28 to 1.33; low-certainty evidence), but the confidence interval includes both benefit and harm",
+        "objection": "The page omits that this STI estimate rests on a single adolescent trial. It also omits that for adults no study measured STI rates.",
+        "source_says": "Based on a single trial conducted in Britain among 200 adolescents/young people, we are uncertain as to whether the text messaging based intervention reduced incidence of chlamydia or gonorrhoea (RR 0.61 95% CI 0.28 to 1.33; 12 months follow‐up; Analysis 2.7 ).",
+        "locator": "Results text, Comparison 2 (adolescents, TCC vs digital non-targeted communication), Health and well-being outcome (Analysis 2.7)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "One trial of 200 adolescents carries the whole STI rate result, and the page does not make that visible.",
+        "source_says_first": "Analysis table: \"2.7.1 STI incidence (chlamydia) among adolescents (12 months) | 1 | 200 | Risk Ratio (M‐H, Random, 95% CI) | 0.61 [0.28, 1.33]\". Abstract: \"No study measured the impact of this intervention on STI rates.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S005",
+    "title": "Mobile phone messaging reminders for attendance at healthcare appointments.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Mobile phone messaging reminders for attendance at healthcare appointments.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, the included studies were heterogeneous and the quality of the evidence therein is low to moderate [5].",
+        "objection": "The sentence gives the review's 'low to moderate' rating without saying that the main comparison, text reminders against no reminders, was graded moderate and showed a benefit, so the rating reads as a general weakness of the whole review.",
+        "source_says": "We found moderate quality evidence from seven studies (5841 participants) that mobile text message reminders improved the rate of attendance at healthcare appointments compared to no reminders (risk ratio (RR) 1.14 (95% confidence interval (CI) 1.03 to 1.26)).",
+        "locator": "Main results (abstract)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The low-quality rating comes mainly from the smaller comparisons, such as SMS plus postal reminders, which rested on one study of 291 participants. The page's point about weak evidence holds for harms and health outcomes. It does not hold for the attendance effect, which the review rates moderate.",
+        "source_says_first": "\"We found moderate quality evidence from seven studies (5841 participants) that mobile text message reminders improved the rate of attendance at healthcare appointments compared to …\" The Authors' conclusions add: \"mobile phone text messaging reminders increase attendance at healthcare appointments compared to no reminders, or postal reminders.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The source states that \"the current evidence therefore still remains insufficient to conclusively inform policy decisions\" [5].",
+        "objection": "The quote is cut off from the sentence it follows. The review makes this statement immediately after concluding that text reminders increase attendance, so it qualifies a positive finding and does not say the effect is unproven.",
+        "source_says": "Low to moderate quality evidence included in this review shows that mobile phone text messaging reminders increase attendance at healthcare appointments compared to no reminders, or postal reminders.",
+        "locator": "Authors' conclusions (first occurrence)",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "If the page uses this quote to say the review leaves effectiveness open, it misreads the review. The review finds an attendance benefit and similar effect to phone calls at lower cost. What it calls insufficient for policy is the missing evidence on health outcomes, harms, user perceptions and message content or timing. The page's conclusion survives only if it is limited to those gaps.",
+        "source_says_first": "\"Low to moderate quality evidence included in this review shows that mobile phone text messaging reminders increase attendance at healthcare appointments compared to no reminders, or postal reminders.\" The next sentence is: \"The current evidence therefore still remains insufficient to conclusively inform policy decisions.\" The review also says: \"Text messaging reminders were similar to telephone reminders in terms of their effect on attendance rates, and cost less than telephone reminders.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The source states that there is a lack of information about health effects, adverse effects and harms, user evaluation of the intervention and user perceptions of its safety [5].",
+        "objection": "The page lists what is missing but omits that the review found no harms signal. The one study that reported adverse events found none, and the review's positive conclusion on attendance is made despite those gaps.",
+        "source_says": "One study reported generally that there were no adverse effects during the study period; none of the studies reported in detail on specific adverse events such as loss of privacy, data misinterpretation, or message delivery failure.",
+        "locator": "Results summary paragraph, after the attendance rates (also repeated in the plain language summary)",
+        "could_not_find": "I searched the Authors' conclusions, plain language summary and abstract. I could not confirm the exact wording or section number of the adverse-events passage in the full text, so the first quote comes from a summary of the review.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's point stands: harms were barely studied. But a reader could take 'lack of information' to mean harms may exist. The review reports an absence of data, with no evidence of harm either.",
+        "source_says_first": "\"Only one study reported on adverse events, finding no adverse events during the study period\" (consumer summary of this review). The review also notes that \"The studies included in the review did not report on health outcomes or people's perceptions of safety related to receiving reminders by text message.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S007",
+    "title": "The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of The Impact of mHealth Interventions: Systematic Review of Systematic Reviews.",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, exceptions include the moderate quality evidence of improvement in asthma patients, attendance rates, and increased smoking abstinence rates [7].",
+        "objection": "The page presents these three items as the only positive exceptions, but the review's Results also report a positive finding on TB and HIV treatment adherence, including a fall in viral load.",
+        "source_says": "\"Studies also showed a positive impact of SMS reminders in improving attendance rates, with a similar impact to phone call reminders at reduced cost, and improved adherence to tuberculosis and human immunodeficiency virus therapy in some scenarios, with evidence of decrease of viral load.\"",
+        "locator": "Abstract, Results",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 'limited evidence' conclusion stands. The set of areas where the review found benefit is wider than the three the page lists, and the TB/HIV result is hedged ('in some scenarios'), not a firm exception.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the source, most studies were performed in high-income countries, implying that mHealth is still at an early stage of development in low-income countries [7].",
+        "objection": "The page leaves out that most of the included reviews (17 of 23) contained studies from low- and middle-income countries, so the sentence on development stage reads as a stronger gap than the review reports.",
+        "source_says": "\"Seventeen reviews included studies performed in low- and middle-income countries.\"",
+        "locator": "Abstract, Results",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The review's 'early stage' inference is about low-income countries, based on the share of studies. It does not say LMIC evidence is absent. The page gives the inference without the LMIC representation that qualifies it.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "For appointment attendance, text message reminders improved attendance compared with no reminders (RR 1.10; 7 studies, 5841 participants; moderate certainty) and had a similar impact to phone call reminders [7].",
+        "objection": "The page stops at 'similar impact' and omits the review's finding that SMS reminders cost less than phone call reminders. The review's attendance conclusion combines equal effect with lower cost.",
+        "source_says": "The relative cost of the text message per attendance was 55% and 65% of the cost of phone call reminders [ 13 ].",
+        "locator": "Results, Cost",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The effectiveness claim is accurate. The omitted finding is the reason the review treats SMS as the preferred reminder, so the page undersells the practical conclusion.",
+        "source_says_first": "\"The relative cost of the text message per attendance was 55% and 65% of the cost of phone call reminders\" (Results, Cost). Also: \"SMS reminders were more cost-effective than telephone and were equally efficacious.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

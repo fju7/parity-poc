@@ -1,0 +1,101 @@
+{
+ "_what_this_is": "Run provenance manifest: the bindings file and every stored document this run's issue holds, by hash (advisor's ruling 2026-11-24). The files themselves are copied to the private study folder, never to this repo (held documents carry publisher text).",
+ "slug": "whu-lean-orch-t1-q1-01e",
+ "built_at": "2026-11-27T13:33:42+00:00",
+ "library_root": "backend/data/whatholdsup/library_trial",
+ "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-01e",
+ "files": [
+  {
+   "role": "bindings",
+   "path": "issues/WHU-OT1-01e-whu-lean-orch-t1-q1-01e/bindings.json",
+   "sha256": "43e2c9ace83b0a698dfc3fa9e03680317ce2771f4dac079b50a9cfddfd352cb2",
+   "size": 245209,
+   "mtime_utc": "2026-11-27T13:27:58+00:00"
+  },
+  {
+   "role": "library_index",
+   "path": "library:issues/whu-lean-orch-t1-q1-01e.json",
+   "sha256": "bb69ca4ec8a0cfd78ce684c6746fcd8705f3534b179a8a3dbd312de1759b56e4",
+   "size": 4221,
+   "mtime_utc": "2026-11-27T12:54:41+00:00"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/d7/d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e.xml",
+   "sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e",
+   "size": 1164109,
+   "mtime_utc": "2026-11-26T17:14:28+00:00",
+   "source_id": "S001",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "d7e75af2910b5220d74c87d89e1dd526e979f711e1670b1ccc1afd7377dc699e"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/d0/d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d.xml",
+   "sha256": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d",
+   "size": 415417,
+   "mtime_utc": "2026-11-26T17:15:15+00:00",
+   "source_id": "S002",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "d0a2c28f7cfbb9c55ab8c7d30510bcef22f3c3f8ef885337e026fc3bd9a0788d"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/ef/ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd.xml",
+   "sha256": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd",
+   "size": 995833,
+   "mtime_utc": "2026-11-26T17:15:47+00:00",
+   "source_id": "S003",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "ef3c17fa534fcf2122ff48c112aa488af20e6d498fa9866fb9e6f87e44c4ecdd"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/4f/4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae.xml",
+   "sha256": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae",
+   "size": 1005713,
+   "mtime_utc": "2026-11-27T00:07:50+00:00",
+   "source_id": "S004",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "4f0b799f2abe7761ee741614544d9a5d6caaf608f9a4ae8a6f84de3a3b3922ae"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/9f/9f9028dfef9c4796359732b5604035feda6c011e5d978a5ace487c4539fdd1a9.html",
+   "sha256": "9f9028dfef9c4796359732b5604035feda6c011e5d978a5ace487c4539fdd1a9",
+   "size": 408484,
+   "mtime_utc": "2026-11-27T12:53:43+00:00",
+   "source_id": "S005",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "9f9028dfef9c4796359732b5604035feda6c011e5d978a5ace487c4539fdd1a9"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/61/6148763cd037e60729c84526aadd877bb32462f374d1d2aac05e85b9f17b0eb7.html",
+   "sha256": "6148763cd037e60729c84526aadd877bb32462f374d1d2aac05e85b9f17b0eb7",
+   "size": 203566,
+   "mtime_utc": "2026-11-27T12:54:23+00:00",
+   "source_id": "S007",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "6148763cd037e60729c84526aadd877bb32462f374d1d2aac05e85b9f17b0eb7"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/0e/0e40063cc2601ef63f56b74c3fa4b122541683741ef930c4f5470a1df1f8a0f3.xml",
+   "sha256": "0e40063cc2601ef63f56b74c3fa4b122541683741ef930c4f5470a1df1f8a0f3",
+   "size": 63813,
+   "mtime_utc": "2026-11-27T00:08:44+00:00",
+   "source_id": "S008",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "0e40063cc2601ef63f56b74c3fa4b122541683741ef930c4f5470a1df1f8a0f3"
+  }
+ ],
+ "copied": 9
+}
