@@ -128,3 +128,5 @@ issues/WHU-SD-*/
 
 # Source quotations of the omission rulings: archived privately, never committed (ruling 5 on the P187 fork)
 issues/*/rulings/omissions.jsonl
+# Audit retrieval records (private run records): never committed; the pre-commit hook refuses them (P189, P221)
+issues/*/audit/*/retrieval.jsonl

@@ -56,3 +56,12 @@ def test_omissions_jsonl_is_ignored_and_none_is_tracked():
     out = subprocess.run(["git", "ls-files", "issues/*/rulings/omissions.jsonl"], cwd=ROOT, capture_output=True,
                          text=True).stdout.split()
     assert out == []
+
+
+def test_a_new_audit_retrieval_record_is_ignored_so_the_orchestrators_commit_skips_it():
+    """P221 (after WHU-OT1-04i): the orchestrator's commit step stages the case folder (git add -- <folder>); the
+    hook then refused the audit's new retrieval.jsonl and the run stopped at commit_8. Ignored, it is never staged."""
+    assert "issues/*/audit/*/retrieval.jsonl" in (ROOT / ".gitignore").read_text()
+    r = subprocess.run(["git", "check-ignore", "-q", "issues/WHU-X/audit/20261127T000000Z/retrieval.jsonl"],
+                       cwd=ROOT)
+    assert r.returncode == 0
