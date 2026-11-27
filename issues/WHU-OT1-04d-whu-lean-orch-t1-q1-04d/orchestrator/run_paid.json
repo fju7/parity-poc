@@ -1,0 +1,341 @@
+{
+ "result": "Not Ready: field 'sentence' is over 1000 characters",
+ "steps": [
+  {
+   "step": "provenance",
+   "start": "2026-11-27T16:04:32+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "manifest written (140 code files)"
+   },
+   "code_hash": "66928dd8e62b01264da72cfcc8340cd27f71b73e79eb5103618a420777826c3c",
+   "end": "2026-11-27T16:04:33+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "premise",
+   "start": "2026-11-27T16:04:33+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "premise fixed rows written before any source"
+   },
+   "code_hash": "66928dd8e62b01264da72cfcc8340cd27f71b73e79eb5103618a420777826c3c",
+   "end": "2026-11-27T16:04:52+00:00",
+   "usd": 0.03624
+  },
+  {
+   "step": "discover",
+   "start": "2026-11-27T16:04:52+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "8 proposal(s) saved",
+    "proposals_sha256": "187e56f26046f1877dd9dc8342296e0c8374c0ba0a5dc9e18ba9c557f74ac701"
+   },
+   "code_hash": "66928dd8e62b01264da72cfcc8340cd27f71b73e79eb5103618a420777826c3c",
+   "end": "2026-11-27T16:05:23+00:00",
+   "usd": 0.514
+  },
+  {
+   "step": "confirm",
+   "start": "2026-11-27T16:05:23+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "5 source(s), 3 unresolved proposal(s)"
+   },
+   "code_hash": "ea6124e00d893155b2eab3acf8f375430415977ec21dfcc6b029486344a764d9",
+   "end": "2026-11-27T16:07:55+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "acquire",
+   "start": "2026-11-27T16:07:55+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/acquire_sources.py",
+      "whu-lean-orch-t1-q1-04d",
+      "--landing-pdfs",
+      "--open-copies",
+      "--out",
+      "issues/WHU-OT1-04d-whu-lean-orch-t1-q1-04d/orchestrator/acquire.json"
+     ],
+     "rc": 1,
+     "tail": "\n  HELD     S002   f5258cf9434f                                    4913496 B  (contains 4 of 4 distinctive title words — form 'assessment summary' -- 648756 characters held, and it names the report it summarises; title present (4 of 4 title words in the visible text))\n  HELD     S003   935cad5d908b                                     377736 B  (contains 3 of 3 distinctive title words — 23165 characters, reference list and discussion present; title present (3 of 3 title words in the visible text))\n  HELD     S004   e48f3ba5651e                                     361969 B  (contains 11 of 11 distinctive title words — 43692 characters, reference list and discussion/introduction present; title present (11 of 11 title words in the visible text))\n  HELD     S005   11e88821d49d                                     800816 B  (contains its identifier 10.3389/fclim.2024.1425971/full — 62288 characters, reference list and discussion/introduction present; title present (8 of 8 title words in the visible text))\n\n  held now: 4   failed: 1   skipped: 0\n\n  NOT HELD S001   Climate Change 2022: Mitigation of Climate Change – Chapter 12\n           why: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)\n\n",
+     "proof": "proved: issues/WHU-OT1-04d-whu-lean-orch-t1-q1-04d/orchestrator/acquire.json written in this step, each unheld source listed with its reason"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/source_store.py",
+      "whu-lean-orch-t1-q1-04d",
+      "status"
+     ],
+     "rc": 0,
+     "tail": "\n  ok       library matches the ledger       every source claiming a held full text has one in the library\n  ok       held documents intact            4 document(s) in the library, every hash matches\n  warn     sources we hold                  4 of 5 held — not held: S001\n  ok       the ledger knows what the library holds no held document is recorded as unread\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/errata.py",
+      "whu-lean-orch-t1-q1-04d"
+     ],
+     "rc": 0,
+     "tail": "\n  Reading bibliographic records for whu-lean-orch-t1-q1-04d\n\n  S001   UNCHECKABLE  no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing\n  S002   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S003   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S004   CLEAN        record read at Crossref; Europe PMC, PubMed, Crossref answered\n  S005   UNCHECKED    no registry record; retraction status not checkable (Europe PMC, PubMe\n\n  ok     sources checked for corrections        all 5 source(s) have had their bibliographic record read for errata\n  warn   correction lookups that failed         1 source(s) could not be looked up and are NOT known to be clean: S005\n  warn   sources with no resolvable identifier  1 source(s) carry no DOI, PMID, PMCID or PII in the URL we hold, so no automatic check is possible: S001\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/sweep_sources.py",
+      "resolve",
+      "whu-lean-orch-t1-q1-04d",
+      "--write"
+     ],
+     "rc": 0,
+     "tail": "\n  WHU-OT1-04d-whu-lean-orch-t1-q1-04d — what can be swept at all\n\n    S003   doi   10.21203/rs.3.rs-3255532/v1        url/field The carbon dioxide removal gap\n    S004   doi   10.1038/s43247-024-01527-z         url/field Evaluating the near- and long-term r\n    S005   doi   10.3389/fclim.2024.1425971         url/field Governance of carbon dioxide removal\n\n  3 of 5 sweepable as held.\n\n  2 carry nothing that implies an identifier:\n\n    S001   assessmen Climate Change 2022: Mitigation of Climate Change – Chap\n    S002   assessmen Climate Change 2023: Synthesis Report\n\n  That gap is the honest limit of this instrument. News articles,\n  labels, registry records, institutional reports and off-index\n  preprints are watched by hand or not at all.\n\n"
+    },
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/canary.py",
+      "whu-lean-orch-t1-q1-04d"
+     ],
+     "rc": 0,
+     "tail": "\n### whu-lean-orch-t1-q1-04d\n  ok      checks can read the documents      4 of 4 held document(s) round-trip their own figures\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "4 held, 1 not held",
+    "not_held": [
+     "S001"
+    ],
+    "holdings": {
+     "S001": {
+      "holding": "blocked",
+      "state": "blocked",
+      "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+     },
+     "S002": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S003": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S004": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     },
+     "S005": {
+      "holding": "held",
+      "state": "full_text_held",
+      "reason": null
+     }
+    },
+    "lines": {
+     "S001": "could_not_hold"
+    }
+   },
+   "code_hash": "bd92d36d1af793039c9c063c433de6161347fcee4fbe95fe991e5764b6b44e9e",
+   "end": "2026-11-27T16:10:48+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "draft",
+   "start": "2026-11-27T16:10:48+00:00",
+   "cmds": [],
+   "code": {
+    "outcome": "66 sentences drafted from 67 passages; 39 of them from drafted items holding more than one sentence, stored one per unit"
+   },
+   "code_hash": "66928dd8e62b01264da72cfcc8340cd27f71b73e79eb5103618a420777826c3c",
+   "end": "2026-11-27T16:11:48+00:00",
+   "usd": 0.222924
+  },
+  {
+   "step": "bind",
+   "start": "2026-11-27T16:11:48+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/bindings.py",
+      "whu-lean-orch-t1-q1-04d",
+      "scan"
+     ],
+     "rc": 0,
+     "tail": "\n  92 empirical sentence(s) on the page\n  -3 bound, 95 unbound\n  written to /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04d-whu-lean-orch-t1-q1-04d/bindings.json\n\n"
+    }
+   ],
+   "code": {
+    "outcome": "66 sentence(s) bound to their passages"
+   },
+   "code_hash": "0896607c3a223a5cb259a823d2636805333913c85c77d8b1602f26cfbc421f51",
+   "end": "2026-11-27T16:12:20+00:00",
+   "usd": 0.0
+  },
+  {
+   "step": "judgements",
+   "start": "2026-11-27T16:12:21+00:00",
+   "cmds": [
+    {
+     "argv": [
+      "backend/scripts/whatholdsup/ruling.py",
+      "judgements",
+      "whu-lean-orch-t1-q1-04d",
+      "--cap",
+      "3.00"
+     ],
+     "rc": 0,
+     "tail": "  stage cap: the relevance ruling estimated $0.04 (the next candidate's bound $0.0374 (the highest of 454 same-config logged relevance ruling(s) ($0.0187) x 2), checked before every call; 110 candidate(s) in all x $0.0374 = $4.12, not reserved up front); $44.47 left today, $8.23 left on whu-lean-orch-t1-q1-04d\n  91 ruling(s) recorded; log: /Users/fredugast/Projects/parity-poc-repo/issues/WHU-OT1-04d-whu-lean-orch-t1-q1-04d/rulings/rulings.jsonl\n  consistency: re-ran 34 of 170 ruling(s) (seed 75992705414495): 33 of 34 usable pair(s) agree on decision and text; never applied\n  usd this run: 1.2443\n"
+    }
+   ],
+   "failed": "StepFailed: field 'sentence' is over 1000 characters",
+   "end": "2026-11-27T16:19:02+00:00",
+   "replies": [
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC, limiting human-caused global warming requires net zero CO2 emissions; cumulative carbon emissions until net zero is reached and the level of greenhouse gas emission reductions this decade largely determine whether warming can be limited to 1.5°C or 2°C (high confidence), and projected CO2 emissions from existing fossil fuel infrastructure without additional abatement would exceed the remaining carbon budget for 1.5°C (50%) (high confidence).\"}"
+    },
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC, from a physical science perspective, limiting human-caused global warming to a specific level requires limiting cumulative CO2 emissions, reaching at least net zero CO2 emissions, and strongly reducing other greenhouse gas emissions; reaching net zero GHG emissions primarily requires deep reductions in CO2, methane, and other GHGs and implies net negative CO2 emissions, for which carbon dioxide removal will be necessary, and net zero GHG emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence).\"}"
+    },
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC (AR6 Synthesis Report, B.5.3), if annual CO2 emissions between 2020–2030 stayed, on average, at the 2019 level, cumulative emissions would almost exhaust the remaining carbon budget for 1.5°C (50%) and deplete more than a third of the remaining carbon budget for 2°C (67%); estimates of future CO2 emissions from existing fossil fuel infrastructure without additional abatement already exceed the remaining carbon budget for limiting warming to 1.5°C (50%) (high confidence); and projected cumulative future CO2 emissions over the lifetime of existing and planned fossil fuel infrastructure, if historical operating patterns are maintained and without additional abatement, are approximately equal to the remaining carbon budget for limiting warming to 2°C with a likelihood of 83% (high confidence).\"}"
+    },
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC's AR6 Synthesis Report (statement B.6), all global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, and those that limit warming to 2°C (>67%), involve rapid and deep and, in most cases, immediate greenhouse gas emissions reductions in all sectors this decade, with global net zero CO2 emissions reached in the early 2050s and around the early 2070s respectively (high confidence).\"}"
+    },
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC AR6 Synthesis Report (B.6.1), global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, or to 2°C (>67%) with immediate action, are characterized by deep, rapid, and in most cases immediate GHG emissions reductions, with global GHG emissions projected to peak between 2020 and at the latest before 2025, and with net zero CO2 reached in the early 2050s for 1.5°C pathways (followed by net negative CO2 emissions) and in the early 2070s for 2°C pathways, all stated with high confidence.\"}"
+    },
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC Sixth Assessment Report Synthesis Report (statement B.6.3), global modelled mitigation pathways reaching net zero CO2 and GHG emissions include transitioning from fossil fuels without carbon capture and storage (CCS) to very low- or zero-carbon energy sources (such as renewables or fossil fuels with CCS), demand-side measures and improving efficiency, reducing non-CO2 GHG emissions, and carbon dioxide removal (CDR), and in most global modelled pathways, land-use change and forestry (via reforestation and reduced deforestation) and the energy supply sector reach net zero CO2 emissions earlier than the buildings, industry and transport sectors (high confidence).\"}"
+    },
+    {
+     "role": "judgement_sentence",
+     "max_tokens": 1000,
+     "text": "{\"sentence\": \"According to the IPCC (AR6 Synthesis Report, B.6.4), mitigation options often have synergies with other aspects of sustainable development but some can also have trade-offs: energy efficiency and renewable energy have potential synergies with sustainable development, and, depending on context, biological CDR methods such as reforestation, improved forest management, soil carbon sequestration, peatland restoration and coastal blue carbon management can enhance biodiversity and ecosystem functions, employment and local livelihoods, whereas afforestation or biomass crop production can have adverse socio-economic and environmental impacts, including on biodiversity, food and water security, local livelihoods and the rights of Indigenous Peoples, especially if implemented at large scales and where land tenure is insecure, while modelled pathways that use resources more efficiently or shift global development towards sustainability face fewer challenges, such as less dependence on CDR and less pressure on land and biodiversity (high confidence).\"}"
+    }
+   ],
+   "usd": 1.271178
+  }
+ ],
+ "cap_stop": null,
+ "malformed_replies": {
+  "malformed": 0,
+  "reasks": 0,
+  "narration": 0,
+  "multi_sentence": 0,
+  "by_role": {},
+  "events": []
+ },
+ "cutoff_replies": {
+  "cut_off": 0,
+  "reasks": 0,
+  "cut_off_again": 0,
+  "events": []
+ },
+ "registry_outages": [],
+ "registry_outages_covered": [],
+ "model_outages": [],
+ "library_root": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+ "environment": {
+  "WHU_LEAN": "1",
+  "WHU_LIBRARY_ROOT": "/Users/fredugast/Projects/parity-poc-repo/backend/data/whatholdsup/library_trial",
+  "WHU_ORCH_PAID_RULED": "orchestrator trial 1"
+ },
+ "sources": {
+  "found": 5,
+  "held": 4,
+  "not_held": 1,
+  "sources": [
+   {
+    "id": "S001",
+    "title": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (Carbon Dioxide Removal)",
+    "type": "assessment_summary",
+    "held": false,
+    "state": "blocked",
+    "reason": "could_not_hold: HTTP 403 at https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/; open copy via OpenAlex: no DOI recorded for this source: nothing looked up (nothing is ever guessed)"
+   },
+   {
+    "id": "S002",
+    "title": "Climate Change 2023: Synthesis Report",
+    "type": "assessment_summary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S003",
+    "title": "The carbon dioxide removal gap",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S004",
+    "title": "Evaluating the near- and long-term role of carbon dioxide removal in meeting global climate objectives",
+    "type": "primary",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   },
+   {
+    "id": "S005",
+    "title": "Governance of carbon dioxide removal: an AI-enhanced systematic map of the scientific literature",
+    "type": "review",
+    "held": true,
+    "state": "full_text_held",
+    "reason": null
+   }
+  ],
+  "proposals_not_confirmed": 3,
+  "unconfirmed": [
+   {
+    "title": "The State of Carbon Dioxide Removal – 2nd Edition",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "Emissions Gap Report 2024: No more hot air … please!",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.143 on 1 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.000 on 0 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   },
+   {
+    "title": "The State of Carbon Dioxide Removal – 1st Edition",
+    "reason": "no registry's record agrees (Europe PMC, PubMed, Crossref answered): Europe PMC: Europe PMC has no record for the title; PubMed: PubMed has no record for the title; Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3); Crossref: title does not agree: ratio 0.500 on 3 shared distinctive word(s) (needs containment, or 0.6 on 3)"
+   }
+  ]
+ },
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 132,
+   "claude-opus-5-5": 79
+  }
+ },
+ "provenance_manifest": {
+  "path": "orchestrator/provenance_manifest.json",
+  "files": 6,
+  "copied": 6,
+  "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04d"
+ },
+ "ruling": "orchestrator trial 1",
+ "ended": "2026-11-27T16:19:02+00:00"
+}
