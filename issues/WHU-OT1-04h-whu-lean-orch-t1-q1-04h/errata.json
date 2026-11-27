@@ -1,0 +1,104 @@
+{
+  "_what_this_is": "For every source, whether its bibliographic record names a correction, erratum, retraction or expression of concern -- and, when the lookup failed, that it failed. 'checked, none' and 'could not check' are different states and this file never merges them.",
+  "checked": {
+    "S001": {
+      "source": "S001",
+      "title": "Climate Change 2022: Mitigation of Climate Change — Chapter 12: Cross-Sectoral Perspectives (Carbon Dioxide Removal)",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S002": {
+      "source": "S002",
+      "title": "Climate Change 2023: Synthesis Report",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.59327/IPCC/AR6-9789291691647",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.59327/IPCC/AR6-9789291691647",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.59327/IPCC/AR6-9789291691647\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.59327/IPCC/AR6-9789291691647",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.59327/IPCC/AR6-9789291691647"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.59327/IPCC/AR6-9789291691647",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.59327/IPCC/AR6-9789291691647 at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": null,
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    },
+    "S003": {
+      "source": "S003",
+      "title": "Global Warming of 1.5°C — Special Report (SR15)",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S004": {
+      "source": "S004",
+      "title": "Negative Emissions Technologies and Reliable Sequestration: A Research Agenda",
+      "checked_on": "2026-11-27",
+      "state": "UNCHECKABLE",
+      "why": "no DOI, PMID, PMCID or PII can be parsed from the URL we hold; nothing is typed from memory, so this source cannot be looked up automatically",
+      "amendments": [],
+      "comments": []
+    },
+    "S005": {
+      "source": "S005",
+      "title": "Negative emissions—Part 1: Research landscape and synthesis",
+      "checked_on": "2026-11-27",
+      "identifier": "DOI 10.1088/1748-9326/aabf9b",
+      "registries": [
+        {
+          "registry": "Europe PMC",
+          "asked": "DOI 10.1088/1748-9326/aabf9b",
+          "answered": true,
+          "record": "none",
+          "why": "Europe PMC has no record (DOI:\"10.1088/1748-9326/aabf9b\")"
+        },
+        {
+          "registry": "PubMed",
+          "asked": "DOI 10.1088/1748-9326/aabf9b",
+          "answered": true,
+          "record": "none",
+          "why": "PubMed has no record for DOI 10.1088/1748-9326/aabf9b"
+        },
+        {
+          "registry": "Crossref",
+          "asked": "DOI 10.1088/1748-9326/aabf9b",
+          "answered": true,
+          "record": "found",
+          "why": "matched on DOI 10.1088/1748-9326/aabf9b at Crossref"
+        }
+      ],
+      "comments": [],
+      "amendments": [],
+      "index": "Crossref",
+      "update_policy": "https://doi.org/10.1088/crossmark-policy",
+      "state": "CLEAN",
+      "why": "record read at Crossref; Europe PMC, PubMed, Crossref answered",
+      "identifier_from": "the held document"
+    }
+  }
+}

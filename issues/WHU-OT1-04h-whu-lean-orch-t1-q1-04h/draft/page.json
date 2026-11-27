@@ -1,0 +1,701 @@
+{
+ "title": "Carbon dioxide removal and net zero: what the sources say it can and cannot do",
+ "blocks": [
+  {
+   "tag": "h2",
+   "section": "question",
+   "text": "The question"
+  },
+  {
+   "tag": "html",
+   "section": "question",
+   "html": "  <p>The question is: “Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?”</p>"
+  },
+  {
+   "tag": "h2",
+   "section": "answer",
+   "text": "The short answer"
+  },
+  {
+   "tag": "p",
+   "section": "answer",
+   "sentences": [
+    "According to the IPCC synthesis, carbon dioxide removal (CDR) is a complement to deep, rapid and sustained emission reductions, not a substitute for them, and it can fulfil three complementary roles: lowering net emissions in the near term, counterbalancing 'hard-to-abate' residual emissions to help reach net zero, and achieving net negative emissions if deployed at levels exceeding annual residual emissions (high confidence) [2].",
+    "The IPCC states that reaching net zero greenhouse gas emissions primarily requires deep reductions in CO2, methane and other greenhouse gas emissions [2].",
+    "It also states that deploying CDR to counterbalance hard-to-abate residual emissions is unavoidable (high confidence) [2].",
+    "A 2018 review of the negative emissions literature finds that keeping warming below 1.5°C requires large-scale deployment of negative emission technologies, but that this dependency can still be kept to a minimum for the 2°C limit [5]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "findings",
+   "text": "What the evidence shows"
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "What counts as carbon dioxide removal"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The IPCC glossary defines CDR as anthropogenic activities that remove CO2 from the atmosphere and durably store it in geological, terrestrial or ocean reservoirs, or in products [2].",
+    "This definition includes human enhancement of biological or geochemical CO2 sinks and direct air carbon dioxide capture and storage (DACCS), but excludes natural CO2 uptake not directly caused by human activities [2].",
+    "The 2018 review likewise defines negative emissions as intentional human efforts to remove CO2 from the atmosphere, and it stresses that the discussion is not about natural processes of carbon dioxide removal [5].",
+    "The glossary notes that bioenergy with carbon capture and storage (BECCS) removes CO2 from the atmosphere only depending on the total emissions of its supply chain [2].",
+    "According to the IPCC, limiting human-caused global warming requires net zero CO2 emissions; cumulative carbon emissions until net zero is reached and the level of greenhouse gas emission reductions this decade largely determine whether warming can be limited to 1.5°C or 2°C (high confidence), and projected CO2 emissions from existing fossil fuel infrastructure without additional abatement would exceed the remaining carbon budget for 1.5°C (50%) (high confidence) [2].",
+    "According to the IPCC, from a physical science perspective, limiting human-caused global warming to a specific level requires limiting cumulative CO2 emissions, reaching at least net zero CO2 emissions, and strongly reducing other greenhouse gas emissions; reaching net zero GHG emissions primarily requires deep reductions in CO2, methane, and other GHG emissions and implies net negative CO2 emissions, carbon dioxide removal will be necessary to achieve net negative CO2 emissions, and net zero GHG emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence) [2].",
+    "According to the IPCC (AR6 Synthesis Report, B.5.3), if annual CO2 emissions between 2020–2030 stayed on average at the 2019 level, cumulative emissions would almost exhaust the remaining carbon budget for 1.5°C (50%) and deplete more than a third of the remaining carbon budget for 2°C (67%); estimates of future CO2 emissions from existing fossil fuel infrastructure without additional abatement already exceed the remaining carbon budget for limiting warming to 1.5°C (50%) (high confidence), and projected cumulative future CO2 emissions over the lifetime of existing and planned fossil fuel infrastructure, if historical operating patterns are maintained and without additional abatement, are approximately equal to the remaining carbon budget for limiting warming to 2°C with a likelihood of 83% (high confidence) [2].",
+    "According to the IPCC (AR6 Synthesis Report, B.6), all global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, and those that limit warming to 2°C (>67%), involve rapid and deep and, in most cases, immediate greenhouse gas emissions reductions in all sectors this decade, with global net zero CO2 emissions reached for these pathway categories in the early 2050s and around the early 2070s, respectively (high confidence) [2].",
+    "According to the IPCC AR6 Synthesis Report (B.6.1), global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, or to 2°C (>67%) with immediate action, are characterized by deep, rapid, and in most cases immediate GHG emissions reductions, with global GHG emissions projected to peak between 2020 and at the latest before 2025, and net zero CO2 reached in the early 2050s for 1.5°C pathways and in the early 2070s for 2°C pathways (high confidence) [2].",
+    "According to the IPCC AR6 Synthesis Report, global modelled mitigation pathways reaching net zero CO2 and GHG emissions include transitioning from fossil fuels without carbon capture and storage (CCS) to very low- or zero-carbon energy sources (such as renewables or fossil fuels with CCS), demand-side measures and improved efficiency, reductions in non-CO2 GHG emissions, and carbon dioxide removal, and in most of these pathways land-use change and forestry (via reforestation and reduced deforestation) and the energy supply sector reach net zero CO2 emissions earlier than the buildings, industry and transport sectors (high confidence) [2].",
+    "According to the IPCC (AR6 Synthesis Report, statement B.6.4), mitigation options often have synergies with other aspects of sustainable development but some can also involve trade-offs, for example, energy efficiency, renewable energy and biological CDR methods such as reforestation, improved forest management, soil carbon sequestration, peatland restoration and coastal blue carbon management can, depending on context, benefit biodiversity, ecosystem functions, employment and local livelihoods, whereas afforestation or biomass crop production can have adverse socio-economic and environmental impacts, especially at large scale and where land tenure is insecure, and pathways that use resources more efficiently or shift development toward sustainability face fewer challenges, a conclusion the source rates as high confidence [2].",
+    "According to the IPCC, if warming exceeds a specified level such as 1.5°C, it could gradually be reduced again by achieving and sustaining net negative global CO2 emissions, which would require additional deployment of carbon dioxide removal compared to pathways without overshoot and lead to greater feasibility and sustainability concerns, while overshoot entails adverse impacts, some irreversible, and additional risks for human and natural systems, all growing with the magnitude and duration of overshoot (high confidence) [2].",
+    "According to the IPCC (AR6 Synthesis Report, B.7.1), only a small number of the most ambitious global modelled pathways limit global warming to 1.5°C (>50%) by 2100 without temporarily exceeding this level; achieving and sustaining net negative global CO2 emissions, with annual rates of CDR greater than residual CO2 emissions, would gradually reduce the warming level again (high confidence), while adverse impacts during overshoot that cause additional warming via feedback mechanisms, such as increased wildfires, mass mortality of trees, drying of peatlands, and permafrost thawing, weakening natural land carbon sinks and increasing releases of GHGs, would make the return more challenging (medium confidence) [2].",
+    "According to the IPCC (AR6 Synthesis Report, B.7.2), the higher the magnitude and the longer the duration of overshoot, the more ecosystems and societies are exposed to greater and more widespread changes in climatic impact-drivers, increasing risks for many natural and human systems; compared to pathways without overshoot, societies would face higher risks to infrastructure, low-lying coastal settlements, and associated livelihoods, and overshooting 1.5°C will result in irreversible adverse impacts on certain ecosystems with low resilience, such as polar, mountain, and coastal ecosystems, impacted by ice-sheet melt, glacier melt, or by accelerating and higher committed sea level rise (high confidence) [2].",
+    "According to the IPCC (SR1.5-related Summary for Policymakers, statement B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].",
+    "According to the IPCC Sixth Assessment Report Synthesis Report (Summary for Policymakers, statement C.3.5), many agriculture, forestry, and other land use (AFOLU) options provide adaptation and mitigation benefits that could be upscaled in the near term across most regions, with conservation, improved management, and restoration of forests and other ecosystems offering the largest share of economic mitigation potential and reduced deforestation in tropical regions having the highest total mitigation potential, while ecosystem restoration, reforestation, and afforestation can lead to trade-offs due to competing demands on land, and some options such as conserving high-carbon ecosystems deliver immediate benefits whereas restoring them takes decades to deliver measurable results (high confidence) [2].",
+    "According to the IPCC Summary for Policymakers (C.3.6), maintaining the resilience of biodiversity and ecosystem services at a global scale depends on effective and equitable conservation of approximately 30% to 50% of Earth's land, freshwater and ocean areas, including currently near-natural ecosystems (high confidence) [2].",
+    "According to the IPCC AR6 Synthesis Report, considering other sustainable development dimensions, such as the potentially strong economic benefits on human health from air quality improvement, may enhance the estimated benefits of mitigation (medium confidence); the economic effects of strengthened mitigation action vary across regions and countries, depending notably on economic structure, regional emissions reductions, policy design and level of international cooperation (high confidence); and ambitious mitigation pathways imply large and sometimes disruptive changes in economic structure, with implications for near-term actions, equity, sustainability and finance (high confidence) [2].",
+    "According to the IPCC AR6 Synthesis Report, in modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, net global GHG emissions are projected to fall by 43 [34 to 60]% below 2019 levels by 2030, 60 [49 to 77]% by 2035, 69 [58 to 90]% by 2040 and 84 [73 to 98]% by 2050 (high confidence), and in pathways limiting warming to 2°C (>67%) with immediate action, emissions are projected to fall by 21 [1 to 42]% by 2030, 35 [22 to 55]% by 2035, 46 [34 to 63]% by 2040 and 64 [53 to 77]% by 2050 (high confidence), while emissions from NDCs announced prior to COP26 would make it likely that warming would exceed 1.5°C (high confidence) [2].",
+    "According to the IPCC AR6 Synthesis Report (Summary for Policymakers, A.3.6), there are widening disparities between the estimated costs of adaptation and the finance allocated to it (high confidence); adaptation finance has come predominantly from public sources, and a small proportion of global tracked climate finance was targeted to adaptation and an overwhelming majority to mitigation (very high confidence); current global financial flows for adaptation, from both public and private sources, are insufficient and constrain implementation of adaptation options, especially in developing countries, even though global tracked climate finance has trended upward since AR5 (high confidence); and adverse climate impacts can reduce the availability of financial resources by incurring losses and damages and impeding national economic growth, further increasing financial constraints for adaptation, particularly for developing and least developed countries (medium confidence) [2]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Why net zero requires removal"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The IPCC states that limiting human-caused global warming requires net zero CO2 emissions [2].",
+    "From a physical science perspective, limiting warming to a specific level requires limiting cumulative CO2 emissions and reaching net zero or net negative CO2 emissions, along with strong reductions in other greenhouse gas emissions [2].",
+    "The IPCC says that achieving global net zero CO2, with remaining human CO2 emissions balanced by durably stored CO2 from human removal, is a requirement to stabilise CO2-induced warming (high confidence) [2].",
+    "It adds that some hard-to-abate residual emissions, for example some emissions from agriculture, aviation, shipping and industrial processes, remain and would need to be counterbalanced by CDR to achieve net zero CO2 or net zero greenhouse gas emissions (high confidence) [2].",
+    "As a result, net zero CO2 is reached earlier than net zero greenhouse gases (high confidence) [2].",
+    "Global modelled pathways that reach net zero include several elements: shifting from unabated fossil fuels to very low- or zero-carbon sources, demand-side measures and efficiency, cutting non-CO2 gases, and CDR [2]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Going below zero in the decades ahead"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The IPCC states that reaching net zero greenhouse gas emissions implies net negative CO2 emissions, and that CDR will be necessary to achieve net negative CO2 emissions [2].",
+    "Net zero greenhouse gas emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence) [2].",
+    "The IPCC warns that exceeding a warming level and then returning (overshoot) implies increased risks and potentially irreversible impacts, while achieving and sustaining global net negative CO2 emissions would reduce warming (high confidence) [2].",
+    "In the very low and low emissions scenarios, CO2 emissions decline to net zero around 2050 and 2070 respectively, followed by varying levels of net negative CO2 emissions [2].",
+    "In modelled pathways, global net zero CO2 is reached in the early 2050s when warming is limited to 1.5°C (>50%) with no or limited overshoot, and around the early 2070s when warming is limited to 2°C (>67%) [2].",
+    "The 2018 review reports that both 1.5°C and many 2°C scenarios show sustained global net negative emissions in the second half of the century, with very high annual deployments at the end [5]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "How much removal scenarios call for"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The 2018 review reports that 1.5°C scenarios are typically characterised by 150–1180 GtCO2 of gross negative emissions across the 21st century [5].",
+    "In those scenarios, removal scales up rapidly, from 0.06–0.8 GtCO2 per year between 2030 and 2050 to 1–16 GtCO2 per year by 2050 [5].",
+    "The review attributes this dependence to a very limited carbon budget, which it puts at 0–200 GtCO2 for the 1.5°C target [5].",
+    "The later IPCC synthesis gives a different figure: a best-estimate remaining budget from the start of 2020 of 500 GtCO2 for a 50% likelihood of limiting warming to 1.5°C, and 1150 GtCO2 for a 67% likelihood of limiting warming to 2°C [2].",
+    "The review states that, without substantial and sustained emission reductions, the dependence on negative emissions for reaching the climate goals continues to grow [5].",
+    "It also states that even moderate removal targets in 2050 require immediate action [5]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Methods differ widely"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The IPCC finds that CDR methods vary in maturity, removal process, time scale of storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements (high confidence) [2].",
+    "On maturity, methods range from ocean alkalinisation at the lower end to reforestation at the higher end [2].",
+    "On scale, potential ranges from under 1 GtCO2 per year for blue carbon management to over 3 GtCO2 per year for agroforestry [2].",
+    "On cost, the range runs from –45 to 100 USD per tonne of CO2 for soil carbon sequestration to 100 to 300 USD per tonne for DACCS (medium confidence) [2].",
+    "The 2018 review notes that land-based approaches such as afforestation and soil carbon sequestration provide more vulnerable and less verifiable storage, where stored CO2 can be released again within short time frames [5].",
+    "By contrast, geological reservoirs for CO2 from BECCS and DACCS are thought to provide larger and less vulnerable storage [5]."
+   ]
+  },
+  {
+   "tag": "h3",
+   "section": "findings",
+   "text": "Limits, risks and the danger of delay"
+  },
+  {
+   "tag": "p",
+   "section": "findings",
+   "sentences": [
+    "The 2018 review finds that any single removal technology is unlikely to sustainably achieve the large deployment seen in many 1.5°C and 2°C scenarios [5].",
+    "It suggests that portfolios of multiple technologies, each deployed at modest scales, could be invaluable for reaching the climate goals [5].",
+    "It reports that available scenarios achieve large-scale removal almost exclusively with BECCS [5].",
+    "It also reports great scepticism in the technology literature that modelled deployment of 10–20 GtCO2 per year towards the end of the century can be achieved by BECCS alone, or by any other individual technology [5].",
+    "According to the review, introducing negative emissions into cost-optimising scenarios reduces long-term mitigation costs but impedes early emission reductions [5].",
+    "In one example it describes, constraining negative emissions led to far steeper near-term CO2 reductions, with a 9.1 GtCO2 gap by 2030 [5].",
+    "The review notes concern that negative emissions technologies may give policy-makers a convenient excuse for mitigating less now [5].",
+    "It also argues that sidelining these technologies would hinder research on what may prove a vital means to reach lower temperature targets [5].",
+    "It highlights expected side-effects of large-scale deployment, from the albedo-dampening effects of temperate and boreal afforestation to biodiversity changes from land-use shifts and bioenergy production [5].",
+    "It further warns that many pathways could generate large stranded assets if removal facilities must be decommissioned once no further removal is desired [5].",
+    "Most countries report their anthropogenic land CO2 fluxes in national greenhouse gas inventories to include fluxes from human-caused environmental change, such as CO2 fertilisation, on 'managed' land [2]."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "verdict",
+   "text": "What holds up"
+  },
+  {
+   "tag": "p",
+   "section": "verdict",
+   "sentences": [
+    "With high confidence, the IPCC holds that deep, rapid and sustained emission cuts come first, and that CDR is still unavoidable to counterbalance hard-to-abate residual emissions on the way to net zero [2].",
+    "Also with high confidence, the IPCC states that sustained net negative CO2 emissions, which require CDR, would reduce warming after a peak or overshoot [2].",
+    "The 2018 review adds that large-scale removal is needed for 1.5°C, though dependence on it can be kept to a minimum for 2°C [5].",
+    "It also adds that relying on any single technology at the scale scenarios assume is doubtful [5].",
+    "Taken together, the sources present removal as a supporting role alongside emission cuts, with its near-term value in lowering net emissions and its larger, more uncertain role in later decades as a source of net negative emissions."
+   ]
+  },
+  {
+   "tag": "h2",
+   "section": "limits",
+   "text": "What we read and what we did not"
+  },
+  {
+   "tag": "html",
+   "section": "limits",
+   "html": "  <p>We found Climate Change 2022: Mitigation of Climate Change — Chapter 12: Cross-Sectoral Perspectives (Carbon Dioxide Removal) but could not hold it, so nothing on this page draws on it.</p>\n  <p>We hold the full text of Climate Change 2023: Synthesis Report [2].</p>\n  <p>We searched the full text of Climate Change 2023: Synthesis Report [2] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We found Global Warming of 1.5°C — Special Report (SR15) but could not hold it, so nothing on this page draws on it.</p>\n  <p>We found Negative Emissions Technologies and Reliable Sequestration: A Research Agenda but could not hold it, so nothing on this page draws on it.</p>\n  <p>We hold the full text of Negative emissions—Part 1: Research landscape and synthesis [5].</p>\n  <p>We searched the full text of Negative emissions—Part 1: Research landscape and synthesis [5] and checked the passages relevant to each sentence; we did not read it in full.</p>\n  <p>We searched: web search: carbon dioxide removal CDR net zero systematic review 2023 2024; web search: IPCC carbon dioxide removal net zero assessment report; web search: IPCC AR6 WGIII Chapter 12 carbon dioxide removal 2022; web search: \"State of Carbon Dioxide Removal\" 2nd edition 2024 Smith; web search: National Academies carbon dioxide removal negative emissions technologies report 2019; web search: Royal Society Royal Academy Engineering greenhouse gas removal report 2018; web search: Minx Lamb Callaghan negative emissions technologies review Nature Climate Change 2018; web search: IPCC Special Report 1.5C SR15 carbon dioxide removal net zero 2018; registry: Europe PMC; registry: PubMed; registry: Crossref.</p>\n  <p>We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.</p>\n  <p>We could not verify where this belief is published.</p>"
+  },
+  {
+   "tag": "html",
+   "section": "readers",
+   "html": "  <p><strong>Findings in our sources we judged outside this question</strong></p>\n  <p>Outside this question: “B.4.3 Actions that focus on sectors and risks in isolation and on short-term gains often lead to maladaptation over the long term, creating lock-ins of …” (Climate Change 2023: Synthesis Report [2]).</p>\n  <p>Judged not material to this question: “The stronger the reductions in non-CO2 emissions, the lower the resulting temperatures are for a given remaining carbon budget or the larger remaining carbon budget …” (Climate Change 2023: Synthesis Report [2]).</p>\n  <p>Judged not material to this question: “Using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced …” (Climate Change 2023: Synthesis Report [2]).</p>\n"
+  },
+  {
+   "tag": "h2",
+   "section": "sources",
+   "text": "Sources"
+  },
+  {
+   "tag": "html",
+   "section": "sources",
+   "html": "<div class=\"sources\">\n<div class=\"src\"><span class=\"tag\">[1]</span> <a href=\"https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-12/\">IPCC. Climate Change 2022: Mitigation of Climate Change — Chapter 12: Cross-Sectoral Perspectives (Carbon Dioxide Removal). IPCC Sixth Assessment Report, Working Group III. 2022.</a></div>\n<div class=\"src\"><span class=\"tag\">[2]</span> <a href=\"https://www.ipcc.ch/report/ar6/syr/downloads/report/IPCC_AR6_SYR_FullVolume.pdf\">IPCC. Climate Change 2023: Synthesis Report. IPCC Sixth Assessment Report, Synthesis. 2023.</a></div>\n<div class=\"src\"><span class=\"tag\">[3]</span> <a href=\"https://www.ipcc.ch/sr15/chapter/spm/\">IPCC. Global Warming of 1.5°C — Special Report (SR15). IPCC Special Report. 2018.</a></div>\n<div class=\"src\"><span class=\"tag\">[4]</span> <a href=\"https://www.nationalacademies.org/projects/DELS-BASCPR-16-01/publication/25259\">National Academies of Sciences, Engineering, and Medicine; Division on Earth and Life Studies; Ocean Studies Board; Board on Chemical Sciences and Technology; Board on Earth Sciences and Resources; Board on Agriculture and Natural Resources; Board on Energy and Environmental Systems; Board on Atmospheric Sciences and Climate; Committee on Developing a Research Agenda for Carbon Dioxide Removal and Reliable Sequestration. Negative Emissions Technologies and Reliable Sequestration: A Research Agenda. 2018.</a></div>\n<div class=\"src\"><span class=\"tag\">[5]</span> <a href=\"https://www.researchgate.net/publication/325279324_Negative_emissions_Part_1-research_landscape_and_synthesis\">Minx JC, Lamb WF, Callaghan MW, et al. Negative emissions—Part 1: Research landscape and synthesis. Environmental Research Letters. 2018.</a></div>\n</div>"
+  }
+ ],
+ "provenance": {
+  "According to the IPCC synthesis, carbon dioxide removal (CDR) is a complement to deep, rapid and sustained emission reductions, not a substitute for them, and it can fulfil three complementary roles: lowering net emissions in the near term, counterbalancing 'hard-to-abate' residual emissions to help reach net zero, and achieving net negative emissions if deployed at levels exceeding annual residual emissions (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 381260,
+    "end": 381979
+   }
+  ],
+  "The IPCC states that reaching net zero greenhouse gas emissions primarily requires deep reductions in CO2, methane and other greenhouse gas emissions [2].": [
+   {
+    "source": "S002",
+    "start": 104838,
+    "end": 105661
+   },
+   {
+    "source": "S002",
+    "start": 370213,
+    "end": 370875
+   }
+  ],
+  "It also states that deploying CDR to counterbalance hard-to-abate residual emissions is unavoidable (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 370876,
+    "end": 371620
+   }
+  ],
+  "A 2018 review of the negative emissions literature finds that keeping warming below 1.5°C requires large-scale deployment of negative emission technologies, but that this dependency can still be kept to a minimum for the 2°C limit [5].": [
+   {
+    "source": "S005",
+    "start": 3936,
+    "end": 4745
+   }
+  ],
+  "The IPCC glossary defines CDR as anthropogenic activities that remove CO2 from the atmosphere and durably store it in geological, terrestrial or ocean reservoirs, or in products [2].": [
+   {
+    "source": "S002",
+    "start": 526427,
+    "end": 527139
+   }
+  ],
+  "This definition includes human enhancement of biological or geochemical CO2 sinks and direct air carbon dioxide capture and storage (DACCS), but excludes natural CO2 uptake not directly caused by human activities [2].": [
+   {
+    "source": "S002",
+    "start": 527140,
+    "end": 527965
+   }
+  ],
+  "The 2018 review likewise defines negative emissions as intentional human efforts to remove CO2 from the atmosphere, and it stresses that the discussion is not about natural processes of carbon dioxide removal [5].": [
+   {
+    "source": "S005",
+    "start": 14835,
+    "end": 15385
+   }
+  ],
+  "The glossary notes that bioenergy with carbon capture and storage (BECCS) removes CO2 from the atmosphere only depending on the total emissions of its supply chain [2].": [
+   {
+    "source": "S002",
+    "start": 524018,
+    "end": 524897
+   }
+  ],
+  "The IPCC states that limiting human-caused global warming requires net zero CO2 emissions [2].": [
+   {
+    "source": "S002",
+    "start": 104092,
+    "end": 104837
+   },
+   {
+    "source": "S002",
+    "start": 352471,
+    "end": 353307
+   }
+  ],
+  "From a physical science perspective, limiting warming to a specific level requires limiting cumulative CO2 emissions and reaching net zero or net negative CO2 emissions, along with strong reductions in other greenhouse gas emissions [2].": [
+   {
+    "source": "S002",
+    "start": 263384,
+    "end": 264159
+   },
+   {
+    "source": "S002",
+    "start": 369429,
+    "end": 370212
+   }
+  ],
+  "The IPCC says that achieving global net zero CO2, with remaining human CO2 emissions balanced by durably stored CO2 from human removal, is a requirement to stabilise CO2-induced warming (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 370213,
+    "end": 370875
+   }
+  ],
+  "It adds that some hard-to-abate residual emissions, for example some emissions from agriculture, aviation, shipping and industrial processes, remain and would need to be counterbalanced by CDR to achieve net zero CO2 or net zero greenhouse gas emissions (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 111467,
+    "end": 112214
+   }
+  ],
+  "As a result, net zero CO2 is reached earlier than net zero greenhouse gases (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 111467,
+    "end": 112214
+   },
+   {
+    "source": "S002",
+    "start": 371621,
+    "end": 372237
+   }
+  ],
+  "Global modelled pathways that reach net zero include several elements: shifting from unabated fossil fuels to very low- or zero-carbon sources, demand-side measures and efficiency, cutting non-CO2 gases, and CDR [2].": [
+   {
+    "source": "S002",
+    "start": 111467,
+    "end": 112214
+   },
+   {
+    "source": "S002",
+    "start": 374646,
+    "end": 375312
+   }
+  ],
+  "The IPCC states that reaching net zero greenhouse gas emissions implies net negative CO2 emissions, and that CDR will be necessary to achieve net negative CO2 emissions [2].": [
+   {
+    "source": "S002",
+    "start": 370213,
+    "end": 370875
+   },
+   {
+    "source": "S002",
+    "start": 105662,
+    "end": 106345
+   }
+  ],
+  "Net zero greenhouse gas emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 105662,
+    "end": 106345
+   },
+   {
+    "source": "S002",
+    "start": 370876,
+    "end": 371620
+   }
+  ],
+  "The IPCC warns that exceeding a warming level and then returning (overshoot) implies increased risks and potentially irreversible impacts, while achieving and sustaining global net negative CO2 emissions would reduce warming (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 352471,
+    "end": 353307
+   }
+  ],
+  "In the very low and low emissions scenarios, CO2 emissions decline to net zero around 2050 and 2070 respectively, followed by varying levels of net negative CO2 emissions [2].": [
+   {
+    "source": "S002",
+    "start": 282273,
+    "end": 282936
+   }
+  ],
+  "In modelled pathways, global net zero CO2 is reached in the early 2050s when warming is limited to 1.5°C (>50%) with no or limited overshoot, and around the early 2070s when warming is limited to 2°C (>67%) [2].": [
+   {
+    "source": "S002",
+    "start": 371621,
+    "end": 372237
+   }
+  ],
+  "The 2018 review reports that both 1.5°C and many 2°C scenarios show sustained global net negative emissions in the second half of the century, with very high annual deployments at the end [5].": [
+   {
+    "source": "S005",
+    "start": 96434,
+    "end": 97288
+   }
+  ],
+  "The 2018 review reports that 1.5°C scenarios are typically characterised by 150–1180 GtCO2 of gross negative emissions across the 21st century [5].": [
+   {
+    "source": "S005",
+    "start": 53828,
+    "end": 54618
+   }
+  ],
+  "In those scenarios, removal scales up rapidly, from 0.06–0.8 GtCO2 per year between 2030 and 2050 to 1–16 GtCO2 per year by 2050 [5].": [
+   {
+    "source": "S005",
+    "start": 53828,
+    "end": 54618
+   }
+  ],
+  "The review attributes this dependence to a very limited carbon budget, which it puts at 0–200 GtCO2 for the 1.5°C target [5].": [
+   {
+    "source": "S005",
+    "start": 5903,
+    "end": 6756
+   },
+   {
+    "source": "S005",
+    "start": 53828,
+    "end": 54618
+   }
+  ],
+  "The later IPCC synthesis gives a different figure: a best-estimate remaining budget from the start of 2020 of 500 GtCO2 for a 50% likelihood of limiting warming to 1.5°C, and 1150 GtCO2 for a 67% likelihood of limiting warming to 2°C [2].": [
+   {
+    "source": "S002",
+    "start": 105662,
+    "end": 106345
+   },
+   {
+    "source": "S002",
+    "start": 353602,
+    "end": 354436
+   }
+  ],
+  "The review states that, without substantial and sustained emission reductions, the dependence on negative emissions for reaching the climate goals continues to grow [5].": [
+   {
+    "source": "S005",
+    "start": 5903,
+    "end": 6756
+   }
+  ],
+  "It also states that even moderate removal targets in 2050 require immediate action [5].": [
+   {
+    "source": "S005",
+    "start": 94682,
+    "end": 95534
+   }
+  ],
+  "The IPCC finds that CDR methods vary in maturity, removal process, time scale of storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 381980,
+    "end": 382682
+   }
+  ],
+  "On maturity, methods range from ocean alkalinisation at the lower end to reforestation at the higher end [2].": [
+   {
+    "source": "S002",
+    "start": 381980,
+    "end": 382682
+   }
+  ],
+  "On scale, potential ranges from under 1 GtCO2 per year for blue carbon management to over 3 GtCO2 per year for agroforestry [2].": [
+   {
+    "source": "S002",
+    "start": 381980,
+    "end": 382682
+   }
+  ],
+  "On cost, the range runs from –45 to 100 USD per tonne of CO2 for soil carbon sequestration to 100 to 300 USD per tonne for DACCS (medium confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 381980,
+    "end": 382682
+   }
+  ],
+  "The 2018 review notes that land-based approaches such as afforestation and soil carbon sequestration provide more vulnerable and less verifiable storage, where stored CO2 can be released again within short time frames [5].": [
+   {
+    "source": "S005",
+    "start": 25315,
+    "end": 25983
+   }
+  ],
+  "By contrast, geological reservoirs for CO2 from BECCS and DACCS are thought to provide larger and less vulnerable storage [5].": [
+   {
+    "source": "S005",
+    "start": 25315,
+    "end": 25983
+   }
+  ],
+  "The 2018 review finds that any single removal technology is unlikely to sustainably achieve the large deployment seen in many 1.5°C and 2°C scenarios [5].": [
+   {
+    "source": "S005",
+    "start": 3936,
+    "end": 4745
+   }
+  ],
+  "It suggests that portfolios of multiple technologies, each deployed at modest scales, could be invaluable for reaching the climate goals [5].": [
+   {
+    "source": "S005",
+    "start": 3936,
+    "end": 4745
+   }
+  ],
+  "It reports that available scenarios achieve large-scale removal almost exclusively with BECCS [5].": [
+   {
+    "source": "S005",
+    "start": 65477,
+    "end": 66349
+   }
+  ],
+  "It also reports great scepticism in the technology literature that modelled deployment of 10–20 GtCO2 per year towards the end of the century can be achieved by BECCS alone, or by any other individual technology [5].": [
+   {
+    "source": "S005",
+    "start": 65477,
+    "end": 66349
+   }
+  ],
+  "According to the review, introducing negative emissions into cost-optimising scenarios reduces long-term mitigation costs but impedes early emission reductions [5].": [
+   {
+    "source": "S005",
+    "start": 52938,
+    "end": 53827
+   }
+  ],
+  "In one example it describes, constraining negative emissions led to far steeper near-term CO2 reductions, with a 9.1 GtCO2 gap by 2030 [5].": [
+   {
+    "source": "S005",
+    "start": 79487,
+    "end": 80363
+   }
+  ],
+  "The review notes concern that negative emissions technologies may give policy-makers a convenient excuse for mitigating less now [5].": [
+   {
+    "source": "S005",
+    "start": 83591,
+    "end": 84392
+   }
+  ],
+  "It also argues that sidelining these technologies would hinder research on what may prove a vital means to reach lower temperature targets [5].": [
+   {
+    "source": "S005",
+    "start": 83591,
+    "end": 84392
+   }
+  ],
+  "It highlights expected side-effects of large-scale deployment, from the albedo-dampening effects of temperate and boreal afforestation to biodiversity changes from land-use shifts and bioenergy production [5].": [
+   {
+    "source": "S005",
+    "start": 87567,
+    "end": 88333
+   }
+  ],
+  "It further warns that many pathways could generate large stranded assets if removal facilities must be decommissioned once no further removal is desired [5].": [
+   {
+    "source": "S005",
+    "start": 96434,
+    "end": 97288
+   }
+  ],
+  "With high confidence, the IPCC holds that deep, rapid and sustained emission cuts come first, and that CDR is still unavoidable to counterbalance hard-to-abate residual emissions on the way to net zero [2].": [
+   {
+    "source": "S002",
+    "start": 370876,
+    "end": 371620
+   },
+   {
+    "source": "S002",
+    "start": 381260,
+    "end": 381979
+   }
+  ],
+  "Also with high confidence, the IPCC states that sustained net negative CO2 emissions, which require CDR, would reduce warming after a peak or overshoot [2].": [
+   {
+    "source": "S002",
+    "start": 352471,
+    "end": 353307
+   },
+   {
+    "source": "S002",
+    "start": 370213,
+    "end": 370875
+   }
+  ],
+  "The 2018 review adds that large-scale removal is needed for 1.5°C, though dependence on it can be kept to a minimum for 2°C [5].": [
+   {
+    "source": "S005",
+    "start": 3936,
+    "end": 4745
+   }
+  ],
+  "It also adds that relying on any single technology at the scale scenarios assume is doubtful [5].": [
+   {
+    "source": "S005",
+    "start": 3936,
+    "end": 4745
+   },
+   {
+    "source": "S005",
+    "start": 65477,
+    "end": 66349
+   }
+  ],
+  "Taken together, the sources present removal as a supporting role alongside emission cuts, with its near-term value in lowering net emissions and its larger, more uncertain role in later decades as a source of net negative emissions.": [],
+  "According to the IPCC, limiting human-caused global warming requires net zero CO2 emissions; cumulative carbon emissions until net zero is reached and the level of greenhouse gas emission reductions this decade largely determine whether warming can be limited to 1.5°C or 2°C (high confidence), and projected CO2 emissions from existing fossil fuel infrastructure without additional abatement would exceed the remaining carbon budget for 1.5°C (50%) (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 104764,
+    "end": 105261
+   }
+  ],
+  "According to the IPCC, from a physical science perspective, limiting human-caused global warming to a specific level requires limiting cumulative CO2 emissions, reaching at least net zero CO2 emissions, and strongly reducing other greenhouse gas emissions; reaching net zero GHG emissions primarily requires deep reductions in CO2, methane, and other GHG emissions and implies net negative CO2 emissions, carbon dioxide removal will be necessary to achieve net negative CO2 emissions, and net zero GHG emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 105261,
+    "end": 105974
+   }
+  ],
+  "According to the IPCC (AR6 Synthesis Report, B.5.3), if annual CO2 emissions between 2020–2030 stayed on average at the 2019 level, cumulative emissions would almost exhaust the remaining carbon budget for 1.5°C (50%) and deplete more than a third of the remaining carbon budget for 2°C (67%); estimates of future CO2 emissions from existing fossil fuel infrastructure without additional abatement already exceed the remaining carbon budget for limiting warming to 1.5°C (50%) (high confidence), and projected cumulative future CO2 emissions over the lifetime of existing and planned fossil fuel infrastructure, if historical operating patterns are maintained and without additional abatement, are approximately equal to the remaining carbon budget for limiting warming to 2°C with a likelihood of 83% (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 107337,
+    "end": 108170
+   }
+  ],
+  "According to the IPCC (AR6 Synthesis Report, B.6), all global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, and those that limit warming to 2°C (>67%), involve rapid and deep and, in most cases, immediate greenhouse gas emissions reductions in all sectors this decade, with global net zero CO2 emissions reached for these pathway categories in the early 2050s and around the early 2070s, respectively (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 108609,
+    "end": 109077
+   }
+  ],
+  "According to the IPCC AR6 Synthesis Report (B.6.1), global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, or to 2°C (>67%) with immediate action, are characterized by deep, rapid, and in most cases immediate GHG emissions reductions, with global GHG emissions projected to peak between 2020 and at the latest before 2025, and net zero CO2 reached in the early 2050s for 1.5°C pathways and in the early 2070s for 2°C pathways (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 109077,
+    "end": 110619
+   }
+  ],
+  "According to the IPCC AR6 Synthesis Report, global modelled mitigation pathways reaching net zero CO2 and GHG emissions include transitioning from fossil fuels without carbon capture and storage (CCS) to very low- or zero-carbon energy sources (such as renewables or fossil fuels with CCS), demand-side measures and improved efficiency, reductions in non-CO2 GHG emissions, and carbon dioxide removal, and in most of these pathways land-use change and forestry (via reforestation and reduced deforestation) and the energy supply sector reach net zero CO2 emissions earlier than the buildings, industry and transport sectors (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 111873,
+    "end": 112516
+   }
+  ],
+  "According to the IPCC (AR6 Synthesis Report, statement B.6.4), mitigation options often have synergies with other aspects of sustainable development but some can also involve trade-offs, for example, energy efficiency, renewable energy and biological CDR methods such as reforestation, improved forest management, soil carbon sequestration, peatland restoration and coastal blue carbon management can, depending on context, benefit biodiversity, ecosystem functions, employment and local livelihoods, whereas afforestation or biomass crop production can have adverse socio-economic and environmental impacts, especially at large scale and where land tenure is insecure, and pathways that use resources more efficiently or shift development toward sustainability face fewer challenges, a conclusion the source rates as high confidence [2].": [
+   {
+    "source": "S002",
+    "start": 112516,
+    "end": 114814
+   }
+  ],
+  "According to the IPCC, if warming exceeds a specified level such as 1.5°C, it could gradually be reduced again by achieving and sustaining net negative global CO2 emissions, which would require additional deployment of carbon dioxide removal compared to pathways without overshoot and lead to greater feasibility and sustainability concerns, while overshoot entails adverse impacts, some irreversible, and additional risks for human and natural systems, all growing with the magnitude and duration of overshoot (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 118995,
+    "end": 119539
+   }
+  ],
+  "According to the IPCC (AR6 Synthesis Report, B.7.1), only a small number of the most ambitious global modelled pathways limit global warming to 1.5°C (>50%) by 2100 without temporarily exceeding this level; achieving and sustaining net negative global CO2 emissions, with annual rates of CDR greater than residual CO2 emissions, would gradually reduce the warming level again (high confidence), while adverse impacts during overshoot that cause additional warming via feedback mechanisms, such as increased wildfires, mass mortality of trees, drying of peatlands, and permafrost thawing, weakening natural land carbon sinks and increasing releases of GHGs, would make the return more challenging (medium confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 119539,
+    "end": 120277
+   }
+  ],
+  "According to the IPCC (AR6 Synthesis Report, B.7.2), the higher the magnitude and the longer the duration of overshoot, the more ecosystems and societies are exposed to greater and more widespread changes in climatic impact-drivers, increasing risks for many natural and human systems; compared to pathways without overshoot, societies would face higher risks to infrastructure, low-lying coastal settlements, and associated livelihoods, and overshooting 1.5°C will result in irreversible adverse impacts on certain ecosystems with low resilience, such as polar, mountain, and coastal ecosystems, impacted by ice-sheet melt, glacier melt, or by accelerating and higher committed sea level rise (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 120277,
+    "end": 120954
+   }
+  ],
+  "According to the IPCC (SR1.5-related Summary for Policymakers, statement B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 120954,
+    "end": 121565
+   }
+  ],
+  "According to the IPCC Sixth Assessment Report Synthesis Report (Summary for Policymakers, statement C.3.5), many agriculture, forestry, and other land use (AFOLU) options provide adaptation and mitigation benefits that could be upscaled in the near term across most regions, with conservation, improved management, and restoration of forests and other ecosystems offering the largest share of economic mitigation potential and reduced deforestation in tropical regions having the highest total mitigation potential, while ecosystem restoration, reforestation, and afforestation can lead to trade-offs due to competing demands on land, and some options such as conserving high-carbon ecosystems deliver immediate benefits whereas restoring them takes decades to deliver measurable results (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 146931,
+    "end": 148558
+   }
+  ],
+  "According to the IPCC Summary for Policymakers (C.3.6), maintaining the resilience of biodiversity and ecosystem services at a global scale depends on effective and equitable conservation of approximately 30% to 50% of Earth's land, freshwater and ocean areas, including currently near-natural ecosystems (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 148558,
+    "end": 150790
+   }
+  ],
+  "According to the IPCC AR6 Synthesis Report, considering other sustainable development dimensions, such as the potentially strong economic benefits on human health from air quality improvement, may enhance the estimated benefits of mitigation (medium confidence); the economic effects of strengthened mitigation action vary across regions and countries, depending notably on economic structure, regional emissions reductions, policy design and level of international cooperation (high confidence); and ambitious mitigation pathways imply large and sometimes disruptive changes in economic structure, with implications for near-term actions, equity, sustainability and finance (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 388364,
+    "end": 396329
+   }
+  ],
+  "According to the IPCC AR6 Synthesis Report, in modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, net global GHG emissions are projected to fall by 43 [34 to 60]% below 2019 levels by 2030, 60 [49 to 77]% by 2035, 69 [58 to 90]% by 2040 and 84 [73 to 98]% by 2050 (high confidence), and in pathways limiting warming to 2°C (>67%) with immediate action, emissions are projected to fall by 21 [1 to 42]% by 2030, 35 [22 to 55]% by 2035, 46 [34 to 63]% by 2040 and 64 [53 to 77]% by 2050 (high confidence), while emissions from NDCs announced prior to COP26 would make it likely that warming would exceed 1.5°C (high confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 396329,
+    "end": 399335
+   }
+  ],
+  "According to the IPCC AR6 Synthesis Report (Summary for Policymakers, A.3.6), there are widening disparities between the estimated costs of adaptation and the finance allocated to it (high confidence); adaptation finance has come predominantly from public sources, and a small proportion of global tracked climate finance was targeted to adaptation and an overwhelming majority to mitigation (very high confidence); current global financial flows for adaptation, from both public and private sources, are insufficient and constrain implementation of adaptation options, especially in developing countries, even though global tracked climate finance has trended upward since AR5 (high confidence); and adverse climate impacts can reduce the availability of financial resources by incurring losses and damages and impeding national economic growth, further increasing financial constraints for adaptation, particularly for developing and least developed countries (medium confidence) [2].": [
+   {
+    "source": "S002",
+    "start": 57494,
+    "end": 64143
+   }
+  ],
+  "Most countries report their anthropogenic land CO2 fluxes in national greenhouse gas inventories to include fluxes from human-caused environmental change, such as CO2 fertilisation, on 'managed' land [2].": [
+   {
+    "source": "S002",
+    "start": 106781,
+    "end": 106975
+   }
+  ]
+ }
+}

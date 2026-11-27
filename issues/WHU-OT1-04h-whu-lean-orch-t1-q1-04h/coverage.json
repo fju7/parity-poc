@@ -1,0 +1,26 @@
+{
+ "units": [],
+ "declarations": {
+  "S002@103876-104091": {
+   "state": "out_of_scope",
+   "reason": "The finding concerns maladaptation in climate adaptation actions and lock-ins of vulnerability, not carbon dioxide removal's role in reaching net zero; it matches no scope entry, so the question's words are cited.",
+   "by": "claude-sonnet-5-5",
+   "element": "removing carbon dioxide from the air",
+   "decided_at": "2026-11-27T20:32:38+00:00"
+  },
+  "S002@106346-106638": {
+   "state": "not_material",
+   "reason": "The finding is about how non-CO2 emission cuts affect temperature and carbon budgets. It says nothing about carbon dioxide removal, so it does not change the answer on removal's role.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T20:32:41+00:00"
+  },
+  "S002@106976-107336": {
+   "state": "not_material",
+   "reason": "The finding gives remaining carbon budget estimates under different non-CO2 assumptions. It says nothing about carbon dioxide removal's role, scale or limits, so leaving it out does not change the answer.",
+   "by": "claude-sonnet-5-5",
+   "element": "",
+   "decided_at": "2026-11-27T20:32:51+00:00"
+  }
+ }
+}
