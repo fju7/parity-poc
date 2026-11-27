@@ -1,0 +1,112 @@
+{
+  "_what_this_is": "Every blocking finding a gate run made, and the DOCUMENT that settled it. See findings.py: a finding is not evidence, and the quotation below is checked against the bytes.",
+  "findings": [
+    {
+      "id": "f8e5aab1d-rec-2",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Minx et al. 2018, 'Negative emissions—Part 1: Research landscape and synthesis', Environmental Research Letters 13:063001 is SUPERSEDED: the draft uses Multiple specific figures: (1) 150–1180 GtCO2 gross negative emissions across the 21st century in 1.5°C scenarios; (2) CDR scaling from 0.06–0.8 GtCO2/yr between 2030–2050 to 1–16 GtCO2/yr by 2050; (3) carbon budget of 0–200 GtCO2 for the 1.5°C tar",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: apps.ipcc.ch, ipcc.ch, digitallibrary.un.org, civil-protection-knowledge-network.europa.eu, cgspace.cgiar.org, researchgate.net, link.springer.com, upcommons.upc.edu, pure.iiasa.ac.at, iopscience.iop.org, publications.pik-potsdam.de, research.utwente.nl, arxiv.org, abdn.elsevierpure.com, energy-transition-hub.org, pure.mpg.de, lse.ac.uk, swp-berlin.org, carbonbrief.org, stateofcdr.org, netzeroclimate.org, static1.squarespace.com, biomassconnect.org, enb.iisd.org, events.ecmwf.int, decarbonfuse.com, cmcc.it, policycommons.net, afen.fr, cdr2030.earth, geocdr.com, nationalacademies.org, nap.nationalacademies.org, ncbi.nlm.nih.gov, image-ppubs.uspto.gov, realclimate.org, judithcurry.com, sciencedirect.com, api-depositonce.tu-berlin.de, nature.com) could not establish whether Negative emissions—Part 1: Research landscape and synthesis has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "Minx et al. 2018, 'Negative emissions—Part 1: Research landscape and synthesis', Environmental Research Letters 13:063001",
+        "sources": [
+          "S005"
+        ],
+        "rows": [
+          "33a90a18690065b9",
+          "e3ca95fc44444a8a",
+          "132fc14ebf24e414",
+          "5102bced40686c77",
+          "411a23d1a209acd5",
+          "d539a84761ccdcc9",
+          "df44b0a3f029bc19",
+          "98d18ffa8eee904d",
+          "b8cc3b10d7c1d516",
+          "2df5c659110ed30a",
+          "35f49491c4f32a48",
+          "d8479135d5d4a6cb",
+          "fe779204595fe701",
+          "da1084d324068f63",
+          "9b06d1d773d7a93e",
+          "1bf5792934052468",
+          "4bbd5f3ba3fdf5df",
+          "2f327907ba041ba2",
+          "54e35dbf8274ed66",
+          "96bd6ec850699ab9",
+          "b7820d9394b184e9",
+          "8fe866e4805e32a7",
+          "09dd91e41c9b452e",
+          "4900fcd304bf5cba",
+          "52f173f34dff38f9",
+          "5f62c5097c3f0718"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f8e5aab1d-rec-3",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "IPCC Special Report on Global Warming of 1.5°C (SR1.5, 2018) is UNKNOWN: the draft uses Listed as source [3] but the draft explicitly states it could not hold this source and that nothing on the page draws on it.; the latest known is SR1.5 (2018) has been superseded for carbon budget figures by AR6 WGI (2021) and AR6 SYR (2023), but since the draft does not draw on SR1.5, this is not relevant to t",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "recency question not tied to any source on this page (no DOI, PMID, PMCID, URL, author or title matches a page source); recorded and counted on the page, not acted on (lean rule 3b)",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "IPCC Special Report on Global Warming of 1.5°C (SR1.5, 2018)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S003 (first author 'ipcc' and 4 title words (overlap 0.80), source-list entry), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f8e5aab1d-rec-4",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "National Academies of Sciences, Engineering, and Medicine, 'Negative Emissions Technologies and Reliable Sequestration: A Research Agenda' (2019) is UNKNOWN: the draft uses Listed as source [4] but the draft explicitly states it could not hold this source and that nothing on the page draws on it.; the latest known is The 2019 National Academies report has not been formally updated or superseded by",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "recency question not tied to any source on this page (no DOI, PMID, PMCID, URL, author or title matches a page source); recorded and counted on the page, not acted on (lean rule 3b)",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "National Academies of Sciences, Engineering, and Medicine, 'Negative Emissions Technologies and Reliable Sequestration: A Research Agenda' (2019)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S004 (first author 'sciences' and 6 title words (overlap 0.86), source-list entry), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f8e5aab1d-rec-5",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "IPCC AR6 WGIII Chapter 12 'Cross-Sectoral Perspectives (Carbon Dioxide Removal)' (2022) is UNKNOWN: the draft uses Listed as source [1] but the draft explicitly states it could not hold this source and that nothing on the page draws on it.; the latest known is Published April 2022 as part of AR6 WGIII. Its findings are partially synthesised in the AR6 SYR (2023), which the draft does cite. The IPC",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "recency question not tied to any source on this page (no DOI, PMID, PMCID, URL, author or title matches a page source); recorded and counted on the page, not acted on (lean rule 3b)",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-27",
+      "attached_to": {
+        "study": "IPCC AR6 WGIII Chapter 12 'Cross-Sectoral Perspectives (Carbon Dioxide Removal)' (2022)",
+        "sources": [],
+        "rows": [],
+        "status": "RECENCY_UNMATCHED",
+        "why": "matched S001 (first author 'ipcc' and 7 title words (overlap 0.70), sources.json), but no body sentence's binding rests on it"
+      },
+      "ruled": "lean_editions.decide"
+    }
+  ]
+}

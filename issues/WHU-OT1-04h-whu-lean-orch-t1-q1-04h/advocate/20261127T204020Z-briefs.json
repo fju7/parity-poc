@@ -1,0 +1,180 @@
+[
+  {
+    "source": "S002",
+    "title": "Climate Change 2023: Synthesis Report",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Climate Change 2023: Synthesis Report",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Most countries report their anthropogenic land CO2 fluxes in national greenhouse gas inventories to include fluxes from human-caused environmental change, such as CO2 fertilisation, on 'managed' land.",
+        "objection": "The page quotes the first half of the inventory-reporting passage and drops the consequence the SYR draws from it, which is that remaining carbon budgets must be reduced when inventory-based emissions estimates are used. That consequence bears on the 500 and 1150 GtCO2 budgets the page gives.",
+        "source_says": "Using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced.",
+        "locator": "Section 3 footnote on remaining carbon budgets (footnote 128), after 'Most countries report their anthropogenic land CO2 fluxes...'; also in the SPM B.5.2 footnote text",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The budget figures the page reports are global-model based. The page leaves out that the SYR says a country using inventory accounting faces a smaller budget, so the figures cannot be compared directly with national inventory accounting.",
+        "source_says_first": "<cite index=\"38-3\">\"Using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced.\"</cite> The SYR adds a note that land-related net emission estimates from global models are not necessarily directly comparable with national inventory LULUCF estimates.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "On maturity, methods range from ocean alkalinisation at the lower end to reforestation at the higher end [2].",
+        "objection": "The page describes maturity as a range and omits the finding that only a few methods are widely practised today. That finding says where the CDR actually being deployed sits on the range.",
+        "source_says": "Afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods (high confidence).",
+        "locator": "Section 4 (CDR paragraph on storage timescales): \"Estimated storage timescales vary from decades to centuries...\"",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's maturity, potential and cost sentences read as a neutral menu. The omitted finding shows that current practice is land-based, and the engineered methods the page cites for cost, such as DACCS, are not yet widely practised.",
+        "source_says_first": "<cite index=\"29-5\">\"currently the only widely practiced CDR methods (high confidence)\"</cite> The methods named are afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration. IEAGHG lists this among the SYR Longer Report's CDR key messages.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "On cost, the range runs from –45 to 100 USD per tonne of CO2 for soil carbon sequestration to 100 to 300 USD per tonne for DACCS (medium confidence).",
+        "objection": "The page attaches medium confidence only to cost. The source sentence applies medium confidence to maturity, potential and cost together, so the page's maturity and scale sentences are shown as less qualified than they are.",
+        "source_says": "Specifically, maturity ranges from lower maturity (e.g., ocean alkalinisation) to higher maturity (e.g., reforestation); removal and storage potential ranges from lower potential (<1 Gt CO2 yr-1, e.g., blue carbon management) to higher potential (>3 Gt CO2 yr-1, e.g., agroforestry); costs range from lower cost (e.g., –45 to 100 USD tCO2-1 for soil carbon sequestration) to higher cost (e.g., 100 to 300 USD tCO2-1 for direct air carbon dioxide capture and storage) (medium confidence).",
+        "locator": "CDR paragraph following Figure SPM.7 text: 'CDR methods vary in terms of their maturity, removal process...'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The figures are right. The confidence label belongs to all three attributes, and the examples are illustrative, so the two sentences before the cost sentence read as firmer than the source.",
+        "source_says_first": "<cite index=\"10-6\">Specifically, maturity ranges from lower maturity (e.g., ocean alkalinisation) to higher maturity (e.g., reforestation); removal and storage potential ranges from lower potential (<1 GtCO2 yr–1, e.g., blue carbon management) to higher potential (>3 GtCO2 yr–1, e.g., agroforestry); costs range from lower cost to higher cost (medium confidence).</cite> The ranges are given as examples (e.g.), not as the full span of each attribute.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "According to the IPCC (SR1.5-related Summary for Policymakers, statement B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100",
+        "objection": "Statement B.7.3 is in the Summary for Policymakers of the AR6 Synthesis Report, not an SR1.5 document. The source tag is wrong, and a reader cannot check the claim against the SYR from it.",
+        "source_says": "B.7.3 The larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100.",
+        "locator": "Summary for Policymakers, section B.7, statement B.7.3",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The content is correct, including the part about faster net zero and methane cuts reducing the CDR requirement. Only the attribution needs fixing.",
+        "source_says_first": "<cite index=\"19-1\">\"B.7.3 The larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100.\"</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "According to the IPCC, if warming exceeds a specified level such as 1.5°C, it could gradually be reduced again by achieving and sustaining net negative global CO2 emissions, which would require additional deployment of carbon dioxide removal compared to pathways without overshoot",
+        "objection": "The page gives the overshoot-and-CDR relationship only qualitatively. The SYR quantifies the net negative emissions needed in no or limited overshoot pathways versus high overshoot pathways, which shows how much more CDR overshoot costs.",
+        "source_says": "Modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot reach median values of cumulative net negative emissions of 220 GtCO2 by 2100, pathways that return warming to 1.5°C (>50%) after high overshoot reach median values of 360 GtCO2 (high confidence).137",
+        "locator": "Section 3 text on net negative emissions and CDR (the passage following 'Reducing global temperature by removing CO2 would require net negative emissions of 220 GtCO2...'), footnote 137",
+        "could_not_find": "The figure and section numbering come from a fragmentary extract of the SYR full volume. I did not confirm the exact figure or panel number in the PDF.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's overshoot sentences say more CDR is needed but not how much. The median cumulative figures (220 versus 360 GtCO2 by 2100) are the SYR's own measure of the CDR cost of overshoot, and they belong beside the qualitative statements.",
+        "source_says_first": "Pathways limiting warming to 1.5°C (>50%) with no or limited overshoot reach <cite index=\"26-4\">median cumulative net negative emissions of 220 GtCO2 by 2100, against a median of 360 GtCO2 for pathways that return warming to 1.5°C after high overshoot (high confidence)</cite>. This is my paraphrase of the SYR Figure 3.? text as retrieved.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S005",
+    "title": "Negative emissions—Part 1: Research landscape and synthesis",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Negative emissions—Part 1: Research landscape and synthesis",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "A 2018 review of the negative emissions literature finds that keeping warming below 1.5°C requires large-scale deployment of negative emission technologies, but that this dependency can still be kept to a minimum for the 2°C limit [5].",
+        "objection": "The 2°C 'minimum dependence' finding is stated without the condition the review attaches to it. If near-term cuts only follow current NDCs, 2°C scenarios depend on negative emissions much as 1.5°C scenarios do.",
+        "source_says": "If near-term emission reductions follow the pathways suggested by current NDCs there will be a fundamental dependence on negative emissions by 2030 in 2 ◦ C scenarios. 2 ◦ C scenarios that delay adequate mitigation action in the short-term along the current NDC trajectory show similar features to 1.5 ◦ C scenarios today: no available scenarios without NETs, large scale deployment of NETs throughout the 21st century (250−920 GtCO2 ) and rapid upscaling of NETs between 2030 and 2050 (0.2−0.7 GtCO2 per year) to 3−14 GtCO2 .",
+        "locator": "Synthesis section, paragraph beginning 'In fact, 2 ◦ C scenarios do not yet fundamentally depend on negative emissions at large scale.'",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The low 2°C dependence holds only if mitigation is not delayed along the NDC trajectory. Read unconditionally, the sentence overstates how much a 2°C target reduces reliance on removal.",
+        "source_says_first": "<cite index=\"21-6,21-7\">Synthesis section: if near-term emission reductions follow current NDC pathways there is a \"fundamental dependence on negative emissions by 2030\" in 2°C scenarios. These delayed-action 2°C scenarios resemble 1.5°C scenarios, with no available scenarios without NETs and large-scale deployment (250−920 GtCO2) throughout the century.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The 2018 review adds that large-scale removal is needed for 1.5°C, though dependence on it can be kept to a minimum for 2°C [5].",
+        "objection": "This repeats the 2°C 'minimum dependence' claim without the NDC-trajectory condition, so the omission is published a second time.",
+        "source_says": "The dependence on NETs can be limited to a large degree for 2 ◦ C scenarios—defined as scenarios with a larger than 66% (likely 2 ◦ C scenarios) and 50% (medium 2 ◦ C scenarios) probability of keeping temperature rise below 2 ◦ C throughout the 21st century.",
+        "locator": "Paragraph beginning 'The dependence on negative emissions is due to the very limited carbon budget', final sentence",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The conditional nature of the 2°C finding is what the review actually concludes. Without it the 1.5°C versus 2°C contrast looks sharper and more secure than the review presents it.",
+        "source_says_first": "<cite index=\"21-5,21-7\">The review says the dependence on NETs can be limited to a large degree for 2°C scenarios. It then says 2°C scenarios that delay adequate near-term mitigation along the current NDC trajectory show similar features to 1.5°C scenarios today (250−920 GtCO2 of NETs across the century).</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The review attributes this dependence to a very limited carbon budget, which it puts at 0–200 GtCO2 for the 1.5°C target [5].",
+        "objection": "The page gives the carbon budget as the explanation for dependence on removal. The review also says future socio-economic conditions are decisive for how dependent scenarios are on NETs, in both 1.5°C and 2°C scenarios.",
+        "source_says": "Most recent evidence suggests that future socioeconomic conditions are decisive for the level of future 17 Estimation of carbon budget depends on temperature data used, and various methodological assumptions.",
+        "locator": "Scenario synthesis section, paragraph on multiple NETs and socioeconomic conditions (continues after footnote 17 text: 'dependence on NETs in both 1.5 ◦ C and 2 ◦ C scenarios.')",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The dependence on removal is not fixed by the carbon budget alone. The review says it varies with socio-economic pathways, so the page's single-cause account is too narrow.",
+        "source_says_first": "<cite index=\"21-7,21-8\">Synthesis section: the most recent evidence suggests that future socio-economic conditions are decisive for the level of dependence on NETs in both 1.5°C and 2°C scenarios. The AR5 scenario evidence lacked larger variations of socio-economic baseline conditions, and that evidence has since become available.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The review notes concern that negative emissions technologies may give policy-makers a convenient excuse for mitigating less now [5].",
+        "objection": "The page reports the moral-hazard concern as the review's ethics content. The review also raises 'bet' and 'hubris' concerns. It calls for these discussions to be rooted in available evidence, and it flags that the label 'moral hazard' may mislead.",
+        "source_says": "These are first, that NETs might create a moral hazard against mitigation; second (and relatedly), that an implicit policy bet on NETs that are unproven at scale may lock in worse climate-related harms if they failed to deliver; and third, that the sheer scale of NETs deployment observed in mitigation scenarios is staggeringly hubristic.",
+        "locator": "Section 'Moral hazard, betting, and hubris' (ethics discussion), first paragraph",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page shows one side of the ethics discussion and pairs it with the 'sidelining hinders research' point. The review's own ethics findings are broader, and the 'bet' concern cuts against reliance on NETs.",
+        "source_says_first": "<cite index=\"13-3\">Ethical aspects, 'Moral hazard, betting, and hubris': an implicit policy \"bet on NETs that are unproven at scale may lock in worse climate-related harms\" if they fail to deliver. The review's third concern is that the scale of NETs deployment in scenarios is hubristic.</cite> <cite index=\"5-10\">The abstract says the review highlights the need to root ethical discourses firmly in the available evidence.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It also reports great scepticism in the technology literature that modelled deployment of 10–20 GtCO2 per year towards the end of the century can be achieved by BECCS alone, or by any other individual technology [5].",
+        "objection": "The page covers whether single technologies can reach scenario scale but omits the review's finding on the gap between scenario upscaling and actual innovation and deployment, and on implementation barriers. It also omits the finding that potentials exist for all NETs except ocean fertilization.",
+        "source_says": "Fourth, a substantial gap exists between the upscaling and rapid diffusion of NETs implied in scenarios and progress in actual innovation and deployment. If NETs are required at the scales currently discussed, the resulting urgency of implementation is currently neither reflected in science nor policy. Fifth, NETs face severe barriers to implementation and are only weakly incentivized so far.",
+        "locator": "Abstract, fourth and fifth findings",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's deployment-realism point rests only on the 'single technology' finding. The review's findings on the innovation gap and incentives are the more direct evidence on feasibility, and its potentials finding is what makes the portfolio claim workable.",
+        "source_says_first": "<cite index=\"26-2\">Abstract, fourth finding: \"a substantial gap exists between the upscaling and rapid diffusion of NETs implied in scenarios\" and progress in actual innovation and deployment.</cite> <cite index=\"5-9\">Fifth finding: NETs face severe barriers to implementation and are only weakly incentivized so far.</cite> <cite index=\"18-13\">Second finding: the review identifies relevant potentials for all NETs except ocean fertilization.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

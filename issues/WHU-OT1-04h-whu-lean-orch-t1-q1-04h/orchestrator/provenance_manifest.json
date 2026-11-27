@@ -1,0 +1,46 @@
+{
+ "_what_this_is": "Run provenance manifest: the bindings file and every stored document this run's issue holds, by hash (advisor's ruling 2026-11-24). The files themselves are copied to the private study folder, never to this repo (held documents carry publisher text).",
+ "slug": "whu-lean-orch-t1-q1-04h",
+ "built_at": "2026-11-27T21:06:33+00:00",
+ "library_root": "backend/data/whatholdsup/library_trial",
+ "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04h",
+ "files": [
+  {
+   "role": "bindings",
+   "path": "issues/WHU-OT1-04h-whu-lean-orch-t1-q1-04h/bindings.json",
+   "sha256": "661121dd3ecfa88c7a04af724404b254189c064e9c654703aab41ed49484ffd7",
+   "size": 182748,
+   "mtime_utc": "2026-11-27T21:05:52+00:00"
+  },
+  {
+   "role": "library_index",
+   "path": "library:issues/whu-lean-orch-t1-q1-04h.json",
+   "sha256": "afcda4823e23e9a8079368efe79cf0b43d233805fbc7dba9a59a3a788870b230",
+   "size": 1441,
+   "mtime_utc": "2026-11-27T20:20:07+00:00"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/f5/f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6.pdf",
+   "sha256": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+   "size": 4913496,
+   "mtime_utc": "2026-11-27T15:11:16+00:00",
+   "source_id": "S002",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6"
+  },
+  {
+   "role": "document",
+   "path": "library:docs/2f/2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17.pdf",
+   "sha256": "2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17",
+   "size": 3667242,
+   "mtime_utc": "2026-11-27T15:11:24+00:00",
+   "source_id": "S005",
+   "holding": "held",
+   "used": true,
+   "recorded_sha256": "2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17"
+  }
+ ],
+ "copied": 4
+}

@@ -1,0 +1,152 @@
+{
+ "omissions": [
+  {
+   "key": "S002@106976-107091",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    106976,
+    107091
+   ],
+   "quote_sha256": "40054d33ec7113810c39b304a987aed23e0adeadd2f86c55684699b9b89bf48e",
+   "outcome": "NOT_ADDED_BEYOND",
+   "element": "",
+   "reason": "the ADD's span is not in the finding",
+   "by": "code (lean: the proposed sentence went beyond the finding)",
+   "ruling": null,
+   "origins": [
+    "S002-01"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T20:48:32+00:00"
+  },
+  {
+   "key": "S002@380682-380963",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    380682,
+    380963
+   ],
+   "quote_sha256": "2d8746f22707b54afbc1f8976b47fb310c48d4b41414cbc3c7808286cacb36a3",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding is in scope. SCOPE covers 'how much assessed pathways say is needed by mid-century and beyond', and this finding quantifies the cumulative net negative emissions, which depend on removal, needed by 2100. Step 2: The finding is material. The draft discusses overshoot and net negative emissions only qualitatively and gives no figure for cumulative net negative emissions. The 220 vs 360 GtCO2 medians tell the reader how much removal the pathways rely on, and how overshoot raises that amount. This bears directly on how much weight to give removal versus emission cuts.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "bb6703dc70267c31",
+   "origins": [
+    "S002-05"
+   ],
+   "on_page": "970b6e4321dac358",
+   "after": "115a74d60755cd90",
+   "decided_at": "2026-11-27T20:48:39+00:00"
+  },
+  {
+   "key": "S002@382927-383098",
+   "source": "S002",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    382927,
+    383098
+   ],
+   "quote_sha256": "8d33ed2154b2ae5117bfdc6fcf6273351850ac60ea048d7f3bbe83acf7acff59",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears on the question's 'now' and on the scope's 'how much removal happens today', covering conventional land-based methods. It is in scope. Step 2: The finding tells the reader that novel methods such as DACCS and BECCS are not yet widely practiced. That bears directly on how much credit to give removals today versus emission cuts. The draft notes that methods vary in maturity but never states which methods are actually deployed at scale. So the finding is material and not already in the draft.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "7cafaf2b92d1027f",
+   "origins": [
+    "S002-02"
+   ],
+   "on_page": "609c22f57e5bdeae",
+   "after": "be1d6c3acc3650a8",
+   "decided_at": "2026-11-27T20:48:42+00:00"
+  },
+  {
+   "key": "S005@4746-5141",
+   "source": "S005",
+   "held_sha256": "679e299dd71bdb6f5a2b572a320c0fa93edced5fd581e0bf8f373d5f5c5cafe1",
+   "at": [
+    4746,
+    5141
+   ],
+   "quote_sha256": "5ddd1d7385c29e99607722a145b09108d509ec4a4c1e10161f5f18bf8bbdeacb",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding contrasts actual deployment with the removal that scenarios require and names barriers to scaling up. The SCOPE covers both: 'how much removal happens today, how much assessed pathways say is needed' and 'the main constraints on scaling up'. Step 2: A reader deciding how much weight or credit to give removal would weigh the gap between modelled and actual deployment, and the weak incentives. ALREADY says moderate 2050 targets need immediate action and questions single-technology scale. It does not state this deployment gap, that the urgency is missing from science and policy, or the severe barriers and weak incentives. So the finding is new and material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "93b307fe5c542ea4",
+   "origins": [
+    "S005-10"
+   ],
+   "on_page": "09dd91e41c9b452e",
+   "after": "da1084d324068f63",
+   "decided_at": "2026-11-27T20:48:50+00:00"
+  },
+  {
+   "key": "S005@55592-56118",
+   "source": "S005",
+   "held_sha256": "679e299dd71bdb6f5a2b572a320c0fa93edced5fd581e0bf8f373d5f5c5cafe1",
+   "at": [
+    55592,
+    56118
+   ],
+   "quote_sha256": "bf3d932e4baf0ca6c666ba9a80f55fa1e32bf6139860cab522fd9689b22f1b88",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding bears directly on how much removal assessed pathways say is needed by mid-century and beyond, and on how removal relates to emission cuts. Both are covered in SCOPE. Step 2: the draft says that dependence on removal '[S005@4299-4337] 2°C limit'. This finding qualifies that claim: on the current NDC trajectory, the minimal-dependence option disappears by 2030, and the finding gives specific deployment ranges. ALREADY's general line that dependence grows without sustained reductions does not state this NDC-specific result or its figures. A reader weighing removal against near-term emission cuts would weigh it.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "e6ce9f2cf7b7f63f",
+   "origins": [
+    "S005-06",
+    "S005-07"
+   ],
+   "on_page": "4900fcd304bf5cba",
+   "after": "33a90a18690065b9",
+   "decided_at": "2026-11-27T20:49:08+00:00"
+  },
+  {
+   "key": "S005@56908-57116",
+   "source": "S005",
+   "held_sha256": "679e299dd71bdb6f5a2b572a320c0fa93edced5fd581e0bf8f373d5f5c5cafe1",
+   "at": [
+    56908,
+    57116
+   ],
+   "quote_sha256": "4bc87ffa6c2a8c047e87ab0e55bb924b0b3d89149d1f4022da0a97c942d8673c",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The draft ties how much removal pathways need to the size of the remaining carbon budget. That falls under 'how much assessed pathways say is needed by mid-century and beyond', so the finding is in scope. Step 2: The opening clause about socioeconomic conditions breaks off at 'level of future' and cannot be completed without outside knowledge, so only the complete footnote sentence is used. That sentence qualifies the 0–200 GtCO2 budget the draft cites, and the draft does not already say it. It also helps explain why that figure differs from the IPCC's 500 GtCO2. A reader deciding how much weight to give removal would want to know that the budget behind the need for removal rests on data and methodological choices.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "0da7d54d328500a2",
+   "origins": [
+    "S005-08"
+   ],
+   "on_page": "52f173f34dff38f9",
+   "after": "d539a84761ccdcc9",
+   "decided_at": "2026-11-27T20:49:17+00:00"
+  },
+  {
+   "key": "S005@79067-79406",
+   "source": "S005",
+   "held_sha256": "679e299dd71bdb6f5a2b572a320c0fa93edced5fd581e0bf8f373d5f5c5cafe1",
+   "at": [
+    79067,
+    79406
+   ],
+   "quote_sha256": "a6648edbc3598e4b7277eb27daa1a2c92aa5a48543a967397db46b53cb0e9e3f",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is in scope. It bears on what part removal can play in reaching net zero, and on the scope item that removal 'cannot replace' emission cuts. Step 2: it is material. The draft already gives the moral-hazard point and scepticism about any single technology reaching scale. It does not give the risk that a policy bet on removal [S005@79211-79246] harms if it fails, nor the authors' judgement that the modelled scale is hubristic. Both bear directly on how much weight a policymaker or investor should give removals versus direct cuts. The sentence keeps the source's hedges ('in their view', 'might', 'may') and its framing of these as issues needing ethical analysis.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "4f8d9d22e0aa1c5e",
+   "origins": [
+    "S005-09"
+   ],
+   "on_page": "5f62c5097c3f0718",
+   "after": "4bbd5f3ba3fdf5df",
+   "decided_at": "2026-11-27T20:49:25+00:00"
+  }
+ ]
+}

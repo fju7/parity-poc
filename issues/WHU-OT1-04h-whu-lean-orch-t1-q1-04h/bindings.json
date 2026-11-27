@@ -911,13 +911,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         381980,
         382682
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:169",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "c957a8ef977d0e29"
+      ]
     },
     "b8cc3b10d7c1d516": {
       "sentence": "The 2018 review notes that land-based approaches such as afforestation and soil carbon sequestration provide more vulnerable and less verifiable storage, where stored CO2 can be released again within short time frames [5].",
@@ -1266,7 +1271,7 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         370876,
         371620
@@ -1281,6 +1286,11 @@
             381979
           ]
         }
+      ],
+      "off_page_by": "ruling:audit/20261127T210135Z/rulings.jsonl:2",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "16c18e738fd22a2f"
       ]
     },
     "3b484c721860c17e": {
@@ -1401,7 +1411,9 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true
+      "on_page": false,
+      "off_page_by": "ruling:audit/20261127T210135Z/rulings.jsonl:1",
+      "left_page": "2026-11-27"
     },
     "6723b31f93c06bc0": {
       "sentence": "We found Climate Change 2022: Mitigation of Climate Change — Chapter 12: Cross-Sectoral Perspectives (Carbon Dioxide Removal) but could not hold it, so nothing on this page draws on it.",
@@ -2187,13 +2199,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         120954,
         121565
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:rulings/rulings.jsonl:170",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "f6163ae23fa1fa72"
+      ]
     },
     "f259b9d818057ea9": {
       "sentence": "According to the IPCC Sixth Assessment Report Synthesis Report (Summary for Policymakers, statement C.3.5), many agriculture, forestry, and other land use (AFOLU) options provide adaptation and mitigation benefits that could be upscaled in the near term across most regions, with conservation, improved management, and restoration of forests and other ecosystems offering the largest share of economic mitigation potential and reduced deforestation in tropical regions having the highest total mitigation potential, while ecosystem restoration, reforestation, and afforestation can lead to trade-offs due to competing demands on land, and some options such as conserving high-carbon ecosystems deliver immediate benefits whereas restoring them takes decades to deliver measurable results (high confidence) [2].",
@@ -2440,6 +2457,286 @@
         107090
       ],
       "declaration_key": "S002@106976-107336"
+    },
+    "c957a8ef977d0e29": {
+      "sentence": "On cost, CDR methods range from lower cost (e.g., –45 to 100 USD per tonne of CO2 for soil carbon sequestration) to higher cost (e.g., 100 to 300 USD per tonne for DACCS) (medium confidence) [2].",
+      "sentence_sha": "c957a8ef977d0e29",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@381980",
+      "span": "CDR methods vary in terms of their maturity, removal process, time scale of carbon storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements (high confidence). Specifically, maturity ranges from lower maturity (e.g., ocean alkalinisation) to higher maturity (e.g., reforestation); removal and storage potential ranges from lower potential (<1 Gt CO2 yr-1, e.g., blue carbon management) to higher potential (>3 Gt CO2 yr-1, e.g., agroforestry); costs range from lower cost (e.g., –45 to 100 USD tCO2-1 for soil carbon sequestration) to higher cost (e.g., 100 to 300 USD tCO2-1 for direct air carbon dioxide capture and storage) (medium confidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        381980,
+        382682
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "f6163ae23fa1fa72": {
+      "sentence": "According to the IPCC (Summary for Policymakers, statement B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns and social and environmental risks associated with CDR deployment at large scales (high confidence) [2].",
+      "sentence_sha": "f6163ae23fa1fa72",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@120954",
+      "span": "B.7.3 The larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100. Transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales. (high confidence) {3.3.3, 3.3.4, 3.4.1, Table 3.1} Summary for Policymakers Overshoot: Exceeding a Warming Level and Returning 23 Summary for Policymakers ",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        120954,
+        121565
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "970b6e4321dac358": {
+      "sentence": "According to the IPCC, modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot reach median values of cumulative net negative emissions of 220 GtCO2 by 2100, while pathways that return warming to 1.5°C (>50%) after high overshoot reach median values of 360 GtCO2 (high confidence) [2].",
+      "sentence_sha": "970b6e4321dac358",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@380682",
+      "span": "Modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot reach median values of cumulative net negative emissions of 220 GtCO2 by 2100, pathways that return warming to 1.5°C (>50%) after high overshoot reach median values of 360 GtCO2 (high confidence).137",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        380682,
+        380963
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "609c22f57e5bdeae": {
+      "sentence": "The IPCC finds, with high confidence, that afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods [2].",
+      "sentence_sha": "609c22f57e5bdeae",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@382927",
+      "span": "Afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods (high confidence).",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        382927,
+        383098
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "09dd91e41c9b452e": {
+      "sentence": "The 2018 review also finds that a substantial gap exists between the upscaling and rapid diffusion of negative emission technologies implied in scenarios and progress in actual innovation and deployment, that if they are required at the scales currently discussed, the resulting urgency of implementation is currently neither reflected in science nor policy, and that they face severe barriers to implementation and are only weakly incentivized so far [5].",
+      "sentence_sha": "09dd91e41c9b452e",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17",
+      "locator_type": "prose",
+      "locator": "passage S005@4746",
+      "span": "Fourth, a substantial gap exists between the upscaling and rapid diffusion of NETs implied in scenarios and progress in actual innovation and deployment. If NETs are required at the scales currently discussed, the resulting urgency of implementation is currently neither reflected in science nor policy. Fifth, NETs face severe barriers to implementation and are only weakly incentivized so far.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        4746,
+        5141
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "4900fcd304bf5cba": {
+      "sentence": "The 2018 review cautions that if near-term emission reductions follow the pathways suggested by current NDCs, there will be a fundamental dependence on negative emissions by 2030 in 2°C scenarios, with such delayed-action scenarios showing no available scenarios without negative emission technologies, large-scale deployment of 250−920 GtCO2 throughout the 21st century, and rapid upscaling between 2030 and 2050 (0.2−0.7 GtCO2 per year) to 3−14 GtCO2 [5].",
+      "sentence_sha": "4900fcd304bf5cba",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17",
+      "locator_type": "prose",
+      "locator": "passage S005@55592",
+      "span": "If near-term emission reductions follow the pathways suggested by current NDCs there will be a fundamental dependence on negative emissions by 2030 in 2 ◦ C scenarios. 2 ◦ C scenarios that delay adequate mitigation action in the short-term along the current NDC trajectory show similar features to 1.5 ◦ C scenarios today: no available scenarios without NETs, large scale deployment of NETs throughout the 21st century (250−920 GtCO2 ) and rapid upscaling of NETs between 2030 and 2050 (0.2−0.7 GtCO2 per year) to 3−14 GtCO2 .",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        55592,
+        56118
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "52f173f34dff38f9": {
+      "sentence": "The review cautions that its carbon budget figure is not fixed: 'Estimation of carbon budget depends on temperature data used, and various methodological assumptions' [5].",
+      "sentence_sha": "52f173f34dff38f9",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17",
+      "locator_type": "prose",
+      "locator": "passage S005@56908",
+      "span": "Most recent evidence suggests that future socioeconomic conditions are decisive for the level of future 17 Estimation of carbon budget depends on temperature data used, and various methodological assumptions.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        56908,
+        57116
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "5f62c5097c3f0718": {
+      "sentence": "The review's authors also single out, in their view, three issues in need of future ethical analysis: that NETs might create a moral hazard against mitigation, that \"an implicit policy bet on NETs that are unproven at scale may lock in worse climate-related harms if they failed to deliver,\" and that \"the sheer scale of NETs deployment observed in mitigation scenarios is staggeringly hubristic\" [5].",
+      "sentence_sha": "5f62c5097c3f0718",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S005",
+      "document_sha": "2f9cba0e121cb87d94cfae686fe43b9ff6e3c32b4705a9382f2d0b459df4ee17",
+      "locator_type": "prose",
+      "locator": "passage S005@79067",
+      "span": "These are first, that NETs might create a moral hazard against mitigation; second (and relatedly), that an implicit policy bet on NETs that are unproven at scale may lock in worse climate-related harms if they failed to deliver; and third, that the sheer scale of NETs deployment observed in mitigation scenarios is staggeringly hubristic.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        79067,
+        79406
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
+    },
+    "186aaa2615c23012": {
+      "sentence": "Not added: “Using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced.” (Climate Change 2023: Synthesis Report [2]) (the proposed sentence went beyond the finding).",
+      "sentence_sha": "186aaa2615c23012",
+      "why_empirical": "readers' list line (code-written)",
+      "bucket": "context",
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "readers' list line (S002@106976-107091, not_added_beyond)",
+      "span": "Using emissions estimates based on these inventories, the remaining carbon budgets must be correspondingly reduced.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "origin": "declaration_line",
+      "by": "code (lean: readers'-list line bound to the span it quotes)",
+      "offsets": [
+        106976,
+        107091
+      ],
+      "declaration_key": "S002@106976-107091"
+    },
+    "16c18e738fd22a2f": {
+      "sentence": "With high confidence, the IPCC holds that reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions, and that deploying CDR to counterbalance hard-to-abate residual emissions is unavoidable [2].",
+      "sentence_sha": "16c18e738fd22a2f",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "locator_type": "prose",
+      "locator": "passage S002@370876",
+      "span": "Emissions pathways that reach and sustain net zero GHG emissions defined by the 100-year global warming potential imply net negative CO2 emissions and are projected to result in a gradual decline in surface temperature after an earlier peak (high confidence). While reaching net zero CO2 or net zero GHG emissions requires deep and rapid reductions in gross emissions, the deployment of CDR to counterbalance hardto-abate residual emissions (e.g., some emissions from agriculture, aviation, shipping, and industrial processes) is unavoidable (high confidence). {WGI SPM D.1, WGI SPM D.1.1, WGI SPM D.1.8; WGIII SPM C.2, WGIII SPM C.3, WGIII SPM C.11, WGIII Box TS.6; SR1.5 SPM A.2.2} net zero GHG, counterbalanced by net negative CO2 emissions.",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        370876,
+        371620
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": [
+        {
+          "source_id": "S002",
+          "span": "WGIII SPM B.6.4, WGIII SPM C.2, WGIII SPM C.2.2, WGIII Table SPM.2} Limited overshoot refers to exceeding 1.5°C global warming by up to about 0.1°C, high overshoot by 0.1°C to 0.3°C, in both cases for up to several decades. {WGIII Box SPM.1} 87 Section 3 In addition to deep, rapid, and sustained emission reductions, CDR can fulfil three complementary roles: lowering net CO2 or net GHG emissions in the near term; counterbalancing ‘hard-to-abate’ residual emissions (e.g., some emissions from agriculture, aviation, shipping, industrial processes) to help reach net zero CO2 or GHG emissions, and achieving net negative CO2 or GHG emissions if deployed at levels exceeding annual residual emissions (high confidence).",
+          "offsets": [
+            381260,
+            381979
+          ]
+        }
+      ]
     }
   }
 }
