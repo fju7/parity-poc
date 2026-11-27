@@ -1,6 +1,9 @@
 # Assembling the page from records: cost assessment (advisor's ruling 1 on P169, 2026-11-27)
 
-This is an assessment only. Nothing has been built. The decision is the advisor's.
+This is an assessment only. Nothing has been built.
+
+**Decision (advisor's ruling 1 on P171-P176, 2026-11-27): not now.** If another anchoring or assembly stop
+recurs, build the 150-line step below: fixed body-sentence ids at drafting, with the current editor kept.
 
 ## The proposal
 
