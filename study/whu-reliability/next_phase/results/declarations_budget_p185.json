@@ -1,0 +1,296 @@
+{
+ "_what_this_is": "Every lean case folder with omissions.json (WHU-L1-*, WHU-OT1-*), under each run's environment, 2026-11-27 after WHU-OT1-01e: the declarations the page's budget rule counts (coverage_check.budget_count, lean conversions applied) against the budget, and what ruling.py omissions' own counter had counted (omissions.json OUT_OF_SCOPE + NOT_MATERIAL only). Counts only.",
+ "folders": 25,
+ "errors": 0,
+ "over_budget": [
+  "whu-lean-orch-t1-q1-01b",
+  "whu-lean-orch-t1-q1-01d",
+  "whu-lean-orch-t1-q1-01e"
+ ],
+ "rows": [
+  {
+   "slug": "whu-lean-q1-01",
+   "budget": 7,
+   "counted": 0,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {},
+   "instep_count": 0
+  },
+  {
+   "slug": "whu-lean-q1-01b",
+   "budget": 10,
+   "counted": 0,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {},
+   "instep_count": 1
+  },
+  {
+   "slug": "whu-lean-q1-01c",
+   "budget": 10,
+   "counted": 0,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {},
+   "instep_count": 1
+  },
+  {
+   "slug": "whu-lean-q1-02",
+   "budget": 8,
+   "counted": 0,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {},
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-q1-02b",
+   "budget": 10,
+   "counted": 3,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "omissions/not_material": 3
+   },
+   "instep_count": 3
+  },
+  {
+   "slug": "whu-lean-q1-02r",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "coverage/out_of_scope": 1,
+    "coverage/not_material": 1,
+    "omissions/not_material": 3
+   },
+   "instep_count": 5
+  },
+  {
+   "slug": "whu-lean-q1-03",
+   "budget": 10,
+   "counted": 8,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "coverage/out_of_scope": 6,
+    "coverage/not_material": 2
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-q1-03b",
+   "budget": 10,
+   "counted": 4,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 2,
+    "coverage/out_of_scope": 1,
+    "omissions/not_material": 1
+   },
+   "instep_count": 1
+  },
+  {
+   "slug": "whu-lean-q1-04",
+   "budget": 10,
+   "counted": 10,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 9,
+    "omissions/not_material": 1
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-q1-04b",
+   "budget": 10,
+   "counted": 9,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 8,
+    "omissions/not_material": 1
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-q1-04c",
+   "budget": 10,
+   "counted": 9,
+   "exempt": 0,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 9
+   },
+   "instep_count": 3
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-01b",
+   "budget": 10,
+   "counted": 14,
+   "exempt": 17,
+   "twice": 1,
+   "counted_by": {
+    "coverage/not_material": 11,
+    "coverage/out_of_scope": 3
+   },
+   "instep_count": 4
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-01d",
+   "budget": 10,
+   "counted": 21,
+   "exempt": 23,
+   "twice": 2,
+   "counted_by": {
+    "coverage/not_material": 17,
+    "omissions/not_material": 4
+   },
+   "instep_count": 9
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-01e",
+   "budget": 10,
+   "counted": 15,
+   "exempt": 18,
+   "twice": 1,
+   "counted_by": {
+    "coverage/not_material": 10,
+    "omissions/not_material": 5
+   },
+   "instep_count": 10
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02h",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 2,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4,
+    "omissions/not_material": 1
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02o",
+   "budget": 10,
+   "counted": 6,
+   "exempt": 2,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4,
+    "omissions/not_material": 2
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02q",
+   "budget": 10,
+   "counted": 6,
+   "exempt": 2,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 5,
+    "omissions/not_material": 1
+   },
+   "instep_count": 1
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02r",
+   "budget": 10,
+   "counted": 3,
+   "exempt": 2,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 3
+   },
+   "instep_count": 0
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02s",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 3,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4,
+    "omissions/not_material": 1
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02u",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 2,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4,
+    "omissions/not_material": 1
+   },
+   "instep_count": 1
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02v",
+   "budget": 10,
+   "counted": 6,
+   "exempt": 2,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4,
+    "omissions/not_material": 2
+   },
+   "instep_count": 2
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02w",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 1,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 5
+   },
+   "instep_count": 0
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02z",
+   "budget": 10,
+   "counted": 4,
+   "exempt": 1,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4
+   },
+   "instep_count": 1
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02za",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 3,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 4,
+    "omissions/not_material": 1
+   },
+   "instep_count": 3
+  },
+  {
+   "slug": "whu-lean-orch-t1-q1-02zc",
+   "budget": 10,
+   "counted": 5,
+   "exempt": 1,
+   "twice": 0,
+   "counted_by": {
+    "coverage/not_material": 5
+   },
+   "instep_count": 0
+  }
+ ]
+}

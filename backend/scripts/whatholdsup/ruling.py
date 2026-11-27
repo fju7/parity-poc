@@ -1428,6 +1428,25 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
     import placement as PL
     body = PL.body_set(case, page_sentences)
 
+    def over_decl(f: dict, state: str, element: str = "") -> bool:
+        """Would declaring F (STATE) pass the declarations budget? Lean (P184, after WHU-OT1-01e): by the page's own
+        budget rule, coverage_check.budget_count over every declaration the readers' list holds now (coverage.json
+        and omissions.json, lean's conversions applied) plus this one -- exempt and counted-once declarations not
+        counted, as the preflight row 'declared findings shown to readers' counts them. Outside lean: this step's
+        own count, unchanged."""
+        budget = O.declaration_budget(n_body)
+        if not LEAN:
+            return counts["DECLARED"] >= budget
+        import coverage_check as C
+        try:
+            written_at = ((PM.load(slug) or {}).get("scope") or {}).get("written_at")
+        except (Exception, SystemExit):
+            written_at = None
+        cand = {"key": "candidate", "state": state, "source": f.get("source"), "at": f.get("at"),
+                "element": element or ""}
+        counted, _exempt, _twice = C.budget_count(C.declarations(slug, held, case) + [cand], scope, case, written_at)
+        return any(c is cand for c in counted) and len(counted) > budget
+
     def close(f: dict, outcome: str, did: str, **extra) -> None:
         for h in f.get("origins") or [f.get("origin")]:
             _close_omission(items[h]["file"], h, outcome, did)
@@ -1452,7 +1471,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             return
         if LEAN and why.startswith(UNUSABLE_WHY):
             # ruling 4 on P171-P176: the finding goes onto the readers' list as declared, counted
-            if counts["DECLARED"] >= O.declaration_budget(n_body):
+            if over_decl(f, "declared_unruled"):
                 done.append(lean_no_place(case, f, held, "%s (%d); %s" % (DECL_BUDGET_WHY,
                                           O.declaration_budget(n_body), why), O.OVER_DECLARATIONS))
                 return
@@ -1500,7 +1519,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             ok, why = O.scope_element_ok(got["scope_element"], scope)
             if not ok and LEAN:
                 # ruling 4 on P171-P176: the declaration stands with no element and counts against the budget
-                if counts["DECLARED"] >= O.declaration_budget(n_body):
+                if over_decl(f, "out_of_scope"):
                     to_person(f, "%s (%d)" % (DECL_BUDGET_WHY, O.declaration_budget(n_body)))
                     continue
                 counts["DECLARED"] += 1
@@ -1513,7 +1532,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
             if not ok:
                 to_person(f, "OUT_OF_SCOPE refused by code: %s" % why)
                 continue
-            if counts["DECLARED"] >= O.declaration_budget(n_body):
+            if over_decl(f, "out_of_scope", got["scope_element"]):
                 to_person(f, "%s (%d)" % (DECL_BUDGET_WHY, O.declaration_budget(n_body)))
                 continue
             counts["DECLARED"] += 1
@@ -1528,7 +1547,7 @@ def rule_omissions(slug: str, call, *, P=None, rows: dict | None = None, held: d
                    and (o.get("changes_conclusion") or "").upper() == "CHANGES" for o in sev):
                 to_person(f, SERIOUS_WHY)
                 continue
-            if counts["DECLARED"] >= O.declaration_budget(n_body):
+            if over_decl(f, "not_material"):
                 to_person(f, "%s (%d)" % (DECL_BUDGET_WHY, O.declaration_budget(n_body)))
                 continue
             counts["DECLARED"] += 1

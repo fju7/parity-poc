@@ -150,3 +150,48 @@ def test_a_serious_objection_that_only_narrows_is_still_declared_as_before(tmp_p
     FX._case(tmp_path, monkeypatch, [FX._obj(FX.OMITTED, severity="SERIOUS", changes="NARROWS")])
     [d] = FX._run(tmp_path, FX.Fake(NOT_MATERIAL))
     assert d["outcome"] == O.NOT_MATERIAL and LF.load(tmp_path) == []
+
+
+# ------------------------------------- the step counts the budget as the page does (P184, after WHU-OT1-01e)
+
+def _full(n):
+    return [{"key": "S00%d@%d-%d" % (i % 9 + 1, i * 100, i * 100 + 50), "state": "not_material", "from": "coverage",
+             "source": "S00%d" % (i % 9 + 1), "at": [i * 100, i * 100 + 50], "element": ""} for i in range(n)]
+
+
+def test_coverage_declarations_count_toward_the_omission_steps_budget(tmp_path, monkeypatch, lean_on):
+    """01e: coverage.json had declared 10 not-material units; the step's own count saw none of them."""
+    FX._case(tmp_path, monkeypatch, [FX._obj(FX.OMITTED)])
+    real = C.declarations
+    monkeypatch.setattr(C, "declarations", lambda slug, held, case=None, hidden=None:
+                        _full(4) + real(slug, held, case, hidden))          # budget of 20 sentences: 4
+    [d] = FX._run(tmp_path, FX.Fake(NOT_MATERIAL))
+    assert d["outcome"] == O.OVER_DECLARATIONS
+
+
+def test_an_exempt_out_of_scope_declaration_is_not_over_the_budget(tmp_path, monkeypatch, lean_on):
+    FX._case(tmp_path, monkeypatch, [FX._obj(FX.OMITTED)])
+    real = C.declarations
+    monkeypatch.setattr(C, "declarations", lambda slug, held, case=None, hidden=None:
+                        _full(4) + real(slug, held, case, hidden))
+    monkeypatch.setattr(C, "budget_exempt", lambda d, scope, case, written_at=None:
+                        d.get("state") == "out_of_scope" and d.get("element") == "freight logistics")
+    [d] = FX._run(tmp_path, FX.Fake({"in_scope": False, "material": False, "outcome": "OUT_OF_SCOPE",
+                                      "scope_element": "freight logistics", "reason": "about freight"}))
+    assert d["outcome"] == O.OUT_OF_SCOPE
+
+
+def test_a_unit_already_counted_is_not_counted_twice(tmp_path, monkeypatch, lean_on):
+    FX._case(tmp_path, monkeypatch, [FX._obj(FX.OMITTED)])
+    at = [FX.TEXT.index(FX.OMITTED), FX.TEXT.index(FX.OMITTED) + len(FX.OMITTED)]
+    same = {"key": "S003@%d-%d" % tuple(at), "state": "not_material", "from": "coverage", "source": "S003",
+            "at": at, "element": ""}
+    monkeypatch.setattr(C, "declarations", lambda slug, held, case=None, hidden=None: [same] + _full(3))
+    [d] = FX._run(tmp_path, FX.Fake(NOT_MATERIAL))
+    assert d["outcome"] == O.NOT_MATERIAL                                   # the same unit: counted once, at 4 of 4
+
+
+def test_recorded_sweep_of_the_declarations_budget():
+    rec = json.loads((ROOT / "study/whu-reliability/next_phase/results/declarations_budget_p185.json").read_text())
+    assert rec["folders"] == 25 and rec["errors"] == 0
+    assert rec["over_budget"] == ["whu-lean-orch-t1-q1-01b", "whu-lean-orch-t1-q1-01d", "whu-lean-orch-t1-q1-01e"]
