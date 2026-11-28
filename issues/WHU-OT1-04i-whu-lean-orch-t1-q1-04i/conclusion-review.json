@@ -1,0 +1,4 @@
+{
+  "_what_this_is": "One verdict per conclusion sentence from the conclusion judge, and a person's decision on every one it flagged. A flag is a question, not a finding; an unflagged sentence is not thereby verified. See docs/whatholdsup-conclusion-judge.md.",
+  "sentences": {}
+}

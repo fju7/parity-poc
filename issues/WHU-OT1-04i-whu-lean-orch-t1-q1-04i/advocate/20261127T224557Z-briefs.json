@@ -1,0 +1,407 @@
+[
+  {
+    "source": "S001",
+    "title": "Climate Change 2023: Synthesis Report (AR6 SYR)",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Climate Change 2023: Synthesis Report (AR6 SYR)",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "According to the IPCC (Special Report on Global Warming of 1.5°C, Summary for Policymakers, B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100",
+        "objection": "The passage is attributed to the wrong report: this wording is in the AR6 Synthesis Report (B.7.3), not the Special Report on Global Warming of 1.5°C.",
+        "source_says": "Modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot reach median values of cumulative net negative emissions of 220 GtCO2 by 2100, pathways that return warming to 1.5°C (>50%) after high overshoot reach median values of 360 GtCO2 (high confidence).",
+        "locator": "AR6 SYR, passage on net negative emissions and overshoot (Section 3.3.3, near the end of the held text; the held text does not show the B.7.3 label)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The content is accurate but the attribution is wrong. A reader checking SR1.5 will not find the sentence there, and it weakens the page's claim to be characterising this document.",
+        "source_says_first": "<cite index=\"3-3\">Transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions</cite> (AR6 SYR, B.7.3). I confirmed this wording in the SYR full-volume text. I did not confirm that SR1.5 contains the same passage.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The IPCC assessment says that reaching net zero CO2 or net zero greenhouse gas emissions requires deep and rapid reductions in gross emissions, and that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable (high confidence) [1].",
+        "objection": "The page gives the 'unavoidable' half of the statement and drops the clause attached to it: upscaling CDR depends on solving feasibility and sustainability constraints, especially at large scale, and CDR methods differ widely in maturity, cost, risks and governance needs.",
+        "source_says": "CDR methods vary in terms of their maturity, removal process, time scale of carbon storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements (high confidence).",
+        "locator": "Section 3.3.3 (CDR text, quoting WGIII SPM C.11), the passage beginning 'CDR methods vary in terms of their maturity'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page does mention feasibility concerns for overshoot and land-based trade-offs. But the headline sentence, and its repeats, present CDR as unavoidable with no sign that the IPCC makes this conditional on resolving constraints. 'Unavoidable' is easily read as 'readily available'.",
+        "source_says_first": "In the same C.11 statement of the underlying WGIII report, which the SYR synthesises: <cite index=\"1-4\">Upscaling the deployment of CDR depends on developing effective approaches to address feasibility and sustainability constraints especially at large scales.</cite> It adds that <cite index=\"1-5\">CDR methods vary in terms of their maturity, removal process, time scale of carbon storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements (high confidence).</cite> The SYR carries the feasibility point into its overshoot text: <cite index=\"3-1\">greater feasibility and sustainability concerns</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The IPCC states with high confidence that removal is unavoidable for counterbalancing hard-to-abate residual emissions on the way to net zero [1].",
+        "objection": "This repeats the 'unavoidable' claim without the IPCC's linked finding that the scale and timing of CDR depend on how far gross emissions fall, and that CDR interacts with rapid emission cuts in all sectors.",
+        "source_says": "More rapid reduction in CO2 and non-CO2 emissions, particularly methane, limits peak warming levels and reduces the requirement for net negative CO2 emissions and CDR, thereby reducing feasibility and sustainability concerns, and social and environmental risks (high confidence).",
+        "locator": "Passage following 'Reducing global temperature by removing CO2 would require net negative emissions of 220 GtCO2...' (cites WGI SPM D.1.1)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page does say that cuts come first. But it does not say that more gross cuts mean less CDR and fewer CDR risks. That is the finding that answers whether 'unavoidable' means large-scale dependence, and the page leaves it out.",
+        "source_says_first": "The WGIII C.11 text states that <cite index=\"8-4\">The scale and timing of deployment will depend on the trajectories of gross emission reductions in different sectors.</cite> Related text says <cite index=\"2-5\">Rapid emission reductions in all sectors interact with future scale of deployment of CDR methods, and their associated risks</cite>. The SYR's B.7.3 makes the same link: <cite index=\"3-3\">reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The IPCC glossary defines CDR as anthropogenic activities that remove CO2 from the atmosphere and durably store it in geological, terrestrial or ocean reservoirs, or in products [1].",
+        "objection": "The page leaves out the IPCC finding that 'durable' storage varies enormously by method, and that vegetation and soil removals can be reversed. This bears on 'durably stored CO2' and on counting CDR as an offset for residual emissions.",
+        "source_says": "Estimated storage timescales vary from decades to centuries for methods that store carbon in vegetation and through soil carbon management, to ten thousand years or more for methods that store carbon in geological formations (high confidence).",
+        "locator": "CDR section of the held text, the passage beginning 'Estimated storage timescales vary from decades to centuries' (just before 'Afforestation, reforestation, improved forest management, agroforestry and soil carbon sequestration are currently the only widely practiced CDR methods')",
+        "could_not_find": "I did not locate the passage in the SYR full-volume text itself, only in the WGIII SPM that the SYR synthesises. Searched: SYR B.6, B.7 and the CDR passages returned by the search.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page leans on 'durably stored' and 'net zero' without saying that the durability of CDR varies by method and that some removals can reverse. That qualifies how far CDR can safely balance residual emissions, which is the page's central topic.",
+        "source_says_first": "WGIII C.11 text: <cite index=\"1-6\">Estimated storage time scales vary from decades to centuries for methods that store carbon in vegetation and through soil carbon management, to 10,000 years or more for methods that store carbon in geological formations (high confidence).</cite> Also: <cite index=\"2-4\">CO2 stored in geological and ocean reservoirs (via BECCS, DACCS, ocean alkalinisation) and as carbon in biochar is less prone to reversal.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "These residual emissions would need to be counterbalanced by CDR to achieve net zero CO2 or GHG emissions (high confidence) [1].",
+        "objection": "The page states the need for CDR without noting that CDR is not a substitute for immediate emission cuts, and that the IPCC ties the scale of CDR to the pace of gross reductions.",
+        "source_says": "Transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales.",
+        "locator": "SPM B.7.3 (Overshoot: Exceeding a Warming Level and Returning)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page includes these overshoot findings elsewhere. Where it makes the residual-emissions claim, a reader gets only the 'need for CDR' half of the SYR's linked message, and the sentence reads as an open-ended licence for CDR.",
+        "source_says_first": "SYR B.7.3: <cite index=\"3-3\">Transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions</cite>. The SYR overshoot passage says delay means <cite index=\"3-2\">additional deployment of carbon dioxide removal, compared to pathways without overshoot, leading to greater feasibility and sustainability concerns.</cite>",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S002",
+    "title": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (AR6 WGIII)",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (AR6 WGIII)",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Novel methods remain limited in scale, and national plans do not yet commit to scaling them [2, 3].",
+        "objection": "Chapter 12's UK case study says the national plan proposes deployment of these novel methods and sets a numerical 2030 target for them, so 'do not yet commit to scaling them' is not what the chapter reports.",
+        "source_says": "The most recent national plan (published October 2021) proposes deployment not only of the methods mentioned above, but also DACCS, biochar and enhanced weathering.",
+        "locator": "Box 12.1 | Case Study: Emerging CDR Policy, Research and Development in the United Kingdom",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "CHANGES",
+        "why": "The chapter's finding is narrower. Integration is under way (modelling, RD&D, consideration of incentives), and the chapter says it has not yet reached net-negative targets. It also reports a country plan with a quantified 2030 target for BECCS, DACCS and enhanced weathering. The page's closing sentence turns a gap in net-negative targets into a claim that no plans commit to scaling novel methods, which the chapter's own UK example contradicts.",
+        "source_says_first": "Box 12.1 says the UK's most recent national plan (October 2021) <cite index=\"39-5\">\"proposes deployment not only of the methods mentioned above, but also DACCS, biochar and enhanced weathering\"</cite>. The same box says the government <cite index=\"39-6\">committed to amend target accounting to cover removal methods beyond LULUCF, and set a target of 5 MtCO2 per year from methods such as BECCS, DACCS and enhanced weathering by 2030</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The UK's most recent national plan (October 2021) proposes afforestation, wood in construction, soil carbon and BECCS, as well as direct air carbon capture and storage, biochar and enhanced weathering [2].",
+        "objection": "The page lists the UK methods but omits that the chapter reports a quantified UK target and an accounting change, which is the evidence that bears on whether plans commit to scaling.",
+        "source_says": "The government has committed to amend accounting of UK targets to include a wider range of removal methods beyond LULUCF, and set a target of 5 MtCO 2 yr –1 from methods such as BECCS, DACCS and enhanced weathering by 2030.",
+        "locator": "Box 12.1 | Case Study: Emerging CDR Policy, Research and Development in the United Kingdom",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "CHANGES",
+        "why": "This is the omitted fact that answers the page's closing claim. The page quotes the UK box for the list of methods but leaves out the target in the next sentence of the same box. Without it, the reader cannot see that the chapter's own case study shows commitment beyond proposals.",
+        "source_says_first": "Box 12.1: the government <cite index=\"39-6\">committed to amend accounting of UK targets to include a wider range of removal methods beyond LULUCF, and set a target of 5 MtCO2 per year from methods such as BECCS, DACCS and enhanced weathering by 2030</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "CDR is described as a necessary element to achieve net zero CO2 and GHG emissions both globally and nationally, and as a key element in scenarios that limit warming to 2°C (>67%) or lower by 2100 (robust evidence, high agreement) [2].",
+        "objection": "The page gives CDR's necessity but not the chapter's explicit limit on it: CDR does not replace deep emissions reductions.",
+        "source_says": "Within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+        "locator": "Cross-Chapter Box 8, 'Roles of CDR in mitigation strategies'",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "A reader of the page alone could take 'necessary' to mean CDR can stand in for abatement. The chapter says the opposite. The page does mention that scale depends on gross reductions, but it never states the non-substitution finding. The page's account of CDR's role survives only in a narrower form.",
+        "source_says_first": "Cross-Chapter Box 8, 'Roles of CDR in mitigation strategies': within ambitious strategies, <cite index=\"23-2\">\"CDR cannot serve as a substitute for deep emissions reductions\"</cite>. It instead fulfils complementary roles.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Its roles run from further reducing net emissions in the near term, to counterbalancing residual emissions at net zero in the mid-term, to delivering net negative CO2 emissions afterwards [1, 2].",
+        "objection": "'Run from … to … afterwards' reads as a strict sequence. The chapter says the roles overlap and can happen at the same time.",
+        "source_says": "In general, these roles of CDR are not mutually exclusive and can exist in parallel.",
+        "locator": "Cross-Chapter Box 8, 'Roles of CDR in mitigation strategies' paragraph",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The page's three-phase description is accurate for the stylised pathway. The omission could suggest that CDR is only a late-stage tool, when the chapter treats the roles as concurrent.",
+        "source_says_first": "Cross-Chapter Box 8: <cite index=\"47-2\">\"these roles of CDR are not mutually exclusive and can exist in parallel\"</cite>. The chapter also says it is a stylised pathway that can be applied at global and national levels.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "By contrast, direct air carbon capture and storage, BECCS and enhanced weathering are novel methods whose demonstration and deployment are limited in scale [2].",
+        "objection": "The page gives only the current-deployment limit and omits the chapter's assessment of potential and what constrains it.",
+        "source_says": "The potential for DACCS (5–40 GtCO 2 yr –1 ) is limited mainly by requirements for low-carbon energy and by cost (USD100–300 (full range: USD84–386) tCO 2 –1 ).",
+        "locator": "Executive Summary, paragraph on DACCS, enhanced weathering and ocean-based CDR potentials ({12.3})",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'Limited in scale' describes current practice. The chapter separates that from potential, and says the constraints are energy supply and cost rather than inherent small size. Paired with the page's final sentence, the omission makes the novel methods look marginal.",
+        "source_says_first": "Executive Summary: the DACCS potential is 5–40 GtCO2 per year, <cite index=\"2-6\">\"limited mainly by requirements for low-carbon energy and by cost\"</cite>. The cost is USD100–300 per tCO2 (full range USD84–386). The Technical Summary adds that, <cite index=\"8-1\">despite limited current deployment, potentials for DACCS, enhanced weathering and ocean-based methods are moderate to large (medium confidence)</cite>.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "For comparison, the IEA's Net Zero scenario deploys CDR on a limited scale, with direct air carbon capture and storage removing 0.6 GtCO2 in 2050 [2].",
+        "objection": "The page gives one scenario's DACCS figure as 'for comparison' but omits the chapter's other figures in the same passage that show a wider range.",
+        "source_says": "The newest iteration of the World Economic Outlook by IEA (2021b) deploys CDR on a limited scale, and DACCS removes 0.6 GtCO 2 in 2050 for its Net Zero CO 2 Emissions scenario.",
+        "locator": "Section 12.3.1.1 (DACCS paragraph on modelling studies; final sentence of the held text)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The 0.6 Gt figure is correct and the chapter itself calls the IEA scenario 'limited scale'. Presented alone, it understates the spread the chapter reports for DACCS in 2050 and 2100.",
+        "source_says_first": "12.3.1.1: for a scenario reaching net zero by 2045, <cite index=\"19-3\">\"about 0.6 GtCO2 or 1.8 GtCO2 of DACCS would be deployed\"</cite>, depending on biological sinks and bioenergy. The chapter also reports IAM DACCS deployment of 0.02 [0–1.74] GtCO2 per year by 2050 and 1.02 [0–12.6] GtCO2 per year by 2100.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Achieving net-negative CO2 emissions globally does not necessarily involve all countries reaching net-negative levels [2].",
+        "objection": "The page gives one half of a paired finding. The chapter states the complementary point about countries reaching net-negative early.",
+        "source_says": "For example, achieving net zero CO 2 or GHG emissions globally might involve some countries already reaching net-negative levels at the time of global net zero, allowing other countries more time to achieve this.",
+        "locator": "Cross-Chapter Box 8, paragraph beginning 'For example, achieving net zero CO 2 or GHG emissions globally...'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "This is an incompleteness, not an error. The omitted half is relevant to the page's later statement that national consideration of CDR has not yet reached net-negative targets.",
+        "source_says_first": "Cross-Chapter Box 8: reaching net zero globally <cite index=\"29-2\">\"might involve some countries already reaching net-negative levels at the time of global net zero\"</cite>, allowing other countries more time.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "It treats removal as a necessary element of net zero portfolios both globally and nationally [2].",
+        "objection": "'It' follows the UK plan sentence, which implies the UK plan makes this claim. The chapter states this as the authors' own assessment, not as something the UK plan says.",
+        "source_says": "",
+        "locator": "Box 12.1 (UK case study); Executive Summary CDR bullet",
+        "could_not_find": "I searched Box 12.1 and the 12.3.3 text for any statement that the UK plan itself treats removal as necessary both globally and nationally. I found only the chapter's own conclusion that CDR is a necessary element of mitigation portfolios to reach net zero 'both globally and nationally' (Executive Summary, Cross-Chapter Box 8). The UK box describes proposed methods, targets and accounting changes. The page's 'It' may instead refer to the IPCC report, in which case the sentence is fine, so I rate this MINOR.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "A grammatical attribution slip. It does not change the page's conclusion, but 'It' should be fixed so that the UK plan is not credited with the IPCC chapter's own finding."
+      }
+    ]
+  },
+  {
+    "source": "S003",
+    "title": "The carbon dioxide removal gap",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the investigators and statisticians who published The carbon dioxide removal gap",
+    "objections": []
+  },
+  {
+    "source": "S004",
+    "title": "Negative emissions—Part 1: Research landscape and synthesis",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Negative emissions—Part 1: Research landscape and synthesis",
+    "objections": [
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "That assessment found that this dependency can still be kept to a minimum for the 2°C limit [4].",
+        "objection": "The page gives the 2°C 'minimum' finding without the paper's own result that unconstrained 2°C scenarios deploy negative emissions at similar cumulative scales to 1.5°C scenarios, so readers will think 2°C is a low-NETs case.",
+        "source_says": "2 °C scenarios without any additional constraints on the technology portfolio or policy timing deploy negative emissions at similar scales to 1.5 °C scenarios (320−840 GtCO 2 ), but scale-up is slower (0.03−0.4 GtCO 2 per year between 2030 and 2050) and 2050 deployment levels are lower (1−11 GtCO 2 ) for most scenarios.",
+        "locator": "Paragraph beginning 'These scenarios are typically characterized by large amounts of gross negative emissions across the 21st century', after the sentence on limiting dependence for 2 °C scenarios",
+        "could_not_find": "",
+        "severity": "SERIOUS",
+        "changes_conclusion": "NARROWS",
+        "why": "The 'kept to a minimum' wording is in the abstract, but the body says this holds only when the technology portfolio or policy timing is constrained. Unconstrained 2°C scenarios still rely on NETs at 1.5°C-like cumulative scales. Without that, the page's contrast between 1.5°C dependency and 2°C 'minimum' is overstated.",
+        "source_says_first": "\"2 °C scenarios without any additional constraints on the technology portfolio or policy timing deploy negative emissions at similar scales to 1.5 °C scenarios (320−840 GtCO_2), but scale-up is slower (0.03−0.4 GtCO_2 per year between 2030 and 2050) and 2050 deployment levels are lower (1−11 GtCO_2) for most scenarios.\" The paper also says \"large NETs deployment observed in many 1.5 °C and 2 °C mitigation scenarios\" (Abstract, finding 3).",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "That review judges it unlikely that a single removal technology could sustainably meet the uptake rates in 1.5°C pathways [4, 5].",
+        "objection": "The paper's finding covers the large NETs deployment seen in 'many 1.5 °C and 2 °C mitigation scenarios', not 1.5°C pathways alone.",
+        "source_says": "\"Third, any single NET is unlikely to sustainably achieve the large NETs deployment observed in many 1.5 °C and 2 °C mitigation scenarios.\"",
+        "locator": "Abstract, finding 3",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Limiting the finding to 1.5°C, next to the 'minimum for 2°C' sentence, suggests that 2°C scenarios avoid the single-technology problem. The paper says they do not.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Large-scale deployment is expected to bring manifold problems, including the albedo-dampening effects of temperate and boreal afforestation and biodiversity changes from land-use shifts and bioenergy production [4].",
+        "objection": "The page lists only the side-effect problems and omits the paper's finding that sustainable potentials were identified for every NET except ocean fertilization, which bears on whether deployment is feasible.",
+        "source_says": "\"Second, accounting for economic and biophysical limits, we identify relevant potentials for all NETs except ocean fertilization.\"",
+        "locator": "Abstract, finding 2; Table 3 (potentials, costs, side effects by NET)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The paper pairs the side-effects warning with quantified sustainable potentials. The potentials appear to be what makes the 'portfolio of modest-scale methods' finding workable, so the page reads as more negative than the source.",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 1
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "The sources also record a gap between the removal levels in modelled pathways and actual deployment and national plans [3, 4].",
+        "objection": "The paper's gap concerns the upscaling and rapid diffusion of NETs implied in scenarios versus progress in innovation and deployment. It does not compare removal levels with national plans.",
+        "source_says": "Fourth, a substantial gap exists between the upscaling and rapid diffusion of NETs implied in scenarios and progress in actual innovation and deployment.",
+        "locator": "First paragraph (abstract), describing the six major findings",
+        "could_not_find": "I searched the abstract and synthesis sections. I did not find a comparison of modelled removal levels with national plans or NDCs.",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's wording moves the gap from the pace of innovation and upscaling to national plans, which the paper does not quantify. The overall point that a gap exists stands.",
+        "source_says_first": "\"Fourth, a substantial gap exists between the upscaling and rapid diffusion of NETs implied in scenarios and progress in actual innovation and deployment.\" It adds that \"the resulting urgency of implementation is currently neither reflected in science nor policy\" and that \"NETs face severe barriers to implementation and are only weakly incentivized so far.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  },
+  {
+    "source": "S005",
+    "title": "Negative emissions—Part 2: Costs, potentials and side effects",
+    "mode": "objections",
+    "state": "full_text_held",
+    "principal": "the authors of Negative emissions—Part 2: Costs, potentials and side effects",
+    "objections": [
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "After that, those pathways show a sustained period of net negative emissions of 1.3–29 GtCO2 per year during the second half of the century.",
+        "objection": "The page gives 1.3–29 GtCO2/yr as a general net-negative figure, but my footnote 17 says the figure counts only gross BECCS removal.",
+        "source_says": "Please note that this analysis only considers gross negative emissions from BECCS as those from AR are not available in the datasets.",
+        "locator": "Footnote 17, attached to 'annual net negative emissions17 ranging between 1.3– 29 GtCO2 yr−1 during the second half of the century'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The range omits afforestation and reforestation removal, so it is a BECCS-only figure. The page's wording and the paper's own wording both blur this, so a correction is a courtesy and not a requirement.",
+        "source_says_first": "Footnote 17 to the sentence reporting the 1.3–29 GtCO2/yr range: \"only considers gross negative emissions from BECCS as those from AR are not available in the datasets.\" The main text states the range itself as: \"annual net negative emissions ranging between 1.3–29 GtCO2 yr−1 during the second half of the century.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "The review's policy conclusion is that strategies should aim to limit warming to below 2°C with the least possible assumed dependence on these technologies [5].",
+        "objection": "The page leaves out the sentence that qualifies this recommendation: the same section says the 1.5°C goal makes NETs indispensable in the available scenarios, so the recommendation is not a verdict against NETs at 1.5°C.",
+        "source_says": "further delay of action or the tighter 1.5 ◦ C climate goal renders NETs indispensable in the currently available scenarios.",
+        "locator": "Early section on the role of NETs in scenarios (the passage following 'some scenarios show that with immediate strengthening of climate policies it is still possible to limit warming to below 2 ◦ C without NETs')",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "Read alone, the page's sentence suggests the review prefers 2°C over 1.5°C. The review says the 2°C route can limit NET dependence, while 1.5°C cannot do without NETs. Its recommendation is to minimise assumed dependence, not to rule NETs out.",
+        "source_says_first": "\"further delay of action or the tighter 1.5 °C climate goal renders NETs indispensable in the currently available scenarios.\" The section also says that right-sizing negative emissions \"would require rapid and sustained emission reductions in the short-term.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Until they are demonstrably available at global scale, it says there should be no delay in a global peak and decline of CO2 emissions [5].",
+        "objection": "The page quotes the 'no delay' half of the sentence and drops the other half, which says NETs should be further researched.",
+        "source_says": "Simultaneously, NETs should be further researched, but until they are demonstrably available at the global scale there should be no delay in a global peak and decline of CO2 emissions.",
+        "locator": "Final conclusions paragraph beginning 'The direct policy implications of this NETs review are thus that...'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The review's position pairs caution about dependence with continued research and development. Leaving that out makes the review read as more sceptical of NETs than it is.",
+        "source_says_first": "\"NETs should be further researched\" — the 'no delay' condition appears in the same sentence: \"until they are demonstrably available at the global scale there should be no delay in a global peak and decline of CO2 emissions.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "Whether bioenergy with carbon capture and storage (BECCS) actually removes CO2 from the atmosphere depends on the total emissions of its supply chain [1, 5].",
+        "objection": "The page raises the doubt but omits my quantification: even in optimistic feedstock cases, supply-chain land-use emissions cost 10–30% of the abatement, which is a penalty and not a loss of net removal.",
+        "source_says": "lifecycle emissions related to direct or indirect land use pose a 10%–30% efficiency penalty on carbon abatement, and hence on costs of negative emissions, even in the optimistic cases where biomass is derived from cellulosic sources or dedicated bioenergy crops.",
+        "locator": "Cost discussion of BECCS, paragraph beginning 'Low cost estimates typically start with a coal-CCS configuration'",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NONE",
+        "why": "The page's sentence is correct as written. A reader could take 'whether it actually removes CO2' to mean net removal is in doubt, when my estimate puts the effect at a 10–30% penalty in the optimistic cases.",
+        "source_says_first": "\"life-cycle emissions related to direct or indirect land use pose a 10%–30% efficiency penalty on carbon abatement\" — and this applies \"even in the optimistic cases where biomass is derived from cellulosic sources or dedicated bioenergy crops.\" The same section says BECCS \"has the potential for net carbon dioxide (CO2) removal from the atmosphere.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "LEAVES_OUT",
+        "claim_quoted": "It shares a widespread concern that reaching 10–20 GtCO2 per year via BECCS at the end of the century, as in many scenarios, is not possible without severe adverse side effects [5].",
+        "objection": "The page leaves out my finding that these side effects depend on implementation and scale, and that moving some deployment from BECCS to other NETs reduces them.",
+        "source_says": "Exceptions such as in (Strefler et al 2018a) confirm that adding other NETs (in this case terrestrial enhanced weathering) to BECCS can substantially reduce side effects (in this case reduce the land footprint, while still reaching considerable negative emissions potentials).",
+        "locator": "Section 4 (Synthesis), paragraph on NET portfolios",
+        "could_not_find": "The extracted text of the portfolio passage is garbled in the copy I could retrieve. I am relying on the fragment quoted above and have not verified the full sentence.",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "The concern applies to a BECCS-dominated route at 10–20 GtCO2/yr. It is not a finding that NET deployment as such has severe side effects. My own answer to that concern is a portfolio with limited BECCS.",
+        "source_says_first": "Moving from BECCS-heavy deployment to a mix with another NET \"can substantially reduce side effects\" — the case discussed is terrestrial enhanced weathering, which reduces the land footprint while still reaching considerable negative emissions potentials. The Figure 14 caption adds that \"risks of negative side effects are often contingent on implementation.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      },
+      {
+        "type": "MISSTATES",
+        "claim_quoted": "Reviews caution that no single method is likely to meet the largest modelled demands sustainably [4, 5].",
+        "objection": "My conclusion is about the carbon-uptake rates in 1.5°C-consistent pathways generally, and my scenario section puts those at 5–15 GtCO2/yr by 2050 in most scenarios. It is not limited to the 'largest' modelled demands.",
+        "source_says": "It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 ◦ C of global warming.",
+        "locator": "Abstract (opening sentence of the document text)",
+        "could_not_find": "",
+        "severity": "MINOR",
+        "changes_conclusion": "NARROWS",
+        "why": "'The largest modelled demands' makes my claim look like it concerns only extreme scenarios. It concerns the typical 1.5°C pathway, so the page understates it.",
+        "source_says_first": "\"It is unlikely that a single NET will be able to sustainably meet the rates of carbon uptake described in integrated assessment pathways consistent with 1.5 degrees C of global warming.\" Section 2.1 adds: \"By 2050 NETs deployment is already between 5 GtCO2 yr−1 and 15 GtCO2 yr−1 in most scenarios.\"",
+        "quotation_check": {
+          "in_held_text": true,
+          "asked": 2
+        }
+      }
+    ]
+  }
+]

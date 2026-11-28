@@ -1,0 +1,340 @@
+{
+ "omissions": [
+  {
+   "key": "S001@121066-121409",
+   "source": "S001",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    121066,
+    121409
+   ],
+   "quote_sha256": "4db655245051eda9317f10d062a53e1c3a8eda8b36c09e64005f086148ec25f9",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears directly on the question of what part removal plays alongside cutting emissions. It also falls within SCOPE's 'how much removal modelled net-zero and 1.5°C/2°C pathways require' and 'achieving net-negative emissions after overshoot', and nothing in the out-of-scope list excludes it. Step 2: The draft already says that overshoot raises CDR needs (B.7) and that efficient pathways rely less on CDR. It does not say that faster cuts to CO2 and methane reduce the net-negative CO2 requirement and the large-scale CDR risks that come with it. That is the cut-versus-remove trade-off the reader must decide, so it qualifies the answer and is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "9e8112341516835d",
+   "origins": [
+    "S001-05"
+   ],
+   "on_page": "f8b314f57a959e86",
+   "after": "71308335b68780ad",
+   "decided_at": "2026-11-27T22:58:40+00:00"
+  },
+  {
+   "key": "S001@380964-381243",
+   "source": "S001",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    380964,
+    381243
+   ],
+   "quote_sha256": "c08f70fea49e244214506d9bc92f2986e48993f75d8f3e2c10b42e54d8d6c21c",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding bears on how much removal pathways require, which the question and scope ('how much removal modelled net-zero and 1.5°C/2°C pathways require') cover. Step 2: It links faster near-term cuts, especially in methane, directly to needing less CDR. That speaks to the reader's choice between cutting emissions and relying on removal. The draft already notes that overshoot needs more CDR and that resource-efficient pathways rely less on it, but it never states this direct link, including the role of methane.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "8274dafc71228c57",
+   "origins": [
+    "S001-03"
+   ],
+   "on_page": "06dfd0d64b9f9ae2",
+   "after": "3c6a324ebc521ff3",
+   "decided_at": "2026-11-27T22:58:46+00:00"
+  },
+  {
+   "key": "S001@381980-382194",
+   "source": "S001",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    381980,
+    382194
+   ],
+   "quote_sha256": "cc036b7993433dcf336475a0a6a4e48c14b33afb18631ba21da876da3a04c031",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The SCOPE covers removal methods and 'the stated constraints on scaling: cost, land, energy, storage permanence and monitoring', so the finding bears on the question. Step 2: The draft treats CDR as one undifferentiated element. It never says that methods differ in maturity, storage timescale, cost, risks and governance. That qualifies how far a target-setter can rely on removal, because it depends on which method is used. ALREADY touches only BECCS supply-chain emissions and the co-benefits of biological methods, not this general variation.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "65cdf5398de1d0d7",
+   "origins": [
+    "S001-02"
+   ],
+   "on_page": "0fdd9459d787fbc5",
+   "after": "6d7440a3c9800364",
+   "decided_at": "2026-11-27T22:58:51+00:00"
+  },
+  {
+   "key": "S001@382683-382926",
+   "source": "S001",
+   "held_sha256": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "at": [
+    382683,
+    382926
+   ],
+   "quote_sha256": "70e4f71634c2496053124bc390fa3b7608a0eead1ffb55285e0933cb628cadb0",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: SCOPE explicitly covers 'storage permanence' among the constraints on scaling, and the methods named include afforestation/reforestation, soil carbon and direct air capture with storage. Step 2: Nothing in ALREADY gives storage timescales; the draft says only that CDR 'durably' stores CO2. The finding qualifies that word. A reader deciding how much of a net-zero target to rest on removal, or judging whether pledges that rely on it are credible, would weigh that vegetation and soil storage lasts decades to centuries while geological storage lasts ten thousand years or more.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "49a7565de42b9484",
+   "origins": [
+    "S001-04"
+   ],
+   "on_page": "9fe0ded3391d22b4",
+   "after": "1fd129a779c6c427",
+   "decided_at": "2026-11-27T22:58:55+00:00"
+  },
+  {
+   "key": "S002@5607-5767",
+   "source": "S002",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    5607,
+    5767
+   ],
+   "quote_sha256": "265e070b6947fd5042d4383220a3ff4dbd955203466af2b504b434bab9a9df70",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: The finding gives DACCS's potential and the constraints on scaling it, cost and energy. The SCOPE names these directly: 'constraints on scaling: cost, land, energy'. Step 2: The draft says only that DACCS is novel and limited in scale. It gives no potential range, no cost per tonne and no energy constraint. A reader deciding how much of a target to rest on removal, or how much to buy now, would weigh these numbers. The sentence adds no confidence term because the source sentence carries none.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "a985581db8444d1b",
+   "origins": [
+    "S002-10"
+   ],
+   "on_page": "9f8eca086ec618a9",
+   "after": "547e3a093ddd1364",
+   "decided_at": "2026-11-27T22:59:01+00:00"
+  },
+  {
+   "key": "S002@82785-82960",
+   "source": "S002",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    82785,
+    82960
+   ],
+   "quote_sha256": "c795efcd0645be604492fd3c3e957b09603943b007b4de26c50fba03b03ec5f6",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding directly addresses what part removal can play 'alongside cutting emissions' in reaching net zero, so it is in scope. Step 2: the draft already lists CDR's complementary roles from [2]. But its only non-substitution statement comes from a different 2024 analysis [3], and that analysis says only that emissions cuts are the 'dominant source' of mitigation potential. The IPCC's categorical statement that [S002@82854-82916]' is stronger and more authoritative. It bears directly on the reader's choice between relying on removal and cutting their own emissions, so it is material.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "42854938000fe75e",
+   "origins": [
+    "S002-08"
+   ],
+   "on_page": "f444834aedd2c5ca",
+   "after": "18d73273148016c2",
+   "decided_at": "2026-11-27T22:59:08+00:00"
+  },
+  {
+   "key": "S002@83510-83594",
+   "source": "S002",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    83510,
+    83594
+   ],
+   "quote_sha256": "145cb307ae3fcadf5ea9a44f3a8244b6502f49d376a6bd93d8b73fcabb0e3e6e",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding concerns the roles CDR plays in reaching net zero over time, which is what the question asks ('what part can removing carbon dioxide... play... now and in the decades ahead'). Step 2: the draft presents the roles as shifting in sequence over time. The finding qualifies that: the roles can run in parallel. This matters to a reader deciding how much removal to fund now versus later. ALREADY lists the roles and the point that not all countries need to go net-negative, but it never says the roles can coexist.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "5ef359709cbfbf86",
+   "origins": [
+    "S002-09"
+   ],
+   "on_page": "4cf1f4c8ba40df4d",
+   "after": "82895f077b17bfd8",
+   "decided_at": "2026-11-27T22:59:14+00:00"
+  },
+  {
+   "key": "S002@83808-84117",
+   "source": "S002",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    83808,
+    84117
+   ],
+   "quote_sha256": "b3762cf6a4881144d124c3cfb3ba3b2c65d0444eacd484df5f11cca9702a512c",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1: the finding concerns CDR delivering net-negative emissions to address overshoot, which the SCOPE covers ('achieving net-negative emissions after overshoot'), so it is in scope. Step 2: the draft already states both parts of the finding from the same source: that global net-negative CO2 could address a potential overshoot by lowering atmospheric CO2, and that it [S002@83964-84035]. The finding adds nothing new for the reader.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "b5d49d3e3f9ae4bb",
+   "origins": [
+    "S002-12"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T22:59:43+00:00"
+  },
+  {
+   "key": "S002@89945-90102",
+   "source": "S002",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    89945,
+    90102
+   ],
+   "quote_sha256": "171f4cf7334e7b1e90608c47f80addeb8e1dbf16b2ae2636a77e29dcc278e708",
+   "outcome": "ADD",
+   "element": "",
+   "reason": "Step 1: the finding is about direct air capture with storage in modelled 1.5°C/2°C pathways, now and to 2100. SCOPE covers this directly ('how much removal modelled net-zero and 1.5°C/2°C pathways require', 'direct air capture with storage'). Step 2: the draft gives only the IEA's 0.6 Gt DACCS figure for 2050. It has nothing on the IPCC scenario medians. Those medians show DACCS is near zero by 2030 and 2050 and about 1 Gt by 2100, with very wide ranges. That narrows how much a target-setter can rely on direct air capture in the near and mid term, so it is material and not already stated.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "601fecfa7c5aea8a",
+   "origins": [
+    "S002-11"
+   ],
+   "on_page": "b851233394fa447f",
+   "after": "17c979f8d08d5280",
+   "decided_at": "2026-11-27T22:59:51+00:00"
+  },
+  {
+   "key": "S002@166672-166895",
+   "source": "S002",
+   "held_sha256": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "at": [
+    166672,
+    166895
+   ],
+   "quote_sha256": "9ff48c83957644bcc7cc005cca48d766457b1218facdbbe810a657752d2ff01a",
+   "outcome": "NOT_ADDED_OVER_BUDGET",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (lean: over the additions budget)",
+   "ruling": null,
+   "origins": [
+    "S002-07"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T22:59:58+00:00"
+  },
+  {
+   "key": "S004@11167-11295",
+   "source": "S004",
+   "held_sha256": "8d695c01b2ee9d7ec5e68de51840dd7162bafc3017cf2230ddfbb4e069362477",
+   "at": [
+    11167,
+    11295
+   ],
+   "quote_sha256": "69a41e56dfce9ac15cf055448e8bb45d8fd880ad9d846363c399de5d5ef78e6b",
+   "outcome": "NOT_ADDED_OVER_BUDGET",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (lean: over the additions budget)",
+   "ruling": null,
+   "origins": [
+    "S004-16"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T23:00:04+00:00"
+  },
+  {
+   "key": "S004@65772-66093",
+   "source": "S004",
+   "held_sha256": "8d695c01b2ee9d7ec5e68de51840dd7162bafc3017cf2230ddfbb4e069362477",
+   "at": [
+    65772,
+    66093
+   ],
+   "quote_sha256": "faef567307eb30055fdf4bc5846597345c26ae6197f6fe3c4c6ec69e1eee31e2",
+   "outcome": "NOT_ADDED_OVER_BUDGET",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (lean: over the additions budget)",
+   "ruling": null,
+   "origins": [
+    "S004-14"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T23:00:11+00:00"
+  },
+  {
+   "key": "S005@15655-15779",
+   "source": "S005",
+   "held_sha256": "6c51bdcc91957ed47bd3f02f9a3379e771113ecb425d8e16ed4c0869f595da0a",
+   "at": [
+    15655,
+    15779
+   ],
+   "quote_sha256": "117b5d73117dcc8f88a1d8c1c2dc99d1d2d0b9307c1c88bf6b9c1c1b3db98312",
+   "outcome": "NOT_ADDED_OVER_BUDGET",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (lean: over the additions budget)",
+   "ruling": null,
+   "origins": [
+    "S005-19"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T23:00:19+00:00"
+  },
+  {
+   "key": "S005@59533-59796",
+   "source": "S005",
+   "held_sha256": "6c51bdcc91957ed47bd3f02f9a3379e771113ecb425d8e16ed4c0869f595da0a",
+   "at": [
+    59533,
+    59796
+   ],
+   "quote_sha256": "2a2032452f0f0872679669b58f0f42b121bfdd27a40f460c467d3b28309dbd89",
+   "outcome": "NOT_ADDED_OVER_BUDGET",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (lean: over the additions budget)",
+   "ruling": null,
+   "origins": [
+    "S005-21"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T23:00:27+00:00"
+  },
+  {
+   "key": "S005@146960-147236",
+   "source": "S005",
+   "held_sha256": "6c51bdcc91957ed47bd3f02f9a3379e771113ecb425d8e16ed4c0869f595da0a",
+   "at": [
+    146960,
+    147236
+   ],
+   "quote_sha256": "98c687807e3add42e47bc3f1cebc84b8619d74590bd053ac1604fb39514bdc6b",
+   "outcome": "NOT_ADDED_OVER_BUDGET",
+   "element": "",
+   "reason": "over the ADD budget (8)",
+   "by": "code (lean: over the additions budget)",
+   "ruling": null,
+   "origins": [
+    "S005-22"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T23:00:35+00:00"
+  },
+  {
+   "key": "S005@168738-168922",
+   "source": "S005",
+   "held_sha256": "6c51bdcc91957ed47bd3f02f9a3379e771113ecb425d8e16ed4c0869f595da0a",
+   "at": [
+    168738,
+    168922
+   ],
+   "quote_sha256": "327b0b8f5753ca6c0fdac5f067d5f327490c7f84864efe0942e043ae6b6a8604",
+   "outcome": "NOT_MATERIAL",
+   "element": "",
+   "reason": "Step 1 holds: the finding is about how far to rely on removal versus cutting emissions now, which is central to the question's 'alongside cutting emissions' and 'now'. Step 2 fails: the draft already states that until these technologies are demonstrably available at [S005@168838-168921] [5]. The only part left out is the remark that NETs 'should be further researched'. That would not change the reader's decision on how much to rely on removal versus cutting emissions.",
+   "by": "ruling model claude-opus-5-5",
+   "ruling": "92aa7a49e10c5411",
+   "origins": [
+    "S005-20"
+   ],
+   "on_page": null,
+   "after": null,
+   "decided_at": "2026-11-27T23:01:04+00:00"
+  }
+ ]
+}

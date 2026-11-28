@@ -12,3 +12,13 @@
 | premise_reading (orchestrator) | 2026-11-27T22:38:19+00:00 | 2026-11-27T22:38:33+00:00 | $0.0437 | 0 | sources show verified; direction confirms; kill condition killed |
 | coverage (orchestrator) | 2026-11-27T22:38:33+00:00 | 2026-11-27T22:40:37+00:00 | $0.0000 | 0 | 0 coverage decision(s), 0 left in scope |
 | corrections_3b (orchestrator) | 2026-11-27T22:40:37+00:00 | 2026-11-27T22:42:16+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| commit_3b (orchestrator) | 2026-11-27T22:42:17+00:00 | 2026-11-27T22:44:20+00:00 | $0.0000 | 0 | committed 74686bfb35f1 |
+| gate (orchestrator) | 2026-11-27T22:44:20+00:00 | 2026-11-27T22:45:56+00:00 | $0.6406 | 0 | done |
+| advocate (orchestrator) | 2026-11-27T22:45:56+00:00 | 2026-11-27T22:56:11+00:00 | $1.9004 | 0 | 6 record(s) applied |
+| omissions (orchestrator) | 2026-11-27T22:56:11+00:00 | 2026-11-27T23:08:43+00:00 | $0.7906 | 0 | 9 record(s) applied |
+| findings (orchestrator) | 2026-11-27T23:08:43+00:00 | 2026-11-27T23:14:14+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| conclusions (orchestrator) | 2026-11-27T23:14:14+00:00 | 2026-11-27T23:19:51+00:00 | $0.0000 | 0 | 0 record(s) applied |
+| audit (orchestrator) | 2026-11-27T23:19:51+00:00 | 2026-11-27T23:32:54+00:00 | $0.8868 | 0 | 2 audit round(s) |
+| overstatement (orchestrator) | 2026-11-27T23:32:54+00:00 | 2026-11-27T23:48:27+00:00 | $0.1756 | 0 | 109 pair(s): 8 yes, 101 no |
+| corrections (orchestrator) | 2026-11-27T23:48:27+00:00 | 2026-11-27T23:53:28+00:00 | $0.0000 | 0 | 0 check(s): 0 removed, 0 re-bound |
+| final_gate (orchestrator) | 2026-11-27T23:53:28+00:00 | 2026-11-27T23:58:37+00:00 | $0.0000 | 0 | 0 record(s) applied |

@@ -1,0 +1,2872 @@
+{
+ "slug": "whu-lean-orch-t1-q1-04i",
+ "started": "2026-11-27T23:19:52+00:00",
+ "model": "claude-opus-5-5",
+ "read_prompt_sha256": "6ea2f39f88794f68d8fd81bfe41b329d5531e8c8fa41461013930bb19db04792",
+ "rule_prompt_sha256": "388a27cee450b3cd27c5dfc394cb63f39bfda40016ac6df96c67d1958d57ac11",
+ "summary_prompt_sha256": "1c7e7082472ee657c7014b4ce805ec62cf1ff16bd91cd0cf2548ca111764335a",
+ "licensed_sources_never_sent": [],
+ "cap_usd": 4.0,
+ "ledger_issue": "whu-lean-orch-t1-q1-04i",
+ "units": 147,
+ "limit": null,
+ "max_rounds": 3,
+ "second_share": 0.1,
+ "second_seed": 20261019,
+ "inputs": {
+  "held_texts": {
+   "S001": "ceefdbb1d98caac5129bbead899d1bd8ecc9ba06a151905cd3019d765268602a",
+   "S002": "6476125444175fd8993def909c1c4ebf2a46c80073a6eac8e9bc9aca3fb3db51",
+   "S003": "731ab0615a56d41fa068a1bd9910d1355163b13a8d4c96e256d9d7745c4449bd",
+   "S004": "8d695c01b2ee9d7ec5e68de51840dd7162bafc3017cf2230ddfbb4e069362477",
+   "S005": "6c51bdcc91957ed47bd3f02f9a3379e771113ecb425d8e16ed4c0869f595da0a"
+  },
+  "units_sha256": "4ee211f78aca954fd3b0d15a832e557119cca4e22adb07a4d5ca43c0fa8ac13e",
+  "page_sha256": "ef1684c06e7ce1cc387cd5177ea48212d11ada0a5d6a1f95b1c413206f9a9762",
+  "bindings_sha256": "6d34b8e57855c9ce2089b4d431ca0f0bf58640fb11c8f22e1145eb7d90797433"
+ },
+ "status": "complete",
+ "deliveries": [
+  {
+   "source": "S001",
+   "units": [
+    "u4",
+    "u5",
+    "u15",
+    "u16",
+    "u17",
+    "u18",
+    "u19",
+    "u20",
+    "u21",
+    "u22",
+    "u23",
+    "u24",
+    "u25",
+    "u26",
+    "u27",
+    "u28",
+    "u29",
+    "u30",
+    "u31",
+    "u32"
+   ],
+   "held_chars": 648756,
+   "delivered_chars": 104697,
+   "bound_spans": 21,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S001",
+   "units": [
+    "u33",
+    "u34",
+    "u35",
+    "u36",
+    "u38",
+    "u39",
+    "u42",
+    "u45",
+    "u46",
+    "u47",
+    "u48",
+    "u50",
+    "u56",
+    "u57",
+    "u97",
+    "u98",
+    "u100",
+    "u101",
+    "u102",
+    "u103"
+   ],
+   "held_chars": 648756,
+   "delivered_chars": 104697,
+   "bound_spans": 20,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S005",
+   "units": [
+    "u33",
+    "u34",
+    "u35",
+    "u36",
+    "u38",
+    "u39",
+    "u42",
+    "u45",
+    "u46",
+    "u47",
+    "u48",
+    "u50",
+    "u56",
+    "u57",
+    "u97",
+    "u98",
+    "u100",
+    "u101",
+    "u102",
+    "u103"
+   ],
+   "held_chars": 249738,
+   "delivered_chars": 3978,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S002",
+   "units": [
+    "u33",
+    "u34",
+    "u35",
+    "u36",
+    "u38",
+    "u39",
+    "u42",
+    "u45",
+    "u46",
+    "u47",
+    "u48",
+    "u50",
+    "u56",
+    "u57",
+    "u97",
+    "u98",
+    "u100",
+    "u101",
+    "u102",
+    "u103"
+   ],
+   "held_chars": 662671,
+   "delivered_chars": 3639,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S003",
+   "units": [
+    "u33",
+    "u34",
+    "u35",
+    "u36",
+    "u38",
+    "u39",
+    "u42",
+    "u45",
+    "u46",
+    "u47",
+    "u48",
+    "u50",
+    "u56",
+    "u57",
+    "u97",
+    "u98",
+    "u100",
+    "u101",
+    "u102",
+    "u103"
+   ],
+   "held_chars": 22996,
+   "delivered_chars": 1537,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S002",
+   "units": [
+    "u6",
+    "u7",
+    "u10",
+    "u11",
+    "u40",
+    "u41",
+    "u49",
+    "u51",
+    "u53",
+    "u54",
+    "u55",
+    "u58",
+    "u59",
+    "u65",
+    "u66",
+    "u73",
+    "u74",
+    "u75",
+    "u76",
+    "u90"
+   ],
+   "held_chars": 662671,
+   "delivered_chars": 45225,
+   "bound_spans": 20,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S001",
+   "units": [
+    "u6",
+    "u7",
+    "u10",
+    "u11",
+    "u40",
+    "u41",
+    "u49",
+    "u51",
+    "u53",
+    "u54",
+    "u55",
+    "u58",
+    "u59",
+    "u65",
+    "u66",
+    "u73",
+    "u74",
+    "u75",
+    "u76",
+    "u90"
+   ],
+   "held_chars": 648756,
+   "delivered_chars": 3776,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S002",
+   "units": [
+    "u91",
+    "u92",
+    "u99",
+    "u105",
+    "u107"
+   ],
+   "held_chars": 662671,
+   "delivered_chars": 45225,
+   "bound_spans": 5,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S003",
+   "units": [
+    "u91",
+    "u92",
+    "u99",
+    "u105",
+    "u107"
+   ],
+   "held_chars": 22996,
+   "delivered_chars": 4325,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S003",
+   "units": [
+    "u8",
+    "u93",
+    "u94",
+    "u95"
+   ],
+   "held_chars": 22996,
+   "delivered_chars": 9670,
+   "bound_spans": 4,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S004",
+   "units": [
+    "u12",
+    "u43",
+    "u68",
+    "u69",
+    "u70",
+    "u71",
+    "u80",
+    "u83",
+    "u84",
+    "u86",
+    "u106"
+   ],
+   "held_chars": 111475,
+   "delivered_chars": 29085,
+   "bound_spans": 11,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S003",
+   "units": [
+    "u12",
+    "u43",
+    "u68",
+    "u69",
+    "u70",
+    "u71",
+    "u80",
+    "u83",
+    "u84",
+    "u86",
+    "u106"
+   ],
+   "held_chars": 22996,
+   "delivered_chars": 4381,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S005",
+   "units": [
+    "u12",
+    "u43",
+    "u68",
+    "u69",
+    "u70",
+    "u71",
+    "u80",
+    "u83",
+    "u84",
+    "u86",
+    "u106"
+   ],
+   "held_chars": 249738,
+   "delivered_chars": 6871,
+   "bound_spans": 2,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S005",
+   "units": [
+    "u60",
+    "u61",
+    "u62",
+    "u63",
+    "u64",
+    "u77",
+    "u78",
+    "u79",
+    "u81",
+    "u85",
+    "u87",
+    "u88"
+   ],
+   "held_chars": 249738,
+   "delivered_chars": 30419,
+   "bound_spans": 13,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S004",
+   "units": [
+    "u60",
+    "u61",
+    "u62",
+    "u63",
+    "u64",
+    "u77",
+    "u78",
+    "u79",
+    "u81",
+    "u85",
+    "u87",
+    "u88"
+   ],
+   "held_chars": 111475,
+   "delivered_chars": 4095,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "read"
+  },
+  {
+   "source": "S001",
+   "units": [
+    "u18",
+    "u30",
+    "u5",
+    "u47"
+   ],
+   "held_chars": 648756,
+   "delivered_chars": 14740,
+   "bound_spans": 4,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "second-read"
+  },
+  {
+   "source": "S002",
+   "units": [
+    "u40"
+   ],
+   "held_chars": 662671,
+   "delivered_chars": 3974,
+   "bound_spans": 1,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "second-read"
+  },
+  {
+   "source": "S003",
+   "units": [
+    "u95",
+    "u94"
+   ],
+   "held_chars": 22996,
+   "delivered_chars": 6200,
+   "bound_spans": 2,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "second-read"
+  },
+  {
+   "source": "S005",
+   "units": [
+    "u78",
+    "u63"
+   ],
+   "held_chars": 249738,
+   "delivered_chars": 8419,
+   "bound_spans": 2,
+   "spans_inside": true,
+   "missing_spans": [],
+   "role": "second-read"
+  }
+ ],
+ "splits": [],
+ "lean_config": {
+  "models": {
+   "audit_first": "claude-sonnet-5-5",
+   "audit_escalate": "claude-opus-5-5",
+   "audit_rule": "claude-opus-5-5",
+   "audit_second": "claude-opus-5-5"
+  },
+  "k": 4,
+  "min_score": 2.0,
+  "min_terms": 2,
+  "passage_chars": 900
+ },
+ "unit_list": [
+  [
+   "u1",
+   "page",
+   "ed65b5dde19f2e09"
+  ],
+  [
+   "u2",
+   "page",
+   "d12fb64f6f69ca06"
+  ],
+  [
+   "u3",
+   "page",
+   "2bca89dcaa0d546c"
+  ],
+  [
+   "u4",
+   "page",
+   "6d7440a3c9800364"
+  ],
+  [
+   "u5",
+   "page",
+   "0fdd9459d787fbc5"
+  ],
+  [
+   "u6",
+   "page",
+   "18d73273148016c2"
+  ],
+  [
+   "u7",
+   "page",
+   "f444834aedd2c5ca"
+  ],
+  [
+   "u8",
+   "page",
+   "d26d8181745dd207"
+  ],
+  [
+   "u9",
+   "page",
+   "a97c9306cd3357ab"
+  ],
+  [
+   "u10",
+   "page",
+   "82895f077b17bfd8"
+  ],
+  [
+   "u11",
+   "page",
+   "4cf1f4c8ba40df4d"
+  ],
+  [
+   "u12",
+   "page",
+   "730f308728b31161"
+  ],
+  [
+   "u13",
+   "page",
+   "ce09927fdaf0e6fd"
+  ],
+  [
+   "u14",
+   "page",
+   "d124248986f9a740"
+  ],
+  [
+   "u15",
+   "page",
+   "df2f61ad9b2d512b"
+  ],
+  [
+   "u16",
+   "page",
+   "c54fc5060f1209fe"
+  ],
+  [
+   "u17",
+   "page",
+   "1d44ff703d0218dd"
+  ],
+  [
+   "u18",
+   "page",
+   "e346d01fb9a85b13"
+  ],
+  [
+   "u19",
+   "page",
+   "d62af1c2b7b7687b"
+  ],
+  [
+   "u20",
+   "page",
+   "87e5a17d22961622"
+  ],
+  [
+   "u21",
+   "page",
+   "9c2f6a696bc5de02"
+  ],
+  [
+   "u22",
+   "page",
+   "79138cd19ec21a23"
+  ],
+  [
+   "u23",
+   "page",
+   "388778aee8a4aaff"
+  ],
+  [
+   "u24",
+   "page",
+   "e8eb7149d06b497f"
+  ],
+  [
+   "u25",
+   "page",
+   "64a68e5b0c906957"
+  ],
+  [
+   "u26",
+   "page",
+   "29e18ec3ceadeff8"
+  ],
+  [
+   "u27",
+   "page",
+   "d59da806fb86f0de"
+  ],
+  [
+   "u28",
+   "page",
+   "f191beb1a69a9979"
+  ],
+  [
+   "u29",
+   "page",
+   "a13d87d8f79671eb"
+  ],
+  [
+   "u30",
+   "page",
+   "7de9f73f0036799a"
+  ],
+  [
+   "u31",
+   "page",
+   "e730b4dd125ee47d"
+  ],
+  [
+   "u32",
+   "page",
+   "c957ffcdc4051418"
+  ],
+  [
+   "u33",
+   "page",
+   "4be441267da2d8ab"
+  ],
+  [
+   "u34",
+   "page",
+   "6780a3ae20d93f59"
+  ],
+  [
+   "u35",
+   "page",
+   "aeaea2f128335ba4"
+  ],
+  [
+   "u36",
+   "page",
+   "6e2b321a9d9f79e3"
+  ],
+  [
+   "u37",
+   "page",
+   "c251e03ac082c9e3"
+  ],
+  [
+   "u38",
+   "page",
+   "1fd129a779c6c427"
+  ],
+  [
+   "u39",
+   "page",
+   "9fe0ded3391d22b4"
+  ],
+  [
+   "u40",
+   "page",
+   "ef15ee02d0fcea15"
+  ],
+  [
+   "u41",
+   "page",
+   "087f26586e4b8be4"
+  ],
+  [
+   "u42",
+   "page",
+   "58ac0e8ce3ca9233"
+  ],
+  [
+   "u43",
+   "page",
+   "e4c3f9e8b0c16db8"
+  ],
+  [
+   "u44",
+   "page",
+   "53c2aafd4b6071d2"
+  ],
+  [
+   "u45",
+   "page",
+   "f19ff456eb0649f0"
+  ],
+  [
+   "u46",
+   "page",
+   "71308335b68780ad"
+  ],
+  [
+   "u47",
+   "page",
+   "f8b314f57a959e86"
+  ],
+  [
+   "u48",
+   "page",
+   "f8a0ff6dbbe748b3"
+  ],
+  [
+   "u49",
+   "page",
+   "6e6d5752424ff307"
+  ],
+  [
+   "u50",
+   "page",
+   "14df0899d0175130"
+  ],
+  [
+   "u51",
+   "page",
+   "635faee472c12a69"
+  ],
+  [
+   "u52",
+   "page",
+   "c41c92850a2d440c"
+  ],
+  [
+   "u53",
+   "page",
+   "23de5bd319d949cc"
+  ],
+  [
+   "u54",
+   "page",
+   "fa84bbda265e106c"
+  ],
+  [
+   "u55",
+   "page",
+   "b1f56ba3e839fa80"
+  ],
+  [
+   "u56",
+   "page",
+   "97b3b7443e1b23b3"
+  ],
+  [
+   "u57",
+   "page",
+   "392d2a57a3b90d96"
+  ],
+  [
+   "u58",
+   "page",
+   "a215d3521fefb367"
+  ],
+  [
+   "u59",
+   "page",
+   "5d9b30cf753a2b18"
+  ],
+  [
+   "u60",
+   "page",
+   "84ce992ae31c50ef"
+  ],
+  [
+   "u61",
+   "page",
+   "46dc6e434057206f"
+  ],
+  [
+   "u62",
+   "page",
+   "ba81f50522706ba6"
+  ],
+  [
+   "u63",
+   "page",
+   "a56d9ee3f67f44ab"
+  ],
+  [
+   "u64",
+   "page",
+   "ddaa9f7d1def255f"
+  ],
+  [
+   "u65",
+   "page",
+   "17c979f8d08d5280"
+  ],
+  [
+   "u66",
+   "page",
+   "b851233394fa447f"
+  ],
+  [
+   "u67",
+   "page",
+   "5620c4ba13284824"
+  ],
+  [
+   "u68",
+   "page",
+   "8e78c04fbcec4f99"
+  ],
+  [
+   "u69",
+   "page",
+   "73c9142f3a0a258d"
+  ],
+  [
+   "u70",
+   "page",
+   "097f4d6fe8d56ccd"
+  ],
+  [
+   "u71",
+   "page",
+   "a5850f6c30239eae"
+  ],
+  [
+   "u72",
+   "page",
+   "6b4d6f34ac892de1"
+  ],
+  [
+   "u73",
+   "page",
+   "338161d272a608d2"
+  ],
+  [
+   "u74",
+   "page",
+   "547e3a093ddd1364"
+  ],
+  [
+   "u75",
+   "page",
+   "9f8eca086ec618a9"
+  ],
+  [
+   "u76",
+   "page",
+   "c4cfb19f8355bedf"
+  ],
+  [
+   "u77",
+   "page",
+   "4683778034b454c1"
+  ],
+  [
+   "u78",
+   "page",
+   "c60e0d94ed1b1426"
+  ],
+  [
+   "u79",
+   "page",
+   "fd1309e7eba19aac"
+  ],
+  [
+   "u80",
+   "page",
+   "bb511dafb226acd1"
+  ],
+  [
+   "u81",
+   "page",
+   "b44eae8728cad894"
+  ],
+  [
+   "u82",
+   "page",
+   "545cd14c8b748412"
+  ],
+  [
+   "u83",
+   "page",
+   "1c59fa480d6ccf90"
+  ],
+  [
+   "u84",
+   "page",
+   "2a28651cd074cce3"
+  ],
+  [
+   "u85",
+   "page",
+   "3468c10749ff9d22"
+  ],
+  [
+   "u86",
+   "page",
+   "23ecf67ef4c76e19"
+  ],
+  [
+   "u87",
+   "page",
+   "4ca744ed35515666"
+  ],
+  [
+   "u88",
+   "page",
+   "3c01c29a27a2eeb8"
+  ],
+  [
+   "u89",
+   "page",
+   "f0422f5ef4aa4c95"
+  ],
+  [
+   "u90",
+   "page",
+   "4c8899b2e823ba7b"
+  ],
+  [
+   "u91",
+   "page",
+   "15950c11e4b3f634"
+  ],
+  [
+   "u92",
+   "page",
+   "d385c321d6d4e41e"
+  ],
+  [
+   "u93",
+   "page",
+   "81730257063d9845"
+  ],
+  [
+   "u94",
+   "page",
+   "6f6aa91a10f2c453"
+  ],
+  [
+   "u95",
+   "page",
+   "c4a1679454561ff7"
+  ],
+  [
+   "u96",
+   "page",
+   "5d4cccb8f291a5d5"
+  ],
+  [
+   "u97",
+   "page",
+   "3c6a324ebc521ff3"
+  ],
+  [
+   "u98",
+   "page",
+   "06dfd0d64b9f9ae2"
+  ],
+  [
+   "u99",
+   "page",
+   "1882ace177fab894"
+  ],
+  [
+   "u100",
+   "page",
+   "7b3f9ff628e6b284"
+  ],
+  [
+   "u101",
+   "page",
+   "f71ed968faa24430"
+  ],
+  [
+   "u102",
+   "page",
+   "a007621505b0c7d3"
+  ],
+  [
+   "u103",
+   "page",
+   "d49de60f78a91d86"
+  ],
+  [
+   "u104",
+   "page",
+   "f70534b9a4c9ced8"
+  ],
+  [
+   "u105",
+   "page",
+   "046a98983d2036ac"
+  ],
+  [
+   "u106",
+   "page",
+   "aa7fc462656fee1c"
+  ],
+  [
+   "u107",
+   "page",
+   "7a3357fe4c4c8048"
+  ],
+  [
+   "u108",
+   "page",
+   "b6adee307e82ffcd"
+  ],
+  [
+   "u109",
+   "page",
+   "bb1d6dca06204ac1"
+  ],
+  [
+   "u110",
+   "page",
+   "c3c3065765f4d559"
+  ],
+  [
+   "u111",
+   "page",
+   "fb41e6f95c9e9889"
+  ],
+  [
+   "u112",
+   "page",
+   "25959b8a867e351d"
+  ],
+  [
+   "u113",
+   "page",
+   "26acf38d3e595f94"
+  ],
+  [
+   "u114",
+   "page",
+   "b83042a3a548f9b7"
+  ],
+  [
+   "u115",
+   "page",
+   "a89cdf629266397f"
+  ],
+  [
+   "u116",
+   "page",
+   "3318a3f4a7384b1b"
+  ],
+  [
+   "u117",
+   "page",
+   "e4c0dba4177b73a1"
+  ],
+  [
+   "u118",
+   "page",
+   "5ce24aeeb60f6a82"
+  ],
+  [
+   "u119",
+   "page",
+   "3f5498f4e7c18030"
+  ],
+  [
+   "u120",
+   "page",
+   "691cfa6fdebc4086"
+  ],
+  [
+   "u121",
+   "page",
+   "e286bc124d89eb39"
+  ],
+  [
+   "u122",
+   "page",
+   "14e77c10f5b71f9f"
+  ],
+  [
+   "u123",
+   "page",
+   "da17f54056a1ac4b"
+  ],
+  [
+   "u124",
+   "page",
+   "8381969d8464b06f"
+  ],
+  [
+   "u125",
+   "page",
+   "9e8bc748ec1566f8"
+  ],
+  [
+   "u126",
+   "page",
+   "b649a05445984c56"
+  ],
+  [
+   "u127",
+   "page",
+   "ce751528b1752a64"
+  ],
+  [
+   "u128",
+   "page",
+   "5cae4ba09c3938ba"
+  ],
+  [
+   "u129",
+   "page",
+   "0d607d5108b1ffd0"
+  ],
+  [
+   "u130",
+   "page",
+   "930816ed71bc636c"
+  ],
+  [
+   "u131",
+   "page",
+   "33f1470289492b79"
+  ],
+  [
+   "u132",
+   "page",
+   "a603f62572520614"
+  ],
+  [
+   "u133",
+   "page",
+   "cbe34f618fc22565"
+  ],
+  [
+   "u134",
+   "page",
+   "caf85b0888d78f1f"
+  ],
+  [
+   "u135",
+   "page",
+   "4a0fbf7e299196e1"
+  ],
+  [
+   "u136",
+   "page",
+   "3ae45acf689254a7"
+  ],
+  [
+   "u137",
+   "page",
+   "89c7c7b9cd0434f0"
+  ],
+  [
+   "u138",
+   "page",
+   "e5a1c80ff6c26a8f"
+  ],
+  [
+   "u139",
+   "page",
+   "8aae8f849a1f5e97"
+  ],
+  [
+   "u140",
+   "page",
+   "c73c05bf136419f8"
+  ],
+  [
+   "u141",
+   "page",
+   "ef948682d6d0e1c2"
+  ],
+  [
+   "u142",
+   "page",
+   "c8ca9b85eff2c26d"
+  ],
+  [
+   "u143",
+   "page",
+   "c0612886741e2921"
+  ],
+  [
+   "u144",
+   "page",
+   "c6b764e00fa12399"
+  ],
+  [
+   "u145",
+   "page",
+   "f1c9af54fa99f39f"
+  ],
+  [
+   "u146",
+   "page",
+   "34b744808bd7ca78"
+  ],
+  [
+   "u147",
+   "page",
+   "48fc236b146f4f98"
+  ]
+ ],
+ "reaudit": {
+  "mode": "full",
+  "read": [
+   "u1",
+   "u2",
+   "u3",
+   "u4",
+   "u5",
+   "u6",
+   "u7",
+   "u8",
+   "u9",
+   "u10",
+   "u11",
+   "u12",
+   "u13",
+   "u14",
+   "u15",
+   "u16",
+   "u17",
+   "u18",
+   "u19",
+   "u20",
+   "u21",
+   "u22",
+   "u23",
+   "u24",
+   "u25",
+   "u26",
+   "u27",
+   "u28",
+   "u29",
+   "u30",
+   "u31",
+   "u32",
+   "u33",
+   "u34",
+   "u35",
+   "u36",
+   "u37",
+   "u38",
+   "u39",
+   "u40",
+   "u41",
+   "u42",
+   "u43",
+   "u44",
+   "u45",
+   "u46",
+   "u47",
+   "u48",
+   "u49",
+   "u50",
+   "u51",
+   "u52",
+   "u53",
+   "u54",
+   "u55",
+   "u56",
+   "u57",
+   "u58",
+   "u59",
+   "u60",
+   "u61",
+   "u62",
+   "u63",
+   "u64",
+   "u65",
+   "u66",
+   "u67",
+   "u68",
+   "u69",
+   "u70",
+   "u71",
+   "u72",
+   "u73",
+   "u74",
+   "u75",
+   "u76",
+   "u77",
+   "u78",
+   "u79",
+   "u80",
+   "u81",
+   "u82",
+   "u83",
+   "u84",
+   "u85",
+   "u86",
+   "u87",
+   "u88",
+   "u89",
+   "u90",
+   "u91",
+   "u92",
+   "u93",
+   "u94",
+   "u95",
+   "u96",
+   "u97",
+   "u98",
+   "u99",
+   "u100",
+   "u101",
+   "u102",
+   "u103",
+   "u104",
+   "u105",
+   "u106",
+   "u107",
+   "u108",
+   "u109",
+   "u110",
+   "u111",
+   "u112",
+   "u113",
+   "u114",
+   "u115",
+   "u116",
+   "u117",
+   "u118",
+   "u119",
+   "u120",
+   "u121",
+   "u122",
+   "u123",
+   "u124",
+   "u125",
+   "u126",
+   "u127",
+   "u128",
+   "u129",
+   "u130",
+   "u131",
+   "u132",
+   "u133",
+   "u134",
+   "u135",
+   "u136",
+   "u137",
+   "u138",
+   "u139",
+   "u140",
+   "u141",
+   "u142",
+   "u143",
+   "u144",
+   "u145",
+   "u146",
+   "u147"
+  ],
+  "why": "no prior complete audit run",
+  "carried": 0
+ },
+ "second_read": {
+  "read": 12,
+  "seed": 20261019,
+  "had_finding": 0,
+  "sampled": 12,
+  "holds_pool": 119,
+  "sampled_units": [
+   "u78",
+   "u44",
+   "u95",
+   "u18",
+   "u30",
+   "u63",
+   "u72",
+   "u40",
+   "u37",
+   "u94",
+   "u5",
+   "u47"
+  ]
+ },
+ "failed_read": [],
+ "finished": "2026-11-27T23:23:39+00:00",
+ "state": {
+  "d12fb64f6f69ca06": "holds_by_record_check",
+  "c3c3065765f4d559": "holds_by_record_check",
+  "fb41e6f95c9e9889": "holds_by_record_check",
+  "25959b8a867e351d": "holds_by_record_check",
+  "26acf38d3e595f94": "holds_by_record_check",
+  "b83042a3a548f9b7": "holds_by_record_check",
+  "a89cdf629266397f": "holds_by_record_check",
+  "3318a3f4a7384b1b": "holds_by_record_check",
+  "e4c0dba4177b73a1": "holds_by_record_check",
+  "5ce24aeeb60f6a82": "holds_by_record_check",
+  "3f5498f4e7c18030": "holds_by_record_check",
+  "691cfa6fdebc4086": "holds_by_record_check",
+  "e286bc124d89eb39": "holds_by_record_check",
+  "14e77c10f5b71f9f": "holds_by_record_check",
+  "da17f54056a1ac4b": "holds_by_record_check",
+  "8381969d8464b06f": "holds_by_record_check",
+  "9e8bc748ec1566f8": "holds_by_record_check",
+  "b649a05445984c56": "holds_by_record_check",
+  "ce751528b1752a64": "holds_by_record_check",
+  "5cae4ba09c3938ba": "holds_by_record_check",
+  "0d607d5108b1ffd0": "holds_by_record_check",
+  "930816ed71bc636c": "holds_by_record_check",
+  "33f1470289492b79": "holds_by_record_check",
+  "a603f62572520614": "holds_by_record_check",
+  "cbe34f618fc22565": "holds_by_record_check",
+  "6d7440a3c9800364": "holds",
+  "0fdd9459d787fbc5": "holds",
+  "df2f61ad9b2d512b": "holds",
+  "c54fc5060f1209fe": "holds",
+  "1d44ff703d0218dd": "holds",
+  "e346d01fb9a85b13": "holds",
+  "d62af1c2b7b7687b": "holds",
+  "87e5a17d22961622": "holds",
+  "9c2f6a696bc5de02": "holds",
+  "79138cd19ec21a23": "holds",
+  "388778aee8a4aaff": "holds",
+  "e8eb7149d06b497f": "holds",
+  "64a68e5b0c906957": "holds",
+  "29e18ec3ceadeff8": "holds",
+  "d59da806fb86f0de": "holds",
+  "f191beb1a69a9979": "holds",
+  "a13d87d8f79671eb": "holds",
+  "7de9f73f0036799a": "holds",
+  "e730b4dd125ee47d": "holds",
+  "c957ffcdc4051418": "holds",
+  "4be441267da2d8ab": "holds",
+  "6780a3ae20d93f59": "holds",
+  "aeaea2f128335ba4": "holds",
+  "6e2b321a9d9f79e3": "holds",
+  "1fd129a779c6c427": "holds",
+  "9fe0ded3391d22b4": "holds",
+  "58ac0e8ce3ca9233": "holds",
+  "f19ff456eb0649f0": "holds",
+  "71308335b68780ad": "holds",
+  "f8b314f57a959e86": "holds",
+  "f8a0ff6dbbe748b3": "holds",
+  "14df0899d0175130": "holds",
+  "97b3b7443e1b23b3": "holds",
+  "392d2a57a3b90d96": "holds",
+  "3c6a324ebc521ff3": "holds",
+  "06dfd0d64b9f9ae2": "holds",
+  "7b3f9ff628e6b284": "holds",
+  "f71ed968faa24430": "holds",
+  "a007621505b0c7d3": "holds",
+  "d49de60f78a91d86": "holds",
+  "18d73273148016c2": "holds",
+  "f444834aedd2c5ca": "holds",
+  "82895f077b17bfd8": "holds",
+  "4cf1f4c8ba40df4d": "holds",
+  "ef15ee02d0fcea15": "must_leave_page",
+  "087f26586e4b8be4": "holds",
+  "6e6d5752424ff307": "holds",
+  "635faee472c12a69": "holds",
+  "23de5bd319d949cc": "holds",
+  "fa84bbda265e106c": "holds",
+  "b1f56ba3e839fa80": "holds",
+  "a215d3521fefb367": "holds",
+  "5d9b30cf753a2b18": "holds",
+  "17c979f8d08d5280": "holds",
+  "b851233394fa447f": "holds",
+  "338161d272a608d2": "holds",
+  "547e3a093ddd1364": "holds",
+  "9f8eca086ec618a9": "holds",
+  "c4cfb19f8355bedf": "holds",
+  "4c8899b2e823ba7b": "holds",
+  "15950c11e4b3f634": "holds",
+  "d385c321d6d4e41e": "holds",
+  "1882ace177fab894": "holds",
+  "046a98983d2036ac": "holds",
+  "7a3357fe4c4c8048": "holds",
+  "d26d8181745dd207": "holds",
+  "81730257063d9845": "holds",
+  "6f6aa91a10f2c453": "holds",
+  "c4a1679454561ff7": "holds",
+  "730f308728b31161": "holds",
+  "e4c3f9e8b0c16db8": "holds",
+  "8e78c04fbcec4f99": "holds",
+  "73c9142f3a0a258d": "holds",
+  "097f4d6fe8d56ccd": "holds",
+  "a5850f6c30239eae": "holds",
+  "bb511dafb226acd1": "holds",
+  "1c59fa480d6ccf90": "holds",
+  "2a28651cd074cce3": "holds",
+  "23ecf67ef4c76e19": "holds",
+  "aa7fc462656fee1c": "holds",
+  "84ce992ae31c50ef": "holds",
+  "46dc6e434057206f": "holds",
+  "ba81f50522706ba6": "holds",
+  "a56d9ee3f67f44ab": "holds",
+  "ddaa9f7d1def255f": "holds",
+  "4683778034b454c1": "holds",
+  "c60e0d94ed1b1426": "holds",
+  "fd1309e7eba19aac": "holds",
+  "b44eae8728cad894": "holds",
+  "3468c10749ff9d22": "holds",
+  "4ca744ed35515666": "holds",
+  "3c01c29a27a2eeb8": "holds",
+  "ed65b5dde19f2e09": "not_a_correction",
+  "2bca89dcaa0d546c": "not_a_correction",
+  "a97c9306cd3357ab": "must_leave_page",
+  "ce09927fdaf0e6fd": "not_a_correction",
+  "d124248986f9a740": "not_a_correction",
+  "c251e03ac082c9e3": "not_a_correction",
+  "53c2aafd4b6071d2": "not_a_correction",
+  "c41c92850a2d440c": "not_a_correction",
+  "5620c4ba13284824": "not_a_correction",
+  "6b4d6f34ac892de1": "not_a_correction",
+  "545cd14c8b748412": "not_a_correction",
+  "f0422f5ef4aa4c95": "not_a_correction",
+  "5d4cccb8f291a5d5": "not_a_correction",
+  "f70534b9a4c9ced8": "must_leave_page",
+  "b6adee307e82ffcd": "must_leave_page",
+  "bb1d6dca06204ac1": "not_a_correction",
+  "caf85b0888d78f1f": "not_a_correction",
+  "4a0fbf7e299196e1": "not_a_correction",
+  "3ae45acf689254a7": "not_a_correction",
+  "89c7c7b9cd0434f0": "not_a_correction",
+  "e5a1c80ff6c26a8f": "not_a_correction",
+  "8aae8f849a1f5e97": "not_a_correction",
+  "c73c05bf136419f8": "not_a_correction",
+  "ef948682d6d0e1c2": "not_a_correction",
+  "c8ca9b85eff2c26d": "not_a_correction",
+  "c0612886741e2921": "not_a_correction",
+  "c6b764e00fa12399": "not_a_correction",
+  "f1c9af54fa99f39f": "not_a_correction",
+  "34b744808bd7ca78": "not_a_correction",
+  "48fc236b146f4f98": "not_a_correction"
+ },
+ "progress": {
+  "done": {
+   "u2": {
+    "id": "u2",
+    "sentence": "The question is: “Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?”",
+    "sha": "d12fb64f6f69ca06",
+    "status": "holds_by_record_check"
+   },
+   "u110": {
+    "id": "u110",
+    "sentence": "We hold the full text of Climate Change 2023: Synthesis Report (AR6 SYR) [1].",
+    "sha": "c3c3065765f4d559",
+    "status": "holds_by_record_check"
+   },
+   "u111": {
+    "id": "u111",
+    "sentence": "We searched the full text of Climate Change 2023: Synthesis Report (AR6 SYR) [1] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "fb41e6f95c9e9889",
+    "status": "holds_by_record_check"
+   },
+   "u112": {
+    "id": "u112",
+    "sentence": "We hold the full text of Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral P [2].",
+    "sha": "25959b8a867e351d",
+    "status": "holds_by_record_check"
+   },
+   "u113": {
+    "id": "u113",
+    "sentence": "We searched the full text of Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral P [2] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "26acf38d3e595f94",
+    "status": "holds_by_record_check"
+   },
+   "u114": {
+    "id": "u114",
+    "sentence": "We hold the full text of The carbon dioxide removal gap [3].",
+    "sha": "b83042a3a548f9b7",
+    "status": "holds_by_record_check"
+   },
+   "u115": {
+    "id": "u115",
+    "sentence": "We searched the full text of The carbon dioxide removal gap [3] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "a89cdf629266397f",
+    "status": "holds_by_record_check"
+   },
+   "u116": {
+    "id": "u116",
+    "sentence": "We hold the full text of Negative emissions—Part 1: Research landscape and synthesis [4].",
+    "sha": "3318a3f4a7384b1b",
+    "status": "holds_by_record_check"
+   },
+   "u117": {
+    "id": "u117",
+    "sentence": "We searched the full text of Negative emissions—Part 1: Research landscape and synthesis [4] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "e4c0dba4177b73a1",
+    "status": "holds_by_record_check"
+   },
+   "u118": {
+    "id": "u118",
+    "sentence": "We hold the full text of Negative emissions—Part 2: Costs, potentials and side effects [5].",
+    "sha": "5ce24aeeb60f6a82",
+    "status": "holds_by_record_check"
+   },
+   "u119": {
+    "id": "u119",
+    "sentence": "We searched the full text of Negative emissions—Part 2: Costs, potentials and side effects [5] and checked the passages relevant to each sentence; we did not read it in full.",
+    "sha": "3f5498f4e7c18030",
+    "status": "holds_by_record_check"
+   },
+   "u120": {
+    "id": "u120",
+    "sentence": "We found Negative Emissions Technologies and Reliable Sequestration: A Research Agenda but could not hold it, so nothing on this page draws on it.",
+    "sha": "691cfa6fdebc4086",
+    "status": "holds_by_record_check"
+   },
+   "u121": {
+    "id": "u121",
+    "sentence": "We searched: web search: carbon dioxide removal CDR net zero systematic review 2023 2024; web search: IPCC carbon dioxide removal net zero assessment report; web search: State of Carbon Dioxide Removal 3rd edition 2026 Smith stateofcdr.org; web search: IPCC AR6 WGIII chapter 12 carbon dioxide removal 2022; web search: Fuss CDR carbon dioxide removal review Nature Climate Change 2018; web search: Minx negative emissions technologies systematic review 2018 Environmental Research Letters; web search: Lamb CDR gap national plans carbon dioxide removal Nature Climate Change 2022 2023; web search: National Academies negative emissions technologies research agenda 2019; registry: Europe PMC; registry: PubMed; registry: Crossref.",
+    "sha": "e286bc124d89eb39",
+    "status": "holds_by_record_check"
+   },
+   "u122": {
+    "id": "u122",
+    "sentence": "We did not search: trial registries; Crossref; MEDLINE, Embase and CENTRAL directly; national guidelines.",
+    "sha": "14e77c10f5b71f9f",
+    "status": "holds_by_record_check"
+   },
+   "u123": {
+    "id": "u123",
+    "sentence": "Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (AR6 WGIII) has a newer edition.",
+    "sha": "da17f54056a1ac4b",
+    "status": "holds_by_record_check"
+   },
+   "u124": {
+    "id": "u124",
+    "sentence": "Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether The carbon dioxide removal gap has a newer edition.",
+    "sha": "8381969d8464b06f",
+    "status": "holds_by_record_check"
+   },
+   "u125": {
+    "id": "u125",
+    "sentence": "Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether Negative emissions—Part 1: Research landscape and synthesis has a newer edition.",
+    "sha": "9e8bc748ec1566f8",
+    "status": "holds_by_record_check"
+   },
+   "u126": {
+    "id": "u126",
+    "sentence": "Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether Negative emissions—Part 2: Costs, potentials and side effects has a newer edition.",
+    "sha": "b649a05445984c56",
+    "status": "holds_by_record_check"
+   },
+   "u127": {
+    "id": "u127",
+    "sentence": "Findings in our sources we judged outside this question",
+    "sha": "ce751528b1752a64",
+    "status": "holds_by_record_check"
+   },
+   "u128": {
+    "id": "u128",
+    "sentence": "Not added: “The government has committed to amend accounting of UK targets to include a wider range of removal methods beyond LULUCF, and set a target of …” (Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral P [2]) (over the additions budget).",
+    "sha": "5cae4ba09c3938ba",
+    "status": "holds_by_record_check"
+   },
+   "u129": {
+    "id": "u129",
+    "sentence": "Not added: “Second, accounting for economic and biophysical limits, we identify relevant potentials for all NETs except ocean fertilization.” (Negative emissions—Part 1: Research landscape and synthesis [4]) (over the additions budget).",
+    "sha": "0d607d5108b1ffd0",
+    "status": "holds_by_record_check"
+   },
+   "u130": {
+    "id": "u130",
+    "sentence": "Not added: “2 °C scenarios without any additional constraints on the technology portfolio or policy timing deploy negative emissions at similar scales to 1.5 °C scenarios (320−840 …” (Negative emissions—Part 1: Research landscape and synthesis [4]) (over the additions budget).",
+    "sha": "930816ed71bc636c",
+    "status": "holds_by_record_check"
+   },
+   "u131": {
+    "id": "u131",
+    "sentence": "Not added: “further delay of action or the tighter 1.5 ◦ C climate goal renders NETs indispensable in the currently available scenarios.” (Negative emissions—Part 2: Costs, potentials and side effects [5]) (over the additions budget).",
+    "sha": "33f1470289492b79",
+    "status": "holds_by_record_check"
+   },
+   "u132": {
+    "id": "u132",
+    "sentence": "Not added: “lifecycle emissions related to direct or indirect land use pose a 10%–30% efficiency penalty on carbon abatement, and hence on costs of negative emissions, even …” (Negative emissions—Part 2: Costs, potentials and side effects [5]) (over the additions budget).",
+    "sha": "a603f62572520614",
+    "status": "holds_by_record_check"
+   },
+   "u133": {
+    "id": "u133",
+    "sentence": "Not added: “Exceptions such as in (Strefler et al 2018a) confirm that adding other NETs (in this case terrestrial enhanced weathering) to BECCS can substantially reduce side …” (Negative emissions—Part 2: Costs, potentials and side effects [5]) (over the additions budget).",
+    "sha": "cbe34f618fc22565",
+    "status": "holds_by_record_check"
+   },
+   "u4": {
+    "id": "u4",
+    "sentence": "The IPCC assessment says that reaching net zero CO2 or net zero greenhouse gas emissions requires deep and rapid reductions in gross emissions, and that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable (high confidence) [1].",
+    "sha": "6d7440a3c9800364",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u5": {
+    "id": "u5",
+    "sentence": "The IPCC assessment also finds, with high confidence, that CDR methods vary in terms of their maturity, removal process, time scale of carbon storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements [1].",
+    "sha": "0fdd9459d787fbc5",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u15": {
+    "id": "u15",
+    "sentence": "Cumulative carbon emissions until net zero CO2 is reached, and the level of greenhouse gas emission reductions this decade, largely determine whether warming can be limited to 1.5°C or 2°C (high confidence) [1].",
+    "sha": "df2f61ad9b2d512b",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u16": {
+    "id": "u16",
+    "sentence": "Projected CO2 emissions from existing fossil fuel infrastructure without additional abatement would exceed the remaining carbon budget for 1.5°C (50%) (high confidence) [1].",
+    "sha": "c54fc5060f1209fe",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u17": {
+    "id": "u17",
+    "sentence": "Reaching net zero GHG emissions primarily requires deep reductions in CO2, methane and other GHG emissions [1].",
+    "sha": "1d44ff703d0218dd",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u18": {
+    "id": "u18",
+    "sentence": "Deep, rapid and sustained GHG emissions reductions, reaching net zero CO2 emissions and including strong reductions of other GHGs, in particular methane, are necessary to limit warming to 1.5°C (>50%) or less than 2°C (>67%) by the end of the century (high confidence) [1].",
+    "sha": "e346d01fb9a85b13",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u19": {
+    "id": "u19",
+    "sentence": "Modelled pathways reaching net zero include several elements: transitioning from fossil fuels without carbon capture and storage to very low- or zero-carbon energy sources, demand-side measures, improving efficiency, reducing non-CO2 emissions, and CDR [1].",
+    "sha": "d62af1c2b7b7687b",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u20": {
+    "id": "u20",
+    "sentence": "According to the IPCC, limiting human-caused global warming requires net zero CO2 emissions; cumulative carbon emissions until net zero is reached and the level of greenhouse gas emission reductions this decade largely determine whether warming can be limited to 1.5°C or 2°C (high confidence), and projected CO2 emissions from existing fossil fuel infrastructure without additional abatement would exceed the remaining carbon budget for 1.5°C (50%) (high confidence) [1].",
+    "sha": "87e5a17d22961622",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u21": {
+    "id": "u21",
+    "sentence": "According to the IPCC, limiting human-caused global warming to a specific level requires limiting cumulative CO2 emissions, reaching at least net zero CO2 emissions, and strongly reducing other greenhouse gas emissions; reaching net zero GHG emissions primarily requires deep reductions in CO2, methane, and other GHGs and implies net negative CO2 emissions, carbon dioxide removal will be necessary to achieve net negative CO2 emissions, and net zero GHG emissions, if sustained, are projected to result in a gradual decline in global surface temperatures after an earlier peak (high confidence) [1].",
+    "sha": "9c2f6a696bc5de02",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u22": {
+    "id": "u22",
+    "sentence": "According to the IPCC (AR6 Synthesis Report, B.5.3), if annual CO2 emissions between 2020–2030 stayed on average at 2019 levels, cumulative emissions would almost exhaust the remaining carbon budget for 1.5°C (50%) and deplete more than a third of the remaining carbon budget for 2°C (67%); estimates of future CO2 emissions from existing fossil fuel infrastructure without additional abatement already exceed the remaining carbon budget for limiting warming to 1.5°C (50%) (high confidence), and projected cumulative future CO2 emissions over the lifetime of existing and planned fossil fuel infrastructure, if historical operating patterns are maintained and without additional abatement, are approximately equal to the remaining carbon budget for limiting warming to 2°C with a likelihood of 83% (high confidence) [1].",
+    "sha": "79138cd19ec21a23",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u23": {
+    "id": "u23",
+    "sentence": "According to the IPCC (AR6 Synthesis Report, statement B.6), all global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, and those that limit warming to 2°C (>67%), involve rapid and deep and, in most cases, immediate greenhouse gas emissions reductions in all sectors this decade, with global net zero CO2 emissions reached for these pathway categories in the early 2050s and around the early 2070s, respectively (high confidence) [1].",
+    "sha": "388778aee8a4aaff",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u24": {
+    "id": "u24",
+    "sentence": "According to the IPCC AR6 Synthesis Report (B.6.1), global modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, or to 2°C (>67%), are characterized by deep, rapid, and in most cases immediate GHG emissions reductions, with the 1.5°C pathways reaching net zero CO2 in the early 2050s and net zero GHG emissions around the 2070s, the 2°C pathways reaching net zero CO2 in the early 2070s, and global GHG emissions projected to peak between 2020 and at the latest before 2025 in pathways that limit warming to 1.5°C (>50%) with no or limited overshoot and in those that limit warming to 2°C (>67%) and assume immediate action (high confidence) [1].",
+    "sha": "e8eb7149d06b497f",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u25": {
+    "id": "u25",
+    "sentence": "According to the IPCC, global modelled mitigation pathways reaching net zero CO2 and GHG emissions involve transitioning from fossil fuels without carbon capture and storage (CCS) to very low- or zero-carbon energy sources such as renewables or fossil fuels with CCS, along with demand-side measures, improved efficiency, reduced non-CO2 GHG emissions, and CDR, and in most of these pathways land-use change and forestry (via reforestation and reduced deforestation) and the energy supply sector reach net zero CO2 emissions earlier than the buildings, industry and transport sectors (high confidence) [1].",
+    "sha": "64a68e5b0c906957",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u26": {
+    "id": "u26",
+    "sentence": "According to the IPCC, mitigation options often have synergies with other aspects of sustainable development but some can also involve trade-offs: energy efficiency and renewable energy have potential synergies, and depending on context, biological CDR methods such as reforestation, improved forest management, soil carbon sequestration, peatland restoration and coastal blue carbon management can enhance biodiversity and ecosystem functions, employment and local livelihoods, whereas afforestation or biomass crop production can have adverse socio-economic and environmental impacts on biodiversity, food and water security, local livelihoods and the rights of Indigenous Peoples, especially at large scales and where land tenure is insecure, while modelled pathways that use resources more efficiently or shift development towards sustainability face fewer challenges, such as less reliance on CDR and less pressure on land and biodiversity (high confidence) [1].",
+    "sha": "29e18ec3ceadeff8",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u27": {
+    "id": "u27",
+    "sentence": "According to the source (IPCC AR6 Synthesis Report, statement B.7), if warming exceeds a specified level such as 1.5°C, it could gradually be reduced again by achieving and sustaining net negative global CO2 emissions, which would require additional deployment of carbon dioxide removal compared to pathways without overshoot and lead to greater feasibility and sustainability concerns, and overshoot entails adverse impacts, some irreversible, and additional risks for human and natural systems, all growing with the magnitude and duration of overshoot (high confidence) [1].",
+    "sha": "d59da806fb86f0de",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u28": {
+    "id": "u28",
+    "sentence": "According to the IPCC (AR6 Synthesis Report, B.7.1), only a small number of the most ambitious global modelled pathways limit global warming to 1.5°C (>50%) by 2100 without exceeding this level temporarily; achieving and sustaining net negative global CO2 emissions, with annual rates of CDR greater than residual CO2 emissions, would gradually reduce the warming level again (high confidence), while adverse impacts during overshoot that cause additional warming via feedback mechanisms, such as increased wildfires, mass mortality of trees, drying of peatlands, and permafrost thawing, weakening natural land carbon sinks and increasing releases of GHGs, would make the return more challenging (medium confidence) [1].",
+    "sha": "f191beb1a69a9979",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u29": {
+    "id": "u29",
+    "sentence": "According to the IPCC (statement B.7.2), the higher the magnitude and the longer the duration of overshoot, the more ecosystems and societies are exposed to greater and more widespread changes in climatic impact-drivers, increasing risks for many natural and human systems; compared to pathways without overshoot, societies would face higher risks to infrastructure, low-lying coastal settlements, and associated livelihoods; and overshooting 1.5°C will result in irreversible adverse impacts on certain ecosystems with low resilience, such as polar, mountain, and coastal ecosystems, impacted by ice-sheet melt, glacier melt, or by accelerating and higher committed sea level rise (high confidence) [1].",
+    "sha": "a13d87d8f79671eb",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u30": {
+    "id": "u30",
+    "sentence": "According to the IPCC Summary for Policymakers (B.7.3), the larger the overshoot, the more net negative CO2 emissions would be needed to return to 1.5°C by 2100, and transitioning faster towards net zero CO2 emissions and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns and the social and environmental risks associated with CDR deployment at large scales (high confidence) [1].",
+    "sha": "7de9f73f0036799a",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u31": {
+    "id": "u31",
+    "sentence": "According to the IPCC Sixth Assessment Report Synthesis Report (statement C.3.5), many agriculture, forestry, and other land use (AFOLU) options provide adaptation and mitigation benefits that could be upscaled in the near term across most regions, with conservation, improved management, and restoration of forests and other ecosystems offering the largest share of economic mitigation potential and reduced deforestation in tropical regions having the highest total mitigation potential, although ecosystem restoration, reforestation, and afforestation can lead to trade-offs due to competing demands on land, and while conservation of high-carbon ecosystems delivers immediate benefits, their restoration takes decades to deliver measurable results (high confidence) [1].",
+    "sha": "e730b4dd125ee47d",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u32": {
+    "id": "u32",
+    "sentence": "According to the IPCC, maintaining the resilience of biodiversity and ecosystem services at a global scale depends on effective and equitable conservation of approximately 30% to 50% of Earth's land, freshwater and ocean areas, including currently near-natural ecosystems (high confidence) [1].",
+    "sha": "c957ffcdc4051418",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u33": {
+    "id": "u33",
+    "sentence": "According to the IPCC AR6 Synthesis Report, climate resilient development will not be possible in some regions and sub-regions if global warming exceeds 2°C (medium confidence) [1].",
+    "sha": "4be441267da2d8ab",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u34": {
+    "id": "u34",
+    "sentence": "According to the IPCC AR6 Synthesis Report, in modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot, net global GHG emissions are projected (high confidence) to fall by 43 [34 to 60]% below 2019 levels by 2030, 60 [49 to 77]% by 2035, 69 [58 to 90]% by 2040 and 84 [73 to 98]% by 2050, where the figures are the median and very likely range (5th to 95th percentile) [1].",
+    "sha": "6780a3ae20d93f59",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u35": {
+    "id": "u35",
+    "sentence": "According to the IPCC AR6 Synthesis Report (A.3.6), current global financial flows for adaptation, from both public and private sources, are insufficient and constrain implementation of adaptation options, especially in developing countries (high confidence), and there are widening disparities between estimated adaptation costs and the finance allocated to adaptation (high confidence) [1].",
+    "sha": "aeaea2f128335ba4",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u36": {
+    "id": "u36",
+    "sentence": "According to the IPCC AR6 Synthesis Report (A.4.3), a substantial 'emissions gap' exists between 2030 global GHG emissions under NDCs announced prior to COP26 and those in modelled pathways that limit warming to 1.5°C (>50%) with no or limited overshoot or to 2°C (>67%) assuming immediate action (high confidence), which would make it likely that warming will exceed 1.5°C during the 21st century (high confidence); those limiting pathways imply deep global GHG emissions reductions this decade (high confidence), while pathways consistent with the pre-COP26 NDCs until 2030 and no increase in ambition thereafter lead to a median global warming of 2.8 [2.1 to 3.4] °C by 2100 (medium confidence), and although many countries have signalled an intention to reach net zero GHG or CO2 around mid-century, their pledges differ in scope and specificity and limited policies are so far in place to deliver them [1].",
+    "sha": "6e2b321a9d9f79e3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u38": {
+    "id": "u38",
+    "sentence": "The IPCC glossary defines CDR as anthropogenic activities that remove CO2 from the atmosphere and durably store it in geological, terrestrial or ocean reservoirs, or in products [1].",
+    "sha": "1fd129a779c6c427",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u39": {
+    "id": "u39",
+    "sentence": "The assessment finds, with high confidence, that estimated storage timescales vary from decades to centuries for methods that store carbon in vegetation and through soil carbon management, to ten thousand years or more for methods that store carbon in geological formations [1].",
+    "sha": "9fe0ded3391d22b4",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u42": {
+    "id": "u42",
+    "sentence": "Whether bioenergy with carbon capture and storage (BECCS) actually removes CO2 from the atmosphere depends on the total emissions of its supply chain [1, 5].",
+    "sha": "58ac0e8ce3ca9233",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u45": {
+    "id": "u45",
+    "sentence": "Some hard-to-abate residual emissions remain, for example some emissions from agriculture, aviation, shipping and industrial processes [1].",
+    "sha": "f19ff456eb0649f0",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u46": {
+    "id": "u46",
+    "sentence": "These residual emissions would need to be counterbalanced by CDR to achieve net zero CO2 or GHG emissions (high confidence) [1].",
+    "sha": "71308335b68780ad",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u47": {
+    "id": "u47",
+    "sentence": "The IPCC assessment finds, with high confidence, that transitioning towards net zero CO2 emissions faster and reducing non-CO2 emissions such as methane more rapidly would limit peak warming levels and reduce the requirement for net negative CO2 emissions, thereby reducing feasibility and sustainability concerns, and social and environmental risks associated with CDR deployment at large scales [1].",
+    "sha": "f8b314f57a959e86",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u48": {
+    "id": "u48",
+    "sentence": "Achieving global net zero CO2, with remaining anthropogenic emissions balanced by durably stored CO2 from anthropogenic removal, is a requirement to stabilise CO2-induced global surface temperature increase (high confidence) [1].",
+    "sha": "f8a0ff6dbbe748b3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u50": {
+    "id": "u50",
+    "sentence": "Net zero CO2 is reached earlier than net zero GHGs (high confidence) [1, 2].",
+    "sha": "14df0899d0175130",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u56": {
+    "id": "u56",
+    "sentence": "CDR will be necessary to achieve net negative CO2 emissions [1].",
+    "sha": "97b3b7443e1b23b3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u57": {
+    "id": "u57",
+    "sentence": "Pathways that reach and sustain net zero GHG emissions imply net negative CO2 emissions and are projected to result in a gradual decline in surface temperature after an earlier peak (high confidence) [1].",
+    "sha": "392d2a57a3b90d96",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u97": {
+    "id": "u97",
+    "sentence": "The IPCC states with high confidence that removal is unavoidable for counterbalancing hard-to-abate residual emissions on the way to net zero [1].",
+    "sha": "3c6a324ebc521ff3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u98": {
+    "id": "u98",
+    "sentence": "The assessment finds, with high confidence, that more rapid reduction in CO2 and non-CO2 emissions, particularly methane, limits peak warming levels and reduces the requirement for net negative CO2 emissions and CDR, thereby reducing feasibility and sustainability concerns, and social and environmental risks [1].",
+    "sha": "06dfd0d64b9f9ae2",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u100": {
+    "id": "u100",
+    "sentence": "Equally well supported is the point that deep and rapid cuts in gross emissions come first [1, 3].",
+    "sha": "7b3f9ff628e6b284",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u101": {
+    "id": "u101",
+    "sentence": "The emissions reductions achieved this decade largely determine whether 1.5°C or 2°C can be met [1].",
+    "sha": "f71ed968faa24430",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u102": {
+    "id": "u102",
+    "sentence": "In the decades after net zero CO2, removal is what delivers net negative CO2 emissions [1].",
+    "sha": "a007621505b0c7d3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u103": {
+    "id": "u103",
+    "sentence": "Pathways that sustain net zero GHG are projected to bring a gradual decline in temperature (high confidence) [1].",
+    "sha": "d49de60f78a91d86",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u6": {
+    "id": "u6",
+    "sentence": "CDR is described as a necessary element to achieve net zero CO2 and GHG emissions both globally and nationally, and as a key element in scenarios that limit warming to 2°C (>67%) or lower by 2100 (robust evidence, high agreement) [2].",
+    "sha": "18d73273148016c2",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u7": {
+    "id": "u7",
+    "sentence": "The IPCC chapter states plainly that, within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles [2].",
+    "sha": "f444834aedd2c5ca",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u10": {
+    "id": "u10",
+    "sentence": "Its roles run from further reducing net emissions in the near term, to counterbalancing residual emissions at net zero in the mid-term, to delivering net negative CO2 emissions afterwards [1, 2].",
+    "sha": "82895f077b17bfd8",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u11": {
+    "id": "u11",
+    "sentence": "The IPCC chapter qualifies this sequence, noting that 'in general, these roles of CDR are not mutually exclusive and can exist in parallel' [2].",
+    "sha": "4cf1f4c8ba40df4d",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u40": {
+    "id": "u40",
+    "sentence": "Carbon capture and storage applied to fossil or industrial sources is distinct from removal [2].",
+    "sha": "ef15ee02d0fcea15",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u41": {
+    "id": "u41",
+    "sentence": "CCS and carbon capture and utilisation can be part of CDR only if the CO2 was captured from the atmosphere, either indirectly through biomass or directly from ambient air, and stored durably [2].",
+    "sha": "087f26586e4b8be4",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u49": {
+    "id": "u49",
+    "sentence": "Limiting warming to well below 2°C and achieving net zero CO2 or GHG emissions will require anthropogenic CO2 removal from the atmosphere [2].",
+    "sha": "6e6d5752424ff307",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u51": {
+    "id": "u51",
+    "sentence": "Because residual non-CO2 emissions are expected to be significant, the time-lag between net zero CO2 and net zero GHG could reach one to several decades [2].",
+    "sha": "635faee472c12a69",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u53": {
+    "id": "u53",
+    "sentence": "A stylised ambitious mitigation pathway in the IPCC report shows CDR first further reducing net CO2 or GHG emissions in the near term [2].",
+    "sha": "23de5bd319d949cc",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u54": {
+    "id": "u54",
+    "sentence": "In the same pathway, CDR then counterbalances residual emissions to help reach net zero in the mid-term [2].",
+    "sha": "fa84bbda265e106c",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u55": {
+    "id": "u55",
+    "sentence": "Counterbalancing residual non-CO2 emissions with CO2 removals will lead to net negative CO2 emissions at the time of net zero GHG emissions [2].",
+    "sha": "b1f56ba3e839fa80",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u58": {
+    "id": "u58",
+    "sentence": "Achieving net-negative CO2 emissions globally could address a potential temperature overshoot by lowering atmospheric CO2 concentrations [2].",
+    "sha": "a215d3521fefb367",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u59": {
+    "id": "u59",
+    "sentence": "Achieving net-negative CO2 emissions globally does not necessarily involve all countries reaching net-negative levels [2].",
+    "sha": "5d9b30cf753a2b18",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u65": {
+    "id": "u65",
+    "sentence": "For comparison, the IEA's Net Zero scenario deploys CDR on a limited scale, with direct air carbon capture and storage removing 0.6 GtCO2 in 2050 [2].",
+    "sha": "17c979f8d08d5280",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u66": {
+    "id": "u66",
+    "sentence": "Across the IPCC chapter's IAM scenarios that limit warming to 2°C (>67%) or lower (categories C1 to C3), the annual DACCS deployment reaches 0 [0–0.02] GtCO2 yr–1 by 2030, 0.02 [0–1.74] GtCO2 yr–1 by 2050, and 1.02 [0–12.6] GtCO2 yr–1 by 2100, where the values are medians and the bracketed values give the 5–95th percentile range [2].",
+    "sha": "b851233394fa447f",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u73": {
+    "id": "u73",
+    "sentence": "Some removal methods, including afforestation, improved forest management, wetland restoration and soil carbon sequestration, have been practised for decades to millennia, though not necessarily with the intention of removing carbon [2].",
+    "sha": "338161d272a608d2",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u74": {
+    "id": "u74",
+    "sentence": "By contrast, direct air carbon capture and storage, BECCS and enhanced weathering are novel methods whose demonstration and deployment are limited in scale [2].",
+    "sha": "547e3a093ddd1364",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u75": {
+    "id": "u75",
+    "sentence": "The IPCC assessment finds that the potential for direct air carbon capture and storage (5–40 GtCO2 yr–1) is limited mainly by requirements for low-carbon energy and by cost (USD100–300, full range USD84–386, per tCO2) [2].",
+    "sha": "9f8eca086ec618a9",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u76": {
+    "id": "u76",
+    "sentence": "CDR methods differ in removal process, timescale of carbon storage, technological maturity, mitigation potential, cost, co-benefits, adverse side effects and governance requirements [2].",
+    "sha": "c4cfb19f8355bedf",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u90": {
+    "id": "u90",
+    "sentence": "Countries with national net zero targets have begun to integrate CDR into modelled national pathways, increase research, development and demonstration efforts, and consider CDR-specific incentives and policies [2].",
+    "sha": "4c8899b2e823ba7b",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u91": {
+    "id": "u91",
+    "sentence": "This increasing consideration has not yet extended to net-negative targets [2].",
+    "sha": "15950c11e4b3f634",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u92": {
+    "id": "u92",
+    "sentence": "The UK's most recent national plan (October 2021) proposes afforestation, wood in construction, soil carbon and BECCS, as well as direct air carbon capture and storage, biochar and enhanced weathering [2].",
+    "sha": "d385c321d6d4e41e",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u99": {
+    "id": "u99",
+    "sentence": "The IPCC chapter treats carbon dioxide removal as a necessary element to achieve net zero CO2 and greenhouse gas emissions both globally and nationally [2].",
+    "sha": "1882ace177fab894",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u105": {
+    "id": "u105",
+    "sentence": "The scale, method mix and timing depend on how ambitious gross emissions reductions are, how sustainability and feasibility constraints are managed, and how political preferences and social acceptability evolve [2].",
+    "sha": "046a98983d2036ac",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u107": {
+    "id": "u107",
+    "sentence": "Novel methods such as DACCS, BECCS and enhanced weathering remain limited in scale; one analysis finds that no country yet commits to substantively scaling them, although the UK has set a target of 5 MtCO2 yr–1 from such methods by 2030 [2, 3].",
+    "sha": "7a3357fe4c4c8048",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u8": {
+    "id": "u8",
+    "sentence": "Removal is not presented as a substitute for cutting emissions: one 2024 analysis states that rapid emissions reductions are the dominant source of global climate mitigation potential in the coming decades, while CDR will also have an important role to play [3].",
+    "sha": "d26d8181745dd207",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u93": {
+    "id": "u93",
+    "sentence": "A 2024 analysis identifies a 'CDR gap': CDR efforts proposed by countries fall short of those in integrated assessment model scenarios that limit warming to 1.5°C [3].",
+    "sha": "81730257063d9845",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u94": {
+    "id": "u94",
+    "sentence": "The same analysis finds that the most ambitious national proposals are close to levels in a low-energy-demand scenario with the most limited CDR scaling and aggressive near-term emissions reductions [3].",
+    "sha": "6f6aa91a10f2c453",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u95": {
+    "id": "u95",
+    "sentence": "It also observes that many countries propose to expand land-based removals, but none yet commit to substantively scaling novel methods such as BECCS, biochar or direct air carbon capture and storage [3].",
+    "sha": "c4a1679454561ff7",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u12": {
+    "id": "u12",
+    "sentence": "The sources also record a gap between the removal levels in modelled pathways and actual deployment and national plans [3, 4].",
+    "sha": "730f308728b31161",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u43": {
+    "id": "u43",
+    "sentence": "One review stresses that negative emissions, as it defines them, are intentional human efforts to remove CO2 from the atmosphere, not natural uptake by land and ocean sinks [4].",
+    "sha": "e4c3f9e8b0c16db8",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u68": {
+    "id": "u68",
+    "sentence": "A 2018 assessment found that keeping warming below 1.5°C requires the large-scale deployment of negative emissions technologies [4].",
+    "sha": "8e78c04fbcec4f99",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u69": {
+    "id": "u69",
+    "sentence": "That assessment found that this dependency can still be kept to a minimum for the 2°C limit [4].",
+    "sha": "73c9142f3a0a258d",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u70": {
+    "id": "u70",
+    "sentence": "The same body of work describes negative emissions as having become a bio-physical requirement for limiting warming to 1.5°C [4].",
+    "sha": "097f4d6fe8d56ccd",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u71": {
+    "id": "u71",
+    "sentence": "It also describes these technologies as an almost indispensable component of strategies to meet the Paris goals, particularly the 1.5°C goal [4].",
+    "sha": "a5850f6c30239eae",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u80": {
+    "id": "u80",
+    "sentence": "It suggests that portfolios of multiple methods, each deployed at modest scales, could be invaluable for reaching the climate goals [4, 5].",
+    "sha": "bb511dafb226acd1",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u83": {
+    "id": "u83",
+    "sentence": "One review notes that introducing negative emissions technologies into cost-optimising scenarios reduces the costs of long-term mitigation but impedes early emissions reductions [4].",
+    "sha": "1c59fa480d6ccf90",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u84": {
+    "id": "u84",
+    "sentence": "In such scenarios, the resulting budget overshoot is paid back later in the century [4].",
+    "sha": "2a28651cd074cce3",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u86": {
+    "id": "u86",
+    "sentence": "Large-scale deployment is expected to bring manifold problems, including the albedo-dampening effects of temperate and boreal afforestation and biodiversity changes from land-use shifts and bioenergy production [4].",
+    "sha": "23ecf67ef4c76e19",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u106": {
+    "id": "u106",
+    "sentence": "Reviews caution that no single method is likely to sustainably meet the rates of carbon uptake described in pathways consistent with 1.5 °C of warming [4, 5].",
+    "sha": "aa7fc462656fee1c",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u60": {
+    "id": "u60",
+    "sentence": "A 2018 review of scenarios identifies two main purposes for negative emissions: paying back a temporary exceedance of the carbon budget, and offsetting residual emissions that are difficult to mitigate [5].",
+    "sha": "84ce992ae31c50ef",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u61": {
+    "id": "u61",
+    "sentence": "In those models, offsetting residual emissions occurs particularly in the second half of the 21st century [5].",
+    "sha": "46dc6e434057206f",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u62": {
+    "id": "u62",
+    "sentence": "The same review reports that 1.5°C pathways in then-available scenarios reach net zero CO2 globally between 2046 and 2056 (15th–85th percentiles) [5].",
+    "sha": "ba81f50522706ba6",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u63": {
+    "id": "u63",
+    "sentence": "After that, those pathways show a sustained period of net negative emissions of 1.3–29 GtCO2 per year during the second half of the century, a range that counts only gross negative emissions from BECCS because afforestation and reforestation removals were not available in the datasets [5].",
+    "sha": "a56d9ee3f67f44ab",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u64": {
+    "id": "u64",
+    "sentence": "In most of those scenarios, removal deployment is already 5–15 GtCO2 per year by 2050 [5].",
+    "sha": "ddaa9f7d1def255f",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u77": {
+    "id": "u77",
+    "sentence": "A 2018 systematic review gives best estimates for sustainable global potentials in 2050 of 0.5–3.6 GtCO2 per year for afforestation and reforestation and 0.5–5 GtCO2 per year for BECCS [5].",
+    "sha": "4683778034b454c1",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u78": {
+    "id": "u78",
+    "sentence": "Its other estimates are 0.5–2 GtCO2 per year for biochar, 2–4 for enhanced weathering, 0.5–5 for direct air carbon capture and storage, and up to 5 for soil carbon sequestration [5].",
+    "sha": "c60e0d94ed1b1426",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u79": {
+    "id": "u79",
+    "sentence": "That review judges it unlikely that any single removal technology could sustainably achieve the large removal deployment seen in many 1.5°C and 2°C scenarios [4, 5].",
+    "sha": "fd1309e7eba19aac",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u81": {
+    "id": "u81",
+    "sentence": "It shares a widespread concern that reaching 10–20 GtCO2 per year via BECCS at the end of the century, as in many scenarios, is not possible without severe adverse side effects [5].",
+    "sha": "b44eae8728cad894",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u85": {
+    "id": "u85",
+    "sentence": "Compensating excess emissions with later removals can come with a penalty, because the cooling from net negative emissions may only offset part of the warming from earlier emissions [5].",
+    "sha": "3468c10749ff9d22",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u87": {
+    "id": "u87",
+    "sentence": "The review's policy conclusion is that strategies should aim to limit warming to below 2°C with the least possible assumed dependence on these technologies [5].",
+    "sha": "4ca744ed35515666",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u88": {
+    "id": "u88",
+    "sentence": "Until they are demonstrably available at global scale, it says there should be no delay in a global peak and decline of CO2 emissions [5].",
+    "sha": "3c01c29a27a2eeb8",
+    "round": 1,
+    "history": [],
+    "status": "holds"
+   },
+   "u1": {
+    "id": "u1",
+    "sentence": "The question",
+    "sha": "ed65b5dde19f2e09",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u3": {
+    "id": "u3",
+    "sentence": "The short answer",
+    "sha": "2bca89dcaa0d546c",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u9": {
+    "id": "u9",
+    "sentence": "Over time, CDR's role shifts in the sources' account.",
+    "sha": "a97c9306cd3357ab",
+    "round": 1,
+    "history": [],
+    "status": "cut"
+   },
+   "u13": {
+    "id": "u13",
+    "sentence": "What the sources report",
+    "sha": "ce09927fdaf0e6fd",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u14": {
+    "id": "u14",
+    "sentence": "Cutting emissions remains the main lever",
+    "sha": "d124248986f9a740",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u37": {
+    "id": "u37",
+    "sentence": "What counts as carbon dioxide removal",
+    "sha": "c251e03ac082c9e3",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u44": {
+    "id": "u44",
+    "sentence": "Why removal is needed to reach net zero",
+    "sha": "53c2aafd4b6071d2",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u52": {
+    "id": "u52",
+    "sentence": "Roles now and in the decades ahead",
+    "sha": "c41c92850a2d440c",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u67": {
+    "id": "u67",
+    "sentence": "Temperature goal matters",
+    "sha": "5620c4ba13284824",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u72": {
+    "id": "u72",
+    "sentence": "Methods, maturity and potential",
+    "sha": "6b4d6f34ac892de1",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u82": {
+    "id": "u82",
+    "sentence": "Risks and cautions",
+    "sha": "545cd14c8b748412",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u89": {
+    "id": "u89",
+    "sentence": "Where countries stand",
+    "sha": "f0422f5ef4aa4c95",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u96": {
+    "id": "u96",
+    "sentence": "What holds up",
+    "sha": "5d4cccb8f291a5d5",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u104": {
+    "id": "u104",
+    "sentence": "Less settled is how much removal is needed and from which methods.",
+    "sha": "f70534b9a4c9ced8",
+    "round": 1,
+    "history": [],
+    "status": "cut"
+   },
+   "u108": {
+    "id": "u108",
+    "sentence": "Taken together, the sources support removal as a necessary complement to emission cuts, not a replacement for them.",
+    "sha": "b6adee307e82ffcd",
+    "round": 1,
+    "history": [],
+    "status": "cut"
+   },
+   "u109": {
+    "id": "u109",
+    "sentence": "What we read and what we did not",
+    "sha": "bb1d6dca06204ac1",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u134": {
+    "id": "u134",
+    "sentence": "Sources",
+    "sha": "caf85b0888d78f1f",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u135": {
+    "id": "u135",
+    "sentence": "IPCC.",
+    "sha": "4a0fbf7e299196e1",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u136": {
+    "id": "u136",
+    "sentence": "Climate Change 2023: Synthesis Report (AR6 SYR).",
+    "sha": "3ae45acf689254a7",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u137": {
+    "id": "u137",
+    "sentence": "2023.",
+    "sha": "89c7c7b9cd0434f0",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u138": {
+    "id": "u138",
+    "sentence": "Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (AR6 WGIII).",
+    "sha": "e5a1c80ff6c26a8f",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u139": {
+    "id": "u139",
+    "sentence": "Cambridge University Press.",
+    "sha": "8aae8f849a1f5e97",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u140": {
+    "id": "u140",
+    "sentence": "2022.",
+    "sha": "c73c05bf136419f8",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u141": {
+    "id": "u141",
+    "sentence": "Lamb W, Gasser T, Grassi G, et al. The carbon dioxide removal gap.",
+    "sha": "ef948682d6d0e1c2",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u142": {
+    "id": "u142",
+    "sentence": "Minx JC, Lamb WF, Callaghan MW, et al. Negative emissions—Part 1: Research landscape and synthesis.",
+    "sha": "c8ca9b85eff2c26d",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u143": {
+    "id": "u143",
+    "sentence": "Environmental Research Letters.",
+    "sha": "c0612886741e2921",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u144": {
+    "id": "u144",
+    "sentence": "2018.",
+    "sha": "c6b764e00fa12399",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u145": {
+    "id": "u145",
+    "sentence": "Fuss S, Lamb WF, Callaghan MW, et al. Negative emissions—Part 2: Costs, potentials and side effects.",
+    "sha": "f1c9af54fa99f39f",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u146": {
+    "id": "u146",
+    "sentence": "National Academies of Sciences, Engineering, and Medicine; Division on Earth and Life Studies; Ocean Studies Board; Board on Chemical Sciences and Technology; Board on Earth Sciences and Resources; Board on Agriculture and Natural Resources; Board on Energy and Environmental Systems; Board on Atmospheric Sciences and Climate; Committee on Developing a Research Agenda for Carbon Dioxide Removal and Reliable Sequestration.",
+    "sha": "34b744808bd7ca78",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   },
+   "u147": {
+    "id": "u147",
+    "sentence": "Negative Emissions Technologies and Reliable Sequestration: A Research Agenda.",
+    "sha": "48fc236b146f4f98",
+    "round": 1,
+    "history": [],
+    "status": "not_a_correction"
+   }
+  },
+  "flagged": [
+   "u9",
+   "u104",
+   "u108"
+  ],
+  "queue": [],
+  "next": [],
+  "second": {
+   "seed": 20261019,
+   "flagged": [],
+   "holds_pool": 119,
+   "sampled": [
+    "u78",
+    "u44",
+    "u95",
+    "u18",
+    "u30",
+    "u63",
+    "u72",
+    "u40",
+    "u37",
+    "u94",
+    "u5",
+    "u47"
+   ],
+   "todo": []
+  }
+ },
+ "calls": [
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 105006,
+   "input": 13905,
+   "output": 3734,
+   "usd": 0.162343,
+   "seconds": 19.2,
+   "cache_write": 38877,
+   "cache_read": 0
+  },
+  {
+   "role": "read-requote",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 105006,
+   "input": 2019,
+   "output": 961,
+   "usd": 0.017536,
+   "seconds": 5.5,
+   "cache_write": 0,
+   "cache_read": 38877
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 105006,
+   "input": 12149,
+   "output": 5051,
+   "usd": 0.078696,
+   "seconds": 26.2,
+   "cache_write": 0,
+   "cache_read": 38877
+  },
+  {
+   "role": "read-requote",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 105006,
+   "input": 5050,
+   "output": 632,
+   "usd": 0.020308,
+   "seconds": 4.0,
+   "cache_write": 0,
+   "cache_read": 38877
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 45534,
+   "input": 8989,
+   "output": 4991,
+   "usd": 0.110833,
+   "seconds": 26.7,
+   "cache_write": 17178,
+   "cache_read": 0
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "cache_prefix_chars": 45534,
+   "input": 4613,
+   "output": 1762,
+   "usd": 0.028564,
+   "seconds": 10.2,
+   "cache_write": 0,
+   "cache_read": 17178
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "input": 6585,
+   "output": 1144,
+   "usd": 0.02461,
+   "seconds": 6.9
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "input": 18920,
+   "output": 2545,
+   "usd": 0.06329,
+   "seconds": 13.2
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "input": 17692,
+   "output": 3008,
+   "usd": 0.065464,
+   "seconds": 17.3
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "input": 4581,
+   "output": 1746,
+   "usd": 0.026622,
+   "seconds": 10.2
+  },
+  {
+   "role": "read",
+   "model": "claude-sonnet-5-5",
+   "input": 2793,
+   "output": 842,
+   "usd": 0.014006,
+   "seconds": 5.0
+  },
+  {
+   "role": "read-escalate",
+   "input": 1786,
+   "output": 751,
+   "usd": 0.022164,
+   "seconds": 7.0
+  },
+  {
+   "role": "rule",
+   "input": 551,
+   "output": 138,
+   "usd": 0.004964,
+   "seconds": 2.0
+  },
+  {
+   "role": "rule",
+   "input": 553,
+   "output": 169,
+   "usd": 0.005592,
+   "seconds": 2.2
+  },
+  {
+   "role": "rule",
+   "input": 565,
+   "output": 144,
+   "usd": 0.00514,
+   "seconds": 1.7
+  },
+  {
+   "role": "second-read",
+   "input": 8945,
+   "output": 1062,
+   "usd": 0.05702,
+   "seconds": 8.1
+  },
+  {
+   "role": "second-read",
+   "input": 2952,
+   "output": 753,
+   "usd": 0.026868,
+   "seconds": 7.1
+  },
+  {
+   "role": "rule-second",
+   "input": 1719,
+   "output": 289,
+   "usd": 0.012656,
+   "seconds": 3.0
+  },
+  {
+   "role": "second-read",
+   "input": 4305,
+   "output": 501,
+   "usd": 0.02724,
+   "seconds": 4.1
+  },
+  {
+   "role": "second-read",
+   "input": 5023,
+   "output": 742,
+   "usd": 0.034932,
+   "seconds": 6.1
+  },
+  {
+   "role": "second-read",
+   "input": 2023,
+   "output": 221,
+   "usd": 0.012512,
+   "seconds": 2.1
+  }
+ ],
+ "usd": 0.82136
+}
