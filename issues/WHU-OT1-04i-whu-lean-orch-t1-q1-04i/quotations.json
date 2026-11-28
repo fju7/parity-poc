@@ -1,0 +1,166 @@
+{
+  "what_this_is": "What Holds Up: quotations on whu-lean-orch-t1-q1-04i and what the sources actually say (written by code: every quoted passage searched verbatim in the held texts).",
+  "how_to_use_it": "One entry per quoted passage on the page. Two kinds, and the difference matters: a quotation FROM A SOURCE carries source_id and verbatim -- the source's own wording, copied, so the check can compare rather than trust -- while a passage in the page's own voice carries kind: rhetorical and a reason. An entry with neither blocks, and so does a quoted passage on the page with no entry at all.",
+  "quotations": [
+    {
+      "id": "Q-01",
+      "quote": "2 °C scenarios without any additional constraints on the technology portfolio or policy timing deploy negative emissions at similar scales to 1.5 °C scenarios (320−840 …",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S004",
+      "verbatim": "2 °C scenarios without any additional constraints on the technology portfolio or policy timing deploy negative emissions at similar scales to 1.5 °C scenarios (320−840",
+      "offsets": [
+        65772,
+        65939
+      ],
+      "rendition": "docs/82/82ef5cabd0d5484dd9bc4cdced45ab02d28f391610ced2b68d48247d603dc284.html",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "82ef5cabd0d5484dd9bc4cdced45ab02d28f391610ced2b68d48247d603dc284",
+      "span_sha256": "1149f27e740e8eaeb0c64f456eb70d5695a84d404d850a5215603567e58ca764"
+    },
+    {
+      "id": "Q-02",
+      "quote": "Exceptions such as in (Strefler et al 2018a) confirm that adding other NETs (in this case terrestrial enhanced weathering) to BECCS can substantially reduce side …",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S005",
+      "verbatim": "Exceptions such as in (Strefler et al 2018a) confirm that adding other NETs (in this case terrestrial enhanced weathering) to BECCS can substantially reduce side",
+      "offsets": [
+        146960,
+        147121
+      ],
+      "rendition": "docs/65/654389e17fc72dfdfe3623ed0716e4d2e141a19a32313084b77832397317ef5a.pdf",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "654389e17fc72dfdfe3623ed0716e4d2e141a19a32313084b77832397317ef5a",
+      "span_sha256": "b487da9c5fab677c0f52cc07002fde4e7ec079fe68a423804e48f5490fd24353"
+    },
+    {
+      "id": "Q-03",
+      "quote": "lifecycle emissions related to direct or indirect land use pose a 10%–30% efficiency penalty on carbon abatement, and hence on costs of negative emissions, even …",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S005",
+      "verbatim": "lifecycle emissions related to direct or indirect land use pose a 10%–30% efficiency penalty on carbon abatement, and hence on costs of negative emissions, even",
+      "offsets": [
+        59533,
+        59693
+      ],
+      "rendition": "docs/65/654389e17fc72dfdfe3623ed0716e4d2e141a19a32313084b77832397317ef5a.pdf",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "654389e17fc72dfdfe3623ed0716e4d2e141a19a32313084b77832397317ef5a",
+      "span_sha256": "c2a3bc7ae8a2609f3e2466654c9ddb8fb180c1b77b9fc4ce32647c5ce10b5a96"
+    },
+    {
+      "id": "Q-04",
+      "quote": "The government has committed to amend accounting of UK targets to include a wider range of removal methods beyond LULUCF, and set a target of …",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S002",
+      "verbatim": "The government has committed to amend accounting of UK targets to include a wider range of removal methods beyond LULUCF, and set a target of",
+      "offsets": [
+        166672,
+        166813
+      ],
+      "rendition": "docs/ff/ff94f9f23af8e4b94d301a05ba70421aa53a10e87d459455f585f72d2278ef96.html",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "ff94f9f23af8e4b94d301a05ba70421aa53a10e87d459455f585f72d2278ef96",
+      "span_sha256": "c83982842e3b305ebca27c0807030c49a6bf6b4184d5dfc415c019e3731c47f9"
+    },
+    {
+      "id": "Q-05",
+      "quote": "Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?",
+      "source_id": "",
+      "verbatim": "",
+      "kind": "rhetorical",
+      "why": "the page's own question, equal to issue.json's question (code); not a quotation from a source",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)"
+    },
+    {
+      "id": "Q-06",
+      "quote": "Second, accounting for economic and biophysical limits, we identify relevant potentials for all NETs except ocean fertilization.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S004",
+      "verbatim": "Second, accounting for economic and biophysical limits, we identify relevant potentials for all NETs except ocean fertilization.",
+      "offsets": [
+        11167,
+        11295
+      ],
+      "rendition": "docs/82/82ef5cabd0d5484dd9bc4cdced45ab02d28f391610ced2b68d48247d603dc284.html",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "82ef5cabd0d5484dd9bc4cdced45ab02d28f391610ced2b68d48247d603dc284",
+      "span_sha256": "69a41e56dfce9ac15cf055448e8bb45d8fd880ad9d846363c399de5d5ef78e6b"
+    },
+    {
+      "id": "Q-07",
+      "quote": "further delay of action or the tighter 1.5 ◦ C climate goal renders NETs indispensable in the currently available scenarios.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S005",
+      "verbatim": "further delay of action or the tighter 1.5 ◦ C climate goal renders NETs indispensable in the currently available scenarios.",
+      "offsets": [
+        15655,
+        15779
+      ],
+      "rendition": "docs/65/654389e17fc72dfdfe3623ed0716e4d2e141a19a32313084b77832397317ef5a.pdf",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "654389e17fc72dfdfe3623ed0716e4d2e141a19a32313084b77832397317ef5a",
+      "span_sha256": "117b5d73117dcc8f88a1d8c1c2dc99d1d2d0b9307c1c88bf6b9c1c1b3db98312"
+    },
+    {
+      "id": "Q-08",
+      "quote": "In general, these roles of CDR are not mutually exclusive and can exist in parallel.",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S002",
+      "verbatim": "In general, these roles of CDR are not mutually exclusive and can exist in parallel.",
+      "offsets": [
+        83510,
+        83594
+      ],
+      "rendition": "docs/ff/ff94f9f23af8e4b94d301a05ba70421aa53a10e87d459455f585f72d2278ef96.html",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "ff94f9f23af8e4b94d301a05ba70421aa53a10e87d459455f585f72d2278ef96",
+      "span_sha256": "145cb307ae3fcadf5ea9a44f3a8244b6502f49d376a6bd93d8b73fcabb0e3e6e"
+    }
+  ]
+}

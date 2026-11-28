@@ -72,6 +72,42 @@
         "cbe34f618fc22565"
       ],
       "model_read": true
+    },
+    {
+      "sha": "3ce53b1fc93f5b55",
+      "against": "74686bfb35f1dfd0f75d35e3ca39945884244563",
+      "changed": 23,
+      "changed_total": 23,
+      "withheld": [],
+      "withheld_note": "every changed sentence was reviewed",
+      "at": "2026-11-28T01:25:45+00:00",
+      "findings": [],
+      "read": [
+        "0fdd9459d787fbc5",
+        "7561efd8931c5878",
+        "7de9f73f0036799a",
+        "9fe0ded3391d22b4",
+        "fb48ebbfb0d095ae",
+        "f8b314f57a959e86",
+        "b851233394fa447f",
+        "9f8eca086ec618a9",
+        "06dfd0d64b9f9ae2",
+        "1882ace177fab894",
+        "aa7fc462656fee1c",
+        "da17f54056a1ac4b",
+        "8381969d8464b06f",
+        "9e8bc748ec1566f8",
+        "b649a05445984c56",
+        "ce751528b1752a64",
+        "3e178df127fdccca",
+        "5cae4ba09c3938ba",
+        "0d607d5108b1ffd0",
+        "930816ed71bc636c",
+        "33f1470289492b79",
+        "a603f62572520614",
+        "cbe34f618fc22565"
+      ],
+      "model_read": true
     }
   ]
 }

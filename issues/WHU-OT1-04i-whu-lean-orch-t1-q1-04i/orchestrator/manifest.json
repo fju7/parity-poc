@@ -484,5 +484,47 @@
  },
  "mode": "paid",
  "slug": "whu-lean-orch-t1-q1-04i",
- "resumed_at": "commit_8"
+ "resumed_at": "commit_8",
+ "models_reported": {
+  "premise": {
+   "claude-opus-5-5": 1
+  },
+  "discover": {
+   "claude-sonnet-4-6": 1
+  },
+  "draft": {
+   "claude-opus-5-5": 1
+  },
+  "judgements": {
+   "claude-sonnet-5-5": 143,
+   "claude-opus-5-5": 76
+  },
+  "belief": {
+   "claude-sonnet-4-6": 1
+  },
+  "premise_reading": {
+   "claude-opus-5-5": 1
+  },
+  "gate": {
+   "claude-sonnet-4-6": 1
+  },
+  "advocate": {
+   "claude-sonnet-5-5": 26,
+   "claude-opus-5-5": 9
+  },
+  "omissions": {
+   "claude-sonnet-4-6": 5,
+   "claude-opus-5-5": 23
+  },
+  "audit": {
+   "claude-sonnet-5-5": 16,
+   "claude-opus-5-5": 16
+  },
+  "overstatement": {
+   "gemini-4-argon": 113
+  },
+  "changecheck": {
+   "claude-sonnet-4-6": 3
+  }
+ }
 }
