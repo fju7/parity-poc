@@ -840,8 +840,26 @@ def match_held(slug: str, page: Path) -> dict:
         question = json.loads((case_dir(slug) / "issue.json").read_text(encoding="utf-8")).get("question") or ""
     except Exception:
         question = ""
+    beliefs = set()
+    try:
+        import premise_page as _PP
+        if _PP.marked(case_dir(slug)) is not None:
+            # A PREMISE PAGE quotes the belief recorded before reading (premise_page.BELIEF_FRAME, from premise.json):
+            # the page's own record, not a quotation from a source; on exact equality with a belief sentence only.
+            import premise as _PM
+            beliefs = {norm(g["sentence"][len(_PP.BELIEF_FRAME.split("%s")[0]):].rstrip("”"))
+                       for g in _PP.premise_sentences(_PM.load(slug) or {})
+                       if g["field"] == "premise.json belief.statement"}
+    except Exception:
+        beliefs = set()
     for n, q in enumerate(extract(page.read_text(encoding="utf-8")), 1):
         qn = norm(q, fold_dashes=False)
+        if beliefs and norm(q) in beliefs:
+            out.append({"id": "Q-%02d" % n, "quote": q, "source_id": "", "verbatim": "", "kind": "rhetorical",
+                        "why": "the belief recorded before reading, equal to a sentence of premise.json "
+                               "belief.statement (code; premise page); not a quotation from a source",
+                        "attested": {"by": "", "on": ""}, "matched_by": MATCHED_BY})
+            continue
         if question and norm(q) == norm(question):
             # THE PAGE'S OWN QUESTION, which lean_sentences.QUESTION_FRAME quotes from issue.json: not a quotation
             # from a source. Recorded as the page's own voice only on exact equality with the recorded question.

@@ -130,3 +130,13 @@ issues/WHU-SD-*/
 issues/*/rulings/omissions.jsonl
 # Audit retrieval records (private run records): never committed; the pre-commit hook refuses them (P189, P221)
 issues/*/audit/*/retrieval.jsonl
+# Orchestrated runs' records that carry held source text (ruling 4 on P222; orch/commit_paths.NEVER): never staged by
+# the commit step; ignored here so a folder add skips them too. Files already tracked stay tracked (history kept).
+issues/WHU-OT1-*/audit/
+issues/WHU-OT1-*/advocate/
+issues/WHU-OT1-*/bindings.json
+issues/WHU-OT1-*/rulings/rulings.jsonl
+issues/WHU-OT1-*/rulings/overstatement.jsonl
+issues/WHU-OT1-*/rulings/premise_checks.jsonl
+issues/WHU-OT1-*/rulings/lean_removed.jsonl
+issues/WHU-OT1-*/orchestrator/applied.jsonl

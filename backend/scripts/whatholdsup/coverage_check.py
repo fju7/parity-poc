@@ -88,7 +88,8 @@ HEADING = "Findings in our sources we judged outside this question"
 LEAD = {"out_of_scope": "Outside this question:", "not_material": "Judged not material to this question:",
         "not_added_cap": "Not added:", "not_added_no_place": "Not added:", "not_added_beyond": "Not added:",
         "not_added_over_budget": "Not added:", "not_added_not_one_sentence": "Not added:",
-        "not_added_anchor_removed": "Not added:", "not_stated_removed": "Not added:", "declared_unruled": "Not added:"}
+        "not_added_anchor_removed": "Not added:", "not_stated_removed": "Not added:", "declared_unruled": "Not added:",
+        "not_stated_premise_page": "Not added:"}
 # Lean WHU (process doc §4.6.1, the ruling paths): code's own line for an ADD with no
 # place on the page; a required page element, and not counted against the budget.
 NO_PLACE = "not_added_no_place"
@@ -114,7 +115,11 @@ REMOVED_TAIL = "(found in our sources, not stated on this page: the sentence tha
 # and counted against the declarations budget (COUNTED).
 UNRULED = "declared_unruled"
 UNRULED_TAIL = "(our ruling on it could not be completed)"
-CODE_LINES = {NO_PLACE: NO_PLACE_TAIL, BEYOND: BEYOND_TAIL, OVER_BUDGET: OVER_BUDGET_TAIL, NOT_ONE: NOT_ONE_TAIL,
+# The premise page (premise_page.py; Fred's decision of 2026-11-28, relayed): a finding stated only by a full-page
+# sentence the premise page leaves off (off_page_by "premise_page:...").
+PREMISE_STATE = "not_stated_premise_page"
+PREMISE_TAIL = "(found in our sources, not stated on this page: a premise page gives no answer to the question)"
+CODE_LINES = {PREMISE_STATE: PREMISE_TAIL, NO_PLACE: NO_PLACE_TAIL, BEYOND: BEYOND_TAIL, OVER_BUDGET: OVER_BUDGET_TAIL, NOT_ONE: NOT_ONE_TAIL,
               ANCHOR: ANCHOR_TAIL, REMOVED: REMOVED_TAIL, UNRULED: UNRULED_TAIL}
 CAP_REASON = "the page's limit for %s was reached"     # not_added_cap's reader-facing reason
 
@@ -322,7 +327,65 @@ def load(case: Path, raw: bool = False) -> dict:
         decl = doc.setdefault("declarations", {})
         for k, v in removed_units(case).items():
             decl.setdefault(k, v)
+        for k, v in removed_judgements(case).items():         # ruling 1 on P222: judgements as P155's units
+            sid, rng = k.split("@")
+            at = [int(x) for x in rng.split("-")]
+            if k in decl or any(o.split("@")[0] == sid and _overlaps(at, [int(x) for x in o.split("@")[1].split("-")])
+                                for o in decl):
+                continue                                         # the finding is already declared: one line
+            decl[k] = v
     return doc
+
+
+def _off_state(by: list[str]) -> str:
+    """REMOVED, or PREMISE_STATE when every record that took the statement off is the premise page's."""
+    return PREMISE_STATE if by and all(str(b).startswith("premise_page") for b in by) else REMOVED
+
+
+def removed_judgements(case: Path) -> dict:
+    """{judgement key: REMOVED declaration} for each RELEVANT held assessment judgement (judgements.json) that no
+    on-page binding span lies inside now, and inside which an off-page binding a record removed (off_page_by) was
+    bound: the page stated it and a later step took the statement off (advisor's ruling 1 on P222; 04i's SPM B.6.1,
+    removed by the overstatement fail-safe). Same handling as removed_units (P155): code's own readers'-list line,
+    computed from bindings.json each time, never written, not counted against the budget."""
+    case = Path(case)
+    bp, jp = case / "bindings.json", case / "judgements.json"
+    if not bp.exists() or not jp.exists():
+        return {}
+    try:
+        rows = json.loads(bp.read_text(encoding="utf-8")).get("bindings") or {}
+        cands = json.loads(jp.read_text(encoding="utf-8")).get("candidates") or {}
+    except ValueError:
+        return {}
+    import bindings as B
+    gone = [r for r in rows.values() if not r.get("on_page") and r.get("off_page_by") and not B.is_declaration_row(r)]
+    rel = {k: e for k, e in cands.items() if e.get("relevant") is True and e.get("source") and e.get("at")}
+    if not gone or not rel:
+        return {}
+    try:
+        slug = json.loads((case / "issue.json").read_text(encoding="utf-8")).get("slug")
+    except (OSError, ValueError):
+        return {}
+    import ruling as R
+    import audit_stage as A
+    held = R.held_texts(slug)
+    on = bound_ranges(rows, held)
+    off: dict[str, list] = {}
+    for r in gone:
+        for sid, q in R.quotations(r, held):
+            at = A.locate(q, held.get(sid) or "")
+            if at:
+                off.setdefault(sid, []).append((list(at), r.get("off_page_by")))
+    out = {}
+    for k, e in rel.items():
+        sid, at = e["source"], list(e["at"])
+        if sid not in held or any(at[0] <= x[0] and x[1] <= at[1] for x in on.get(sid, [])):
+            continue                                             # still stated (bound inside it) on the page
+        by = sorted({b for a, b in off.get(sid, []) if at[0] <= a[0] and a[1] <= at[1] and b})
+        if by:
+            out[k] = {"state": _off_state(by), "reason": "the page sentence that stated it was removed",
+                      "removed_by": by, "by": "code (ruling 1 on P222)", "decided_at": "", "judgement": True}
+    return out
 
 
 def removed_units(case: Path) -> dict:
@@ -373,7 +436,7 @@ def removed_units(case: Path) -> dict:
                 continue
             by = sorted({b for at, b in off[sid] if _overlaps(at, u["at"]) and b})
             if by:
-                out[unit_key(u)] = {"state": REMOVED, "reason": "the page sentence that stated it was removed",
+                out[unit_key(u)] = {"state": _off_state(by), "reason": "the page sentence that stated it was removed",
                                     "removed_by": by, "by": "code (ruling 3 on P152)", "decided_at": ""}
     return out
 
@@ -821,7 +884,7 @@ def preflight_rows(slug: str, record_rows: list[dict] | None = None, *, rows: di
     none = [u for u in acc if u["state"] == "none"]
     counts = {s: len([u for u in acc if u["state"] == s])
               for s in ("used", "added") + DECLARED + (("already_stated", NO_PLACE, BEYOND, OVER_BUDGET, NOT_ONE, ANCHOR,
-                                                         REMOVED) if LEAN else ())}
+                                                         REMOVED, PREMISE_STATE) if LEAN else ())}
     detail = "%d unit(s) in %d relied-on source(s): %s. %s" % (
         len(acc), len({u["source"] for u in acc}),
         ", ".join("%d %s" % (n, s) for s, n in counts.items() if n) or "none accounted", LIMIT)

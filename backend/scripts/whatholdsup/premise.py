@@ -350,8 +350,13 @@ def preflight_rows(slug: str, *, already_published: bool = False) -> list[tuple[
                  "%s — tested by %s on %s" % (t.get("result"), t.get("by"), t.get("on"))
                  if tested else "nobody went looking for the fact that would have killed this"))
     if tested and t.get("result") == "killed":
-        rows.append(("premise survived", lvl,
-                     "the kill condition was met: %s" % (t.get("note") or "no note")))
+        import premise_page as PP
+        if PP.marked(case_dir(slug)) is not None:
+            # Fred's decision of 2026-11-28 (relayed): the outcome is a premise page, checked by its own row
+            rows.append(("premise survived", OK, "the kill condition was met; this is a premise page (%s)" % PP.ROW))
+        else:
+            rows.append(("premise survived", lvl,
+                         "the kill condition was met: %s" % (t.get("note") or "no note")))
     rows.extend(scope_rows(slug))
     rows.extend(evidence_standard_rows(slug))
     return rows

@@ -1886,6 +1886,12 @@ def preflight(slug: str, *, for_email: bool,
         except BaseException as exc:
             out.append(("reading statement matches what the checking stages received", BAD,
                         "did not run: %s: %s" % (type(exc).__name__, exc)))
+        # Fred's decision of 2026-11-28 (relayed): a premise page's own row. BLOCKED when it cannot run.
+        try:
+            out.extend(_sibling("premise_page").preflight_rows(slug))
+        except BaseException as exc:
+            out.append(("premise page: the kill condition's evidence is stated and checked", BAD,
+                        "did not run: %s: %s" % (type(exc).__name__, exc)))
         try:
             out.extend(_sibling("lean_editions").preflight_rows(slug))
         except BaseException as exc:

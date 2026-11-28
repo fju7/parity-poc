@@ -349,12 +349,52 @@ NAMED_PLACE = re.compile(
     r"university repository|institutional repository|WRAP)\b")
 
 
-def attributions(text: str) -> list[str]:
+def attributions(text: str, quoted_lines: dict | None = None) -> list[str]:
+    """Names on the page attributing work to someone. QUOTED_LINES ({whitespace-collapsed sentence: its verbatim
+    quotation}, from code_quoted_lines) exempts a name that lies inside the quotation of a code-written readers'-list
+    line: there the source cites its own author, the page names no one (advisor's ruling 2 on P222; 04i's "Strefler
+    et al" line). A model-written sentence naming an author is still checked."""
     out = []
     for s in sentences(text):
+        q = (quoted_lines or {}).get(" ".join(s.split()))
         for m in ATTRIBUTION.finditer(s):
+            if q is not None and _inside_quotation(s, m, q):
+                continue
             out.append(f"{m.group(0)} — {s[:120]}")
     return out
+
+
+def _inside_quotation(sent: str, m: re.Match, quotation: str) -> bool:
+    a = sent.find("\u201c")
+    b = sent.find("\u201d", a + 1) if a >= 0 else -1
+    return 0 <= a < m.start() and m.end() <= b and " ".join(sent[a + 1:b].split()) == quotation
+
+
+def code_quoted_lines(slug: str | None) -> dict:
+    """{whitespace-collapsed readers'-list line: its quotation} for every line code writes from the records
+    (coverage_check.declarations) whose quotation -- the finding's own span, cut verbatim with a trailing ellipsis --
+    is found word for word in the held text of its source. Anything that cannot be computed gives {} (every name is
+    then checked: fail closed)."""
+    if not slug:
+        return {}
+    try:
+        import coverage_check as C
+        import ruling as R
+        held = R.held_texts(slug)
+        out = {}
+        for d in C.declarations(slug, held):
+            sent = d.get("sentence") or ""
+            a = sent.find("\u201c")
+            b = sent.find("\u201d", a + 1) if a >= 0 else -1
+            if a < 0 or b < 0:
+                continue
+            quote = " ".join(sent[a + 1:b].split())
+            core = quote[:-1].rstrip() if quote.endswith("\u2026") else quote
+            if core and core in " ".join((held.get(d["source"]) or "").split()):
+                out[" ".join(sent.split())] = quote
+        return out
+    except (Exception, SystemExit):
+        return {}
 
 
 # body_only moved to source_ledger, where plain() lives and where the
@@ -534,7 +574,7 @@ def lint(html_text: str, slug: str | None = None) -> list[tuple[str, str, str]]:
                  "the page's account of its own status is consistent"
                  if not sd else " || ".join(sd)))
 
-    names = attributions(text)
+    names = attributions(text, code_quoted_lines(slug))
     known = verified_attributions(slug)
     unchecked = [a for a in names if a.split()[0] not in known]
     rows.append(("attributions checked against the source",

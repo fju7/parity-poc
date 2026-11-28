@@ -86,7 +86,10 @@ LEADS = ("The question is: “", "We hold the full text of ", "We hold the abstr
          "We hold only a fragment of ", "We could not obtain ", "No model read ", "We have not opened ",
          "We searched: ", "We did not search: ", "We searched the full text of ", "A newer edition exists of ",
          "We could not establish whether ", "Our recency check ", "We found ",
-         "We could not verify where this belief is published.")
+         "We could not verify where this belief is published.",
+         # the premise page (premise_page.LEADS; Fred's decision of 2026-11-28, relayed)
+         "This question rested on a premise: ", "The belief we recorded: “",
+         "The evidence we hold does not support this premise.")
 HAND_WRITTEN = "lean: hand-written protected sentence; replace it with the generated one"
 
 
@@ -138,7 +141,7 @@ def found_label(sources: list[dict], title: str | None, sid: str | None = None) 
 def generate(issue: dict, sources: list[dict], search: dict | None = None,
              declared: list[dict] | None = None, measured: dict | None = None,
              editions: list[dict] | None = None, not_of_a_type: list[dict] | None = None,
-             premise: dict | None = None) -> list[dict]:
+             premise: dict | None = None, premise_page: bool = False) -> list[dict]:
     """[{kind, source, field, sentence}] in page order: the question, then each
     source's held state, sections read and not read, then what we searched and
     did not search (SEARCH), then the newer-edition lines (EDITIONS, rule 3b),
@@ -155,6 +158,10 @@ def generate(issue: dict, sources: list[dict], search: dict | None = None,
     q = question_sentence(issue)
     if q:
         out.append({"kind": "question", "source": None, "field": "issue.json question", "sentence": q})
+    if premise_page:
+        # Fred's decision of 2026-11-28 (relayed): a premise page's premise block and conclusion, from premise.json
+        import premise_page as PP
+        out.extend(PP.premise_sentences(premise or {}))
     for s in sources:
         sid, acc = s.get("id"), s.get("access") or {}
         if sid and acc.get("not_held"):
@@ -235,8 +242,9 @@ def load(slug: str) -> tuple:
         premise = json.loads(pp.read_text(encoding="utf-8")) if pp.exists() else {}
     except ValueError:
         premise = {}
+    import premise_page as PP
     return (issue, srcs, doc.get("search") or {}, declared_of(slug), measured_of(slug, srcs),
-            LE.lines(case), doc.get("not_of_a_type") or [], premise)
+            LE.lines(case), doc.get("not_of_a_type") or [], premise, PP.marked(case) is not None)
 
 
 def measured_of(slug: str, sources: list[dict]) -> dict:

@@ -881,7 +881,7 @@ def test_reply_limits_cover_the_stored_records_with_a_margin():
     assert set(rec["steps"]) <= set(ST.REPLY_LIMITS)
     for k, v in rec["steps"].items():
         assert ST.REPLY_LIMITS[k] >= v["new_limit"] >= 1.5 * v["basis_tokens"], k
-    assert ST.REPLY_LIMITS["premise"] == 4100          # P191: 03b measured 2,021 (was 4000)
+    assert ST.REPLY_LIMITS["premise"] == 4200          # P228: 04i measured 2,096 (P191: 4100, 03b 2,021)
     from orch import google as G
     assert G.MAX_OUT == ST.REPLY_LIMITS["overstatement"]
 
@@ -1456,7 +1456,10 @@ def test_the_commit_step_runs_git_without_any_whu_variable_and_keeps_its_checks(
         monkeypatch.setenv(k, v)
     c = tmp_path / "issues" / "WHU-T-orch-x"
     c.mkdir(parents=True)
-    seen, staged, pushed = [], ["issues/WHU-T-orch-x/a.json"], {"out": "abc..def  main -> main"}
+    (c / "issue.json").write_text("{}")             # an allowed record (orch/commit_paths.ALLOW; ruling 4 on P222)
+    from orch import commit_paths as CP
+    monkeypatch.setattr(CP, "staged_source_text", lambda slug, files, case: [])
+    seen, staged, pushed = [], ["issues/WHU-T-orch-x/issue.json"], {"out": "abc..def  main -> main"}
 
     def run(argv, **kw):
         seen.append((argv[3], kw.get("env")))
@@ -1467,13 +1470,16 @@ def test_the_commit_step_runs_git_without_any_whu_variable_and_keeps_its_checks(
                           first=None)
     out = O.code_commit(ctx, ST.BY_NAME["commit_3b"])
     assert out["outcome"].startswith("committed") and ctx.first
-    assert [a for a, _ in seen] == ["add", "diff", "commit", "push", "rev-parse"]
+    assert [a for a, _ in seen] == ["add", "diff", "show", "commit", "push", "rev-parse"]
     assert all(env is not None and not [k for k in env if k.startswith("WHU_")] for _, env in seen)
     assert os.environ["WHU_LEAN"] == "1"                                    # the orchestrator's own env is untouched
-    staged[:] = ["issues/WHU-T-orch-x/a.json", "backend/data/spend/ledger.jsonl"]
+    staged[:] = ["issues/WHU-T-orch-x/issue.json", "backend/data/spend/ledger.jsonl"]
     with pytest.raises(O.RunStop, match="outside the case folder"):
         O.code_commit(ctx, ST.BY_NAME["commit_3b"])
-    staged[:] = ["issues/WHU-T-orch-x/a.json"]
+    staged[:] = ["issues/WHU-T-orch-x/audit/r/verdicts.jsonl"]
+    with pytest.raises(O.RunStop, match="never-commit list"):
+        O.code_commit(ctx, ST.BY_NAME["commit_3b"])
+    staged[:] = ["issues/WHU-T-orch-x/issue.json"]
     pushed["out"] = "Everything up-to-date"
     with pytest.raises(O.RunStop, match="main -> main"):
         O.code_commit(ctx, ST.BY_NAME["commit_3b"])

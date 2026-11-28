@@ -947,7 +947,9 @@ def _generated_blocks(ctx: Ctx) -> tuple[str, str, str]:
     q = [l for l in lines if "The question is:" in l]
     # P103: every declaration line (each LEAD, "Outside this question:" included) is the readers' list's alone, so a
     # declaration appears once on the page; before, out-of-scope lines leaked into the limits block too.
-    leads = tuple("<p>" + v for v in sorted(set(C.LEAD.values()))) + ("<p>Already stated",)
+    import premise_page as PP
+    leads = tuple("<p>" + v for v in sorted(set(C.LEAD.values()))) + ("<p>Already stated",) + \
+        tuple("<p>" + v for v in PP.LEADS)        # the premise page's own blocks (premise_page.build)
     rest = [l for l in lines if l not in q and C.HEADING not in l and not l.strip().startswith(leads)]
     readers = C.render(C.declarations(ctx.slug, R.held_texts(ctx.slug)))
     return "\n".join(q), "\n".join(rest), readers
@@ -1595,13 +1597,27 @@ def git_env() -> dict:
 def code_commit(ctx: Ctx, step) -> dict:
     if ctx.mode not in ("paid", REHEARSE):
         return {"outcome": "no commit (%s mode)" % ctx.mode}
-    paths = [ctx.rel(ctx.case)]
+    # Ruling 4 on P222: an explicit allow-list (orch/commit_paths.py), never the whole case folder, and no staged
+    # file may carry held source text beyond the page (the repo is public).
+    from orch import commit_paths as CP
+    base = ctx.rel(ctx.case)
+    paths = [ctx.rel(p) for p in CP.paths(ctx.case, ctx.slug)]
     env = git_env()
-    subprocess.run(["git", "-C", str(ctx.root), "add", "--", *paths], check=True, env=env)
+    if paths:
+        subprocess.run(["git", "-C", str(ctx.root), "add", "--", *paths], check=True, env=env)
     names = subprocess.run(["git", "-C", str(ctx.root), "diff", "--cached", "--name-only"], capture_output=True,
                            text=True, env=env).stdout.split()
-    if any(not n.startswith(paths[0]) for n in names):
+    if any(not n.startswith(base + "/") for n in names):
         raise RunStop("commit: staged paths outside the case folder")
+    if any(CP.refused(n[len(base) + 1:]) for n in names):
+        raise RunStop("commit: a staged path is on the never-commit list (orch/commit_paths.NEVER)")
+    texts = [(n, subprocess.run(["git", "-C", str(ctx.root), "show", ":" + n], capture_output=True, text=True,
+                                env=env).stdout) for n in names]
+    bad = CP.staged_source_text(ctx.slug, [(n[len(base) + 1:], t) for n, t in texts], ctx.case)
+    if bad:
+        subprocess.run(["git", "-C", str(ctx.root), "reset", "-q", "--", *names], env=env)
+        raise RunStop("commit: %d staged file(s) carry held source text beyond the page (e.g. %s, a run of %d "
+                      "words); nothing committed" % (len(bad), bad[0][0], bad[0][1]))
     if names:
         subprocess.run(["git", "-C", str(ctx.root), "commit", "-m", "%s (orchestrator): %s" % (ctx.slug, step.name)],
                        check=True, env=env)

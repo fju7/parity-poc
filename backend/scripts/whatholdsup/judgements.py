@@ -164,6 +164,14 @@ def state_of(c: dict, held_text: str, rows: dict, held: dict[str, str], declared
             return "stated", "bound, with its certainty" if want else "bound (it states no certainty term)"
     if c["key"] in declared:
         return "declared", declared[c["key"]].get("state", "declared")
+    import coverage_check as C
+    for k, d in declared.items():
+        # Ruling 1 on P222: the judgement's own "not stated" code line is dropped when a P155 unit line inside it
+        # already says so (coverage_check.load: one line); that unit line declares it. Code lines only.
+        if d.get("state") in (C.REMOVED, C.PREMISE_STATE) and k.split("@")[0] == c["source"]:
+            a, b = (int(x) for x in k.split("@")[1].split("-"))
+            if a < c["at"][1] and c["at"][0] < b:
+                return "declared", d["state"]
     for e in omissions_doc.get("omissions") or []:
         if (e.get("source") == c["source"] and e.get("at") and e.get("outcome") in ("OUT_OF_SCOPE", "NOT_MATERIAL", "NOT_ADDED_CAP",
                                                                                 "NOT_ADDED_NO_PLACE", "NOT_ADDED_BEYOND",
