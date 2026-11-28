@@ -1406,5 +1406,114 @@
   "private_copy": "~/Projects/whu-study-private/run_provenance/whu-lean-orch-t1-q1-04i"
  },
  "ruling": "orchestrator trial 1",
- "ended": "2026-11-28T01:41:04+00:00"
+ "ended": "2026-11-28T01:41:04+00:00",
+ "rederived": [
+  {
+   "at": "2026-11-28T12:31:00+00:00",
+   "label": "re-derived after the run by code changes P223/P224; no model call",
+   "kind": "page",
+   "model_calls": 0,
+   "page_before": {
+    "page": "a74b50a30f10d99777d5fa8ef77b5e0438987b9aeeae13bf6a5a008c9315b1ca",
+    "page_json": "c47691890261eab422d8bea58870c8ab259e45b11a08c3475f22a7aa17134e6a"
+   },
+   "page_after": {
+    "page": "a74b50a30f10d99777d5fa8ef77b5e0438987b9aeeae13bf6a5a008c9315b1ca",
+    "page_json": "c47691890261eab422d8bea58870c8ab259e45b11a08c3475f22a7aa17134e6a"
+   },
+   "outcome": "Not Ready",
+   "stops": [
+    "STOP audit complete 1 sentence(s) have no audit verdict on their current wording (e.g. 'Not added: “B.6.1 Global modelled pathways provide information on limiting warmi'). Apply the rulings and re-run the audit.",
+    "STOP records match the orchestrator's chain 3 record(s) differ from the chain: changed bindings.json; changed draft/page.json; changed draft/whu-lean-orch-t1-q1-04i.html",
+    "STOP overstatement check complete 1 bound sentence(s) on the page have no verdict for their current text and passage; 0 judged to overstate their passage are still on the page: 'Not added: “B.6.1 Global modelled pathways provide information on limiting warming to different leve'",
+    "STOP changed sentences reviewed the page has changed since the last review of what changed, and nothing has read the new text. It costs about three cents: changecheck.py whu-lean-orch-t1-q1-04i --page <page> --before <rev>",
+    "STOP every quotation is recorded 1 quoted passage(s) with no record anywhere of what the source says: B.6.1 Global modelled pathways provide information on limiting warming",
+    "STOP premise survived the kill condition was met: No material gap is shown. Novel removal is negligible and costly (S005), countries plan land-based rather than novel scale-up (S003), and mid-century volumes require sustained growth from near zero (S004). The passages do not quantify the forestry share of current removal, and S005 notes DACCS costs"
+   ]
+  },
+  {
+   "at": "2026-11-28T12:49:52+00:00",
+   "label": "re-derived after the run: premise page built by code (P227) from the run's records; no model call",
+   "kind": "premise page",
+   "model_calls": 0,
+   "page_before": {
+    "page": "a74b50a30f10d99777d5fa8ef77b5e0438987b9aeeae13bf6a5a008c9315b1ca",
+    "page_json": "c47691890261eab422d8bea58870c8ab259e45b11a08c3475f22a7aa17134e6a"
+   },
+   "page_after": {
+    "page": "a74b50a30f10d99777d5fa8ef77b5e0438987b9aeeae13bf6a5a008c9315b1ca",
+    "page_json": "c47691890261eab422d8bea58870c8ab259e45b11a08c3475f22a7aa17134e6a"
+   },
+   "outcome": "Not Ready",
+   "stops": [
+    "STOP audit complete 27 sentence(s) have no audit verdict on their current wording (e.g. 'The premise'). Apply the rulings and re-run the audit.",
+    "STOP premise page: the kill condition's evidence is stated and checked the kill condition's evidence (S005@95221-95432) is stated by no sentence on the page that is bound to it and passed the overstatement check",
+    "STOP records match the orchestrator's chain 8 record(s) differ from the chain: created draft/premise_page/page.json; created draft/premise_page/premise_page.json; created draft/premise_page/whu-lean-orch-t1-q1-04i.html; created premise_page.json",
+    "STOP overstatement check complete 19 bound sentence(s) on the page have no verdict for their current text and passage; 0 judged to overstate their passage are still on the page: 'Not added: “B.5.1 From a physical science perspective, limiting human-caused global warming to a spe'",
+    "STOP changed sentences reviewed the page has changed since the last review of what changed, and nothing has read the new text. It costs about three cents: changecheck.py whu-lean-orch-t1-q1-04i --page <page> --before <rev>"
+   ],
+   "premise_page": {
+    "quotations_matched": 29,
+    "quotations_unmatched": 0,
+    "kept": 5,
+    "dropped": 79,
+    "evidence": [
+     {
+      "field": "kill_condition_tested",
+      "what": "the kill condition's evidence",
+      "source": "S005",
+      "at": [
+       95221,
+       95432
+      ]
+     },
+     {
+      "field": "what_the_sources_show",
+      "what": "what the sources show",
+      "source": "S002",
+      "at": [
+       82785,
+       82960
+      ]
+     },
+     {
+      "field": "direction",
+      "what": "the direction's evidence",
+      "source": "S001",
+      "at": [
+       111476,
+       111735
+      ]
+     }
+    ],
+    "kept_by_span": [
+     "direction",
+     "what_the_sources_show"
+    ],
+    "page_sha256": "950e4abfe89ba616995625f5e7995846831413e408d0a4a9be61f1dfbf45bff7"
+   }
+  },
+  {
+   "at": "2026-11-28T13:00:36+00:00",
+   "label": "re-derived after the run by code changes P223/P224 (with the code-only quotation step); no model call",
+   "kind": "page",
+   "model_calls": 0,
+   "page_before": {
+    "page": "a74b50a30f10d99777d5fa8ef77b5e0438987b9aeeae13bf6a5a008c9315b1ca",
+    "page_json": "c47691890261eab422d8bea58870c8ab259e45b11a08c3475f22a7aa17134e6a"
+   },
+   "page_after": {
+    "page": "a74b50a30f10d99777d5fa8ef77b5e0438987b9aeeae13bf6a5a008c9315b1ca",
+    "page_json": "c47691890261eab422d8bea58870c8ab259e45b11a08c3475f22a7aa17134e6a"
+   },
+   "outcome": "Not Ready",
+   "stops": [
+    "STOP audit complete 1 sentence(s) have no audit verdict on their current wording (e.g. 'Not added: “B.6.1 Global modelled pathways provide information on limiting warmi'). Apply the rulings and re-run the audit.",
+    "STOP records match the orchestrator's chain 7 record(s) differ from the chain: created draft/premise_page/page.json; created draft/premise_page/premise_page.json; created draft/premise_page/whu-lean-orch-t1-q1-04i.html; changed bindings.json",
+    "STOP overstatement check complete 1 bound sentence(s) on the page have no verdict for their current text and passage; 0 judged to overstate their passage are still on the page: 'Not added: “B.6.1 Global modelled pathways provide information on limiting warming to different leve'",
+    "STOP changed sentences reviewed the page has changed since the last review of what changed, and nothing has read the new text. It costs about three cents: changecheck.py whu-lean-orch-t1-q1-04i --page <page> --before <rev>",
+    "STOP premise survived the kill condition was met: No material gap is shown. Novel removal is negligible and costly (S005), countries plan land-based rather than novel scale-up (S003), and mid-century volumes require sustained growth from near zero (S004). The passages do not quantify the forestry share of current removal, and S005 notes DACCS costs"
+   ]
+  }
+ ]
 }

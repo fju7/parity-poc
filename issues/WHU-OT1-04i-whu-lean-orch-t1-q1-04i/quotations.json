@@ -4,6 +4,27 @@
   "quotations": [
     {
       "id": "Q-01",
+      "quote": "B.6.1 Global modelled pathways provide information on limiting warming to different levels; these pathways, particularly their sectoral and regional aspects, depend on the assumptions described …",
+      "kind": "",
+      "why": "",
+      "attested": {
+        "by": "",
+        "on": ""
+      },
+      "matched_by": "code (quotations.match_held: verbatim in held text)",
+      "source_id": "S001",
+      "verbatim": "B.6.1 Global modelled pathways provide information on limiting warming to different levels; these pathways, particularly their sectoral and regional aspects, depend on the assumptions described",
+      "offsets": [
+        109077,
+        109270
+      ],
+      "rendition": "docs/f5/f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6.pdf",
+      "offsets_in": "spancheck._norm reading-order text of the rendition",
+      "document_sha256": "f5258cf9434fd8887848e334197b6397ad6e107a6f06ddf21a00b2bce3f5dee6",
+      "span_sha256": "2bdafe1e09a1622ede0925cf3fd81a12400af27c9f1a8c5c500afc4c502fe4b4"
+    },
+    {
+      "id": "Q-02",
       "quote": "2 °C scenarios without any additional constraints on the technology portfolio or policy timing deploy negative emissions at similar scales to 1.5 °C scenarios (320−840 …",
       "kind": "",
       "why": "",
@@ -24,7 +45,7 @@
       "span_sha256": "1149f27e740e8eaeb0c64f456eb70d5695a84d404d850a5215603567e58ca764"
     },
     {
-      "id": "Q-02",
+      "id": "Q-03",
       "quote": "Exceptions such as in (Strefler et al 2018a) confirm that adding other NETs (in this case terrestrial enhanced weathering) to BECCS can substantially reduce side …",
       "kind": "",
       "why": "",
@@ -45,7 +66,7 @@
       "span_sha256": "b487da9c5fab677c0f52cc07002fde4e7ec079fe68a423804e48f5490fd24353"
     },
     {
-      "id": "Q-03",
+      "id": "Q-04",
       "quote": "lifecycle emissions related to direct or indirect land use pose a 10%–30% efficiency penalty on carbon abatement, and hence on costs of negative emissions, even …",
       "kind": "",
       "why": "",
@@ -66,7 +87,7 @@
       "span_sha256": "c2a3bc7ae8a2609f3e2466654c9ddb8fb180c1b77b9fc4ce32647c5ce10b5a96"
     },
     {
-      "id": "Q-04",
+      "id": "Q-05",
       "quote": "The government has committed to amend accounting of UK targets to include a wider range of removal methods beyond LULUCF, and set a target of …",
       "kind": "",
       "why": "",
@@ -87,7 +108,7 @@
       "span_sha256": "c83982842e3b305ebca27c0807030c49a6bf6b4184d5dfc415c019e3731c47f9"
     },
     {
-      "id": "Q-05",
+      "id": "Q-06",
       "quote": "Alongside cutting emissions, what part can removing carbon dioxide from the air play in reaching net zero, now and in the decades ahead?",
       "source_id": "",
       "verbatim": "",
@@ -100,7 +121,7 @@
       "matched_by": "code (quotations.match_held: verbatim in held text)"
     },
     {
-      "id": "Q-06",
+      "id": "Q-07",
       "quote": "Second, accounting for economic and biophysical limits, we identify relevant potentials for all NETs except ocean fertilization.",
       "kind": "",
       "why": "",
@@ -121,7 +142,7 @@
       "span_sha256": "69a41e56dfce9ac15cf055448e8bb45d8fd880ad9d846363c399de5d5ef78e6b"
     },
     {
-      "id": "Q-07",
+      "id": "Q-08",
       "quote": "further delay of action or the tighter 1.5 ◦ C climate goal renders NETs indispensable in the currently available scenarios.",
       "kind": "",
       "why": "",
@@ -142,7 +163,7 @@
       "span_sha256": "117b5d73117dcc8f88a1d8c1c2dc99d1d2d0b9307c1c88bf6b9c1c1b3db98312"
     },
     {
-      "id": "Q-08",
+      "id": "Q-09",
       "quote": "In general, these roles of CDR are not mutually exclusive and can exist in parallel.",
       "kind": "",
       "why": "",
