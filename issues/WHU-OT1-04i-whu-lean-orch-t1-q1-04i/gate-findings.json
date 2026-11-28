@@ -291,6 +291,147 @@
         ]
       },
       "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f3ce53b1f-rec-2",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "IPCC AR6 WGIII Chapter 12: Cross-sectoral Perspectives (Climate Change 2022: Mitigation of Climate Change) is SUPERSEDED: the draft uses April 2022 final government distribution / July 2023 Cambridge University Press online publication — CDR definitions, roles of CDR in mitigation pathways, IEA Net Zero scenario DACCS figure of 0.6 GtCO2 in 2050, CDR method maturity and potential ranges, national ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by identifier (url:ipcc.ch/report/ar6/wg3/chapter/chapter-12)): Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether Climate Change 2022: Mitigation of Climate Change – Chapter 12: Cross-sectoral Perspectives (AR6 WGIII) has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-28",
+      "attached_to": {
+        "study": "IPCC AR6 WGIII Chapter 12: Cross-sectoral Perspectives (Climate Change 2022: Mitigation of Climate Change)",
+        "sources": [
+          "S002"
+        ],
+        "rows": [
+          "18d73273148016c2",
+          "087f26586e4b8be4",
+          "6e6d5752424ff307",
+          "14df0899d0175130",
+          "635faee472c12a69",
+          "23de5bd319d949cc",
+          "fa84bbda265e106c",
+          "b1f56ba3e839fa80",
+          "a215d3521fefb367",
+          "5d9b30cf753a2b18",
+          "17c979f8d08d5280",
+          "338161d272a608d2",
+          "547e3a093ddd1364",
+          "c4cfb19f8355bedf",
+          "4c8899b2e823ba7b",
+          "15950c11e4b3f634",
+          "d385c321d6d4e41e",
+          "046a98983d2036ac",
+          "1882ace177fab894",
+          "9f8eca086ec618a9",
+          "b851233394fa447f",
+          "5cae4ba09c3938ba",
+          "fb48ebbfb0d095ae",
+          "3e178df127fdccca",
+          "7561efd8931c5878"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f3ce53b1f-rec-3",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Lamb WF et al. 'The carbon dioxide removal gap' — Nature Climate Change is SUPERSEDED: the draft uses Described in the sources list as published in '2023'; used for: (a) the statement that rapid emissions reductions are the dominant mitigation source while CDR has an important role; (b) identification of a 'CDR gap' between national proposals and IAM scenarios for 1.5°C; (c) finding that the most ",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether The carbon dioxide removal gap has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-28",
+      "attached_to": {
+        "study": "Lamb WF et al. 'The carbon dioxide removal gap' — Nature Climate Change",
+        "sources": [
+          "S003"
+        ],
+        "rows": [
+          "d26d8181745dd207",
+          "81730257063d9845",
+          "6f6aa91a10f2c453",
+          "c4a1679454561ff7",
+          "7b3f9ff628e6b284"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f3ce53b1f-rec-4",
+      "kind": "recency",
+      "gate_verdict": "UNKNOWN",
+      "gate_said": "Minx JC et al. 'Negative emissions—Part 1: Research landscape and synthesis' — Environmental Research Letters 13 (2018) 063001 is UNKNOWN: the draft uses 2018 publication — used for: definition of negative emissions as intentional human efforts (not natural sinks); finding that large-scale deployment of NETs is a bio-physical requirement for 1.5°C; description of NETs as 'almost indispensable' for",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether Negative emissions—Part 1: Research landscape and synthesis has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-28",
+      "attached_to": {
+        "study": "Minx JC et al. 'Negative emissions—Part 1: Research landscape and synthesis' — Environmental Research Letters 13 (2018) 063001",
+        "sources": [
+          "S004"
+        ],
+        "rows": [
+          "e4c3f9e8b0c16db8",
+          "8e78c04fbcec4f99",
+          "73c9142f3a0a258d",
+          "097f4d6fe8d56ccd",
+          "a5850f6c30239eae",
+          "bb511dafb226acd1",
+          "1c59fa480d6ccf90",
+          "2a28651cd074cce3",
+          "23ecf67ef4c76e19",
+          "aa7fc462656fee1c",
+          "0d607d5108b1ffd0",
+          "930816ed71bc636c"
+        ]
+      },
+      "ruled": "lean_editions.decide"
+    },
+    {
+      "id": "f3ce53b1f-rec-5",
+      "kind": "recency",
+      "gate_verdict": "SUPERSEDED",
+      "gate_said": "Fuss S et al. 'Negative emissions—Part 2: Costs, potentials and side effects' — Environmental Research Letters 13 (2018) 063002 is SUPERSEDED: the draft uses 2018 publication — used for: best-estimate sustainable global potentials in 2050 (afforestation/reforestation 0.5–3.6 GtCO2/yr; BECCS 0.5–5; biochar 0.5–2; enhanced weathering 2–4; DACCS 0.5–5; soil carbon up to 5); 1.5°C pathways reaching ne",
+      "decision": "judgement",
+      "source_id": "",
+      "quote": "",
+      "why": "unknown recency stated on the page (lean rule 3b; matched by first author and title (findings.recency_targets)): Our recency check (searched: ipcc.ch, climatechangeresources.org, apps.ipcc.ch, climateadaptationplatform.com, greencalculus.com, digitallibrary.un.org, pure.iiasa.ac.at, cambridge.org, plaintextipcc.com, nature.com, researchgate.net, research-portal.uea.ac.uk, ora.ox.ac.uk, sciencedaily.com, carbonbrief.org, carbondioxide-removal.eu, yourweather.co.uk, carbonremovalupdates.substack.com, iopscience.iop.org, eprints.whiterose.ac.uk, aura.abdn.ac.uk, petercook.unimelb.edu.au, energy-transition-hub.org, arxiv.org, publications.pik-potsdam.de, pure.mpg.de, spiral.imperial.ac.uk, abdn.elsevierpure.com, scopus.com, en.wikipedia.org, depositonce.tu-berlin.de, stateofcdr.org, swp-berlin.org, netzeroclimate.org, researchsquare.com, static1.squarespace.com, ueaeprints.uea.ac.uk, iea.blob.core.windows.net, frontiersin.org, ieaghg.org, nestgen.beehiiv.com, ccsknowledge.com, belfercenter.org, greenfueljournal.com, gitnux.org) could not establish whether Negative emissions—Part 2: Costs, potentials and side effects has a newer edition.",
+      "by": "code (lean rule 3b: newer edition)",
+      "on": "2026-11-28",
+      "attached_to": {
+        "study": "Fuss S et al. 'Negative emissions—Part 2: Costs, potentials and side effects' — Environmental Research Letters 13 (2018) 063002",
+        "sources": [
+          "S005"
+        ],
+        "rows": [
+          "58ac0e8ce3ca9233",
+          "46dc6e434057206f",
+          "ba81f50522706ba6",
+          "ddaa9f7d1def255f",
+          "4683778034b454c1",
+          "c60e0d94ed1b1426",
+          "bb511dafb226acd1",
+          "b44eae8728cad894",
+          "3468c10749ff9d22",
+          "4ca744ed35515666",
+          "3c01c29a27a2eeb8",
+          "aa7fc462656fee1c",
+          "33f1470289492b79",
+          "a603f62572520614",
+          "cbe34f618fc22565"
+        ]
+      },
+      "ruled": "lean_editions.decide"
     }
   ]
 }

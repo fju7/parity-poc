@@ -1,6 +1,6 @@
 {
   "draft": "issues/WHU-OT1-04i-whu-lean-orch-t1-q1-04i/draft/whu-lean-orch-t1-q1-04i.html",
-  "sha256": "abcb393d2e8442dcf08f1047d7fb7602148938744cc56d7b9a9a6c23645059cf",
+  "sha256": "3ce53b1fc93f5b557d3c6a0523d2bf3793eb1cefc360ee3b2aacf5d8675a27e9",
   "sentence_fingerprints": [
     "00242ee3fe88755c",
     "015fa2c73a174dd2",
@@ -63,6 +63,7 @@
     "7748beb90342f86d",
     "81937e9249b35b24",
     "86fdc4d25d06a84c",
+    "8a61ed38829d59ee",
     "8bda3c60120ead84",
     "8ce2a27993714253",
     "8d9ce1f3ae46650d",
@@ -102,7 +103,6 @@
     "b59d24f301de96c9",
     "b5b8b624b575ea7c",
     "b67c10f3d72f7ea6",
-    "b6ec7d066e3a8458",
     "bdb4a0d3483fa622",
     "bf010c7e103c8ec9",
     "bf85b21abf08fbc6",
@@ -133,7 +133,7 @@
   "carried": [
     "recency carried (0d)"
   ],
-  "checked_at": "2026-11-27",
+  "checked_at": "2026-11-28",
   "model": "claude-sonnet-4-6",
   "mode": "narrow",
   "roles_run": [
@@ -160,7 +160,7 @@
     },
     "usd": 0.0,
     "bound": 1.6958,
-    "bound_how": "max(the dry-run estimate $0.7500, the highest of 28 same-config gate run(s) $0.8479 (whu-lean-orch-t1-q1-04g)) x 2"
+    "bound_how": "max(the dry-run estimate $0.7500, the highest of 27 same-config gate run(s) $0.8479 (whu-lean-orch-t1-q1-04g)) x 2"
   },
   "narrow": {
     "selector": "backend/scripts/whatholdsup/narrow_gate.py",
@@ -230,6 +230,7 @@
         "6f6aa91a10f2c453",
         "71308335b68780ad",
         "73c9142f3a0a258d",
+        "7561efd8931c5878",
         "79138cd19ec21a23",
         "7b3f9ff628e6b284",
         "7de9f73f0036799a",
@@ -299,7 +300,6 @@
         "f191beb1a69a9979",
         "f19ff456eb0649f0",
         "f1c9af54fa99f39f",
-        "f444834aedd2c5ca",
         "f71ed968faa24430",
         "f8a0ff6dbbe748b3",
         "f8b314f57a959e86",
@@ -320,33 +320,11 @@
     },
     "changed_since": {
       "report": "issues/WHU-OT1-04i-whu-lean-orch-t1-q1-04i/draft/whu-lean-orch-t1-q1-04i.html.gate.json",
-      "report_sha256": "3364bab89aff447f375557b6d3d687f6156f0ee9c700e848f7aaabf5b3f7aff5",
+      "report_sha256": "abcb393d2e8442dcf08f1047d7fb7602148938744cc56d7b9a9a6c23645059cf",
       "changed_sentences": [
-        "06dfd0d64b9f9ae2",
-        "0d607d5108b1ffd0",
-        "0fdd9459d787fbc5",
-        "1882ace177fab894",
-        "33f1470289492b79",
-        "3e178df127fdccca",
-        "5cae4ba09c3938ba",
-        "7de9f73f0036799a",
-        "8381969d8464b06f",
-        "930816ed71bc636c",
-        "9e8bc748ec1566f8",
-        "9f8eca086ec618a9",
-        "9fe0ded3391d22b4",
-        "a603f62572520614",
-        "aa7fc462656fee1c",
-        "b649a05445984c56",
-        "b851233394fa447f",
-        "cbe34f618fc22565",
-        "ce751528b1752a64",
-        "da17f54056a1ac4b",
-        "f444834aedd2c5ca",
-        "f8b314f57a959e86",
-        "fb48ebbfb0d095ae"
+        "7561efd8931c5878"
       ],
-      "new_quotations": 7,
+      "new_quotations": 0,
       "undetermined_on_unchanged_sentences_not_sent": 0
     }
   },

@@ -12,6 +12,12 @@
       "sha": "abcb393d2e8442dcf08f1047d7fb7602148938744cc56d7b9a9a6c23645059cf",
       "past_cap": null,
       "cycle": 1
+    },
+    {
+      "at": "2026-11-28T00:39:56+00:00",
+      "sha": "3ce53b1fc93f5b557d3c6a0523d2bf3793eb1cefc360ee3b2aacf5d8675a27e9",
+      "past_cap": null,
+      "cycle": 1
     }
   ],
   "reason": null

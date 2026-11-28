@@ -3433,13 +3433,18 @@
         "warranted": null
       },
       "first_seen": "2026-11-27",
-      "on_page": true,
+      "on_page": false,
       "offsets": [
         82785,
         82960
       ],
       "by": "code (orchestrator: the passage the draft named)",
-      "also_rests_on": null
+      "also_rests_on": null,
+      "off_page_by": "ruling:audit/20261128T001945Z/rulings.jsonl:1",
+      "left_page": "2026-11-27",
+      "replaced_by": [
+        "7561efd8931c5878"
+      ]
     },
     "4cf1f4c8ba40df4d": {
       "sentence": "The IPCC chapter qualifies this sequence, noting that 'in general, these roles of CDR are not mutually exclusive and can exist in parallel' [2].",
@@ -3719,6 +3724,33 @@
         83594
       ],
       "declaration_key": "S002@83510-83594"
+    },
+    "7561efd8931c5878": {
+      "sentence": "The report states plainly that, within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles [2].",
+      "sentence_sha": "7561efd8931c5878",
+      "why_empirical": "drafted from a passage (orchestrator)",
+      "bucket": null,
+      "source_id": "S002",
+      "document_sha": "ff94f9f23af8e4b94d301a05ba70421aa53a10e87d459455f585f72d2278ef96",
+      "locator_type": "prose",
+      "locator": "passage S002@82785",
+      "span": "Within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles",
+      "envelope": null,
+      "scope_words": [],
+      "falsifier": null,
+      "verdicts": {
+        "locatable": null,
+        "faithful": null,
+        "warranted": null
+      },
+      "first_seen": "2026-11-27",
+      "on_page": true,
+      "offsets": [
+        82785,
+        82960
+      ],
+      "by": "code (orchestrator: the passage the draft named)",
+      "also_rests_on": null
     }
   }
 }

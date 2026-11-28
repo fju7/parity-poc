@@ -23,7 +23,7 @@
     "The IPCC assessment says that reaching net zero CO2 or net zero greenhouse gas emissions requires deep and rapid reductions in gross emissions, and that deploying carbon dioxide removal (CDR) to counterbalance hard-to-abate residual emissions is unavoidable (high confidence) [1].",
     "The IPCC assessment also finds, with high confidence, that CDR methods vary in terms of their maturity, removal process, time scale of carbon storage, storage medium, mitigation potential, cost, co-benefits, impacts and risks, and governance requirements [1].",
     "CDR is described as a necessary element to achieve net zero CO2 and GHG emissions both globally and nationally, and as a key element in scenarios that limit warming to 2°C (>67%) or lower by 2100 (robust evidence, high agreement) [2].",
-    "The IPCC chapter states plainly that, within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles [2].",
+    "The report states plainly that, within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles [2].",
     "Removal is not presented as a substitute for cutting emissions: one 2024 analysis states that rapid emissions reductions are the dominant source of global climate mitigation potential in the coming decades, while CDR will also have an important role to play [3]."
    ]
   },
@@ -1001,6 +1001,13 @@
     "source": "S002",
     "start": 79797,
     "end": 80675
+   }
+  ],
+  "The report states plainly that, within ambitious mitigation strategies at global or national levels, CDR cannot serve as a substitute for deep emissions reductions but can fulfil multiple complementary roles [2].": [
+   {
+    "source": "S002",
+    "start": 82785,
+    "end": 82960
    }
   ]
  }
